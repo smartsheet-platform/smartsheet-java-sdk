@@ -1,19 +1,16 @@
 package com.smartsheet.api.models;
 
-import com.smartsheet.api.models.*;
-
 /**
  * Represents the Sheet email format.
  */
-public class SheetEmailFormat {
-    /**
-     * Represents PDF format.
-     */
-    public SheetEmailFormat PDF;
+public enum SheetEmailFormat {
+	/**
+	 * Represents PDF format.
+	 */
+	PDF,
 
-    /**
-     * Represents EXCEL format.
-     */
-    public SheetEmailFormat EXCEL;
+	/**
+	 * Represents EXCEL format.
+	 */
+	EXCEL;
 }
-

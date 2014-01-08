@@ -1,10 +1,5 @@
 package com.smartsheet.api.internal;
 
-import java.util.List;
-
-import com.smartsheet.api.internal.*;
-import com.smartsheet.api.models.Attachment;
-
 /**
  * This is the implementation of the AssociatedAttachmentResources for comments.
  * 
@@ -27,7 +22,7 @@ public class CommentAttachmentResources extends AssociatedAttachmentResourcesImp
 	 */
 	public CommentAttachmentResources(SmartsheetImpl smartsheet) {
 		super(smartsheet, "comment");
-		
+
 		// public AssociatedAttachmentResourcesImpl(SmartsheetImpl smartsheet, String masterResourceType) {
 		// sheet or workspace
 	}

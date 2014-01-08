@@ -1,20 +1,18 @@
 package com.smartsheet.api.models;
 
-import java.lang.*;
-
 /**
  * Represents Error object.
  */
 public class Error {
-    /**
-     * Represents the error code.
-     */
-    private Integer errorCode;
+	/**
+	 * Represents the error code.
+	 */
+	private Integer errorCode;
 
-    /**
-     * Represents the message.
-     */
-    private String message;
+	/**
+	 * Represents the message.
+	 */
+	private String message;
 
 	public String getMessage() {
 		return message;
@@ -32,4 +30,3 @@ public class Error {
 		this.errorCode = errorCode;
 	}
 }
-

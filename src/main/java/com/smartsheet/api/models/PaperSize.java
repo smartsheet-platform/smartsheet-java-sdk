@@ -1,54 +1,51 @@
 package com.smartsheet.api.models;
 
-import com.smartsheet.api.models.*;
-
 /**
  * Represents page size in the Smartsheet REST API.
  */
-public class PaperSize {
-    /**
-     * Represents the LETTER page size.
-     */
-    public PaperSize LETTER;
+public enum PaperSize {
+	/**
+	 * Represents the LETTER page size.
+	 */
+	LETTER,
 
-    /**
-     * Represents the LEGAL page size.
-     */
-    public PaperSize LEGAL;
+	/**
+	 * Represents the LEGAL page size.
+	 */
+	LEGAL,
 
-    /**
-     * Represents the WIDE page size.
-     */
-    public PaperSize WIDE;
+	/**
+	 * Represents the WIDE page size.
+	 */
+	WIDE,
 
-    /**
-     * Represents the ARCHD page size.
-     */
-    public PaperSize ARCHD;
+	/**
+	 * Represents the ARCHD page size.
+	 */
+	ARCHD,
 
-    /**
-     * Represents the A4 page size.
-     */
-    public PaperSize A4;
+	/**
+	 * Represents the A4 page size.
+	 */
+	A4,
 
-    /**
-     * Represents the A3 page size.
-     */
-    public PaperSize A3;
+	/**
+	 * Represents the A3 page size.
+	 */
+	A3,
 
-    /**
-     * Represents the A2 page size.
-     */
-    public PaperSize A2;
+	/**
+	 * Represents the A2 page size.
+	 */
+	A2,
 
-    /**
-     * Represents the A1 page size.
-     */
-    public PaperSize A1;
+	/**
+	 * Represents the A1 page size.
+	 */
+	A1,
 
-    /**
-     * Represents the A0 page size.
-     */
-    public PaperSize A0;
+	/**
+	 * Represents the A0 page size.
+	 */
+	A0;
 }
-

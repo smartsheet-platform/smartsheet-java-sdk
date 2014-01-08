@@ -1,12 +1,23 @@
 package com.smartsheet.api.internal;
 
-import com.smartsheet.api.internal.http.*;
-import com.smartsheet.api.*;
-import com.smartsheet.api.internal.json.*;
-
-import java.lang.*;
 import java.net.URI;
 import java.util.concurrent.atomic.AtomicReference;
+
+import com.smartsheet.api.AttachmentResources;
+import com.smartsheet.api.ColumnResources;
+import com.smartsheet.api.CommentResources;
+import com.smartsheet.api.DiscussionResources;
+import com.smartsheet.api.FolderResources;
+import com.smartsheet.api.HomeResources;
+import com.smartsheet.api.RowResources;
+import com.smartsheet.api.SearchResources;
+import com.smartsheet.api.SheetResources;
+import com.smartsheet.api.Smartsheet;
+import com.smartsheet.api.TemplateResources;
+import com.smartsheet.api.UserResources;
+import com.smartsheet.api.WorkspaceResources;
+import com.smartsheet.api.internal.http.HttpClient;
+import com.smartsheet.api.internal.json.JsonSerializer;
 
 /**
  * This is the implementation of Smartsheet interface.

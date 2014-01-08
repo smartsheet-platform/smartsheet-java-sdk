@@ -1,24 +1,21 @@
 package com.smartsheet.api.models;
 
-import com.smartsheet.api.models.*;
-
 /**
  * Represents the user status.
  */
-public class UserStatus {
-    /**
-     * Represents ACTIVE status.
-     */
-    public UserStatus ACTIVE;
+public enum UserStatus {
+	/**
+	 * Represents ACTIVE status.
+	 */
+	ACTIVE,
 
-    /**
-     * Represents PENDING status.
-     */
-    public UserStatus PENDING;
+	/**
+	 * Represents PENDING status.
+	 */
+	PENDING,
 
-    /**
-     * Represents DECLINED status.
-     */
-    public UserStatus DECLINED;
+	/**
+	 * Represents DECLINED status.
+	 */
+	DECLINED;
 }
-

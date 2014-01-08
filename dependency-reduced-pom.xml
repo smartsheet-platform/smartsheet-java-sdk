@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.smartsheet</groupId>
+  <artifactId>smartsheet-sdk-java</artifactId>
+  <name>Smartsheet SDK for Java</name>
+  <version>0.0.1-SNAPSHOT</version>
+  <organization>
+    <name>Smartsheet</name>
+    <url>http://smartsheet.com</url>
+  </organization>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>2.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <transformers>
+                <transformer>
+                  <manifestEntries>
+                    <Main-Class>smartsheet.sdk.HelloWorld</Main-Class>
+                    <Build-Number>${pom.version}</Build-Number>
+                  </manifestEntries>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+

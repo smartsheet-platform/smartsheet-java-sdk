@@ -1,6 +1,5 @@
 package com.smartsheet.api;
 
-import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.Error;
 
 /**
@@ -8,22 +7,24 @@ import com.smartsheet.api.models.Error;
  * 
  * Basically this exception will be thrown when the Smartsheet REST API responds with "400 BAD REQUEST".
  * 
- * Thread safety:
- * Exceptions are not thread safe.
+ * Thread safety: Exceptions are not thread safe.
  */
 public class InvalidRequestException extends SmartsheetRestException {
-    /**
-     * Constructor.
-     * 
-     * Parameters:
-     * - error : the Error object from Smartsheet REST API
-     * 
-     * Implementation:
-     * super(error);
-     * @param error 
-     */
-    public InvalidRequestException(Error error) {
-    	super(error);
-    }
-}
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Constructor.
+	 * 
+	 * Parameters: - error : the Error object from Smartsheet REST API
+	 * 
+	 * Implementation: super(error);
+	 * 
+	 * @param error
+	 */
+	public InvalidRequestException(Error error) {
+		super(error);
+	}
+}
