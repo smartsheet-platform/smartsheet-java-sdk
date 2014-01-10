@@ -23,6 +23,7 @@ public class SmartsheetException extends Exception {
 	 * @param message
 	 */
 	public SmartsheetException(String message) {
+		super(message);
 	}
 
 	/**
@@ -36,6 +37,7 @@ public class SmartsheetException extends Exception {
 	 * @param cause
 	 */
 	public SmartsheetException(String message, Throwable cause) {
+		super(message, cause);
 	}
 
 	public SmartsheetException(Exception e) {

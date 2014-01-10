@@ -1,7 +1,9 @@
 package com.smartsheet.api;
 
 import com.smartsheet.api.internal.SmartsheetImpl;
+import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.http.HttpClient;
+import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
 
 /**
@@ -157,16 +159,18 @@ public class SmartsheetBuilder {
 	 * @return
 	 */
 	public Smartsheet build() {
-		//FIXME: finish implementing
-//		SmartsheetImpl smartsheet = new SmartsheetImpl(
-//			baseURI == null ? DEFAULT_BASE_URI : baseURI,
-//			//QUESTION: why the if? what other type of httpClient can there be?
-//			httpClient == null ? new DefaultHttpClient() : httpClient,
-//			jsonSerializer == null ? new JacksonJsonSerializer(): jsonSerializer
-//		);
+		//QUESTION: what happens when a null accessToken is given? Does it throw a informative exception?
 		
-//		smartsheet.setAccessToken(accessToken);
-//		
-//		if (assumedUser != null) { smartsheet.setAssumedUser(assumedUser); }
+		SmartsheetImpl smartsheet = new SmartsheetImpl(
+			baseURI == null ? DEFAULT_BASE_URI : baseURI,
+			accessToken,
+			//QUESTION: why the if? what other type of httpClient can there be?
+			httpClient == null ? new DefaultHttpClient() : httpClient,
+			jsonSerializer == null ? new JacksonJsonSerializer(): jsonSerializer
+		);
+		
+		if (assumedUser != null) { smartsheet.setAssumedUser(assumedUser); }
+		
+		return smartsheet;
 	}
 }

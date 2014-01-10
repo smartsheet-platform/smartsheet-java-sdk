@@ -21,7 +21,7 @@ public abstract class IdFieldExclusionMixin {
 	 * 
 	 * @return
 	 */
-	@JsonProperty
+	@JsonIgnore
 	public abstract long getId();
 
 	/**
@@ -29,6 +29,6 @@ public abstract class IdFieldExclusionMixin {
 	 * 
 	 * @param id
 	 */
-	@JsonIgnore
+	@JsonProperty
 	public abstract void setId(long id);
 }
