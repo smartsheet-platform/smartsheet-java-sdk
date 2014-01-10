@@ -3,9 +3,12 @@ package com.smartsheet.api.internal.json;
 import java.io.IOException;
 import java.util.List;
 
+import org.junit.experimental.categories.Categories.ExcludeCategory;
+
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -39,8 +42,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	 * 
 	 * Implementation: Do nothing.
 	 */
-	public JacksonJsonSerializer() {
-	}
+	public JacksonJsonSerializer() {}
 
 	/**
 	 * This is the static initializer of this class.
@@ -52,7 +54,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	 */
 	public static void init() {
 
-		// Inent for pretty printing
+		// Indent for pretty printing
 		OBJECT_MAPPER.enable(SerializationFeature.INDENT_OUTPUT);
 
 		// Only include non-null properties in when serializing java beans
@@ -124,6 +126,10 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	 */
 	public <T> T deserialize(Class<T> objectClass, java.io.InputStream inputStream) throws JsonParseException,
 			JsonMappingException, IOException {
+		if(objectClass == null || inputStream == null){
+			throw new IllegalArgumentException();
+		}
+		
 		return OBJECT_MAPPER.readValue(inputStream, objectClass);
 	}
 
@@ -157,8 +163,9 @@ public class JacksonJsonSerializer implements JsonSerializer {
 
 		try {
 			// Read the json input stream into a List.
-			list = OBJECT_MAPPER.readValue(inputStream,
-					OBJECT_MAPPER.getTypeFactory().constructCollectionType(List.class, objectClass));
+			//list = OBJECT_MAPPER.readValue(inputStream,
+//					OBJECT_MAPPER.getTypeFactory().constructCollectionType(List.class, objectClass));
+			list = OBJECT_MAPPER.readValue(inputStream, new TypeReference<List<T>>() {});
 		} catch (JsonParseException e) {
 			throw new JSONSerializerException(e);
 		} catch (JsonMappingException e) {
