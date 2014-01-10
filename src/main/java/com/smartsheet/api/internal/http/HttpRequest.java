@@ -21,4 +21,20 @@ public class HttpRequest extends HttpMessage {
 	 * It has a pair of setter/getter (not shown on class diagram for brevity).
 	 */
 	private HttpMethod method;
+	
+	public URI getUri() {
+		return uri;
+	}
+
+	public void setUri(URI uri) {
+		this.uri = uri;
+	}
+
+	public HttpMethod getMethod() {
+		return method;
+	}
+
+	public void setMethod(HttpMethod method) {
+		this.method = method;
+	}
 }

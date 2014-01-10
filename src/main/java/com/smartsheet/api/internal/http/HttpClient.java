@@ -20,6 +20,7 @@ public interface HttpClient extends Closeable {
 	 * 
 	 * @param request
 	 * @return
+	 * @throws HttpClientException 
 	 */
-	public HttpResponse request(HttpRequest request);
+	public HttpResponse request(HttpRequest request) throws HttpClientException;
 }

@@ -28,4 +28,29 @@ public class HttpEntity {
 	 * It has a pair of setter/getter (not shown on class diagram for brevity).
 	 */
 	private InputStream content;
+	
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+
+	public long getContentLength() {
+		return contentLength;
+	}
+
+	public void setContentLength(long contentLength) {
+		this.contentLength = contentLength;
+	}
+
+	public InputStream getContent() {
+		return content;
+	}
+
+	public void setContent(InputStream content) {
+		this.content = content;
+	}
+
 }
