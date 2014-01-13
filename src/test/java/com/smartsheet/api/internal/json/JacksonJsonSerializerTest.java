@@ -2,6 +2,7 @@ package com.smartsheet.api.internal.json;
 
 import static org.junit.Assert.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -25,6 +26,7 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.util.ByteArrayBuilder;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.User;
 
 public class JacksonJsonSerializerTest {
@@ -210,12 +212,103 @@ public class JacksonJsonSerializerTest {
 
 	@Test
 	public void testDeserializeResult() {
-		fail("Not yet implemented");
+		try{
+			try {
+				jjs.deserializeResult(null, null);
+				fail("Exception should have been thrown.");
+			} catch (IllegalArgumentException e) {
+				// Expected
+			}
+			
+			try {
+				jjs.deserializeResult(User.class, null);
+				fail("Exception should have been thrown.");
+			} catch (IllegalArgumentException e) {
+				// Expected
+			}
+			
+			try {
+				jjs.deserializeResult(null, new ByteArrayInputStream(new byte[10]));
+				fail("Exception should have been thrown.");
+			} catch (IllegalArgumentException e) {
+				// Expected
+			}
+		}catch(Exception ex){
+			fail("Exception should not be thrown: "+ex);
+		}
+		
+		Result<Object> result = new Result<Object>();
+		result.setMessage("Test Result");
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+				
+		
+				
+		// Test successful deserialization
+		try {
+			jjs.serialize(result, outputStream);
+			jjs.deserializeResult(Result.class, new ByteArrayInputStream(outputStream.toByteArray()));
+		} catch (JSONSerializerException ex) {
+			// TODO Auto-generated catch block
+			fail("Exception should not be thrown: "+ex);
+		}
+		
+		// Test JSONMappingException - Test Mapping a list back to one object
+		try{
+			outputStream = new ByteArrayOutputStream();
+			ArrayList<User> users = new ArrayList<User>();
+			jjs.serialize(users, outputStream);
+			jjs.deserializeResult(Result.class, new ByteArrayInputStream(outputStream.toByteArray()));
+			fail("Exception should have been thrown");
+		} catch (JSONSerializerException ex) {
+			// Expected
+		}
+		
+		// Test IOException
+		try {
+			FileInputStream fis = null;
+			try {
+				fis = new FileInputStream(File.createTempFile("json_test", ".tmp"));
+				fis.close();
+			} catch (Exception ex) {
+				fail("Isssue running a test where a temp file is being created."+ex);
+			}
+
+			jjs.deserializeResult(Result.class, fis);
+			fail("Should have thrown an IOException");
+		} catch(JSONSerializerException ex) {
+			//expected
+		}
+		
+		fail("Still working on this implementation. I need to change the source for deserializeResult to match deserializeList ");
+		
 	}
 
 	@Test
 	public void testDeserializeListResult() {
-		fail("Not yet implemented");
+		try {
+			try {
+				jjs.deserializeListResult(null, null);
+				fail("Exception should have been thrown.");
+			} catch (IllegalArgumentException e) {
+				// Expected
+			}
+			
+			try {
+				jjs.deserializeListResult(User.class, null);
+				fail("Exception should have been thrown.");
+			} catch (IllegalArgumentException e) {
+				// Expected
+			}
+			
+			try {
+				jjs.deserializeListResult(null, new ByteArrayInputStream(new byte[10]));
+				fail("Exception should have been thrown.");
+			} catch (IllegalArgumentException e) {
+				// Expected
+			}
+		}catch(Exception ex){
+			fail("Exception should not be thrown: "+ex);
+		}
 	}
 
 }

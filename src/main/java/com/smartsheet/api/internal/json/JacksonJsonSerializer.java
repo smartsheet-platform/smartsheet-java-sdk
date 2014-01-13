@@ -206,8 +206,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
 		Result<T> result = null;
 
 		try {
-			result = OBJECT_MAPPER.readValue(inputStream,
-					OBJECT_MAPPER.getTypeFactory().constructParametricType(Result.class, objectClass));
+			result = OBJECT_MAPPER.readValue(inputStream, new TypeReference<Result<T>>() {});
 		} catch (JsonParseException e) {
 			throw new JSONSerializerException(e);
 		} catch (JsonMappingException e) {
@@ -239,7 +238,14 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	 * @return
 	 * @throws JSONSerializerException 
 	 */
-	public <T> Result<List<T>> deserializeListResult(Class<T> objectClass, java.io.InputStream inputStream) throws JSONSerializerException {
+	public <T> Result<List<T>> deserializeListResult(Class<T> objectClass, java.io.InputStream inputStream) 
+			throws JSONSerializerException {
+		
+		if(objectClass == null || inputStream == null){
+			throw new IllegalArgumentException();
+		}
+		
+		
 		Result<List<T>> result = null;
 		
 		try {
