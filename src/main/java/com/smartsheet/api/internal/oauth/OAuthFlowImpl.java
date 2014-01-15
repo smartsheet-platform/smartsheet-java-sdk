@@ -1,13 +1,44 @@
 package com.smartsheet.api.internal.oauth;
 
+/*
+ * #[license]
+ * Smartsheet SDK for Java
+ * %%
+ * Copyright (C) 2014 Smartsheet
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * %[license]
+ */
+
+
+
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.smartsheet.api.internal.http.HttpClient;
 import com.smartsheet.api.internal.json.JsonSerializer;
+import com.smartsheet.api.oauth.AccessDeniedException;
 import com.smartsheet.api.oauth.AccessScope;
 import com.smartsheet.api.oauth.AuthorizationResult;
+import com.smartsheet.api.oauth.InvalidScopeException;
 import com.smartsheet.api.oauth.OAuthFlow;
 import com.smartsheet.api.oauth.Token;
+import com.smartsheet.api.oauth.UnsupportedResponseTypeException;
 
 /**
  * Default implementation of OAuthFlow.
@@ -84,6 +115,13 @@ public class OAuthFlowImpl implements OAuthFlow {
 	 */
 	public OAuthFlowImpl(String clientId, String clientSecret, String redirectURL, String authorizationURL,
 			String tokenURL, HttpClient httpClient, JsonSerializer jsonSerializer) {
+		this.clientId = clientId;
+		this.clientSecret = clientSecret;
+		this.redirectURL = redirectURL;
+		this.authorizationURL = authorizationURL;
+		this.tokenURL = tokenURL;
+		this.httpClient = httpClient;
+		this.jsonSerializer = jsonSerializer;
 	}
 
 	/**
@@ -104,9 +142,27 @@ public class OAuthFlowImpl implements OAuthFlow {
 	 * @param scopes
 	 * @param state
 	 * @return
+	 * @throws UnsupportedEncodingException, IllegalArgumentException 
 	 */
-	public String newAuthorizationURL(EnumSet<AccessScope> scopes, String state) {
-		return null;
+	public String newAuthorizationURL(EnumSet<AccessScope> scopes, String state) throws UnsupportedEncodingException {
+		
+		if(scopes == null){
+			throw new IllegalArgumentException();
+		}
+		
+		if(state == null){state = "";}
+		
+		StringBuilder sb = new StringBuilder(authorizationURL);
+		
+		sb.append("?response_type=code&client_id=").append(clientId).append("&redirect_uri=").
+			append(URLEncoder.encode(redirectURL, "utf-8")).append("&state=").append(URLEncoder.encode(state, "utf-8")).
+			append("&scope="); 
+		
+		for(AccessScope scope : scopes) {
+			sb.append(URLEncoder.encode(scope.name()+",", "utf-8"));
+		}
+		
+		return sb.substring(0, sb.length() - 1);
 	}
 
 	/**
@@ -138,9 +194,45 @@ public class OAuthFlowImpl implements OAuthFlow {
 	 * 
 	 * @param authorizationResponseURL
 	 * @return
+	 * @throws URISyntaxException 
+	 * @throws AccessDeniedException 
+	 * @throws UnsupportedResponseTypeException 
+	 * @throws InvalidScopeException 
 	 */
-	public AuthorizationResult extractAuthorizationResult(String authorizationResponseURL) {
-		return null;
+	public AuthorizationResult extractAuthorizationResult(String authorizationResponseURL) throws 
+		URISyntaxException, AccessDeniedException, UnsupportedResponseTypeException, InvalidScopeException {
+		
+		if(authorizationResponseURL == null || authorizationResponseURL.isEmpty()){
+			throw new IllegalArgumentException();
+		}
+		
+		// Get all of the parms from the URL
+		URI uri = new URI(authorizationResponseURL);
+		Map<String, String> map = new HashMap<String,String>();
+		for (String param : uri.getQuery().split("&")) { 
+			int index = param.indexOf('=');
+			map.put(param.substring(0, index), param.substring(index + 1)); 
+		}
+		
+		// Check for an error response in the URL and throw it.
+		String error = map.get("error"); 
+		if (error != null) {
+			if ("access_denied".equals(error)) {
+				throw new AccessDeniedException("Access denied.");
+			} else if ("unsupported_response_type".equals(error)) {
+				throw new UnsupportedResponseTypeException("response_type must be set to \"code\".");
+			} else if ("invalid_scope".equals(error)) {
+				throw new InvalidScopeException("One or more of the requested access scopes are invalid. "
+						+ "Please check the list of access scopes");
+			}
+		}
+		
+		AuthorizationResult authorizationResult = new AuthorizationResult();
+		authorizationResult.setCode(map.get("code")); 
+		authorizationResult.setState(map.get("state"));
+		authorizationResult.setExpiresInSeconds(Long.parseLong(map.get("expires_in")));
+		
+		return authorizationResult;
 	}
 
 	/**
@@ -172,6 +264,18 @@ public class OAuthFlowImpl implements OAuthFlow {
 	 * @return
 	 */
 	public Token obtainNewToken(AuthorizationResult authorizationResult) {
+//		 // Prepare the hash 
+//		String doHash = clientSecret + "|" + authorizationResult.getCode();
+//		MessageDigest md = MessageDigest.getInstance("SHA-256"); byte[] digest = md.digest(doHash .getBytes("UTF-8"));
+//		String hash = javax.xml.bind.DatatypeConverter.printHexBinary(digest);
+//		
+//		// Prepare the URI 
+//		StringBuilder sb = new StringBuilder(tokenURL); 
+//		sb.append("?grant_type=authorization_code").append("&client_id=").append(clientId).append("&code=")
+//			.append(authorizationResult.getCode()).append("&redirect_uri=")
+//			.append(URLEncoder.encode(redirectURL, "utf-8")).append("&hash=").append(hash);
+//		
+//		return requestToken(sb.toString());
 		return null;
 	}
 

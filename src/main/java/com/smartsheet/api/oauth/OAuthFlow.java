@@ -1,5 +1,29 @@
 package com.smartsheet.api.oauth;
 
+/*
+ * #[license]
+ * Smartsheet SDK for Java
+ * %%
+ * Copyright (C) 2014 Smartsheet
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * %[license]
+ */
+
+
+
+import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
 import java.util.EnumSet;
 
 /**
@@ -21,8 +45,10 @@ public interface OAuthFlow {
 	 * @param scopes
 	 * @param state
 	 * @return
+	 * @throws IllegalArgumentException 
+	 * @throws UnsupportedEncodingException 
 	 */
-	public String newAuthorizationURL(EnumSet<AccessScope> scopes, String state);
+	public String newAuthorizationURL(EnumSet<AccessScope> scopes, String state) throws UnsupportedEncodingException;
 
 	/**
 	 * Extract AuthorizationResult from the authorization response URL (i.e. the redirectURL with the response
@@ -39,8 +65,13 @@ public interface OAuthFlow {
 	 * 
 	 * @param authorizationResponseURL
 	 * @return
+	 * @throws URISyntaxException 
+	 * @throws AccessDeniedException 
+	 * @throws UnsupportedResponseTypeException 
+	 * @throws InvalidScopeException 
 	 */
-	public AuthorizationResult extractAuthorizationResult(String authorizationResponseURL);
+	public AuthorizationResult extractAuthorizationResult(String authorizationResponseURL) throws 
+		URISyntaxException, AccessDeniedException, UnsupportedResponseTypeException, InvalidScopeException;
 
 	/**
 	 * Obtain a new token using AuthorizationResult.
