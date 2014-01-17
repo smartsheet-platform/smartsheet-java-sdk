@@ -24,7 +24,12 @@ package com.smartsheet.api.oauth;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
+import java.security.NoSuchAlgorithmException;
 import java.util.EnumSet;
+
+import com.smartsheet.api.InvalidRequestException;
+import com.smartsheet.api.internal.http.HttpClientException;
+import com.smartsheet.api.internal.json.JSONSerializerException;
 
 /**
  * OAuthFlow interface provides methods to do the OAuth2 authorization.
@@ -69,9 +74,11 @@ public interface OAuthFlow {
 	 * @throws AccessDeniedException 
 	 * @throws UnsupportedResponseTypeException 
 	 * @throws InvalidScopeException 
+	 * @throws OAuthAuthorizationCodeException 
 	 */
 	public AuthorizationResult extractAuthorizationResult(String authorizationResponseURL) throws 
-		URISyntaxException, AccessDeniedException, UnsupportedResponseTypeException, InvalidScopeException;
+		URISyntaxException, AccessDeniedException, UnsupportedResponseTypeException, InvalidScopeException, 
+		OAuthAuthorizationCodeException;
 
 	/**
 	 * Obtain a new token using AuthorizationResult.
@@ -89,8 +96,15 @@ public interface OAuthFlow {
 	 * 
 	 * @param authorizationResult
 	 * @return
+	 * @throws NoSuchAlgorithmException 
+	 * @throws UnsupportedEncodingException 
+	 * @throws URISyntaxException 
+	 * @throws HttpClientException 
+	 * @throws JSONSerializerException 
+	 * @throws OAuthTokenException 
+	 * @throws InvalidRequestException 
 	 */
-	public Token obtainNewToken(AuthorizationResult authorizationResult);
+	public Token obtainNewToken(AuthorizationResult authorizationResult) throws NoSuchAlgorithmException, UnsupportedEncodingException, OAuthTokenException, JSONSerializerException, HttpClientException, URISyntaxException, InvalidRequestException;
 
 	/**
 	 * Refresh token.
@@ -107,6 +121,13 @@ public interface OAuthFlow {
 	 * 
 	 * @param token
 	 * @return
+	 * @throws NoSuchAlgorithmException 
+	 * @throws UnsupportedEncodingException 
+	 * @throws URISyntaxException 
+	 * @throws HttpClientException 
+	 * @throws JSONSerializerException 
+	 * @throws OAuthTokenException 
+	 * @throws InvalidRequestException 
 	 */
-	public Token refreshToken(Token token);
+	public Token refreshToken(Token token) throws NoSuchAlgorithmException, UnsupportedEncodingException, OAuthTokenException, JSONSerializerException, HttpClientException, URISyntaxException, InvalidRequestException;
 }

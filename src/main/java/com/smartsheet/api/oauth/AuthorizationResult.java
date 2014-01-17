@@ -41,7 +41,6 @@ public class AuthorizationResult {
 	 */
 	private String state;
 	
-	
 	public String getCode() {
 		return code;
 	}
