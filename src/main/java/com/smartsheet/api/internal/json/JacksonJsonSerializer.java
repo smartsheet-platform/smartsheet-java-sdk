@@ -23,7 +23,9 @@ package com.smartsheet.api.internal.json;
 
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.experimental.categories.Categories.ExcludeCategory;
 
@@ -109,6 +111,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	 * @throws JsonMappingException
 	 * @throws JsonGenerationException
 	 */
+	@Override
 	public <T> void serialize(T object, java.io.OutputStream outputStream) throws JSONSerializerException {
 
 		if (object == null || outputStream == null) {
@@ -146,6 +149,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	 * @throws JsonMappingException
 	 * @throws JsonParseException
 	 */
+	@Override
 	public <T> T deserialize(Class<T> objectClass, java.io.InputStream inputStream) throws JsonParseException,
 			JsonMappingException, IOException {
 		if(objectClass == null || inputStream == null){
@@ -174,6 +178,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	 * @return
 	 * @throws JSONSerializerException
 	 */
+	@Override 
 	public <T> List<T> deserializeList(Class<T> objectClass, java.io.InputStream inputStream)
 			throws JSONSerializerException {
 
@@ -185,9 +190,9 @@ public class JacksonJsonSerializer implements JsonSerializer {
 
 		try {
 			// Read the json input stream into a List.
-			//list = OBJECT_MAPPER.readValue(inputStream,
-//					OBJECT_MAPPER.getTypeFactory().constructCollectionType(List.class, objectClass));
-			list = OBJECT_MAPPER.readValue(inputStream, new TypeReference<List<T>>() {});
+			list = OBJECT_MAPPER.readValue(inputStream,
+					OBJECT_MAPPER.getTypeFactory().constructCollectionType(List.class, objectClass));
+			//list = OBJECT_MAPPER.readValue(inputStream, new TypeReference<List<T>>() {});
 		} catch (JsonParseException e) {
 			throw new JSONSerializerException(e);
 		} catch (JsonMappingException e) {
@@ -198,6 +203,36 @@ public class JacksonJsonSerializer implements JsonSerializer {
 
 		return list;
 	}
+	
+	/**
+	 * De-serialize to a map from JSON.
+	 * 
+	 * @param objectClass
+	 * @param inputStream
+	 * @return
+	 * @throws JSONSerializerException 
+	 */
+	@Override
+	public Map<String,Object> deserializeMap(InputStream inputStream) throws JSONSerializerException {
+		if (inputStream == null) {
+			throw new IllegalArgumentException();
+		}
+		
+		Map<String, Object> map = null;
+		
+		try {
+			map = OBJECT_MAPPER.readValue(inputStream, new TypeReference<Map<String, Object>>() {});
+		} catch (JsonParseException e) {
+			throw new JSONSerializerException(e);
+		} catch (JsonMappingException e) {
+			throw new JSONSerializerException(e);
+		} catch (IOException e) {
+			throw new JSONSerializerException(e);
+		}
+		
+		return map;
+	}
+	
 
 	/**
 	 * De-serialize a Result<T> object from JSON.
@@ -218,6 +253,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	 * @return
 	 * @throws JSONSerializerException
 	 */
+	@Override
 	public <T> Result<T> deserializeResult(Class<T> objectClass, java.io.InputStream inputStream)
 			throws JSONSerializerException {
 
@@ -228,7 +264,8 @@ public class JacksonJsonSerializer implements JsonSerializer {
 		Result<T> result = null;
 
 		try {
-			result = OBJECT_MAPPER.readValue(inputStream, new TypeReference<Result<T>>() {});
+			result = OBJECT_MAPPER.readValue(inputStream, OBJECT_MAPPER.getTypeFactory().
+					constructParametricType(Result.class, objectClass));
 		} catch (JsonParseException e) {
 			throw new JSONSerializerException(e);
 		} catch (JsonMappingException e) {
@@ -260,6 +297,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	 * @return
 	 * @throws JSONSerializerException 
 	 */
+	@Override
 	public <T> Result<List<T>> deserializeListResult(Class<T> objectClass, java.io.InputStream inputStream) 
 			throws JSONSerializerException {
 		
@@ -271,9 +309,10 @@ public class JacksonJsonSerializer implements JsonSerializer {
 		Result<List<T>> result = null;
 		
 		try {
-//			result = OBJECT_MAPPER.readValue(inputStream, OBJECT_MAPPER.getTypeFactory().constructParametricType(
-//					Result.class, OBJECT_MAPPER.getTypeFactory().constructParametricType(List.class, objectClass)));
-			result = OBJECT_MAPPER.readValue(inputStream, new TypeReference<Result<List<T>>>() {});
+			result = OBJECT_MAPPER.readValue(inputStream, OBJECT_MAPPER.getTypeFactory().constructParametricType(
+					Result.class, OBJECT_MAPPER.getTypeFactory().constructParametricType(List.class, objectClass)));
+			
+			//result = OBJECT_MAPPER.readValue(inputStream, new TypeReference<Result<List<T>>>() {});
 		} catch (JsonParseException e) {
 			throw new JSONSerializerException(e);
 		} catch (JsonMappingException e) {

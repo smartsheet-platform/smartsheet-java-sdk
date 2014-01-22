@@ -22,8 +22,14 @@ package com.smartsheet.api;
 
 
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.smartsheet.api.internal.http.HttpClientException;
+import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.models.Folder;
 
 /**
@@ -57,8 +63,21 @@ public interface FolderResources {
 	 * 
 	 * @param folderId
 	 * @return
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws IOException 
+	 * @throws SecurityException 
+	 * @throws IllegalArgumentException 
+	 * @throws SmartsheetRestException 
+	 * @throws HttpClientException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	public Folder getFolder(long folderId);
+	public Folder getFolder(long folderId) throws JsonParseException, JsonMappingException, HttpClientException, 
+		SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, 
+		IllegalAccessException, InvocationTargetException, NoSuchMethodException;
 
 	/**
 	 * Update a folder.
@@ -79,8 +98,22 @@ public interface FolderResources {
 	 * 
 	 * @param folder
 	 * @return
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws IOException 
+	 * @throws SecurityException 
+	 * @throws IllegalArgumentException 
+	 * @throws SmartsheetRestException 
+	 * @throws HttpClientException 
+	 * @throws JSONSerializerException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	public Folder updateFolder(Folder folder);
+	public Folder updateFolder(Folder folder) throws JsonParseException, JsonMappingException, JSONSerializerException,
+		HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException,
+		InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
 
 	/**
 	 * Delete a folder.
@@ -99,8 +132,22 @@ public interface FolderResources {
 	 * during the operation
 	 * 
 	 * @param folderId
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws IOException 
+	 * @throws HttpClientException 
+	 * @throws JSONSerializerException 
+	 * @throws SecurityException 
+	 * @throws IllegalArgumentException 
+	 * @throws SmartsheetRestException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	public void deleteFolder(long folderId);
+	public void deleteFolder(long folderId) throws JsonParseException, JsonMappingException, SmartsheetRestException, 
+		IllegalArgumentException, SecurityException, JSONSerializerException, HttpClientException, IOException, 
+		InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
 
 	/**
 	 * List child folders of a given folder.
@@ -120,8 +167,22 @@ public interface FolderResources {
 	 * 
 	 * @param parentFolderId
 	 * @return
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws IOException 
+	 * @throws SecurityException 
+	 * @throws IllegalArgumentException 
+	 * @throws SmartsheetRestException 
+	 * @throws JSONSerializerException 
+	 * @throws HttpClientException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	public List<Folder> listFolders(long parentFolderId);
+	public List<Folder> listFolders(long parentFolderId) throws JsonParseException, JsonMappingException, 
+		HttpClientException, JSONSerializerException, SmartsheetRestException, IllegalArgumentException, SecurityException,
+		IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
 
 	/**
 	 * Create a folder.
@@ -141,6 +202,21 @@ public interface FolderResources {
 	 * @param folder
 	 * @param parentFolderId
 	 * @return
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws IOException 
+	 * @throws SecurityException 
+	 * @throws IllegalArgumentException 
+	 * @throws SmartsheetRestException 
+	 * @throws HttpClientException 
+	 * @throws JSONSerializerException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	public Folder createFolder(long parentFolderId, Folder folder);
+	public Folder createFolder(long parentFolderId, Folder folder) throws JsonParseException, JsonMappingException, 
+		JSONSerializerException, HttpClientException, SmartsheetRestException, IllegalArgumentException, 
+		SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, 
+		NoSuchMethodException;
 }

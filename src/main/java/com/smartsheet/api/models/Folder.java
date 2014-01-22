@@ -52,7 +52,28 @@ public class Folder {
 	 * Represents the workspaces.
 	 */
 	private List<Workspace> workspaces;
+	
+	private String name;
 
+	private Long id;
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public Long getId(){
+		return id;
+	}
+	
+	public void setId(Long id){
+		this.id = id;
+	}
+	
+	
 	public List<Sheet> getSheets() {
 		return sheets;
 	}
