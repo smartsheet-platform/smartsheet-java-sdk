@@ -22,8 +22,14 @@ package com.smartsheet.api;
 
 
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.smartsheet.api.internal.http.HttpClientException;
+import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.models.Row;
 import com.smartsheet.api.models.RowWrapper;
 
@@ -62,8 +68,20 @@ public interface SheetRowResources {
 	 * @param sheetId
 	 * @param rowWrapper
 	 * @return
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws IOException 
+	 * @throws SecurityException 
+	 * @throws IllegalArgumentException 
+	 * @throws SmartsheetRestException 
+	 * @throws HttpClientException 
+	 * @throws JSONSerializerException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	public List<Row> insertRows(long sheetId, RowWrapper rowWrapper);
+	public List<Row> insertRows(long sheetId, RowWrapper rowWrapper) throws JsonParseException, JsonMappingException, JSONSerializerException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
 
 	/**
 	 * Get a row.
@@ -85,6 +103,17 @@ public interface SheetRowResources {
 	 * @param id
 	 * @param rowNumber
 	 * @return
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws IOException 
+	 * @throws SecurityException 
+	 * @throws IllegalArgumentException 
+	 * @throws SmartsheetRestException 
+	 * @throws HttpClientException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	public Row getRow(long id, int rowNumber);
+	public Row getRow(long id, int rowNumber) throws JsonParseException, JsonMappingException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
 }

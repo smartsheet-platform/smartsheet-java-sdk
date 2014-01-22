@@ -427,7 +427,6 @@ public class OAuthFlowImpl implements OAuthFlow {
 		HttpResponse response = httpClient.request(request);
 		
 		// Create a map of the response
-		//FIXME: why is this throwing an expection when using the function testObtainNewToken()
 		InputStream inputStream = response.getEntity().getContent();
 		Map<String, Object> map = jsonSerializer.deserializeMap(inputStream);
 		

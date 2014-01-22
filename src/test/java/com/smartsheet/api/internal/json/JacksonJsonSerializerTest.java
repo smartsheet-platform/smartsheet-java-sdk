@@ -25,6 +25,7 @@ import static org.junit.Assert.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -32,6 +33,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
@@ -68,6 +70,7 @@ public class JacksonJsonSerializerTest {
 	@Test
 	public void testSerialize() {
 		try{
+			// Illegal Argument due to null
 			try{
 				jjs.serialize(null, new ByteArrayOutputStream());
 				fail("should throw exception");
@@ -75,6 +78,7 @@ public class JacksonJsonSerializerTest {
 				//Expected
 			}
 			
+			// Illegal Argument due to null
 			try{
 				jjs.serialize(new Object(), null);
 				fail("should throw exception");
@@ -82,6 +86,7 @@ public class JacksonJsonSerializerTest {
 				//Expected
 			}
 			
+			// Illegal Argument due to null
 			try{
 				jjs.serialize(null, null);
 				fail("should throw exception");
@@ -92,6 +97,7 @@ public class JacksonJsonSerializerTest {
 			fail("Shouldn't have thrown this exception: "+ex);
 		}
 		
+		// Mapping Exception. Can't serialize to an object and can't create an empty bean serializer
 		try{
 			jjs.serialize(new Object(), new ByteArrayOutputStream());
 			fail("Should throw a JSONMappingException");
@@ -99,6 +105,7 @@ public class JacksonJsonSerializerTest {
 			// Expected
 		}
 		
+		// Test successful serialization
 		User user = new User();
 		user.setEmail("test@test.com");
 		try {
@@ -107,7 +114,7 @@ public class JacksonJsonSerializerTest {
 			fail("Shouldn't throw an exception");
 		}
 		
-		// Test JsonGenerationException
+		// Test IOException
 		File tempFile = null;
 		try {
 			tempFile = File.createTempFile("json_test", ".tmp");
@@ -127,6 +134,7 @@ public class JacksonJsonSerializerTest {
 	@Test
 	public void testDeserialize() throws JSONSerializerException, JsonParseException, JsonMappingException, IOException {
 		try{
+			// Illegal argument due to null
 			try {
 				jjs.deserialize(null, null);
 				fail("Exception should have been thrown.");
@@ -134,6 +142,7 @@ public class JacksonJsonSerializerTest {
 				// Expected
 			}
 			
+			// Illegal argument due to null
 			try {
 				jjs.deserialize(User.class, null);
 				fail("Exception should have been thrown.");
@@ -141,6 +150,7 @@ public class JacksonJsonSerializerTest {
 				// Expected
 			}
 			
+			// ILlegal argument due to null
 			try {
 				jjs.deserialize(null, new ByteArrayInputStream(new byte[10]));
 				fail("Exception should have been thrown.");
@@ -151,12 +161,14 @@ public class JacksonJsonSerializerTest {
 			fail("Exception should not be thrown: "+ex);
 		}
 		
+		
+		// Test Successful deserialize of a serialized user back to a User Object
+		
 		// Serialize User
 		ByteArrayOutputStream b = new ByteArrayOutputStream();
 		User originalUser = new User();
-		jjs.serialize(originalUser,b);//b has the user in json format in a byte array
-		
-		
+		jjs.serialize(originalUser,b);
+
 		// Deserialize User from a byte array
 		User user = jjs.deserialize(User.class, new ByteArrayInputStream(b.toByteArray()));
 		
@@ -164,6 +176,50 @@ public class JacksonJsonSerializerTest {
 		if(!user.equals(originalUser)){
 			fail("User class was not correctly deserialized from a byte array");
 		}
+	}
+	
+	@Test
+	public void testDeserializeMap() throws JSONSerializerException, FileNotFoundException, IOException {
+		// Test null pointer exceptions
+		try {
+			jjs.deserializeMap(null);
+			fail("Exception should have been thrown.");
+		} catch (IllegalArgumentException e) {
+			// expected
+		}
+
+		// Parse Exception / invalid json
+		try {
+			String str = "test";
+			jjs.deserializeMap(new ByteArrayInputStream(str.getBytes()));
+			fail("Exception should have been thrown.");
+		} catch (JSONSerializerException e) {
+			// expected
+		}
+		
+		// Mapping Exception. Can't deserialize a JSON array to a Map object as the key would be an int
+		String str = "[\"test\",\"test1\"]";
+		try{
+			jjs.deserializeMap(new ByteArrayInputStream(str.getBytes()));
+			fail("Exception should have been thrown.");
+		}catch(JSONSerializerException ex){
+			//expected
+		}
+		
+		// IO Exception
+		try {
+			FileInputStream fis = new FileInputStream(File.createTempFile("json_test", ".tmp"));
+			fis.close();
+			
+			jjs.deserializeMap(fis);
+			fail("Should have thrown an IOException");
+		} catch(JSONSerializerException ex) {
+			//expected
+		}
+		
+		// Valid deserialize
+		str = "{'key':'value'},{'key':'value'}".replace("'", "\"");
+		jjs.deserializeMap(new ByteArrayInputStream(str.getBytes()));
 	}
 
 	@Test
@@ -186,6 +242,14 @@ public class JacksonJsonSerializerTest {
 			fail("Exception should have been thrown.");
 		} catch (IllegalArgumentException e) {
 			// expected
+		}
+		
+		// Test JsonParseException. Can't convert an invalid json array to a list.
+		try{
+			jjs.deserializeList(List.class, new ByteArrayInputStream("[broken jason".getBytes()));
+			fail("Should have thrown a JsonParseException");
+		}catch(JSONSerializerException e){
+			// Expected
 		}
 		
 		// Serialize a User and fail since it is not an ArrayList
@@ -295,6 +359,14 @@ public class JacksonJsonSerializerTest {
 		} catch(JSONSerializerException ex) {
 			//expected
 		}
+		
+		// Test JsonParseException
+		try {
+			jjs.deserializeResult(Result.class, new ByteArrayInputStream("{oops it's broken".getBytes()));
+			fail("Should have thrown a JsonParseException");
+		} catch (JSONSerializerException e) {
+			// Expected
+		}
 	}
 
 	@Test
@@ -363,6 +435,14 @@ public class JacksonJsonSerializerTest {
 			// Expected
 		}
 		
+		
+		// Test JsonParseException
+		try {
+			jjs.deserializeListResult(Result.class, new ByteArrayInputStream("{bad json".getBytes()));
+			fail("Should have thrown a JsonParseException");
+		} catch (JSONSerializerException e) {
+			// Expected
+		}
 	}
 
 }

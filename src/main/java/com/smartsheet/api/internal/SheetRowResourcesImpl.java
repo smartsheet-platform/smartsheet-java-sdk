@@ -22,9 +22,16 @@ package com.smartsheet.api.internal;
 
 
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.smartsheet.api.SheetRowResources;
+import com.smartsheet.api.SmartsheetRestException;
+import com.smartsheet.api.internal.http.HttpClientException;
+import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.models.Row;
 import com.smartsheet.api.models.RowWrapper;
 
@@ -33,7 +40,7 @@ import com.smartsheet.api.models.RowWrapper;
  * 
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
-public class SheetRowResourcesImpl implements SheetRowResources {
+public class SheetRowResourcesImpl extends AbstractResources implements SheetRowResources {
 	/**
 	 * Constructor.
 	 * 
@@ -46,6 +53,7 @@ public class SheetRowResourcesImpl implements SheetRowResources {
 	 * @param smartsheet
 	 */
 	public SheetRowResourcesImpl(SmartsheetImpl smartsheet) {
+		super(smartsheet);
 	}
 
 	/**
@@ -73,9 +81,21 @@ public class SheetRowResourcesImpl implements SheetRowResources {
 	 * @param sheetId
 	 * @param rowWrapper
 	 * @return
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws IOException 
+	 * @throws SecurityException 
+	 * @throws IllegalArgumentException 
+	 * @throws SmartsheetRestException 
+	 * @throws HttpClientException 
+	 * @throws JSONSerializerException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	public List<Row> insertRows(long sheetId, RowWrapper rowWrapper) {
-		return null;
+	public List<Row> insertRows(long sheetId, RowWrapper rowWrapper) throws JsonParseException, JsonMappingException, JSONSerializerException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		return this.postAndReceiveList("sheet/" + sheetId + "/rows", rowWrapper, Row.class);
 	}
 
 	/**
@@ -100,8 +120,19 @@ public class SheetRowResourcesImpl implements SheetRowResources {
 	 * @param id
 	 * @param rowNumber
 	 * @return
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws IOException 
+	 * @throws SecurityException 
+	 * @throws IllegalArgumentException 
+	 * @throws SmartsheetRestException 
+	 * @throws HttpClientException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	public Row getRow(long id, int rowNumber) {
-		return null;
+	public Row getRow(long id, int rowNumber) throws JsonParseException, JsonMappingException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		return this.getResource("sheet/" + id + "/row/" + rowNumber, Row.class);
 	}
 }

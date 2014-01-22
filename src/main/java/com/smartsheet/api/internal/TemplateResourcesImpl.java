@@ -32,7 +32,7 @@ import com.smartsheet.api.models.Template;
  * 
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
-public class TemplateResourcesImpl implements TemplateResources {
+public class TemplateResourcesImpl extends AbstractResources implements TemplateResources {
 	/**
 	 * Constructor.
 	 * 
@@ -45,6 +45,7 @@ public class TemplateResourcesImpl implements TemplateResources {
 	 * @param smartsheet
 	 */
 	public TemplateResourcesImpl(SmartsheetImpl smartsheet) {
+		super(smartsheet);
 	}
 
 	/**

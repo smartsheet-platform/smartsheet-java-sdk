@@ -1,5 +1,11 @@
 package com.smartsheet.api.internal;
 
+import java.io.File;
+import java.util.List;
+
+import com.smartsheet.api.AssociatedAttachmentResources;
+import com.smartsheet.api.models.Attachment;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -30,7 +36,7 @@ package com.smartsheet.api.internal;
  * 
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
-public class CommentAttachmentResources extends AssociatedAttachmentResourcesImpl {
+public class CommentAttachmentResources extends AbstractAssociatedResources implements AssociatedAttachmentResources  {
 	/**
 	 * Constructor.
 	 * 
@@ -44,8 +50,23 @@ public class CommentAttachmentResources extends AssociatedAttachmentResourcesImp
 	 */
 	public CommentAttachmentResources(SmartsheetImpl smartsheet) {
 		super(smartsheet, "comment");
+	}
 
-		// public AssociatedAttachmentResourcesImpl(SmartsheetImpl smartsheet, String masterResourceType) {
-		// sheet or workspace
+	@Override
+	public List<Attachment> listAttachments(long objectId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Attachment attachFile(long objectId, File file, String contentType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Attachment attachURL(long objectId, Attachment attachment) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -22,6 +22,7 @@ package com.smartsheet.api.internal;
 
 
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -38,7 +39,9 @@ import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.TemplateResources;
 import com.smartsheet.api.UserResources;
 import com.smartsheet.api.WorkspaceResources;
+import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.http.HttpClient;
+import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
 
 /**
@@ -72,7 +75,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Represents the AtomicReference to HomeResources.
 	 * 
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initiallly set
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
 	 * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
 	 * effectively the underlying value is lazily created in a thread safe manner.
 	 */
@@ -81,7 +84,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Represents the AtomicReference to WorkspaceResources.
 	 * 
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initiallly set
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
 	 * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
 	 * effectively the underlying value is lazily created in a thread safe manner.
 	 */
@@ -90,7 +93,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Represents the AtomicReference to FolderResources.
 	 * 
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initiallly set
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
 	 * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
 	 * effectively the underlying value is lazily created in a thread safe manner.
 	 */
@@ -99,7 +102,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Represents the AtomicReference to TemplateResources.
 	 * 
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initiallly set
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
 	 * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
 	 * effectively the underlying value is lazily created in a thread safe manner.
 	 */
@@ -108,7 +111,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Represents the AtomicReference to SheetResources.
 	 * 
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initiallly set
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
 	 * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
 	 * effectively the underlying value is lazily created in a thread safe manner.
 	 */
@@ -117,7 +120,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Represents the AtomicReference to ColumnResources.
 	 * 
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initiallly set
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
 	 * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
 	 * effectively the underlying value is lazily created in a thread safe manner.
 	 */
@@ -126,7 +129,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Represents the AtomicReference to RowResources.
 	 * 
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initiallly set
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
 	 * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
 	 * effectively the underlying value is lazily created in a thread safe manner.
 	 */
@@ -135,7 +138,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Represents the AtomicReference to AttachmentResources.
 	 * 
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initiallly set
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
 	 * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
 	 * effectively the underlying value is lazily created in a thread safe manner.
 	 */
@@ -144,7 +147,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Represents the AtomicReference to DiscussionResources.
 	 * 
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initiallly set
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
 	 * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
 	 * effectively the underlying value is lazily created in a thread safe manner.
 	 */
@@ -153,7 +156,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Represents the AtomicReference to CommentResources.
 	 * 
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initiallly set
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
 	 * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
 	 * effectively the underlying value is lazily created in a thread safe manner.
 	 */
@@ -162,7 +165,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Represents the AtomicReference to UserResources.
 	 * 
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initiallly set
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
 	 * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
 	 * effectively the underlying value is lazily created in a thread safe manner.
 	 */
@@ -171,7 +174,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Represents the AtomicReference to SearchResources.
 	 * 
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initiallly set
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
 	 * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
 	 * effectively the underlying value is lazily created in a thread safe manner.
 	 */
@@ -180,7 +183,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Represents the AtomicReference for assumed user email.
 	 * 
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initiallly set
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
 	 * as null, and can be set via corresponding setter, therefore effectively the assumed user can be updated in the
 	 * SmartsheetImpl in thread safe manner.
 	 */
@@ -189,7 +192,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Represents the AtomicReference for access token.
 	 * 
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initiallly set
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
 	 * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
 	 * SmartsheetImpl in thread safe manner.
 	 */
@@ -220,10 +223,23 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @param baseURI
 	 */
 	public SmartsheetImpl(String baseURI, String accessToken, HttpClient httpClient, JsonSerializer jsonSerializer) {
-		// FIXME: update below variables with appropriate values
-		this.httpClient = null;
-		this.accessToken = null;
-		this.assumedUser = null;
+		this.baseURI = URI.create(baseURI);
+		this.httpClient = httpClient == null ? new DefaultHttpClient() : httpClient;
+		this.jsonSerializer = jsonSerializer == null ? new JacksonJsonSerializer() : jsonSerializer;
+		this.home = new AtomicReference<HomeResources>();
+		this.workspaces = new AtomicReference<WorkspaceResources>();
+		this.folders = new AtomicReference<FolderResources>();
+		this.templates = new AtomicReference<TemplateResources>();
+		this.sheets = new AtomicReference<SheetResources>();
+		this.columns = new AtomicReference<ColumnResources>();
+		this.rows = new AtomicReference<RowResources>();
+		this.attachments = new AtomicReference<AttachmentResources>();
+		this.discussions = new AtomicReference<DiscussionResources>();
+		this.comments = new AtomicReference<CommentResources>();
+		this.users = new AtomicReference<UserResources>();
+		this.search = new AtomicReference<SearchResources>();
+		this.assumedUser = new AtomicReference<String>();
+		this.accessToken = new AtomicReference<String>(accessToken);
 	}
 
 	/**
@@ -234,8 +250,10 @@ public class SmartsheetImpl implements Smartsheet {
 	 * Returns: None
 	 * 
 	 * Implementation: this.httpClient.close();
+	 * @throws IOException 
 	 */
-	protected void finalize() {
+	protected void finalize() throws IOException {
+		this.httpClient.close();
 	}
 
 	/**
@@ -248,7 +266,7 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return
 	 */
 	HttpClient getHttpClient() {
-		return null;
+		return httpClient;
 	}
 
 	/**
@@ -261,7 +279,7 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return
 	 */
 	JsonSerializer getJsonSerializer() {
-		return null;
+		return jsonSerializer;
 	}
 
 	/**
@@ -274,7 +292,7 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return
 	 */
 	URI getBaseURI() {
-		return null;
+		return baseURI;
 	}
 
 	/**
@@ -287,7 +305,7 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return
 	 */
 	String getAssumedUser() {
-		return null;
+		return assumedUser.get();
 	}
 
 	/**
@@ -300,7 +318,7 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return
 	 */
 	String getAccessToken() {
-		return null;
+		return accessToken.get();
 	}
 
 	/**
@@ -317,7 +335,8 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return
 	 */
 	public HomeResources home() {
-		return null;
+		home.compareAndSet(null, new HomeResourcesImpl(this));
+		return home.get();
 	}
 
 	/**
@@ -334,7 +353,8 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return
 	 */
 	public WorkspaceResources workspaces() {
-		return null;
+		workspaces.compareAndSet(null, new WorkspaceResourcesImpl(this));
+		return workspaces.get();
 	}
 
 	/**
@@ -351,7 +371,8 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return
 	 */
 	public FolderResources folders() {
-		return null;
+		folders.compareAndSet(null, new FolderResourcesImpl(this));
+		return folders.get();
 	}
 
 	/**
@@ -368,7 +389,8 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return
 	 */
 	public TemplateResources templates() {
-		return null;
+		templates.compareAndSet(null, new TemplateResourcesImpl(this));
+		return templates.get();
 	}
 
 	/**
@@ -385,7 +407,8 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return
 	 */
 	public SheetResources sheets() {
-		return null;
+		sheets.compareAndSet(null, new SheetResourcesImpl(this));
+		return sheets.get();
 	}
 
 	/**
@@ -402,7 +425,8 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return
 	 */
 	public ColumnResources columns() {
-		return null;
+		columns.compareAndSet(null, new ColumnResourcesImpl(this));
+		return columns.get();
 	}
 
 	/**
@@ -419,7 +443,8 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return
 	 */
 	public RowResources rows() {
-		return null;
+		rows.compareAndSet(null, new RowResourcesImpl(this));
+		return rows.get();
 	}
 
 	/**
@@ -436,7 +461,8 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return
 	 */
 	public AttachmentResources attachments() {
-		return null;
+		attachments.compareAndSet(null, new AttachmentResourcesImpl(this));
+		return attachments.get();
 	}
 
 	/**
@@ -453,7 +479,8 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return
 	 */
 	public DiscussionResources discussions() {
-		return null;
+		discussions.compareAndSet(null, new DiscussionResourcesImpl(this));
+		return discussions.get();
 	}
 
 	/**
@@ -470,7 +497,8 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return
 	 */
 	public CommentResources comments() {
-		return null;
+		comments.compareAndSet(null, new CommentResourcesImpl(this));
+		return comments.get();
 	}
 
 	/**
@@ -487,7 +515,8 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return
 	 */
 	public UserResources users() {
-		return null;
+		users.compareAndSet(null, new UserResourcesImpl(this));
+		return users.get();
 	}
 
 	/**
@@ -504,7 +533,8 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return
 	 */
 	public SearchResources search() {
-		return null;
+		search.compareAndSet(null, new SearchResourcesImpl(this));
+		return search.get();
 	}
 
 	/**
@@ -521,6 +551,7 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @param assumedUser
 	 */
 	public void setAssumedUser(String assumedUser) {
+		this.assumedUser.set(assumedUser);
 	}
 
 	/**
@@ -537,5 +568,6 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @param accessToken
 	 */
 	public void setAccessToken(String accessToken) {
+		this.accessToken.set(accessToken);
 	}
 }

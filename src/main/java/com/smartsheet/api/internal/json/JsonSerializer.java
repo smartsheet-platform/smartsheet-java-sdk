@@ -23,7 +23,9 @@ package com.smartsheet.api.internal.json;
 
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -95,7 +97,18 @@ public interface JsonSerializer {
 	 */
 	public <T> List<T> deserializeList(Class<T> objectClass, java.io.InputStream inputStream)
 			throws JSONSerializerException;
-
+	
+	
+	/**
+	 * De-serialize an object list from JSON to a Map.
+	 * 
+	 * @param objectClass
+	 * @param inputStream
+	 * @return
+	 * @throws JSONSerializerException 
+	 */
+	public Map<String, Object> deserializeMap(InputStream inputStream) throws JSONSerializerException;
+	
 	/**
 	 * De-serialize a Result<T> object from JSON.
 	 * 
@@ -133,4 +146,5 @@ public interface JsonSerializer {
 	 */
 	public <T> Result<List<T>> deserializeListResult(Class<T> objectClass, java.io.InputStream inputStream)
 			throws JSONSerializerException;
+
 }

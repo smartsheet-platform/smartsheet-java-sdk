@@ -33,7 +33,7 @@ import com.smartsheet.api.models.UserProfile;
  * 
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
-public class UserResourcesImpl implements UserResources {
+public class UserResourcesImpl extends AbstractResources implements UserResources {
 	/**
 	 * Constructor.
 	 * 
@@ -46,6 +46,7 @@ public class UserResourcesImpl implements UserResources {
 	 * @param smartsheet
 	 */
 	public UserResourcesImpl(SmartsheetImpl smartsheet) {
+		super(smartsheet);
 	}
 
 	/**

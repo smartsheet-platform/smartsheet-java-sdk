@@ -40,7 +40,7 @@ import com.smartsheet.api.models.RowWrapper;
  * 
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
-public class RowResourcesImpl implements RowResources {
+public class RowResourcesImpl extends AbstractResources implements RowResources {
 	/**
 	 * Represents the AssociatedAttachmentResources.
 	 * 
@@ -67,6 +67,7 @@ public class RowResourcesImpl implements RowResources {
 	 * @param smartsheet
 	 */
 	public RowResourcesImpl(SmartsheetImpl smartsheet) {
+		super(smartsheet);
 	}
 
 	/**

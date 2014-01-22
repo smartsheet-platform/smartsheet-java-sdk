@@ -33,7 +33,9 @@ import com.smartsheet.api.models.Attachment;
  * 
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
-public class AssociatedAttachmentResourcesImpl implements AssociatedAttachmentResources {
+public class AssociatedAttachmentResourcesImpl extends AbstractAssociatedResources 
+	implements AssociatedAttachmentResources {
+	
 	/**
 	 * Constructor.
 	 * 
@@ -48,6 +50,7 @@ public class AssociatedAttachmentResourcesImpl implements AssociatedAttachmentRe
 	 * @param smartsheet
 	 */
 	public AssociatedAttachmentResourcesImpl(SmartsheetImpl smartsheet, String masterResourceType) {
+		super(smartsheet, masterResourceType);
 	}
 
 	/**

@@ -31,7 +31,7 @@ import com.smartsheet.api.models.Comment;
  * 
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
-public class CommentResourcesImpl implements CommentResources {
+public class CommentResourcesImpl extends AbstractResources implements CommentResources {
 	/**
 	 * Represents the AssociatedAttachmentResources.
 	 * 
@@ -51,6 +51,7 @@ public class CommentResourcesImpl implements CommentResources {
 	 * @param smartsheet
 	 */
 	public CommentResourcesImpl(SmartsheetImpl smartsheet) {
+		super(smartsheet);
 	}
 
 	/**

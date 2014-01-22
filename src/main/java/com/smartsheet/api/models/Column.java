@@ -83,6 +83,16 @@ public class Column {
 	 */
 	private Long sheetId;
 	
+	private Integer id;
+	
+	public Integer getId(){
+		return id;
+	}
+	
+	public void getId(Integer id){
+		this.id = id;
+	}
+	
 	public Integer getIndex() {
 		return index;
 	}

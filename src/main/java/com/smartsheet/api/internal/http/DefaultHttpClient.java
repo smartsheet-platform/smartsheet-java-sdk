@@ -25,14 +25,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.params.HttpClientParams;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
 
 /**
  * This is the Apache HttpClient (http://hc.apache.org/httpcomponents-client-ga/index.html) based HttpClient
@@ -140,6 +144,29 @@ public class DefaultHttpClient implements HttpClient {
 			throw new UnsupportedOperationException("Request method " + smartsheetRequest.getMethod()
 					+ " is not supported!");
 		}
+		
+		
+		//apacheHttpRequest.getConfig().isRedirectsEnabled();
+		RequestConfig.Builder builder = RequestConfig.custom();
+		if (apacheHttpRequest.getConfig()!=null) {
+			builder = RequestConfig.copy(apacheHttpRequest.getConfig());
+		}
+		builder.setRedirectsEnabled(true);
+		RequestConfig config = builder.build();
+		apacheHttpRequest.setConfig(config);
+		
+//		RequestConfig config = RequestConfig.custom().build();
+//		config.isRedirectsEnabled();
+//		RequestConfig config1 = apacheHttpRequest.getConfig();
+//		config1.
+		
+//		RequestConfig builder = (new RequestConfig.Builder()).build();
+//		apacheHttpRequest.setConfig();
+//		apacheHttpRequest.getConfig().isRedirectsEnabled();
+		// Setup Additional parameters for the request
+		//HttpClientParams.setRedirecting(params, true);
+		//httpClient.getParams().setBooleanParameter(name, value)
+		
 
 		// Set HTTP headers
 		if (smartsheetRequest.getHeaders() != null) {
@@ -157,6 +184,7 @@ public class DefaultHttpClient implements HttpClient {
 
 		// Make the HTTP request
 		try {
+
 			org.apache.http.HttpResponse apacheHttpResponse = this.httpClient.execute(apacheHttpRequest);
 			
 			// Set returned headers

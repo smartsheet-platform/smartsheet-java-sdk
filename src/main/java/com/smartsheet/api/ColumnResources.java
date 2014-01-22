@@ -22,6 +22,14 @@ package com.smartsheet.api;
 
 
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.smartsheet.api.internal.http.HttpClientException;
+import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.models.Column;
 
 /**
@@ -58,8 +66,22 @@ public interface ColumnResources {
 	 * 
 	 * @param column
 	 * @return
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws IOException 
+	 * @throws SecurityException 
+	 * @throws IllegalArgumentException 
+	 * @throws SmartsheetRestException 
+	 * @throws HttpClientException 
+	 * @throws JSONSerializerException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	public Column updateColumn(Column column);
+	public Column updateColumn(Column column) throws JsonParseException, JsonMappingException, JSONSerializerException,
+		HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException,
+		InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
 
 	/**
 	 * Delete a column.
@@ -79,6 +101,19 @@ public interface ColumnResources {
 	 * 
 	 * @param id
 	 * @param sheetId
+	 * @throws JSONSerializerException 
+	 * @throws UnsupportedEncodingException 
+	 * @throws HttpClientException 
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws IOException 
+	 * @throws SecurityException 
+	 * @throws IllegalArgumentException 
+	 * @throws SmartsheetRestException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	public void deleteColumn(long id, long sheetId);
+	public void deleteColumn(long id, long sheetId) throws JSONSerializerException, UnsupportedEncodingException, HttpClientException, JsonParseException, JsonMappingException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
 }

@@ -57,6 +57,8 @@ public class SmartsheetRestException extends SmartsheetException {
 		super(error.getMessage());
 		errorCode = error.getErrorCode();
 	}
+	
+	
 
 	/**
 	 * Returns the error code.

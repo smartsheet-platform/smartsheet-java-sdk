@@ -32,7 +32,7 @@ import com.smartsheet.api.models.Column;
  * 
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
-public class SheetColumnResourcesImpl implements SheetColumnResources {
+public class SheetColumnResourcesImpl extends AbstractResources implements SheetColumnResources {
 	/**
 	 * Constructor.
 	 * 
@@ -45,6 +45,7 @@ public class SheetColumnResourcesImpl implements SheetColumnResources {
 	 * @param smartsheet
 	 */
 	public SheetColumnResourcesImpl(SmartsheetImpl smartsheet) {
+		super(smartsheet);
 	}
 
 	/**

@@ -32,7 +32,7 @@ import com.smartsheet.api.models.Discussion;
  * 
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
-public class DiscussionResourcesImpl implements DiscussionResources {
+public class DiscussionResourcesImpl extends AbstractResources implements DiscussionResources {
 	/**
 	 * Represents the AssociatedAttachmentResources.
 	 * 
@@ -52,6 +52,7 @@ public class DiscussionResourcesImpl implements DiscussionResources {
 	 * @param smartsheet
 	 */
 	public DiscussionResourcesImpl(SmartsheetImpl smartsheet) {
+		super(smartsheet);
 	}
 
 	/**

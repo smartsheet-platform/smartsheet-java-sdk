@@ -32,7 +32,7 @@ import com.smartsheet.api.models.Folder;
  * 
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
-public class WorkspaceFolderResourcesImpl implements WorkspaceFolderResources {
+public class WorkspaceFolderResourcesImpl extends AbstractResources implements WorkspaceFolderResources {
 	/**
 	 * Constructor.
 	 * 
@@ -45,6 +45,7 @@ public class WorkspaceFolderResourcesImpl implements WorkspaceFolderResources {
 	 * @param smartsheet
 	 */
 	public WorkspaceFolderResourcesImpl(SmartsheetImpl smartsheet) {
+		super(smartsheet);
 	}
 
 	/**

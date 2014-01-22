@@ -33,7 +33,7 @@ import com.smartsheet.api.models.Share;
  * 
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
-public class ShareResourcesImpl implements ShareResources {
+public class ShareResourcesImpl extends AbstractResources implements ShareResources {
 	/**
 	 * Constructor.
 	 * 
@@ -48,6 +48,7 @@ public class ShareResourcesImpl implements ShareResources {
 	 * @param smartsheet
 	 */
 	public ShareResourcesImpl(SmartsheetImpl smartsheet, String masterResourceType) {
+		super(smartsheet);
 	}
 
 	/**

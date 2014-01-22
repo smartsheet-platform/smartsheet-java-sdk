@@ -30,7 +30,7 @@ import com.smartsheet.api.models.SearchResult;
  * 
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
-public class SearchResourcesImpl implements SearchResources {
+public class SearchResourcesImpl extends AbstractResources implements SearchResources {
 	/**
 	 * Constructor.
 	 * 
@@ -43,6 +43,7 @@ public class SearchResourcesImpl implements SearchResources {
 	 * @param smartsheet
 	 */
 	public SearchResourcesImpl(SmartsheetImpl smartsheet) {
+		super(smartsheet);
 	}
 
 	/**

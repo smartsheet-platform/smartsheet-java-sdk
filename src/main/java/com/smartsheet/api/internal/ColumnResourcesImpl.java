@@ -22,7 +22,26 @@ package com.smartsheet.api.internal;
 
 
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
+
+
+
+
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.smartsheet.api.ColumnResources;
+import com.smartsheet.api.SmartsheetRestException;
+import com.smartsheet.api.internal.http.HttpClientException;
+import com.smartsheet.api.internal.http.HttpEntity;
+import com.smartsheet.api.internal.http.HttpMethod;
+import com.smartsheet.api.internal.http.HttpRequest;
+import com.smartsheet.api.internal.http.HttpResponse;
+import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.models.Column;
 
 /**
@@ -30,7 +49,7 @@ import com.smartsheet.api.models.Column;
  * 
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
-public class ColumnResourcesImpl implements ColumnResources {
+public class ColumnResourcesImpl extends AbstractResources implements ColumnResources {
 	/**
 	 * Constructor.
 	 * 
@@ -43,6 +62,7 @@ public class ColumnResourcesImpl implements ColumnResources {
 	 * @param smartsheet
 	 */
 	public ColumnResourcesImpl(SmartsheetImpl smartsheet) {
+		super(smartsheet);
 	}
 
 	/**
@@ -69,9 +89,28 @@ public class ColumnResourcesImpl implements ColumnResources {
 	 * 
 	 * @param column
 	 * @return
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws IOException 
+	 * @throws SecurityException 
+	 * @throws IllegalArgumentException 
+	 * @throws SmartsheetRestException 
+	 * @throws HttpClientException 
+	 * @throws JSONSerializerException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	public Column updateColumn(Column column) {
-		return null;
+	public Column updateColumn(Column column) throws JsonParseException, JsonMappingException, JSONSerializerException,
+		HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException,
+		InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		
+		if(column == null){
+			throw new IllegalArgumentException();
+		}
+		
+		return this.updateResource("column/" + column.getId(), Column.class, column);
 	}
 
 	/**
@@ -106,7 +145,41 @@ public class ColumnResourcesImpl implements ColumnResources {
 	 * 
 	 * @param id
 	 * @param sheetId
+	 * @throws JSONSerializerException 
+	 * @throws HttpClientException 
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws IOException 
+	 * @throws SecurityException 
+	 * @throws IllegalArgumentException 
+	 * @throws SmartsheetRestException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	public void deleteColumn(long id, long sheetId) {
+	public void deleteColumn(long id, long sheetId) throws JSONSerializerException, HttpClientException, JsonParseException, JsonMappingException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		HttpRequest request = this.createHttpRequest(getSmartsheet().getBaseURI().resolve("column/" + id), HttpMethod.DELETE);
+		
+		Column column = new Column();
+		column.setSheetId(sheetId);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		getSmartsheet().getJsonSerializer().serialize(column, baos);
+		HttpEntity entity = new HttpEntity();
+		entity.setContentType("application/json");
+		entity.setContent(new ByteArrayInputStream(baos.toByteArray()));
+		entity.setContentLength(baos.size());
+		request.setEntity(entity);
+		
+		HttpResponse response = getSmartsheet().getHttpClient().request(request);
+		
+		switch (response.getStatusCode()) {
+			case 200:
+				this.getSmartsheet().getJsonSerializer().deserializeResult(Object.class, response.getEntity().getContent());
+				break;
+			default:
+				handleError(response);
+		}
+		
 	}
 }
