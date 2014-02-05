@@ -55,8 +55,9 @@ public interface AttachmentResources {
 	 * 
 	 * @param id
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Attachment getAttachment(long id);
+	public Attachment getAttachment(long id) throws SmartsheetException;
 
 	/**
 	 * Delete an attachment.
@@ -75,6 +76,7 @@ public interface AttachmentResources {
 	 * during the operation
 	 * 
 	 * @param id
+	 * @throws SmartsheetException 
 	 */
-	public void deleteAttachment(long id);
+	public void deleteAttachment(long id) throws SmartsheetException;
 }

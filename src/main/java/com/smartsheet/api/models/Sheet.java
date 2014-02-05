@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * Represents Sheet object in the Smartsheet REST API.
  */
-public class Sheet {
+public class Sheet extends IdentifiableModel {
 	/**
 	 * Represents the columns.
 	 */
@@ -78,6 +78,8 @@ public class Sheet {
 	 * Represents the Gantt enabled flag.
 	 */
 	private Boolean ganttEnabled;
+	
+	private Boolean dependenciesEnabled;
 
 	/**
 	 * Represents the version.
@@ -89,10 +91,15 @@ public class Sheet {
 	 */
 	private Long fromId;
 	
-	private Long id;
-	
 	private String name;
 	
+	public Boolean getDependenciesEnabled() {
+		return dependenciesEnabled;
+	}
+
+	public void setDependenciesEnabled(Boolean dependenciesEnabled) {
+		this.dependenciesEnabled = dependenciesEnabled;
+	}
 	
 	public String getName() {
 		return name;
@@ -100,14 +107,6 @@ public class Sheet {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Long getId(){
-		return id;
-	}
-	
-	public void setId(Long id){
-		this.id = id;
 	}
 
 	/**

@@ -24,7 +24,9 @@ package com.smartsheet.api.internal;
 
 import java.util.List;
 
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.UserResources;
+import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.User;
 import com.smartsheet.api.models.UserProfile;
 
@@ -67,9 +69,10 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	 * Implementation: return this.listResources("users", User.class);
 	 * 
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public List<User> listUsers() {
-		return null;
+	public List<User> listUsers() throws SmartsheetException {
+		return this.listResources("users", User.class);
 	}
 
 	/**
@@ -92,9 +95,10 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	 * 
 	 * @param user
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public User addUser(User user) {
-		return null;
+	public User addUser(User user) throws SmartsheetException {
+		return this.createResource("users", User.class, user);
 	}
 
 	/**
@@ -119,9 +123,10 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	 * @param sendEmail
 	 * @param user
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public User addUser(User user, boolean sendEmail) {
-		return null;
+	public User addUser(User user, boolean sendEmail) throws SmartsheetException {
+		return this.createResource("users?sendEmail=" + sendEmail, User.class, user);
 	}
 
 	/**
@@ -145,9 +150,10 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	 * Implementation: return this.getResource("user/me", UserProfile.class);
 	 * 
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public UserProfile getCurrentUser() {
-		return null;
+	public UserProfile getCurrentUser() throws SmartsheetException {
+		return this.getResource("user/me", UserProfile.class);
 	}
 
 	/**
@@ -171,9 +177,10 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	 * 
 	 * @param user
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public User updateUser(User user) {
-		return null;
+	public User updateUser(User user) throws SmartsheetException {
+		return this.updateResource("user/" + user.getId(), User.class, user);
 	}
 
 	/**
@@ -195,7 +202,9 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	 * Implementation: return this.deleteResource("user/" + id, User.class);
 	 * 
 	 * @param id
+	 * @throws SmartsheetException 
 	 */
-	public void deleteUser(long id) {
+	public void deleteUser(long id) throws SmartsheetException {
+		this.deleteResource("user/" + id, User.class);
 	}
 }

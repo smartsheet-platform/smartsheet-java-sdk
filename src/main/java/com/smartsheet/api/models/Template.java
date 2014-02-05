@@ -25,7 +25,7 @@ package com.smartsheet.api.models;
 /**
  * Represents Template object in the Smartsheet REST API.
  */
-public class Template {
+public class Template extends IdentifiableModel {
 	/**
 	 * Represents the description.
 	 */
@@ -35,6 +35,15 @@ public class Template {
 	 * Represents the access level.
 	 */
 	private AccessLevel accessLevel;
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public String getDescription() {
 		return description;

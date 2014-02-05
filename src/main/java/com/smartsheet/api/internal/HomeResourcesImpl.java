@@ -26,6 +26,7 @@ import java.util.EnumSet;
 
 import com.smartsheet.api.HomeFolderResources;
 import com.smartsheet.api.HomeResources;
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Home;
 import com.smartsheet.api.models.ObjectInclusion;
 
@@ -54,7 +55,8 @@ public class HomeResourcesImpl extends AbstractResources implements HomeResource
 	 * @param smartsheet
 	 */
 	public HomeResourcesImpl(SmartsheetImpl smartsheet) {
-		super(smartsheet);
+		super(smartsheet); 
+		this.folders = new HomeFolderResourcesImpl(smartsheet);
 	}
 
 	/**
@@ -82,9 +84,19 @@ public class HomeResourcesImpl extends AbstractResources implements HomeResource
 	 * 
 	 * @param includes
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Home getHome(EnumSet<ObjectInclusion> includes) {
-		return null;
+	public Home getHome(EnumSet<ObjectInclusion> includes) throws SmartsheetException {
+		String path = "home";
+		
+		if (includes != null) {
+			path += "?include=";
+			for (ObjectInclusion oi : includes) {
+				path += oi.name().toLowerCase() + ",";
+			}
+		}
+		
+		return this.getResource(path, Home.class);
 	}
 
 	/**
@@ -99,6 +111,6 @@ public class HomeResourcesImpl extends AbstractResources implements HomeResource
 	 * @return
 	 */
 	public HomeFolderResources folders() {
-		return null;
+		return this.folders;
 	}
 }

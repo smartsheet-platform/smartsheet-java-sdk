@@ -22,8 +22,14 @@ package com.smartsheet.api;
 
 
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.smartsheet.api.internal.http.HttpClientException;
+import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.models.MultiShare;
 import com.smartsheet.api.models.Share;
 
@@ -61,8 +67,21 @@ public interface ShareResources {
 	 * 
 	 * @param objectId
 	 * @return
+	 * @throws SmartsheetException 
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws IOException 
+	 * @throws SecurityException 
+	 * @throws IllegalArgumentException 
+	 * @throws SmartsheetRestException 
+	 * @throws JSONSerializerException 
+	 * @throws HttpClientException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	public List<Share> listShares(long objectId);
+	public List<Share> listShares(long objectId) throws SmartsheetException;
 
 	/**
 	 * Get a Share.
@@ -85,8 +104,20 @@ public interface ShareResources {
 	 * @param objectId
 	 * @param userId
 	 * @return
+	 * @throws SmartsheetException 
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws IOException 
+	 * @throws SecurityException 
+	 * @throws IllegalArgumentException 
+	 * @throws SmartsheetRestException 
+	 * @throws HttpClientException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	public Share getShare(long objectId, long userId);
+	public Share getShare(long objectId, long userId) throws SmartsheetException;
 
 	/**
 	 * Share the object, without sending email.
@@ -107,8 +138,21 @@ public interface ShareResources {
 	 * @param share
 	 * @param objectId
 	 * @return
+	 * @throws SmartsheetException 
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws IOException 
+	 * @throws SecurityException 
+	 * @throws IllegalArgumentException 
+	 * @throws SmartsheetRestException 
+	 * @throws HttpClientException 
+	 * @throws JSONSerializerException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	public Share shareTo(long objectId, Share share);
+	public Share shareTo(long objectId, Share share) throws SmartsheetException;
 
 	/**
 	 * Share the object.
@@ -131,8 +175,21 @@ public interface ShareResources {
 	 * @param objectId
 	 * @param sendEmail
 	 * @return
+	 * @throws SmartsheetException 
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws IOException 
+	 * @throws SecurityException 
+	 * @throws IllegalArgumentException 
+	 * @throws SmartsheetRestException 
+	 * @throws HttpClientException 
+	 * @throws JSONSerializerException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	public Share shareTo(long objectId, Share share, boolean sendEmail);
+	public Share shareTo(long objectId, Share share, boolean sendEmail) throws SmartsheetException;
 
 	/**
 	 * Share the object with multiple users, without sending email.
@@ -154,8 +211,21 @@ public interface ShareResources {
 	 * @param objectId
 	 * @param multiShare
 	 * @return
+	 * @throws SmartsheetException 
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws IOException 
+	 * @throws SecurityException 
+	 * @throws IllegalArgumentException 
+	 * @throws SmartsheetRestException 
+	 * @throws HttpClientException 
+	 * @throws JSONSerializerException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	public List<Share> shareTo(long objectId, MultiShare multiShare);
+	public List<Share> shareTo(long objectId, MultiShare multiShare) throws SmartsheetException;
 
 	/**
 	 * Share the object with multiple users.
@@ -179,8 +249,21 @@ public interface ShareResources {
 	 * @param sendEmail
 	 * @param multiShare
 	 * @return
+	 * @throws SmartsheetException 
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws IOException 
+	 * @throws SecurityException 
+	 * @throws IllegalArgumentException 
+	 * @throws SmartsheetRestException 
+	 * @throws HttpClientException 
+	 * @throws JSONSerializerException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	public List<Share> shareTo(long objectId, MultiShare multiShare, boolean sendEmail);
+	public List<Share> shareTo(long objectId, MultiShare multiShare, boolean sendEmail) throws SmartsheetException;
 
 	/**
 	 * Update a share.
@@ -206,8 +289,21 @@ public interface ShareResources {
 	 * @param objectId
 	 * @param userId
 	 * @return
+	 * @throws SmartsheetException 
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws IOException 
+	 * @throws SecurityException 
+	 * @throws IllegalArgumentException 
+	 * @throws SmartsheetRestException 
+	 * @throws HttpClientException 
+	 * @throws JSONSerializerException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	public Share updateShare(long objectId, long userId, Share share);
+	public Share updateShare(long objectId, long userId, Share share) throws SmartsheetException;
 
 	/**
 	 * Delete a share.
@@ -229,6 +325,19 @@ public interface ShareResources {
 	 * 
 	 * @param objectId
 	 * @param userId
+	 * @throws SmartsheetException 
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws IOException 
+	 * @throws HttpClientException 
+	 * @throws JSONSerializerException 
+	 * @throws SecurityException 
+	 * @throws IllegalArgumentException 
+	 * @throws SmartsheetRestException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	public void deleteShare(long objectId, long userId);
+	public void deleteShare(long objectId, long userId) throws SmartsheetException;
 }

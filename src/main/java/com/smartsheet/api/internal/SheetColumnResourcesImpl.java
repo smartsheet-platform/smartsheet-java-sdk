@@ -20,11 +20,17 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-
-
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.smartsheet.api.SheetColumnResources;
+import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.SmartsheetRestException;
+import com.smartsheet.api.internal.http.HttpClientException;
+import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.models.Column;
 
 /**
@@ -68,9 +74,22 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
 	 * 
 	 * @param sheetId
 	 * @return
+	 * @throws SmartsheetException 
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws JSONSerializerException
+	 * @throws HttpClientException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public List<Column> listColumns(long sheetId) {
-		return null;
+	public List<Column> listColumns(long sheetId) throws SmartsheetException  {
+		return this.listResources("sheet/" + sheetId + "/columns", Column.class);
 	}
 
 	/**
@@ -96,8 +115,21 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
 	 * @param sheetId
 	 * @param column
 	 * @return
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws HttpClientException
+	 * @throws JSONSerializerException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public Column addColumn(long sheetId, Column column) {
-		return null;
+	public Column addColumn(long sheetId, Column column) throws SmartsheetException {
+		
+		return this.createResource("sheet/" + sheetId + "/columns", Column.class, column);
 	}
 }

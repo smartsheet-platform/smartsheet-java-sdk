@@ -66,6 +66,7 @@ public interface ColumnResources {
 	 * 
 	 * @param column
 	 * @return
+	 * @throws SmartsheetException 
 	 * @throws NoSuchMethodException 
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
@@ -79,9 +80,7 @@ public interface ColumnResources {
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	public Column updateColumn(Column column) throws JsonParseException, JsonMappingException, JSONSerializerException,
-		HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException,
-		InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	public Column updateColumn(Column column) throws SmartsheetException;
 
 	/**
 	 * Delete a column.
@@ -101,6 +100,7 @@ public interface ColumnResources {
 	 * 
 	 * @param id
 	 * @param sheetId
+	 * @throws SmartsheetException 
 	 * @throws JSONSerializerException 
 	 * @throws UnsupportedEncodingException 
 	 * @throws HttpClientException 
@@ -115,5 +115,5 @@ public interface ColumnResources {
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	public void deleteColumn(long id, long sheetId) throws JSONSerializerException, UnsupportedEncodingException, HttpClientException, JsonParseException, JsonMappingException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	public void deleteColumn(long id, long sheetId) throws SmartsheetException;
 }

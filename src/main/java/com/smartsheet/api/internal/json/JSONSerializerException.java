@@ -22,7 +22,6 @@ package com.smartsheet.api.internal.json;
 
 
 
-import com.fasterxml.jackson.core.JsonGenerationException;
 import com.smartsheet.api.SmartsheetException;
 
 /**

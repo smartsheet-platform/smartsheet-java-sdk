@@ -23,7 +23,10 @@ package com.smartsheet.api.internal;
 
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Attachment;
 
 /**
@@ -47,7 +50,7 @@ public class DiscussionAttachmentResources extends AssociatedAttachmentResources
 	 * @param smartsheet
 	 */
 	public DiscussionAttachmentResources(SmartsheetImpl smartsheet) {
-		super(smartsheet, "comment");
+		super(smartsheet, "discussion");
 	}
 
 	/**
@@ -71,8 +74,14 @@ public class DiscussionAttachmentResources extends AssociatedAttachmentResources
 	 * @param contentType
 	 * @return
 	 */
+	@Override
 	public Attachment attachFile(long objectId, File file, String contentType) {
-		return null;
+		throw new UnsupportedOperationException();
+	}
+	
+	@Override
+	public Attachment attachFile(long objectId, File file, String contentType, Long contentLength) {
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -99,7 +108,8 @@ public class DiscussionAttachmentResources extends AssociatedAttachmentResources
 	 * @param attachment
 	 * @return
 	 */
+	@Override
 	public Attachment attachURL(long objectId, Attachment attachment) {
-		return null;
+		throw new UnsupportedOperationException();
 	}
 }

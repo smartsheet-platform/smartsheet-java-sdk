@@ -24,6 +24,7 @@ package com.smartsheet.api;
 
 import java.util.List;
 
+import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.User;
 import com.smartsheet.api.models.UserProfile;
 
@@ -55,8 +56,9 @@ public interface UserResources {
 	 * SmartsheetException : if there is any other error occurred during the operation
 	 * 
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public List<User> listUsers();
+	public List<User> listUsers() throws SmartsheetException;
 
 	/**
 	 * Add a user to the organization, without sending email.
@@ -76,8 +78,9 @@ public interface UserResources {
 	 * 
 	 * @param user
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public User addUser(User user);
+	public User addUser(User user) throws SmartsheetException;
 
 	/**
 	 * Add a user to the organization, without sending email.
@@ -99,8 +102,9 @@ public interface UserResources {
 	 * @param sendEmail
 	 * @param user
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public User addUser(User user, boolean sendEmail);
+	public User addUser(User user, boolean sendEmail) throws SmartsheetException;
 
 	/**
 	 * Get the current user.
@@ -120,8 +124,9 @@ public interface UserResources {
 	 * during the operation
 	 * 
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public UserProfile getCurrentUser();
+	public UserProfile getCurrentUser() throws SmartsheetException;
 
 	/**
 	 * Update a user.
@@ -142,8 +147,9 @@ public interface UserResources {
 	 * 
 	 * @param user
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public User updateUser(User user);
+	public User updateUser(User user) throws SmartsheetException;
 
 	/**
 	 * Delete a user in the organization.
@@ -162,6 +168,8 @@ public interface UserResources {
 	 * during the operation
 	 * 
 	 * @param id
+	 * @return 
+	 * @throws SmartsheetException 
 	 */
-	public void deleteUser(long id);
+	public void deleteUser(long id) throws SmartsheetException;
 }

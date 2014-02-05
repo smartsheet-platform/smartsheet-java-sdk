@@ -27,7 +27,7 @@ import java.util.Date;
 /**
  * Represents the Attachment object.
  */
-public class Attachment {
+public class Attachment extends IdentifiableModel {
 
 	/**
 	 * Represents the URL.
@@ -74,20 +74,16 @@ public class Attachment {
 	 */
 	private Long sizeInKb;
 	
-	public Attachment(String url, Long urlExpiresInMillis, AttachmentType attachmentType, 
-			AttachmentSubType attachmentSubType, Date createdAt, String mimeType, AttachmentParentType parentType,
-			Long parentId, Long sizeInKb){
-		this.url = url;
-		this.urlExpiresInMillis = urlExpiresInMillis;
-		this.attachmentType = attachmentType;
-		this.attachmentSubType = attachmentSubType;
-		this.createdAt = createdAt;
-		this.mimeType = mimeType;
-		this.parentId = parentId;
-		this.sizeInKb = sizeInKb;
-		this.parentType = parentType;
-	}
+	private String name;
 	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String getUrl() {
 		return url;
 	}

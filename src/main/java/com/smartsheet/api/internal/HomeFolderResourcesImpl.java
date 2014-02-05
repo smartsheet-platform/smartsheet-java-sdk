@@ -25,6 +25,7 @@ package com.smartsheet.api.internal;
 import java.util.List;
 
 import com.smartsheet.api.HomeFolderResources;
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Folder;
 
 /**
@@ -67,9 +68,10 @@ public class HomeFolderResourcesImpl extends AbstractResources implements HomeFo
 	 * Implementation: return this.listResources("home/folders", Folder.class);
 	 * 
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public List<Folder> listFolders() {
-		return null;
+	public List<Folder> listFolders() throws SmartsheetException {
+		return this.listResources("home/folders", Folder.class);
 	}
 
 	/**
@@ -91,8 +93,9 @@ public class HomeFolderResourcesImpl extends AbstractResources implements HomeFo
 	 * 
 	 * @param folder
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Folder createFolder(Folder folder) {
-		return null;
+	public Folder createFolder(Folder folder) throws SmartsheetException {
+		return this.createResource("home/folders", Folder.class, folder);
 	}
 }

@@ -24,6 +24,7 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.AssociatedAttachmentResources;
 import com.smartsheet.api.CommentResources;
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Comment;
 
 /**
@@ -52,6 +53,7 @@ public class CommentResourcesImpl extends AbstractResources implements CommentRe
 	 */
 	public CommentResourcesImpl(SmartsheetImpl smartsheet) {
 		super(smartsheet);
+		this.attachments = new CommentAttachmentResources(smartsheet);
 	}
 
 	/**
@@ -75,9 +77,10 @@ public class CommentResourcesImpl extends AbstractResources implements CommentRe
 	 * 
 	 * @param id
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Comment getComment(long id) {
-		return null;
+	public Comment getComment(long id) throws SmartsheetException {
+		return this.getResource("comment/" + id, Comment.class);
 	}
 
 	/**
@@ -99,8 +102,10 @@ public class CommentResourcesImpl extends AbstractResources implements CommentRe
 	 * Implementation: this.deleteResource("comment/" + id, Comment.class);
 	 * 
 	 * @param id
+	 * @throws SmartsheetException 
 	 */
-	public void deleteComment(long id) {
+	public void deleteComment(long id) throws SmartsheetException {
+		this.deleteResource("comment/" + id, Comment.class);
 	}
 
 	/**
@@ -116,6 +121,6 @@ public class CommentResourcesImpl extends AbstractResources implements CommentRe
 	 * @return
 	 */
 	public AssociatedAttachmentResources attachments() {
-		return null;
+		return this.attachments;
 	}
 }

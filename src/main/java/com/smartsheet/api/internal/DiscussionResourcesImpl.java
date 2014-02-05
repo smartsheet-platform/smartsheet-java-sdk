@@ -24,6 +24,7 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.AssociatedAttachmentResources;
 import com.smartsheet.api.DiscussionResources;
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Comment;
 import com.smartsheet.api.models.Discussion;
 
@@ -76,9 +77,10 @@ public class DiscussionResourcesImpl extends AbstractResources implements Discus
 	 * 
 	 * @param id
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Discussion getDiscussion(long id) {
-		return null;
+	public Discussion getDiscussion(long id) throws SmartsheetException {
+		return this.getResource("discussion/" + id, Discussion.class);
 	}
 
 	/**
@@ -102,9 +104,10 @@ public class DiscussionResourcesImpl extends AbstractResources implements Discus
 	 * @param id
 	 * @param comment
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Comment addDiscussionComment(long id, Comment comment) {
-		return null;
+	public Comment addDiscussionComment(long id, Comment comment) throws SmartsheetException {
+		return this.createResource("discussion/" + id + "/comments", Comment.class, comment);
 	}
 
 	/**
@@ -120,6 +123,6 @@ public class DiscussionResourcesImpl extends AbstractResources implements Discus
 	 * @return
 	 */
 	public AssociatedAttachmentResources attachments() {
-		return null;
+		return this.attachments;
 	}
 }

@@ -23,9 +23,17 @@ package com.smartsheet.api.internal;
 
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import com.smartsheet.api.AssociatedAttachmentResources;
+import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.internal.http.HttpEntity;
+import com.smartsheet.api.internal.http.HttpMethod;
+import com.smartsheet.api.internal.http.HttpRequest;
+import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.models.Attachment;
 
 /**
@@ -75,9 +83,10 @@ public class AssociatedAttachmentResourcesImpl extends AbstractAssociatedResourc
 	 * 
 	 * @param objectId
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public List<Attachment> listAttachments(long objectId) {
-		return null;
+	public List<Attachment> listAttachments(long objectId) throws SmartsheetException {
+		return this.listResources(getMasterResourceType() + "/" + objectId + "/attachments", Attachment.class);
 	}
 
 	/**
@@ -108,15 +117,48 @@ public class AssociatedAttachmentResourcesImpl extends AbstractAssociatedResourc
 	 * 
 	 * switch (response.getStatusCode()) { case 200: return
 	 * this.getSmartsheet().getJsonSerializer().deserializeResult(Attachment.class,
-	 * response.getEntity().getContent()).getResult(); default: handleError(response); }
+	 * response.getEntity().getContent()).getResult(); default: handleError(response);
+	 *  }
 	 * 
 	 * @param file
 	 * @param objectId
 	 * @param contentType
 	 * @return
+	 * @throws FileNotFoundException 
+	 * @throws SmartsheetException 
+	 * @throws UnsupportedEncodingException 
 	 */
-	public Attachment attachFile(long objectId, File file, String contentType) {
-		return null;
+	public Attachment attachFile(long objectId, File file, String contentType) throws FileNotFoundException,
+			SmartsheetException, UnsupportedEncodingException {
+		return attachFile(objectId, file, contentType, file.length());
+	}
+	
+	public Attachment attachFile(long objectId, File file, String contentType, Long contentLength) throws FileNotFoundException,
+	SmartsheetException, UnsupportedEncodingException {
+		HttpRequest request = createHttpRequest(this.getSmartsheet().getBaseURI().resolve(getMasterResourceType() + 
+				"/" + objectId + "/attachments"), HttpMethod.POST);
+		request.getHeaders().put("Content-Disposition", "attachment; filename=" + file.getName());
+		HttpEntity entity = new HttpEntity();
+		entity.setContentType(contentType);
+		entity.setContent(new FileInputStream(file));
+		entity.setContentLength(contentLength);
+		request.setEntity(entity);
+
+		HttpResponse response = this.getSmartsheet().getHttpClient().request(request);
+
+		Attachment attachment = null;
+		switch (response.getStatusCode()) {
+		case 200:
+			attachment = this.getSmartsheet().getJsonSerializer().deserializeResult(Attachment.class, 
+					response.getEntity().getContent()).getResult();
+			break;
+		default:
+			handleError(response);
+		}
+		
+		this.getSmartsheet().getHttpClient().releaseConnection();
+
+		return attachment;
 	}
 
 	/**
@@ -147,8 +189,10 @@ public class AssociatedAttachmentResourcesImpl extends AbstractAssociatedResourc
 	 * @param objectId
 	 * @param attachment
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Attachment attachURL(long objectId, Attachment attachment) {
-		return null;
+	public Attachment attachURL(long objectId, Attachment attachment) throws SmartsheetException {
+		return this.createResource(getMasterResourceType() + "/" + objectId + "/attachments",
+				Attachment.class, attachment);
 	}
 }

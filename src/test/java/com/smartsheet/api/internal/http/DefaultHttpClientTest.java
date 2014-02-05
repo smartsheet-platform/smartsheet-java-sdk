@@ -20,10 +20,9 @@ package com.smartsheet.api.internal.http;
  * %[license]
  */
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
-import java.io.IOException;
-import java.io.StringBufferInputStream;
+import java.io.ByteArrayInputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -38,6 +37,8 @@ public class DefaultHttpClientTest {
 	public void setUp() throws Exception {
 		client = new DefaultHttpClient();
 	}
+	
+	
 
 	@Test
 	public void testDefaultHttpClient() {}
@@ -65,21 +66,26 @@ public class DefaultHttpClientTest {
 		} catch (IllegalArgumentException e) {
 			// Expected
 		}
-		
-		// Test each http method
+
+////		// Test each http method
 		request.setUri(new URI("http://google.com"));
 		request.setMethod(HttpMethod.GET);
 		client.request(request);
+		client.releaseConnection();
+		
 		
 		request.setMethod(HttpMethod.POST);
 		client.request(request);
+		client.releaseConnection();
 
-		client.request(request);
 		request.setMethod(HttpMethod.PUT);
 		client.request(request);
+		client.releaseConnection();
 		
 		request.setMethod(HttpMethod.DELETE);
 		client.request(request);
+		client.releaseConnection();
+		
 		
 		
 		// Test request with set headers and http entity but a null content
@@ -91,17 +97,20 @@ public class DefaultHttpClientTest {
 		request.setHeaders(headers);
 		request.setMethod(HttpMethod.POST);
 		client.request(request);
+		client.releaseConnection();
 		
 		// Test request with set headers and http entity and some content
-		entity.setContent(new StringBufferInputStream("Hello World!"));
+		entity.setContent(new ByteArrayInputStream("Hello World!".getBytes()));
 		request.setEntity(entity);
 		client.request(request);
+		client.releaseConnection();
 		
 		// Test Client Protocol Exception by passing a second content-length
 		try{
 			headers.put("Content-Length","10");
 			request.setHeaders(headers);
 			client.request(request);
+			client.releaseConnection();
 			fail("Exception should have been thrown");
 		}catch(HttpClientException ex){
 			// Expected
@@ -114,6 +123,7 @@ public class DefaultHttpClientTest {
 		try{
 			request.setUri(new URI("http://bad.domain"));
 			client.request(request);
+			client.releaseConnection();
 			fail("Exception should have been thrown.");
 		}catch(HttpClientException ex){
 			// Expected

@@ -37,4 +37,20 @@ public class SearchResult {
 	 * Represents the search result items.
 	 */
 	private List<SearchResultItem> results;
+
+	public Integer getTotalCount() {
+		return totalCount;
+	}
+
+	public void setTotalCount(Integer totalCount) {
+		this.totalCount = totalCount;
+	}
+
+	public List<SearchResultItem> getResults() {
+		return results;
+	}
+
+	public void setResults(List<SearchResultItem> results) {
+		this.results = results;
+	}
 }

@@ -66,8 +66,9 @@ public interface RowResources {
 	 * 
 	 * @param id
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Row getRow(long id, EnumSet<ObjectInclusion> includes);
+	public Row getRow(long id, EnumSet<ObjectInclusion> includes) throws SmartsheetException;
 
 	/**
 	 * Move a row.
@@ -90,8 +91,9 @@ public interface RowResources {
 	 * 
 	 * @param rowWrapper
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public List<Row> moveRow(RowWrapper rowWrapper);
+	public List<Row> moveRow(long id, RowWrapper rowWrapper) throws SmartsheetException;
 
 	/**
 	 * Delete a row.
@@ -110,8 +112,9 @@ public interface RowResources {
 	 * during the operation
 	 * 
 	 * @param id
+	 * @throws SmartsheetException 
 	 */
-	public void deleteRow(long id);
+	public void deleteRow(long id) throws SmartsheetException;
 
 	/**
 	 * Send a row via email to the designated recipients.
@@ -130,8 +133,9 @@ public interface RowResources {
 	 * 
 	 * @param id
 	 * @param email
+	 * @throws SmartsheetException 
 	 */
-	public void sendRow(long id, RowEmail email);
+	public void sendRow(long id, RowEmail email) throws SmartsheetException;
 
 	/**
 	 * Update the values of the Cells in a Row.
@@ -153,8 +157,9 @@ public interface RowResources {
 	 * 
 	 * @param rowId
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public List<Cell> updateCells(long rowId, List<Cell> cells);
+	public List<Cell> updateCells(long rowId, List<Cell> cells) throws SmartsheetException;
 
 	/**
 	 * Get the cell modification history.
@@ -176,8 +181,9 @@ public interface RowResources {
 	 * @param columnId
 	 * @param rowId
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public List<CellHistory> getCellHistory(long rowId, long columnId);
+	public List<CellHistory> getCellHistory(long rowId, long columnId) throws SmartsheetException;
 
 	/**
 	 * Return the AssociatedAttachmentResources object that provides access to attachment resources associated with Row

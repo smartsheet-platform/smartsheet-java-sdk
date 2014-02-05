@@ -57,8 +57,9 @@ public interface WorkspaceResources {
 	 * SmartsheetException : if there is any other error occurred during the operation
 	 * 
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public List<Workspace> listWorkspaces();
+	public List<Workspace> listWorkspaces() throws SmartsheetException;
 
 	/**
 	 * Get a workspace.
@@ -79,8 +80,9 @@ public interface WorkspaceResources {
 	 * 
 	 * @param id
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Workspace getWorkspace(long id);
+	public Workspace getWorkspace(long id) throws SmartsheetException;
 
 	/**
 	 * Create a workspace.
@@ -99,8 +101,9 @@ public interface WorkspaceResources {
 	 * 
 	 * @param workspace
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Workspace createWorkspace(Workspace workspace);
+	public Workspace createWorkspace(Workspace workspace) throws SmartsheetException;
 
 	/**
 	 * Update a workspace.
@@ -121,8 +124,9 @@ public interface WorkspaceResources {
 	 * 
 	 * @param workspace
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Workspace updateWorkspace(Workspace workspace);
+	public Workspace updateWorkspace(Workspace workspace) throws SmartsheetException;
 
 	/**
 	 * Delete a workspace.
@@ -141,8 +145,9 @@ public interface WorkspaceResources {
 	 * during the operation
 	 * 
 	 * @param id
+	 * @throws SmartsheetException 
 	 */
-	public void deleteWorkspace(long id);
+	public void deleteWorkspace(long id) throws SmartsheetException;
 
 	/**
 	 * Return the WorkspaceFolderResources object that provides access to Folder resources associated with Workspace

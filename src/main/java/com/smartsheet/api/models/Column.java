@@ -27,11 +27,11 @@ import java.util.List;
 /**
  * Represents the Column object.
  */
-public class Column {
+public class Column extends IdentifiableModel {
 	/**
 	 * Represents the index.
 	 */
-	private Integer index;
+	private int index;
 
 	/**
 	 * Represents the title.
@@ -82,22 +82,12 @@ public class Column {
 	 * Represents the sheet ID.
 	 */
 	private Long sheetId;
-	
-	private Integer id;
-	
-	public Integer getId(){
-		return id;
-	}
-	
-	public void getId(Integer id){
-		this.id = id;
-	}
-	
+
 	public Integer getIndex() {
 		return index;
 	}
 
-	public void setIndex(Integer index) {
+	public void setIndex(int index) {
 		this.index = index;
 	}
 

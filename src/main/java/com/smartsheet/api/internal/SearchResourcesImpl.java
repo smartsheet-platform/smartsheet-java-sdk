@@ -22,7 +22,11 @@ package com.smartsheet.api.internal;
 
 
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import com.smartsheet.api.SearchResources;
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.SearchResult;
 
 /**
@@ -66,9 +70,11 @@ public class SearchResourcesImpl extends AbstractResources implements SearchReso
 	 * 
 	 * @param query
 	 * @return
+	 * @throws SmartsheetException 
+	 * @throws UnsupportedEncodingException 
 	 */
-	public SearchResult search(String query) {
-		return null;
+	public SearchResult search(String query) throws UnsupportedEncodingException, SmartsheetException {
+		return this.getResource("search?query=" + URLEncoder.encode(query, "utf-8"), SearchResult.class);
 	}
 
 	/**
@@ -94,8 +100,11 @@ public class SearchResourcesImpl extends AbstractResources implements SearchReso
 	 * @param sheetId
 	 * @param query
 	 * @return
+	 * @throws SmartsheetException 
+	 * @throws UnsupportedEncodingException 
 	 */
-	public SearchResult searchSheet(long sheetId, String query) {
-		return null;
+	public SearchResult searchSheet(long sheetId, String query) throws UnsupportedEncodingException, SmartsheetException {
+		return this.getResource("search/sheet/" + sheetId + "?query=" + URLEncoder.encode(query,
+				"utf-8"), SearchResult.class);
 	}
 }

@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * Represents the Row object.
  */
-public class Row {
+public class Row extends IdentifiableModel {
 	/**
 	 * Represents the Sheet ID.
 	 */
@@ -73,6 +73,37 @@ public class Row {
 	 * Represents the modified at timestamp.
 	 */
 	private Date modifiedAt;
+	
+	private boolean expanded;
+	
+	private int version;
+	
+	private AccessLevel accessLevel; 
+	
+	
+	public AccessLevel getAccessLevel() {
+		return accessLevel;
+	}
+
+	public void setAccessLevel(AccessLevel accessLevel) {
+		this.accessLevel = accessLevel;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
+	public boolean isExpanded() {
+		return expanded;
+	}
+
+	public void setExpanded(boolean expanded) {
+		this.expanded = expanded;
+	}
 
 	/**
 	 * Get column by index.
@@ -87,6 +118,12 @@ public class Row {
 	 * @return
 	 */
 	public Column getColumnByIndex(int index) {
+		for (Column column : columns) {
+			if (column.getIndex() == index) {
+				return column; 
+			}
+		}
+	
 		return null;
 	}
 
@@ -103,6 +140,12 @@ public class Row {
 	 * @return
 	 */
 	public Column getColumnById(long columnId) {
+		for (Column column : columns) {
+			if (column.getId() == columnId) {
+				return column; 
+			}
+		}
+		
 		return null;
 	}
 
@@ -177,6 +220,4 @@ public class Row {
 	public void setModifiedAt(Date modifiedAt) {
 		this.modifiedAt = modifiedAt;
 	}
-	
-	
 }

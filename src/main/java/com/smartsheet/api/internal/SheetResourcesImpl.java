@@ -20,19 +20,13 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-
-
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.EnumSet;
 import java.util.List;
-
-import org.apache.http.HttpResponse;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -42,6 +36,7 @@ import com.smartsheet.api.ShareResources;
 import com.smartsheet.api.SheetColumnResources;
 import com.smartsheet.api.SheetResources;
 import com.smartsheet.api.SheetRowResources;
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.SmartsheetRestException;
 import com.smartsheet.api.internal.http.HttpClientException;
 import com.smartsheet.api.internal.http.HttpMethod;
@@ -58,7 +53,9 @@ import com.smartsheet.api.models.SheetPublish;
  * 
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
-public class SheetResourcesImpl  extends AbstractResources implements SheetResources {
+public class SheetResourcesImpl extends AbstractResources implements SheetResources {
+	private final static int BUFFER_SIZE = 4098;
+
 	/**
 	 * Represents the ShareResources.
 	 * 
@@ -131,20 +128,20 @@ public class SheetResourcesImpl  extends AbstractResources implements SheetResou
 	 * Implementation: return this.listResources("sheets", Sheet.class);
 	 * 
 	 * @return
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws JSONSerializerException 
-	 * @throws HttpClientException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws JSONSerializerException
+	 * @throws HttpClientException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public List<Sheet> listSheets() throws JsonParseException, JsonMappingException, HttpClientException, JSONSerializerException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public List<Sheet> listSheets() throws SmartsheetException {
 		return this.listResources("sheets", Sheet.class);
 	}
 
@@ -166,20 +163,20 @@ public class SheetResourcesImpl  extends AbstractResources implements SheetResou
 	 * Implementation: return this.listResources("users/sheets", Sheet.class);
 	 * 
 	 * @return
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws JSONSerializerException 
-	 * @throws HttpClientException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws JSONSerializerException
+	 * @throws HttpClientException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public List<Sheet> listOrganizationSheets() throws JsonParseException, JsonMappingException, HttpClientException, JSONSerializerException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public List<Sheet> listOrganizationSheets() throws SmartsheetException {
 		return this.listResources("users/sheets", Sheet.class);
 	}
 
@@ -208,27 +205,27 @@ public class SheetResourcesImpl  extends AbstractResources implements SheetResou
 	 * 
 	 * @param id
 	 * @return
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws HttpClientException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public Sheet getSheet(long id, EnumSet<ObjectInclusion> includes) throws JsonParseException, JsonMappingException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public Sheet getSheet(long id, EnumSet<ObjectInclusion> includes) throws SmartsheetException {
 		String path = "sheet/" + id;
-		if (includes != null && !includes.isEmpty()) {
-		    path += "?include=";
-		    for (ObjectInclusion oi : includes) {
-		        path += oi.name().toLowerCase() + ",";
-		    }
+		if (includes != null) {
+			path += "?include=";
+			for (ObjectInclusion oi : includes) {
+				path += oi.name().toLowerCase() + ",";
+			}
 		}
-		
+
 		return this.getResource(path, Sheet.class);
 	}
 
@@ -255,18 +252,18 @@ public class SheetResourcesImpl  extends AbstractResources implements SheetResou
 	 * @param id
 	 * @param outputStream
 	 * @param paperSize
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws HttpClientException
 	 */
-	public void getSheetAsExcel(long id, OutputStream outputStream, PaperSize paperSize) throws HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-		getSheetAsFile(id, paperSize, outputStream, "application/vnd.ms-excel");
+	public void getSheetAsExcel(long id, OutputStream outputStream) throws SmartsheetException {
+		getSheetAsFile(id, null, outputStream, "application/vnd.ms-excel");
 	}
 
 	/**
@@ -291,17 +288,17 @@ public class SheetResourcesImpl  extends AbstractResources implements SheetResou
 	 * @param id
 	 * @param outputStream
 	 * @param paperSize
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws HttpClientException
 	 */
-	public void getSheetAsPDF(long id, OutputStream outputStream, PaperSize paperSize) throws HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public void getSheetAsPDF(long id, OutputStream outputStream, PaperSize paperSize) throws SmartsheetException {
 		getSheetAsFile(id, paperSize, outputStream, "application/pdf");
 	}
 
@@ -326,20 +323,20 @@ public class SheetResourcesImpl  extends AbstractResources implements SheetResou
 	 * 
 	 * @param sheet
 	 * @return
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws HttpClientException
+	 * @throws JSONSerializerException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public Sheet createSheet(Sheet sheet) throws JsonParseException, JsonMappingException, JSONSerializerException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public Sheet createSheet(Sheet sheet) throws SmartsheetException {
 		return this.createResource("sheets", Sheet.class, sheet);
 	}
 
@@ -366,26 +363,26 @@ public class SheetResourcesImpl  extends AbstractResources implements SheetResou
 	 * 
 	 * @param sheet
 	 * @return
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws HttpClientException
+	 * @throws JSONSerializerException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public Sheet createSheetFromExisting(Sheet sheet, EnumSet<ObjectInclusion> includes) throws JsonParseException, JsonMappingException, JSONSerializerException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public Sheet createSheetFromExisting(Sheet sheet, EnumSet<ObjectInclusion> includes) throws SmartsheetException {
 		String path = "sheets";
-		if (includes != null && !includes.isEmpty()) {
-		    path += "?include=";
-		    for (ObjectInclusion oi : includes) {
-		        path += oi.name().toLowerCase() + ",";
-		    }
+		if (includes != null) {
+			path += "?include=";
+			for (ObjectInclusion oi : includes) {
+				path += oi.name().toLowerCase() + ",";
+			}
 		}
 		return this.createResource(path, Sheet.class, sheet);
 	}
@@ -412,20 +409,21 @@ public class SheetResourcesImpl  extends AbstractResources implements SheetResou
 	 * @param sheet
 	 * @param folderId
 	 * @return
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws HttpClientException
+	 * @throws JSONSerializerException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public Sheet createSheetInFolder(long folderId, Sheet sheet) throws JsonParseException, JsonMappingException, JSONSerializerException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public Sheet createSheetInFolder(long folderId, Sheet sheet) throws SmartsheetException {
+		
 		return this.createResource("folder/" + folderId + "/sheets", Sheet.class, sheet);
 	}
 
@@ -453,28 +451,28 @@ public class SheetResourcesImpl  extends AbstractResources implements SheetResou
 	 * 
 	 * @param folderId
 	 * @return
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws HttpClientException
+	 * @throws JSONSerializerException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public Sheet createSheetInFolderFromExisting(long folderId, Sheet sheet, EnumSet<ObjectInclusion> includes) throws JsonParseException, JsonMappingException, JSONSerializerException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public Sheet createSheetInFolderFromExisting(long folderId, Sheet sheet, EnumSet<ObjectInclusion> includes) throws SmartsheetException {
 		String path = "folder/" + folderId + "/sheets";
-		if (includes != null && !includes.isEmpty()) {
-		    path += "?include=";
-		    for (ObjectInclusion oi : includes) {
-		        path += oi.name().toLowerCase() + ",";
-		    }
+		if (includes != null) {
+			path += "?include=";
+			for (ObjectInclusion oi : includes) {
+				path += oi.name().toLowerCase() + ",";
+			}
 		}
-		
+
 		return this.createResource(path, Sheet.class, sheet);
 	}
 
@@ -500,20 +498,20 @@ public class SheetResourcesImpl  extends AbstractResources implements SheetResou
 	 * @param workspaceId
 	 * @param sheet
 	 * @return
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws HttpClientException
+	 * @throws JSONSerializerException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public Sheet createSheetInWorkspace(long workspaceId, Sheet sheet) throws JsonParseException, JsonMappingException, JSONSerializerException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public Sheet createSheetInWorkspace(long workspaceId, Sheet sheet) throws SmartsheetException {
 		return this.createResource("workspace/" + workspaceId + "/sheets", Sheet.class, sheet);
 	}
 
@@ -543,28 +541,29 @@ public class SheetResourcesImpl  extends AbstractResources implements SheetResou
 	 * 
 	 * @param workspaceId
 	 * @return
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws HttpClientException
+	 * @throws JSONSerializerException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public Sheet createSheetInWorkspaceFromExisting(long workspaceId, Sheet sheet, EnumSet<ObjectInclusion> includes) throws JsonParseException, JsonMappingException, JSONSerializerException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public Sheet createSheetInWorkspaceFromExisting(long workspaceId, Sheet sheet, EnumSet<ObjectInclusion> includes)
+			throws SmartsheetException {
 		String path = "workspace/" + workspaceId + "/sheets";
-		if (includes != null && !includes.isEmpty()) {
-		    path += "?include=";
-		    for (ObjectInclusion oi : includes) {
-		        path += oi.name().toLowerCase() + ",";
-		    }
+		if (includes != null) {
+			path += "?include=";
+			for (ObjectInclusion oi : includes) {
+				path += oi.name().toLowerCase() + ",";
+			}
 		}
-		
+
 		return this.createResource(path, Sheet.class, sheet);
 	}
 
@@ -587,20 +586,20 @@ public class SheetResourcesImpl  extends AbstractResources implements SheetResou
 	 * Implementation: this.deleteResource("sheet/" + id, Sheet.class);
 	 * 
 	 * @param id
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws HttpClientException
+	 * @throws JSONSerializerException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public void deleteSheet(long id) throws JsonParseException, JsonMappingException, SmartsheetRestException, IllegalArgumentException, SecurityException, JSONSerializerException, HttpClientException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public void deleteSheet(long id) throws SmartsheetException {
 		this.deleteResource("sheet/" + id, Sheet.class);
 	}
 
@@ -625,20 +624,20 @@ public class SheetResourcesImpl  extends AbstractResources implements SheetResou
 	 * 
 	 * @param sheet
 	 * @return
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws HttpClientException
+	 * @throws JSONSerializerException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public Sheet updateSheet(Sheet sheet) throws JsonParseException, JsonMappingException, JSONSerializerException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public Sheet updateSheet(Sheet sheet) throws SmartsheetException {
 		return this.updateResource("sheet/" + sheet.getId(), Sheet.class, sheet);
 	}
 
@@ -663,19 +662,19 @@ public class SheetResourcesImpl  extends AbstractResources implements SheetResou
 	 * 
 	 * @param id
 	 * @return
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws HttpClientException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public int getSheetVersion(long id) throws JsonParseException, JsonMappingException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public int getSheetVersion(long id) throws SmartsheetException {
 		return this.getResource("sheet/" + id + "/version", Sheet.class).getVersion();
 	}
 
@@ -698,20 +697,20 @@ public class SheetResourcesImpl  extends AbstractResources implements SheetResou
 	 * 
 	 * @param id
 	 * @param email
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws HttpClientException
+	 * @throws JSONSerializerException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public void sendSheet(long id, SheetEmail email) throws JsonParseException, JsonMappingException, JSONSerializerException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public void sendSheet(long id, SheetEmail email) throws SmartsheetException {
 		this.createResource("sheet/" + id + "/emails", SheetEmail.class, email);
 	}
 
@@ -773,7 +772,7 @@ public class SheetResourcesImpl  extends AbstractResources implements SheetResou
 	 * @return
 	 */
 	public AssociatedAttachmentResources attachments() {
-		return null;
+		return this.attachments;
 	}
 
 	/**
@@ -813,19 +812,19 @@ public class SheetResourcesImpl  extends AbstractResources implements SheetResou
 	 * 
 	 * @param id
 	 * @return
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws HttpClientException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public SheetPublish getPublishStatus(long id) throws JsonParseException, JsonMappingException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public SheetPublish getPublishStatus(long id) throws SmartsheetException {
 		return this.getResource("sheet/" + id + "/publish", SheetPublish.class);
 	}
 
@@ -852,20 +851,20 @@ public class SheetResourcesImpl  extends AbstractResources implements SheetResou
 	 * @param id
 	 * @param publish
 	 * @return
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws HttpClientException
+	 * @throws JSONSerializerException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public SheetPublish updatePublishStatus(long id, SheetPublish publish) throws JsonParseException, JsonMappingException, JSONSerializerException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public SheetPublish updatePublishStatus(long id, SheetPublish publish) throws SmartsheetException{
 		return this.updateResource("sheet/" + id + "/publish", SheetPublish.class, publish);
 	}
 
@@ -900,51 +899,63 @@ public class SheetResourcesImpl  extends AbstractResources implements SheetResou
 	 * @param outputStream
 	 * @param paperSize
 	 * @param contentType
-	 * @throws IOException 
-	 * @throws HttpClientException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
+	 * @throws IOException
+	 * @throws HttpClientException
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
 	 */
-	private void getSheetAsFile(long id, PaperSize paperSize, OutputStream outputStream, String contentType) throws IOException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	private void getSheetAsFile(long id, PaperSize paperSize, OutputStream outputStream, String contentType)
+			throws SmartsheetException {
+
 		String path = "sheet/" + id;
 		if (paperSize != null) {
-		    path += "?paperSize=" + paperSize;
+			path += "?paperSize=" + paperSize;
 		}
-		
-		HttpRequest request = createHttpRequest(this.getSmartsheet().getBaseURI().resolve(path), HttpMethod.GET);
+
+		HttpRequest request;
+		try {
+			request = createHttpRequest(this.getSmartsheet().getBaseURI().resolve(path), HttpMethod.GET);
+		} catch (UnsupportedEncodingException e) {
+			throw new SmartsheetException(e);
+		}
 		request.getHeaders().put("Accept", contentType);
-		
+
 		com.smartsheet.api.internal.http.HttpResponse response = getSmartsheet().getHttpClient().request(request);
-		
+
 		switch (response.getStatusCode()) {
-			case 200:
-				BufferedInputStream bis = new BufferedInputStream(response.getEntity().getContent());
-				BufferedOutputStream bos = new BufferedOutputStream(outputStream);
-
-				// Read from the BufferedInputStream and write to BufferedOutputStream
-				copyStream(bis,bos);
-
-			default:
-				handleError(response);
+		case 200:
+			try {
+				copyStream(response.getEntity().getContent(), outputStream);
+			} catch (IOException e) {
+				throw new SmartsheetException(e);
+			}
+			break;
+		default:
+			handleError(response);
 		}
+		
+		getSmartsheet().getHttpClient().releaseConnection();
 	}
-	
+
 	/*
 	 * Copy an input stream to an output stream.
+	 * 
 	 * @param input The input stream to copy.
+	 * 
 	 * @param output the output stream to write to.
-	 * @throws IOException if there is trouble reading or writing to the streams. 
+	 * 
+	 * @throws IOException if there is trouble reading or writing to the streams.
 	 */
-	public static void copyStream(InputStream input, OutputStream output) throws IOException {
-		byte[] buffer = new byte[1024];
-		int bytesRead;
-		while ((bytesRead = input.read(buffer)) != -1) {
-			output.write(buffer, 0, bytesRead);
+	private static void copyStream(InputStream input, OutputStream output) throws IOException {
+		byte[] buffer = new byte[BUFFER_SIZE];
+		int len;
+		while ((len = input.read(buffer)) != -1) {
+			output.write(buffer, 0, len);
 		}
 	}
 }

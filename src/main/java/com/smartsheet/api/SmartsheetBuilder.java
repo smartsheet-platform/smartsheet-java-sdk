@@ -182,14 +182,19 @@ public class SmartsheetBuilder {
 	 */
 	public Smartsheet build() {
 		//QUESTION: what happens when a null accessToken is given? Does it throw a informative exception?
+		if(httpClient == null){
+			httpClient = new DefaultHttpClient();
+		}
 		
-		SmartsheetImpl smartsheet = new SmartsheetImpl(
-			baseURI == null ? DEFAULT_BASE_URI : baseURI,
-			accessToken,
-			//QUESTION: why the if? what other type of httpClient can there be?
-			httpClient == null ? new DefaultHttpClient() : httpClient,
-			jsonSerializer == null ? new JacksonJsonSerializer(): jsonSerializer
-		);
+		if(jsonSerializer == null){
+			jsonSerializer = new JacksonJsonSerializer();
+		}
+		
+		if(baseURI == null){
+			baseURI = DEFAULT_BASE_URI;
+		}
+		
+		SmartsheetImpl smartsheet = new SmartsheetImpl(baseURI, accessToken, httpClient, jsonSerializer);
 		
 		if (assumedUser != null) { smartsheet.setAssumedUser(assumedUser); }
 		

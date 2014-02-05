@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * Represents the Discussion object.
  */
-public class Discussion {
+public class Discussion extends IdentifiableModel {
 	/**
 	 * Represents the title.
 	 */
@@ -53,6 +53,8 @@ public class Discussion {
 	 * Represents the last commented user.
 	 */
 	private User lastCommentedUser;
+	
+	private String accessLevel;
 	
 	public String getTitle() {
 		return title;
@@ -92,5 +94,13 @@ public class Discussion {
 
 	public void setLastCommentedUser(User lastCommentedUser) {
 		this.lastCommentedUser = lastCommentedUser;
+	}
+	
+	public String getAccessLevel() {
+		return accessLevel;
+	}
+
+	public void setAccessLevel(String accessLevel) {
+		this.accessLevel = accessLevel;
 	}
 }

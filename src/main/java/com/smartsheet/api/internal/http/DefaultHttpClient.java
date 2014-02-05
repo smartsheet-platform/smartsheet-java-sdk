@@ -26,17 +26,15 @@ import java.util.Map;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
-import org.apache.http.client.params.HttpClientParams;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpParams;
 
 /**
  * This is the Apache HttpClient (http://hc.apache.org/httpcomponents-client-ga/index.html) based HttpClient
@@ -52,6 +50,9 @@ public class DefaultHttpClient implements HttpClient {
 	 * It will be initialized in constructor and will not change afterwards.
 	 */
 	private final CloseableHttpClient httpClient;
+	private org.apache.http.client.methods.HttpRequestBase apacheHttpRequest;
+	private CloseableHttpResponse apacheHttpResponse;
+	
 
 	/**
 	 * Constructor.
@@ -131,7 +132,6 @@ public class DefaultHttpClient implements HttpClient {
 		HttpResponse smartsheetResponse = new HttpResponse();
 
 		// Create Apache http request based on the smartsheetRequest request type
-		org.apache.http.client.methods.HttpRequestBase apacheHttpRequest = null;
 		if (HttpMethod.GET == smartsheetRequest.getMethod()) {
 			apacheHttpRequest = new HttpGet(smartsheetRequest.getUri());
 		} else if (HttpMethod.POST == smartsheetRequest.getMethod()) {
@@ -154,19 +154,6 @@ public class DefaultHttpClient implements HttpClient {
 		builder.setRedirectsEnabled(true);
 		RequestConfig config = builder.build();
 		apacheHttpRequest.setConfig(config);
-		
-//		RequestConfig config = RequestConfig.custom().build();
-//		config.isRedirectsEnabled();
-//		RequestConfig config1 = apacheHttpRequest.getConfig();
-//		config1.
-		
-//		RequestConfig builder = (new RequestConfig.Builder()).build();
-//		apacheHttpRequest.setConfig();
-//		apacheHttpRequest.getConfig().isRedirectsEnabled();
-		// Setup Additional parameters for the request
-		//HttpClientParams.setRedirecting(params, true);
-		//httpClient.getParams().setBooleanParameter(name, value)
-		
 
 		// Set HTTP headers
 		if (smartsheetRequest.getHeaders() != null) {
@@ -185,7 +172,7 @@ public class DefaultHttpClient implements HttpClient {
 		// Make the HTTP request
 		try {
 
-			org.apache.http.HttpResponse apacheHttpResponse = this.httpClient.execute(apacheHttpRequest);
+			apacheHttpResponse = this.httpClient.execute(apacheHttpRequest);
 			
 			// Set returned headers
 			smartsheetResponse.setHeaders(new HashMap<String, String>());
@@ -208,7 +195,7 @@ public class DefaultHttpClient implements HttpClient {
 			throw new HttpClientException("Error occurred.", e);
 		} finally {
 			// Release connection
-			apacheHttpRequest.releaseConnection();
+			//apacheHttpRequest.releaseConnection();
 		}
 		
 		return smartsheetResponse;
@@ -227,5 +214,16 @@ public class DefaultHttpClient implements HttpClient {
 	 */
 	public void close() throws IOException {
 		this.httpClient.close();
+	}
+	
+	public void releaseConnection() {
+		if(apacheHttpResponse != null){
+			try {
+				apacheHttpResponse.close();
+			} catch (IOException e) {
+				// Ignore exception as there isn't anything else that can be done.
+				//FIXME: should log this
+			}
+		}
 	}
 }

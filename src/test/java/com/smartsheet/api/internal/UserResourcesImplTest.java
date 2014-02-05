@@ -1,0 +1,118 @@
+package com.smartsheet.api.internal;
+
+import static org.junit.Assert.*;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.internal.http.DefaultHttpClient;
+import com.smartsheet.api.models.User;
+import com.smartsheet.api.models.UserProfile;
+import com.smartsheet.api.models.UserStatus;
+
+public class UserResourcesImplTest extends ResourcesImplBase {
+
+	private UserResourcesImpl userResources;
+
+	@Before
+	public void setUp() throws Exception {
+		userResources = new UserResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", 
+				"accessToken", new DefaultHttpClient(), serializer));
+	}
+
+	@Test
+	public void testUserResourcesImpl() {}
+
+	@Test
+	public void testListUsers() throws SmartsheetException, IOException {
+		server.setResponseBody(new File("src/test/resources/listUsers.json"));
+		
+		List<User> users = userResources.listUsers();
+		assertNotNull(users);
+		assertEquals(2, users.size());
+		assertEquals(94094820842L, users.get(0).getId().longValue());
+		assertEquals(true, users.get(0).getAdmin());
+		assertEquals("john.doe@smartsheet.com", users.get(0).getEmail());
+		assertEquals("John Doe", users.get(0). getName());
+		assertEquals(true, users.get(0).getLicensedSheetCreator());
+		assertEquals(UserStatus.ACTIVE, users.get(0).getStatus());
+	}
+
+	@Test
+	public void testAddUserUser() throws IOException, SmartsheetException {
+		server.setResponseBody(new File("src/test/resources/addUser.json"));
+		
+		User user = new User();
+		user.setAdmin(true);
+		user.setEmail("test@test.com");
+		user.setFirstName("test425");
+		user.setLastName("test425");
+		user.setLicensedSheetCreator(true);
+		User newUser = userResources.addUser(user);
+		
+		assertEquals("test@test.com", newUser.getEmail());
+		assertEquals("test425 test425", newUser.getName());
+		assertEquals(false, newUser.getAdmin());
+		assertEquals(true, newUser.getLicensedSheetCreator());
+		assertEquals(3210982882338692L, newUser.getId().longValue());
+	}
+
+	@Test
+	public void testAddUserUserBoolean() throws IOException, SmartsheetException {
+		server.setResponseBody(new File("src/test/resources/addUser.json"));
+		
+		User user = new User();
+		user.setAdmin(true);
+		user.setEmail("test@test.com");
+		user.setFirstName("test425");
+		user.setLastName("test425");
+		user.setLicensedSheetCreator(true);
+		User newUser = userResources.addUser(user, false);
+		
+		assertEquals("test@test.com", newUser.getEmail());
+		assertEquals("test425 test425", newUser.getName());
+		assertEquals(false, newUser.getAdmin());
+		assertEquals(true, newUser.getLicensedSheetCreator());
+		assertEquals(3210982882338692L, newUser.getId().longValue());
+	}
+
+	@Test
+	public void testGetCurrentUser() throws SmartsheetException, IOException {
+		server.setResponseBody(new File("src/test/resources/getCurrentUser.json"));
+
+		UserProfile user = userResources.getCurrentUser();
+		assertEquals("email@email.com",user.getEmail());
+		assertEquals(6199527427336068L, user.getId().longValue());
+		assertEquals("Brett", user.getFirstName());
+		assertEquals("Batie", user.getLastName());
+	}
+
+	@Test
+	public void testUpdateUser() throws SmartsheetException, IOException {
+		server.setResponseBody(new File("src/test/resources/updateUser.json"));
+		
+		User user = new User();
+		user.setId(1234L);
+		user.setAdmin(true);
+		user.setLicensedSheetCreator(true);
+		User updatedUser = userResources.updateUser(user);
+		assertEquals("email@email.com", updatedUser.getEmail());
+		assertEquals(false, updatedUser.getAdmin());
+		assertEquals(true, updatedUser.getLicensedSheetCreator());
+		assertEquals(8166691168380804L, updatedUser.getId().longValue());
+		assertEquals(UserStatus.ACTIVE, updatedUser.getStatus());
+	}
+
+	@Test
+	public void testDeleteUser() throws IOException, SmartsheetException {
+		server.setResponseBody(new File("src/test/resources/deleteUser.json"));
+		
+		userResources.deleteUser(1234L);
+	}
+
+}

@@ -68,6 +68,7 @@ public interface SheetRowResources {
 	 * @param sheetId
 	 * @param rowWrapper
 	 * @return
+	 * @throws SmartsheetException 
 	 * @throws NoSuchMethodException 
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
@@ -81,7 +82,7 @@ public interface SheetRowResources {
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	public List<Row> insertRows(long sheetId, RowWrapper rowWrapper) throws JsonParseException, JsonMappingException, JSONSerializerException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	public List<Row> insertRows(long sheetId, RowWrapper rowWrapper) throws SmartsheetException;
 
 	/**
 	 * Get a row.
@@ -103,6 +104,7 @@ public interface SheetRowResources {
 	 * @param id
 	 * @param rowNumber
 	 * @return
+	 * @throws SmartsheetException 
 	 * @throws NoSuchMethodException 
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
@@ -115,5 +117,5 @@ public interface SheetRowResources {
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	public Row getRow(long id, int rowNumber) throws JsonParseException, JsonMappingException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	public Row getRow(long id, int rowNumber) throws SmartsheetException;
 }

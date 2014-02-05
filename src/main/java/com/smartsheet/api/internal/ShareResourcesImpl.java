@@ -20,11 +20,17 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-
-
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.smartsheet.api.ShareResources;
+import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.SmartsheetRestException;
+import com.smartsheet.api.internal.http.HttpClientException;
+import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.models.MultiShare;
 import com.smartsheet.api.models.Share;
 
@@ -33,7 +39,7 @@ import com.smartsheet.api.models.Share;
  * 
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
-public class ShareResourcesImpl extends AbstractResources implements ShareResources {
+public class ShareResourcesImpl extends AbstractAssociatedResources implements ShareResources {
 	/**
 	 * Constructor.
 	 * 
@@ -48,7 +54,7 @@ public class ShareResourcesImpl extends AbstractResources implements ShareResour
 	 * @param smartsheet
 	 */
 	public ShareResourcesImpl(SmartsheetImpl smartsheet, String masterResourceType) {
-		super(smartsheet);
+		super(smartsheet, masterResourceType);
 	}
 
 	/**
@@ -72,9 +78,21 @@ public class ShareResourcesImpl extends AbstractResources implements ShareResour
 	 * 
 	 * @param objectId
 	 * @return
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws JSONSerializerException
+	 * @throws HttpClientException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public List<Share> listShares(long objectId) {
-		return null;
+	public List<Share> listShares(long objectId) throws SmartsheetException {
+		return this.listResources(getMasterResourceType() + "/" + objectId + "/shares", Share.class);
 	}
 
 	/**
@@ -101,9 +119,10 @@ public class ShareResourcesImpl extends AbstractResources implements ShareResour
 	 * @param objectId
 	 * @param userId
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Share getShare(long objectId, long userId) {
-		return null;
+	public Share getShare(long objectId, long userId) throws SmartsheetException{
+		return this.getResource(getMasterResourceType() + "/" + objectId + "/share/" + userId, Share.class);
 	}
 
 	/**
@@ -128,9 +147,21 @@ public class ShareResourcesImpl extends AbstractResources implements ShareResour
 	 * @param share
 	 * @param objectId
 	 * @return
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws HttpClientException
+	 * @throws JSONSerializerException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public Share shareTo(long objectId, Share share) {
-		return null;
+	public Share shareTo(long objectId, Share share) throws SmartsheetException {
+		return this.createResource(getMasterResourceType() + "/" + objectId + "/shares", Share.class, share);
 	}
 
 	/**
@@ -157,9 +188,22 @@ public class ShareResourcesImpl extends AbstractResources implements ShareResour
 	 * @param objectId
 	 * @param sendEmail
 	 * @return
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws HttpClientException
+	 * @throws JSONSerializerException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public Share shareTo(long objectId, Share share, boolean sendEmail) {
-		return null;
+	public Share shareTo(long objectId, Share share, boolean sendEmail) throws SmartsheetException {
+		return this.createResource(getMasterResourceType() + "/" + objectId + "/shares?sendEmail=" + sendEmail,
+				Share.class, share);
 	}
 
 	/**
@@ -185,9 +229,22 @@ public class ShareResourcesImpl extends AbstractResources implements ShareResour
 	 * @param objectId
 	 * @param multiShare
 	 * @return
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws HttpClientException
+	 * @throws JSONSerializerException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public List<Share> shareTo(long objectId, MultiShare multiShare) {
-		return null;
+	public List<Share> shareTo(long objectId, MultiShare multiShare) throws SmartsheetException {
+		return this.postAndReceiveList(getMasterResourceType() + "/" + objectId + "/multishare", multiShare,
+				Share.class);
 	}
 
 	/**
@@ -215,9 +272,11 @@ public class ShareResourcesImpl extends AbstractResources implements ShareResour
 	 * @param sendEmail
 	 * @param multiShare
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public List<Share> shareTo(long objectId, MultiShare multiShare, boolean sendEmail) {
-		return null;
+	public List<Share> shareTo(long objectId, MultiShare multiShare, boolean sendEmail) throws SmartsheetException {
+		return this.postAndReceiveList(getMasterResourceType() + "/" + objectId + "/multishare?sendEmail=" + sendEmail,
+				multiShare, Share.class);
 	}
 
 	/**
@@ -247,9 +306,22 @@ public class ShareResourcesImpl extends AbstractResources implements ShareResour
 	 * @param objectId
 	 * @param userId
 	 * @return
+	 * @throws SmartsheetException 
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws HttpClientException
+	 * @throws JSONSerializerException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public Share updateShare(long objectId, long userId, Share share) {
-		return null;
+	public Share updateShare(long objectId, long userId, Share share) throws SmartsheetException {
+		return this.updateResource(getMasterResourceType() + "/" + objectId + "/share/" + userId, Share.class, share);
 	}
 
 	/**
@@ -274,7 +346,21 @@ public class ShareResourcesImpl extends AbstractResources implements ShareResour
 	 * 
 	 * @param objectId
 	 * @param userId
+	 * @throws SmartsheetException 
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws HttpClientException
+	 * @throws JSONSerializerException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public void deleteShare(long objectId, long userId) {
+	public void deleteShare(long objectId, long userId) throws SmartsheetException {
+		this.deleteResource(getMasterResourceType() + "/" + objectId + "/share/" + userId, Share.class);
 	}
 }

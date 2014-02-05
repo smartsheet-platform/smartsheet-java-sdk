@@ -22,7 +22,6 @@ package com.smartsheet.api;
 
 
 
-import com.fasterxml.jackson.core.JsonGenerationException;
 
 /**
  * This is the base class for all exceptions thrown from the Smartsheet SDK.

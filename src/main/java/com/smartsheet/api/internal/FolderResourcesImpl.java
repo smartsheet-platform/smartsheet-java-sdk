@@ -20,8 +20,6 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-
-
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -29,6 +27,7 @@ import java.util.List;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.smartsheet.api.FolderResources;
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.SmartsheetRestException;
 import com.smartsheet.api.internal.http.HttpClientException;
 import com.smartsheet.api.internal.json.JSONSerializerException;
@@ -76,22 +75,21 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 * 
 	 * @param folderId
 	 * @return
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * @throws SmartsheetException 
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws HttpClientException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public Folder getFolder(long folderId) throws JsonParseException, JsonMappingException, HttpClientException, 
-		SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, 
-		IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-		
+	public Folder getFolder(long folderId) throws SmartsheetException {
+
 		return this.getResource("folder/" + folderId, Folder.class);
 	}
 
@@ -116,23 +114,22 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 * 
 	 * @param folder
 	 * @return
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * @throws SmartsheetException 
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws HttpClientException
+	 * @throws JSONSerializerException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public Folder updateFolder(Folder folder) throws JsonParseException, JsonMappingException, JSONSerializerException, 
-		HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, 
-		InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-		
+	public Folder updateFolder(Folder folder) throws SmartsheetException {
+
 		return this.updateResource("folder/" + folder.getId(), Folder.class, folder);
 	}
 
@@ -155,20 +152,22 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 * Implementation: this.deleteResource("folder/" + folderId, Folder.class);
 	 * 
 	 * @param folderId
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * @throws SmartsheetException 
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws HttpClientException
+	 * @throws JSONSerializerException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public void deleteFolder(long folderId) throws JsonParseException, JsonMappingException, SmartsheetRestException, IllegalArgumentException, SecurityException, JSONSerializerException, HttpClientException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public void deleteFolder(long folderId) throws SmartsheetException {
+		
 		this.deleteResource("folder/" + folderId, Folder.class);
 	}
 
@@ -192,24 +191,22 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 * 
 	 * @param parentFolderId
 	 * @return
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws JSONSerializerException 
-	 * @throws HttpClientException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * @throws SmartsheetException 
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws JSONSerializerException
+	 * @throws HttpClientException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public List<Folder> listFolders(long parentFolderId) throws JsonParseException, JsonMappingException, 
-		HttpClientException, JSONSerializerException, SmartsheetRestException, IllegalArgumentException, 
-			SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, 
-			NoSuchMethodException {
-		
+	public List<Folder> listFolders(long parentFolderId) throws SmartsheetException {
+
 		return this.listResources("folder/" + parentFolderId + "/folders", Folder.class);
 	}
 
@@ -233,24 +230,22 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 * @param folder
 	 * @param parentFolderId
 	 * @return
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * @throws SmartsheetException 
+	 * @throws NoSuchMethodException
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws IllegalArgumentException
+	 * @throws SmartsheetRestException
+	 * @throws HttpClientException
+	 * @throws JSONSerializerException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
 	 */
-	public Folder createFolder(long parentFolderId, Folder folder) throws JsonParseException, JsonMappingException, 
-		JSONSerializerException, HttpClientException, SmartsheetRestException, IllegalArgumentException, 
-		SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, 
-		NoSuchMethodException {
-		
+	public Folder createFolder(long parentFolderId, Folder folder) throws SmartsheetException {
+
 		return this.createResource("folder/" + parentFolderId + "/folders", Folder.class, folder);
 	}
 }

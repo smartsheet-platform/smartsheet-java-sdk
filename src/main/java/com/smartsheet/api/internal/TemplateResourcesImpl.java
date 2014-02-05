@@ -24,6 +24,7 @@ package com.smartsheet.api.internal;
 
 import java.util.List;
 
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.TemplateResources;
 import com.smartsheet.api.models.Template;
 
@@ -66,8 +67,9 @@ public class TemplateResourcesImpl extends AbstractResources implements Template
 	 * Implementation: return this.listResource("templates", Template.class);
 	 * 
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public List<Template> listTemplates() {
-		return null;
+	public List<Template> listTemplates() throws SmartsheetException {
+		return this.listResources("templates", Template.class);
 	}
 }

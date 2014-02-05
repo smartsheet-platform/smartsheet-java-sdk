@@ -22,8 +22,14 @@ package com.smartsheet.api;
 
 
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.smartsheet.api.internal.http.HttpClientException;
+import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.models.Column;
 
 /**
@@ -56,8 +62,9 @@ public interface SheetColumnResources {
 	 * 
 	 * @param sheetId
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public List<Column> listColumns(long sheetId);
+	public List<Column> listColumns(long sheetId) throws SmartsheetException;
 
 	/**
 	 * Add column to a sheet.
@@ -80,6 +87,19 @@ public interface SheetColumnResources {
 	 * @param sheetId
 	 * @param column
 	 * @return
+	 * @throws SmartsheetException 
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * @throws IOException 
+	 * @throws SecurityException 
+	 * @throws IllegalArgumentException 
+	 * @throws SmartsheetRestException 
+	 * @throws HttpClientException 
+	 * @throws JSONSerializerException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	public Column addColumn(long sheetId, Column column);
+	public Column addColumn(long sheetId, Column column) throws SmartsheetException;
 }

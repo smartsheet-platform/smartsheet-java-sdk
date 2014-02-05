@@ -28,13 +28,10 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 
-
-
-
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.smartsheet.api.ColumnResources;
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.SmartsheetRestException;
 import com.smartsheet.api.internal.http.HttpClientException;
 import com.smartsheet.api.internal.http.HttpEntity;
@@ -89,6 +86,7 @@ public class ColumnResourcesImpl extends AbstractResources implements ColumnReso
 	 * 
 	 * @param column
 	 * @return
+	 * @throws SmartsheetException 
 	 * @throws NoSuchMethodException 
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
@@ -102,9 +100,7 @@ public class ColumnResourcesImpl extends AbstractResources implements ColumnReso
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	public Column updateColumn(Column column) throws JsonParseException, JsonMappingException, JSONSerializerException,
-		HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException,
-		InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public Column updateColumn(Column column) throws SmartsheetException {
 		
 		if(column == null){
 			throw new IllegalArgumentException();
@@ -145,6 +141,7 @@ public class ColumnResourcesImpl extends AbstractResources implements ColumnReso
 	 * 
 	 * @param id
 	 * @param sheetId
+	 * @throws SmartsheetException 
 	 * @throws JSONSerializerException 
 	 * @throws HttpClientException 
 	 * @throws NoSuchMethodException 
@@ -158,8 +155,13 @@ public class ColumnResourcesImpl extends AbstractResources implements ColumnReso
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	public void deleteColumn(long id, long sheetId) throws JSONSerializerException, HttpClientException, JsonParseException, JsonMappingException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-		HttpRequest request = this.createHttpRequest(getSmartsheet().getBaseURI().resolve("column/" + id), HttpMethod.DELETE);
+	public void deleteColumn(long id, long sheetId) throws SmartsheetException {
+		HttpRequest request;
+		try {
+			request = this.createHttpRequest(getSmartsheet().getBaseURI().resolve("column/" + id), HttpMethod.DELETE);
+		} catch (UnsupportedEncodingException e) {
+			throw new SmartsheetException(e);
+		}
 		
 		Column column = new Column();
 		column.setSheetId(sheetId);
@@ -180,6 +182,8 @@ public class ColumnResourcesImpl extends AbstractResources implements ColumnReso
 			default:
 				handleError(response);
 		}
+		
+		this.getSmartsheet().getHttpClient().releaseConnection();
 		
 	}
 }

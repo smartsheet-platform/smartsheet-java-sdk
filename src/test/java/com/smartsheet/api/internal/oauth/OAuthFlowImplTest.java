@@ -20,7 +20,8 @@ package com.smartsheet.api.internal.oauth;
  * %[license]
  */
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
@@ -34,14 +35,11 @@ import com.smartsheet.api.InvalidRequestException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.http.HttpClient;
 import com.smartsheet.api.internal.http.HttpClientException;
-import com.smartsheet.api.internal.http.HttpRequest;
-import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.oauth.AccessDeniedException;
 import com.smartsheet.api.oauth.AccessScope;
-import com.smartsheet.api.oauth.AuthorizationResult;
 import com.smartsheet.api.oauth.InvalidOAuthClientException;
 import com.smartsheet.api.oauth.InvalidScopeException;
 import com.smartsheet.api.oauth.OAuthAuthorizationCodeException;

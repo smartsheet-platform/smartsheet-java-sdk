@@ -42,6 +42,5 @@ public class AccessTokenExpiredException extends AuthorizationException {
 	 */
 	public AccessTokenExpiredException(Error error) {
 		super(error);
-
 	}
 }

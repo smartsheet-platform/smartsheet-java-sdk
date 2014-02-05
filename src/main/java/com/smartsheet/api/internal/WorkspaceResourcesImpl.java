@@ -25,6 +25,7 @@ package com.smartsheet.api.internal;
 import java.util.List;
 
 import com.smartsheet.api.ShareResources;
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WorkspaceFolderResources;
 import com.smartsheet.api.WorkspaceResources;
 import com.smartsheet.api.models.Workspace;
@@ -83,9 +84,10 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 	 * Implementation: return this.listResources("workspaces", Workspace.class);
 	 * 
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public List<Workspace> listWorkspaces() {
-		return null;
+	public List<Workspace> listWorkspaces() throws SmartsheetException {
+		return this.listResources("workspaces", Workspace.class);
 	}
 
 	/**
@@ -109,9 +111,10 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 	 * 
 	 * @param id
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Workspace getWorkspace(long id) {
-		return null;
+	public Workspace getWorkspace(long id) throws SmartsheetException {
+		return this.getResource("workspace/" + id, Workspace.class);
 	}
 
 	/**
@@ -133,9 +136,10 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 	 * 
 	 * @param workspace
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Workspace createWorkspace(Workspace workspace) {
-		return null;
+	public Workspace createWorkspace(Workspace workspace) throws SmartsheetException {
+		return this.createResource("workspaces", Workspace.class, workspace);
 	}
 
 	/**
@@ -159,9 +163,10 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 	 * 
 	 * @param workspace
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Workspace updateWorkspace(Workspace workspace) {
-		return null;
+	public Workspace updateWorkspace(Workspace workspace) throws SmartsheetException {
+		return this.updateResource("workspace/" + workspace.getId(), Workspace.class, workspace);
 	}
 
 	/**
@@ -183,8 +188,10 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 	 * Implementation: return this.deleteResource("workspace/" + workspace.getId(), Workspace.class);
 	 * 
 	 * @param id
+	 * @throws SmartsheetException 
 	 */
-	public void deleteWorkspace(long id) {
+	public void deleteWorkspace(long id) throws SmartsheetException {
+		this.deleteResource("workspace/" + id, Workspace.class);
 	}
 
 	/**
@@ -200,7 +207,7 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 	 * @return
 	 */
 	public WorkspaceFolderResources folders() {
-		return null;
+		return this.folders;
 	}
 
 	/**
@@ -215,6 +222,6 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 	 * @return
 	 */
 	public ShareResources shares() {
-		return null;
+		return this.shares;
 	}
 }

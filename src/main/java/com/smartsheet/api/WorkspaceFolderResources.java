@@ -56,8 +56,9 @@ public interface WorkspaceFolderResources {
 	 * 
 	 * @param workspaceId
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public List<Folder> listFolders(long workspaceId);
+	public List<Folder> listFolders(long workspaceId) throws SmartsheetException;
 
 	/**
 	 * Create a folder in the workspace.
@@ -77,6 +78,7 @@ public interface WorkspaceFolderResources {
 	 * @param folder
 	 * @param workspaceId
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Folder createFolder(long workspaceId, Folder folder);
+	public Folder createFolder(long workspaceId, Folder folder) throws SmartsheetException;
 }

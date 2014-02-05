@@ -36,7 +36,7 @@ import com.smartsheet.api.models.Attachment;
  * 
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
-public class CommentAttachmentResources extends AbstractAssociatedResources implements AssociatedAttachmentResources  {
+public class CommentAttachmentResources extends AssociatedAttachmentResourcesImpl implements AssociatedAttachmentResources  {
 	/**
 	 * Constructor.
 	 * 
@@ -54,19 +54,6 @@ public class CommentAttachmentResources extends AbstractAssociatedResources impl
 
 	@Override
 	public List<Attachment> listAttachments(long objectId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Attachment attachFile(long objectId, File file, String contentType) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Attachment attachURL(long objectId, Attachment attachment) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 }

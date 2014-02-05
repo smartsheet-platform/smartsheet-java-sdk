@@ -23,9 +23,6 @@ package com.smartsheet.api.internal.json;
 
 import static org.junit.Assert.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -33,22 +30,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.List;
 
-import org.apache.commons.logging.Log;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.util.ByteArrayBuilder;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.smartsheet.api.models.Folder;
 import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.User;
 
@@ -167,15 +157,12 @@ public class JacksonJsonSerializerTest {
 		// Serialize User
 		ByteArrayOutputStream b = new ByteArrayOutputStream();
 		User originalUser = new User();
+		originalUser.setFirstName("Test");
 		jjs.serialize(originalUser,b);
 
 		// Deserialize User from a byte array
 		User user = jjs.deserialize(User.class, new ByteArrayInputStream(b.toByteArray()));
-		
-		// Check if the original user object and the serialized/deserialized user object are still the same.
-		if(!user.equals(originalUser)){
-			fail("User class was not correctly deserialized from a byte array");
-		}
+		assertEquals(originalUser.getFirstName(),user.getFirstName());
 	}
 	
 	@Test
@@ -267,9 +254,10 @@ public class JacksonJsonSerializerTest {
 		jjs = new JacksonJsonSerializer();
 		List<String> originalList = new ArrayList<String>();
 		originalList.add("something");
+		originalList.add("something-else");
 		b = new ByteArrayOutputStream();
 		jjs.serialize(originalList, b);
-		List<ArrayList> newList = jjs.deserializeList(ArrayList.class, new ByteArrayInputStream(b.toByteArray()));
+		List<String> newList = jjs.deserializeList(String.class, new ByteArrayInputStream(b.toByteArray()));
 		// Verify that the serialized/deserialized object is equal to the original object.
 		if(!newList.equals(originalList)){
 			fail("Types should be identical. Serialization/Deserialation might have failed.");
@@ -318,12 +306,10 @@ public class JacksonJsonSerializerTest {
 			fail("Exception should not be thrown: "+ex);
 		}
 		
-		Result<Object> result = new Result<Object>();
+		Result<Folder> result = new Result<Folder>();
 		result.setMessage("Test Result");
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-				
-		
-				
+
 		// Test successful deserialization
 		try {
 			jjs.serialize(result, outputStream);

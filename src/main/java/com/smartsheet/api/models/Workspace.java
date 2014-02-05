@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Represents the Workspace object.
  */
-public class Workspace {
+public class Workspace extends IdentifiableModel {
 	/**
 	 * Represents access level.
 	 */
@@ -47,6 +47,15 @@ public class Workspace {
 	 * Represents the folders.
 	 */
 	private List<Folder> folders;
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public AccessLevel getAccessLevel() {
 		return accessLevel;

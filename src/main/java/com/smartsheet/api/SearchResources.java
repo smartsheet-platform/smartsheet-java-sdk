@@ -22,6 +22,8 @@ package com.smartsheet.api;
 
 
 
+import java.io.UnsupportedEncodingException;
+
 import com.smartsheet.api.models.SearchResult;
 
 /**
@@ -54,8 +56,10 @@ public interface SearchResources {
 	 * 
 	 * @param query
 	 * @return
+	 * @throws SmartsheetException 
+	 * @throws UnsupportedEncodingException 
 	 */
-	public SearchResult search(String query);
+	public SearchResult search(String query) throws UnsupportedEncodingException, SmartsheetException;
 
 	/**
 	 * Performs a search within a sheet.
@@ -77,6 +81,8 @@ public interface SearchResources {
 	 * @param sheetId
 	 * @param query
 	 * @return
+	 * @throws SmartsheetException 
+	 * @throws UnsupportedEncodingException 
 	 */
-	public SearchResult searchSheet(long sheetId, String query);
+	public SearchResult searchSheet(long sheetId, String query) throws UnsupportedEncodingException, SmartsheetException;
 }

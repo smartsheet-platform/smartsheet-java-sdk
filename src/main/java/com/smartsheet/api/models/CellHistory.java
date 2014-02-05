@@ -29,21 +29,18 @@ import java.util.Date;
  */
 public class CellHistory extends Cell {
 	/**
-	 * Represents the created at timestamp.
-	 */
-	private Date createdAt;
-
-	/**
 	 * Represents the modified by user.
 	 */
 	private User modifiedBy;
 	
-	public Date getCreatedAt() {
-		return createdAt;
+	private Date modifiedAt;
+	
+	public Date getModifiedAt() {
+		return modifiedAt;
 	}
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
+	public void setModifiedAt(Date modifiedAt) {
+		this.modifiedAt = modifiedAt;
 	}
 
 	public User getModifiedBy() {

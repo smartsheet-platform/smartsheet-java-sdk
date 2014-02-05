@@ -58,6 +58,7 @@ public interface AssociatedDiscussionResources {
 	 * @param discussion
 	 * @param objectId
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Discussion createDiscussion(long objectId, Discussion discussion);
+	public Discussion createDiscussion(long objectId, Discussion discussion) throws SmartsheetException;
 }

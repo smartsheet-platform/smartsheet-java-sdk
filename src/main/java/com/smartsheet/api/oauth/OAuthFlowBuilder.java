@@ -22,8 +22,11 @@ package com.smartsheet.api.oauth;
 
 
 
+import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.http.HttpClient;
+import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
+import com.smartsheet.api.internal.oauth.OAuthFlowImpl;
 
 /**
  * This is the builder that is used to build OAuthFlow instances.
@@ -116,7 +119,8 @@ public class OAuthFlowBuilder {
 	 * @return
 	 */
 	public OAuthFlowBuilder setHttpClient(HttpClient httpClient) {
-		return null;
+		this.httpClient = httpClient; 
+		return this;
 	}
 
 	/**
@@ -132,7 +136,8 @@ public class OAuthFlowBuilder {
 	 * @return
 	 */
 	public OAuthFlowBuilder setJsonSerializer(JsonSerializer jsonSerializer) {
-		return null;
+		this.jsonSerializer = jsonSerializer;
+		return this;
 	}
 
 	/**
@@ -148,7 +153,8 @@ public class OAuthFlowBuilder {
 	 * @return
 	 */
 	public OAuthFlowBuilder setClientId(String clientId) {
-		return null;
+		this.clientId = clientId;
+		return this;
 	}
 
 	/**
@@ -164,7 +170,8 @@ public class OAuthFlowBuilder {
 	 * @return
 	 */
 	public OAuthFlowBuilder setClientSecret(String clientSecret) {
-		return null;
+		this.clientSecret = clientSecret;
+		return this;
 	}
 
 	/**
@@ -180,7 +187,8 @@ public class OAuthFlowBuilder {
 	 * @return
 	 */
 	public OAuthFlowBuilder setRedirectURL(String redirectURL) {
-		return null;
+		this.redirectURL = redirectURL;
+		return this;
 	}
 
 	/**
@@ -196,7 +204,8 @@ public class OAuthFlowBuilder {
 	 * @return
 	 */
 	public OAuthFlowBuilder setAuthorizationURL(String authorizationURL) {
-		return null;
+		this.authorizationURL = authorizationURL;
+		return this;
 	}
 
 	/**
@@ -212,7 +221,8 @@ public class OAuthFlowBuilder {
 	 * @return
 	 */
 	public OAuthFlowBuilder setTokenURL(String tokenURL) {
-		return null;
+		this.tokenURL = tokenURL;
+		return this;
 	}
 
 	/**
@@ -231,6 +241,23 @@ public class OAuthFlowBuilder {
 	 * @return
 	 */
 	public OAuthFlow build() {
-		return null;
+		if(httpClient == null){
+			httpClient = new DefaultHttpClient();
+		}
+		
+		if(tokenURL == null){
+			tokenURL = DEFAULT_TOKEN_URL;
+		}
+		
+		if(authorizationURL == null){
+			authorizationURL = DEFAULT_AUTHORIZATION_URL;
+		}
+		
+		if(jsonSerializer == null){
+			jsonSerializer = new JacksonJsonSerializer();
+		}
+		
+		return new OAuthFlowImpl(clientId, clientSecret, redirectURL, authorizationURL, tokenURL, httpClient, 
+				jsonSerializer);
 	}
 }

@@ -46,15 +46,6 @@ public class AutoNumberFormat {
 	 */
 	private Long startingNumber;
 	
-	
-	public AutoNumberFormat(String prefix, String suffix, String fill, Long startingNumber){
-		this.prefix = prefix;
-		this.suffix = suffix;
-		this.fill = fill;
-		this.startingNumber = startingNumber;
-	}
-	
-	
 	public String getPrefix() {
 		return prefix;
 	}

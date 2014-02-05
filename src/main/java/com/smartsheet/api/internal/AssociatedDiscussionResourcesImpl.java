@@ -23,6 +23,7 @@ package com.smartsheet.api.internal;
 
 
 import com.smartsheet.api.AssociatedDiscussionResources;
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Discussion;
 
 /**
@@ -73,8 +74,10 @@ public class AssociatedDiscussionResourcesImpl extends AbstractAssociatedResourc
 	 * @param discussion
 	 * @param objectId
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Discussion createDiscussion(long objectId, Discussion discussion) {
-		return null;
+	public Discussion createDiscussion(long objectId, Discussion discussion) throws SmartsheetException {
+		return this.createResource(getMasterResourceType() + "/" + objectId + "/discussions", 
+				Discussion.class, discussion);
 	}
 }

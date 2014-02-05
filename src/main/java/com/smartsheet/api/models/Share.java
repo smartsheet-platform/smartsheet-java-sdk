@@ -25,7 +25,7 @@ package com.smartsheet.api.models;
 /**
  * Represents the Share object.
  */
-public class Share {
+public class Share  extends IdentifiableModel {
 	/**
 	 * Represents the access level.
 	 */
@@ -35,6 +35,15 @@ public class Share {
 	 * Represents the email.
 	 */
 	private String email;
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public AccessLevel getAccessLevel() {
 		return accessLevel;
@@ -51,6 +60,4 @@ public class Share {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
 }

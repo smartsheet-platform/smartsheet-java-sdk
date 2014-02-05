@@ -55,8 +55,9 @@ public interface HomeFolderResources {
 	 * during the operation
 	 * 
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public List<Folder> listFolders();
+	public List<Folder> listFolders() throws SmartsheetException;
 
 	/**
 	 * Create a folder in home.
@@ -75,6 +76,7 @@ public interface HomeFolderResources {
 	 * 
 	 * @param folder
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Folder createFolder(Folder folder);
+	public Folder createFolder(Folder folder) throws SmartsheetException;
 }

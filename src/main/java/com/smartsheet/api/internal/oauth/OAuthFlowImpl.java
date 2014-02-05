@@ -33,8 +33,6 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.codec.binary.Hex;
-
 import com.smartsheet.api.InvalidRequestException;
 import com.smartsheet.api.internal.http.HttpClient;
 import com.smartsheet.api.internal.http.HttpClientException;
@@ -429,6 +427,7 @@ public class OAuthFlowImpl implements OAuthFlow {
 		// Create a map of the response
 		InputStream inputStream = response.getEntity().getContent();
 		Map<String, Object> map = jsonSerializer.deserializeMap(inputStream);
+		httpClient.releaseConnection();
 		
 		// Check for a error response and throw it.
 		if (response.getStatusCode() != 200 && map.get("error") != null) { 

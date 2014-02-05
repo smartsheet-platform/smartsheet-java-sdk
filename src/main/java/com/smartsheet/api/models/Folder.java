@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Represents Folder object in the Smartsheet REST API.
  */
-public class Folder {
+public class Folder extends IdentifiableModel {
 	/**
 	 * Represents the sheets.
 	 */
@@ -55,8 +55,6 @@ public class Folder {
 	
 	private String name;
 
-	private Long id;
-	
 	public String getName() {
 		return name;
 	}
@@ -64,15 +62,6 @@ public class Folder {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public Long getId(){
-		return id;
-	}
-	
-	public void setId(Long id){
-		this.id = id;
-	}
-	
 	
 	public List<Sheet> getSheets() {
 		return sheets;

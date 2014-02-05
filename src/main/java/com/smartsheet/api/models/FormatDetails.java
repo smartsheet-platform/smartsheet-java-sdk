@@ -30,4 +30,12 @@ public class FormatDetails {
 	 * Represents the paper size.
 	 */
 	private PaperSize paperSize;
+
+	public PaperSize getPaperSize() {
+		return paperSize;
+	}
+
+	public void setPaperSize(PaperSize paperSize) {
+		this.paperSize = paperSize;
+	}
 }

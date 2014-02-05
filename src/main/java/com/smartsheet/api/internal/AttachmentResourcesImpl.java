@@ -23,6 +23,7 @@ package com.smartsheet.api.internal;
 
 
 import com.smartsheet.api.AttachmentResources;
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Attachment;
 
 /**
@@ -67,9 +68,15 @@ public class AttachmentResourcesImpl extends AbstractResources implements Attach
 	 * 
 	 * @param id
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Attachment getAttachment(long id) {
-		return null;
+	public Attachment getAttachment(long id) throws SmartsheetException {
+		//NOTE: I uploaded some larger files to the sheet: 2630121841551236
+		//SheetResourcesImpl sheetResourceLive = new SheetResourcesImpl(new SmartsheetImpl("https://api.smartsheet.com/1.1/", "accessToken",
+		//new DefaultHttpClient(), serializer));
+
+		//sheetResourceLive.getSheetAsPDF(2630121841551236L, output, null);
+		return this.getResource("attachment/" + id, Attachment.class);
 	}
 
 	/**
@@ -91,7 +98,9 @@ public class AttachmentResourcesImpl extends AbstractResources implements Attach
 	 * Implementation: this.deleteResource("attachment/" + id, Attachment.class);
 	 * 
 	 * @param id
+	 * @throws SmartsheetException 
 	 */
-	public void deleteAttachment(long id) {
+	public void deleteAttachment(long id) throws SmartsheetException {
+		this.deleteResource("attachment/" + id, Attachment.class);
 	}
 }

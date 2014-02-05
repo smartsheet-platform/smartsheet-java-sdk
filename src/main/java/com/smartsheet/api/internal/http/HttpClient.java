@@ -23,6 +23,7 @@ package com.smartsheet.api.internal.http;
 
 
 import java.io.Closeable;
+import java.io.IOException;
 
 /**
  * This interface defines methods to make an HTTP request.
@@ -43,6 +44,9 @@ public interface HttpClient extends Closeable {
 	 * @param request
 	 * @return
 	 * @throws HttpClientException 
+	 * @throws IOException 
 	 */
 	public HttpResponse request(HttpRequest request) throws HttpClientException;
+	
+	public void releaseConnection();
 }

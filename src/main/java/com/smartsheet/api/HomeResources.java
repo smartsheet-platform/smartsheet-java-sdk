@@ -59,8 +59,9 @@ public interface HomeResources {
 	 * 
 	 * @param includes
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Home getHome(EnumSet<ObjectInclusion> includes);
+	public Home getHome(EnumSet<ObjectInclusion> includes) throws SmartsheetException;
 
 	/**
 	 * Return the WorkspaceFolderResources object that provides access to Folder resources under home.

@@ -54,6 +54,7 @@ public interface TemplateResources {
 	 * SmartsheetException : if there is any other error occurred during the operation
 	 * 
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public List<Template> listTemplates();
+	public List<Template> listTemplates() throws SmartsheetException;
 }

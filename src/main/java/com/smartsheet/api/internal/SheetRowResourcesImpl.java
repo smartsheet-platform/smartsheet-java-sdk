@@ -29,6 +29,7 @@ import java.util.List;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.smartsheet.api.SheetRowResources;
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.SmartsheetRestException;
 import com.smartsheet.api.internal.http.HttpClientException;
 import com.smartsheet.api.internal.json.JSONSerializerException;
@@ -94,7 +95,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	public List<Row> insertRows(long sheetId, RowWrapper rowWrapper) throws JsonParseException, JsonMappingException, JSONSerializerException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public List<Row> insertRows(long sheetId, RowWrapper rowWrapper) throws SmartsheetException {
 		return this.postAndReceiveList("sheet/" + sheetId + "/rows", rowWrapper, Row.class);
 	}
 
@@ -132,7 +133,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	public Row getRow(long id, int rowNumber) throws JsonParseException, JsonMappingException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public Row getRow(long id, int rowNumber) throws SmartsheetException {
 		return this.getResource("sheet/" + id + "/row/" + rowNumber, Row.class);
 	}
 }

@@ -71,6 +71,7 @@ public interface SheetResources {
 	 * SmartsheetException : if there is any other error occurred during the operation
 	 * 
 	 * @return
+	 * @throws SmartsheetException 
 	 * @throws NoSuchMethodException 
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
@@ -84,7 +85,7 @@ public interface SheetResources {
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	public List<Sheet> listSheets() throws JsonParseException, JsonMappingException, HttpClientException, JSONSerializerException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	public List<Sheet> listSheets() throws SmartsheetException;
 
 	/**
 	 * List all sheets in the organization.
@@ -102,6 +103,7 @@ public interface SheetResources {
 	 * SmartsheetException : if there is any other error occurred during the operation
 	 * 
 	 * @return
+	 * @throws SmartsheetException 
 	 * @throws NoSuchMethodException 
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
@@ -115,7 +117,7 @@ public interface SheetResources {
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	public List<Sheet> listOrganizationSheets() throws JsonParseException, JsonMappingException, HttpClientException, JSONSerializerException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	public List<Sheet> listOrganizationSheets() throws SmartsheetException;
 
 	/**
 	 * Get a sheet.
@@ -137,6 +139,7 @@ public interface SheetResources {
 	 * 
 	 * @param id
 	 * @return
+	 * @throws SmartsheetException 
 	 * @throws NoSuchMethodException 
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
@@ -149,7 +152,7 @@ public interface SheetResources {
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	public Sheet getSheet(long id, EnumSet<ObjectInclusion> includes) throws JsonParseException, JsonMappingException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	public Sheet getSheet(long id, EnumSet<ObjectInclusion> includes) throws SmartsheetException;
 
 	/**
 	 * Get a sheet as an Excel file.
@@ -172,6 +175,7 @@ public interface SheetResources {
 	 * @param id
 	 * @param outputStream
 	 * @param paperSize
+	 * @throws SmartsheetException 
 	 * @throws NoSuchMethodException 
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
@@ -182,7 +186,7 @@ public interface SheetResources {
 	 * @throws SmartsheetRestException 
 	 * @throws HttpClientException 
 	 */
-	public void getSheetAsExcel(long id, OutputStream outputStream, PaperSize paperSize) throws HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	public void getSheetAsExcel(long id, OutputStream outputStream) throws SmartsheetException;
 
 	/**
 	 * Get a sheet as a PDF file.
@@ -204,6 +208,7 @@ public interface SheetResources {
 	 * @param id
 	 * @param outputStream
 	 * @param paperSize
+	 * @throws SmartsheetException 
 	 * @throws NoSuchMethodException 
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
@@ -214,7 +219,7 @@ public interface SheetResources {
 	 * @throws SmartsheetRestException 
 	 * @throws HttpClientException 
 	 */
-	public void getSheetAsPDF(long id, OutputStream outputStream, PaperSize paperSize) throws HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	public void getSheetAsPDF(long id, OutputStream outputStream, PaperSize paperSize) throws SmartsheetException;
 
 	/**
 	 * Create a sheet in default "Sheets" collection.
@@ -235,6 +240,7 @@ public interface SheetResources {
 	 * 
 	 * @param sheet
 	 * @return
+	 * @throws SmartsheetException 
 	 * @throws NoSuchMethodException 
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
@@ -248,7 +254,7 @@ public interface SheetResources {
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	public Sheet createSheet(Sheet sheet) throws JsonParseException, JsonMappingException, JSONSerializerException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	public Sheet createSheet(Sheet sheet) throws SmartsheetException;
 
 	/**
 	 * Create a sheet (from existing sheet or template) in default "Sheets" collection.
@@ -269,6 +275,7 @@ public interface SheetResources {
 	 * 
 	 * @param sheet
 	 * @return
+	 * @throws SmartsheetException 
 	 * @throws NoSuchMethodException 
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
@@ -282,7 +289,7 @@ public interface SheetResources {
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	public Sheet createSheetFromExisting(Sheet sheet, EnumSet<ObjectInclusion> includes) throws JsonParseException, JsonMappingException, JSONSerializerException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	public Sheet createSheetFromExisting(Sheet sheet, EnumSet<ObjectInclusion> includes) throws SmartsheetException;
 
 	/**
 	 * Create a sheet in given folder.
@@ -304,6 +311,7 @@ public interface SheetResources {
 	 * @param sheet
 	 * @param folderId
 	 * @return
+	 * @throws SmartsheetException 
 	 * @throws NoSuchMethodException 
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
@@ -317,7 +325,7 @@ public interface SheetResources {
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	public Sheet createSheetInFolder(long folderId, Sheet sheet) throws JsonParseException, JsonMappingException, JSONSerializerException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	public Sheet createSheetInFolder(long folderId, Sheet sheet) throws SmartsheetException;
 
 	/**
 	 * Create a sheet (from existing sheet or template) in given folder.
@@ -339,6 +347,7 @@ public interface SheetResources {
 	 * 
 	 * @param folderId
 	 * @return
+	 * @throws SmartsheetException 
 	 * @throws NoSuchMethodException 
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
@@ -352,7 +361,7 @@ public interface SheetResources {
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	public Sheet createSheetInFolderFromExisting(long folderID, Sheet sheet, EnumSet<ObjectInclusion> includes) throws JsonParseException, JsonMappingException, JSONSerializerException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	public Sheet createSheetInFolderFromExisting(long folderID, Sheet sheet, EnumSet<ObjectInclusion> includes) throws SmartsheetException;
 
 	/**
 	 * Create a sheet in given workspace.
@@ -374,6 +383,7 @@ public interface SheetResources {
 	 * @param workspaceId
 	 * @param sheet
 	 * @return
+	 * @throws SmartsheetException 
 	 * @throws NoSuchMethodException 
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
@@ -387,7 +397,7 @@ public interface SheetResources {
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	public Sheet createSheetInWorkspace(long workspaceId, Sheet sheet) throws JsonParseException, JsonMappingException, JSONSerializerException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	public Sheet createSheetInWorkspace(long workspaceId, Sheet sheet) throws SmartsheetException;
 
 	/**
 	 * Create a sheet (from existing sheet or template) in given workspace.
@@ -409,6 +419,7 @@ public interface SheetResources {
 	 * 
 	 * @param workspaceId
 	 * @return
+	 * @throws SmartsheetException 
 	 * @throws NoSuchMethodException 
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
@@ -422,7 +433,7 @@ public interface SheetResources {
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	public Sheet createSheetInWorkspaceFromExisting(long workspaceId, Sheet sheet, EnumSet<ObjectInclusion> includes) throws JsonParseException, JsonMappingException, JSONSerializerException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	public Sheet createSheetInWorkspaceFromExisting(long workspaceId, Sheet sheet, EnumSet<ObjectInclusion> includes) throws SmartsheetException;
 
 	/**
 	 * Delete a sheet.
@@ -441,6 +452,7 @@ public interface SheetResources {
 	 * during the operation
 	 * 
 	 * @param id
+	 * @throws SmartsheetException 
 	 * @throws NoSuchMethodException 
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
@@ -454,7 +466,7 @@ public interface SheetResources {
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	public void deleteSheet(long id) throws JsonParseException, JsonMappingException, SmartsheetRestException, IllegalArgumentException, SecurityException, JSONSerializerException, HttpClientException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	public void deleteSheet(long id) throws SmartsheetException;
 
 	/**
 	 * Update a sheet.
@@ -475,6 +487,7 @@ public interface SheetResources {
 	 * 
 	 * @param sheet
 	 * @return
+	 * @throws SmartsheetException 
 	 * @throws NoSuchMethodException 
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
@@ -488,7 +501,7 @@ public interface SheetResources {
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	public Sheet updateSheet(Sheet sheet) throws JsonParseException, JsonMappingException, JSONSerializerException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	public Sheet updateSheet(Sheet sheet) throws SmartsheetException;
 
 	/**
 	 * Get a sheet version.
@@ -509,6 +522,7 @@ public interface SheetResources {
 	 * 
 	 * @param id
 	 * @return
+	 * @throws SmartsheetException 
 	 * @throws NoSuchMethodException 
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
@@ -521,7 +535,7 @@ public interface SheetResources {
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	public int getSheetVersion(long id) throws JsonParseException, JsonMappingException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	public int getSheetVersion(long id) throws SmartsheetException;
 
 	/**
 	 * Send a sheet as a PDF attachment via email to the designated recipients.
@@ -540,6 +554,7 @@ public interface SheetResources {
 	 * 
 	 * @param id
 	 * @param email
+	 * @throws SmartsheetException 
 	 * @throws NoSuchMethodException 
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
@@ -553,7 +568,7 @@ public interface SheetResources {
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	public void sendSheet(long id, SheetEmail email) throws JsonParseException, JsonMappingException, JSONSerializerException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	public void sendSheet(long id, SheetEmail email) throws SmartsheetException;
 
 	/**
 	 * Return the ShareResources object that provides access to Share resources associated with Sheet resources.
@@ -631,6 +646,7 @@ public interface SheetResources {
 	 * 
 	 * @param id
 	 * @return
+	 * @throws SmartsheetException 
 	 * @throws NoSuchMethodException 
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
@@ -643,7 +659,7 @@ public interface SheetResources {
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	public SheetPublish getPublishStatus(long id) throws JsonParseException, JsonMappingException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	public SheetPublish getPublishStatus(long id) throws SmartsheetException;
 
 	/**
 	 * Sets the publish status of a sheet and returns the new status, including the URLs of any enabled publishings.
@@ -666,6 +682,7 @@ public interface SheetResources {
 	 * @param id
 	 * @param publish
 	 * @return
+	 * @throws SmartsheetException 
 	 * @throws NoSuchMethodException 
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
@@ -679,5 +696,5 @@ public interface SheetResources {
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	public SheetPublish updatePublishStatus(long id, SheetPublish publish) throws JsonParseException, JsonMappingException, JSONSerializerException, HttpClientException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException;
+	public SheetPublish updatePublishStatus(long id, SheetPublish publish) throws SmartsheetException;
 }

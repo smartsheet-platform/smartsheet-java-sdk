@@ -23,6 +23,8 @@ package com.smartsheet.api;
 
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import com.smartsheet.api.models.Attachment;
@@ -61,8 +63,9 @@ public interface AssociatedAttachmentResources {
 	 * 
 	 * @param objectId
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public List<Attachment> listAttachments(long objectId);
+	public List<Attachment> listAttachments(long objectId) throws SmartsheetException;
 
 	/**
 	 * Attach a file to the object.
@@ -86,8 +89,11 @@ public interface AssociatedAttachmentResources {
 	 * @param objectId
 	 * @param contentType
 	 * @return
+	 * @throws FileNotFoundException 
+	 * @throws SmartsheetException 
+	 * @throws UnsupportedEncodingException 
 	 */
-	public Attachment attachFile(long objectId, File file, String contentType);
+	public Attachment attachFile(long objectId, File file, String contentType) throws FileNotFoundException, SmartsheetException, UnsupportedEncodingException;
 
 	/**
 	 * Attach a URL to the object.
@@ -114,6 +120,7 @@ public interface AssociatedAttachmentResources {
 	 * @param objectId
 	 * @param attachment
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Attachment attachURL(long objectId, Attachment attachment);
+	public Attachment attachURL(long objectId, Attachment attachment) throws SmartsheetException;
 }

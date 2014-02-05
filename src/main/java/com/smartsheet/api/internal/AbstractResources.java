@@ -25,14 +25,12 @@ package com.smartsheet.api.internal;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -40,6 +38,7 @@ import com.smartsheet.api.AuthorizationException;
 import com.smartsheet.api.InvalidRequestException;
 import com.smartsheet.api.ResourceNotFoundException;
 import com.smartsheet.api.ServiceUnavailableException;
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.SmartsheetRestException;
 import com.smartsheet.api.internal.http.HttpClientException;
 import com.smartsheet.api.internal.http.HttpEntity;
@@ -87,10 +86,23 @@ public abstract class AbstractResources {
 			return clazz.newInstance();
 		}
 		
-		public SmartsheetRestException getException(com.smartsheet.api.models.Error error) throws IllegalArgumentException, SecurityException,
-			InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		public SmartsheetRestException getException(com.smartsheet.api.models.Error error) throws SmartsheetException  {
 			
-			return clazz.getConstructor(com.smartsheet.api.models.Error.class).newInstance(error);
+			try {
+				return clazz.getConstructor(com.smartsheet.api.models.Error.class).newInstance(error);
+			} catch (IllegalArgumentException e) {
+				throw new SmartsheetException(e);
+			} catch (SecurityException e) {
+				throw new SmartsheetException(e);
+			} catch (InstantiationException e) {
+				throw new SmartsheetException(e);
+			} catch (IllegalAccessException e) {
+				throw new SmartsheetException(e);
+			} catch (InvocationTargetException e) {
+				throw new SmartsheetException(e);
+			} catch (NoSuchMethodException e) {
+				throw new SmartsheetException(e);
+			}
 		}
 	}
 
@@ -143,6 +155,7 @@ public abstract class AbstractResources {
 	 * 
 	 * @param path the relative path of the resource.
 	 * @return
+	 * @throws SmartsheetException 
 	 * @throws HttpClientException 
 	 * @throws IOException 
 	 * @throws JsonMappingException 
@@ -155,21 +168,38 @@ public abstract class AbstractResources {
 	 * @throws IllegalArgumentException 
 	 * @throws SmartsheetRestException 
 	 */
-	protected <T> T getResource(String path, Class<T> objectClass) throws HttpClientException, JsonParseException,
-		JsonMappingException, IOException, SmartsheetRestException, IllegalArgumentException, SecurityException,
-		InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	protected <T> T getResource(String path, Class<T> objectClass) throws SmartsheetException  {
 		
-		HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.GET);
+		HttpRequest request;
+		try {
+			request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.GET);
+		} catch (UnsupportedEncodingException e) {
+			throw new SmartsheetException(e);
+		}
+		
 		HttpResponse response = this.smartsheet.getHttpClient().request(request);
 		
+		T obj = null;
 		switch (response.getStatusCode()) {
 			case 200: 
-				return this.smartsheet.getJsonSerializer().deserialize(objectClass, response.getEntity().getContent());
+				// Can't be here as the stream has not
+				try {
+					obj = this.smartsheet.getJsonSerializer().deserialize(objectClass, response.getEntity().getContent());
+				} catch (JsonParseException e) {
+					throw new SmartsheetException(e);
+				} catch (JsonMappingException e) {
+					throw new SmartsheetException(e);
+				} catch (IOException e) {
+					throw new SmartsheetException(e);
+				}
+			break;
 			default: 
 				handleError(response); 
 		}
 		
-		return null;
+		smartsheet.getHttpClient().releaseConnection();
+		
+		return obj;
 	}
 
 	/**
@@ -202,6 +232,7 @@ public abstract class AbstractResources {
 	 * @param path
 	 * @param object
 	 * @return
+	 * @throws SmartsheetException 
 	 * @throws JSONSerializerException 
 	 * @throws HttpClientException 
 	 * @throws NoSuchMethodException 
@@ -215,12 +246,14 @@ public abstract class AbstractResources {
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	protected <T> T createResource(String path, Class<T> objectClass, T object) throws JSONSerializerException, 
-		HttpClientException, JsonParseException, JsonMappingException, SmartsheetRestException, IllegalArgumentException, 
-		SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, 
-		NoSuchMethodException {
+	protected <T> T createResource(String path, Class<T> objectClass, T object) throws SmartsheetException {
 		
-		HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
+		HttpRequest request;
+		try {
+			request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
+		} catch (UnsupportedEncodingException e) {
+			throw new SmartsheetException(e);
+		}
 		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		this.smartsheet.getJsonSerializer().serialize(object, baos);
@@ -232,15 +265,19 @@ public abstract class AbstractResources {
 
 		HttpResponse response = this.smartsheet.getHttpClient().request(request);
 		
+		T obj = null;
 		switch (response.getStatusCode()) { 
 			case 200:
-				return this.smartsheet.getJsonSerializer().deserializeResult(objectClass, 
+				obj = this.smartsheet.getJsonSerializer().deserializeResult(objectClass, 
 						response.getEntity().getContent()).getResult();
+				break;
 			default:
 				handleError(response);
 		}
 		
-		return null;
+		smartsheet.getHttpClient().releaseConnection();
+		
+		return obj;
 	}
 
 	/**
@@ -273,25 +310,16 @@ public abstract class AbstractResources {
 	 * @param path
 	 * @param object
 	 * @return
-	 * @throws JSONSerializerException 
-	 * @throws HttpClientException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * @throws SmartsheetException 
 	 */
-	protected <T> T updateResource(String path, Class<T> objectClass, T object) throws JSONSerializerException,
-		HttpClientException, JsonParseException, JsonMappingException, SmartsheetRestException,
-		IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException,
-		InvocationTargetException, NoSuchMethodException {
+	protected <T> T updateResource(String path, Class<T> objectClass, T object) throws SmartsheetException {
 		
-		HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.PUT);
+		HttpRequest request;
+		try {
+			request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.PUT);
+		} catch (UnsupportedEncodingException e) {
+			throw new SmartsheetException(e);
+		}
 		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
 		this.smartsheet.getJsonSerializer().serialize(object, baos);
@@ -302,15 +330,19 @@ public abstract class AbstractResources {
 		
 		HttpResponse response = this.smartsheet.getHttpClient().request(request);
 		
+		T obj = null;
 		switch (response.getStatusCode()) { 
 			case 200: 
-				return this.smartsheet.getJsonSerializer().deserializeResult(objectClass, 
-						response.getEntity().getContent()).getResult(); 
+				obj = this.smartsheet.getJsonSerializer().deserializeResult(objectClass, 
+						response.getEntity().getContent()).getResult();
+				break;
 			default: 
 				handleError(response); 
 		}
 		
-		return null;
+		smartsheet.getHttpClient().releaseConnection();
+		
+		return obj;
 	}
 
 	/**
@@ -337,6 +369,7 @@ public abstract class AbstractResources {
 	 * 
 	 * @param path
 	 * @return
+	 * @throws SmartsheetException 
 	 * @throws HttpClientException 
 	 * @throws JSONSerializerException 
 	 * @throws NoSuchMethodException 
@@ -350,20 +383,29 @@ public abstract class AbstractResources {
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	protected <T> List<T> listResources(String path, Class<T> objectClass) throws HttpClientException, JSONSerializerException, JsonParseException, JsonMappingException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-		HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.GET);
+	protected <T> List<T> listResources(String path, Class<T> objectClass) throws SmartsheetException {
+		HttpRequest request;
+		try {
+			request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.GET);
+		} catch (UnsupportedEncodingException e) {
+			throw new SmartsheetException(e);
+		}
 		
 		HttpResponse response = this.smartsheet.getHttpClient().request(request);
 		
+		List<T> obj = null;
 		switch (response.getStatusCode()) { 
 			case 200: 
-				return this.smartsheet.getJsonSerializer().deserializeList(objectClass, 
-						response.getEntity().getContent()); 
+				obj = this.smartsheet.getJsonSerializer().deserializeList(objectClass, 
+						response.getEntity().getContent());
+				break;
 			default:
 				handleError(response);
 		}
 		
-		return null;
+		smartsheet.getHttpClient().releaseConnection();
+		
+		return obj;
 	}
 
 	/**
@@ -387,6 +429,7 @@ public abstract class AbstractResources {
 	 * response.getEntity().getContent()); break; default: handleError(response); }
 	 * 
 	 * @param path
+	 * @throws SmartsheetException 
 	 * @throws NoSuchMethodException 
 	 * @throws InvocationTargetException 
 	 * @throws IllegalAccessException 
@@ -400,21 +443,26 @@ public abstract class AbstractResources {
 	 * @throws JSONSerializerException 
 	 * @throws HttpClientException 
 	 */
-	protected <T> void deleteResource(String path, Class<T> objectClass) throws JsonParseException, 
-		JsonMappingException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException,
-		InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException,
-		JSONSerializerException, HttpClientException {
+	protected <T> void deleteResource(String path, Class<T> objectClass) throws SmartsheetException {
 		
-		HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.DELETE);
+		HttpRequest request;
+		try {
+			request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.DELETE);
+		} catch (UnsupportedEncodingException e) {
+			throw new SmartsheetException(e);
+		}
 		HttpResponse response = this.smartsheet.getHttpClient().request(request);
 
 		switch (response.getStatusCode()) {
 			case 200:
-				this.smartsheet.getJsonSerializer().deserializeResult(objectClass, response.getEntity().getContent());
-			break;
+				this.smartsheet.getJsonSerializer().deserializeResult(objectClass, 
+						response.getEntity().getContent());
+				break;
 			default: 
 				handleError(response); 
 		}
+		
+		smartsheet.getHttpClient().releaseConnection();
 	}
 
 	/**
@@ -447,25 +495,16 @@ public abstract class AbstractResources {
 	 * 
 	 * @param path
 	 * @return
-	 * @throws JSONSerializerException 
-	 * @throws HttpClientException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * @throws SmartsheetException 
 	 */
-	protected <T, S> List<S> postAndReceiveList(String path, T objectToPost, Class<S> objectClassToReceive) 
-			throws JSONSerializerException, HttpClientException, JsonParseException, JsonMappingException, 
-			SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException,
-			IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	protected <T, S> List<S> postAndReceiveList(String path, T objectToPost, Class<S> objectClassToReceive) throws SmartsheetException {
 		
-		HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
+		HttpRequest request;
+		try {
+			request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
+		} catch (UnsupportedEncodingException e) {
+			throw new SmartsheetException(e);
+		}
 		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		this.smartsheet.getJsonSerializer().serialize(objectToPost, baos); 
@@ -476,15 +515,19 @@ public abstract class AbstractResources {
 		
 		HttpResponse response = this.smartsheet.getHttpClient().request(request);
 		
+		List<S> obj = null;
 		switch (response.getStatusCode()) { 
 			case 200:
-				return this.smartsheet.getJsonSerializer().deserializeListResult(objectClassToReceive, 
+				obj = this.smartsheet.getJsonSerializer().deserializeListResult(objectClassToReceive, 
 						response.getEntity().getContent()).getResult();
+				break;
 			default:
 				handleError(response); 
 		}
 		
-		return null;
+		smartsheet.getHttpClient().releaseConnection();
+		
+		return obj;
 	}
 
 	/**
@@ -517,6 +560,7 @@ public abstract class AbstractResources {
 	 * 
 	 * @param path
 	 * @return
+	 * @throws SmartsheetException 
 	 * @throws JSONSerializerException 
 	 * @throws HttpClientException 
 	 * @throws NoSuchMethodException 
@@ -530,8 +574,13 @@ public abstract class AbstractResources {
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	protected <T, S> List<S> putAndReceiveList(String path, T objectToPut, Class<S> objectClassToReceive) throws JSONSerializerException, HttpClientException, JsonParseException, JsonMappingException, SmartsheetRestException, IllegalArgumentException, SecurityException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-		HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.PUT);
+	protected <T, S> List<S> putAndReceiveList(String path, T objectToPut, Class<S> objectClassToReceive) throws SmartsheetException {
+		HttpRequest request;
+		try {
+			request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.PUT);
+		} catch (UnsupportedEncodingException e) {
+			throw new SmartsheetException(e);
+		}
 		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		this.smartsheet.getJsonSerializer().serialize(objectToPut, baos); HttpEntity entity = new HttpEntity();
@@ -540,15 +589,19 @@ public abstract class AbstractResources {
 		
 		HttpResponse response = this.smartsheet.getHttpClient().request(request);
 		
+		List<S> obj = null;
 		switch (response.getStatusCode()) { 
 			case 200: 
-				return this.smartsheet.getJsonSerializer().deserializeListResult(
-						objectClassToReceive, response.getEntity().getContent()).getResult(); 
+				obj = this.smartsheet.getJsonSerializer().deserializeListResult(
+						objectClassToReceive, response.getEntity().getContent()).getResult();
+				break;
 			default:
 				handleError(response); 
 		}
 		
-		return null;
+		smartsheet.getHttpClient().releaseConnection();
+		
+		return obj;
 	}
 
 	/**
@@ -608,6 +661,7 @@ public abstract class AbstractResources {
 	 * exceptionClass.getConstructor(Error.class).newInstance(error);
 	 * 
 	 * @param response
+	 * @throws SmartsheetException 
 	 * @throws IOException 
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
@@ -619,12 +673,19 @@ public abstract class AbstractResources {
 	 * @throws IllegalArgumentException 
 	 * @throws SmartsheetRestException 
 	 */
-	protected void handleError(HttpResponse response) throws JsonParseException, JsonMappingException, IOException,
-		SmartsheetRestException, IllegalArgumentException, SecurityException, InstantiationException, 
-		IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	protected void handleError(HttpResponse response) throws SmartsheetException {
 		
-		com.smartsheet.api.models.Error error = this.smartsheet.getJsonSerializer().deserialize(
-				com.smartsheet.api.models.Error.class, response.getEntity().getContent());
+		com.smartsheet.api.models.Error error;
+		try {
+			error = this.smartsheet.getJsonSerializer().deserialize(
+					com.smartsheet.api.models.Error.class, response.getEntity().getContent());
+		} catch (JsonParseException e) {
+			throw new SmartsheetException(e);
+		} catch (JsonMappingException e) {
+			throw new SmartsheetException(e);
+		} catch (IOException e) {
+			throw new SmartsheetException(e);
+		}
 		
 		ErrorCode code = ErrorCode.getErrorCode(response.getStatusCode());
 		
@@ -632,7 +693,13 @@ public abstract class AbstractResources {
 			throw new SmartsheetRestException(error);
 		}
 		
-		throw code.getException(error);
+		try {
+			throw code.getException(error);
+		} catch (IllegalArgumentException e) {
+			throw new SmartsheetException(e);
+		} catch (SecurityException e) {
+			throw new SmartsheetException(e);
+		}
 	}
 	
 

@@ -24,6 +24,9 @@ package com.smartsheet.api.internal;
 
 import java.util.List;
 
+import org.apache.http.annotation.Immutable;
+
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WorkspaceFolderResources;
 import com.smartsheet.api.models.Folder;
 
@@ -68,9 +71,10 @@ public class WorkspaceFolderResourcesImpl extends AbstractResources implements W
 	 * 
 	 * @param workspaceId
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public List<Folder> listFolders(long workspaceId) {
-		return null;
+	public List<Folder> listFolders(long workspaceId) throws SmartsheetException {
+		return this.listResources("workspace/" + workspaceId + "/folders", Folder.class);
 	}
 
 	/**
@@ -93,8 +97,9 @@ public class WorkspaceFolderResourcesImpl extends AbstractResources implements W
 	 * @param folder
 	 * @param workspaceId
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Folder createFolder(long workspaceId, Folder folder) {
-		return null;
+	public Folder createFolder(long workspaceId, Folder folder) throws SmartsheetException {
+		return this.createResource("workspace/" + workspaceId + "/folders", Folder.class, folder);
 	}
 }

@@ -28,7 +28,8 @@ import java.util.List;
 /**
  * Represents the Comment object.
  */
-public class Comment {
+public class Comment extends IdentifiableModel {
+
 	/**
 	 * Represents the text.
 	 */
@@ -53,6 +54,11 @@ public class Comment {
 	 * Represents the discussion ID.
 	 */
 	private Long discussionId;
+	
+	private Date createdAt;
+
+
+	private Date modifiedAt;
 	
 	public String getText() {
 		return text;
@@ -92,5 +98,21 @@ public class Comment {
 
 	public void setDiscussionId(Long discussionId) {
 		this.discussionId = discussionId;
+	}
+	
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+	
+	public Date getModifiedAt() {
+		return modifiedAt;
+	}
+
+	public void setModifiedAt(Date modifiedAt) {
+		this.modifiedAt = modifiedAt;
 	}
 }

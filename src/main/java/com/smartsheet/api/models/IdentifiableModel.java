@@ -52,8 +52,10 @@ public abstract class IdentifiableModel {
 	 * @param object
 	 * @return
 	 */
+	@Override
 	public boolean equals(Object object) {
-		return false;
+		return object != null && (object == this || (object.getClass() == this.getClass() && 
+				((IdentifiableModel) object).getId() == this.getId()));
 	}
 
 	/**
@@ -70,7 +72,10 @@ public abstract class IdentifiableModel {
 	 * 
 	 * @return
 	 */
+	@Override
 	public int hashCode() {
-		return 0;
+		int result = 17;
+		result = 31 * result + (int) (this.id.longValue() ^ (this.id.longValue() >>> 32));
+		return result;
 	}
 }

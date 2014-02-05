@@ -52,5 +52,5 @@ public abstract class IdFieldExclusionMixin {
 	 * @param id
 	 */
 	@JsonProperty
-	public abstract void setId(long id);
+	public abstract void setId(Long id);
 }

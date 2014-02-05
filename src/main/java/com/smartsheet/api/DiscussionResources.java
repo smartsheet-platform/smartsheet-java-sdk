@@ -56,8 +56,9 @@ public interface DiscussionResources {
 	 * 
 	 * @param id
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Discussion getDiscussion(long id);
+	public Discussion getDiscussion(long id) throws SmartsheetException;
 
 	/**
 	 * Add a comment to a discussion.
@@ -78,8 +79,9 @@ public interface DiscussionResources {
 	 * @param id
 	 * @param comment
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Comment addDiscussionComment(long id, Comment comment);
+	public Comment addDiscussionComment(long id, Comment comment) throws SmartsheetException;
 
 	/**
 	 * Return the AssociatedAttachmentResources object that provides access to attachment resources associated with

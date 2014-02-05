@@ -21,13 +21,12 @@ package com.smartsheet.api;
  */
 
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.omg.CosNaming.IstringHelper;
 
 
 public class SmartsheetExceptionTest {

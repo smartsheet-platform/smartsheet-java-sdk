@@ -74,5 +74,7 @@ public enum ColumnTag {
     /**
      * Represents GANTT_DURATION tag.
      */
-    GANTT_DURATION;
+    GANTT_DURATION,
+    
+    GANTT_ASSIGNED_RESOURCE;
 }

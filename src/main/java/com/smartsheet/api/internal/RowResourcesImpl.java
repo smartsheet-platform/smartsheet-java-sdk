@@ -28,6 +28,7 @@ import java.util.List;
 import com.smartsheet.api.AssociatedAttachmentResources;
 import com.smartsheet.api.AssociatedDiscussionResources;
 import com.smartsheet.api.RowResources;
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Cell;
 import com.smartsheet.api.models.CellHistory;
 import com.smartsheet.api.models.ObjectInclusion;
@@ -68,6 +69,8 @@ public class RowResourcesImpl extends AbstractResources implements RowResources 
 	 */
 	public RowResourcesImpl(SmartsheetImpl smartsheet) {
 		super(smartsheet);
+		this.attachments = new AssociatedAttachmentResourcesImpl(smartsheet, "row");
+		this.discussions = new AssociatedDiscussionResourcesImpl(smartsheet, "row");
 	}
 
 	/**
@@ -95,9 +98,18 @@ public class RowResourcesImpl extends AbstractResources implements RowResources 
 	 * 
 	 * @param id
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Row getRow(long id, EnumSet<ObjectInclusion> includes) {
-		return null;
+	public Row getRow(long id, EnumSet<ObjectInclusion> includes) throws SmartsheetException {
+		String path = "row/" + id;
+		if (includes != null && !includes.isEmpty()) {
+			path += "?include=";
+			for (ObjectInclusion oi : includes) {
+				path += oi.name().toLowerCase() + ",";
+			}
+		}
+		
+		return this.getResource(path, Row.class);
 	}
 
 	/**
@@ -123,9 +135,10 @@ public class RowResourcesImpl extends AbstractResources implements RowResources 
 	 * 
 	 * @param rowWrapper
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public List<Row> moveRow(RowWrapper rowWrapper) {
-		return null;
+	public List<Row> moveRow(long id, RowWrapper rowWrapper) throws SmartsheetException {
+		return this.putAndReceiveList("row/" + id, rowWrapper, Row.class);
 	}
 
 	/**
@@ -147,8 +160,10 @@ public class RowResourcesImpl extends AbstractResources implements RowResources 
 	 * Implementation: this.deleteResource("row/" + id, Row.class);
 	 * 
 	 * @param id
+	 * @throws SmartsheetException 
 	 */
-	public void deleteRow(long id) {
+	public void deleteRow(long id) throws SmartsheetException {
+		this.deleteResource("row/" + id, Row.class);
 	}
 
 	/**
@@ -170,8 +185,10 @@ public class RowResourcesImpl extends AbstractResources implements RowResources 
 	 * 
 	 * @param id
 	 * @param email
+	 * @throws SmartsheetException 
 	 */
-	public void sendRow(long id, RowEmail email) {
+	public void sendRow(long id, RowEmail email) throws SmartsheetException {
+		this.createResource("row/" + id + "/emails", RowEmail.class, email);
 	}
 
 	/**
@@ -196,9 +213,10 @@ public class RowResourcesImpl extends AbstractResources implements RowResources 
 	 * 
 	 * @param rowId
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public List<Cell> updateCells(long rowId, List<Cell> cells) {
-		return null;
+	public List<Cell> updateCells(long rowId, List<Cell> cells) throws SmartsheetException {
+		return this.putAndReceiveList("row/" + rowId + "/cells", cells, Cell.class);
 	}
 
 	/**
@@ -223,9 +241,10 @@ public class RowResourcesImpl extends AbstractResources implements RowResources 
 	 * @param columnId
 	 * @param rowId
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public List<CellHistory> getCellHistory(long rowId, long columnId) {
-		return null;
+	public List<CellHistory> getCellHistory(long rowId, long columnId) throws SmartsheetException {
+		return this.listResources("row/" + rowId + "/column/" + columnId + "/history", CellHistory.class);
 	}
 
 	/**
@@ -241,7 +260,7 @@ public class RowResourcesImpl extends AbstractResources implements RowResources 
 	 * @return
 	 */
 	public AssociatedAttachmentResources attachments() {
-		return null;
+		return this.attachments;
 	}
 
 	/**
@@ -257,6 +276,6 @@ public class RowResourcesImpl extends AbstractResources implements RowResources 
 	 * @return
 	 */
 	public AssociatedDiscussionResources discussions() {
-		return null;
+		return this.discussions;
 	}
 }

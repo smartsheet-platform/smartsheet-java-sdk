@@ -27,8 +27,6 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.experimental.categories.Categories.ExcludeCategory;
-
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -57,6 +55,18 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	 */
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
+	static {
+		OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+	}
+	
+	/**
+	 * Sets if the OBJECT MAPPER should ignore unknown properties or fail when de-serializing the JSON data.
+	 * @param value true if it should fail, false otherwise.
+	 */
+	public void setFailOnUnknownProperties(boolean value) {
+		OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, value);
+	}
+	
 	/**
 	 * Constructor.
 	 * 
@@ -111,7 +121,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	 * @throws JsonMappingException
 	 * @throws JsonGenerationException
 	 */
-	@Override
+	//@Override
 	public <T> void serialize(T object, java.io.OutputStream outputStream) throws JSONSerializerException {
 
 		if (object == null || outputStream == null) {
@@ -149,7 +159,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	 * @throws JsonMappingException
 	 * @throws JsonParseException
 	 */
-	@Override
+	//@Override
 	public <T> T deserialize(Class<T> objectClass, java.io.InputStream inputStream) throws JsonParseException,
 			JsonMappingException, IOException {
 		if(objectClass == null || inputStream == null){
@@ -178,7 +188,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	 * @return
 	 * @throws JSONSerializerException
 	 */
-	@Override 
+	//@Override 
 	public <T> List<T> deserializeList(Class<T> objectClass, java.io.InputStream inputStream)
 			throws JSONSerializerException {
 
@@ -212,7 +222,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	 * @return
 	 * @throws JSONSerializerException 
 	 */
-	@Override
+	//@Override
 	public Map<String,Object> deserializeMap(InputStream inputStream) throws JSONSerializerException {
 		if (inputStream == null) {
 			throw new IllegalArgumentException();
@@ -222,6 +232,8 @@ public class JacksonJsonSerializer implements JsonSerializer {
 		
 		try {
 			map = OBJECT_MAPPER.readValue(inputStream, new TypeReference<Map<String, Object>>() {});
+//			map = OBJECT_MAPPER.readValue(inputStream, OBJECT_MAPPER.getTypeFactory().constructParametricType(
+//					Map.class, OBJECT_MAPPER.getTypeFactory().constructParametricType(String.class, Object.class)));
 		} catch (JsonParseException e) {
 			throw new JSONSerializerException(e);
 		} catch (JsonMappingException e) {
@@ -253,7 +265,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	 * @return
 	 * @throws JSONSerializerException
 	 */
-	@Override
+	//@Override
 	public <T> Result<T> deserializeResult(Class<T> objectClass, java.io.InputStream inputStream)
 			throws JSONSerializerException {
 
@@ -297,7 +309,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	 * @return
 	 * @throws JSONSerializerException 
 	 */
-	@Override
+	//@Override
 	public <T> Result<List<T>> deserializeListResult(Class<T> objectClass, java.io.InputStream inputStream) 
 			throws JSONSerializerException {
 		

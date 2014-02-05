@@ -55,8 +55,9 @@ public interface CommentResources {
 	 * 
 	 * @param id
 	 * @return
+	 * @throws SmartsheetException 
 	 */
-	public Comment getComment(long id);
+	public Comment getComment(long id) throws SmartsheetException;
 
 	/**
 	 * Delete a comment.
@@ -75,8 +76,9 @@ public interface CommentResources {
 	 * during the operation
 	 * 
 	 * @param id
+	 * @throws SmartsheetException 
 	 */
-	public void deleteComment(long id);
+	public void deleteComment(long id) throws SmartsheetException;
 
 	/**
 	 * Return the AssociatedAttachmentResources object that provides access to attachment resources associated with
