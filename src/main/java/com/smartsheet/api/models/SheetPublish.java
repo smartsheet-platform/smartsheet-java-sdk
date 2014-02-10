@@ -20,8 +20,6 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-
-
 /**
  * Represents the SheetPublish object.
  */
@@ -128,5 +126,47 @@ public class SheetPublish {
 
 	public void setIcalUrl(String icalUrl) {
 		this.icalUrl = icalUrl;
+	}
+
+	public static class PublishStatusBuilder {
+		private Boolean readOnlyLiteEnabled;
+		private Boolean readOnlyFullEnabled;
+		private Boolean readWriteEnabled;
+		private Boolean icalEnabled;
+
+		public PublishStatusBuilder readOnlyLiteEnabled(Boolean readOnlyLiteEnabled) {
+			this.readOnlyLiteEnabled = readOnlyLiteEnabled;
+			return this;
+		}
+
+		public PublishStatusBuilder readOnlyFullEnabled(Boolean readOnlyFullEnabled) {
+			this.readOnlyFullEnabled = readOnlyFullEnabled;
+			return this;
+		}
+
+		public PublishStatusBuilder readWriteEnabled(Boolean readWriteEnabled) {
+			this.readWriteEnabled = readWriteEnabled;
+			return this;
+		}
+
+		public PublishStatusBuilder icalEnabled(Boolean icalEnabled) {
+			this.icalEnabled = icalEnabled;
+			return this;
+		}
+
+		public SheetPublish build() {
+			
+			if(readOnlyLiteEnabled == null || readOnlyFullEnabled == null || readWriteEnabled == null){
+				throw new InstantiationError("'Read only lite', 'read only full' and 'read write' must be set to "
+						+ "update the publishing status.");
+			}
+			
+			SheetPublish sheetPublish = new SheetPublish();
+			sheetPublish.readOnlyLiteEnabled = readOnlyLiteEnabled;
+			sheetPublish.readOnlyFullEnabled = readOnlyFullEnabled;
+			sheetPublish.readWriteEnabled = readWriteEnabled;
+			sheetPublish.icalEnabled = icalEnabled;
+			return sheetPublish;
+		}
 	}
 }

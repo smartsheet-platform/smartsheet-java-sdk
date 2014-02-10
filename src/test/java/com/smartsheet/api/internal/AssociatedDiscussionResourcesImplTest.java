@@ -1,10 +1,31 @@
 package com.smartsheet.api.internal;
 
+/*
+ * #[license]
+ * Smartsheet SDK for Java
+ * %%
+ * Copyright (C) 2014 Smartsheet
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * %[license]
+ */
+
 import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Before;
@@ -13,6 +34,7 @@ import org.junit.Test;
 import com.smartsheet.api.InvalidRequestException;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
+import com.smartsheet.api.models.Attachment;
 import com.smartsheet.api.models.Comment;
 import com.smartsheet.api.models.Discussion;
 import com.smartsheet.api.models.User;
@@ -33,16 +55,20 @@ public class AssociatedDiscussionResourcesImplTest extends ResourcesImplBase {
 
 	@Test
 	public void testCreateDiscussion() throws SmartsheetException, IOException {
-		server.setResponseBody(new File("src/test/resources/createDiscussion.json"));//FIXME: create this file tomorrow
+		server.setResponseBody(new File("src/test/resources/createDiscussion.json"));
 		
 		// Test success
 		List<Comment> comments = new ArrayList<Comment>();
 		Comment comment = new Comment();
 		comment.setText("This is a test.");
+		comment.setAttachments(new ArrayList<Attachment>());
 		comments.add(comment);
 		Discussion discussion = new Discussion();
 		discussion.setTitle("New Discussion");
 		discussion.setComments(comments);
+		discussion.setLastCommentedUser(new User());
+		discussion.setLastCommentedAt(new Date());
+		discussion.setCommentAttachments(new ArrayList<Attachment>());
 		Discussion newDiscussion = discussionResources.createDiscussion(1234L, discussion);
 		
 		assertNotNull(newDiscussion.getComments());

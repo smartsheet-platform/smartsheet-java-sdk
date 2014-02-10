@@ -20,38 +20,37 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import static org.junit.Assert.*;
 
+import org.junit.Before;
+import org.junit.Test;
 
-/**
- * Represents Template object in the Smartsheet REST API.
- */
-public class Template extends NamedModel {
-	/**
-	 * Represents the description.
-	 */
-	private String description;
+public class IdentifiableModelTest {
 
-	/**
-	 * Represents the access level.
-	 */
-	private AccessLevel accessLevel;
-
-
-	public String getDescription() {
-		return description;
+	@Before
+	public void setUp() throws Exception {
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	@Test
+	public void testHashCode() {
+		Row row = new Row();
+		// Same Object
+		assertEquals(row,row);
+		row.setId(1234L);
+		Row row1 = new Row();
+		row1.setId(1234L);
+		row.equals(row);
+		// Same id in two different objects
+		assertEquals(row,row1);
+		
+		// Different Objects
+		assertNotEquals(row,new Object());
 	}
 
-	public AccessLevel getAccessLevel() {
-		return accessLevel;
+	@Test
+	public void testEqualsObject() {
+		Row row = new Row();
+		assertNotNull(row.hashCode());
 	}
 
-	public void setAccessLevel(AccessLevel accessLevel) {
-		this.accessLevel = accessLevel;
-	}
-	
-	
 }

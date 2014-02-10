@@ -20,8 +20,6 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-
-
 import java.util.List;
 
 /**
@@ -92,6 +90,54 @@ public class MultiShare {
 	public void setCcMe(Boolean ccMe) {
 		this.ccMe = ccMe;
 	}
-	
-	
+
+	//FIXME: only generate documenation for non-internal stuff (seperate it by package).
+	public static class ShareToManyBuilder {
+		private List<User> users;
+		private AccessLevel accessLevel;
+		private String subject;
+		private String message;
+		private Boolean ccMe;
+
+		public ShareToManyBuilder users(List<User> users) {
+			this.users = users;
+			return this;
+		}
+
+		public ShareToManyBuilder accessLevel(AccessLevel accessLevel) {
+			this.accessLevel = accessLevel;
+			return this;
+		}
+
+		public ShareToManyBuilder subject(String subject) {
+			this.subject = subject;
+			return this;
+		}
+
+		public ShareToManyBuilder message(String message) {
+			this.message = message;
+			return this;
+		}
+
+		public ShareToManyBuilder ccMe(Boolean ccMe) {
+			this.ccMe = ccMe;
+			return this;
+		}
+
+		//FIXME: go back to all of the builders and determine if some of the items can be set to a default. For example
+		//       accessLevel might be set to ? by default.
+		public MultiShare build() {
+			if(users == null || accessLevel == null ) {
+				throw new InstantiationError("A user, access level and message are required.");
+			}
+			
+			MultiShare multiShare = new MultiShare();
+			multiShare.users = users;
+			multiShare.accessLevel = accessLevel;
+			multiShare.subject = subject;
+			multiShare.message = message;
+			multiShare.ccMe = ccMe;
+			return multiShare;
+		}
+	}
 }

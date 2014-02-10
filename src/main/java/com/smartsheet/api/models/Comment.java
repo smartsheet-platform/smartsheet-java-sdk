@@ -20,8 +20,6 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-
-
 import java.util.Date;
 import java.util.List;
 
@@ -54,12 +52,11 @@ public class Comment extends IdentifiableModel {
 	 * Represents the discussion ID.
 	 */
 	private Long discussionId;
-	
+
 	private Date createdAt;
 
-
 	private Date modifiedAt;
-	
+
 	public String getText() {
 		return text;
 	}
@@ -99,7 +96,7 @@ public class Comment extends IdentifiableModel {
 	public void setDiscussionId(Long discussionId) {
 		this.discussionId = discussionId;
 	}
-	
+
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -107,12 +104,31 @@ public class Comment extends IdentifiableModel {
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
-	
+
 	public Date getModifiedAt() {
 		return modifiedAt;
 	}
 
 	public void setModifiedAt(Date modifiedAt) {
 		this.modifiedAt = modifiedAt;
+	}
+
+	public static class AddCommentBuilder {
+		private String text;
+
+		public AddCommentBuilder text(String text) {
+			this.text = text;
+			return this;
+		}
+
+		public Comment build() {
+			if(text == null){
+				throw new InstantiationError("The comment text is required.");
+			}
+			
+			Comment comment = new Comment();
+			comment.text = text;
+			return comment;
+		}
 	}
 }

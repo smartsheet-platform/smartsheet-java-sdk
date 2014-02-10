@@ -23,6 +23,8 @@ package com.smartsheet.api.models;
 
 
 /**
+ * Represents the type of access that is granted on a given sheet.
+ * @see <a href="http://www.smartsheet.com/developers/api-documentation#h.89hb3ivv7eum">Access Scopes Documentation</a>
  */
 public enum AccessScope {
 	READ_SHEETS, WRITE_SHEETS, SHARE_SHEETS, DELETE_SHEETS, CREATE_SHEETS, ADMIN_USERS, ADMIN_SHEETS, ADMIN_WORKSPACES;

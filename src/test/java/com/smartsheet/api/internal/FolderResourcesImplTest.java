@@ -24,6 +24,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
@@ -33,6 +34,8 @@ import org.junit.Test;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.Folder;
+import com.smartsheet.api.models.Template;
+import com.smartsheet.api.models.Workspace;
 
 public class FolderResourcesImplTest extends ResourcesImplBase {
 
@@ -41,11 +44,6 @@ public class FolderResourcesImplTest extends ResourcesImplBase {
 		// Create a folder resource
 		folderResource = new FolderResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", "accessToken",
 				new DefaultHttpClient(), serializer));
-	}
-	
-	@After
-	public void tearDown() throws Exception {
-		server.stop();
 	}
 
 	@Test
@@ -66,7 +64,8 @@ public class FolderResourcesImplTest extends ResourcesImplBase {
 		//folderResource.getSmartsheet().getHttpClient().close();
 		
 		Folder folder = folderResource.getFolder(123L);
-		
+//		folder.setTemplates(new ArrayList<Template>());
+//		folder.setWorkspaces(new ArrayList<Workspace>());
 		folderResource.getFolder(123L);
 
 		// Verify results

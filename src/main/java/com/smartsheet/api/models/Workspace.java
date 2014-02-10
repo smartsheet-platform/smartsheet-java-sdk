@@ -20,14 +20,10 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-
-
-import java.util.List;
-
 /**
  * Represents the Workspace object.
  */
-public class Workspace extends IdentifiableModel {
+public class Workspace extends Folder {
 	/**
 	 * Represents access level.
 	 */
@@ -37,25 +33,6 @@ public class Workspace extends IdentifiableModel {
 	 * Represents the link.
 	 */
 	private String permalink;
-
-	/**
-	 * Represents the sheets.
-	 */
-	private List<Sheet> sheets;
-
-	/**
-	 * Represents the folders.
-	 */
-	private List<Folder> folders;
-	private String name;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public AccessLevel getAccessLevel() {
 		return accessLevel;
@@ -73,19 +50,18 @@ public class Workspace extends IdentifiableModel {
 		this.permalink = permalink;
 	}
 
-	public List<Sheet> getSheets() {
-		return sheets;
-	}
+	public static class UpdateWorkspaceBuilder {
+		private String workspaceName;
 
-	public void setSheets(List<Sheet> sheets) {
-		this.sheets = sheets;
-	}
+		public UpdateWorkspaceBuilder name(String name) {
+			this.workspaceName = name;
+			return this;
+		}
 
-	public List<Folder> getFolders() {
-		return folders;
-	}
-
-	public void setFolders(List<Folder> folders) {
-		this.folders = folders;
+		public Workspace build() {
+			Workspace workspace = new Workspace();
+			workspace.setName(workspaceName);
+			return workspace;
+		}
 	}
 }

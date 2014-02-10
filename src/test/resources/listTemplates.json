@@ -2,7 +2,8 @@
    {
       "id":4705477956265860,
       "name":"<feature> -  Issues Template",
-      "accessLevel":"ADMIN"
+      "accessLevel":"ADMIN",
+      "description":"testing1234"
    },
    {
       "id":4371295140898692,

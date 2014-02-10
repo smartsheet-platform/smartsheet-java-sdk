@@ -70,6 +70,6 @@ public class SmartsheetRestException extends SmartsheetException {
 	 * @return
 	 */
 	public int getErrorCode() {
-		return 0;
+		return this.errorCode;
 	}
 }

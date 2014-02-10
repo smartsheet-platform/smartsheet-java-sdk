@@ -22,6 +22,7 @@ package com.smartsheet.api.internal;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -35,7 +36,9 @@ import org.junit.Test;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.Cell;
+import com.smartsheet.api.models.Column;
 import com.smartsheet.api.models.Link;
+import com.smartsheet.api.models.LinkType;
 import com.smartsheet.api.models.Row;
 import com.smartsheet.api.models.RowWrapper;
 
@@ -64,6 +67,10 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
 		cell.setRowId(1234L);
 		Link link = new Link();
 		link.setUrl("http://google.com");
+		link.setType(LinkType.URL);
+		link.setSheetId(1234L);
+		link.setColumnId(1234L);
+		link.setRowId(1234L);
 		cell.setLink(link);
 		cell.setFormula("=1+1");
 		
@@ -81,8 +88,11 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
 		List<Row> newRows = sheetRowResource.insertRows(1234L, rowWrapper);
 		
 		assertNotNull(newRows);
-		
 		assertEquals("The number of rows created & inserted is not correct.", rows.size(), newRows.size());
+		Column col = new Column();
+		col.setId(8764071660021636L);
+		assertNull(rows.get(0).getColumnByIndex(0));
+		assertNull(rows.get(0).getColumnById(8764071660021636L));
 	}
 
 	@Test

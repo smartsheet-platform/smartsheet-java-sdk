@@ -25,7 +25,7 @@ package com.smartsheet.api.models;
 /**
  * Represents UserProfile object.
  */
-public class UserProfile extends IdentifiableModel {
+public class UserProfile extends NamedModel {
 	/**
 	 * Represents the email.
 	 */
@@ -40,7 +40,6 @@ public class UserProfile extends IdentifiableModel {
 	 * Represents the last name.
 	 */
 	private String lastName;
-	private String name;
 
 	public String getEmail() {
 		return email;
@@ -64,13 +63,5 @@ public class UserProfile extends IdentifiableModel {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 }

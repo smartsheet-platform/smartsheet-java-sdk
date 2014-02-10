@@ -53,9 +53,6 @@ public class SheetColumnResourcesImplTest extends ResourcesImplBase {
 	}
 
 	@Test
-	/*
-	 * FIXME: does it make sense for the caller to worry about all of these exceptions? Instead wrap it in a smartsheetexception saving the cause.
-	 */
 	public void testListColumns() throws SmartsheetException, IOException {
 
 		server.setResponseBody(new File("src/test/resources/listColumns.json"));

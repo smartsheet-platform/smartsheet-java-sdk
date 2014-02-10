@@ -21,6 +21,7 @@ package com.smartsheet.api.internal;
  */
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -57,14 +58,7 @@ import com.smartsheet.api.models.SheetEmail;
 import com.smartsheet.api.models.SheetEmailFormat;
 import com.smartsheet.api.models.SheetPublish;
 
-//QUESTION: these tests really just confirm that de-serialization is working for every call and increasing code coverage. It also tests that the call works with the expected api result (in case the api changes in the future).
-/*
- * These tests basically confirm that
- *  - de-serialization is working
- *  - increases code coverage
- *  - expected api results are documented/tested in the json files (in case live api changes in the fugure).
- * Does not test for failure cases. I believe that should be tested at a lower level.
- */
+
 public class SheetResourcesImplTest extends ResourcesImplBase {
 	SheetResourcesImpl sheetResource;
 
@@ -209,14 +203,19 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		col = new Column();
 		col.setTitle("column2");
 		col.setType(ColumnType.TEXT_NUMBER);
+		col.setId(4049365800118148L);
 		list.add(col);
 
 		sheet.setColumns(list);
 		Sheet newSheet = sheetResource.createSheetInFolder(12345L, sheet);
 
-		if (newSheet.getColumns().size() != 2) {
-			fail("Issue creating a sheet in a folder");
-		}
+		assertEquals(2, newSheet.getColumns().size());
+		assertEquals(col,newSheet.getColumnByIndex(1));
+		assertNotEquals(col, newSheet.getColumnByIndex(0));
+		assertNull((new Sheet()).getColumnByIndex(100));
+		assertEquals(col,newSheet.getColumnById(4049365800118148L));
+		assertNotEquals(col,newSheet.getColumnById(4032471613368196L));
+		assertNull((new Sheet()).getColumnById(100));
 	}
 
 	@Test
@@ -290,9 +289,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		sheet.setId(1234L);
 		Sheet newSheet = sheetResource.updateSheet(sheet);
 
-		if (!newSheet.getName().equals("new name")) {
-			fail("Sheet update (rename) failed.");
-		}
+		assertEquals("Sheet update (rename) failed.", "new name", newSheet.getName());
 	}
 
 	@Test
@@ -367,11 +364,13 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		publish.setReadOnlyFullEnabled(true);
 		publish.setReadOnlyLiteEnabled(true);
 		publish.setReadWriteEnabled(true);
+		publish.setIcalUrl("http://somedomain.com");
 		SheetPublish newPublish = sheetResource.updatePublishStatus(1234L, publish);
 
 		assertNull(newPublish.getIcalUrl());
 		assertNotNull(newPublish.getReadOnlyFullUrl());
 		assertNotNull(newPublish.getReadOnlyLiteUrl());
 		assertNotNull(newPublish.getReadWriteUrl());
+		
 	}
 }

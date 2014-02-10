@@ -23,7 +23,8 @@ package com.smartsheet.api.models;
 
 
 /**
- * Represents access levels.
+ * Represents access levels that users can have.
+ * @see <a href="http://www.smartsheet.com/developers/api-documentation#h.umfgm4xt25dq">Access Level Documentation</a>
  */
 public enum AccessLevel {
 	VIEWER, EDITOR, EDITOR_SHARE, ADMIN, OWNER;

@@ -20,12 +20,10 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-
-
 /**
  * Represents the Share object.
  */
-public class Share  extends IdentifiableModel {
+public class Share extends NamedModel {
 	/**
 	 * Represents the access level.
 	 */
@@ -35,15 +33,6 @@ public class Share  extends IdentifiableModel {
 	 * Represents the email.
 	 */
 	private String email;
-	private String name;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public AccessLevel getAccessLevel() {
 		return accessLevel;
@@ -59,5 +48,51 @@ public class Share  extends IdentifiableModel {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public static class shareToOneBuilder {
+		private AccessLevel accessLevel;
+		private String email;
+
+		public shareToOneBuilder accessLevel(AccessLevel accessLevel) {
+			this.accessLevel = accessLevel;
+			return this;
+		}
+
+		public shareToOneBuilder email(String email) {
+			this.email = email;
+			return this;
+		}
+
+		public Share build() {
+			if (email == null || accessLevel == null) {
+				throw new InstantiationError("The email and accessLevel are required.");
+			}
+
+			Share share = new Share();
+			share.accessLevel = accessLevel;
+			share.email = email;
+
+			return share;
+		}
+	}
+
+	public static class UpdateShareBuilder {
+		private AccessLevel accessLevel;
+
+		public UpdateShareBuilder accessLevel(AccessLevel accessLevel) {
+			this.accessLevel = accessLevel;
+			return this;
+		}
+
+		public Share build() {
+			if(accessLevel == null){
+				throw new InstantiationError("The access level must be specified.");
+			}
+			
+			Share share = new Share();
+			share.accessLevel = accessLevel;
+			return share;
+		}
 	}
 }

@@ -20,15 +20,17 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-
-
 import java.util.Date;
 import java.util.List;
+
+import com.smartsheet.api.SheetResources;
+import com.smartsheet.api.internal.SheetResourcesImpl;
+import com.smartsheet.api.models.Workspace.UpdateWorkspaceBuilder;
 
 /**
  * Represents Sheet object in the Smartsheet REST API.
  */
-public class Sheet extends IdentifiableModel {
+public class Sheet extends NamedModel {
 	/**
 	 * Represents the columns.
 	 */
@@ -78,7 +80,7 @@ public class Sheet extends IdentifiableModel {
 	 * Represents the Gantt enabled flag.
 	 */
 	private Boolean ganttEnabled;
-	
+
 	private Boolean dependenciesEnabled;
 
 	/**
@@ -90,23 +92,13 @@ public class Sheet extends IdentifiableModel {
 	 * Represents the ID of the sheet/template from which the sheet was created.
 	 */
 	private Long fromId;
-	
-	private String name;
-	
+
 	public Boolean getDependenciesEnabled() {
 		return dependenciesEnabled;
 	}
 
 	public void setDependenciesEnabled(Boolean dependenciesEnabled) {
 		this.dependenciesEnabled = dependenciesEnabled;
-	}
-	
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	/**
@@ -122,7 +114,18 @@ public class Sheet extends IdentifiableModel {
 	 * @return
 	 */
 	public Column getColumnByIndex(int index) {
-		return null;
+		if (columns == null) {
+			return null;
+		}
+
+		Column result = null;
+		for (Column column : columns) {
+			if (column.getIndex() == index) {
+				result = column;
+				break;
+			}
+		}
+		return result;
 	}
 
 	/**
@@ -138,7 +141,18 @@ public class Sheet extends IdentifiableModel {
 	 * @return
 	 */
 	public Column getColumnById(long columnId) {
-		return null;
+		if (columns == null) {
+			return null;
+		}
+
+		Column result = null;
+		for (Column column : columns) {
+			if (column.getId() == columnId) {
+				result = column;
+				break;
+			}
+		}
+		return result;
 	}
 
 	/**
@@ -154,7 +168,18 @@ public class Sheet extends IdentifiableModel {
 	 * @return
 	 */
 	public Row getRowByRowNumber(int rowNumber) {
-		return null;
+		if (rows == null) {
+			return null;
+		}
+
+		Row result = null;
+		for (Row row : rows) {
+			if (row.getRowNumber() == rowNumber) {
+				result = row;
+				break;
+			}
+		}
+		return result;
 	}
 
 	public List<Column> getColumns() {
@@ -252,6 +277,139 @@ public class Sheet extends IdentifiableModel {
 	public void setFromId(Long fromId) {
 		this.fromId = fromId;
 	}
+
+	/**
+	 * A class to simplify the creation of a sheet.
+	 * @author brett
+	 *
+	 */
+	public static class CreateBuilder {
+		private List<Column> columns;
+		private String name;
+
+		/**
+		 * Sets the columns for the sheet being created.
+		 * @param columns The columns to create with this sheet.
+		 * @return
+		 */
+		public CreateBuilder setColumns(List<Column> columns) {
+			this.columns = columns;
+			return this;
+		}
+
+		/**
+		 * Sets the name for the sheet being created.
+		 * @param name The name for the sheet being created.
+		 * @return
+		 */
+		public CreateBuilder setName(String name) {
+			this.name = name;
+			return this;
+		}
+
+		/**
+		 * Returns the list of columns.
+		 * @return
+		 */
+		public List<Column> getColumns() {
+			return columns;
+		}
+
+		/**
+		 * Returns the name for the sheet.
+		 * @return
+		 */
+		public String getName() {
+			return name;
+		}
+
+		/**
+		 * Creates a sheet by using the values from setters in this builder.
+		 * @return
+		 */
+		public Sheet build() {
+			Sheet sheet = new Sheet();
+
+			if (columns == null || name == null) {
+				throw new InstantiationError();
+			}
+
+			sheet.setColumns(columns);
+			sheet.setName(name);
+			return sheet;
+		}
+	}
 	
 	
+	/**
+	 * A class to simplify the creation of a sheet from another sheet or another template.
+	 * @author brett
+	 *
+	 */
+	public static class CreateFromTemplateOrSheetBuilder {
+		private String name;
+		private Long fromId;
+
+		/**
+		 * Sets the name for the sheet being created.
+		 * @param name The name for the sheet being created.
+		 * @return
+		 */
+		public CreateFromTemplateOrSheetBuilder setName(String name) {
+			this.name = name;
+			return this;
+		}
+
+		/**
+		 * 
+		 * Returns the name for the sheet.
+		 * @return
+		 */
+		public String getName() {
+			return name;
+		}
+		
+		/**
+		 * Set the from Id
+		 * @param id
+		 * @return
+		 */
+		public CreateFromTemplateOrSheetBuilder setFromId(Long id) {
+			this.fromId = id;
+			return this;
+		}
+
+		/**
+		 * 
+		 * Creates a sheet by using the values from setters in this builder.
+		 * @return
+		 */
+		public Sheet build() {
+			Sheet sheet = new Sheet();
+
+			if (fromId == null || name == null) {
+				throw new InstantiationError();
+			}
+
+			sheet.setFromId(fromId);
+			sheet.setName(name);
+			return sheet;
+		}
+	}
+
+	
+	public static class UpdateSheetBuilder {
+		private String sheetName;
+
+		public UpdateSheetBuilder name(String name) {
+			this.sheetName = name;
+			return this;
+		}
+
+		public Sheet build() {
+			Sheet sheet = new Sheet();
+			sheet.setName(sheetName);
+			return sheet;
+		}
+	}
 }

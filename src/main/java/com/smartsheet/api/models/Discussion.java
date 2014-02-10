@@ -20,8 +20,6 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-
-
 import java.util.Date;
 import java.util.List;
 
@@ -53,9 +51,9 @@ public class Discussion extends IdentifiableModel {
 	 * Represents the last commented user.
 	 */
 	private User lastCommentedUser;
-	
+
 	private String accessLevel;
-	
+
 	public String getTitle() {
 		return title;
 	}
@@ -95,12 +93,38 @@ public class Discussion extends IdentifiableModel {
 	public void setLastCommentedUser(User lastCommentedUser) {
 		this.lastCommentedUser = lastCommentedUser;
 	}
-	
+
 	public String getAccessLevel() {
 		return accessLevel;
 	}
 
 	public void setAccessLevel(String accessLevel) {
 		this.accessLevel = accessLevel;
+	}
+
+	public static class CreateDiscussionBuilder {
+		private String title;
+		private List<Comment> comments;
+
+		public CreateDiscussionBuilder title(String title) {
+			this.title = title;
+			return this;
+		}
+
+		public CreateDiscussionBuilder comments(List<Comment> comments) {
+			this.comments = comments;
+			return this;
+		}
+
+		public Discussion build() {
+			if(title == null || comments == null){
+				throw new InstantiationError("A title and comment is required.");
+			}
+			
+			Discussion discussion = new Discussion();
+			discussion.title = title;
+			discussion.comments = comments;
+			return discussion;
+		}
 	}
 }

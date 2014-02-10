@@ -33,6 +33,8 @@ import org.junit.Test;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.Column;
+import com.smartsheet.api.models.Symbol;
+import com.smartsheet.api.models.SystemColumnType;
 
 public class ColumnResourcesImplTest extends ResourcesImplBase {
 	ColumnResourcesImpl columnResource;
@@ -55,6 +57,9 @@ public class ColumnResourcesImplTest extends ResourcesImplBase {
 		col.setIndex(0);
 		col.setTitle("something new");
 		col.setSheetId(2906571706525572L);
+		col.setHidden(false);
+		col.setSymbol(Symbol.STAR);
+		col.setSystemColumnType(SystemColumnType.AUTO_NUMBER);
 		Column colNew = columnResource.updateColumn(col);
 		
 		assertNotNull(colNew);

@@ -54,8 +54,20 @@ public abstract class IdentifiableModel {
 	 */
 	@Override
 	public boolean equals(Object object) {
-		return object != null && (object == this || (object.getClass() == this.getClass() && 
-				((IdentifiableModel) object).getId() == this.getId()));
+		boolean result = false;
+		
+		if(object != null && object == this){
+			result = true;
+		}else if(object != null && object.getClass() == this.getClass() && 
+				// If they are both null
+				(((IdentifiableModel)object).getId() == this.getId()
+				// If they are not null but are equal objects.
+				|| ((IdentifiableModel)object).getId() != null && this.getId() != null && 
+				((IdentifiableModel)object).getId().equals(this.getId()))) {
+			result = true;
+		}
+		
+		return result;
 	}
 
 	/**
@@ -75,7 +87,12 @@ public abstract class IdentifiableModel {
 	@Override
 	public int hashCode() {
 		int result = 17;
-		result = 31 * result + (int) (this.id.longValue() ^ (this.id.longValue() >>> 32));
+		if(this.id == null){
+			result = super.hashCode();
+		}else{
+			result = 31 * result + (int) (this.id.longValue() ^ (this.id.longValue() >>> 32));
+		}
+		
 		return result;
 	}
 }

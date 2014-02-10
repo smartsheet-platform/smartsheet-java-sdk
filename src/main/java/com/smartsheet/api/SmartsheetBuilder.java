@@ -181,7 +181,6 @@ public class SmartsheetBuilder {
 	 * @return
 	 */
 	public Smartsheet build() {
-		//QUESTION: what happens when a null accessToken is given? Does it throw a informative exception?
 		if(httpClient == null){
 			httpClient = new DefaultHttpClient();
 		}

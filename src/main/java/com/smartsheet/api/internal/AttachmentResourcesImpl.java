@@ -71,11 +71,6 @@ public class AttachmentResourcesImpl extends AbstractResources implements Attach
 	 * @throws SmartsheetException 
 	 */
 	public Attachment getAttachment(long id) throws SmartsheetException {
-		//NOTE: I uploaded some larger files to the sheet: 2630121841551236
-		//SheetResourcesImpl sheetResourceLive = new SheetResourcesImpl(new SmartsheetImpl("https://api.smartsheet.com/1.1/", "accessToken",
-		//new DefaultHttpClient(), serializer));
-
-		//sheetResourceLive.getSheetAsPDF(2630121841551236L, output, null);
 		return this.getResource("attachment/" + id, Attachment.class);
 	}
 

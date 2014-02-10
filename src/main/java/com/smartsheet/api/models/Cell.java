@@ -1,5 +1,8 @@
 package com.smartsheet.api.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -19,8 +22,6 @@ package com.smartsheet.api.models;
  * limitations under the License.
  * %[license]
  */
-
-
 
 /**
  * Represents the Cell object.
@@ -66,7 +67,7 @@ public class Cell {
 	 * Represents the strict flag.
 	 */
 	private Boolean strict;
-	
+
 	public ColumnType getType() {
 		return type;
 	}
@@ -129,5 +130,27 @@ public class Cell {
 
 	public void setStrict(Boolean strict) {
 		this.strict = strict;
+	}
+
+	public static class UpdateRowCellsBuilder {
+		List<Cell> cells = new ArrayList<Cell>();
+		
+		public UpdateRowCellsBuilder addCell(Long columnId, String value, Boolean strict) {
+			Cell cell = new Cell();
+			cell.setColumnId(columnId);
+			cell.setValue(value);
+			cell.setStrict(strict);
+			cells.add(cell);
+			return this;
+		}
+		
+		public UpdateRowCellsBuilder addCell(Long columnId, String value) {
+			addCell(columnId, value, true);
+			return this;
+		}
+		
+		public List<Cell> build() {
+			return cells;
+		}
 	}
 }

@@ -37,6 +37,7 @@ import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.AccessLevel;
 import com.smartsheet.api.models.Cell;
 import com.smartsheet.api.models.CellHistory;
+import com.smartsheet.api.models.LinkType;
 import com.smartsheet.api.models.ObjectInclusion;
 import com.smartsheet.api.models.Row;
 import com.smartsheet.api.models.RowEmail;
@@ -62,6 +63,11 @@ public class RowResourcesImplTest extends ResourcesImplBase {
 		
 		Row row = rowResourcesImpl.getRow(1234L, EnumSet.allOf(ObjectInclusion.class));
 		assertTrue(row.getCells().size() == 1);
+		assertEquals("http://domain.com",row.getCells().get(0).getLink().getUrl());
+		assertEquals(LinkType.URL,row.getCells().get(0).getLink().getType());
+		assertNull(row.getCells().get(0).getLink().getSheetId());
+		assertNull(row.getCells().get(0).getLink().getColumnId());
+		assertNull(row.getCells().get(0).getLink().getRowId());
 		assertTrue(row.getColumns().size() == 2);
 		assertTrue(row.getAccessLevel() == AccessLevel.OWNER);
 	}
@@ -72,6 +78,8 @@ public class RowResourcesImplTest extends ResourcesImplBase {
 		
 		RowWrapper rowWrapper = new RowWrapper();
 		rowWrapper.setToTop(true);
+		rowWrapper.setParentId(1234L);
+		rowWrapper.setSiblingId(1234L);
 		List<Row> rows = rowResourcesImpl.moveRow(1234L, rowWrapper);
 		
 		assertTrue(rows.size() == 1);
@@ -97,6 +105,7 @@ public class RowResourcesImplTest extends ResourcesImplBase {
 		email.setSubject("Test Subject");
 		email.setIncludeAttachments(true);
 		email.setIncludeDiscussions(true);
+		email.setCcMe(true);
 		rowResourcesImpl.sendRow(1234L, email);
 	}
 
@@ -128,9 +137,18 @@ public class RowResourcesImplTest extends ResourcesImplBase {
 		
 		assertEquals(new Date(1391109701000L), history.get(0).getModifiedAt());
 		User user = new User();
+		User newUser = history.get(0).getModifiedBy();
+		assertNotNull(newUser);
 		user.setId(2L);
-		assertNotNull(history.get(0).getModifiedBy());// FIXME: modified by is not being set with deserialization?
-		assertEquals(user, history.get(0).getModifiedBy());// Should be equal
+		
+		// Not equal because user id's are not set
+		assertNotEquals(user, history.get(0).getModifiedBy());
+		
+		// Make user id's the same so equals method works
+		user.setId(newUser.getId());
+
+		assertEquals(user, history.get(0).getModifiedBy());
+		assertEquals("message", user, history.get(0).getModifiedBy());
 		assertEquals("Some New Text", history.get(0).getDisplayValue());
 	}
 

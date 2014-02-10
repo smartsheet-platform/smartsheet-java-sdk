@@ -27,7 +27,7 @@ import java.util.Date;
 /**
  * Represents the Attachment object.
  */
-public class Attachment extends IdentifiableModel {
+public class Attachment extends NamedModel {
 
 	/**
 	 * Represents the URL.
@@ -73,16 +73,6 @@ public class Attachment extends IdentifiableModel {
 	 * Represents the attachment size.
 	 */
 	private Long sizeInKb;
-	
-	private String name;
-	
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public String getUrl() {
 		return url;

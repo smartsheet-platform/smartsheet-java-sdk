@@ -315,7 +315,6 @@ public class JacksonJsonSerializerTest {
 			jjs.serialize(result, outputStream);
 			jjs.deserializeResult(Result.class, new ByteArrayInputStream(outputStream.toByteArray()));
 		} catch (JSONSerializerException ex) {
-			// TODO Auto-generated catch block
 			fail("Exception should not be thrown: "+ex);
 		}
 		

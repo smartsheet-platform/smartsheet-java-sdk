@@ -24,10 +24,12 @@ package com.smartsheet.api.models;
 
 import java.util.List;
 
+import com.smartsheet.api.models.Workspace.UpdateWorkspaceBuilder;
+
 /**
  * Represents Folder object in the Smartsheet REST API.
  */
-public class Folder extends IdentifiableModel {
+public class Folder extends NamedModel {
 	/**
 	 * Represents the sheets.
 	 */
@@ -47,21 +49,6 @@ public class Folder extends IdentifiableModel {
 	 * Represents the templates.
 	 */
 	private List<Template> templates;
-
-	/**
-	 * Represents the workspaces.
-	 */
-	private List<Workspace> workspaces;
-	
-	private String name;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 	
 	public List<Sheet> getSheets() {
 		return sheets;
@@ -87,13 +74,19 @@ public class Folder extends IdentifiableModel {
 		this.templates = templates;
 	}
 
-	public List<Workspace> getWorkspaces() {
-		return workspaces;
-	}
+	public static class UpdateFolderBuilder {
+		private String folderName;
 
-	public void setWorkspaces(List<Workspace> workspaces) {
-		this.workspaces = workspaces;
+		public UpdateFolderBuilder name(String name) {
+			this.folderName = name;
+			return this;
+		}
+
+		public Folder build() {
+			Folder folder = new Folder();
+			folder.setName(folderName);
+			return folder;
+		}
 	}
-	
 	
 }

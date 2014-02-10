@@ -20,8 +20,6 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-
-
 import java.util.List;
 
 /**
@@ -39,7 +37,7 @@ public class Column extends IdentifiableModel {
 	private String title;
 
 	/**
-	 * Represents the primrary flag.
+	 * Represents the primary flag.
 	 */
 	private Boolean primary;
 
@@ -54,7 +52,7 @@ public class Column extends IdentifiableModel {
 	private List<String> options;
 
 	/**
-	 * Represents the hiddenn flag.
+	 * Represents the hidden flag.
 	 */
 	private Boolean hidden;
 
@@ -169,5 +167,134 @@ public class Column extends IdentifiableModel {
 
 	public void setSheetId(Long sheetId) {
 		this.sheetId = sheetId;
+	}
+
+	public static class AddColumnToSheetBuilder {
+		private int index;
+		private String title;
+		private ColumnType type;
+		private List<String> options;
+		private Symbol symbol;
+		private SystemColumnType systemColumnType;
+		private AutoNumberFormat autoNumberFormat;
+
+		public AddColumnToSheetBuilder index(int index) {
+			this.index = index;
+			return this;
+		}
+
+		public AddColumnToSheetBuilder title(String title) {
+			this.title = title;
+			return this;
+		}
+
+		public AddColumnToSheetBuilder type(ColumnType type) {
+			this.type = type;
+			return this;
+		}
+
+		public AddColumnToSheetBuilder options(List<String> options) {
+			this.options = options;
+			return this;
+		}
+
+		public AddColumnToSheetBuilder symbol(Symbol symbol) {
+			this.symbol = symbol;
+			return this;
+		}
+
+		public AddColumnToSheetBuilder systemColumnType(SystemColumnType systemColumnType) {
+			this.systemColumnType = systemColumnType;
+			return this;
+		}
+
+		public AddColumnToSheetBuilder autoNumberFormat(AutoNumberFormat autoNumberFormat) {
+			this.autoNumberFormat = autoNumberFormat;
+			return this;
+		}
+
+		public Column build() {
+			if (title == null || type == null) {
+				throw new InstantiationError();
+			}
+
+			Column column = new Column();
+			column.index = index;
+			column.title = title;
+			column.type = type;
+			column.options = options;
+			column.symbol = symbol;
+			column.systemColumnType = systemColumnType;
+			column.autoNumberFormat = autoNumberFormat;
+			return column;
+		}
+	}
+
+	public static class ModifyColumnBuilder {
+		private int index;
+		private String title;
+		private ColumnType type;
+		private List<String> options;
+		private Symbol symbol;
+		private SystemColumnType systemColumnType;
+		private AutoNumberFormat autoNumberFormat;
+		private Long sheetId;
+
+		public ModifyColumnBuilder index(int index) {
+			this.index = index;
+			return this;
+		}
+
+		public ModifyColumnBuilder title(String title) {
+			this.title = title;
+			return this;
+		}
+
+		public ModifyColumnBuilder type(ColumnType type) {
+			this.type = type;
+			return this;
+		}
+
+		public ModifyColumnBuilder options(List<String> options) {
+			this.options = options;
+			return this;
+		}
+
+		public ModifyColumnBuilder symbol(Symbol symbol) {
+			this.symbol = symbol;
+			return this;
+		}
+
+		public ModifyColumnBuilder systemColumnType(SystemColumnType systemColumnType) {
+			this.systemColumnType = systemColumnType;
+			return this;
+		}
+
+		public ModifyColumnBuilder autoNumberFormat(AutoNumberFormat autoNumberFormat) {
+			this.autoNumberFormat = autoNumberFormat;
+			return this;
+		}
+
+		public ModifyColumnBuilder sheetId(Long sheetId) {
+			this.sheetId = sheetId;
+			return this;
+		}
+
+		public Column build() {
+			if(title == null || sheetId == null) {
+				throw new InstantiationError("A title and sheetId are required");
+			}
+			
+			Column column = new Column();
+			column.index = index;
+			column.title = title;
+			column.type = type;
+			column.options = options;
+			column.symbol = symbol;
+			column.systemColumnType = systemColumnType;
+			column.autoNumberFormat = autoNumberFormat;
+			column.sheetId = sheetId;
+			return column;
+		}
 	}
 }

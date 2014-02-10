@@ -1,4 +1,4 @@
-package com.smartsheet.api.models;
+package com.smartsheet.api;
 
 /*
  * #[license]
@@ -20,38 +20,30 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import static org.junit.Assert.*;
 
+import org.junit.Before;
+import org.junit.Test;
 
-/**
- * Represents Template object in the Smartsheet REST API.
- */
-public class Template extends NamedModel {
-	/**
-	 * Represents the description.
-	 */
-	private String description;
+import com.smartsheet.api.models.Error;
 
-	/**
-	 * Represents the access level.
-	 */
-	private AccessLevel accessLevel;
+public class ResourceNotFoundExceptionTest {
 
-
-	public String getDescription() {
-		return description;
+	@Before
+	public void setUp() throws Exception {
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	@Test
+	public void testResourceNotFoundException() {
+		try{
+			Error error = new Error();
+			error.setErrorCode(1);
+			error.setMessage("testing testing");
+			throw new ResourceNotFoundException(error);
+		}catch(ResourceNotFoundException e){
+			assertEquals("testing testing",e.getMessage());
+			assertEquals(1, e.getErrorCode());
+		}
 	}
 
-	public AccessLevel getAccessLevel() {
-		return accessLevel;
-	}
-
-	public void setAccessLevel(AccessLevel accessLevel) {
-		this.accessLevel = accessLevel;
-	}
-	
-	
 }

@@ -187,6 +187,10 @@ public class OAuthFlowImplTest {
 		token.setExpiresInSeconds(10L);
 		token.setRefreshToken("refreshToken");
 		token.setTokenType("tokenType");
+		assertEquals("AccessToken", token.getAccessToken());
+		assertEquals("refreshToken", token.getRefreshToken());
+		assertEquals(10L, token.getExpiresInSeconds());
+		assertEquals("tokenType", token.getTokenType());
 		
 		try{
 			oauth.refreshToken(token);

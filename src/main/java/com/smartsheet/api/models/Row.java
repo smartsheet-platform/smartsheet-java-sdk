@@ -20,8 +20,6 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-
-
 import java.util.Date;
 import java.util.List;
 
@@ -73,14 +71,13 @@ public class Row extends IdentifiableModel {
 	 * Represents the modified at timestamp.
 	 */
 	private Date modifiedAt;
-	
+
 	private boolean expanded;
-	
+
 	private int version;
-	
-	private AccessLevel accessLevel; 
-	
-	
+
+	private AccessLevel accessLevel;
+
 	public AccessLevel getAccessLevel() {
 		return accessLevel;
 	}
@@ -118,13 +115,19 @@ public class Row extends IdentifiableModel {
 	 * @return
 	 */
 	public Column getColumnByIndex(int index) {
+		if (columns == null) {
+			return null;
+		}
+
+		Column result = null;
 		for (Column column : columns) {
 			if (column.getIndex() == index) {
-				return column; 
+				result = column;
+				break;
 			}
 		}
-	
-		return null;
+
+		return result;
 	}
 
 	/**
@@ -140,13 +143,19 @@ public class Row extends IdentifiableModel {
 	 * @return
 	 */
 	public Column getColumnById(long columnId) {
+		if (columns == null) {
+			return null;
+		}
+
+		Column result = null;
 		for (Column column : columns) {
 			if (column.getId() == columnId) {
-				return column; 
+				result = column;
+				break;
 			}
 		}
-		
-		return null;
+
+		return result;
 	}
 
 	public Long getSheetId() {

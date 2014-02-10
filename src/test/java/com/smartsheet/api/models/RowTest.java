@@ -22,23 +22,42 @@ package com.smartsheet.api.models;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
-public class AttachmentTypeTest {
+public class RowTest {
 
 	@Before
 	public void setUp() throws Exception {
 	}
 
 	@Test
-	public void test() {
-		assertNotNull(AttachmentType.valueOf("FILE"));
-		assertNotNull(AttachmentType.valueOf("GOOGLE_DRIVE"));
-		assertNotNull(AttachmentType.valueOf("LINK"));
-		assertNotNull(AttachmentType.valueOf("BOX_COM"));
+	public void testGetColumnByIndex() {
+		Row row = new Row();
+		Column col = new Column();
+		col.setId(1234L);
+		col.setIndex(2);
+		List<Column> columns = new ArrayList<Column>();
+		columns.add(col);
+		row.setColumns(columns);
+		row.setParentRowNumber(1);
+		row.setDiscussions(new ArrayList<Discussion>());
+		row.setAttachments(new ArrayList<Attachment>());
 		
-		assertEquals(4,AttachmentType.values().length);
+		assertEquals(col, row.getColumnById(1234L));
+		assertEquals(col, row.getColumnByIndex(2));
+		assertNull(row.getColumnById(12345L));
+		assertNull(row.getColumnByIndex(22));
+		assertNull(new Row().getColumnById(213L));
+		assertNull(new Row().getColumnByIndex(33));
+		Row row1 = new Row();
+		row1.setColumns(new ArrayList<Column>());
+		assertNull(row1.getColumnById(1L));
+		assertNull(row1.getColumnByIndex(1));
+		
 	}
 
 }

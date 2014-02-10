@@ -20,8 +20,6 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-
-
 /**
  * Represents the User object.
  */
@@ -66,5 +64,70 @@ public class User extends UserProfile {
 
 	public void setStatus(UserStatus status) {
 		this.status = status;
+	}
+
+	/**
+	 * 
+	 * @author brett
+	 *
+	 */
+	// FIXME: Need to add getters to the auto generated builders. Need to use a custom exception for each builder.
+	public static class AddUserBuilder {
+		private Boolean admin;
+		private String emailAddress;
+		private Boolean licensedSheetCreator;
+
+		public AddUserBuilder admin(Boolean admin) {
+			this.admin = admin;
+			return this;
+		}
+
+		public AddUserBuilder licensedSheetCreator(Boolean licensedSheetCreator) {
+			this.licensedSheetCreator = licensedSheetCreator;
+			return this;
+		}
+
+		public AddUserBuilder email(String email) {
+			this.emailAddress = email;
+			return this;
+		}
+
+		public User build() {
+			if (admin == null || emailAddress == null || licensedSheetCreator == null) {
+				throw new InstantiationError();
+			}
+
+			User user = new User();
+			user.admin = admin;
+			user.licensedSheetCreator = licensedSheetCreator;
+			user.setEmail(emailAddress);
+			return user;
+		}
+	}
+
+	public static class UpdateUserBuilder {
+		private Boolean admin;
+		private Boolean licensedSheetCreator;
+
+		public UpdateUserBuilder admin(Boolean admin) {
+			this.admin = admin;
+			return this;
+		}
+
+		public UpdateUserBuilder licensedSheetCreator(Boolean licensedSheetCreator) {
+			this.licensedSheetCreator = licensedSheetCreator;
+			return this;
+		}
+
+		public User build() {
+			if(admin == null || licensedSheetCreator == null){
+				throw new InstantiationError("An admin and licensed sheet creator must be set");
+			}
+			
+			User user = new User();
+			user.admin = admin;
+			user.licensedSheetCreator = licensedSheetCreator;
+			return user;
+		}
 	}
 }
