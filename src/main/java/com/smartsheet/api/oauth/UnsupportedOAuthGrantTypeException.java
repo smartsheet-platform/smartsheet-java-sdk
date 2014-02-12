@@ -36,12 +36,8 @@ public class UnsupportedOAuthGrantTypeException extends OAuthTokenException {
 
 	/**
 	 * Constructor.
-	 * 
-	 * Parameters: - message : the message
-	 * 
-	 * Implementation: super(message);
-	 * 
-	 * @param message
+	 *
+	 * @param message the message
 	 */
 	public UnsupportedOAuthGrantTypeException(String message) {
 		super(message);

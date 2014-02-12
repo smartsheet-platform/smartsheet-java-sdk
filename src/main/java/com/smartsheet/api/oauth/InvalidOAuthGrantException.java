@@ -23,7 +23,7 @@ package com.smartsheet.api.oauth;
 
 
 /**
- * This is the exception throw by OAuthFlow to indicate "invalid_grant" error occurred during obtaining OAuth tokens.
+ * This is the exception thrown by OAuthFlow to indicate an "invalid_grant" error occurred when obtaining OAuth tokens.
  * 
  * Thread safety: Exceptions are not thread safe.
  */
@@ -37,10 +37,8 @@ public class InvalidOAuthGrantException extends OAuthTokenException {
 	 * Constructor.
 	 * 
 	 * Parameters: - message : the message
-	 * 
-	 * Implementation: super(message);
-	 * 
-	 * @param message
+	 *
+	 * @param message the message
 	 */
 	public InvalidOAuthGrantException(String message) {
 		super(message);

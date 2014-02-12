@@ -33,6 +33,7 @@ package com.smartsheet.api;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface Smartsheet {
+	
 	/**
 	 * Returns the HomeResources instance that provides access to Home resources.
 	 * 
@@ -41,8 +42,8 @@ public interface Smartsheet {
 	 * Returns: the resources instance
 	 * 
 	 * Exceptions: None
-	 * 
-	 * @return
+	 *
+	 * @return the home resources
 	 */
 	public HomeResources home();
 
@@ -54,8 +55,8 @@ public interface Smartsheet {
 	 * Returns: the resources instance
 	 * 
 	 * Exceptions: None
-	 * 
-	 * @return
+	 *
+	 * @return the workspace resources
 	 */
 	public WorkspaceResources workspaces();
 
@@ -67,8 +68,8 @@ public interface Smartsheet {
 	 * Returns: the resources instance
 	 * 
 	 * Exceptions: None
-	 * 
-	 * @return
+	 *
+	 * @return the folder resources
 	 */
 	public FolderResources folders();
 
@@ -80,8 +81,8 @@ public interface Smartsheet {
 	 * Returns: the resources instance
 	 * 
 	 * Exceptions: None
-	 * 
-	 * @return
+	 *
+	 * @return the template resources
 	 */
 	public TemplateResources templates();
 
@@ -93,8 +94,8 @@ public interface Smartsheet {
 	 * Returns: the resources instance
 	 * 
 	 * Exceptions: None
-	 * 
-	 * @return
+	 *
+	 * @return the sheet resources
 	 */
 	public SheetResources sheets();
 
@@ -106,8 +107,8 @@ public interface Smartsheet {
 	 * Returns: the resources instance
 	 * 
 	 * Exceptions: None
-	 * 
-	 * @return
+	 *
+	 * @return the column resources
 	 */
 	public ColumnResources columns();
 
@@ -119,8 +120,8 @@ public interface Smartsheet {
 	 * Returns: the resources instance
 	 * 
 	 * Exceptions: None
-	 * 
-	 * @return
+	 *
+	 * @return the row resources
 	 */
 	public RowResources rows();
 
@@ -132,8 +133,8 @@ public interface Smartsheet {
 	 * Returns: the resources instance
 	 * 
 	 * Exceptions: None
-	 * 
-	 * @return
+	 *
+	 * @return the attachment resources
 	 */
 	public AttachmentResources attachments();
 
@@ -145,8 +146,8 @@ public interface Smartsheet {
 	 * Returns: the resources instance
 	 * 
 	 * Exceptions: None
-	 * 
-	 * @return
+	 *
+	 * @return the discussion resources
 	 */
 	public DiscussionResources discussions();
 
@@ -158,8 +159,8 @@ public interface Smartsheet {
 	 * Returns: the resources instance
 	 * 
 	 * Exceptions: None
-	 * 
-	 * @return
+	 *
+	 * @return the comment resources
 	 */
 	public CommentResources comments();
 
@@ -171,8 +172,8 @@ public interface Smartsheet {
 	 * Returns: the resources instance
 	 * 
 	 * Exceptions: None
-	 * 
-	 * @return
+	 *
+	 * @return the user resources
 	 */
 	public UserResources users();
 
@@ -184,8 +185,8 @@ public interface Smartsheet {
 	 * Returns: the resources instance
 	 * 
 	 * Exceptions: None
-	 * 
-	 * @return
+	 *
+	 * @return the search resources
 	 */
 	public SearchResources search();
 
@@ -197,8 +198,8 @@ public interface Smartsheet {
 	 * Returns: None
 	 * 
 	 * Exceptions: - IllegalArgumentException : if any argument is null/empty string
-	 * 
-	 * @param assumedUser
+	 *
+	 * @param assumedUser the new assumed user
 	 */
 	public void setAssumedUser(String assumedUser);
 
@@ -210,8 +211,8 @@ public interface Smartsheet {
 	 * Returns: None
 	 * 
 	 * Exceptions: - IllegalArgumentException : if any argument is null/empty string
-	 * 
-	 * @param accessToken
+	 *
+	 * @param accessToken the new access token
 	 */
 	public void setAccessToken(String accessToken);
 }

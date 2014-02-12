@@ -44,13 +44,9 @@ public class DiscussionResourcesImpl extends AbstractResources implements Discus
 	/**
 	 * Constructor.
 	 * 
-	 * Parameters: - smartsheet : the SmartsheetImpl
-	 * 
 	 * Exceptions: - IllegalArgumentException : if any argument is null
-	 * 
-	 * Implementation: super(smartsheet); this.attachments = new DiscussionAttachmentResources(smartsheet);
-	 * 
-	 * @param smartsheet
+	 *
+	 * @param smartsheet the smartsheet
 	 */
 	public DiscussionResourcesImpl(SmartsheetImpl smartsheet) {
 		super(smartsheet);
@@ -66,18 +62,17 @@ public class DiscussionResourcesImpl extends AbstractResources implements Discus
 	 * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
 	 * rather than returning null).
 	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
-	 * 
-	 * Implementation: return this.getResource("discussion/" + id", Discussion.class);
-	 * 
-	 * @param id
-	 * @return
-	 * @throws SmartsheetException 
+	 * Exceptions:
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param id the id
+	 * @return the discussion
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Discussion getDiscussion(long id) throws SmartsheetException {
 		return this.getResource("discussion/" + id, Discussion.class);
@@ -88,23 +83,18 @@ public class DiscussionResourcesImpl extends AbstractResources implements Discus
 	 * 
 	 * It mirrors to the following Smartsheet REST API method: POST /discussion/{discussionId}/comments
 	 * 
-	 * Parameters: - id : the discussion ID - commentt : the comment to add, limited to the following required
-	 * attributes: * text
-	 * 
-	 * Returns: the created comment
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
-	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
-	 * the operation - SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * Implementation: return this.createResource("discussion/" + id + "/comments", Comment.class, comment);
-	 * 
-	 * @param id
-	 * @param comment
-	 * @return
-	 * @throws SmartsheetException 
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param id the discussion ID
+	 * @param comment the comment to add, limited to the following required attributes: text
+	 * @return the created comment
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Comment addDiscussionComment(long id, Comment comment) throws SmartsheetException {
 		return this.createResource("discussion/" + id + "/comments", Comment.class, comment);
@@ -113,14 +103,8 @@ public class DiscussionResourcesImpl extends AbstractResources implements Discus
 	/**
 	 * Return the AssociatedAttachmentResources object that provides access to attachment resources associated with
 	 * Discussion resources.
-	 * 
-	 * Returns: the AssociatedAttachmentResources object
-	 * 
-	 * Exceptions: None
-	 * 
-	 * Implementation: return this.attachments;
-	 * 
-	 * @return
+	 *
+	 * @return the associated attachment resources
 	 */
 	public AssociatedAttachmentResources attachments() {
 		return this.attachments;

@@ -39,6 +39,7 @@ import com.smartsheet.api.models.ObjectInclusion;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface HomeResources {
+	
 	/**
 	 * Get a nested list of all Home objects, including sheets, workspaces and folders, and optionally reports and/or
 	 * templates, as shown on the Home tab..
@@ -56,10 +57,10 @@ public interface HomeResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param includes
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @param includes the includes
+	 * @return the home
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Home getHome(EnumSet<ObjectInclusion> includes) throws SmartsheetException;
 
@@ -69,8 +70,8 @@ public interface HomeResources {
 	 * Returns: the WorkspaceFolderResources object
 	 * 
 	 * Exceptions: None
-	 * 
-	 * @return
+	 *
+	 * @return the home folder resources
 	 */
 	public HomeFolderResources folders();
 }

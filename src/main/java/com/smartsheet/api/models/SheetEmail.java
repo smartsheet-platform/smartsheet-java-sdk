@@ -1,5 +1,6 @@
 package com.smartsheet.api.models;
 
+// TODO: Auto-generated Javadoc
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -23,31 +24,51 @@ package com.smartsheet.api.models;
 
 
 /**
- * Represents SheetEmail object.
+ * Represents Sheet Email object used for sending a sheet by email.
  */
 public class SheetEmail extends Email {
 	/**
-	 * Represents the sheet email format.
+	 * Represents the sheet email format (PDF or Excel).
 	 */
 	private SheetEmailFormat format;
 
 	/**
-	 * Represents the format details.
+	 * Represents the format details (paper dimensions).
 	 */
 	private FormatDetails formatDetails;
 
+	/**
+	 * Gets the sheet email format (PDF or Excel).
+	 *
+	 * @return the format
+	 */
 	public SheetEmailFormat getFormat() {
 		return format;
 	}
 
+	/**
+	 * Sets the sheet email format (PDF or Excel).
+	 *
+	 * @param format the new format
+	 */
 	public void setFormat(SheetEmailFormat format) {
 		this.format = format;
 	}
 
+	/**
+	 * Gets the format details (paper dimensions).
+	 *
+	 * @return the format details
+	 */
 	public FormatDetails getFormatDetails() {
 		return formatDetails;
 	}
 
+	/**
+	 * Sets the format details (paper dimensions).
+	 *
+	 * @param formatDetails the new format details
+	 */
 	public void setFormatDetails(FormatDetails formatDetails) {
 		this.formatDetails = formatDetails;
 	}

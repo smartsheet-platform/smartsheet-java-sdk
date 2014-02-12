@@ -38,6 +38,7 @@ import com.smartsheet.api.models.Folder;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface HomeFolderResources {
+	
 	/**
 	 * List folders under home.
 	 * 
@@ -53,9 +54,9 @@ public interface HomeFolderResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @return the list
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Folder> listFolders() throws SmartsheetException;
 
@@ -73,10 +74,10 @@ public interface HomeFolderResources {
 	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
 	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
 	 * the operation - SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param folder
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @param folder the folder
+	 * @return the folder
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Folder createFolder(Folder folder) throws SmartsheetException;
 }

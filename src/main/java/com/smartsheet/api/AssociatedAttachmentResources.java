@@ -44,6 +44,7 @@ import com.smartsheet.api.models.Attachment;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface AssociatedAttachmentResources {
+	
 	/**
 	 * List attachments of a given object.
 	 * 
@@ -60,10 +61,10 @@ public interface AssociatedAttachmentResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param objectId
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @param objectId the object id
+	 * @return the list
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Attachment> listAttachments(long objectId) throws SmartsheetException;
 
@@ -84,14 +85,14 @@ public interface AssociatedAttachmentResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param file
-	 * @param objectId
-	 * @param contentType
-	 * @return
-	 * @throws FileNotFoundException 
-	 * @throws SmartsheetException 
-	 * @throws UnsupportedEncodingException 
+	 *
+	 * @param objectId the object id
+	 * @param file the file
+	 * @param contentType the content type
+	 * @return the attachment
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws SmartsheetException the smartsheet exception
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 	public Attachment attachFile(long objectId, File file, String contentType) throws FileNotFoundException, SmartsheetException, UnsupportedEncodingException;
 
@@ -116,11 +117,11 @@ public interface AssociatedAttachmentResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param objectId
-	 * @param attachment
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @param objectId the object id
+	 * @param attachment the attachment
+	 * @return the attachment
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Attachment attachURL(long objectId, Attachment attachment) throws SmartsheetException;
 }

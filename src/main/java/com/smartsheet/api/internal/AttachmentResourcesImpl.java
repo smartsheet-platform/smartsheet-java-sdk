@@ -32,16 +32,13 @@ import com.smartsheet.api.models.Attachment;
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class AttachmentResourcesImpl extends AbstractResources implements AttachmentResources {
+	
 	/**
 	 * Constructor.
 	 * 
-	 * Parameters: - smartsheet : the SmartsheetImpl
-	 * 
 	 * Exceptions: - IllegalArgumentException : if any argument is null
-	 * 
-	 * Implementation: super(smartsheet);
-	 * 
-	 * @param smartsheet
+	 *
+	 * @param smartsheet the smartsheet
 	 */
 	public AttachmentResourcesImpl(SmartsheetImpl smartsheet) {
 		super(smartsheet);
@@ -52,23 +49,21 @@ public class AttachmentResourcesImpl extends AbstractResources implements Attach
 	 * 
 	 * It mirrors to the following Smartsheet REST API method: GET /attachment/{id}
 	 * 
-	 * Parameters: - id : the ID
-	 * 
 	 * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
 	 * rather than returning null).
 	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
-	 * 
-	 * Implementation: return this.getResource("attachment/" + id, Attachment.class);
-	 * 
-	 * @param id
-	 * @return
-	 * @throws SmartsheetException 
+	 * Exceptions:
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param id the id
+	 * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException 
+	 * rather than returning null).
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Attachment getAttachment(long id) throws SmartsheetException {
 		return this.getResource("attachment/" + id, Attachment.class);
@@ -79,21 +74,16 @@ public class AttachmentResourcesImpl extends AbstractResources implements Attach
 	 * 
 	 * It mirrors to the following Smartsheet REST API method: DELETE /attachment{id}
 	 * 
-	 * Parameters: - id : the ID of the attachment
-	 * 
-	 * Returns: None
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
-	 * 
-	 * Implementation: this.deleteResource("attachment/" + id, Attachment.class);
-	 * 
-	 * @param id
-	 * @throws SmartsheetException 
+	 * Exceptions:
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param id the ID of the attachment
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public void deleteAttachment(long id) throws SmartsheetException {
 		this.deleteResource("attachment/" + id, Attachment.class);

@@ -23,8 +23,8 @@ package com.smartsheet.api.oauth;
 
 
 /**
- * This is the exception throw by OAuthFlow to indicate "unsupported_response_type" error occurred during obtaining
- * authorization code.
+ * This is the exception thrown by OAuthFlow to indicate "unsupported_response_type" error occurred when obtaining
+ * an authorization code.
  * 
  * Thread safety: Exceptions are not thread safe.
  */
@@ -36,12 +36,8 @@ public class UnsupportedResponseTypeException extends OAuthAuthorizationCodeExce
 
 	/**
 	 * Constructor.
-	 * 
-	 * Parameters: - message : the message
-	 * 
-	 * Implementation: super(message);
-	 * 
-	 * @param message
+	 *
+	 * @param message the message
 	 */
 	public UnsupportedResponseTypeException(String message) {
 		super(message);

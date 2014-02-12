@@ -44,6 +44,7 @@ import com.smartsheet.api.models.Folder;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface FolderResources {
+	
 	/**
 	 * Get a folder.
 	 * 
@@ -60,21 +61,10 @@ public interface FolderResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param folderId
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param folderId the folder id
+	 * @return the folder
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Folder getFolder(long folderId) throws SmartsheetException;
 
@@ -94,22 +84,10 @@ public interface FolderResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param folder
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param folder the folder
+	 * @return the folder
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Folder updateFolder(Folder folder) throws SmartsheetException;
 
@@ -128,21 +106,9 @@ public interface FolderResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param folderId
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param folderId the folder id
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public void deleteFolder(long folderId) throws SmartsheetException;
 
@@ -161,22 +127,10 @@ public interface FolderResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param parentFolderId
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws JSONSerializerException 
-	 * @throws HttpClientException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param parentFolderId the parent folder id
+	 * @return the list
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Folder> listFolders(long parentFolderId) throws SmartsheetException;
 
@@ -194,23 +148,11 @@ public interface FolderResources {
 	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
 	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
 	 * the operation - SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param folder
-	 * @param parentFolderId
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param parentFolderId the parent folder id
+	 * @param folder the folder
+	 * @return the folder
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Folder createFolder(long parentFolderId, Folder folder) throws SmartsheetException;
 }

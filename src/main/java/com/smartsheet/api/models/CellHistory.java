@@ -26,27 +26,49 @@ import java.util.Date;
 
 /**
  * Represents CellHistory object.
+ * @see <a href="http://help.smartsheet.com/customer/portal/articles/518314-viewing-cell-history">Cell History Documentation</a>
  */
 public class CellHistory extends Cell {
 	/**
-	 * Represents the modified by user.
+	 * Represents the user that modified the cell.
 	 */
 	private User modifiedBy;
 	
+	/** The date the cell was modified. */
 	private Date modifiedAt;
 	
+	/**
+	 * Gets the date the cell was modified.
+	 *
+	 * @return the modified at
+	 */
 	public Date getModifiedAt() {
 		return modifiedAt;
 	}
 
+	/**
+	 * Sets the modified Date for the cell.
+	 *
+	 * @param modifiedAt the new modified at
+	 */
 	public void setModifiedAt(Date modifiedAt) {
 		this.modifiedAt = modifiedAt;
 	}
 
+	/**
+	 * Gets the user that modified the cell.
+	 *
+	 * @return the modified by
+	 */
 	public User getModifiedBy() {
 		return modifiedBy;
 	}
 
+	/**
+	 * Sets the user that modified the cell.
+	 *
+	 * @param modifiedBy the new modified by
+	 */
 	public void setModifiedBy(User modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}

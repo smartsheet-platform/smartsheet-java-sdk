@@ -35,10 +35,20 @@ public class HttpResponse extends HttpMessage {
 	 */
 	private int statusCode;
 
+	/**
+	 * Gets the status code.
+	 *
+	 * @return the status code
+	 */
 	public int getStatusCode() {
 		return statusCode;
 	}
 
+	/**
+	 * Sets the status code.
+	 *
+	 * @param statusCode the new status code
+	 */
 	public void setStatusCode(int statusCode) {
 		this.statusCode = statusCode;
 	}

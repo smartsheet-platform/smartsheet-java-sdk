@@ -30,19 +30,14 @@ import com.smartsheet.api.SmartsheetException;
  * Thread safety: Exceptions are not thread safe.
  */
 public class HttpClientException extends SmartsheetException {
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Constructor.
-	 * 
-	 * Parameters: - message : the message
-	 * 
-	 * Implementation: super(message);
-	 * 
-	 * @param message
+	 *
+	 * @param message the message
 	 */
 	public HttpClientException(String message) {
 		super(message);
@@ -50,13 +45,9 @@ public class HttpClientException extends SmartsheetException {
 
 	/**
 	 * Constructor.
-	 * 
-	 * Parameters: - message : the message - cause : the cause
-	 * 
-	 * Implementation: super(message, cause);
-	 * 
-	 * @param message
-	 * @param cause
+	 *
+	 * @param message the message
+	 * @param cause the cause
 	 */
 	public HttpClientException(String message, Throwable cause) {
 		super(message, cause);

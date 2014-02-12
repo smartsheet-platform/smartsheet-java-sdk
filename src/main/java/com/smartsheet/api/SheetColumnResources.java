@@ -44,6 +44,7 @@ import com.smartsheet.api.models.Column;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface SheetColumnResources {
+	
 	/**
 	 * List columns of a given sheet.
 	 * 
@@ -59,10 +60,10 @@ public interface SheetColumnResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param sheetId
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @param sheetId the sheet id
+	 * @return the list
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Column> listColumns(long sheetId) throws SmartsheetException;
 
@@ -83,23 +84,11 @@ public interface SheetColumnResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param sheetId
-	 * @param column
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param sheetId the sheet id
+	 * @param column the column
+	 * @return the column
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Column addColumn(long sheetId, Column column) throws SmartsheetException;
 }

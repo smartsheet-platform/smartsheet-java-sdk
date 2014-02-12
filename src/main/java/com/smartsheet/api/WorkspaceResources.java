@@ -41,6 +41,7 @@ import com.smartsheet.api.models.Workspace;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface WorkspaceResources {
+	
 	/**
 	 * List all workspaces.
 	 * 
@@ -55,9 +56,9 @@ public interface WorkspaceResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @return the list
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Workspace> listWorkspaces() throws SmartsheetException;
 
@@ -77,10 +78,10 @@ public interface WorkspaceResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param id
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @param id the id
+	 * @return the workspace
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Workspace getWorkspace(long id) throws SmartsheetException;
 
@@ -98,10 +99,10 @@ public interface WorkspaceResources {
 	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
 	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
 	 * the operation - SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param workspace
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @param workspace the workspace
+	 * @return the workspace
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Workspace createWorkspace(Workspace workspace) throws SmartsheetException;
 
@@ -121,10 +122,10 @@ public interface WorkspaceResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param workspace
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @param workspace the workspace
+	 * @return the workspace
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Workspace updateWorkspace(Workspace workspace) throws SmartsheetException;
 
@@ -143,9 +144,9 @@ public interface WorkspaceResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param id
-	 * @throws SmartsheetException 
+	 *
+	 * @param id the id
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public void deleteWorkspace(long id) throws SmartsheetException;
 
@@ -156,8 +157,8 @@ public interface WorkspaceResources {
 	 * Returns: the WorkspaceFolderResources object
 	 * 
 	 * Exceptions: None
-	 * 
-	 * @return
+	 *
+	 * @return the workspace folder resources
 	 */
 	public WorkspaceFolderResources folders();
 
@@ -167,8 +168,8 @@ public interface WorkspaceResources {
 	 * Returns: the ShareResources object
 	 * 
 	 * Exceptions: None
-	 * 
-	 * @return
+	 *
+	 * @return the share resources
 	 */
 	public ShareResources shares();
 }

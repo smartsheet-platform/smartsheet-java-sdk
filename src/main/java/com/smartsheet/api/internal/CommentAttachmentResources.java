@@ -37,21 +37,24 @@ import com.smartsheet.api.models.Attachment;
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class CommentAttachmentResources extends AssociatedAttachmentResourcesImpl implements AssociatedAttachmentResources  {
+	
 	/**
 	 * Constructor.
 	 * 
 	 * Parameters: - smartsheet : the SmartsheetImpl
 	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null or empty string
-	 * 
-	 * Implementation: super(smartsheet, "comment");
-	 * 
-	 * @param smartsheet
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null or empty string
+	 *
+	 * @param smartsheet the smartsheet
 	 */
 	public CommentAttachmentResources(SmartsheetImpl smartsheet) {
 		super(smartsheet, "comment");
 	}
 
+	/* (non-Javadoc)
+	 * @see com.smartsheet.api.internal.AssociatedAttachmentResourcesImpl#listAttachments(long)
+	 */
 	@Override
 	public List<Attachment> listAttachments(long objectId) {
 		throw new UnsupportedOperationException();

@@ -46,13 +46,9 @@ public class HomeResourcesImpl extends AbstractResources implements HomeResource
 	/**
 	 * Constructor.
 	 * 
-	 * Parameters: - smartsheet : the SmartsheetImpl
-	 * 
 	 * Exceptions: - IllegalArgumentException : if any argument is null
-	 * 
-	 * Implementation: super(smartsheet); this.folders = new HomeFolderResourcesImpl(smartsheet);
-	 * 
-	 * @param smartsheet
+	 *
+	 * @param smartsheet the smartsheet
 	 */
 	public HomeResourcesImpl(SmartsheetImpl smartsheet) {
 		super(smartsheet); 
@@ -65,26 +61,18 @@ public class HomeResourcesImpl extends AbstractResources implements HomeResource
 	 * 
 	 * It mirrors to the following Smartsheet REST API method: GET /home
 	 * 
-	 * Parameters: - includes : used to specify the optional objects to include, currently TEMPLATES is supported.
-	 * 
-	 * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
+	 * Exceptions:
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param includes used to specify the optional objects to include, currently TEMPLATES is supported.
+	 * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
 	 * rather than returning null).
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
-	 * 
-	 * Implementation: String path = "home" + id; if (includes != null && !includes.isEmpty()) { path += "?include=";
-	 * for (ObjectInclusion oi : includes) { path += oi.name().toLowerCase() + ","; } }
-	 * 
-	 * return this.getResource(path, Home.class);
-	 * 
-	 * @param includes
-	 * @return
-	 * @throws SmartsheetException 
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Home getHome(EnumSet<ObjectInclusion> includes) throws SmartsheetException {
 		String path = "home";
@@ -101,14 +89,8 @@ public class HomeResourcesImpl extends AbstractResources implements HomeResource
 
 	/**
 	 * Return the WorkspaceFolderResources object that provides access to Folder resources under home.
-	 * 
-	 * Returns: the WorkspaceFolderResources object
-	 * 
-	 * Exceptions: None
-	 * 
-	 * Implementation: return this.folders;
-	 * 
-	 * @return
+	 *
+	 * @return the home folder resources
 	 */
 	public HomeFolderResources folders() {
 		return this.folders;

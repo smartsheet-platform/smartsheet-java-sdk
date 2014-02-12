@@ -1,5 +1,6 @@
 package com.smartsheet.api.models;
 
+// TODO: Auto-generated Javadoc
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -23,7 +24,7 @@ package com.smartsheet.api.models;
 
 
 /**
- * Represents the FormatDetails object.
+ * Represents the format details when generating a digital copy (PDF/EXCEL) of a sheet.
  */
 public class FormatDetails {
 	/**
@@ -31,10 +32,20 @@ public class FormatDetails {
 	 */
 	private PaperSize paperSize;
 
+	/**
+	 * Gets the paper size.
+	 *
+	 * @return the paper size
+	 */
 	public PaperSize getPaperSize() {
 		return paperSize;
 	}
 
+	/**
+	 * Sets the paper size.
+	 *
+	 * @param paperSize the new paper size
+	 */
 	public void setPaperSize(PaperSize paperSize) {
 		this.paperSize = paperSize;
 	}

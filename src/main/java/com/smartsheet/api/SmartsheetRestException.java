@@ -33,9 +33,8 @@ import com.smartsheet.api.models.Error;
  * Thread safety: Exceptions are not thread safe.
  */
 public class SmartsheetRestException extends SmartsheetException {
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Represents the error code.
@@ -46,12 +45,8 @@ public class SmartsheetRestException extends SmartsheetException {
 
 	/**
 	 * Constructor.
-	 * 
-	 * Parameters: - error : the Error object from Smartsheet REST API
-	 * 
-	 * Implementation: super(error.getMessage()); this.errorCode = error.getErrorCode();
-	 * 
-	 * @param error
+	 *
+	 * @param error the Error object from Smartsheet REST API
 	 */
 	public SmartsheetRestException(Error error) {
 		super(error.getMessage());
@@ -61,13 +56,9 @@ public class SmartsheetRestException extends SmartsheetException {
 	
 
 	/**
-	 * Returns the error code.
-	 * 
-	 * Returns: the error code.
-	 * 
-	 * Implementation: return this.errorCode;
-	 * 
-	 * @return
+	 * Returns the error code.y
+	 *
+	 * @return the error code
 	 */
 	public int getErrorCode() {
 		return this.errorCode;

@@ -27,17 +27,17 @@ package com.smartsheet.api.models;
  */
 public enum LinkType {
 	/**
-	 * Represents URL link type.
+	 * Represents URL type.
 	 */
 	URL,
 
 	/**
-	 * Represents SHEETLINK link type.
+	 * Represents SHEETLINK type.
 	 */
 	SHEETLINK,
 
 	/**
-	 * Represents CELLLINK link type.
+	 * Represents CELLLINK type.
 	 */
 	CELLLINK;
 }

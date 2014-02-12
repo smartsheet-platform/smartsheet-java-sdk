@@ -37,6 +37,7 @@ import com.smartsheet.api.models.Discussion;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface DiscussionResources {
+	
 	/**
 	 * Get a discussion.
 	 * 
@@ -53,10 +54,10 @@ public interface DiscussionResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param id
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @param id the id
+	 * @return the discussion
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Discussion getDiscussion(long id) throws SmartsheetException;
 
@@ -75,11 +76,11 @@ public interface DiscussionResources {
 	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
 	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
 	 * the operation - SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param id
-	 * @param comment
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @param id the id
+	 * @param comment the comment
+	 * @return the comment
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Comment addDiscussionComment(long id, Comment comment) throws SmartsheetException;
 
@@ -90,8 +91,8 @@ public interface DiscussionResources {
 	 * Returns: the AssociatedAttachmentResources object
 	 * 
 	 * Exceptions: None
-	 * 
-	 * @return
+	 *
+	 * @return the associated attachment resources
 	 */
 	public AssociatedAttachmentResources attachments();
 }

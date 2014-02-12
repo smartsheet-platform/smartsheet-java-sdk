@@ -40,6 +40,7 @@ import com.smartsheet.api.models.UserProfile;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface UserResources {
+	
 	/**
 	 * List all users.
 	 * 
@@ -54,9 +55,9 @@ public interface UserResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @return the list
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<User> listUsers() throws SmartsheetException;
 
@@ -75,10 +76,10 @@ public interface UserResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param user
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @param user the user
+	 * @return the user
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public User addUser(User user) throws SmartsheetException;
 
@@ -98,11 +99,11 @@ public interface UserResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param sendEmail
-	 * @param user
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @param user the user
+	 * @param sendEmail the send email
+	 * @return the user
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public User addUser(User user, boolean sendEmail) throws SmartsheetException;
 
@@ -122,9 +123,9 @@ public interface UserResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @return the current user
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public UserProfile getCurrentUser() throws SmartsheetException;
 
@@ -144,10 +145,10 @@ public interface UserResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param user
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @param user the user
+	 * @return the user
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public User updateUser(User user) throws SmartsheetException;
 
@@ -166,10 +167,9 @@ public interface UserResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param id
-	 * @return 
-	 * @throws SmartsheetException 
+	 *
+	 * @param id the id
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public void deleteUser(long id) throws SmartsheetException;
 }

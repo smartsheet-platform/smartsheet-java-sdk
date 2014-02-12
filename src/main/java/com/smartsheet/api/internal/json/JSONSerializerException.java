@@ -24,25 +24,21 @@ package com.smartsheet.api.internal.json;
 
 import com.smartsheet.api.SmartsheetException;
 
+// TODO: Auto-generated Javadoc
 /**
  * This is the exception throw by JSONSerializer to indicate errors occurred during JSON serialization/de-serialization.
  * 
  * Thread safety: Exceptions are not thread safe.
  */
 public class JSONSerializerException extends SmartsheetException {
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Constructor.
-	 * 
-	 * Parameters: - message : the message
-	 * 
-	 * Implementation: super(message);
-	 * 
-	 * @param message
+	 *
+	 * @param message the message
 	 */
 	public JSONSerializerException(String message) {
 		super(message);
@@ -50,18 +46,19 @@ public class JSONSerializerException extends SmartsheetException {
 
 	/**
 	 * Constructor.
-	 * 
-	 * Parameters: - message : the message - cause : the cause
-	 * 
-	 * Implementation: super(message, cause);
-	 * 
-	 * @param message
-	 * @param cause
+	 *
+	 * @param message the message
+	 * @param cause the cause
 	 */
 	public JSONSerializerException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
+	/**
+	 * Instantiates a new JSON serializer exception.
+	 *
+	 * @param e the e
+	 */
 	public JSONSerializerException(Exception e) {
 		super(e);
 	}

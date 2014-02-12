@@ -47,15 +47,11 @@ public class AssociatedAttachmentResourcesImpl extends AbstractAssociatedResourc
 	/**
 	 * Constructor.
 	 * 
-	 * Parameters: - smartsheet : the SmartsheetImpl - masterResourceType : the master resource type (e.g. "sheet",
-	 * "workspace").
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null or empty string
-	 * 
-	 * Implementation: super(smartsheet, masterResourceType);
-	 * 
-	 * @param masterResourceType
-	 * @param smartsheet
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null or empty string
+	 *
+	 * @param smartsheet the smartsheet
+	 * @param masterResourceType the master resource type (e.g. "sheet", "workspace")
 	 */
 	public AssociatedAttachmentResourcesImpl(SmartsheetImpl smartsheet, String masterResourceType) {
 		super(smartsheet, masterResourceType);
@@ -67,23 +63,17 @@ public class AssociatedAttachmentResourcesImpl extends AbstractAssociatedResourc
 	 * It mirrors to the following Smartsheet REST API method: GET /sheet/{id}/attachments GET /row/{id}/attachments GET
 	 * /comment/{id}/attachments
 	 * 
-	 * Parameters: - objectId : the ID of the object to which the attachments are associated
-	 * 
-	 * Returns: the attachments (note that empty list will be returned if there is none)
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
-	 * 
-	 * Implementation: return this.listResources(getMasterResourceType() + "/" + objectId + "/attachments",
-	 * Attachment.class);
-	 * 
-	 * @param objectId
-	 * @return
-	 * @throws SmartsheetException 
+	 * Exceptions:
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param objectId the ID of the object to which the attachments are associated
+	 * @return the attachments (note that empty list will be returned if there is none)
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Attachment> listAttachments(long objectId) throws SmartsheetException {
 		return this.listResources(getMasterResourceType() + "/" + objectId + "/attachments", Attachment.class);
@@ -95,46 +85,46 @@ public class AssociatedAttachmentResourcesImpl extends AbstractAssociatedResourc
 	 * It mirrors to the following Smartsheet REST API method: POST /sheet/{id}/attachments POST /row/{id}/attachments
 	 * POST /comment/{idd}/attachments
 	 * 
-	 * Parameters: - objectId : the ID of the object - file : the file to attach - contentType : the content type of the
-	 * file
-	 * 
-	 * Returns: the created attachment
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null or empty string - InvalidRequestException : if
-	 * there is any problem with the REST API request - AuthorizationException : if there is any problem with the REST
-	 * API authorization(access token) - ResourceNotFoundException : if the resource can not be found -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * Implementation: HttpRequest request =
-	 * createHttpRequest(this.getSmartsheet().getBaseURI().resolve(getMasterResourceType() + "/" + objectId +
-	 * "/attachments"), HttpMethod.POST); request.getHeaders().put("Content-Disposition", "attachment; filename=" +
-	 * file.getName()); HttpEntity entity = new HttpEntity(); entity.setContentType(contentType); entity.setContent(new
-	 * FileInputStream(file)); entity.setContentLength(file.length()); request.setEntity(entity);
-	 * 
-	 * HttpResponse response = this.getSmartsheet().getHttpClient().request(request);
-	 * 
-	 * switch (response.getStatusCode()) { case 200: return
-	 * this.getSmartsheet().getJsonSerializer().deserializeResult(Attachment.class,
-	 * response.getEntity().getContent()).getResult(); default: handleError(response);
-	 *  }
-	 * 
-	 * @param file
-	 * @param objectId
-	 * @param contentType
-	 * @return
-	 * @throws FileNotFoundException 
-	 * @throws SmartsheetException 
-	 * @throws UnsupportedEncodingException 
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null or empty string
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token) 
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param objectId the object id
+	 * @param file the file to attach
+	 * @param contentType the content type of the file
+	 * @return the created attachment
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws SmartsheetException the smartsheet exception
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 	public Attachment attachFile(long objectId, File file, String contentType) throws FileNotFoundException,
 			SmartsheetException, UnsupportedEncodingException {
 		return attachFile(objectId, file, contentType, file.length());
 	}
 	
+	/**
+	 * Attach file.
+	 *
+	 * @param objectId the object id
+	 * @param file the file
+	 * @param contentType the content type
+	 * @param contentLength the content length
+	 * @return the attachment
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws SmartsheetException the smartsheet exception
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
+	 */
 	public Attachment attachFile(long objectId, File file, String contentType, Long contentLength) throws FileNotFoundException,
 	SmartsheetException, UnsupportedEncodingException {
+		if(file == null || contentType == null) {
+			throw new IllegalArgumentException();
+		}
+		
 		HttpRequest request = createHttpRequest(this.getSmartsheet().getBaseURI().resolve(getMasterResourceType() + 
 				"/" + objectId + "/attachments"), HttpMethod.POST);
 		request.getHeaders().put("Content-Disposition", "attachment; filename=" + file.getName());
@@ -176,20 +166,19 @@ public class AssociatedAttachmentResourcesImpl extends AbstractAssociatedResourc
 	 * 
 	 * Returns: the created attachment
 	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ResourceNotFoundException : if the resource can not be found -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * Implementation: return this.createResource(getMasterResourceType() + "/" + objectId + "/attachments",
-	 * Attachment.class, attachment);
-	 * 
-	 * @param objectId
-	 * @param attachment
-	 * @return
-	 * @throws SmartsheetException 
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param objectId the object id
+	 * @param attachment the attachment
+	 * @return the attachment
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Attachment attachURL(long objectId, Attachment attachment) throws SmartsheetException {
 		return this.createResource(getMasterResourceType() + "/" + objectId + "/attachments",

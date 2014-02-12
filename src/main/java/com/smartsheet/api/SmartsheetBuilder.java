@@ -79,21 +79,15 @@ public class SmartsheetBuilder {
 
 	/**
 	 * Constructor.
-	 * 
-	 * Implementation: Does nothing.
 	 */
 	public SmartsheetBuilder() {
 	}
 
 	/**
 	 * Set the HttpClient.
-	 * 
-	 * Parameters: - httpClient : the HttpClient
-	 * 
-	 * Implementation: this.httpClient = httpClient return this;
-	 * 
-	 * @param httpClient
-	 * @return
+	 *
+	 * @param httpClient the http client
+	 * @return the smartsheet builder
 	 */
 	public SmartsheetBuilder setHttpClient(HttpClient httpClient) {
 		this.httpClient = httpClient;
@@ -102,13 +96,9 @@ public class SmartsheetBuilder {
 
 	/**
 	 * Set the JsonSerializer.
-	 * 
-	 * Parameters: - jsonSerializer : the JsonSerializer
-	 * 
-	 * Implementation: this.jsonSerializer = jsonSerializer; return this;
-	 * 
-	 * @param jsonSerializer
-	 * @return
+	 *
+	 * @param jsonSerializer the JsonSerializer
+	 * @return the SmartsheetBuilder
 	 */
 	public SmartsheetBuilder setJsonSerializer(JsonSerializer jsonSerializer) {
 		this.jsonSerializer = jsonSerializer;
@@ -117,13 +107,9 @@ public class SmartsheetBuilder {
 
 	/**
 	 * Set the base URI.
-	 * 
-	 * Parameters: - baseURI : the base URI
-	 * 
-	 * Implementation: this.baseURI = baseURI; return this;
-	 * 
-	 * @param baseURI
-	 * @return
+	 *
+	 * @param baseURI the base uri
+	 * @return the smartsheet builder
 	 */
 	public SmartsheetBuilder setBaseURI(String baseURI) {
 		this.baseURI = baseURI; 
@@ -132,13 +118,9 @@ public class SmartsheetBuilder {
 
 	/**
 	 * Set the access token.
-	 * 
-	 * Parameters: - accessToken : the access token
-	 * 
-	 * Implementation: this.accessToken = accessToken; return this;
-	 * 
-	 * @param accessToken
-	 * @return
+	 *
+	 * @param accessToken the access token
+	 * @return the smartsheet builder
 	 */
 	public SmartsheetBuilder setAccessToken(String accessToken) {
 		this.accessToken = accessToken;
@@ -147,13 +129,9 @@ public class SmartsheetBuilder {
 
 	/**
 	 * Set the assumed user
-	 * 
-	 * Parameters: - assumedUser : the assumed user
-	 * 
-	 * Implementation: this.assumedUser = assumedUser; return this;
-	 * 
-	 * @param assumedUser
-	 * @return
+	 *
+	 * @param assumedUser the assumed user
+	 * @return the smartsheet builder
 	 */
 	public SmartsheetBuilder setAssumedUser(String assumedUser) {
 		this.assumedUser = assumedUser;
@@ -163,22 +141,9 @@ public class SmartsheetBuilder {
 	/**
 	 * Build the Smartsheet instance.
 	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the Smartsheet instance
-	 * 
 	 * Exceptions: - IllegalStateException : if accessToken isn't set yet.
-	 * 
-	 * Implementation: SmartsheetImpl smartsheet = new SmartsheetImpl( baseURI == null ? DEFAULT_BASE_URI : baseURI,
-	 * httpClient == null ? new DefaultHttpClient(), jsonSerializer == null ? new JacksonJsonSerializer());
-	 * 
-	 * smartsheet.setAccessToken(accessToken);
-	 * 
-	 * if (assumedUser != null) { smartsheet.setAssumedUser(assumedUser); }
-	 * 
-	 * return smartsheet;
-	 * 
-	 * @return
+	 *
+	 * @return the Smartsheet instance
 	 */
 	public Smartsheet build() {
 		if(httpClient == null){

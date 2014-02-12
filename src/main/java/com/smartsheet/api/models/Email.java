@@ -29,7 +29,7 @@ import java.util.List;
  */
 public abstract class Email {
 	/**
-	 * Represents the email recipient.
+	 * Represents the email recipient(s).
 	 */
 	private List<String> to;
 
@@ -48,34 +48,74 @@ public abstract class Email {
 	 */
 	private Boolean ccMe;
 
+	/**
+	 * Gets the to.
+	 *
+	 * @return the to
+	 */
 	public List<String> getTo() {
 		return to;
 	}
 
+	/**
+	 * Sets the to email address.
+	 *
+	 * @param to the new to
+	 */
 	public void setTo(List<String> to) {
 		this.to = to;
 	}
 
+	/**
+	 * Gets the subject.
+	 *
+	 * @return the subject
+	 */
 	public String getSubject() {
 		return subject;
 	}
 
+	/**
+	 * Sets the subject.
+	 *
+	 * @param subject the new subject
+	 */
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
 
+	/**
+	 * Gets the message.
+	 *
+	 * @return the message
+	 */
 	public String getMessage() {
 		return message;
 	}
 
+	/**
+	 * Sets the message.
+	 *
+	 * @param message the new message
+	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
 
+	/**
+	 * Gets the carbon copy me flag.
+	 *
+	 * @return the cc me
+	 */
 	public Boolean getCcMe() {
 		return ccMe;
 	}
 
+	/**
+	 * Sets the carbon copy me flag.
+	 *
+	 * @param ccMe the new cc me
+	 */
 	public void setCcMe(Boolean ccMe) {
 		this.ccMe = ccMe;
 	}

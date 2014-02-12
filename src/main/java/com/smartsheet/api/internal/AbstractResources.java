@@ -55,6 +55,9 @@ import com.smartsheet.api.internal.json.JSONSerializerException;
 public abstract class AbstractResources {
 	
 	
+	/**
+	 * The Enum ErrorCode.
+	 */
 	public enum ErrorCode {
 		BAD_REQUEST(400, InvalidRequestException.class), 
 		NOT_AUTHORIZED(401, AuthorizationException.class),
@@ -64,14 +67,29 @@ public abstract class AbstractResources {
 		INTERNAL_SERVER_ERROR(500, InvalidRequestException.class),
 		SERVICE_UNAVAILABLE(503,ServiceUnavailableException.class);
 		
+		/** The error code. */
 		int errorCode;
-		Class<? extends SmartsheetRestException> clazz;
+		
+		/** The Exception class. */
+		Class<? extends SmartsheetRestException> exceptionClass;
 
-		ErrorCode(int errorCode, Class<? extends SmartsheetRestException> clazz) {
+		/**
+		 * Instantiates a new error code.
+		 *
+		 * @param errorCode the error code
+		 * @param exceptionClass the Exception class
+		 */
+		ErrorCode(int errorCode, Class<? extends SmartsheetRestException> exceptionClass) {
 			this.errorCode = errorCode;
-			this.clazz = clazz;
+			this.exceptionClass = exceptionClass;
 		}
 
+		/**
+		 * Gets the error code.
+		 *
+		 * @param errorNumber the error number
+		 * @return the error code
+		 */
 		public static ErrorCode getErrorCode(int errorNumber) {
 			for (ErrorCode code : ErrorCode.values()) {
 				if (code.errorCode == errorNumber) {
@@ -82,14 +100,28 @@ public abstract class AbstractResources {
 			return null;
 		}
 
+		/**
+		 * Gets the exception.
+		 *
+		 * @return the exception
+		 * @throws InstantiationException the instantiation exception
+		 * @throws IllegalAccessException the illegal access exception
+		 */
 		public SmartsheetRestException getException() throws InstantiationException, IllegalAccessException {
-			return clazz.newInstance();
+			return exceptionClass.newInstance();
 		}
 		
+		/**
+		 * Gets the exception.
+		 *
+		 * @param error the error
+		 * @return the exception
+		 * @throws SmartsheetException the smartsheet exception
+		 */
 		public SmartsheetRestException getException(com.smartsheet.api.models.Error error) throws SmartsheetException  {
 			
 			try {
-				return clazz.getConstructor(com.smartsheet.api.models.Error.class).newInstance(error);
+				return exceptionClass.getConstructor(com.smartsheet.api.models.Error.class).newInstance(error);
 			} catch (IllegalArgumentException e) {
 				throw new SmartsheetException(e);
 			} catch (SecurityException e) {
@@ -115,14 +147,8 @@ public abstract class AbstractResources {
 
 	/**
 	 * Constructor.
-	 * 
-	 * Parameters: - smartsheet : the SmartsheetImpl
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null
-	 * 
-	 * Implementation: this.smartsheet = smartsheet;
-	 * 
-	 * @param smartsheet
+	 *
+	 * @param smartsheet the smartsheet
 	 */
 	protected AbstractResources(SmartsheetImpl smartsheet) {
 		if(smartsheet == null){
@@ -140,35 +166,30 @@ public abstract class AbstractResources {
 	 * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
 	 * rather than returning null).
 	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null, or path is empty string -
-	 * InvalidRequestException : if there is any problem with the REST API request - AuthorizationException : if there
-	 * is any problem with the REST API authorization(access token) - ResourceNotFoundException : if the resource can
-	 * not be found - ServiceUnavailableException : if the REST API service is not available (possibly due to rate
-	 * limiting) - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 * - SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * Implementation: HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.GET);
-	 * HttpResponse response = this.smartsheet.getHttpClient().request(request);
-	 * 
-	 * switch (response.getStatusCode()) { case 200: return this.smartsheet.getJsonSerializer().deserialize(objectClass,
-	 * response.getEntity().getContent()); default: handleError(response); }
-	 * 
+	 * Exceptions: -
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param <T> the generic type
 	 * @param path the relative path of the resource.
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws HttpClientException 
-	 * @throws IOException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
+	 * @param objectClass the object class
+	 * @return the resource
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	protected <T> T getResource(String path, Class<T> objectClass) throws SmartsheetException  {
+		if(path == null || objectClass == null){
+			throw new IllegalArgumentException();
+		}
+		
+		if(path.isEmpty()) {
+			com.smartsheet.api.models.Error error = new com.smartsheet.api.models.Error();
+			error.setMessage("An empty path was provided.");
+			throw new ResourceNotFoundException(error);
+		}
 		
 		HttpRequest request;
 		try {
@@ -205,48 +226,25 @@ public abstract class AbstractResources {
 	/**
 	 * Create a resource using Smartsheet REST API.
 	 * 
-	 * Parameters: - path : the relative path of the resource collections - objectClass : the resource object class -
-	 * object : the object to create
-	 * 
-	 * Returns: the created resource
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null, or path is empty string -
-	 * InvalidRequestException : if there is any problem with the REST API request - AuthorizationException : if there
-	 * is any problem with the REST API authorization(access token) - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
-	 * 
-	 * Implementation: HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
-	 * 
-	 * ByteArrayOutputStream baos = new ByteArrayOutputStream(); this.smartsheet.getJsonSerializer().serialize(object,
-	 * baos); HttpEntity entity = new HttpEntity(); entity.setContentType("application/json"); entity.setContent(new
-	 * ByteArrayInputStream(baos.toByteArray())); entity.setContentLength(baos.size()); request.setEntity(entity);
-	 * 
-	 * HttpResponse response = this.smartsheet.getHttpClient().request(request);
-	 * 
-	 * switch (response.getStatusCode()) { case 200: return
-	 * this.smartsheet.getJsonSerializer().deserializeResult(objectClass,
-	 * response.getEntity().getContent()).getResult(); default: handleError(response); }
-	 * 
-	 * @param path
-	 * @param object
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws JSONSerializerException 
-	 * @throws HttpClientException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * Exceptions: 
+	 *   IllegalArgumentException : if any argument is null, or path is empty string
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param <T> the generic type
+	 * @param path the relative path of the resource collections
+	 * @param objectClass the resource object class
+	 * @param object the object to create
+	 * @return the created resource
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	protected <T> T createResource(String path, Class<T> objectClass, T object) throws SmartsheetException {
+		if(path == null || path.isEmpty() || object == null){
+			throw new IllegalArgumentException();
+		}
 		
 		HttpRequest request;
 		try {
@@ -283,36 +281,26 @@ public abstract class AbstractResources {
 	/**
 	 * Update a resource using Smartsheet REST API.
 	 * 
-	 * Parameters: - path : the relative path of the resource - objectClass : the resource object class - object : the
-	 * object to create
-	 * 
-	 * Returns: the updated resource
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null, or path is empty string -
-	 * InvalidRequestException : if there is any problem with the REST API request - AuthorizationException : if there
-	 * is any problem with the REST API authorization(access token) - ResourceNotFoundException : if the resource can
-	 * not be found - ServiceUnavailableException : if the REST API service is not available (possibly due to rate
-	 * limiting) - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 * - SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * Implementation: HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.PUT);
-	 * 
-	 * ByteArrayOutputStream baos = new ByteArrayOutputStream(); this.smartsheet.getJsonSerializer().serialize(object,
-	 * baos); HttpEntity entity = new HttpEntity(); entity.setContentType("application/json"); entity.setContent(new
-	 * ByteArrayInputStream(baos.toByteArray())); entity.setContentLength(baos.size()); request.setEntity(entity);
-	 * 
-	 * HttpResponse response = this.smartsheet.getHttpClient().request(request);
-	 * 
-	 * switch (response.getStatusCode()) { case 200: return
-	 * this.smartsheet.getJsonSerializer().deserializeResult(objectClass,
-	 * response.getEntity().getContent()).getResult(); default: handleError(response); }
-	 * 
-	 * @param path
-	 * @param object
-	 * @return
-	 * @throws SmartsheetException 
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null, or path is empty string
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param <T> the generic type
+	 * @param path the relative path of the resource
+	 * @param objectClass the resource object class
+	 * @param object the object to create
+	 * @return the updated resource
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	protected <T> T updateResource(String path, Class<T> objectClass, T object) throws SmartsheetException {
+		if(path == null || path.isEmpty() || object == null){
+			throw new IllegalArgumentException();
+		}
 		
 		HttpRequest request;
 		try {
@@ -348,42 +336,25 @@ public abstract class AbstractResources {
 	/**
 	 * List resources using Smartsheet REST API.
 	 * 
-	 * Parameters: - path : the relative path of the resource collections - objectClass : the resource object class
-	 * 
-	 * Returns: the resources
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null, or path is empty string -
-	 * InvalidRequestException : if there is any problem with the REST API request - AuthorizationException : if there
-	 * is any problem with the REST API authorization(access token) - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
-	 * 
-	 * Implementation: HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.GET);
-	 * 
-	 * HttpResponse response = this.smartsheet.getHttpClient().request(request);
-	 * 
-	 * switch (response.getStatusCode()) { case 200: return
-	 * this.smartsheet.getJsonSerializer().deserializeList(objectClass, response.getEntity().getContent()); default:
-	 * handleError(response); }
-	 * 
-	 * @param path
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null, or path is empty string
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param <T> the generic type
+	 * @param path the relative path of the resource collections
+	 * @param objectClass the resource object class
+	 * @return the resources
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	protected <T> List<T> listResources(String path, Class<T> objectClass) throws SmartsheetException {
+		if(path == null || path.isEmpty() || objectClass == null){
+			throw new IllegalArgumentException();
+		}
+		
 		HttpRequest request;
 		try {
 			request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.GET);
@@ -411,39 +382,24 @@ public abstract class AbstractResources {
 	/**
 	 * Delete a resource from Smartsheet REST API.
 	 * 
-	 * Parameters: - path : the relative path of the resource - objectClass : the resource object class
-	 * 
-	 * Returns: None
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null, or path is empty string -
-	 * InvalidRequestException : if there is any problem with the REST API request - AuthorizationException : if there
-	 * is any problem with the REST API authorization(access token) - ResourceNotFoundException : if the resource can
-	 * not be found - ServiceUnavailableException : if the REST API service is not available (possibly due to rate
-	 * limiting) - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 * - SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * Implementation: HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path),
-	 * HttpMethod.DELETE); HttpResponse response = this.smartsheet.getHttpClient().request(request);
-	 * 
-	 * switch (response.getStatusCode()) { case 200: this.smartsheet.getJsonSerializer().deserializeResult(objectClass,
-	 * response.getEntity().getContent()); break; default: handleError(response); }
-	 * 
-	 * @param path
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
-	 * @throws JSONSerializerException 
-	 * @throws HttpClientException 
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null, or path is empty string
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param <T> the generic type
+	 * @param path the relative path of the resource
+	 * @param objectClass the resource object class
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	protected <T> void deleteResource(String path, Class<T> objectClass) throws SmartsheetException {
+		if(path == null || path.isEmpty() || objectClass == null){
+			throw new IllegalArgumentException();
+		}
 		
 		HttpRequest request;
 		try {
@@ -473,31 +429,26 @@ public abstract class AbstractResources {
 	 * 
 	 * Returns: the object list
 	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null, or path is empty string -
-	 * InvalidRequestException : if there is any problem with the REST API request - AuthorizationException : if there
-	 * is any problem with the REST API authorization(access token) - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
-	 * 
-	 * Implementation: HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
-	 * 
-	 * ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	 * this.smartsheet.getJsonSerializer().serialize(objectToPost, baos); HttpEntity entity = new HttpEntity();
-	 * entity.setContentType("application/json"); entity.setContent(new ByteArrayInputStream(baos.toByteArray()));
-	 * entity.setContentLength(baos.size()); request.setEntity(entity);
-	 * 
-	 * HttpResponse response = this.smartsheet.getHttpClient().request(request);
-	 * 
-	 * switch (response.getStatusCode()) { case 200: return
-	 * this.smartsheet.getJsonSerializer().deserializeListResult(objectClassToReceive,
-	 * response.getEntity().getContent()).getResult(); default: handleError(response); }
-	 * 
-	 * @param path
-	 * @return
-	 * @throws SmartsheetException 
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null, or path is empty string
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param <T> the generic type
+	 * @param <S> the generic type
+	 * @param path the path
+	 * @param objectToPost the object to post
+	 * @param objectClassToReceive the object class to receive
+	 * @return the list
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	protected <T, S> List<S> postAndReceiveList(String path, T objectToPost, Class<S> objectClassToReceive) throws SmartsheetException {
+		if(path == null || path.isEmpty() || objectToPost == null || objectClassToReceive == null){
+			throw new IllegalArgumentException();
+		}
 		
 		HttpRequest request;
 		try {
@@ -533,48 +484,28 @@ public abstract class AbstractResources {
 	/**
 	 * Put an object to Smartsheet REST API and receive a list of objects from response.
 	 * 
-	 * Parameters: - path : the relative path of the resource collections - objectToPut : the object to put -
-	 * objectClassToReceive : the resource object class to receive
-	 * 
-	 * Returns: the object list
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null, or path is empty string -
-	 * InvalidRequestException : if there is any problem with the REST API request - AuthorizationException : if there
-	 * is any problem with the REST API authorization(access token) - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
-	 * 
-	 * Implementation: HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.PUT);
-	 * 
-	 * ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	 * this.smartsheet.getJsonSerializer().serialize(objectToPut, baos); HttpEntity entity = new HttpEntity();
-	 * entity.setContentType("application/json"); entity.setContent(new ByteArrayInputStream(baos.toByteArray()));
-	 * entity.setContentLength(baos.size()); request.setEntity(entity);
-	 * 
-	 * HttpResponse response = this.smartsheet.getHttpClient().request(request);
-	 * 
-	 * switch (response.getStatusCode()) { case 200: return
-	 * this.smartsheet.getJsonSerializer().deserializeListResult(objectClassToReceive,
-	 * response.getEntity().getContent()).getResult(); default: handleError(response); }
-	 * 
-	 * @param path
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws JSONSerializerException 
-	 * @throws HttpClientException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null, or path is empty string
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param <T> the generic type
+	 * @param <S> the generic type
+	 * @param path the relative path of the resource collections
+	 * @param objectToPut the object to put
+	 * @param objectClassToReceive the resource object class to receive
+	 * @return the object list
+	 * @throws SmartsheetException the smartsheet exception
 	 */
-	protected <T, S> List<S> putAndReceiveList(String path, T objectToPut, Class<S> objectClassToReceive) throws SmartsheetException {
+	protected <T, S> List<S> putAndReceiveList(String path, T objectToPut, Class<S> objectClassToReceive) 
+			throws SmartsheetException {
+		if(path == null || path.isEmpty() || objectToPut == null || objectClassToReceive == null){
+			throw new IllegalArgumentException();
+		}
+		
 		HttpRequest request;
 		try {
 			request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.PUT);
@@ -607,26 +538,12 @@ public abstract class AbstractResources {
 	/**
 	 * Create an HttpRequest.
 	 * 
-	 * Parameters: - uri : the URI - method : the HttpMethod
-	 * 
-	 * Returns: the HttpRequest
-	 * 
 	 * Exceptions: Any exception shall be propagated since it's a private method.
-	 * 
-	 * Implementation: HttpRequest request = new HttpRequest(); request.setUri(uri); request.setMethod(method);
-	 * 
-	 * // Set authorization header request.setHeaders(new HashMap<String, String>());
-	 * request.getHeaders().put("Authorization", "Bearer " + smartsheet.getAccessToken());
-	 * 
-	 * // Set assumed user if (smartsheet.getAssumedUser() != null) { request.getHeaders().put("Assume-User",
-	 * URLEncoder.encode(smartsheet.getAssumedUser(), "utf-8")); }
-	 * 
-	 * return request;
-	 * 
-	 * @param method
-	 * @param uri
-	 * @return
-	 * @throws UnsupportedEncodingException 
+	 *
+	 * @param uri the URI
+	 * @param method the HttpMethod
+	 * @return the http request
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 	protected HttpRequest createHttpRequest(URI uri, HttpMethod method) throws UnsupportedEncodingException {
 		HttpRequest request = new HttpRequest();
@@ -648,30 +565,11 @@ public abstract class AbstractResources {
 	/**
 	 * Handles an error HttpResponse (non-200) returned by Smartsheet REST API.
 	 * 
-	 * Parameters: - response : the HttpResponse
-	 * 
-	 * Returns: None
-	 * 
-	 * Exceptions: - SmartsheetRestException : the exception corresponding to the error
-	 * 
-	 * Implementation: Error error = this.smartsheet.getJsonSerializer().deserialize(Error.class,
-	 * response.getEntity().getContent()); Class<? extends SmartsheetRestException> exceptionClass =
-	 * STATUS_CODE_TO_EXCEPTION_CLASS.get(response.getStatusCode()); if (exceptionClass == null) { exceptionClass =
-	 * SmartsheetRestException.class; } throw (SmartsheetRestException)
-	 * exceptionClass.getConstructor(Error.class).newInstance(error);
-	 * 
-	 * @param response
-	 * @throws SmartsheetException 
-	 * @throws IOException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
+	 * Exceptions: 
+	 *   SmartsheetRestException : the exception corresponding to the error
+	 *
+	 * @param response the HttpResponse
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	protected void handleError(HttpResponse response) throws SmartsheetException {
 		
@@ -703,10 +601,20 @@ public abstract class AbstractResources {
 	}
 	
 
+	/**
+	 * Gets the smartsheet.
+	 *
+	 * @return the smartsheet
+	 */
 	public SmartsheetImpl getSmartsheet() {
 		return smartsheet;
 	}
 
+	/**
+	 * Sets the smartsheet.
+	 *
+	 * @param smartsheet the new smartsheet
+	 */
 	public void setSmartsheet(SmartsheetImpl smartsheet) {
 		this.smartsheet = smartsheet;
 	}

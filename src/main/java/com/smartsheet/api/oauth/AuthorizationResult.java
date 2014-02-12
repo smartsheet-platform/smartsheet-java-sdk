@@ -1,5 +1,6 @@
 package com.smartsheet.api.oauth;
 
+// TODO: Auto-generated Javadoc
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -23,44 +24,68 @@ package com.smartsheet.api.oauth;
 
 
 /**
- * Represents OAuth authorization result.
+ * Represents an OAuth authorization result.
  */
 public class AuthorizationResult {
-	/**
-	 * Represents the code.
-	 */
+	/** Represents the authorization code which is required to obtain an access token. */
 	private String code;
 
-	/**
-	 * Represents the expiration time in seconds.
-	 */
+	/** Represents the total number of seconds that the authorization token is valid. This is always 4 minutes. */
 	private long expiresInSeconds;
 
-	/**
-	 * Represents the state string.
-	 */
+	/** Represents the state string which is returned to the redirect URL for a registered application. */
 	private String state;
 	
+	/**
+	 * Gets the authorization code which is required to obtain an access token.
+	 *
+	 * @return the authorization code
+	 */
 	public String getCode() {
 		return code;
 	}
 
+	/**
+	 * Sets the authorization code which is required to obtain an access token.
+	 *
+	 * @param code the new code
+	 */
 	public void setCode(String code) {
 		this.code = code;
 	}
 
+	/**
+	 * Gets the total number of seconds that the authorization token is valid. This is always 4 minutes.
+	 *
+	 * @return the expires in seconds
+	 */
 	public long getExpiresInSeconds() {
 		return expiresInSeconds;
 	}
 
+	/**
+	 * Sets the total number of seconds that the authorization token is valid. This is always 4 minutes.
+	 *
+	 * @param expiresInSeconds the new expires in seconds
+	 */
 	public void setExpiresInSeconds(long expiresInSeconds) {
 		this.expiresInSeconds = expiresInSeconds;
 	}
 
+	/**
+	 * Gets the state string which is returned to the redirect URL for a registered application
+	 *
+	 * @return the state
+	 */
 	public String getState() {
 		return state;
 	}
 
+	/**
+	 * Sets the state string which is returned to the redirect URL for a registered application
+	 *
+	 * @param state the new state
+	 */
 	public void setState(String state) {
 		this.state = state;
 	}

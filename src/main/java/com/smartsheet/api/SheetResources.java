@@ -55,6 +55,7 @@ import com.smartsheet.api.models.SheetPublish;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface SheetResources {
+	
 	/**
 	 * List all sheets.
 	 * 
@@ -69,21 +70,9 @@ public interface SheetResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws JSONSerializerException 
-	 * @throws HttpClientException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @return the list
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Sheet> listSheets() throws SmartsheetException;
 
@@ -101,21 +90,9 @@ public interface SheetResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws JSONSerializerException 
-	 * @throws HttpClientException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @return the list
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Sheet> listOrganizationSheets() throws SmartsheetException;
 
@@ -136,21 +113,11 @@ public interface SheetResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param id
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param id the id
+	 * @param includes the includes
+	 * @return the sheet
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Sheet getSheet(long id, EnumSet<ObjectInclusion> includes) throws SmartsheetException;
 
@@ -171,20 +138,11 @@ public interface SheetResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param id
-	 * @param outputStream
-	 * @param paperSize
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
+	 *
+	 * @param id the id
+	 * @param outputStream the output stream
+	 * @return the sheet as excel
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public void getSheetAsExcel(long id, OutputStream outputStream) throws SmartsheetException;
 
@@ -204,20 +162,12 @@ public interface SheetResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param id
-	 * @param outputStream
-	 * @param paperSize
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
+	 *
+	 * @param id the id
+	 * @param outputStream the output stream
+	 * @param paperSize the paper size
+	 * @return the sheet as pdf
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public void getSheetAsPDF(long id, OutputStream outputStream, PaperSize paperSize) throws SmartsheetException;
 
@@ -237,22 +187,10 @@ public interface SheetResources {
 	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
 	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
 	 * the operation - SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param sheet
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param sheet the sheet
+	 * @return the sheet
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Sheet createSheet(Sheet sheet) throws SmartsheetException;
 
@@ -272,22 +210,11 @@ public interface SheetResources {
 	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
 	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
 	 * the operation - SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param sheet
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param sheet the sheet
+	 * @param includes the includes
+	 * @return the sheet
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Sheet createSheetFromExisting(Sheet sheet, EnumSet<ObjectInclusion> includes) throws SmartsheetException;
 
@@ -307,23 +234,11 @@ public interface SheetResources {
 	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
 	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
 	 * the operation - SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param sheet
-	 * @param folderId
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param folderId the folder id
+	 * @param sheet the sheet
+	 * @return the sheet
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Sheet createSheetInFolder(long folderId, Sheet sheet) throws SmartsheetException;
 
@@ -344,22 +259,12 @@ public interface SheetResources {
 	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
 	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
 	 * the operation - SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param folderId
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param folderID the folder id
+	 * @param sheet the sheet
+	 * @param includes the includes
+	 * @return the sheet
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Sheet createSheetInFolderFromExisting(long folderID, Sheet sheet, EnumSet<ObjectInclusion> includes) throws SmartsheetException;
 
@@ -379,23 +284,11 @@ public interface SheetResources {
 	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
 	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
 	 * the operation - SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param workspaceId
-	 * @param sheet
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param workspaceId the workspace id
+	 * @param sheet the sheet
+	 * @return the sheet
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Sheet createSheetInWorkspace(long workspaceId, Sheet sheet) throws SmartsheetException;
 
@@ -416,22 +309,12 @@ public interface SheetResources {
 	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
 	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
 	 * the operation - SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param workspaceId
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param workspaceId the workspace id
+	 * @param sheet the sheet
+	 * @param includes the includes
+	 * @return the sheet
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Sheet createSheetInWorkspaceFromExisting(long workspaceId, Sheet sheet, EnumSet<ObjectInclusion> includes) throws SmartsheetException;
 
@@ -450,21 +333,9 @@ public interface SheetResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param id
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param id the id
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public void deleteSheet(long id) throws SmartsheetException;
 
@@ -484,22 +355,10 @@ public interface SheetResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param sheet
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param sheet the sheet
+	 * @return the sheet
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Sheet updateSheet(Sheet sheet) throws SmartsheetException;
 
@@ -519,21 +378,10 @@ public interface SheetResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param id
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param id the id
+	 * @return the sheet version
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public int getSheetVersion(long id) throws SmartsheetException;
 
@@ -551,22 +399,10 @@ public interface SheetResources {
 	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
 	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
 	 * the operation - SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param id
-	 * @param email
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param id the id
+	 * @param email the email
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public void sendSheet(long id, SheetEmail email) throws SmartsheetException;
 
@@ -576,8 +412,8 @@ public interface SheetResources {
 	 * Returns: the ShareResources object
 	 * 
 	 * Exceptions: None
-	 * 
-	 * @return
+	 *
+	 * @return the share resources
 	 */
 	public ShareResources shares();
 
@@ -587,8 +423,8 @@ public interface SheetResources {
 	 * Returns: the SheetRowResources object
 	 * 
 	 * Exceptions: None
-	 * 
-	 * @return
+	 *
+	 * @return the sheet row resources
 	 */
 	public SheetRowResources rows();
 
@@ -598,8 +434,8 @@ public interface SheetResources {
 	 * Returns: the SheetColumnResources object
 	 * 
 	 * Exceptions: None
-	 * 
-	 * @return
+	 *
+	 * @return the sheet column resources
 	 */
 	public SheetColumnResources columns();
 
@@ -610,8 +446,8 @@ public interface SheetResources {
 	 * Returns: the AssociatedAttachmentResources object
 	 * 
 	 * Exceptions: None
-	 * 
-	 * @return
+	 *
+	 * @return the associated attachment resources
 	 */
 	public AssociatedAttachmentResources attachments();
 
@@ -622,8 +458,8 @@ public interface SheetResources {
 	 * Returns: the AssociatedDiscussionResources object
 	 * 
 	 * Exceptions: None
-	 * 
-	 * @return
+	 *
+	 * @return the associated discussion resources
 	 */
 	public AssociatedDiscussionResources discussions();
 
@@ -643,21 +479,10 @@ public interface SheetResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param id
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param id the id
+	 * @return the publish status
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public SheetPublish getPublishStatus(long id) throws SmartsheetException;
 
@@ -678,23 +503,11 @@ public interface SheetResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param id
-	 * @param publish
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param id the id
+	 * @param publish the publish
+	 * @return the sheet publish
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public SheetPublish updatePublishStatus(long id, SheetPublish publish) throws SmartsheetException;
 }

@@ -20,8 +20,6 @@ package com.smartsheet.api.internal.json;
  * %[license]
  */
 
-
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -58,33 +56,29 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	static {
 		OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 	}
-	
+
 	/**
 	 * Sets if the OBJECT MAPPER should ignore unknown properties or fail when de-serializing the JSON data.
-	 * @param value true if it should fail, false otherwise.
+	 * 
+	 * @param value
+	 *            true if it should fail, false otherwise.
 	 */
 	public void setFailOnUnknownProperties(boolean value) {
 		OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, value);
 	}
-	
+
 	/**
 	 * Constructor.
 	 * 
 	 * Parameters: None
 	 * 
 	 * Exceptions: None
-	 * 
-	 * Implementation: Do nothing.
 	 */
-	public JacksonJsonSerializer() {}
+	public JacksonJsonSerializer() {
+	}
 
 	/**
 	 * This is the static initializer of this class.
-	 * 
-	 * Implementation: OBJECT_MAPPER = new ObjectMapper(); OBJECT_MAPPER.enable(SerializationFeature.INDENT_OUTPUT);
-	 * OBJECT_MAPPER.setSerializationInclusion(Include.NON_NULL);
-	 * OBJECT_MAPPER.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-	 * OBJECT_MAPPER.addMixInAnnotations(IdentifiableModel.class, IdFieldExclusionMixin.class);
 	 */
 	public static void init() {
 
@@ -104,15 +98,14 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	/**
 	 * Serialize an object to JSON.
 	 * 
-	 * Parameters: - object : the object to serialize - outputStream : the output stream to which the JSON will be
-	 * written
+	 * Parameters: 
+	 *   object : the object to serialize
+	 *   outputStream : the output stream to which the JSON will be written
 	 * 
 	 * Returns: None
 	 * 
 	 * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
 	 * other error occurred during the operation
-	 * 
-	 * Implementation: OBJECT_MAPPER.writeValue(outputStream, object);
 	 * 
 	 * @param outputStream
 	 * @param object
@@ -121,7 +114,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	 * @throws JsonMappingException
 	 * @throws JsonGenerationException
 	 */
-	//@Override
+	// @Override
 	public <T> void serialize(T object, java.io.OutputStream outputStream) throws JSONSerializerException {
 
 		if (object == null || outputStream == null) {
@@ -142,53 +135,44 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	/**
 	 * De-serialize an object from JSON.
 	 * 
-	 * Parameters: - objectClass : the class of the object to de-serialize - inputStream : the input stream from which
-	 * the JSON will be read
-	 * 
 	 * Returns: the de-serialized object
 	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
-	 * other error occurred during the operation
+	 * Exceptions: 
+	 *   - IllegalArgumentException : if any argument is null 
+	 *   - JSONSerializerException : if there is any other error occurred during the operation
 	 * 
-	 * Implementation: return OBJECT_MAPPER.readValue(inputStream, objectClass);
-	 * 
-	 * @param inputStream
-	 * @param objectClass
+	 * @param inputStream the input stream from which the JSON will be read
+	 * @param objectClass the class of the object to de-serialize
 	 * @return
 	 * @throws IOException
 	 * @throws JsonMappingException
 	 * @throws JsonParseException
 	 */
-	//@Override
+	// @Override
 	public <T> T deserialize(Class<T> objectClass, java.io.InputStream inputStream) throws JsonParseException,
 			JsonMappingException, IOException {
-		if(objectClass == null || inputStream == null){
+		if (objectClass == null || inputStream == null) {
 			throw new IllegalArgumentException();
 		}
-		
+
 		return OBJECT_MAPPER.readValue(inputStream, objectClass);
 	}
-
+//FIXME: convert all line endings to unix
 	/**
-	 * De-serialize an object list from JSON.
-	 * 
-	 * Parameters: - objectClass : the class of the object (of the list) to de-serialize - inputStream : the input
-	 * stream from which the JSON will be read
+	 * De-serialize an object list from JSON. 
 	 * 
 	 * Returns: the de-serialized list
 	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
-	 * other error occurred during the operation
+	 * Exceptions: 
+	 *   - IllegalArgumentException : if any argument is null 
+	 *   - JSONSerializerException : if there is any other error occurred during the operation
 	 * 
-	 * Implementation: return OBJECT_MAPPER.readValue(inputStream,
-	 * OBJECT_MAPPER.getTypeFactory().constructCollectionType(List.class, objectClass));
-	 * 
-	 * @param inputStream
-	 * @param objectClass
+	 * @param inputStream the input stream from which the JSON will be read
+	 * @param objectClass the class of the object (of the list) to de-serialize
 	 * @return
 	 * @throws JSONSerializerException
 	 */
-	//@Override 
+	// @Override
 	public <T> List<T> deserializeList(Class<T> objectClass, java.io.InputStream inputStream)
 			throws JSONSerializerException {
 
@@ -202,7 +186,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
 			// Read the json input stream into a List.
 			list = OBJECT_MAPPER.readValue(inputStream,
 					OBJECT_MAPPER.getTypeFactory().constructCollectionType(List.class, objectClass));
-			//list = OBJECT_MAPPER.readValue(inputStream, new TypeReference<List<T>>() {});
+			// list = OBJECT_MAPPER.readValue(inputStream, new TypeReference<List<T>>() {});
 		} catch (JsonParseException e) {
 			throw new JSONSerializerException(e);
 		} catch (JsonMappingException e) {
@@ -213,27 +197,28 @@ public class JacksonJsonSerializer implements JsonSerializer {
 
 		return list;
 	}
-	
+
 	/**
 	 * De-serialize to a map from JSON.
 	 * 
 	 * @param objectClass
 	 * @param inputStream
 	 * @return
-	 * @throws JSONSerializerException 
+	 * @throws JSONSerializerException
 	 */
-	//@Override
-	public Map<String,Object> deserializeMap(InputStream inputStream) throws JSONSerializerException {
+	// @Override
+	public Map<String, Object> deserializeMap(InputStream inputStream) throws JSONSerializerException {
 		if (inputStream == null) {
 			throw new IllegalArgumentException();
 		}
-		
+
 		Map<String, Object> map = null;
-		
+
 		try {
-			map = OBJECT_MAPPER.readValue(inputStream, new TypeReference<Map<String, Object>>() {});
-//			map = OBJECT_MAPPER.readValue(inputStream, OBJECT_MAPPER.getTypeFactory().constructParametricType(
-//					Map.class, OBJECT_MAPPER.getTypeFactory().constructParametricType(String.class, Object.class)));
+			map = OBJECT_MAPPER.readValue(inputStream, new TypeReference<Map<String, Object>>() {
+			});
+			// map = OBJECT_MAPPER.readValue(inputStream, OBJECT_MAPPER.getTypeFactory().constructParametricType(
+			// Map.class, OBJECT_MAPPER.getTypeFactory().constructParametricType(String.class, Object.class)));
 		} catch (JsonParseException e) {
 			throw new JSONSerializerException(e);
 		} catch (JsonMappingException e) {
@@ -241,31 +226,23 @@ public class JacksonJsonSerializer implements JsonSerializer {
 		} catch (IOException e) {
 			throw new JSONSerializerException(e);
 		}
-		
+
 		return map;
 	}
-	
 
 	/**
-	 * De-serialize a Result<T> object from JSON.
+	 * De-serialize a Result<T> object from JSON. 
 	 * 
-	 * Parameters: - objectClass : the class of the object (of the Result) to de-serialize - inputStream : the input
-	 * stream from which the JSON will be read
+	 * Exceptions: 
+	 *   - IllegalArgumentException : if any argument is null 
+	 *   - JSONSerializerException : if there is any other error occurred during the operation
 	 * 
-	 * Returns: the de-serialized result
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
-	 * other error occurred during the operation
-	 * 
-	 * Implementation: return OBJECT_MAPPER.readValue(inputStream,
-	 * OBJECT_MAPPER.getTypeFactory().constructParametricType(Result.class, objectClass));
-	 * 
-	 * @param inputStream
-	 * @param objectClass
-	 * @return
+	 * @param inputStream the input stream from which the JSON will be read
+	 * @param objectClass the class of the object (of the Result) to de-serialize
+	 * @return the de-serialized result
 	 * @throws JSONSerializerException
 	 */
-	//@Override
+	// @Override
 	public <T> Result<T> deserializeResult(Class<T> objectClass, java.io.InputStream inputStream)
 			throws JSONSerializerException {
 
@@ -276,8 +253,8 @@ public class JacksonJsonSerializer implements JsonSerializer {
 		Result<T> result = null;
 
 		try {
-			result = OBJECT_MAPPER.readValue(inputStream, OBJECT_MAPPER.getTypeFactory().
-					constructParametricType(Result.class, objectClass));
+			result = OBJECT_MAPPER.readValue(inputStream,
+					OBJECT_MAPPER.getTypeFactory().constructParametricType(Result.class, objectClass));
 		} catch (JsonParseException e) {
 			throw new JSONSerializerException(e);
 		} catch (JsonMappingException e) {
@@ -292,39 +269,36 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	/**
 	 * De-serialize a Result<List<T>> object from JSON.
 	 * 
-	 * Parameters: - objectClass : the class of the object (of the Result) to de-serialize - inputStream : the input
-	 * stream from which the JSON will be read
+	 * Parameters: - objectClass :  - inputStream : 
 	 * 
 	 * Returns: the de-serialized result
 	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
-	 * other error occurred during the operation
+	 * Exceptions: 
+	 *   - IllegalArgumentException : if any argument is null 
+	 *   - JSONSerializerException : if there is any other error occurred during the operation
 	 * 
-	 * Implementation: return OBJECT_MAPPER.readValue(inputStream,
-	 * OBJECT_MAPPER.getTypeFactory().constructParametricType(Result.class,
-	 * OBJECT_MAPPER.getTypeFactory().constructParametricType(List.class, objectClass)));
-	 * 
-	 * @param inputStream
-	 * @param objectClass
+	 * @param inputStream the input stream from which the JSON will be read
+	 * @param objectClass the class of the object (of the Result) to de-serialize
 	 * @return
-	 * @throws JSONSerializerException 
+	 * @throws JSONSerializerException
 	 */
-	//@Override
-	public <T> Result<List<T>> deserializeListResult(Class<T> objectClass, java.io.InputStream inputStream) 
+	// @Override
+	public <T> Result<List<T>> deserializeListResult(Class<T> objectClass, java.io.InputStream inputStream)
 			throws JSONSerializerException {
-		
-		if(objectClass == null || inputStream == null){
+
+		if (objectClass == null || inputStream == null) {
 			throw new IllegalArgumentException();
 		}
-		
-		
+
 		Result<List<T>> result = null;
-		
+
 		try {
-			result = OBJECT_MAPPER.readValue(inputStream, OBJECT_MAPPER.getTypeFactory().constructParametricType(
-					Result.class, OBJECT_MAPPER.getTypeFactory().constructParametricType(List.class, objectClass)));
-			
-			//result = OBJECT_MAPPER.readValue(inputStream, new TypeReference<Result<List<T>>>() {});
+			result = OBJECT_MAPPER.readValue(
+					inputStream,
+					OBJECT_MAPPER.getTypeFactory().constructParametricType(Result.class,
+							OBJECT_MAPPER.getTypeFactory().constructParametricType(List.class, objectClass)));
+
+			// result = OBJECT_MAPPER.readValue(inputStream, new TypeReference<Result<List<T>>>() {});
 		} catch (JsonParseException e) {
 			throw new JSONSerializerException(e);
 		} catch (JsonMappingException e) {
@@ -335,35 +309,3 @@ public class JacksonJsonSerializer implements JsonSerializer {
 		return result;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

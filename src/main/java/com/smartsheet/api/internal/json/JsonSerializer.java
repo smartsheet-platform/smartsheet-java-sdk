@@ -38,6 +38,7 @@ import com.smartsheet.api.models.Result;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface JsonSerializer {
+	
 	/**
 	 * Serialize an object to JSON.
 	 * 
@@ -48,13 +49,11 @@ public interface JsonSerializer {
 	 * 
 	 * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
 	 * other error occurred during the operation
-	 * 
-	 * @param outputStream
-	 * @param object
-	 * @throws IOException
-	 * @throws JsonMappingException
-	 * @throws JsonGenerationException
-	 * @throws JSONSerializerException
+	 *
+	 * @param <T> the generic type
+	 * @param object the object
+	 * @param outputStream the output stream
+	 * @throws JSONSerializerException the JSON serializer exception
 	 */
 	public <T> void serialize(T object, java.io.OutputStream outputStream) throws JSONSerializerException;
 
@@ -68,13 +67,14 @@ public interface JsonSerializer {
 	 * 
 	 * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
 	 * other error occurred during the operation
-	 * 
-	 * @param inputStream
-	 * @param objectClass
-	 * @return
-	 * @throws IOException
-	 * @throws JsonMappingException
-	 * @throws JsonParseException
+	 *
+	 * @param <T> the generic type
+	 * @param objectClass the object class
+	 * @param inputStream the input stream
+	 * @return the t
+	 * @throws JsonParseException the json parse exception
+	 * @throws JsonMappingException the json mapping exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public <T> T deserialize(Class<T> objectClass, java.io.InputStream inputStream) throws JsonParseException,
 			JsonMappingException, IOException;
@@ -89,11 +89,12 @@ public interface JsonSerializer {
 	 * 
 	 * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
 	 * other error occurred during the operation
-	 * 
-	 * @param inputStream
-	 * @param objectClass
-	 * @return
-	 * @throws JSONSerializerException
+	 *
+	 * @param <T> the generic type
+	 * @param objectClass the object class
+	 * @param inputStream the input stream
+	 * @return the list
+	 * @throws JSONSerializerException the JSON serializer exception
 	 */
 	public <T> List<T> deserializeList(Class<T> objectClass, java.io.InputStream inputStream)
 			throws JSONSerializerException;
@@ -101,11 +102,10 @@ public interface JsonSerializer {
 	
 	/**
 	 * De-serialize an object list from JSON to a Map.
-	 * 
-	 * @param objectClass
-	 * @param inputStream
-	 * @return
-	 * @throws JSONSerializerException 
+	 *
+	 * @param inputStream the input stream
+	 * @return the map
+	 * @throws JSONSerializerException the JSON serializer exception
 	 */
 	public Map<String, Object> deserializeMap(InputStream inputStream) throws JSONSerializerException;
 	
@@ -119,11 +119,12 @@ public interface JsonSerializer {
 	 * 
 	 * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
 	 * other error occurred during the operation
-	 * 
-	 * @param inputStream
-	 * @param objectClass
-	 * @return
-	 * @throws JSONSerializerException
+	 *
+	 * @param <T> the generic type
+	 * @param objectClass the object class
+	 * @param inputStream the input stream
+	 * @return the result
+	 * @throws JSONSerializerException the JSON serializer exception
 	 */
 	public <T> Result<T> deserializeResult(Class<T> objectClass, java.io.InputStream inputStream)
 			throws JSONSerializerException;
@@ -138,11 +139,12 @@ public interface JsonSerializer {
 	 * 
 	 * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
 	 * other error occurred during the operation
-	 * 
-	 * @param inputStream
-	 * @param objectClass
-	 * @return
-	 * @throws JSONSerializerException
+	 *
+	 * @param <T> the generic type
+	 * @param objectClass the object class
+	 * @param inputStream the input stream
+	 * @return the result
+	 * @throws JSONSerializerException the JSON serializer exception
 	 */
 	public <T> Result<List<T>> deserializeListResult(Class<T> objectClass, java.io.InputStream inputStream)
 			throws JSONSerializerException;

@@ -24,6 +24,7 @@ package com.smartsheet.api.models;
 
 /**
  * Represents the system column types.
+ * @see <a href="http://help.smartsheet.com/customer/portal/articles/504619-column-types">Column Types Documentation</a>
  */
 public enum SystemColumnType {
 	/**

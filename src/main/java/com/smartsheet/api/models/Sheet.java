@@ -28,46 +28,46 @@ import com.smartsheet.api.internal.SheetResourcesImpl;
 import com.smartsheet.api.models.Workspace.UpdateWorkspaceBuilder;
 
 /**
- * Represents Sheet object in the Smartsheet REST API.
+ * Represents the Sheet object.
  */
 public class Sheet extends NamedModel {
 	/**
-	 * Represents the columns.
+	 * Represents the columns for the sheet.
 	 */
 	private List<Column> columns;
 
 	/**
-	 * Represents the rows.
+	 * Represents the rows for the sheet.
 	 */
 	private List<Row> rows;
 
 	/**
-	 * Represents the access level.
+	 * Represents the access level for the sheet.
 	 */
 	private AccessLevel accessLevel;
 
 	/**
-	 * Represents the discussions.
+	 * Represents the discussions for the sheet.
 	 */
 	private List<Discussion> discussions;
 
 	/**
-	 * Represents the attachments.
+	 * Represents the attachments for the sheet.
 	 */
 	private List<Attachment> attachments;
 
 	/**
-	 * Represents the read only flag.
+	 * Represents the read only flag for the sheet.
 	 */
 	private Boolean readOnly;
 
 	/**
-	 * Represents the creation timestamp.
+	 * Represents the creation timestamp for the sheet.
 	 */
 	private Date createdAt;
 
 	/**
-	 * Represents the modification timestamp.
+	 * Represents the modification timestamp for the sheet.
 	 */
 	private Date modifiedAt;
 
@@ -81,10 +81,15 @@ public class Sheet extends NamedModel {
 	 */
 	private Boolean ganttEnabled;
 
+	/**
+	 * Represents the dependencies enabled flag.
+	 * @see <a href="http://help.smartsheet.com/customer/portal/articles/765727-using-the-dependencies-functionality">
+	 * Dependencies Functionality</a>
+	 */
 	private Boolean dependenciesEnabled;
 
 	/**
-	 * Represents the version.
+	 * Represents the version for the sheet
 	 */
 	private Integer version;
 
@@ -93,25 +98,29 @@ public class Sheet extends NamedModel {
 	 */
 	private Long fromId;
 
+	/**
+	 * Gets the dependencies enabled flag.
+	 *
+	 * @return the dependencies enabled
+	 */
 	public Boolean getDependenciesEnabled() {
 		return dependenciesEnabled;
 	}
 
+	/**
+	 * Sets the dependencies enabled flag.
+	 *
+	 * @param dependenciesEnabled the new dependencies enabled
+	 */
 	public void setDependenciesEnabled(Boolean dependenciesEnabled) {
 		this.dependenciesEnabled = dependenciesEnabled;
 	}
 
 	/**
-	 * Get column by index.
+	 * Get a column by index.
 	 * 
-	 * Parameters: - index : the column index
-	 * 
-	 * Returns: the column
-	 * 
-	 * Implementation: for (Column column : columns) { if (column.getIndex() == index) { return column; } } return null;
-	 * 
-	 * @param index
-	 * @return
+	 * @param index the column index
+	 * @return the column by index
 	 */
 	public Column getColumnByIndex(int index) {
 		if (columns == null) {
@@ -127,18 +136,12 @@ public class Sheet extends NamedModel {
 		}
 		return result;
 	}
-
+	
 	/**
-	 * Get column by ID.
+	 * Get a {@link Column} by ID.
 	 * 
-	 * Parameters: - columnId : the column ID
-	 * 
-	 * Returns: the column
-	 * 
-	 * Implementation: for (Column column : columns) { if (column.getId() == columnId) { return column; } } return null;
-	 * 
-	 * @param columnId
-	 * @return
+	 * @param columnId the column id
+	 * @return the column by id
 	 */
 	public Column getColumnById(long columnId) {
 		if (columns == null) {
@@ -156,16 +159,10 @@ public class Sheet extends NamedModel {
 	}
 
 	/**
-	 * Get row by row number.
-	 * 
-	 * Parameters: - rowNumber : the row number
-	 * 
-	 * Returns: the row
-	 * 
-	 * Implementation: for (Row row : rows) { if (row.getRowNumber() == rowNumber) { return row; } } return null;
-	 * 
-	 * @param rowNumber
-	 * @return
+	 * Get a {@link Row} by row number.
+	 *
+	 * @param rowNumber the row number
+	 * @return the row by row number
 	 */
 	public Row getRowByRowNumber(int rowNumber) {
 		if (rows == null) {
@@ -182,134 +179,256 @@ public class Sheet extends NamedModel {
 		return result;
 	}
 
+	/**
+	 * Gets the columns for the sheet.
+	 *
+	 * @return the columns
+	 */
 	public List<Column> getColumns() {
 		return columns;
 	}
 
+	/**
+	 * Sets the columns for the sheet.
+	 *
+	 * @param columns the new columns
+	 */
 	public void setColumns(List<Column> columns) {
 		this.columns = columns;
 	}
 
+	/**
+	 * Gets the rows for the sheet.
+	 *
+	 * @return the rows
+	 */
 	public List<Row> getRows() {
 		return rows;
 	}
 
+	/**
+	 * Sets the rows for the sheet.
+	 *
+	 * @param rows the new rows
+	 */
 	public void setRows(List<Row> rows) {
 		this.rows = rows;
 	}
 
+	/**
+	 * Gets the access level for the sheet.
+	 *
+	 * @return the access level
+	 */
 	public AccessLevel getAccessLevel() {
 		return accessLevel;
 	}
 
+	/**
+	 * Sets the access level for the sheet.
+	 *
+	 * @param accessLevel the new access level
+	 */
 	public void setAccessLevel(AccessLevel accessLevel) {
 		this.accessLevel = accessLevel;
 	}
 
+	/**
+	 * Gets the discussions for the sheet.
+	 *
+	 * @return the discussions
+	 */
 	public List<Discussion> getDiscussions() {
 		return discussions;
 	}
 
+	/**
+	 * Sets the discussions for the sheet.
+	 *
+	 * @param discussions the new discussions
+	 */
 	public void setDiscussions(List<Discussion> discussions) {
 		this.discussions = discussions;
 	}
 
+	/**
+	 * Gets the attachments for the sheet.
+	 *
+	 * @return the attachments
+	 */
 	public List<Attachment> getAttachments() {
 		return attachments;
 	}
 
+	/**
+	 * Sets the attachments for the sheet.
+	 *
+	 * @param attachments the new attachments
+	 */
 	public void setAttachments(List<Attachment> attachments) {
 		this.attachments = attachments;
 	}
 
+	/**
+	 * Gets the read only flag for the sheet.
+	 *
+	 * @return the read only
+	 */
 	public Boolean getReadOnly() {
 		return readOnly;
 	}
 
+	/**
+	 * Sets the read only flag for the sheet.
+	 *
+	 * @param readOnly the new read only
+	 */
 	public void setReadOnly(Boolean readOnly) {
 		this.readOnly = readOnly;
 	}
 
+	/**
+	 * Gets the date and time the sheet was created.
+	 *
+	 * @return the created at
+	 */
 	public Date getCreatedAt() {
 		return createdAt;
 	}
 
+	/**
+	 * Sets the date and time the sheet was created.
+	 *
+	 * @param createdAt the new created at
+	 */
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
 
+	/**
+	 * Gets the date and time the sheet was last modified.
+	 *
+	 * @return the modified at
+	 */
 	public Date getModifiedAt() {
 		return modifiedAt;
 	}
 
+	/**
+	 * Sets the date and time the sheet was last modified.
+	 *
+	 * @param modifiedAt the new modified at
+	 */
 	public void setModifiedAt(Date modifiedAt) {
 		this.modifiedAt = modifiedAt;
 	}
 
+	/**
+	 * Gets the permalink for the sheet.
+	 *
+	 * @return the permalink
+	 */
 	public String getPermalink() {
 		return permalink;
 	}
 
+	/**
+	 * Sets the permalink for the sheet.
+	 *
+	 * @param permalink the new permalink
+	 */
 	public void setPermalink(String permalink) {
 		this.permalink = permalink;
 	}
 
+	/**
+	 * Gets the gantt enabled flag.
+	 *
+	 * @return the gantt enabled flag
+	 */
 	public Boolean getGanttEnabled() {
 		return ganttEnabled;
 	}
 
+	/**
+	 * Sets the gantt enabled flag.
+	 *
+	 * @param ganttEnabled the new gantt enabled flag
+	 */
 	public void setGanttEnabled(Boolean ganttEnabled) {
 		this.ganttEnabled = ganttEnabled;
 	}
 
+	/**
+	 * Gets the version for the sheet.
+	 *
+	 * @return the version
+	 */
 	public Integer getVersion() {
 		return version;
 	}
 
+	/**
+	 * Sets the version for the sheet.
+	 *
+	 * @param version the new version
+	 */
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
 
+	/**
+	 * Gets the ID of the sheet/template from which the sheet was created.
+	 *
+	 * @return the from id
+	 */
 	public Long getFromId() {
 		return fromId;
 	}
 
+	/**
+	 * Sets the ID of the sheet/template from which the sheet was created.
+	 *
+	 * @param fromId the new from id
+	 */
 	public void setFromId(Long fromId) {
 		this.fromId = fromId;
 	}
 
 	/**
-	 * A class to simplify the creation of a sheet.
-	 * @author brett
-	 *
+	 * A convenience class to make a {@link Sheet} object with the necessary fields to create the sheet by posting it 
+	 * to smartsheet.
 	 */
-	public static class CreateBuilder {
+	public static class CreateSheetBuilder {
 		private List<Column> columns;
 		private String name;
 
 		/**
 		 * Sets the columns for the sheet being created.
+		 *
 		 * @param columns The columns to create with this sheet.
-		 * @return
+		 * @return the creates the builder
 		 */
-		public CreateBuilder setColumns(List<Column> columns) {
+		public CreateSheetBuilder setColumns(List<Column> columns) {
 			this.columns = columns;
 			return this;
 		}
 
 		/**
 		 * Sets the name for the sheet being created.
+		 *
 		 * @param name The name for the sheet being created.
-		 * @return
+		 * @return the creates the builder
 		 */
-		public CreateBuilder setName(String name) {
+		public CreateSheetBuilder setName(String name) {
 			this.name = name;
 			return this;
 		}
 
 		/**
 		 * Returns the list of columns.
-		 * @return
+		 *
+		 * @return the columns
 		 */
 		public List<Column> getColumns() {
 			return columns;
@@ -317,7 +436,8 @@ public class Sheet extends NamedModel {
 
 		/**
 		 * Returns the name for the sheet.
-		 * @return
+		 *
+		 * @return the name
 		 */
 		public String getName() {
 			return name;
@@ -325,7 +445,8 @@ public class Sheet extends NamedModel {
 
 		/**
 		 * Creates a sheet by using the values from setters in this builder.
-		 * @return
+		 *
+		 * @return the sheet
 		 */
 		public Sheet build() {
 			Sheet sheet = new Sheet();
@@ -352,8 +473,9 @@ public class Sheet extends NamedModel {
 
 		/**
 		 * Sets the name for the sheet being created.
+		 *
 		 * @param name The name for the sheet being created.
-		 * @return
+		 * @return the creates the from template or sheet builder
 		 */
 		public CreateFromTemplateOrSheetBuilder setName(String name) {
 			this.name = name;
@@ -361,18 +483,19 @@ public class Sheet extends NamedModel {
 		}
 
 		/**
-		 * 
 		 * Returns the name for the sheet.
-		 * @return
+		 *
+		 * @return the name
 		 */
 		public String getName() {
 			return name;
 		}
 		
 		/**
-		 * Set the from Id
-		 * @param id
-		 * @return
+		 * Set the from Id.
+		 *
+		 * @param id the id
+		 * @return the creates the from template or sheet builder
 		 */
 		public CreateFromTemplateOrSheetBuilder setFromId(Long id) {
 			this.fromId = id;
@@ -380,9 +503,9 @@ public class Sheet extends NamedModel {
 		}
 
 		/**
-		 * 
 		 * Creates a sheet by using the values from setters in this builder.
-		 * @return
+		 *
+		 * @return the sheet
 		 */
 		public Sheet build() {
 			Sheet sheet = new Sheet();
@@ -398,14 +521,28 @@ public class Sheet extends NamedModel {
 	}
 
 	
+	/**
+	 * The Class UpdateSheetBuilder.
+	 */
 	public static class UpdateSheetBuilder {
 		private String sheetName;
 
+		/**
+		 * Name.
+		 *
+		 * @param name the name
+		 * @return the update sheet builder
+		 */
 		public UpdateSheetBuilder name(String name) {
 			this.sheetName = name;
 			return this;
 		}
 
+		/**
+		 * Builds the.
+		 *
+		 * @return the sheet
+		 */
 		public Sheet build() {
 			Sheet sheet = new Sheet();
 			sheet.setName(sheetName);

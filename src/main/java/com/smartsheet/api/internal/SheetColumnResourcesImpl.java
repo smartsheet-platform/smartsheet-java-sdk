@@ -39,16 +39,13 @@ import com.smartsheet.api.models.Column;
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class SheetColumnResourcesImpl extends AbstractResources implements SheetColumnResources {
+	
 	/**
 	 * Constructor.
 	 * 
-	 * Parameters: - smartsheet : the SmartsheetImpl
-	 * 
 	 * Exceptions: - IllegalArgumentException : if any argument is null
-	 * 
-	 * Implementation: super(smartsheet);
-	 * 
-	 * @param smartsheet
+	 *
+	 * @param smartsheet the smartsheet
 	 */
 	public SheetColumnResourcesImpl(SmartsheetImpl smartsheet) {
 		super(smartsheet);
@@ -59,34 +56,17 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
 	 * 
 	 * It mirrors to the following Smartsheet REST API method: GET /sheet/{id}/columns
 	 * 
-	 * Parameters: - sheetId : the ID of the sheet
-	 * 
-	 * Returns: the columns (note that empty list will be returned if there is none)
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
-	 * 
-	 * Implementation: return this.listResources("sheet/" + sheetId + "/columns", Column.class);
-	 * 
-	 * @param sheetId
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException
-	 * @throws InvocationTargetException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
-	 * @throws IOException
-	 * @throws SecurityException
-	 * @throws IllegalArgumentException
-	 * @throws SmartsheetRestException
-	 * @throws JSONSerializerException
-	 * @throws HttpClientException
-	 * @throws JsonMappingException
-	 * @throws JsonParseException
+	 * Exceptions:
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param sheetId the sheet id
+	 * @return the columns (note that empty list will be returned if there is none)
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Column> listColumns(long sheetId) throws SmartsheetException  {
 		return this.listResources("sheet/" + sheetId + "/columns", Column.class);
@@ -97,36 +77,21 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
 	 * 
 	 * It mirrors to the following Smartsheet REST API method: POST /sheet/{id}/columns
 	 * 
-	 * Parameters: - sheetId : the ID of the sheet - column : the coluimn object limited to the following attributes: *
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param sheetId the sheet id
+	 * @param column the coluimn object limited to the following attributes: *
 	 * title * type * symbol (optional) * options (optional) - array of options * index (zero-based) * systemColumnType
 	 * (optional) * autoNumberFormat (optional)
-	 * 
-	 * Returns: the created column
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ResourceNotFoundException : if the resource can not be found -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * Implementation: return this.createResource("sheet/" + sheetId + "/columns", Column.class, column);
-	 * 
-	 * @param sheetId
-	 * @param column
-	 * @return
-	 * @throws NoSuchMethodException
-	 * @throws InvocationTargetException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
-	 * @throws IOException
-	 * @throws SecurityException
-	 * @throws IllegalArgumentException
-	 * @throws SmartsheetRestException
-	 * @throws HttpClientException
-	 * @throws JSONSerializerException
-	 * @throws JsonMappingException
-	 * @throws JsonParseException
+	 * @return the created column
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Column addColumn(long sheetId, Column column) throws SmartsheetException {
 		

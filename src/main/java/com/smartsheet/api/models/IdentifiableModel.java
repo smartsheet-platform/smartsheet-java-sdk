@@ -1,5 +1,4 @@
 package com.smartsheet.api.models;
-
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -23,18 +22,26 @@ package com.smartsheet.api.models;
 
 
 /**
- * Represents an object with ID.
+ * Represents an object with an ID.
  */
 public abstract class IdentifiableModel {
-	/**
-	 * Represents the ID.
-	 */
+	/** Represents the ID. */
 	private Long id;
 
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -42,15 +49,8 @@ public abstract class IdentifiableModel {
 	/**
 	 * Check if the given object equals to this object.
 	 * 
-	 * Parameters: - object : the object to compare
-	 * 
-	 * Returns: true if given object equals to this object, false otherwise
-	 * 
-	 * Implementation: return object != null && (object == this || (object.getClass() == this.getClass() &&
-	 * object.getId() == this.getId()));
-	 * 
-	 * @param object
-	 * @return
+	 * @param object the object to compare
+	 * @return true if given object equals to this object, false otherwise
 	 */
 	@Override
 	public boolean equals(Object object) {
@@ -73,16 +73,7 @@ public abstract class IdentifiableModel {
 	/**
 	 * Return the hash code of this object.
 	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the hash code
-	 * 
-	 * Implementation: int result = 17; result = 31 * result + (int) (this.id.longValue() ^ (this.id.longValue() >>>
-	 * 32));
-	 * 
-	 * return result;
-	 * 
-	 * @return
+	 * @return the hash code
 	 */
 	@Override
 	public int hashCode() {

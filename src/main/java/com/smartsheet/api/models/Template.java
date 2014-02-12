@@ -1,5 +1,6 @@
 package com.smartsheet.api.models;
 
+// TODO: Auto-generated Javadoc
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -23,35 +24,55 @@ package com.smartsheet.api.models;
 
 
 /**
- * Represents Template object in the Smartsheet REST API.
+ * A template object that is a default layout for future sheets.
+ * @see <a href="http://help.smartsheet.com/customer/portal/articles/522123-using-templates">Using Templates 
+ * Documentation</a>
  */
 public class Template extends NamedModel {
 	/**
-	 * Represents the description.
+	 * Represents the description for the template.
 	 */
 	private String description;
 
 	/**
-	 * Represents the access level.
+	 * Represents the access level for the template.
 	 */
 	private AccessLevel accessLevel;
 
 
+	/**
+	 * Gets the description of the template.
+	 *
+	 * @return the description
+	 */
 	public String getDescription() {
 		return description;
 	}
 
+	/**
+	 * Sets the description of the template.
+	 *
+	 * @param description the new description
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	/**
+	 * Gets the access level of the template.
+	 *
+	 * @return the access level
+	 */
 	public AccessLevel getAccessLevel() {
 		return accessLevel;
 	}
 
+	/**
+	 * Sets the access level of the template.
+	 *
+	 * @param accessLevel the new access level
+	 */
 	public void setAccessLevel(AccessLevel accessLevel) {
 		this.accessLevel = accessLevel;
 	}
-	
-	
 }

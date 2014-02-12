@@ -1,5 +1,6 @@
 package com.smartsheet.api.models;
 
+// TODO: Auto-generated Javadoc
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -27,7 +28,7 @@ package com.smartsheet.api.models;
  */
 public class Link {
 	/**
-	 * Represents the type.
+	 * Represents the link type.
 	 */
 	private LinkType type;
 
@@ -51,42 +52,92 @@ public class Link {
 	 */
 	private Long rowId;
 
+	/**
+	 * Gets the type.
+	 *
+	 * @return the type
+	 */
 	public LinkType getType() {
 		return type;
 	}
 
+	/**
+	 * Sets the link type.
+	 *
+	 * @param type the new type
+	 */
 	public void setType(LinkType type) {
 		this.type = type;
 	}
 
+	/**
+	 * Gets the url.
+	 *
+	 * @return the url
+	 */
 	public String getUrl() {
 		return url;
 	}
 
+	/**
+	 * Sets the url.
+	 *
+	 * @param url the new url
+	 */
 	public void setUrl(String url) {
 		this.url = url;
 	}
 
+	/**
+	 * Gets the sheet id.
+	 *
+	 * @return the sheet id
+	 */
 	public Long getSheetId() {
 		return sheetId;
 	}
 
+	/**
+	 * Sets the sheet id.
+	 *
+	 * @param sheetId the new sheet id
+	 */
 	public void setSheetId(Long sheetId) {
 		this.sheetId = sheetId;
 	}
 
+	/**
+	 * Gets the column id.
+	 *
+	 * @return the column id
+	 */
 	public Long getColumnId() {
 		return columnId;
 	}
 
+	/**
+	 * Sets the column id.
+	 *
+	 * @param columnId the new column id
+	 */
 	public void setColumnId(Long columnId) {
 		this.columnId = columnId;
 	}
 
+	/**
+	 * Gets the row id.
+	 *
+	 * @return the row id
+	 */
 	public Long getRowId() {
 		return rowId;
 	}
 
+	/**
+	 * Sets the row id.
+	 *
+	 * @param rowId the new row id
+	 */
 	public void setRowId(Long rowId) {
 		this.rowId = rowId;
 	}

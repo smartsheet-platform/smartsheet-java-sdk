@@ -1,5 +1,6 @@
 package com.smartsheet.api.models;
 
+// TODO: Auto-generated Javadoc
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -23,7 +24,7 @@ package com.smartsheet.api.models;
 
 
 /**
- * Represents an object with name.
+ * Represents an object with a name and an id.
  */
 public abstract class NamedModel extends IdentifiableModel {
 	/**
@@ -31,10 +32,20 @@ public abstract class NamedModel extends IdentifiableModel {
 	 */
 	private String name;
 
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}

@@ -29,19 +29,14 @@ package com.smartsheet.api;
  * Thread safety: Exceptions are not thread safe.
  */
 public class SmartsheetException extends Exception {
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Constructor.
-	 * 
-	 * Parameters: - message : the message
-	 * 
-	 * Implementation: super(message);
-	 * 
-	 * @param message
+	 *
+	 * @param message the message
 	 */
 	public SmartsheetException(String message) {
 		super(message);
@@ -49,18 +44,19 @@ public class SmartsheetException extends Exception {
 
 	/**
 	 * Constructor.
-	 * 
-	 * Parameters: - message : the message - cause : the cause
-	 * 
-	 * Implementation: super(message, cause);
-	 * 
-	 * @param message
-	 * @param cause
+	 *
+	 * @param message the message
+	 * @param cause the cause
 	 */
 	public SmartsheetException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
+	/**
+	 * Instantiates a new smartsheet exception.
+	 *
+	 * @param e the exception
+	 */
 	public SmartsheetException(Exception e) {
 		super(e);
 	}

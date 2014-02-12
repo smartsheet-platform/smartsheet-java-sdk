@@ -31,6 +31,7 @@ import java.io.IOException;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface HttpClient extends Closeable {
+	
 	/**
 	 * Make an HTTP request and return the response.
 	 * 
@@ -40,13 +41,15 @@ public interface HttpClient extends Closeable {
 	 * 
 	 * Exceptions: - IllegalArgumentException : if any argument is null - HttpClientException : if there is any other
 	 * error occurred during the operation
-	 * 
-	 * @param request
-	 * @return
-	 * @throws HttpClientException 
-	 * @throws IOException 
+	 *
+	 * @param request the request
+	 * @return the http response
+	 * @throws HttpClientException the http client exception
 	 */
 	public HttpResponse request(HttpRequest request) throws HttpClientException;
 	
+	/**
+	 * Release connection.
+	 */
 	public void releaseConnection();
 }

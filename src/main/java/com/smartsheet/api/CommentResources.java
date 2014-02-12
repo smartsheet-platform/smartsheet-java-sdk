@@ -36,6 +36,7 @@ import com.smartsheet.api.models.Comment;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface CommentResources {
+	
 	/**
 	 * Get a comment.
 	 * 
@@ -52,10 +53,10 @@ public interface CommentResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param id
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @param id the id
+	 * @return the comment
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Comment getComment(long id) throws SmartsheetException;
 
@@ -74,9 +75,9 @@ public interface CommentResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param id
-	 * @throws SmartsheetException 
+	 *
+	 * @param id the id
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public void deleteComment(long id) throws SmartsheetException;
 
@@ -87,8 +88,8 @@ public interface CommentResources {
 	 * Returns: the AssociatedAttachmentResources object
 	 * 
 	 * Exceptions: None
-	 * 
-	 * @return
+	 *
+	 * @return the associated attachment resources
 	 */
 	public AssociatedAttachmentResources attachments();
 }

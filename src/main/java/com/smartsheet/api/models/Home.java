@@ -29,58 +29,99 @@ import java.util.List;
  */
 public class Home {
 	/**
-	 * Represents the sheets.
+	 * Represents the sheets in the home location.
 	 */
 	private List<Sheet> sheets;
 
 	/**
-	 * Represents the folders.
+	 * Represents the folders in the home location.
 	 */
 	private List<Folder> folders;
 
 	/**
-	 * Represents the reports.
+	 * Represents the reports in the home location.
 	 */
+	//QUESTION: why is this commented out?
 	// private List<Report> reports;
 
 	/**
-	 * Represents the templates.
+	 * Represents the templates in the home location.
 	 */
 	private List<Template> templates;
 
 	/**
-	 * Represents the workspaces.
+	 * Represents the workspaces in the home location.
 	 */
 	private List<Workspace> workspaces;
 
+	/**
+	 * Gets the sheets in the home location.
+	 *
+	 * @return the sheets
+	 */
 	public List<Sheet> getSheets() {
 		return sheets;
 	}
 
+	/**
+	 * Sets the sheets.
+	 *
+	 * @param sheets the new sheets
+	 */
 	public void setSheets(List<Sheet> sheets) {
 		this.sheets = sheets;
 	}
 
+	/**
+	 * Gets the folders in the home location.
+	 *
+	 * @return the folders
+	 */
 	public List<Folder> getFolders() {
 		return folders;
 	}
 
+	/**
+	 * Sets the folders in the home location.
+	 *
+	 * @param folders the new folders
+	 */
 	public void setFolders(List<Folder> folders) {
 		this.folders = folders;
 	}
 
+	/**
+	 * Gets the templates in the home location.
+	 *
+	 * @return the templates
+	 */
 	public List<Template> getTemplates() {
 		return templates;
 	}
 
+	/**
+	 * Sets the templates in the home location.
+	 *
+	 * @param templates the new templates
+	 */
 	public void setTemplates(List<Template> templates) {
 		this.templates = templates;
 	}
 
+	/**
+	 * Gets the workspaces in the home location.
+	 *
+	 * @return the workspaces
+	 */
 	public List<Workspace> getWorkspaces() {
 		return workspaces;
 	}
 
+	/**
+	 * Sets the workspaces in the home location.
+	 *
+	 * @param workspaces the new workspaces
+	 */
 	public void setWorkspaces(List<Workspace> workspaces) {
 		this.workspaces = workspaces;
 	}

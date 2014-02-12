@@ -38,18 +38,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Thread Safety: This class is thread safe since it's immutable.
  */
 public abstract class IdFieldExclusionMixin {
+	
 	/**
 	 * Getter of the "id" field.
-	 * 
-	 * @return
+	 *
+	 * @return the id
 	 */
 	@JsonIgnore
 	public abstract long getId();
 
 	/**
 	 * Setter of the "id" field.
-	 * 
-	 * @param id
+	 *
+	 * @param id the new id
 	 */
 	@JsonProperty
 	public abstract void setId(Long id);

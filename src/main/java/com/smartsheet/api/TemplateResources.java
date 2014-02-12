@@ -38,6 +38,7 @@ import com.smartsheet.api.models.Template;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface TemplateResources {
+	
 	/**
 	 * List all templates.
 	 * 
@@ -52,9 +53,9 @@ public interface TemplateResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @return the list
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Template> listTemplates() throws SmartsheetException;
 }

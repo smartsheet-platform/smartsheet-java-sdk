@@ -38,6 +38,7 @@ import com.smartsheet.api.models.Folder;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface WorkspaceFolderResources {
+	
 	/**
 	 * List folders of a given workspace.
 	 * 
@@ -53,10 +54,10 @@ public interface WorkspaceFolderResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param workspaceId
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @param workspaceId the workspace id
+	 * @return the list
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Folder> listFolders(long workspaceId) throws SmartsheetException;
 
@@ -74,11 +75,11 @@ public interface WorkspaceFolderResources {
 	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
 	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
 	 * the operation - SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param folder
-	 * @param workspaceId
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @param workspaceId the workspace id
+	 * @param folder the folder
+	 * @return the folder
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Folder createFolder(long workspaceId, Folder folder) throws SmartsheetException;
 }

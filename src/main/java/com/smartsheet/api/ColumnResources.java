@@ -44,6 +44,7 @@ import com.smartsheet.api.models.Column;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface ColumnResources {
+	
 	/**
 	 * Update a column.
 	 * 
@@ -63,22 +64,10 @@ public interface ColumnResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param column
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param column the column
+	 * @return the column
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Column updateColumn(Column column) throws SmartsheetException;
 
@@ -97,23 +86,10 @@ public interface ColumnResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param id
-	 * @param sheetId
-	 * @throws SmartsheetException 
-	 * @throws JSONSerializerException 
-	 * @throws UnsupportedEncodingException 
-	 * @throws HttpClientException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param id the id
+	 * @param sheetId the sheet id
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public void deleteColumn(long id, long sheetId) throws SmartsheetException;
 }

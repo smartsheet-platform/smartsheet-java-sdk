@@ -20,36 +20,54 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-
-
 import java.util.List;
 
 /**
- * Represents SearchResult object.
+ * Represents the results of a search.
  */
 public class SearchResult {
 	/**
-	 * Represents total count.
+	 * Represents total count of results.
 	 */
 	private Integer totalCount;
 
 	/**
-	 * Represents the search result items.
+	 * A list of items returned from the search results.
 	 */
 	private List<SearchResultItem> results;
 
+	/**
+	 * Gets the total count of results.
+	 *
+	 * @return the total count
+	 */
 	public Integer getTotalCount() {
 		return totalCount;
 	}
 
+	/**
+	 * Sets the total count of results.
+	 *
+	 * @param totalCount the new total count
+	 */
 	public void setTotalCount(Integer totalCount) {
 		this.totalCount = totalCount;
 	}
 
+	/**
+	 * Gets the list of results from the search.
+	 *
+	 * @return the results
+	 */
 	public List<SearchResultItem> getResults() {
 		return results;
 	}
 
+	/**
+	 * Sets the results list of results.
+	 *
+	 * @param results the new results
+	 */
 	public void setResults(List<SearchResultItem> results) {
 		this.results = results;
 	}

@@ -1,5 +1,6 @@
 package com.smartsheet.api.models;
 
+// TODO: Auto-generated Javadoc
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -36,18 +37,38 @@ public class Error {
 	 */
 	private String message;
 
+	/**
+	 * Gets the message.
+	 *
+	 * @return the message
+	 */
 	public String getMessage() {
 		return message;
 	}
 
+	/**
+	 * Sets the message.
+	 *
+	 * @param message the new message
+	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
 
+	/**
+	 * Gets the error code.
+	 *
+	 * @return the error code
+	 */
 	public Integer getErrorCode() {
 		return errorCode;
 	}
 
+	/**
+	 * Sets the error code.
+	 *
+	 * @param errorCode the new error code
+	 */
 	public void setErrorCode(Integer errorCode) {
 		this.errorCode = errorCode;
 	}

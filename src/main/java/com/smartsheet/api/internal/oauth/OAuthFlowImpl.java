@@ -113,23 +113,26 @@ public class OAuthFlowImpl implements OAuthFlow {
 	/**
 	 * Constructor.
 	 * 
-	 * Parameters: - clientId : the client ID - clientSecret: the client secret - redirectURL : the redirect URL -
-	 * tokenURL : the token URL - httpClient : the HttpClient - jsonSerializer : the JsonSerializer
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null, or empty string.
-	 * 
-	 * Implementation: Set correponding fields.
-	 * 
-	 * @param jsonSerializer
-	 * @param redirectURL
-	 * @param tokenURL
-	 * @param httpClient
-	 * @param authorizationURL
-	 * @param clientSecret
-	 * @param clientId
+	 * Exceptions: - 
+	 *
+	 * @param clientId the client id
+	 * @param clientSecret the client secret
+	 * @param redirectURL the redirect url
+	 * @param authorizationURL the authorization url
+	 * @param tokenURL the token url
+	 * @param httpClient the http client
+	 * @param jsonSerializer the json serializer
+	 * @throws IllegalArgumentException If any argument is null, or empty string.
 	 */
 	public OAuthFlowImpl(String clientId, String clientSecret, String redirectURL, String authorizationURL,
 			String tokenURL, HttpClient httpClient, JsonSerializer jsonSerializer) {
+		
+		if(clientId == null || clientId.isEmpty() || clientSecret == null || clientSecret.isEmpty() || 
+				redirectURL == null || redirectURL.isEmpty()|| authorizationURL == null || authorizationURL.isEmpty() ||
+				tokenURL == null || tokenURL.isEmpty() || httpClient == null || jsonSerializer == null) {
+			throw new IllegalArgumentException();
+		}
+		
 		this.clientId = clientId;
 		this.clientSecret = clientSecret;
 		this.redirectURL = redirectURL;
@@ -140,24 +143,15 @@ public class OAuthFlowImpl implements OAuthFlow {
 	}
 
 	/**
-	 * Generate a new authorization URL.
-	 * 
-	 * Parameters: - scopes : the requested scopes - state : an arbitrary string that will be returned to your app;
-	 * intended to be used by you to ensure that this redirect is indeed from an OAuth flow that you initiated
-	 * 
-	 * Returns: the authorization URL
+	 * Generate a new authorization URL. 
 	 * 
 	 * Exceptions: - IllegalArgumentException : if scopes is null/empty
-	 * 
-	 * Implementation: StringBuilder sb = new StringBuilder(authorizationURL);
-	 * sb.append("?response_type=code&client_id=") .append(clientId) .append("&redirect_uri=")
-	 * .append(URLEncoder.encode(redirectURL, "utf-8")) .append(state != null ? state : "") .append("&scope="); for
-	 * (AccessScope scope : scopes) { sb.append(scope.name()).append(","); } return sb.substring(0, sb.length() - 1);
-	 * 
-	 * @param scopes
-	 * @param state
-	 * @return
-	 * @throws UnsupportedEncodingException, IllegalArgumentException 
+	 *
+	 * @param scopes the scopes
+	 * @param state an arbitrary string that will be returned to your app; intended to be used by you to ensure that 
+	 * this redirect is indeed from an OAuth flow that you initiated
+	 * @return the authorization URL
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 	public String newAuthorizationURL(EnumSet<AccessScope> scopes, String state) throws UnsupportedEncodingException {
 		if(scopes == null){throw new IllegalArgumentException();}
@@ -184,35 +178,17 @@ public class OAuthFlowImpl implements OAuthFlow {
 	 * Extract AuthorizationResult from the authorization response URL (i.e. the redirectURL with the response
 	 * parameters from Smartsheet OAuth server).
 	 * 
-	 * Parameters: - authorizationResponseURL : the authorization response URL
-	 * 
-	 * Returns: the AuthorizationResult
-	 * 
-	 * Exceptions: - IllegalArgumentException : if authorizationResponseURL is null/empty, or a malformed URL -
-	 * AccessDeniedException : if the user has denied the authorization request - UnsupportedResponseTypeException : if
-	 * the response type isn't supported (note that this won't really happen in current implementation) -
-	 * InvalidScopeException : if some of the specified scopes are invalid - OAuthAuthorizationCodeException : if any
-	 * other error occurred during the operation
-	 * 
-	 * Implementation: URI uri = new URI(authorizationResponseURL); Map<String, String> map = new HashMap<String,
-	 * String>(); for (String param : uri.getQuery().split("&")) { int index = param.indexOf('=');
-	 * map.put(param.substring(0, index), param.substring(index + 1)); } String error = map.get("error"); if (error !=
-	 * null) { if ("access_denied".equals(error)) { throw new AccessDeniedException(...); } else if
-	 * ("unsupported_response_type".equals(error)) { throw new UnsupportedResponseTypeException(...); } else if
-	 * ("invalid_scope".equals(error)) { throw new InvalidScopeException(...); } }
-	 * 
-	 * AuthorizationResult authorizationResult = new AuthorizationResult();
-	 * authorizationResult.setCode(map.get("code")); authorizationResult.setState(map.get("state"));
-	 * authorizationResult.setExpiresInSeconds(map.get("expires_in"));
-	 * 
-	 * return authorizationResult;
-	 * 
-	 * @param authorizationResponseURL
-	 * @return
-	 * @throws URISyntaxException 
-	 * @throws AccessDeniedException 
-	 * @throws UnsupportedResponseTypeException 
-	 * @throws InvalidScopeException 
+	 * Exceptions: 
+	 *   - IllegalArgumentException : if authorizationResponseURL is null/empty, or a malformed URL 
+	 *   - AccessDeniedException : if the user has denied the authorization request 
+	 *   - UnsupportedResponseTypeException : if the response type isn't supported (note that this won't really happen in current implementation) 
+	 *   - InvalidScopeException : if some of the specified scopes are invalid 
+	 *   - OAuthAuthorizationCodeException : if any other error occurred during the operation
+	 *
+	 * @param authorizationResponseURL the authorization response URL
+	 * @return the authorization result
+	 * @throws URISyntaxException the URI syntax exception
+	 * @throws OAuthAuthorizationCodeException the o auth authorization code exception
 	 */
 	public AuthorizationResult extractAuthorizationResult(String authorizationResponseURL) throws 
 		URISyntaxException, OAuthAuthorizationCodeException {
@@ -262,45 +238,36 @@ public class OAuthFlowImpl implements OAuthFlow {
 
 		return authorizationResult;
 	}
-
+//FIXME: search for all IllegalArgumentExceptions and verify that it is actually thrown
 	/**
 	 * Obtain a new token using AuthorizationResult.
 	 * 
-	 * Parameters: - authorizationResult : the authorization result
-	 * 
-	 * Returns: the token.
-	 * 
-	 * Exceptions: - IllegalArgumentException : if authorizationResult is null - InvalidTokenRequestException : if the
-	 * token request is invalid (note that this won't really happen in current implementation) -
-	 * InvalidOAuthClientException : if the client information is invalid - InvalidOAuthGrantException : if the
-	 * authorization code or refresh token is invalid or expired, the redirect_uri does not match, or the hash value
-	 * does not match the client secret and/or code - UnsupportedOAuthGrantTypeException : if the grant type is invalid
-	 * (note that this won't really happen in current implementation) - OAuthTokenException : if any other error
-	 * occurred during the operation
-	 * 
-	 * Implementation: // Prepare the hash String doHash = clientSecret + "|" + authorizationResult.getCode();
-	 * MessageDigest md = MessageDigest.getInstance("SHA-256"); byte[] digest = md.digest(doHash .getBytes("UTF-8"));
-	 * String hash = javax.xml.bind.DatatypeConverter.printHexBinary(digest);
-	 * 
-	 * // Prepare the URI StringBuilder sb = new StringBuilder(tokenURL); sb.append("?grant_type=authorization_code")
-	 * .append("&client_id=") .append(clientId) .append("&code=") .append(authorizationResult.getCode())
-	 * .append("&redirect_uri=") .append(URLEncoder.encode(redirectURL, "utf-8")) .append("&hash=") .append(hash);
-	 * 
-	 * return requestToken(sb.toString());
-	 * 
-	 * @param authorizationResult
-	 * @return
-	 * @throws NoSuchAlgorithmException 
-	 * @throws UnsupportedEncodingException 
-	 * @throws URISyntaxException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws OAuthTokenException 
-	 * @throws InvalidRequestException 
+	 * Exceptions: 
+	 *   - IllegalArgumentException : if authorizationResult is null 
+	 *   - InvalidTokenRequestException : if the token request is invalid (note that this won't really happen in current implementation) 
+	 *   - InvalidOAuthClientException : if the client information is invalid 
+	 *   - InvalidOAuthGrantException : if the authorization code or refresh token is invalid or expired, the 
+	 *   redirect_uri does not match, or the hash value does not match the client secret and/or code 
+	 *   - UnsupportedOAuthGrantTypeException : if the grant type is invalid (note that this won't really happen in 
+	 *   current implementation) 
+	 *   - OAuthTokenException : if any other error occurred during the operation
+	 *
+	 * @param authorizationResult the authorization result
+	 * @return the token
+	 * @throws NoSuchAlgorithmException the no such algorithm exception
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
+	 * @throws OAuthTokenException the o auth token exception
+	 * @throws JSONSerializerException the JSON serializer exception
+	 * @throws HttpClientException the http client exception
+	 * @throws URISyntaxException the URI syntax exception
+	 * @throws InvalidRequestException the invalid request exception
 	 */
 	public Token obtainNewToken(AuthorizationResult authorizationResult) throws NoSuchAlgorithmException, 
 		UnsupportedEncodingException, OAuthTokenException, JSONSerializerException, HttpClientException, 
 		URISyntaxException, InvalidRequestException {
+		if(authorizationResult == null){
+			throw new IllegalArgumentException();
+		}
 		
 		 // Prepare the hash 
 		String doHash = clientSecret + "|" + authorizationResult.getCode();
@@ -323,35 +290,24 @@ public class OAuthFlowImpl implements OAuthFlow {
 	/**
 	 * Refresh token.
 	 * 
-	 * Parameters: - token : the token to refresh
-	 * 
-	 * Returns: the refreshed token.
-	 * 
-	 * Exceptions: - IllegalArgumentException : if token is null. - InvalidTokenRequestException : if the token request
-	 * is invalid - InvalidOAuthClientException : if the client information is invalid - InvalidOAuthGrantException : if
-	 * the authorization code or refresh token is invalid or expired, the redirect_uri does not match, or the hash value
-	 * does not match the client secret and/or code - UnsupportedOAuthGrantTypeException : if the grant type is invalid
-	 * - OAuthTokenException : if any other error occurred during the operation
-	 * 
-	 * Implementation: // Prepare the hash String doHash = clientSecret + "|" + token.getRefreshToken(); MessageDigest
-	 * md = MessageDigest.getInstance("SHA-256"); byte[] digest = md.digest(doHash .getBytes("UTF-8")); String hash =
-	 * javax.xml.bind.DatatypeConverter.printHexBinary(digest);
-	 * 
-	 * // Prepare the URI StringBuilder sb = new StringBuilder(tokenURL); sb.append("?grant_type=refresh_token")
-	 * .append("&client_id=") .append(clientId) .append("&refresh_token=") .append(token.getRefreshToken())
-	 * .append("&redirect_uri=") .append(URLEncoder.encode(redirectURL, "utf-8")) .append("&hash=") .append(hash);
-	 * 
-	 * return requestToken(sb.toString());
-	 * 
-	 * @param token
-	 * @return
-	 * @throws NoSuchAlgorithmException 
-	 * @throws UnsupportedEncodingException 
-	 * @throws URISyntaxException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws OAuthTokenException 
-	 * @throws InvalidRequestException 
+	 * Exceptions: 
+	 *   - IllegalArgumentException : if token is null. 
+	 *   - InvalidTokenRequestException : if the token request is invalid 
+	 *   - InvalidOAuthClientException : if the client information is invalid 
+	 *   - InvalidOAuthGrantException : if the authorization code or refresh token is invalid or expired, 
+	 *   the redirect_uri does not match, or the hash value does not match the client secret and/or code 
+	 *   - UnsupportedOAuthGrantTypeException : if the grant type is invalid
+	 *   - OAuthTokenException : if any other error occurred during the operation
+	 *
+	 * @param token the token to refresh
+	 * @return the refreshed token
+	 * @throws NoSuchAlgorithmException the no such algorithm exception
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
+	 * @throws OAuthTokenException the o auth token exception
+	 * @throws JSONSerializerException the JSON serializer exception
+	 * @throws HttpClientException the http client exception
+	 * @throws URISyntaxException the URI syntax exception
+	 * @throws InvalidRequestException the invalid request exception
 	 */
 	public Token refreshToken(Token token) throws NoSuchAlgorithmException, UnsupportedEncodingException,
 		OAuthTokenException, JSONSerializerException, HttpClientException, URISyntaxException, InvalidRequestException {
@@ -376,42 +332,22 @@ public class OAuthFlowImpl implements OAuthFlow {
 	/**
 	 * Request a token.
 	 * 
-	 * Parameters: - url : the URL (with request parameters) from which the token will be requested
-	 * 
-	 * Returns: the token.
-	 * 
-	 * Exceptions: - IllegalArgumentException : if url is null or empty - InvalidTokenRequestException : if the token
-	 * request is invalid - InvalidOAuthClientException : if the client information is invalid -
-	 * InvalidOAuthGrantException : if the authorization code or refresh token is invalid or expired, the redirect_uri
-	 * does not match, or the hash value does not match the client secret and/or code -
-	 * UnsupportedOAuthGrantTypeException : if the grant type is invalid - OAuthTokenException : if any other error
-	 * occurred during the operation
-	 * 
-	 * Implementation: HttpRequest request = new HttpRequest(); request.setUri(new URI(url));
-	 * request.setMethod(HttpMethod.POST); request.setHeaders(new HashMap<String, String>());
-	 * request.getHeaders().put("Content-Type", "application/x-www-form-urlencoded");
-	 * 
-	 * HttpResponse response = httpRequest.request(request);
-	 * 
-	 * Map map = jsonSerializer.deserialize(Map.class, response.getEntity().getContent());
-	 * 
-	 * if (200 == response.getStatusCode()) { Token token = new Token(); token.setAccessToken(map.get("access_token"));
-	 * token.setTokenType(map.get("token_type")); token.setRefreshToken(map.get("refresh_token"));
-	 * token.setExpiresInSeconds(map.get("expires_in")); return token; } else { String errorType = map.get("error");
-	 * String errorDescription = map.get("error_description"); if ("invalid_request".equals(errorType)) { throw new
-	 * InvalidTokenRequestException(errorDescription); } else if ("invalid_client".equals(errorType)) { throw new
-	 * InvalidOAuthClientException(errorDescription); } else if ("invalid_grant".equals(errorType)) { throw new
-	 * InvalidOAuthGrantException(errorDescription); } else if ("unsupported_grant_type".equals(errorType)) { throw new
-	 * UnsupportedOAuthGrantTypeException(errorDescription); } else { throw new OAuthTokenException(errorDescription); }
-	 * }
-	 * 
-	 * @param url
-	 * @return
-	 * @throws OAuthTokenException 
-	 * @throws JSONSerializerException 
-	 * @throws HttpClientException 
-	 * @throws URISyntaxException 
-	 * @throws InvalidRequestException 
+	 * Exceptions: 
+	 *   - IllegalArgumentException : if url is null or empty 
+	 *   - InvalidTokenRequestException : if the token request is invalid 
+	 *   - InvalidOAuthClientException : if the client information is invalid 
+	 *   - InvalidOAuthGrantException : if the authorization code or refresh token is invalid or 
+	 *   expired, the redirect_uri does not match, or the hash value does not match the client secret and/or code 
+	 *   - UnsupportedOAuthGrantTypeException : if the grant type is invalid 
+	 *   - OAuthTokenException : if any other error occurred during the operation
+	 *
+	 * @param url the URL (with request parameters) from which the token will be requested
+	 * @return the token
+	 * @throws OAuthTokenException the o auth token exception
+	 * @throws JSONSerializerException the JSON serializer exception
+	 * @throws HttpClientException the http client exception
+	 * @throws URISyntaxException the URI syntax exception
+	 * @throws InvalidRequestException the invalid request exception
 	 */
 	private Token requestToken(String url) throws OAuthTokenException, JSONSerializerException, HttpClientException, 
 		URISyntaxException, InvalidRequestException {
@@ -474,10 +410,11 @@ public class OAuthFlowImpl implements OAuthFlow {
 	/**
 	 * Helper function to generate a URL using the base URL and the given parameters. It will encode each of the 
 	 * parameters as well.
+	 *
 	 * @param baseURL The base URL that the parameters will be appended to.
 	 * @param parameters The parameters that will be appended to the base URL. Each parameter will be URL encoded.
 	 * @return A string representing the full URL.
-	 * @throws UnsupportedEncodingException
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 	protected String generateURL(String baseURL, Map<String,String> parameters) throws UnsupportedEncodingException {
 		// Supports handling a relative URL
@@ -519,58 +456,128 @@ public class OAuthFlowImpl implements OAuthFlow {
 		return sb.toString();
 	}
 
+	/**
+	 * Gets the http client.
+	 *
+	 * @return the http client
+	 */
 	public HttpClient getHttpClient() {
 		return httpClient;
 	}
 
+	/**
+	 * Sets the http client.
+	 *
+	 * @param httpClient the new http client
+	 */
 	public void setHttpClient(HttpClient httpClient) {
 		this.httpClient = httpClient;
 	}
 
+	/**
+	 * Gets the json serializer.
+	 *
+	 * @return the json serializer
+	 */
 	public JsonSerializer getJsonSerializer() {
 		return jsonSerializer;
 	}
 
+	/**
+	 * Sets the json serializer.
+	 *
+	 * @param jsonSerializer the new json serializer
+	 */
 	public void setJsonSerializer(JsonSerializer jsonSerializer) {
 		this.jsonSerializer = jsonSerializer;
 	}
 
+	/**
+	 * Gets the client id.
+	 *
+	 * @return the client id
+	 */
 	public String getClientId() {
 		return clientId;
 	}
 
+	/**
+	 * Sets the client id.
+	 *
+	 * @param clientId the new client id
+	 */
 	public void setClientId(String clientId) {
 		this.clientId = clientId;
 	}
 
+	/**
+	 * Gets the client secret.
+	 *
+	 * @return the client secret
+	 */
 	public String getClientSecret() {
 		return clientSecret;
 	}
 
+	/**
+	 * Sets the client secret.
+	 *
+	 * @param clientSecret the new client secret
+	 */
 	public void setClientSecret(String clientSecret) {
 		this.clientSecret = clientSecret;
 	}
 
+	/**
+	 * Gets the redirect url.
+	 *
+	 * @return the redirect url
+	 */
 	public String getRedirectURL() {
 		return redirectURL;
 	}
 
+	/**
+	 * Sets the redirect url.
+	 *
+	 * @param redirectURL the new redirect url
+	 */
 	public void setRedirectURL(String redirectURL) {
 		this.redirectURL = redirectURL;
 	}
 
+	/**
+	 * Gets the authorization url.
+	 *
+	 * @return the authorization url
+	 */
 	public String getAuthorizationURL() {
 		return authorizationURL;
 	}
 
+	/**
+	 * Sets the authorization url.
+	 *
+	 * @param authorizationURL the new authorization url
+	 */
 	public void setAuthorizationURL(String authorizationURL) {
 		this.authorizationURL = authorizationURL;
 	}
 
+	/**
+	 * Gets the token url.
+	 *
+	 * @return the token url
+	 */
 	public String getTokenURL() {
 		return tokenURL;
 	}
 
+	/**
+	 * Sets the token url.
+	 *
+	 * @param tokenURL the new token url
+	 */
 	public void setTokenURL(String tokenURL) {
 		this.tokenURL = tokenURL;
 	}

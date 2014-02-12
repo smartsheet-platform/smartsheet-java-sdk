@@ -44,18 +44,38 @@ public class HttpRequest extends HttpMessage {
 	 */
 	private HttpMethod method;
 	
+	/**
+	 * Gets the uri.
+	 *
+	 * @return the uri
+	 */
 	public URI getUri() {
 		return uri;
 	}
 
+	/**
+	 * Sets the uri.
+	 *
+	 * @param uri the new uri
+	 */
 	public void setUri(URI uri) {
 		this.uri = uri;
 	}
 
+	/**
+	 * Gets the method.
+	 *
+	 * @return the method
+	 */
 	public HttpMethod getMethod() {
 		return method;
 	}
 
+	/**
+	 * Sets the method.
+	 *
+	 * @param method the new method
+	 */
 	public void setMethod(HttpMethod method) {
 		this.method = method;
 	}

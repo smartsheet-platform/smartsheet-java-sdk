@@ -38,6 +38,7 @@ import com.smartsheet.api.models.Discussion;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface AssociatedDiscussionResources {
+	
 	/**
 	 * Create a discussion.
 	 * 
@@ -54,11 +55,11 @@ public interface AssociatedDiscussionResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param discussion
-	 * @param objectId
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @param objectId the object id
+	 * @param discussion the discussion
+	 * @return the discussion
+	 * @throws SmartsheetException the Smartsheet exception
 	 */
 	public Discussion createDiscussion(long objectId, Discussion discussion) throws SmartsheetException;
 }

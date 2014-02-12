@@ -37,30 +37,22 @@ public abstract class AbstractAssociatedResources extends AbstractResources {
 
 	/**
 	 * Constructor.
-	 * 
-	 * Parameters: - smartsheet : the SmartsheetImpl - masterResourceType : the master resource type (e.g. "sheet",
-	 * "workspace").
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null or empty string
-	 * 
-	 * Implementation: super(smartsheet); this.masterResourceType = masterResourceType;
-	 * 
-	 * @param masterResourceType
-	 * @param smartsheet
+	 *
+	 * @param smartsheet the smartsheet
+	 * @param masterResourceType the master resource type
 	 */
 	public AbstractAssociatedResources(SmartsheetImpl smartsheet, String masterResourceType) {
 		super(smartsheet);
+		if(masterResourceType == null || masterResourceType.isEmpty()){
+			throw new IllegalArgumentException();
+		}
 		this.masterResourceType = masterResourceType;
 	}
 
 	/**
 	 * Getter of corresponding field.
-	 * 
-	 * Returns: corresponding field.
-	 * 
-	 * Implementation: Simply return corresponding field.
-	 * 
-	 * @return
+	 *
+	 * @return the master resource type
 	 */
 	protected String getMasterResourceType() {
 		return masterResourceType;

@@ -37,15 +37,11 @@ public class AssociatedDiscussionResourcesImpl extends AbstractAssociatedResourc
 	/**
 	 * Constructor.
 	 * 
-	 * Parameters: - smartsheet : the SmartsheetImpl - masterResourceType : the master resource type (e.g. "sheet",
-	 * "workspace").
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null or empty string
-	 * 
-	 * Implementation: super(smartsheet, masterResourceType);
-	 * 
-	 * @param masterResourceType
-	 * @param smartsheet
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null or empty string
+	 *
+	 * @param smartsheet the smartsheet
+	 * @param masterResourceType the master resource type (e.g. "sheet", "workspace")
 	 */
 	public AssociatedDiscussionResourcesImpl(SmartsheetImpl smartsheet, String masterResourceType) {
 		super(smartsheet,masterResourceType);
@@ -56,25 +52,21 @@ public class AssociatedDiscussionResourcesImpl extends AbstractAssociatedResourc
 	 * 
 	 * It mirrors to the following Smartsheet REST API method: POST /sheet/{id}/discussions POST /row/{id}/discussions
 	 * 
-	 * Parameters: - objectId : the ID of the object - discussion : the discussion object limited to the following
-	 * attributes: * title * comment
-	 * 
 	 * Returns: the created discussion
 	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ResourceNotFoundException : if the resource can not be found -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * Implementation: return this.createResource(getMasterResourceType() + "/" + objectId + "/discussions",
-	 * Discussion.class, discussion);
-	 * 
-	 * @param discussion
-	 * @param objectId
-	 * @return
-	 * @throws SmartsheetException 
+	 * Exceptions: 
+	 *   IllegalArgumentException : if any argument is null
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param objectId the ID of the object
+	 * @param discussion the discussion object limited to the following attributes: title, comment
+	 * @return the created discussion
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Discussion createDiscussion(long objectId, Discussion discussion) throws SmartsheetException {
 		return this.createResource(getMasterResourceType() + "/" + objectId + "/discussions", 

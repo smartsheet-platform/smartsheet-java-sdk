@@ -44,18 +44,38 @@ public abstract class HttpMessage {
 	 */
 	private HttpEntity entity;
 	
+	/**
+	 * Gets the headers.
+	 *
+	 * @return the headers
+	 */
 	public Map<String, String> getHeaders() {
 		return headers;
 	}
 
+	/**
+	 * Sets the headers.
+	 *
+	 * @param headers the headers
+	 */
 	public void setHeaders(Map<String, String> headers) {
 		this.headers = headers;
 	}
 
+	/**
+	 * Gets the entity.
+	 *
+	 * @return the entity
+	 */
 	public HttpEntity getEntity() {
 		return entity;
 	}
 
+	/**
+	 * Sets the entity.
+	 *
+	 * @param entity the new entity
+	 */
 	public void setEntity(HttpEntity entity) {
 		this.entity = entity;
 	}

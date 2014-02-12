@@ -32,19 +32,14 @@ import com.smartsheet.api.models.Error;
  * Thread safety: Exceptions are not thread safe.
  */
 public class InvalidRequestException extends SmartsheetRestException {
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Constructor.
-	 * 
-	 * Parameters: - error : the Error object from Smartsheet REST API
-	 * 
-	 * Implementation: super(error);
-	 * 
-	 * @param error
+	 *
+	 * @param error the Error object from Smartsheet REST API
 	 */
 	public InvalidRequestException(Error error) {
 		super(error);

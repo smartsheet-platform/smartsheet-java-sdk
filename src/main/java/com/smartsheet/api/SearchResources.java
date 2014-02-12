@@ -38,6 +38,7 @@ import com.smartsheet.api.models.SearchResult;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface SearchResources {
+	
 	/**
 	 * Performs a search across all Sheets to which user has access.
 	 * 
@@ -53,11 +54,11 @@ public interface SearchResources {
 	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
 	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
 	 * the operation - SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param query
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws UnsupportedEncodingException 
+	 *
+	 * @param query the query
+	 * @return the search result
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public SearchResult search(String query) throws UnsupportedEncodingException, SmartsheetException;
 
@@ -77,12 +78,12 @@ public interface SearchResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param sheetId
-	 * @param query
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws UnsupportedEncodingException 
+	 *
+	 * @param sheetId the sheet id
+	 * @param query the query
+	 * @return the search result
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public SearchResult searchSheet(long sheetId, String query) throws UnsupportedEncodingException, SmartsheetException;
 }

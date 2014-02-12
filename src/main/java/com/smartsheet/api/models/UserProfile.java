@@ -1,5 +1,6 @@
 package com.smartsheet.api.models;
 
+// TODO: Auto-generated Javadoc
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -23,11 +24,11 @@ package com.smartsheet.api.models;
 
 
 /**
- * Represents UserProfile object.
+ * A profile object that contains the basic fields that most profiles will contain.
  */
 public class UserProfile extends NamedModel {
 	/**
-	 * Represents the email.
+	 * Represents the email address.
 	 */
 	private String email;
 
@@ -41,26 +42,56 @@ public class UserProfile extends NamedModel {
 	 */
 	private String lastName;
 
+	/**
+	 * Gets the email address.
+	 *
+	 * @return the email address
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * Sets the email address.
+	 *
+	 * @param email the new email address
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	/**
+	 * Gets the first name.
+	 *
+	 * @return the first name
+	 */
 	public String getFirstName() {
 		return firstName;
 	}
 
+	/**
+	 * Sets the first name.
+	 *
+	 * @param firstName the new first name
+	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
+	/**
+	 * Gets the last name.
+	 *
+	 * @return the last name
+	 */
 	public String getLastName() {
 		return lastName;
 	}
 
+	/**
+	 * Sets the last name.
+	 *
+	 * @param lastName the new last name
+	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}

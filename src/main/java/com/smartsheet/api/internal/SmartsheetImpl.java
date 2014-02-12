@@ -201,26 +201,12 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Create an instance with given server URI, HttpClient (optional) and JsonSerializer (optional)
 	 * 
-	 * Parameters: - serverURI : the server URI - accessToken : the access token - httpClient : the HttpClient
-	 * (optional) - jsonSerializer : the JsonSerializer (optional)
-	 * 
 	 * Exceptions: - IllegalArgumentException : if serverURI/version/accessToken is null/empty
-	 * 
-	 * Implementation: this.baseURI = URI.create(baseURI); this.httpClient = httpClient == null ? new
-	 * DefaultHttpClient() : httpClient; this.jsonSerializer = jsonSerializer == null ? new JacksonJsonSerializer :
-	 * jsonSerializer; this.home = new AtomicReference<HomeResources>(); this.workspaces = new
-	 * AtomicReference<WorkspaceResources>(); this.folders = new AtomicReference<FolderResources>(); this.templates =
-	 * new AtomicReference<TemplateResources>(); this.sheets = new AtomicReference<SheetResources>(); this.columns = new
-	 * AtomicReference<ColumnResources>(); this.rows = new AtomicReference<RowResources>(); this.attachments = new
-	 * AtomicReference<AttachmentResources>(); this.discussions = new AtomicReference<DiscussionResources>();
-	 * this.comments = new AtomicReference<CommentResources>(); this.users = new AtomicReference<UserResources>();
-	 * this.search = new AtomicReference<SearchResources>(); this.assumedUser = new AtomicReference<String>();
-	 * this.accessToken = new AtomicReference<String>(accessToken);
-	 * 
-	 * @param jsonSerializer
-	 * @param accessToken
-	 * @param httpClient
-	 * @param baseURI
+	 *
+	 * @param baseURI the server uri
+	 * @param accessToken the access token
+	 * @param httpClient the http client (optional)
+	 * @param jsonSerializer the json serializer (optional)
 	 */
 	public SmartsheetImpl(String baseURI, String accessToken, HttpClient httpClient, JsonSerializer jsonSerializer) {
 		this.baseURI = URI.create(baseURI);
@@ -244,13 +230,8 @@ public class SmartsheetImpl implements Smartsheet {
 
 	/**
 	 * Finalize the object, this method is overridden to close the HttpClient.
-	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: None
-	 * 
-	 * Implementation: this.httpClient.close();
-	 * @throws IOException 
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	protected void finalize() throws IOException {
 		this.httpClient.close();
@@ -258,12 +239,8 @@ public class SmartsheetImpl implements Smartsheet {
 
 	/**
 	 * Getter of corresponding field.
-	 * 
-	 * Returns: corresponding field.
-	 * 
-	 * Implementation: Simply return corresponding field.
-	 * 
-	 * @return
+	 *
+	 * @return corresponding field.
 	 */
 	HttpClient getHttpClient() {
 		return httpClient;
@@ -271,12 +248,8 @@ public class SmartsheetImpl implements Smartsheet {
 
 	/**
 	 * Getter of corresponding field.
-	 * 
-	 * Returns: corresponding field.
-	 * 
-	 * Implementation: Simply return corresponding field.
-	 * 
-	 * @return
+	 *
+	 * @return corresponding field
 	 */
 	JsonSerializer getJsonSerializer() {
 		return jsonSerializer;
@@ -286,10 +259,8 @@ public class SmartsheetImpl implements Smartsheet {
 	 * Getter of corresponding field.
 	 * 
 	 * Returns: corresponding field.
-	 * 
-	 * Implementation: Simply return corresponding field.
-	 * 
-	 * @return
+	 *
+	 * @return the base uri
 	 */
 	URI getBaseURI() {
 		return baseURI;
@@ -297,12 +268,8 @@ public class SmartsheetImpl implements Smartsheet {
 
 	/**
 	 * Return the assumed user.
-	 * 
-	 * Returns: the assumed user
-	 * 
-	 * Implementation: return this.assumedUser.get();
-	 * 
-	 * @return
+	 *
+	 * @return the assumed user
 	 */
 	String getAssumedUser() {
 		return assumedUser.get();
@@ -311,11 +278,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Return the access token
 	 * 
-	 * Returns: the access token
-	 * 
-	 * Implementation: return this.accessToken.get();
-	 * 
-	 * @return
+	 * @return the access token
 	 */
 	String getAccessToken() {
 		return accessToken.get();
@@ -324,15 +287,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Returns the HomeResources instance that provides access to Home resources.
 	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the resources instance
-	 * 
-	 * Exceptions: None
-	 * 
-	 * Implementation: home.compareAndSet(null, new HomeResourcesImpl(this)); return home.get();
-	 * 
-	 * @return
+	 * @return the home resources
 	 */
 	public HomeResources home() {
 		home.compareAndSet(null, new HomeResourcesImpl(this));
@@ -342,15 +297,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Returns the WorkspaceResources instance that provides access to Workspace resources.
 	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the resources instance
-	 * 
-	 * Exceptions: None
-	 * 
-	 * Implementation: workspaces.compareAndSet(null, new WorkspaceResourcesImpl(this)); return workspaces.get();
-	 * 
-	 * @return
+	 * @return the workspace resources
 	 */
 	public WorkspaceResources workspaces() {
 		workspaces.compareAndSet(null, new WorkspaceResourcesImpl(this));
@@ -360,15 +307,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Returns the FolderResources instance that provides access to Folder resources.
 	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the resources instance
-	 * 
-	 * Exceptions: None
-	 * 
-	 * Implementation: folders.compareAndSet(null, new FolderResourcesImpl(this)); return folders.get();
-	 * 
-	 * @return
+	 * @return the folder resources
 	 */
 	public FolderResources folders() {
 		folders.compareAndSet(null, new FolderResourcesImpl(this));
@@ -378,15 +317,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Returns the TemplateResources instance that provides access to Template resources.
 	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the resources instance
-	 * 
-	 * Exceptions: None
-	 * 
-	 * Implementation: templates.compareAndSet(null, new TemplateResourcesImpl(this)); return templates.get();
-	 * 
-	 * @return
+	 * @return the template resources
 	 */
 	public TemplateResources templates() {
 		templates.compareAndSet(null, new TemplateResourcesImpl(this));
@@ -396,15 +327,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Returns the SheetResources instance that provides access to Sheet resources.
 	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the resources instance
-	 * 
-	 * Exceptions: None
-	 * 
-	 * Implementation: sheets.compareAndSet(null, new SheetResourcesImpl(this)); return sheets.get();
-	 * 
-	 * @return
+	 * @return the sheet resources
 	 */
 	public SheetResources sheets() {
 		sheets.compareAndSet(null, new SheetResourcesImpl(this));
@@ -414,15 +337,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Returns the ColumnResources instance that provides access to Column resources.
 	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the resources instance
-	 * 
-	 * Exceptions: None
-	 * 
-	 * Implementation: columns.compareAndSet(null, new ColumnResourcesImpl(this)); return columns.get();
-	 * 
-	 * @return
+	 * @return the column resources
 	 */
 	public ColumnResources columns() {
 		columns.compareAndSet(null, new ColumnResourcesImpl(this));
@@ -432,15 +347,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Returns the RowResources instance that provides access to Row resources.
 	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the resources instance
-	 * 
-	 * Exceptions: None
-	 * 
-	 * Implementation: rows.compareAndSet(null, new RowResourcesImpl(this)); return rows.get();
-	 * 
-	 * @return
+	 * @return the row resources
 	 */
 	public RowResources rows() {
 		rows.compareAndSet(null, new RowResourcesImpl(this));
@@ -450,15 +357,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Returns the AttachmentResources instance that provides access to Attachment resources.
 	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the resources instance
-	 * 
-	 * Exceptions: None
-	 * 
-	 * Implementation: attachments.compareAndSet(null, new AttachmentResourcesImpl(this)); return attachments.get();
-	 * 
-	 * @return
+	 * @return the attachment resources
 	 */
 	public AttachmentResources attachments() {
 		attachments.compareAndSet(null, new AttachmentResourcesImpl(this));
@@ -468,15 +367,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Returns the DiscussionResources instance that provides access to Discussion resources.
 	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the resources instance
-	 * 
-	 * Exceptions: None
-	 * 
-	 * Implementation: discussions.compareAndSet(null, new DiscussionResourcesImpl(this)); return discussions.get();
-	 * 
-	 * @return
+	 * @return the discussion resources
 	 */
 	public DiscussionResources discussions() {
 		discussions.compareAndSet(null, new DiscussionResourcesImpl(this));
@@ -486,15 +377,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Returns the CommentResources instance that provides access to Comment resources.
 	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the resources instance
-	 * 
-	 * Exceptions: None
-	 * 
-	 * Implementation: comments.compareAndSet(null, new CommentResourcesImpl(this)); return comments.get();
-	 * 
-	 * @return
+	 * @return the comment resources
 	 */
 	public CommentResources comments() {
 		comments.compareAndSet(null, new CommentResourcesImpl(this));
@@ -504,15 +387,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Returns the UserResources instance that provides access to User resources.
 	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the resources instance
-	 * 
-	 * Exceptions: None
-	 * 
-	 * Implementation: users.compareAndSet(null, new UserResourcesImpl(this)); return users.get();
-	 * 
-	 * @return
+	 * @return the user resources
 	 */
 	public UserResources users() {
 		users.compareAndSet(null, new UserResourcesImpl(this));
@@ -522,15 +397,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Returns the SearchResources instance that provides access to searching resources.
 	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the resources instance
-	 * 
-	 * Exceptions: None
-	 * 
-	 * Implementation: search.compareAndSet(null, new SearchResourcesImpl(this)); return search.get();
-	 * 
-	 * @return
+	 * @return the search resources
 	 */
 	public SearchResources search() {
 		search.compareAndSet(null, new SearchResourcesImpl(this));
@@ -540,15 +407,7 @@ public class SmartsheetImpl implements Smartsheet {
 	/**
 	 * Set the email of the user to assume. Null/empty string indicates no user is assumed.
 	 * 
-	 * Parameters: - assumedUser : the email of the user to assume
-	 * 
-	 * Returns: None
-	 * 
-	 * Exceptions: None
-	 * 
-	 * Implementation: this.assumedUser.set(assumedUser);
-	 * 
-	 * @param assumedUser
+	 * @param assumedUser the email of the user to assume
 	 */
 	public void setAssumedUser(String assumedUser) {
 		this.assumedUser.set(assumedUser);
@@ -561,11 +420,8 @@ public class SmartsheetImpl implements Smartsheet {
 	 * 
 	 * Returns: None
 	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null/empty string
-	 * 
-	 * Implementation: this.accessToken.set(accessToken);
-	 * 
-	 * @param accessToken
+	 *
+	 * @param accessToken the new access token
 	 */
 	public void setAccessToken(String accessToken) {
 		this.accessToken.set(accessToken);

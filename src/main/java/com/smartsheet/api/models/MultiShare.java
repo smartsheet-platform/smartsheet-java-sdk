@@ -26,72 +26,115 @@ import java.util.List;
  * Represents the MultiShare object.
  */
 public class MultiShare {
-	/**
-	 * Represents the users.
-	 */
+	/** The list of users that will be shared with. The email address must be defined for each user. */
 	private List<User> users;
 
-	/**
-	 * Represents the access level.
-	 */
+	/** Represents the access level for this share. */
 	private AccessLevel accessLevel;
 
-	/**
-	 * Represents the subject.
-	 */
+	/** The subject of the email that sent to notify the users. */
 	private String subject;
 
-	/**
-	 * Represents the message.
-	 */
+	/** The message to be included in the body of the email that will be sent to the user. */
 	private String message;
 
-	/**
-	 * Represents the CC me flag.
-	 */
+	/** A flag to indicate whether or not to carbon copy the user sharing the sheet. */
 	private Boolean ccMe;
 
+	/**
+	 * Gets the users.
+	 *
+	 * @return the users
+	 */
 	public List<User> getUsers() {
 		return users;
 	}
 
+	/**
+	 * Sets the users that will be shared with. The email address must be defined for each user.
+	 *
+	 * @param users the new users
+	 */
 	public void setUsers(List<User> users) {
 		this.users = users;
 	}
 
+	/**
+	 * Gets the access level.
+	 *
+	 * @return the access level
+	 */
 	public AccessLevel getAccessLevel() {
 		return accessLevel;
 	}
 
+	/**
+	 * Sets the access level.
+	 *
+	 * @param accessLevel the new access level
+	 */
 	public void setAccessLevel(AccessLevel accessLevel) {
 		this.accessLevel = accessLevel;
 	}
 
+	/**
+	 * Gets the subject of the email that sent to notify the users.
+	 *
+	 * @return the subject
+	 */
 	public String getSubject() {
 		return subject;
 	}
 
+	/**
+	 * Sets the subject of the email that sent to notify the users.
+	 *
+	 * @param subject the new subject
+	 */
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
 
+	/**
+	 * Gets the message to be included in the body of the email that will be sent to the use.
+	 *
+	 * @return the message
+	 */
 	public String getMessage() {
 		return message;
 	}
 
+	/**
+	 * Sets the message to be included in the body of the email that will be sent to the use.
+	 *
+	 * @param message the new message
+	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
 
+	/**
+	 * Gets the flag to indicate whether or not to carbon copy the user sharing the sheet.
+	 *
+	 * @return the carbon copy me flag
+	 */
 	public Boolean getCcMe() {
 		return ccMe;
 	}
 
+	/**
+	 * Sets the flag to indicate whether or not to carbon copy the user sharing the sheet.
+	 *
+	 * @param ccMe the new cc me
+	 */
 	public void setCcMe(Boolean ccMe) {
 		this.ccMe = ccMe;
 	}
 
-	//FIXME: only generate documenation for non-internal stuff (seperate it by package).
+	/**
+	 * A convenience class for creating a MultiShare object with the necessary fields for sharing a sheet with
+	 * many users.
+	 */
 	public static class ShareToManyBuilder {
 		private List<User> users;
 		private AccessLevel accessLevel;
@@ -99,33 +142,68 @@ public class MultiShare {
 		private String message;
 		private Boolean ccMe;
 
-		public ShareToManyBuilder users(List<User> users) {
+		/**
+		 * Sets the users that will be shared with. The email address must be defined for each user.
+		 *
+		 * @param users the users
+		 * @return the share to many builder
+		 */
+		public ShareToManyBuilder setUsers(List<User> users) {
 			this.users = users;
 			return this;
 		}
 
-		public ShareToManyBuilder accessLevel(AccessLevel accessLevel) {
+		/**
+		 * Sets the access level.
+		 *
+		 * @param accessLevel the access level
+		 * @return the share to many builder
+		 */
+		public ShareToManyBuilder setAccessLevel(AccessLevel accessLevel) {
 			this.accessLevel = accessLevel;
 			return this;
 		}
 
-		public ShareToManyBuilder subject(String subject) {
+		/**
+		 * Sets the subject of the email that sent to notify the users.
+		 *
+		 * @param subject the subject
+		 * @return the share to many builder
+		 */
+		public ShareToManyBuilder setSubject(String subject) {
 			this.subject = subject;
 			return this;
 		}
 
-		public ShareToManyBuilder message(String message) {
+		/**
+		 * Sets the message to be included in the body of the email that will be sent to the use.
+		 *
+		 * @param message the message
+		 * @return the share to many builder
+		 */
+		public ShareToManyBuilder setMessage(String message) {
 			this.message = message;
 			return this;
 		}
 
-		public ShareToManyBuilder ccMe(Boolean ccMe) {
+		/**
+		 * Set the carbon copy me flag.
+		 *
+		 * @param ccMe the carbon copy me flag.
+		 * @return the share to many builder
+		 */
+		public ShareToManyBuilder setCCMe(Boolean ccMe) {
 			this.ccMe = ccMe;
 			return this;
 		}
 
 		//FIXME: go back to all of the builders and determine if some of the items can be set to a default. For example
 		//       accessLevel might be set to ? by default.
+		/**
+		 * Builds the Multishare object with the set fields.
+		 *
+		 * @return the multi share
+		 */
 		public MultiShare build() {
 			if(users == null || accessLevel == null ) {
 				throw new InstantiationError("A user, access level and message are required.");

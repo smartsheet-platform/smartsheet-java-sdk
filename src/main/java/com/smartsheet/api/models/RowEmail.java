@@ -1,5 +1,6 @@
 package com.smartsheet.api.models;
 
+// TODO: Auto-generated Javadoc
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -25,27 +26,47 @@ package com.smartsheet.api.models;
  */
 public class RowEmail extends Email {
 	/**
-	 * Represents include attachments flag.
+	 * A flag to indicate if attachments should be included in the email.
 	 */
 	private Boolean includeAttachments;
 
 	/**
-	 * Represents include discussions flag.
+	 * A flag to indicate if discussions should be included in the email.
 	 */
 	private Boolean includeDiscussions;
 
+	/**
+	 * Gets the flag that indicates if attachments should be included in the email.
+	 *
+	 * @return the include attachments
+	 */
 	public Boolean getIncludeAttachments() {
 		return includeAttachments;
 	}
 
+	/**
+	 * Sets the flag that indicates if attachments should be included in the email.
+	 *
+	 * @param includeAttachments the new include attachments
+	 */
 	public void setIncludeAttachments(Boolean includeAttachments) {
 		this.includeAttachments = includeAttachments;
 	}
 
+	/**
+	 * Gets the flag that indicates if discussions should be included in the email.
+	 *
+	 * @return the include discussions
+	 */
 	public Boolean getIncludeDiscussions() {
 		return includeDiscussions;
 	}
 
+	/**
+	 * Sets the flag that indicates if discussions should be included in the email.
+	 *
+	 * @param includeDiscussions the new include discussions
+	 */
 	public void setIncludeDiscussions(Boolean includeDiscussions) {
 		this.includeDiscussions = includeDiscussions;
 	}

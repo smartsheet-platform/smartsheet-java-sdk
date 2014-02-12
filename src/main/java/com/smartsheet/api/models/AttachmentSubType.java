@@ -23,7 +23,7 @@ package com.smartsheet.api.models;
 
 
 /**
- * Represents the attachment sub types.
+ * Represents the attachment sub type.
  */
 public enum AttachmentSubType {
 	DOCUMENT, SPREADSHEET, PRESENTATION, PDF, DRAWING;

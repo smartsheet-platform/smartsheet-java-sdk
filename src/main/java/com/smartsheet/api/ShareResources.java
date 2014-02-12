@@ -48,6 +48,7 @@ import com.smartsheet.api.models.Share;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface ShareResources {
+	
 	/**
 	 * List shares of a given object.
 	 * 
@@ -64,22 +65,10 @@ public interface ShareResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param objectId
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws JSONSerializerException 
-	 * @throws HttpClientException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param objectId the object id
+	 * @return the list
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Share> listShares(long objectId) throws SmartsheetException;
 
@@ -100,22 +89,11 @@ public interface ShareResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param objectId
-	 * @param userId
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param objectId the object id
+	 * @param userId the user id
+	 * @return the share
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Share getShare(long objectId, long userId) throws SmartsheetException;
 
@@ -134,23 +112,11 @@ public interface ShareResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param share
-	 * @param objectId
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param objectId the object id
+	 * @param share the share
+	 * @return the share
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Share shareTo(long objectId, Share share) throws SmartsheetException;
 
@@ -170,24 +136,12 @@ public interface ShareResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param share
-	 * @param objectId
-	 * @param sendEmail
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param objectId the object id
+	 * @param share the share
+	 * @param sendEmail the send email
+	 * @return the share
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Share shareTo(long objectId, Share share, boolean sendEmail) throws SmartsheetException;
 
@@ -207,23 +161,11 @@ public interface ShareResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param objectId
-	 * @param multiShare
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param objectId the object id
+	 * @param multiShare the multi share
+	 * @return the list
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Share> shareTo(long objectId, MultiShare multiShare) throws SmartsheetException;
 
@@ -244,24 +186,12 @@ public interface ShareResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param objectId
-	 * @param sendEmail
-	 * @param multiShare
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param objectId the object id
+	 * @param multiShare the multi share
+	 * @param sendEmail the send email
+	 * @return the list
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Share> shareTo(long objectId, MultiShare multiShare, boolean sendEmail) throws SmartsheetException;
 
@@ -284,24 +214,12 @@ public interface ShareResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param share
-	 * @param objectId
-	 * @param userId
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param objectId the object id
+	 * @param userId the user id
+	 * @param share the share
+	 * @return the share
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Share updateShare(long objectId, long userId, Share share) throws SmartsheetException;
 
@@ -322,22 +240,10 @@ public interface ShareResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param objectId
-	 * @param userId
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param objectId the object id
+	 * @param userId the user id
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public void deleteShare(long objectId, long userId) throws SmartsheetException;
 }

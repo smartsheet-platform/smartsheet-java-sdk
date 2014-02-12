@@ -23,7 +23,8 @@ package com.smartsheet.api.oauth;
 
 
 /**
- * This is the exception throw by OAuthFlow to indicate "invalid_request" error occurred during obtaining OAuth tokens.
+ * This is the exception thrown by OAuthFlow to indicate an "invalid_request" error occurred when obtaining OAuth 
+ * tokens.
  * 
  * Thread safety: Exceptions are not thread safe.
  */
@@ -35,12 +36,8 @@ public class InvalidTokenRequestException extends OAuthTokenException {
 
 	/**
 	 * Constructor.
-	 * 
-	 * Parameters: - message : the message
-	 * 
-	 * Implementation: super(message);
-	 * 
-	 * @param message
+	 *
+	 * @param message the message
 	 */
 	public InvalidTokenRequestException(String message) {
 		super(message);

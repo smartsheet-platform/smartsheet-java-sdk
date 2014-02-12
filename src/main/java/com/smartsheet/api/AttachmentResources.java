@@ -36,6 +36,7 @@ import com.smartsheet.api.models.Attachment;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface AttachmentResources {
+	
 	/**
 	 * Get an attachment.
 	 * 
@@ -52,10 +53,10 @@ public interface AttachmentResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param id
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @param id the id
+	 * @return the attachment
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Attachment getAttachment(long id) throws SmartsheetException;
 
@@ -74,9 +75,9 @@ public interface AttachmentResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param id
-	 * @throws SmartsheetException 
+	 *
+	 * @param id the id
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public void deleteAttachment(long id) throws SmartsheetException;
 }

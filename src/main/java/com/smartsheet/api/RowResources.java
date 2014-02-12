@@ -46,6 +46,7 @@ import com.smartsheet.api.models.RowWrapper;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface RowResources {
+	
 	/**
 	 * Get a row.
 	 * 
@@ -63,10 +64,11 @@ public interface RowResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param id
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @param id the id
+	 * @param includes the includes
+	 * @return the row
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Row getRow(long id, EnumSet<ObjectInclusion> includes) throws SmartsheetException;
 
@@ -88,10 +90,11 @@ public interface RowResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param rowWrapper
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @param id the id
+	 * @param rowWrapper the row wrapper
+	 * @return the list
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Row> moveRow(long id, RowWrapper rowWrapper) throws SmartsheetException;
 
@@ -110,9 +113,9 @@ public interface RowResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param id
-	 * @throws SmartsheetException 
+	 *
+	 * @param id the id
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public void deleteRow(long id) throws SmartsheetException;
 
@@ -130,10 +133,10 @@ public interface RowResources {
 	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
 	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
 	 * the operation - SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param id
-	 * @param email
-	 * @throws SmartsheetException 
+	 *
+	 * @param id the id
+	 * @param email the email
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public void sendRow(long id, RowEmail email) throws SmartsheetException;
 
@@ -154,10 +157,11 @@ public interface RowResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param rowId
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @param rowId the row id
+	 * @param cells the cells
+	 * @return the list
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Cell> updateCells(long rowId, List<Cell> cells) throws SmartsheetException;
 
@@ -177,11 +181,11 @@ public interface RowResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param columnId
-	 * @param rowId
-	 * @return
-	 * @throws SmartsheetException 
+	 *
+	 * @param rowId the row id
+	 * @param columnId the column id
+	 * @return the cell history
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<CellHistory> getCellHistory(long rowId, long columnId) throws SmartsheetException;
 
@@ -192,8 +196,8 @@ public interface RowResources {
 	 * Returns: the AssociatedAttachmentResources object
 	 * 
 	 * Exceptions: None
-	 * 
-	 * @return
+	 *
+	 * @return the associated attachment resources
 	 */
 	public AssociatedAttachmentResources attachments();
 
@@ -204,8 +208,8 @@ public interface RowResources {
 	 * Returns: the AssociatedDiscussionResources object
 	 * 
 	 * Exceptions: None
-	 * 
-	 * @return
+	 *
+	 * @return the associated discussion resources
 	 */
 	public AssociatedDiscussionResources discussions();
 }

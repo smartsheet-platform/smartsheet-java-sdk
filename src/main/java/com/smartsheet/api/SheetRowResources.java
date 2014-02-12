@@ -45,6 +45,7 @@ import com.smartsheet.api.models.RowWrapper;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface SheetRowResources {
+	
 	/**
 	 * Insert rows to a sheet.
 	 * 
@@ -64,23 +65,11 @@ public interface SheetRowResources {
 	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
 	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
 	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param sheetId
-	 * @param rowWrapper
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JSONSerializerException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param sheetId the sheet id
+	 * @param rowWrapper the row wrapper
+	 * @return the list
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Row> insertRows(long sheetId, RowWrapper rowWrapper) throws SmartsheetException;
 
@@ -100,22 +89,11 @@ public interface SheetRowResources {
 	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
 	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
 	 * during the operation
-	 * 
-	 * @param id
-	 * @param rowNumber
-	 * @return
-	 * @throws SmartsheetException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws IOException 
-	 * @throws SecurityException 
-	 * @throws IllegalArgumentException 
-	 * @throws SmartsheetRestException 
-	 * @throws HttpClientException 
-	 * @throws JsonMappingException 
-	 * @throws JsonParseException 
+	 *
+	 * @param id the id
+	 * @param rowNumber the row number
+	 * @return the row
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Row getRow(long id, int rowNumber) throws SmartsheetException;
 }

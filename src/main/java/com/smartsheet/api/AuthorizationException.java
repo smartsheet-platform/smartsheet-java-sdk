@@ -40,12 +40,8 @@ public class AuthorizationException extends SmartsheetRestException {
 
 	/**
 	 * Constructor.
-	 * 
-	 * Parameters: - error : the Error object from Smartsheet REST API
-	 * 
-	 * Implementation: super(error);
-	 * 
-	 * @param error
+	 *
+	 * @param error the Error object from Smartsheet REST API
 	 */
 	public AuthorizationException(Error error) {
 		super(error);

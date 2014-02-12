@@ -23,7 +23,7 @@ package com.smartsheet.api.models;
 
 
 /**
- * Represents page size in the Smartsheet REST API.
+ * Represents page dimensions in the Smartsheet REST API.
  */
 public enum PaperSize {
 	/**

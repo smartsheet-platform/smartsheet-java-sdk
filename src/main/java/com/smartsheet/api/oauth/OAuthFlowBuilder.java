@@ -100,8 +100,6 @@ public class OAuthFlowBuilder {
 
 	/**
 	 * Constructor.
-	 * 
-	 * Implementation: Does nothing.
 	 */
 	public OAuthFlowBuilder() {
 	}
@@ -109,14 +107,10 @@ public class OAuthFlowBuilder {
 	/**
 	 * Set the HttpClient.
 	 * 
-	 * Parameters: - httpClient : the HttpClient
-	 * 
 	 * Exception: - IllegalArgumentException : if any argument is null
-	 * 
-	 * Implementation: this.httpClient = httpClient return this;
-	 * 
-	 * @param httpClient
-	 * @return
+	 *
+	 * @param httpClient the httpClient
+	 * @return the OAuthFlowBuilder
 	 */
 	public OAuthFlowBuilder setHttpClient(HttpClient httpClient) {
 		this.httpClient = httpClient; 
@@ -126,14 +120,10 @@ public class OAuthFlowBuilder {
 	/**
 	 * Set the JsonSerializer.
 	 * 
-	 * Parameters: - jsonSerializer : the JsonSerializer
-	 * 
 	 * Exception: - IllegalArgumentException : if any argument is null
-	 * 
-	 * Implementation: this.jsonSerializer = jsonSerializer; return this;
-	 * 
-	 * @param jsonSerializer
-	 * @return
+	 *
+	 * @param jsonSerializer the JsonSerializer
+	 * @return the oAuthFlowBuilder
 	 */
 	public OAuthFlowBuilder setJsonSerializer(JsonSerializer jsonSerializer) {
 		this.jsonSerializer = jsonSerializer;
@@ -143,14 +133,10 @@ public class OAuthFlowBuilder {
 	/**
 	 * Set the client ID
 	 * 
-	 * Parameters: - clientId : the value to set
-	 * 
 	 * Exception: - IllegalArgumentException : if any argument is null/empty string
-	 * 
-	 * Implementation: this.clientId = clientId return this;
-	 * 
-	 * @param clientId
-	 * @return
+	 *
+	 * @param clientId the value to set
+	 * @return the OAuthFlowBuilder
 	 */
 	public OAuthFlowBuilder setClientId(String clientId) {
 		this.clientId = clientId;
@@ -160,14 +146,10 @@ public class OAuthFlowBuilder {
 	/**
 	 * Set the client secret.
 	 * 
-	 * Parameters: - clientSecret : the value to set
-	 * 
 	 * Exception: - IllegalArgumentException : if any argument is null/empty string
-	 * 
-	 * Implementation: this.clientSecret = clientSecret; return this;
-	 * 
-	 * @param clientSecret
-	 * @return
+	 *
+	 * @param clientSecret the client secret
+	 * @return the OAuthFlowBuilder
 	 */
 	public OAuthFlowBuilder setClientSecret(String clientSecret) {
 		this.clientSecret = clientSecret;
@@ -177,14 +159,10 @@ public class OAuthFlowBuilder {
 	/**
 	 * Set the redirect URL
 	 * 
-	 * Parameters: - redirectURL : the value to set
-	 * 
 	 * Exception: - IllegalArgumentException : if any argument is null/empty string
-	 * 
-	 * Implementation: this.redirectURL = redirectURL; return this;
-	 * 
-	 * @param redirectURL
-	 * @return
+	 *
+	 * @param redirectURL the redirect url
+	 * @return the OAuthFlowBuilder
 	 */
 	public OAuthFlowBuilder setRedirectURL(String redirectURL) {
 		this.redirectURL = redirectURL;
@@ -197,11 +175,9 @@ public class OAuthFlowBuilder {
 	 * Parameters: - authorizationURL : the value to set
 	 * 
 	 * Exception: - IllegalArgumentException : if any argument is null/empty string
-	 * 
-	 * Implementation: this.authorizationURL = authorizationURL; return this;
-	 * 
-	 * @param authorizationURL
-	 * @return
+	 *
+	 * @param authorizationURL the authorization URL
+	 * @return the OAuthFlowBuilder
 	 */
 	public OAuthFlowBuilder setAuthorizationURL(String authorizationURL) {
 		this.authorizationURL = authorizationURL;
@@ -211,14 +187,10 @@ public class OAuthFlowBuilder {
 	/**
 	 * Set the token URL.
 	 * 
-	 * Parameters: - tokenURL : the value to set
-	 * 
 	 * Exception: - IllegalArgumentException : if any argument is null/empty string
-	 * 
-	 * Implementation: this.tokenURL = tokenURL; return this;
-	 * 
-	 * @param tokenURL
-	 * @return
+	 *
+	 * @param tokenURL the token url
+	 * @return the OAuthFlowBuilder
 	 */
 	public OAuthFlowBuilder setTokenURL(String tokenURL) {
 		this.tokenURL = tokenURL;
@@ -228,17 +200,9 @@ public class OAuthFlowBuilder {
 	/**
 	 * Build the OAuthFlow instance.
 	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the OAuthFlow instance
-	 * 
 	 * Exceptions: - IllegalStateException: if clientId, clientSecret or redirectURL isn't set yet.
-	 * 
-	 * Implementation: OAuthFlowImpl flow = new OAuthFlow( clientId, clientSecret, redirectURL, authorizationURL == null
-	 * ? DEFAULT_AUTHORIZATION_URI : authorizationURL, tokenURL == null ? DEFAULT_TOKEN_URL : tokenURL, httpClient ==
-	 * null ? new DefaultHttpClient(), jsonSerializer == null ? new JacksonJsonSerializer()); return flow;
-	 * 
-	 * @return
+	 *
+	 * @return the OAuthFlow instance
 	 */
 	public OAuthFlow build() {
 		if(httpClient == null){

@@ -36,16 +36,13 @@ import com.smartsheet.api.models.UserProfile;
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class UserResourcesImpl extends AbstractResources implements UserResources {
+	
 	/**
 	 * Constructor.
 	 * 
-	 * Parameters: - smartsheet : the SmartsheetImpl
-	 * 
 	 * Exceptions: - IllegalArgumentException : if any argument is null
-	 * 
-	 * Implementation: super(smartsheet);
-	 * 
-	 * @param smartsheet
+	 *
+	 * @param smartsheet the smartsheet
 	 */
 	public UserResourcesImpl(SmartsheetImpl smartsheet) {
 		super(smartsheet);
@@ -56,20 +53,15 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	 * 
 	 * It mirrors to the following Smartsheet REST API method: GET /users
 	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: all users (note that empty list will be returned if there is none)
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * Implementation: return this.listResources("users", User.class);
-	 * 
-	 * @return
-	 * @throws SmartsheetException 
+	 * Exceptions: 
+	 *   - InvalidRequestException : if there is any problem with the REST API request 
+	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token) 
+	 *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) 
+	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation 
+	 *   - SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @return all users (note that empty list will be returned if there is none)
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<User> listUsers() throws SmartsheetException {
 		return this.listResources("users", User.class);
@@ -80,22 +72,18 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	 * 
 	 * It mirrors to the following Smartsheet REST API method: POST /users
 	 * 
-	 * Parameters: - user : the user object limited to the following attributes: * admin * email * licensedSheetCreator
-	 * 
-	 * Returns: the created user
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ResourceNotFoundException : if the resource can not be found -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * Implementation: return this.createResource("users", User.class, user);
-	 * 
-	 * @param user
-	 * @return
-	 * @throws SmartsheetException 
+	 * Exceptions: 
+	 *   - IllegalArgumentException : if any argument is null 
+	 *   - InvalidRequestException : if there is any problem with the REST API request 
+	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token) 
+	 *   - ResourceNotFoundException : if the resource can not be found 
+	 *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) 
+	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation 
+	 *   - SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param user the user object limited to the following attributes: * admin * email * licensedSheetCreator
+	 * @return the user
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public User addUser(User user) throws SmartsheetException {
 		return this.createResource("users", User.class, user);
@@ -106,24 +94,19 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	 * 
 	 * It mirrors to the following Smartsheet REST API method: POST /users
 	 * 
-	 * Parameters: - user : the user object limited to the following attributes: * admin * email * licensedSheetCreator
-	 * - sendEmail : whether to send email
-	 * 
-	 * Returns: the created user
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ResourceNotFoundException : if the resource can not be found -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * Implementation: return this.createResources("users?sendEmail=" + sendEmail, User.class, user);
-	 * 
-	 * @param sendEmail
-	 * @param user
-	 * @return
-	 * @throws SmartsheetException 
+	 * Exceptions: 
+	 *   - IllegalArgumentException : if any argument is null 
+	 *   - InvalidRequestException : if there is any problem with the REST API request 
+	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token) 
+	 *   - ResourceNotFoundException : if the resource can not be found 
+	 *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) 
+	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation 
+	 *   - SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param user the created user
+	 * @param sendEmail whether to send email
+	 * @return the user object limited to the following attributes: * admin * email * licensedSheetCreator
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public User addUser(User user, boolean sendEmail) throws SmartsheetException {
 		return this.createResource("users?sendEmail=" + sendEmail, User.class, user);
@@ -132,25 +115,19 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	/**
 	 * Get the current user.
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /user/me
+	 * It mirrors to the following Smartsheet REST API method: GET /user/me 
 	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
+	 * Exceptions: 
+	 *   - InvalidRequestException : if there is any problem with the REST API request 
+	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token) 
+	 *   - ResourceNotFoundException : if the resource can not be found 
+	 *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) 
+	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation 
+	 *   - SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
 	 * rather than returning null).
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
-	 * 
-	 * 
-	 * Implementation: return this.getResource("user/me", UserProfile.class);
-	 * 
-	 * @return
-	 * @throws SmartsheetException 
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public UserProfile getCurrentUser() throws SmartsheetException {
 		return this.getResource("user/me", UserProfile.class);
@@ -160,24 +137,20 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	 * Update a user.
 	 * 
 	 * It mirrors to the following Smartsheet REST API method: PUT /user/{id}
-	 * 
-	 * Parameters: - user : the user to update limited to the following attributes : * admin * licensedSheetCreator
-	 * 
-	 * Returns: the updated user (note that if there is no such resource, this method will throw
+	 *  
+	 * Exceptions: 
+	 *   - IllegalArgumentException : if any argument is null 
+	 *   - InvalidRequestException : if there is any problem with the REST API request 
+	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token) 
+	 *   - ResourceNotFoundException : if the resource can not be found 
+	 *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) 
+	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation 
+	 *   - SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param user the user to update limited to the following attributes: * admin * licensedSheetCreator
+	 * @return the updated user (note that if there is no such resource, this method will throw 
 	 * ResourceNotFoundException rather than returning null).
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ResourceNotFoundException : if the resource can not be found -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * Implementation: return this.updateResource("user/" + user.getId(), User.class, user);
-	 * 
-	 * @param user
-	 * @return
-	 * @throws SmartsheetException 
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public User updateUser(User user) throws SmartsheetException {
 		return this.updateResource("user/" + user.getId(), User.class, user);
@@ -188,21 +161,16 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	 * 
 	 * It mirrors to the following Smartsheet REST API method: DELETE /user{id}
 	 * 
-	 * Parameters: - id : the ID of the user
-	 * 
-	 * Returns: None
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
-	 * 
-	 * Implementation: return this.deleteResource("user/" + id, User.class);
-	 * 
-	 * @param id
-	 * @throws SmartsheetException 
+	 * Exceptions: 
+	 *   - InvalidRequestException : if there is any problem with the REST API request 
+	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token) 
+	 *   - ResourceNotFoundException : if the resource can not be found 
+	 *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) 
+	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation 
+	 *   - SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param id the id
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public void deleteUser(long id) throws SmartsheetException {
 		this.deleteResource("user/" + id, User.class);
