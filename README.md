@@ -15,18 +15,17 @@ There are 3 different approaches that can be used to install the SDK. We offer t
 Add the SDK as a dependency in your project.
 
 ```xml
-   <dependency>
-      <groupId>com.smartsheet</groupId>
-      <artifactId>smartsheet-java-sdk</artifactId>
-      <version>1.0</version>
-      <scope>compile</scope>
-   </dependency>
+<dependency>
+  <groupId>com.smartsheet</groupId>
+  <artifactId>smartsheet-sdk-java</artifactId>
+  <version>1.0.0</version>
+</dependency>
 ```
 
 ###2. Download Jar File
 
-* [The SDK packaged in a jar with Dependencies](TODO) built in.
-* [The SDK packaged in a jar](TODO). This jar requires that all of the following dependencies are manually added to the path.
+<!--* [The SDK packaged in a jar with Dependencies](https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST) built in.-->
+* [The SDK packaged in a jar](https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST). This jar requires that all of the following dependencies are manually added to the path.
 
         Apache HttpComponents 4.3.2
         Simple Logging Facade for Java 4.3.2
@@ -37,14 +36,15 @@ Add the SDK as a dependency in your project.
 The source code for the jar can be downloaded from Github and then compiled. This can be accomplished using [git](http://git-scm.com/) and [maven](http://maven.apache.org/) with the following 3 steps.
 
 ```bash
-git clone http:\\FIXME:\\
+git clone https://github.com/smartsheet-platform/smartsheet-java-sdk.git
 cd smartsheet-java-sdk
 mvn package
 ```
-# Documentation
-The SDK API documentation can be viewed online at the following location: [TODO]()
 
-The documentation can also be downloaded as a jar file at: [TODO]()
+## Documentation
+The SDK API documentation can be viewed online at the following location: [http://smartsheet-platform.github.io/smartsheet-java-sdk/](http://smartsheet-platform.github.io/smartsheet-java-sdk/)
+
+The documentation can also be downloaded as a jar file [here](https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java-sources&v=LATEST).
 
 ##Example Usage
 ---
