@@ -33,6 +33,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.IdentifiableModel;
 import com.smartsheet.api.models.Result;
 
@@ -116,10 +117,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	 */
 	// @Override
 	public <T> void serialize(T object, java.io.OutputStream outputStream) throws JSONSerializerException {
-
-		if (object == null || outputStream == null) {
-			throw new IllegalArgumentException();
-		}
+		Util.throwIfNull(object, outputStream);
 
 		try {
 			OBJECT_MAPPER.writeValue(outputStream, object);
@@ -151,13 +149,11 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	// @Override
 	public <T> T deserialize(Class<T> objectClass, java.io.InputStream inputStream) throws JsonParseException,
 			JsonMappingException, IOException {
-		if (objectClass == null || inputStream == null) {
-			throw new IllegalArgumentException();
-		}
+		Util.throwIfNull(objectClass, inputStream);
 
 		return OBJECT_MAPPER.readValue(inputStream, objectClass);
 	}
-//FIXME: convert all line endings to unix
+
 	/**
 	 * De-serialize an object list from JSON. 
 	 * 
@@ -175,10 +171,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	// @Override
 	public <T> List<T> deserializeList(Class<T> objectClass, java.io.InputStream inputStream)
 			throws JSONSerializerException {
-
-		if (objectClass == null || inputStream == null) {
-			throw new IllegalArgumentException();
-		}
+		Util.throwIfNull(objectClass, inputStream);
 
 		List<T> list = null;
 
@@ -208,9 +201,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	 */
 	// @Override
 	public Map<String, Object> deserializeMap(InputStream inputStream) throws JSONSerializerException {
-		if (inputStream == null) {
-			throw new IllegalArgumentException();
-		}
+		Util.throwIfNull(inputStream);
 
 		Map<String, Object> map = null;
 
@@ -245,10 +236,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	// @Override
 	public <T> Result<T> deserializeResult(Class<T> objectClass, java.io.InputStream inputStream)
 			throws JSONSerializerException {
-
-		if (objectClass == null || inputStream == null) {
-			throw new IllegalArgumentException();
-		}
+		Util.throwIfNull(objectClass, inputStream);
 
 		Result<T> result = null;
 
@@ -285,10 +273,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	// @Override
 	public <T> Result<List<T>> deserializeListResult(Class<T> objectClass, java.io.InputStream inputStream)
 			throws JSONSerializerException {
-
-		if (objectClass == null || inputStream == null) {
-			throw new IllegalArgumentException();
-		}
+		Util.throwIfNull(objectClass, inputStream);
 
 		Result<List<T>> result = null;
 

@@ -315,6 +315,14 @@ public class Column extends IdentifiableModel {
 			this.index = index;
 			return this;
 		}
+		
+		/**
+		 * Gets the index.
+		 * @return the index
+		 */
+		public int getIndex(){
+			return index;
+		}
 
 		/**
 		 * Sets the title for the column.
@@ -325,6 +333,14 @@ public class Column extends IdentifiableModel {
 		public AddColumnToSheetBuilder setTitle(String title) {
 			this.title = title;
 			return this;
+		}
+		
+		/**
+		 * Gets the title.
+		 * @return the title
+		 */
+		public String getTitle(){
+			return title;
 		}
 
 		/**
@@ -337,7 +353,15 @@ public class Column extends IdentifiableModel {
 			this.type = type;
 			return this;
 		}
-
+		
+		/**
+		 * Gets the type for the column.
+		 * @return the type
+		 */
+		public ColumnType getType(){
+			return type;
+		}
+		
 		/**
 		 * Sets the options for the column.
 		 *
@@ -350,6 +374,14 @@ public class Column extends IdentifiableModel {
 		}
 
 		/**
+		 * Gets the option for the column.
+		 * @return the option
+		 */
+		public List<String> getOptions(){
+			return options;
+		}
+		
+		/**
 		 * Sets the symbol for the column.
 		 *
 		 * @param symbol the symbol
@@ -358,6 +390,14 @@ public class Column extends IdentifiableModel {
 		public AddColumnToSheetBuilder setSymbol(Symbol symbol) {
 			this.symbol = symbol;
 			return this;
+		}
+		
+		/**
+		 * Gets the symbol for the column.
+		 * @return the symbol
+		 */
+		public Symbol getSymbol(){
+			return symbol;
 		}
 
 		/**
@@ -370,6 +410,14 @@ public class Column extends IdentifiableModel {
 			this.systemColumnType = systemColumnType;
 			return this;
 		}
+		
+		/**
+		 * Gets the system column type.
+		 * @return the system column type
+		 */
+		public SystemColumnType getSystemColumnType(){
+			return systemColumnType;
+		}
 
 		/**
 		 * Sets the format for an auto number column.
@@ -380,6 +428,14 @@ public class Column extends IdentifiableModel {
 		public AddColumnToSheetBuilder setAutoNumberFormat(AutoNumberFormat autoNumberFormat) {
 			this.autoNumberFormat = autoNumberFormat;
 			return this;
+		}
+		
+		/**
+		 * Gets the format for an auto number column.
+		 * @return the format for an auto number column
+		 */
+		public AutoNumberFormat getAutoNumberFormat(){
+			return autoNumberFormat;
 		}
 
 		/**
@@ -408,7 +464,6 @@ public class Column extends IdentifiableModel {
 	 * The Class ModifyColumnBuilder.
 	 */
 	public static class ModifyColumnBuilder {
-		
 		/** The position of the column. */
 		private int index;
 		
@@ -519,6 +574,78 @@ public class Column extends IdentifiableModel {
 		public ModifyColumnBuilder setSheetId(Long sheetId) {
 			this.sheetId = sheetId;
 			return this;
+		}
+		
+		/**
+		 * Gets the index.
+		 *
+		 * @return the index
+		 */
+		public int getIndex() {
+			return index;
+		}
+
+		/**
+		 * Gets the title.
+		 *
+		 * @return the title
+		 */
+		public String getTitle() {
+			return title;
+		}
+
+		/**
+		 * Gets the type.
+		 *
+		 * @return the type
+		 */
+		public ColumnType getType() {
+			return type;
+		}
+
+		/**
+		 * Gets the options.
+		 *
+		 * @return the options
+		 */
+		public List<String> getOptions() {
+			return options;
+		}
+
+		/**
+		 * Gets the symbol.
+		 *
+		 * @return the symbol
+		 */
+		public Symbol getSymbol() {
+			return symbol;
+		}
+
+		/**
+		 * Gets the system column type.
+		 *
+		 * @return the system column type
+		 */
+		public SystemColumnType getSystemColumnType() {
+			return systemColumnType;
+		}
+
+		/**
+		 * Gets the auto number format.
+		 *
+		 * @return the auto number format
+		 */
+		public AutoNumberFormat getAutoNumberFormat() {
+			return autoNumberFormat;
+		}
+
+		/**
+		 * Gets the sheet id.
+		 *
+		 * @return the sheet id
+		 */
+		public Long getSheetId() {
+			return sheetId;
 		}
 
 		/**

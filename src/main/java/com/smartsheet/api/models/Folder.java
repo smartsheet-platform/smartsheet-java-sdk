@@ -43,7 +43,7 @@ public class Folder extends NamedModel {
 	/**
 	 * Represents the reports.
 	 */
-	//QUESTION: why was this commented out?
+	//TODO: implement reports
 	// private List<Report> reports;
 
 	/**
@@ -117,9 +117,18 @@ public class Folder extends NamedModel {
 		 * @param name the name
 		 * @return the update folder builder
 		 */
-		public UpdateFolderBuilder name(String name) {
+		public UpdateFolderBuilder setName(String name) {
 			this.folderName = name;
 			return this;
+		}
+		
+		/**
+		 * Gets the name.
+		 *
+		 * @return the name
+		 */
+		public String getName(){
+			return folderName;
 		}
 
 		/**
@@ -128,6 +137,10 @@ public class Folder extends NamedModel {
 		 * @return the folder
 		 */
 		public Folder build() {
+			if(folderName == null){
+				throw new IllegalStateException("A folder name is required.");
+			}
+			
 			Folder folder = new Folder();
 			folder.setName(folderName);
 			return folder;

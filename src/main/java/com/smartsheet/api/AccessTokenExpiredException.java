@@ -25,10 +25,10 @@ package com.smartsheet.api;
 import com.smartsheet.api.models.Error;
 
 /**
- * This is the exception to indicate that an access token expired error returned from Smartsheet REST API. This 
- * exception will be thrown when the Smartsheet REST API generates a "1003 Your Access Token has expired" error.
+ * <p>This is the exception to indicate that an access token expired error returned from Smartsheet REST API. This 
+ * exception will be thrown when the Smartsheet REST API generates a "1003 Your Access Token has expired" error.</p>
  * 
- * Thread safety: Exceptions are not thread safe.
+ * <p>Thread safety: Exceptions are not thread safe.</p>
  */
 public class AccessTokenExpiredException extends AuthorizationException {
 

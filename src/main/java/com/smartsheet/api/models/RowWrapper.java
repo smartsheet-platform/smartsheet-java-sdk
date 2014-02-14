@@ -23,7 +23,7 @@ package com.smartsheet.api.models;
 import java.util.List;
 
 /**
- * Represents the RowWrapper object that is used to specify the location for a row or set of rows.
+ * Represents the RowWrapper object that is used to specify the location for a {@link Row} or set of Rows.
  */
 public class RowWrapper {
 	/**
@@ -141,7 +141,6 @@ public class RowWrapper {
 		this.rows = rows;
 	}
 
-	//FIXME: find documentation that references an object and link to it (below row wrapper)
 	/**
 	 * A convenience class for creating a {@link RowWrapper} with the necessary fields for inserting a {@link Row} or 
 	 * set of rows.
@@ -208,6 +207,53 @@ public class RowWrapper {
 			return this;
 		}
 
+		
+		
+		/**
+		 * Gets the to top.
+		 *
+		 * @return the to top
+		 */
+		public Boolean getToTop() {
+			return toTop;
+		}
+
+		/**
+		 * Gets the to bottom.
+		 *
+		 * @return the to bottom
+		 */
+		public Boolean getToBottom() {
+			return toBottom;
+		}
+
+		/**
+		 * Gets the parent id.
+		 *
+		 * @return the parent id
+		 */
+		public Long getParentId() {
+			return parentId;
+		}
+
+		/**
+		 * Gets the sibling id.
+		 *
+		 * @return the sibling id
+		 */
+		public Long getSiblingId() {
+			return siblingId;
+		}
+
+		/**
+		 * Gets the rows.
+		 *
+		 * @return the rows
+		 */
+		public List<Row> getRows() {
+			return rows;
+		}
+
 		/**
 		 * Builds the RowWrapper.
 		 *
@@ -230,7 +276,7 @@ public class RowWrapper {
 	}
 
 	/**
-	 * A convenience class for creating a {@Link RowWrapper} with the necessary fields for moving a {@link Row} or set 
+	 * A convenience class for creating a {@link RowWrapper} with the necessary fields for moving a {@link Row} or set 
 	 * of rows.
 	 */
 	public static class MoveRowBuilder {
@@ -281,6 +327,42 @@ public class RowWrapper {
 		public MoveRowBuilder setSiblingId(Long siblingId) {
 			this.siblingId = siblingId;
 			return this;
+		}
+
+		/**
+		 * Gets the to top.
+		 *
+		 * @return the to top
+		 */
+		public Boolean getToTop() {
+			return toTop;
+		}
+
+		/**
+		 * Gets the to bottom.
+		 *
+		 * @return the to bottom
+		 */
+		public Boolean getToBottom() {
+			return toBottom;
+		}
+
+		/**
+		 * Gets the parent id.
+		 *
+		 * @return the parent id
+		 */
+		public Long getParentId() {
+			return parentId;
+		}
+
+		/**
+		 * Gets the sibling id.
+		 *
+		 * @return the sibling id
+		 */
+		public Long getSiblingId() {
+			return siblingId;
 		}
 
 		/**

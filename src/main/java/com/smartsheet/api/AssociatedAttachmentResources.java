@@ -30,18 +30,10 @@ import java.util.List;
 import com.smartsheet.api.models.Attachment;
 
 /**
- * This interface provides methods to access Attachment resources that are associated to a resource object.
+ * <p>This interface provides methods to access Attachment resources that are associated to a resource object.</p>
  * 
- * Note that various Smartsheet resources support attachments.
- * 
- * Currently the following resources are supported, please refer to
- * http://publish.smartsheet.com/6f44714480de47c1a8cb72375864a7de for full listing of the resources, and
- * http://www.smartsheet.com/developers/api-documentation for full API documentation:
- * 
- * GET /sheet/{id}/attachments POST /sheet/{id}/attachments GET /row/{id}/attachments POST /row/{id}/attachments GET
- * /comment/{id}/attachments POST /comment/{id}/attachments
- * 
- * Thread Safety: Implementation of this interface must be thread safe.
+ * <p>Various Smartsheet resources support attachments. Currently attachments can be added or retrieved
+ * from sheets, rows and comments.</p>
  */
 public interface AssociatedAttachmentResources {
 	

@@ -39,6 +39,7 @@ import com.smartsheet.api.internal.http.HttpMethod;
 import com.smartsheet.api.internal.http.HttpRequest;
 import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.internal.json.JSONSerializerException;
+import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Column;
 
 /**
@@ -82,10 +83,7 @@ public class ColumnResourcesImpl extends AbstractResources implements ColumnReso
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Column updateColumn(Column column) throws SmartsheetException {
-		
-		if(column == null){
-			throw new IllegalArgumentException();
-		}
+		Util.throwIfNull(column);
 		
 		return this.updateResource("column/" + column.getId(), Column.class, column);
 	}

@@ -22,7 +22,8 @@ package com.smartsheet.api.models;
 
 /**
  * Represents the publish status of a sheet.
- * @see <a href="http://help.smartsheet.com/customer/portal/articles/522078-publishing-sheets">Publishing Sheets</a>
+ * @see <a href="http://help.smartsheet.com/customer/portal/articles/522078-publishing-sheets">Help Publishing 
+ * Sheets</a>
  */
 public class SheetPublish {
 	/**
@@ -224,7 +225,7 @@ public class SheetPublish {
 		 * @param readOnlyLiteEnabled the read only lite (static html UI) enabled
 		 * @return the publish status builder
 		 */
-		public PublishStatusBuilder readOnlyLiteEnabled(Boolean readOnlyLiteEnabled) {
+		public PublishStatusBuilder setReadOnlyLiteEnabled(Boolean readOnlyLiteEnabled) {
 			this.readOnlyLiteEnabled = readOnlyLiteEnabled;
 			return this;
 		}
@@ -235,7 +236,7 @@ public class SheetPublish {
 		 * @param readOnlyFullEnabled the read only full enabled
 		 * @return the publish status builder
 		 */
-		public PublishStatusBuilder readOnlyFullEnabled(Boolean readOnlyFullEnabled) {
+		public PublishStatusBuilder setReadOnlyFullEnabled(Boolean readOnlyFullEnabled) {
 			this.readOnlyFullEnabled = readOnlyFullEnabled;
 			return this;
 		}
@@ -246,7 +247,7 @@ public class SheetPublish {
 		 * @param readWriteEnabled the read write enabled
 		 * @return the publish status builder
 		 */
-		public PublishStatusBuilder readWriteEnabled(Boolean readWriteEnabled) {
+		public PublishStatusBuilder setReadWriteEnabled(Boolean readWriteEnabled) {
 			this.readWriteEnabled = readWriteEnabled;
 			return this;
 		}
@@ -257,9 +258,45 @@ public class SheetPublish {
 		 * @param icalEnabled the ical enabled
 		 * @return the publish status builder
 		 */
-		public PublishStatusBuilder icalEnabled(Boolean icalEnabled) {
+		public PublishStatusBuilder setIcalEnabled(Boolean icalEnabled) {
 			this.icalEnabled = icalEnabled;
 			return this;
+		}
+
+		/**
+		 * Gets the read only lite enabled.
+		 *
+		 * @return the read only lite enabled
+		 */
+		public Boolean getReadOnlyLiteEnabled() {
+			return readOnlyLiteEnabled;
+		}
+
+		/**
+		 * Gets the read only full enabled.
+		 *
+		 * @return the read only full enabled
+		 */
+		public Boolean getReadOnlyFullEnabled() {
+			return readOnlyFullEnabled;
+		}
+
+		/**
+		 * Gets the read write enabled.
+		 *
+		 * @return the read write enabled
+		 */
+		public Boolean getReadWriteEnabled() {
+			return readWriteEnabled;
+		}
+
+		/**
+		 * Gets the ical enabled.
+		 *
+		 * @return the ical enabled
+		 */
+		public Boolean getIcalEnabled() {
+			return icalEnabled;
 		}
 
 		/**

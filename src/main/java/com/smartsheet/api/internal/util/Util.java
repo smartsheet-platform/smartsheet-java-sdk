@@ -1,8 +1,8 @@
-package com.smartsheet.api.oauth;
+package com.smartsheet.api.internal.util;
 
 /*
  * #[license]
- * Smartsheet SDK for Java
+ * Smartsheet Java SDK
  * %%
  * Copyright (C) 2014 Smartsheet
  * %%
@@ -20,26 +20,28 @@ package com.smartsheet.api.oauth;
  * %[license]
  */
 
+public class Util {
 
-
-/**
- * This is the exception thrown by {@link OAuthFlow} to indicate an "invalid_scope" error occurred when obtaining an 
- * authorization code.
- * 
- * Thread safety: Exceptions are not thread safe.
- */
-public class InvalidScopeException extends OAuthAuthorizationCodeException {
+	public Util() {}
+	
 	/**
-	 * 
+	 * Helper function that throws an IllegalArgumentException if one of the parameters is null.
+	 * @param objects the paramters to 
 	 */
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Constructor.
-	 * 
-	 * @param message the message
-	 */
-	public InvalidScopeException(String message) {
-		super(message);
+	public static void throwIfNull(Object... objects) {
+		for (Object obj : objects) {
+			if(obj == null){
+				throw new IllegalArgumentException();
+			}
+		}
 	}
+	
+	public static void throwIfEmpty(String... strings) {
+		for (String string : strings) {
+			if(string != null && string.isEmpty()){
+				throw new IllegalArgumentException();
+			}
+		}
+	}
+
 }

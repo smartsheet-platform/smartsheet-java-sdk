@@ -23,15 +23,20 @@ package com.smartsheet.api.internal.oauth;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
 import java.util.EnumSet;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.smartsheet.api.HttpTestServer;
 import com.smartsheet.api.InvalidRequestException;
+import com.smartsheet.api.internal.FolderResourcesImpl;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.http.HttpClient;
 import com.smartsheet.api.internal.http.HttpClientException;
@@ -58,9 +63,25 @@ public class OAuthFlowImplTest {
 	HttpClient httpClient = new DefaultHttpClient();
 	JsonSerializer json = new JacksonJsonSerializer();
 	
+	HttpTestServer server;
+	
+	@After
+	public void baseTearDown() throws Exception {
+		server.stop();
+	}
+	
 	@Before
 	public void setUp() throws Exception {
 		oauth = new OAuthFlowImpl(clientId,clientSecret,redirectURL,authorizationURL,tokenURL, httpClient, json);
+		
+		// Setup test server
+		server = new HttpTestServer();
+		server.setPort(9090);
+		server.start();
+
+		// Setup the serializer
+		JacksonJsonSerializer serializer = new JacksonJsonSerializer();
+		serializer.setFailOnUnknownProperties(true);
 	}
 
 	@Test
@@ -152,26 +173,25 @@ public class OAuthFlowImplTest {
 		
 		// All parameters set (good response)
 		oauth.extractAuthorizationResult("http://smartsheet.com?code=code&state=state&expires_in=10");
-		
-		
-		
 	}
 
 	@Test
-	public void testObtainNewToken() throws NoSuchAlgorithmException, UnsupportedEncodingException, OAuthTokenException,
-		JSONSerializerException, HttpClientException, OAuthAuthorizationCodeException, URISyntaxException, InvalidRequestException {
-		oauth.setTokenURL("https://api.smartsheet.com/1.1/token");
+	public void testObtainNewToken() throws NoSuchAlgorithmException, OAuthTokenException,
+		JSONSerializerException, HttpClientException, OAuthAuthorizationCodeException, URISyntaxException, InvalidRequestException, IOException {
+		server.setStatus(403);
+		server.setContentType("application/x-www-form-urlencoded");
+		server.setResponseBody(new File("src/test/resources/OAuthException.json"));
+		server.setResponseBody("{\"errorCode\": \"1004\", "
+				+ "\"message\": \"You are not authorized to perform this action.\"}");
+		
+		oauth.setTokenURL("http://localhost:9090/1.1/token");
 		// 403 access forbidden
 		try{
-			oauth.obtainNewToken(oauth.extractAuthorizationResult("http://smartsheet.com?a=b"));
+			oauth.obtainNewToken(oauth.extractAuthorizationResult("http://localhost?a=b"));
 			fail("Exception should have been thrown.");
 		}catch(OAuthTokenException ex){
 			// Expected
 		}
-
-		//Note: Can't fully test obtainNewToken without first authorizing a user and then sending the authorization 
-		// code to the token request. I can increase the lines covered by firing up a jetty server and generating a json
-		// file with the expected output.
 	}
 	
 	

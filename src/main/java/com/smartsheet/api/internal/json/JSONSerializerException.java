@@ -24,7 +24,6 @@ package com.smartsheet.api.internal.json;
 
 import com.smartsheet.api.SmartsheetException;
 
-// TODO: Auto-generated Javadoc
 /**
  * This is the exception throw by JSONSerializer to indicate errors occurred during JSON serialization/de-serialization.
  * 

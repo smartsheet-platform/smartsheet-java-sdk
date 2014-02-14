@@ -29,10 +29,14 @@ import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
 
 /**
- * This is the builder that is used to build Smartsheet instances.
+ * A convenience class to help create a {@link Smartsheet} instance with the appropriate fields.
  * 
  * Thread Safety: This class is not thread safe since it's mutable, one builder instance is NOT expected to be used in
  * multiple threads.
+ */
+/**
+ * @author brett
+ *
  */
 public class SmartsheetBuilder {
 	/**
@@ -128,7 +132,7 @@ public class SmartsheetBuilder {
 	}
 
 	/**
-	 * Set the assumed user
+	 * Set the assumed user.
 	 *
 	 * @param assumedUser the assumed user
 	 * @return the smartsheet builder
@@ -136,6 +140,60 @@ public class SmartsheetBuilder {
 	public SmartsheetBuilder setAssumedUser(String assumedUser) {
 		this.assumedUser = assumedUser;
 		return this;
+	}
+
+	/**
+	 * Gets the http client.
+	 *
+	 * @return the http client
+	 */
+	public HttpClient getHttpClient() {
+		return httpClient;
+	}
+
+	/**
+	 * Gets the json serializer.
+	 *
+	 * @return the json serializer
+	 */
+	public JsonSerializer getJsonSerializer() {
+		return jsonSerializer;
+	}
+
+	/**
+	 * Gets the base uri.
+	 *
+	 * @return the base uri
+	 */
+	public String getBaseURI() {
+		return baseURI;
+	}
+
+	/**
+	 * Gets the access token.
+	 *
+	 * @return the access token
+	 */
+	public String getAccessToken() {
+		return accessToken;
+	}
+
+	/**
+	 * Gets the assumed user.
+	 *
+	 * @return the assumed user
+	 */
+	public String getAssumedUser() {
+		return assumedUser;
+	}
+
+	/**
+	 * Gets the default base uri.
+	 *
+	 * @return the default base uri
+	 */
+	public static String getDefaultBaseUri() {
+		return DEFAULT_BASE_URI;
 	}
 
 	/**

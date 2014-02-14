@@ -46,6 +46,7 @@ import com.smartsheet.api.internal.http.HttpMethod;
 import com.smartsheet.api.internal.http.HttpRequest;
 import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.internal.json.JSONSerializerException;
+import com.smartsheet.api.internal.util.Util;
 
 /**
  * This is the base class of the Smartsheet REST API resources.
@@ -151,9 +152,7 @@ public abstract class AbstractResources {
 	 * @param smartsheet the smartsheet
 	 */
 	protected AbstractResources(SmartsheetImpl smartsheet) {
-		if(smartsheet == null){
-			throw new IllegalArgumentException();
-		}
+		Util.throwIfNull(smartsheet);
 		
 		this.smartsheet = smartsheet;
 	}
@@ -181,9 +180,7 @@ public abstract class AbstractResources {
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	protected <T> T getResource(String path, Class<T> objectClass) throws SmartsheetException  {
-		if(path == null || objectClass == null){
-			throw new IllegalArgumentException();
-		}
+		Util.throwIfNull(path, objectClass);
 		
 		if(path.isEmpty()) {
 			com.smartsheet.api.models.Error error = new com.smartsheet.api.models.Error();
@@ -242,9 +239,8 @@ public abstract class AbstractResources {
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	protected <T> T createResource(String path, Class<T> objectClass, T object) throws SmartsheetException {
-		if(path == null || path.isEmpty() || object == null){
-			throw new IllegalArgumentException();
-		}
+		Util.throwIfNull(path, object);
+		Util.throwIfEmpty(path);
 		
 		HttpRequest request;
 		try {
@@ -298,9 +294,8 @@ public abstract class AbstractResources {
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	protected <T> T updateResource(String path, Class<T> objectClass, T object) throws SmartsheetException {
-		if(path == null || path.isEmpty() || object == null){
-			throw new IllegalArgumentException();
-		}
+		Util.throwIfNull(path, object);
+		Util.throwIfEmpty(path);
 		
 		HttpRequest request;
 		try {
@@ -351,9 +346,8 @@ public abstract class AbstractResources {
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	protected <T> List<T> listResources(String path, Class<T> objectClass) throws SmartsheetException {
-		if(path == null || path.isEmpty() || objectClass == null){
-			throw new IllegalArgumentException();
-		}
+		Util.throwIfNull(path, objectClass);
+		Util.throwIfEmpty(path);
 		
 		HttpRequest request;
 		try {
@@ -397,9 +391,8 @@ public abstract class AbstractResources {
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	protected <T> void deleteResource(String path, Class<T> objectClass) throws SmartsheetException {
-		if(path == null || path.isEmpty() || objectClass == null){
-			throw new IllegalArgumentException();
-		}
+		Util.throwIfNull(path, objectClass);
+		Util.throwIfEmpty(path);
 		
 		HttpRequest request;
 		try {
@@ -446,9 +439,8 @@ public abstract class AbstractResources {
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	protected <T, S> List<S> postAndReceiveList(String path, T objectToPost, Class<S> objectClassToReceive) throws SmartsheetException {
-		if(path == null || path.isEmpty() || objectToPost == null || objectClassToReceive == null){
-			throw new IllegalArgumentException();
-		}
+		Util.throwIfNull(path, objectToPost, objectClassToReceive);
+		Util.throwIfEmpty(path);
 		
 		HttpRequest request;
 		try {
@@ -502,9 +494,8 @@ public abstract class AbstractResources {
 	 */
 	protected <T, S> List<S> putAndReceiveList(String path, T objectToPut, Class<S> objectClassToReceive) 
 			throws SmartsheetException {
-		if(path == null || path.isEmpty() || objectToPut == null || objectClassToReceive == null){
-			throw new IllegalArgumentException();
-		}
+		Util.throwIfNull(path, objectToPut, objectClassToReceive);
+		Util.throwIfEmpty(path);
 		
 		HttpRequest request;
 		try {

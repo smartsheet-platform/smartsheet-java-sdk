@@ -39,14 +39,16 @@ public class OAuthTokenExceptionTest {
 		try{
 			throw new OAuthTokenException("message");
 		}catch(OAuthTokenException e){
-			assertEquals("testing testing",e.getMessage());
-			//assertEquals(1, e.getErrorCode());
+			assertEquals("message", e.getMessage());
 		}
 	}
 
 	@Test
 	public void testOAuthTokenExceptionStringThrowable() {
-		fail("Not yet implemented");
+		try{
+			throw new OAuthTokenException("message", null);
+		}catch(OAuthTokenException ex){
+			assertEquals("message", ex.getMessage());
+		}
 	}
-
 }

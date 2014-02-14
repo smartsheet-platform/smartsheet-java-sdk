@@ -1,6 +1,5 @@
 package com.smartsheet.api.models;
 
-// TODO: Auto-generated Javadoc
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -25,6 +24,8 @@ package com.smartsheet.api.models;
 
 /**
  * Represents Sheet Email object used for sending a sheet by email.
+ * @see <a href="http://help.smartsheet.com/customer/portal/articles/504773-sending-sheets-rows-via-email">Help Sending
+ * Sheets & Rows via Email</a>
  */
 public class SheetEmail extends Email {
 	/**

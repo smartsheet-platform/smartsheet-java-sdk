@@ -31,12 +31,6 @@ import com.smartsheet.api.models.UserProfile;
 /**
  * This interface provides methods to access User resources.
  * 
- * Currently the following resources are supported, please refer to
- * http://publish.smartsheet.com/6f44714480de47c1a8cb72375864a7de for full listing of the resources, and
- * http://www.smartsheet.com/developers/api-documentation for full API documentation:
- * 
- * GET /users GET /user/me POST /users PUT /user/{userId} DELETE /user/{userId}
- * 
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface UserResources {

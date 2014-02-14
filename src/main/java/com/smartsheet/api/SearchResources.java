@@ -29,12 +29,6 @@ import com.smartsheet.api.models.SearchResult;
 /**
  * This interface provides methods to access search resources.
  * 
- * Currently the following resources are supported, please refer to
- * http://publish.smartsheet.com/6f44714480de47c1a8cb72375864a7de for full listing of the resources, and
- * http://www.smartsheet.com/developers/api-documentation for full API documentation:
- * 
- * GET /search GET /search/sheet/{sheetId}
- * 
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface SearchResources {

@@ -193,6 +193,14 @@ public class Comment extends IdentifiableModel {
 			this.text = text;
 			return this;
 		}
+		
+		/**
+		 * Gets the text for the comment.
+		 * @return the text
+		 */
+		public String getText(){
+			return text;
+		}
 
 		/**
 		 * Builds the comment.

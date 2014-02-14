@@ -33,15 +33,9 @@ import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.models.Folder;
 
 /**
- * This interface provides methods to access Folder resources.
+ * <p>This interface provides methods to access Folder resources.</p>
  * 
- * Currently the following resources are supported, please refer to
- * http://publish.smartsheet.com/6f44714480de47c1a8cb72375864a7de for full listing of the resources, and
- * http://www.smartsheet.com/developers/api-documentation for full API documentation:
- * 
- * GET /folder/{id} PUT /folder/{id} DELETE /folder{id} GET /folder/{id}/folders POST /folder/{id}/folders
- * 
- * Thread Safety: Implementation of this interface must be thread safe.
+ * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface FolderResources {
 	

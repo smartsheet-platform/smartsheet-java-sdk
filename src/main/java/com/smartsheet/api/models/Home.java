@@ -26,6 +26,7 @@ import java.util.List;
 
 /**
  * Represents the Home object.
+ * @see <a href="http://help.smartsheet.com/customer/portal/articles/522237-the-home-tab">Home Tab Help</a>
  */
 public class Home {
 	/**
@@ -41,7 +42,7 @@ public class Home {
 	/**
 	 * Represents the reports in the home location.
 	 */
-	//QUESTION: why is this commented out?
+	//TODO: implement reports
 	// private List<Report> reports;
 
 	/**

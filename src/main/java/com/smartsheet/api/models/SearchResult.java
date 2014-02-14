@@ -24,6 +24,8 @@ import java.util.List;
 
 /**
  * Represents the results of a search.
+ * @see <a href="http://help.smartsheet.com/customer/portal/articles/522231-searching-in-smartsheet">Help Searching in 
+ * Smartsheet</a>
  */
 public class SearchResult {
 	/**

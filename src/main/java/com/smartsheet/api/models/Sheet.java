@@ -503,6 +503,15 @@ public class Sheet extends NamedModel {
 		}
 
 		/**
+		 * Gets the from id.
+		 *
+		 * @return the from id
+		 */
+		public Long getFromId() {
+			return fromId;
+		}
+
+		/**
 		 * Creates a sheet by using the values from setters in this builder.
 		 *
 		 * @return the sheet
@@ -539,11 +548,25 @@ public class Sheet extends NamedModel {
 		}
 
 		/**
+		 * Gets the sheet name.
+		 *
+		 * @return the sheet name
+		 */
+		public String getName() {
+			return sheetName;
+		}
+
+
+		/**
 		 * Builds the.
 		 *
 		 * @return the sheet
 		 */
 		public Sheet build() {
+			if(sheetName == null){
+				throw new InstantiationError();
+			}
+			
 			Sheet sheet = new Sheet();
 			sheet.setName(sheetName);
 			return sheet;

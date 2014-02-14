@@ -41,6 +41,7 @@ import com.smartsheet.api.internal.http.HttpRequest;
 import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.internal.json.JsonSerializer;
+import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.oauth.AccessDeniedException;
 import com.smartsheet.api.oauth.AccessScope;
 import com.smartsheet.api.oauth.AuthorizationResult;
@@ -126,12 +127,8 @@ public class OAuthFlowImpl implements OAuthFlow {
 	 */
 	public OAuthFlowImpl(String clientId, String clientSecret, String redirectURL, String authorizationURL,
 			String tokenURL, HttpClient httpClient, JsonSerializer jsonSerializer) {
-		
-		if(clientId == null || clientId.isEmpty() || clientSecret == null || clientSecret.isEmpty() || 
-				redirectURL == null || redirectURL.isEmpty()|| authorizationURL == null || authorizationURL.isEmpty() ||
-				tokenURL == null || tokenURL.isEmpty() || httpClient == null || jsonSerializer == null) {
-			throw new IllegalArgumentException();
-		}
+		Util.throwIfNull(clientId, clientSecret, redirectURL, authorizationURL, tokenURL, httpClient, jsonSerializer);
+		Util.throwIfEmpty(clientId, clientSecret, redirectURL, authorizationURL, tokenURL);
 		
 		this.clientId = clientId;
 		this.clientSecret = clientSecret;
@@ -154,7 +151,7 @@ public class OAuthFlowImpl implements OAuthFlow {
 	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 	public String newAuthorizationURL(EnumSet<AccessScope> scopes, String state) throws UnsupportedEncodingException {
-		if(scopes == null){throw new IllegalArgumentException();}
+		Util.throwIfNull(scopes);
 		if(state == null){state = "";}
 		
 		// Build a map of parameters for the URL
@@ -192,10 +189,8 @@ public class OAuthFlowImpl implements OAuthFlow {
 	 */
 	public AuthorizationResult extractAuthorizationResult(String authorizationResponseURL) throws 
 		URISyntaxException, OAuthAuthorizationCodeException {
-		
-		if(authorizationResponseURL == null || authorizationResponseURL.isEmpty()){
-			throw new IllegalArgumentException();
-		}
+		Util.throwIfNull(authorizationResponseURL);
+		Util.throwIfEmpty(authorizationResponseURL);
 		
 		// Get all of the parms from the URL
 		URI uri = new URI(authorizationResponseURL);
@@ -238,7 +233,7 @@ public class OAuthFlowImpl implements OAuthFlow {
 
 		return authorizationResult;
 	}
-//FIXME: search for all IllegalArgumentExceptions and verify that it is actually thrown
+
 	/**
 	 * Obtain a new token using AuthorizationResult.
 	 * 

@@ -23,7 +23,7 @@ package com.smartsheet.api.models;
 
 
 /**
- * Represents the attachment type.
+ * Represents the type of attachment.
  */
 public enum AttachmentType {
 	FILE, GOOGLE_DRIVE, LINK, BOX_COM;

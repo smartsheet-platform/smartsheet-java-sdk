@@ -42,6 +42,7 @@ import com.smartsheet.api.internal.http.HttpClientException;
 import com.smartsheet.api.internal.http.HttpMethod;
 import com.smartsheet.api.internal.http.HttpRequest;
 import com.smartsheet.api.internal.json.JSONSerializerException;
+import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.ObjectInclusion;
 import com.smartsheet.api.models.PaperSize;
 import com.smartsheet.api.models.Sheet;
@@ -596,7 +597,8 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 */
 	private void getSheetAsFile(long id, PaperSize paperSize, OutputStream outputStream, String contentType)
 			throws SmartsheetException {
-
+		Util.throwIfNull(outputStream, contentType);
+		
 		String path = "sheet/" + id;
 		if (paperSize != null) {
 			path += "?paperSize=" + paperSize;

@@ -113,8 +113,6 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		
 		byte[] original = IOUtils.toByteArray(new FileReader(file));
 		assertTrue(original.length != output.toByteArray().length);
-		
-		//FIXME: test a large XLS to see how it handles.
 	}
 
 	@Test

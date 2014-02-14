@@ -36,15 +36,6 @@ import com.smartsheet.api.models.Share;
 /**
  * This interface provides methods to access Share resources.
  * 
- * Currently the following resources are supported, please refer to
- * http://publish.smartsheet.com/6f44714480de47c1a8cb72375864a7de for full listing of the resources, and
- * http://www.smartsheet.com/developers/api-documentation for full API documentation:
- * 
- * GET /workspace/{id}/shares GET /workspace/{id}/share/{userId} POST /workspace/{id}/shares POST
- * /workspace/{id}/multishare PUT /workspace/{id}/share/{userId} DELETE /workspace/{id}/share/{userId} GET
- * /sheet/{id}/shares GET /sheet/{id}/share/{userId} POST /sheet/{id}/shares POST /sheet/{id}/multishare PUT
- * /sheet/{id}/share/{userId} DELETE /sheet/{id}/share/{userId}
- * 
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface ShareResources {

@@ -27,9 +27,6 @@ import com.smartsheet.api.models.Error;
 /**
  * This is the exception to indicate errors (Error objects of Smartsheet REST API) returned from Smartsheet REST API.
  * 
- * Several specific exceptions are defined to indicate the following HTTP responses: 400 BAD REQUEST 401 NOT AUTHORIZED
- * 403 FORBIDDEN 404 NOT FOUND 503 SERVICE UNAVAILABLE
- * 
  * Thread safety: Exceptions are not thread safe.
  */
 public class SmartsheetRestException extends SmartsheetException {

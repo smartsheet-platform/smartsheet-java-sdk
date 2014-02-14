@@ -1,6 +1,5 @@
 package com.smartsheet.api.oauth;
 
-// TODO: Auto-generated Javadoc
 /*
  * #[license]
  * Smartsheet SDK for Java

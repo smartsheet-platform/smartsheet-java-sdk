@@ -25,15 +25,9 @@ package com.smartsheet.api;
 import com.smartsheet.api.models.Attachment;
 
 /**
- * This interface provides methods to access Attachment resources.
+ * <p>This interface provides methods to access Attachment resources by their id.</p>
  * 
- * Currently the following resources are supported, please refer to
- * http://publish.smartsheet.com/6f44714480de47c1a8cb72375864a7de for full listing of the resources, and
- * http://www.smartsheet.com/developers/api-documentation for full API documentation:
- * 
- * GET /attachment/{id} DELETE /attachment/{id}
- * 
- * Thread Safety: Implementation of this interface must be thread safe.
+ * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface AttachmentResources {
 	

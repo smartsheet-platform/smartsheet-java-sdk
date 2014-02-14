@@ -36,12 +36,6 @@ import com.smartsheet.api.models.RowWrapper;
 /**
  * This interface provides methods to access row resources that are associated to a sheet object.
  * 
- * Currently the following resources are supported, please refer to
- * http://publish.smartsheet.com/6f44714480de47c1a8cb72375864a7de for full listing of the resources, and
- * http://www.smartsheet.com/developers/api-documentation for full API documentation:
- * 
- * POST /sheet/{id}/rows GET /sheet/{id}/row/{number}
- * 
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface SheetRowResources {

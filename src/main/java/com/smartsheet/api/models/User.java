@@ -1,6 +1,5 @@
 package com.smartsheet.api.models;
 
-// TODO: Auto-generated Javadoc
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -23,6 +22,9 @@ package com.smartsheet.api.models;
 
 /**
  * Represents the User object.
+ * @see <a href="http://help.smartsheet.com/customer/portal/articles/795920-managing-users-team-enterprise-only-">Help
+ * Managing Users</a>
+ * @see <a href="http://help.smartsheet.com/customer/portal/articles/520100-user-types">User Types Help</a>
  */
 public class User extends UserProfile {
 	/**
@@ -97,7 +99,6 @@ public class User extends UserProfile {
 	/**
 	 * A convenience class for making a {@link User} object with the appropriate fields for adding the user.
 	 */
-	// FIXME: Need to add getters to the auto generated builders. Need to use a custom exception for each builder.
 	public static class AddUserBuilder {
 		private Boolean admin;
 		private String emailAddress;
@@ -134,6 +135,33 @@ public class User extends UserProfile {
 		public AddUserBuilder setEmail(String email) {
 			this.emailAddress = email;
 			return this;
+		}
+
+		/**
+		 * Gets the admin.
+		 *
+		 * @return the admin
+		 */
+		public Boolean getAdmin() {
+			return admin;
+		}
+
+		/**
+		 * Gets the email address.
+		 *
+		 * @return the email address
+		 */
+		public String getEmailAddress() {
+			return emailAddress;
+		}
+
+		/**
+		 * Gets the licensed sheet creator.
+		 *
+		 * @return the licensed sheet creator
+		 */
+		public Boolean getLicensedSheetCreator() {
+			return licensedSheetCreator;
 		}
 
 		/**
@@ -181,6 +209,24 @@ public class User extends UserProfile {
 		public UpdateUserBuilder setLicensedSheetCreator(Boolean licensedSheetCreator) {
 			this.licensedSheetCreator = licensedSheetCreator;
 			return this;
+		}
+
+		/**
+		 * Gets the admin.
+		 *
+		 * @return the admin
+		 */
+		public Boolean getAdmin() {
+			return admin;
+		}
+
+		/**
+		 * Gets the licensed sheet creator.
+		 *
+		 * @return the licensed sheet creator
+		 */
+		public Boolean getLicensedSheetCreator() {
+			return licensedSheetCreator;
 		}
 
 		/**

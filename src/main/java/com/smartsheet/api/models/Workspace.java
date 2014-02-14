@@ -23,8 +23,8 @@ package com.smartsheet.api.models;
 /**
  * Represents the Workspace object which is an area in which sheets, reports, templates and sub-folders can be 
  * organized, similar to a folder.
- * @see <a href="http://help.smartsheet.com/customer/portal/articles/506687-creating-a-workspace">Creating a Workspace 
- * Documentation</a>
+ * @see <a href="http://help.smartsheet.com/customer/portal/articles/506687-creating-a-workspace">Help Creating a 
+ * Workspace</a>
  */
 public class Workspace extends Folder {
 	/** Represents the user's permissions on a workspace. */
@@ -81,9 +81,18 @@ public class Workspace extends Folder {
 		 * @param name the name
 		 * @return the update workspace builder
 		 */
-		public UpdateWorkspaceBuilder name(String name) {
+		public UpdateWorkspaceBuilder setName(String name) {
 			this.workspaceName = name;
 			return this;
+		}
+
+		/**
+		 * Gets the name.
+		 *
+		 * @return the name
+		 */
+		public String getName() {
+			return workspaceName;
 		}
 
 		/**
@@ -92,6 +101,10 @@ public class Workspace extends Folder {
 		 * @return the workspace
 		 */
 		public Workspace build() {
+			if(workspaceName == null){
+				throw new InstantiationError("A workspace name is required.");
+			}
+			
 			Workspace workspace = new Workspace();
 			workspace.setName(workspaceName);
 			return workspace;

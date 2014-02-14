@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.http.HttpHeaders;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -35,6 +36,8 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+
+import com.smartsheet.api.internal.util.Util;
 
 /**
  * This is the Apache HttpClient (http://hc.apache.org/httpcomponents-client-ga/index.html) based HttpClient
@@ -58,6 +61,8 @@ public class DefaultHttpClient implements HttpClient {
 	private CloseableHttpResponse apacheHttpResponse;
 	
 
+	public static final String USER_AGENT = "Mozilla/5.0 Firefox/26.0";
+	
 	/**
 	 * Constructor.
 	 */
@@ -75,7 +80,7 @@ public class DefaultHttpClient implements HttpClient {
 	 * @param httpClient the http client
 	 */
 	public DefaultHttpClient(CloseableHttpClient httpClient) {
-		if(httpClient == null){throw new IllegalArgumentException();}
+		Util.throwIfNull(httpClient);
 		
 		this.httpClient = httpClient;
 	}
@@ -88,15 +93,14 @@ public class DefaultHttpClient implements HttpClient {
 	 * @throws HttpClientException the HTTP client exception
 	 */
 	public HttpResponse request(HttpRequest smartsheetRequest) throws HttpClientException {
-		if (smartsheetRequest == null) {
-			throw new IllegalArgumentException("Request is null");
-		}else if(smartsheetRequest.getUri() == null ){
+		Util.throwIfNull(smartsheetRequest);
+		if(smartsheetRequest.getUri() == null ){
 			throw new IllegalArgumentException("A Request URI is required.");
 		}
 		
 		HttpResponse smartsheetResponse = new HttpResponse();
 
-		// Create Apache http request based on the smartsheetRequest request type
+		// Create Apache HTTP request based on the smartsheetRequest request type
 		if (HttpMethod.GET == smartsheetRequest.getMethod()) {
 			apacheHttpRequest = new HttpGet(smartsheetRequest.getUri());
 		} else if (HttpMethod.POST == smartsheetRequest.getMethod()) {
@@ -110,8 +114,6 @@ public class DefaultHttpClient implements HttpClient {
 					+ " is not supported!");
 		}
 		
-		
-		//apacheHttpRequest.getConfig().isRedirectsEnabled();
 		RequestConfig.Builder builder = RequestConfig.custom();
 		if (apacheHttpRequest.getConfig()!=null) {
 			builder = RequestConfig.copy(apacheHttpRequest.getConfig());
@@ -126,6 +128,19 @@ public class DefaultHttpClient implements HttpClient {
 				apacheHttpRequest.addHeader(header.getKey(), header.getValue());
 			}
 		}
+		
+		// Set User Agent
+		String thisVersion = "";
+		String title = "";
+		Package thisPackage = getClass().getPackage();
+		if(thisPackage != null){
+			thisVersion = thisPackage.getImplementationVersion();
+			title = thisPackage.getImplementationTitle();
+		}
+		
+		apacheHttpRequest.setHeader(HttpHeaders.USER_AGENT, title+"/" + thisVersion +" " + 
+				System.getProperty("os.name") + " "+System.getProperty("java.vm.name") + " " + 
+				System.getProperty("java.vendor") + " " + System.getProperty("java.version"));
 
 		// Set HTTP entity
 		if (apacheHttpRequest instanceof HttpEntityEnclosingRequestBase && smartsheetRequest.getEntity() != null && 
@@ -133,10 +148,9 @@ public class DefaultHttpClient implements HttpClient {
 			((HttpEntityEnclosingRequestBase) apacheHttpRequest).setEntity(new InputStreamEntity(smartsheetRequest
 					.getEntity().getContent()));
 		}
-
+		
 		// Make the HTTP request
 		try {
-
 			apacheHttpResponse = this.httpClient.execute(apacheHttpRequest);
 			
 			// Set returned headers
@@ -184,7 +198,7 @@ public class DefaultHttpClient implements HttpClient {
 				apacheHttpResponse.close();
 			} catch (IOException e) {
 				// Ignore exception as there isn't anything else that can be done.
-				//FIXME: should log this
+				//TODO: log this
 			}
 		}
 	}

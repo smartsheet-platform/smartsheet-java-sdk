@@ -1,5 +1,7 @@
 package com.smartsheet.api.internal;
 
+import com.smartsheet.api.internal.util.Util;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -43,9 +45,9 @@ public abstract class AbstractAssociatedResources extends AbstractResources {
 	 */
 	public AbstractAssociatedResources(SmartsheetImpl smartsheet, String masterResourceType) {
 		super(smartsheet);
-		if(masterResourceType == null || masterResourceType.isEmpty()){
-			throw new IllegalArgumentException();
-		}
+		Util.throwIfNull(masterResourceType);
+		Util.throwIfEmpty(masterResourceType);
+
 		this.masterResourceType = masterResourceType;
 	}
 

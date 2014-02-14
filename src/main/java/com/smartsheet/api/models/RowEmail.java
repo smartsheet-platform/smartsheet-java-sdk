@@ -1,6 +1,5 @@
 package com.smartsheet.api.models;
 
-// TODO: Auto-generated Javadoc
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -23,6 +22,8 @@ package com.smartsheet.api.models;
 
 /**
  * Represents RowEmail object.
+ * @see <a href="http://help.smartsheet.com/customer/portal/articles/504773-sending-sheets-rows-via-email">Help Sending 
+ * Sheets & Rows via Email</a>
  */
 public class RowEmail extends Email {
 	/**

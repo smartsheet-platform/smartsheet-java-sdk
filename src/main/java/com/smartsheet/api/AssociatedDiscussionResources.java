@@ -25,17 +25,10 @@ package com.smartsheet.api;
 import com.smartsheet.api.models.Discussion;
 
 /**
- * This interface provides methods to access Discussion resources that are associated to a resource object.
+ * <p>This interface provides methods to access Discussion resources that are associated to a resource object. Currently 
+ * discussions can be added to sheets or rows.</p>
  * 
- * Note that various Smartsheet resources support discussions.
- * 
- * Currently the following resources are supported, please refer to
- * http://publish.smartsheet.com/6f44714480de47c1a8cb72375864a7de for full listing of the resources, and
- * http://www.smartsheet.com/developers/api-documentation for full API documentation:
- * 
- * POST /sheet/{id}/discussions POST /row/{id}/discussions
- * 
- * Thread Safety: Implementation of this interface must be thread safe.
+ * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface AssociatedDiscussionResources {
 	

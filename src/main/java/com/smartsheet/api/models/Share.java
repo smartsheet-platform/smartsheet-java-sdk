@@ -101,6 +101,24 @@ public class Share extends NamedModel {
 		}
 
 		/**
+		 * Gets the access level.
+		 *
+		 * @return the access level
+		 */
+		public AccessLevel getAccessLevel() {
+			return accessLevel;
+		}
+
+		/**
+		 * Gets the email.
+		 *
+		 * @return the email
+		 */
+		public String getEmail() {
+			return email;
+		}
+
+		/**
 		 * Builds the {@link Share} object.
 		 *
 		 * @return the share
@@ -133,6 +151,15 @@ public class Share extends NamedModel {
 		public UpdateShareBuilder setAccessLevel(AccessLevel accessLevel) {
 			this.accessLevel = accessLevel;
 			return this;
+		}
+
+		/**
+		 * Gets the access level.
+		 *
+		 * @return the access level
+		 */
+		public AccessLevel getAccessLevel() {
+			return accessLevel;
 		}
 
 		/**

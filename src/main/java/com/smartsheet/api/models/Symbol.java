@@ -24,8 +24,7 @@ package com.smartsheet.api.models;
 
 /**
  * Represents the column symbols.
- * @see <a href="http://help.smartsheet.com/customer/portal/articles/504619-column-types#symbols">Symbols 
- * Documentation</a>
+ * @see <a href="http://help.smartsheet.com/customer/portal/articles/504619-column-types#symbols">Symbols Help</a>
  */
 public enum Symbol {
 	/**

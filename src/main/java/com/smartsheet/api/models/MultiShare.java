@@ -24,6 +24,7 @@ import java.util.List;
 
 /**
  * Represents the MultiShare object.
+ * @see <a href="http://help.smartsheet.com/customer/portal/articles/520104-sharing-sheets">Help Sharing Sheets</a>
  */
 public class MultiShare {
 	/** The list of users that will be shared with. The email address must be defined for each user. */
@@ -197,8 +198,51 @@ public class MultiShare {
 			return this;
 		}
 
-		//FIXME: go back to all of the builders and determine if some of the items can be set to a default. For example
-		//       accessLevel might be set to ? by default.
+		/**
+		 * Gets the users.
+		 *
+		 * @return the users
+		 */
+		public List<User> getUsers() {
+			return users;
+		}
+
+		/**
+		 * Gets the access level.
+		 *
+		 * @return the access level
+		 */
+		public AccessLevel getAccessLevel() {
+			return accessLevel;
+		}
+
+		/**
+		 * Gets the subject.
+		 *
+		 * @return the subject
+		 */
+		public String getSubject() {
+			return subject;
+		}
+
+		/**
+		 * Gets the message.
+		 *
+		 * @return the message
+		 */
+		public String getMessage() {
+			return message;
+		}
+
+		/**
+		 * Gets the cc me.
+		 *
+		 * @return the cc me
+		 */
+		public Boolean getCcMe() {
+			return ccMe;
+		}
+
 		/**
 		 * Builds the Multishare object with the set fields.
 		 *

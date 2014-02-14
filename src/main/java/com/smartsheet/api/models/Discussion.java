@@ -25,6 +25,7 @@ import java.util.List;
 
 /**
  * Represents the Discussion object.
+ * @see <a href="http://help.smartsheet.com/customer/portal/articles/504767-using-discussions">Help Using Discussions</a>
  */
 public class Discussion extends IdentifiableModel {
 	/** Represents the title for the discussion. */
@@ -134,8 +135,6 @@ public class Discussion extends IdentifiableModel {
 		this.lastCommentedUser = lastCommentedUser;
 	}
 
-	
-	//QUESTION: does a discussion have an access level. Take a look at the unit test to see how these are used.
 	/**
 	 * Gets the access level.
 	 *
@@ -182,6 +181,24 @@ public class Discussion extends IdentifiableModel {
 		public CreateDiscussionBuilder setComments(List<Comment> comments) {
 			this.comments = comments;
 			return this;
+		}
+		
+		/**
+		 * Gets the title.
+		 *
+		 * @return the title
+		 */
+		public String getTitle() {
+			return title;
+		}
+
+		/**
+		 * Gets the comments.
+		 *
+		 * @return the comments
+		 */
+		public List<Comment> getComments() {
+			return comments;
 		}
 
 		/**

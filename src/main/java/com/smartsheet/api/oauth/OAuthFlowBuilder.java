@@ -27,9 +27,10 @@ import com.smartsheet.api.internal.http.HttpClient;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.internal.oauth.OAuthFlowImpl;
+import com.smartsheet.api.internal.util.Util;
 
 /**
- * This is the builder that is used to build OAuthFlow instances.
+ * This is the builder that is used to build {@link OAuthFlow} instances.
  * 
  * Thread Safety: This class is not thread safe since it's mutable, one builder instance is NOT expected to be used in
  * multiple threads.
@@ -106,17 +107,17 @@ public class OAuthFlowBuilder {
 
 	/**
 	 * Set the HttpClient.
-	 * 
-	 * Exception: - IllegalArgumentException : if any argument is null
 	 *
 	 * @param httpClient the httpClient
 	 * @return the OAuthFlowBuilder
 	 */
 	public OAuthFlowBuilder setHttpClient(HttpClient httpClient) {
+		Util.throwIfNull(httpClient);
+		
 		this.httpClient = httpClient; 
 		return this;
 	}
-
+	 
 	/**
 	 * Set the JsonSerializer.
 	 * 
@@ -126,6 +127,8 @@ public class OAuthFlowBuilder {
 	 * @return the oAuthFlowBuilder
 	 */
 	public OAuthFlowBuilder setJsonSerializer(JsonSerializer jsonSerializer) {
+		Util.throwIfNull(jsonSerializer);
+		
 		this.jsonSerializer = jsonSerializer;
 		return this;
 	}
@@ -133,12 +136,14 @@ public class OAuthFlowBuilder {
 	/**
 	 * Set the client ID
 	 * 
-	 * Exception: - IllegalArgumentException : if any argument is null/empty string
+	 * Exception: - IllegalArgumentException : if any argument is null/empty string.
 	 *
 	 * @param clientId the value to set
 	 * @return the OAuthFlowBuilder
 	 */
 	public OAuthFlowBuilder setClientId(String clientId) {
+		Util.throwIfNull(clientId);
+		
 		this.clientId = clientId;
 		return this;
 	}
@@ -152,6 +157,8 @@ public class OAuthFlowBuilder {
 	 * @return the OAuthFlowBuilder
 	 */
 	public OAuthFlowBuilder setClientSecret(String clientSecret) {
+		Util.throwIfNull(clientSecret);
+		
 		this.clientSecret = clientSecret;
 		return this;
 	}
@@ -159,12 +166,14 @@ public class OAuthFlowBuilder {
 	/**
 	 * Set the redirect URL
 	 * 
-	 * Exception: - IllegalArgumentException : if any argument is null/empty string
+	 * Exception: - IllegalArgumentException : if any argument is null/empty string.
 	 *
 	 * @param redirectURL the redirect url
 	 * @return the OAuthFlowBuilder
 	 */
 	public OAuthFlowBuilder setRedirectURL(String redirectURL) {
+		Util.throwIfNull(redirectURL);
+		
 		this.redirectURL = redirectURL;
 		return this;
 	}
@@ -180,6 +189,8 @@ public class OAuthFlowBuilder {
 	 * @return the OAuthFlowBuilder
 	 */
 	public OAuthFlowBuilder setAuthorizationURL(String authorizationURL) {
+		Util.throwIfNull(authorizationURL);
+		
 		this.authorizationURL = authorizationURL;
 		return this;
 	}
@@ -193,8 +204,91 @@ public class OAuthFlowBuilder {
 	 * @return the OAuthFlowBuilder
 	 */
 	public OAuthFlowBuilder setTokenURL(String tokenURL) {
+		Util.throwIfNull(tokenURL);
+		
 		this.tokenURL = tokenURL;
 		return this;
+	}
+
+	/**
+	 * Gets the default authorization url.
+	 *
+	 * @return the default authorization url
+	 */
+	public static String getDefaultAuthorizationUrl() {
+		return DEFAULT_AUTHORIZATION_URL;
+	}
+
+	/**
+	 * Gets the default token url.
+	 *
+	 * @return the default token url
+	 */
+	public static String getDefaultTokenUrl() {
+		return DEFAULT_TOKEN_URL;
+	}
+
+	/**
+	 * Gets the http client.
+	 *
+	 * @return the http client
+	 */
+	public HttpClient getHttpClient() {
+		return httpClient;
+	}
+
+	/**
+	 * Gets the json serializer.
+	 *
+	 * @return the json serializer
+	 */
+	public JsonSerializer getJsonSerializer() {
+		return jsonSerializer;
+	}
+
+	/**
+	 * Gets the client id.
+	 *
+	 * @return the client id
+	 */
+	public String getClientId() {
+		return clientId;
+	}
+
+	/**
+	 * Gets the client secret.
+	 *
+	 * @return the client secret
+	 */
+	public String getClientSecret() {
+		return clientSecret;
+	}
+
+	/**
+	 * Gets the redirect url.
+	 *
+	 * @return the redirect url
+	 */
+	public String getRedirectURL() {
+		return redirectURL;
+	}
+
+	/**
+	 * Gets the authorization url.
+	 *
+	 * @return the authorization url
+	 */
+	public String getAuthorizationURL() {
+		return authorizationURL;
+	}
+
+	/**
+	 * Gets the token url.
+	 *
+	 * @return the token url
+	 */
+	public String getTokenURL() {
+		return tokenURL;
 	}
 
 	/**
@@ -219,6 +313,10 @@ public class OAuthFlowBuilder {
 		
 		if(jsonSerializer == null){
 			jsonSerializer = new JacksonJsonSerializer();
+		}
+		
+		if(clientId == null || clientSecret == null || redirectURL == null){
+			throw new IllegalStateException();
 		}
 		
 		return new OAuthFlowImpl(clientId, clientSecret, redirectURL, authorizationURL, tokenURL, httpClient, 

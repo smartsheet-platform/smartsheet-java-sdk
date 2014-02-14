@@ -24,10 +24,8 @@ import java.util.Date;
 
 /**
  * Represents the Attachment object.
- */
-/**
- * @author brett
- * 
+ * @see <a href="http://help.smartsheet.com/customer/portal/articles/518408-uploading-attachments">Help Uploading 
+ * Attachments</a>
  */
 public class Attachment extends NamedModel {
 

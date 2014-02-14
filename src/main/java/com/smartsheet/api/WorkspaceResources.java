@@ -29,15 +29,6 @@ import com.smartsheet.api.models.Workspace;
 /**
  * This interface provides methods to access Workspace resources.
  * 
- * Currently the following resources are supported, please refer to
- * http://publish.smartsheet.com/6f44714480de47c1a8cb72375864a7de for full listing of the resources, and
- * http://www.smartsheet.com/developers/api-documentation for full API documentation:
- * 
- * GET /workspaces GET /workspace/{id} POST /workspaces DELETE /workspace/{id} GET /workspace/{id}/folders POST
- * /workspace/{id}/folders GET /workspace/{id}/shares GET /workspace/{id}/share/{userId} POST /workspace/{id}/shares
- * POST /workspace/{id}/multishare PUT /workspace/{id}/share/{userId} DELETE /workspace/{id}/share/{userId}
- * 
- * 
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface WorkspaceResources {

@@ -218,6 +218,7 @@ public class Cell {
 	/**
 	 * A convenience class for quickly creating a List of cells to update.
 	 */
+	// TODO: check if default values can be used for any of the builders.
 	public static class UpdateRowCellsBuilder {
 		
 		/** The cells. */
@@ -238,6 +239,10 @@ public class Cell {
 			cell.setStrict(strict);
 			cells.add(cell);
 			return this;
+		}
+		
+		public List<Cell> getCells(){
+			return cells;
 		}
 		
 		/**

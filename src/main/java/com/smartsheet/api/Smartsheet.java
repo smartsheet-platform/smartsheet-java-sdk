@@ -26,12 +26,9 @@ package com.smartsheet.api;
  * This interface is the entry point of the Smartsheet SDK, it provides convenient methods to get XXXResources instances
  * for accessing different types of resources.
  * 
- * Currently the following resources are supported, please refer to
- * http://publish.smartsheet.com/6f44714480de47c1a8cb72375864a7de for full listing of the resources. /hom /workspaces
- * /folders /templates /sheets /columns /rows /attachments /discussions /comments /users /search
- * 
  * Thread Safety: Implementation of this interface must be thread safe.
  */
+//TODO: could put some example code in the documentation.
 public interface Smartsheet {
 	
 	/**

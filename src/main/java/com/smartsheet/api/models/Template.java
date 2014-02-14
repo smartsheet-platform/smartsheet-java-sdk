@@ -1,6 +1,5 @@
 package com.smartsheet.api.models;
 
-// TODO: Auto-generated Javadoc
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -25,8 +24,7 @@ package com.smartsheet.api.models;
 
 /**
  * A template object that is a default layout for future sheets.
- * @see <a href="http://help.smartsheet.com/customer/portal/articles/522123-using-templates">Using Templates 
- * Documentation</a>
+ * @see <a href="http://help.smartsheet.com/customer/portal/articles/522123-using-templates">Using Templates Help</a>
  */
 public class Template extends NamedModel {
 	/**

@@ -25,12 +25,12 @@ package com.smartsheet.api;
 import com.smartsheet.api.models.Error;
 
 /**
- * This is the exception to indicate authorization(access token) related errors returned from Smartsheet REST API.
+ * <p>This is the exception to indicate authorization (access token) related errors returned from Smartsheet REST API.</p>
  * 
- * Basically this exception will be thrown when the Smartsheet REST API responds with "401 NOT AUTHORIZED" /
- * "403 FORBIDDEN"
+ * <p>Basically this exception will be thrown when the Smartsheet REST API responds with "401 NOT AUTHORIZED" /
+ * "403 FORBIDDEN"</p>
  * 
- * Thread safety: Exceptions are not thread safe.
+ * <p>Thread safety: Exceptions are not thread safe.</p>
  */
 public class AuthorizationException extends SmartsheetRestException {
 	/**

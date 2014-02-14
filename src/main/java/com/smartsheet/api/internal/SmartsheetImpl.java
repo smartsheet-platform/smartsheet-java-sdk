@@ -43,6 +43,7 @@ import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.http.HttpClient;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
+import com.smartsheet.api.internal.util.Util;
 
 /**
  * This is the implementation of Smartsheet interface.
@@ -209,6 +210,9 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @param jsonSerializer the json serializer (optional)
 	 */
 	public SmartsheetImpl(String baseURI, String accessToken, HttpClient httpClient, JsonSerializer jsonSerializer) {
+		Util.throwIfNull(baseURI);
+		Util.throwIfEmpty(baseURI);
+		
 		this.baseURI = URI.create(baseURI);
 		this.httpClient = httpClient == null ? new DefaultHttpClient() : httpClient;
 		this.jsonSerializer = jsonSerializer == null ? new JacksonJsonSerializer() : jsonSerializer;

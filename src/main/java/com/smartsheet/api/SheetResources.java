@@ -41,17 +41,6 @@ import com.smartsheet.api.models.SheetPublish;
 /**
  * This interface provides methods to access Sheet resources.
  * 
- * Currently the following resources are supported, please refer to
- * http://publish.smartsheet.com/6f44714480de47c1a8cb72375864a7de for full listing of the resources, and
- * http://www.smartsheet.com/developers/api-documentation for full API documentation:
- * 
- * GET /sheets GET /sheet/{id} GET /sheet/{id}?pageSize={pageSize} GET /sheet/{id}/version POST /sheets PUT /sheet/{id}
- * DELETE /sheet{id} POST /sheet/{id}/emails GET /sheet/{id}/shares GET /sheet/{id}/share/{id} POST /sheet/{id}/shares
- * POST /sheet/{id}/multishare PUT /sheet/{id}/share/{userId} DELETE /sheet/{id}/share/{userId} GET /sheet/{id}/columns
- * POST /sheet/{id}/columns POST /sheet/{id}/rows GET /sheet/{id}/row/{number} GET /sheet/{id}/attachments POST
- * /sheet/{id}/attachments POST /sheet/{id}/attachments POST /sheet/{id}/discussions GET /sheet/{id}/publish PUT
- * /sheet/{id}/publish GET /users/sheets GET /search/sheet/{id}
- * 
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface SheetResources {
@@ -141,7 +130,6 @@ public interface SheetResources {
 	 *
 	 * @param id the id
 	 * @param outputStream the output stream
-	 * @return the sheet as excel
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public void getSheetAsExcel(long id, OutputStream outputStream) throws SmartsheetException;
@@ -166,7 +154,6 @@ public interface SheetResources {
 	 * @param id the id
 	 * @param outputStream the output stream
 	 * @param paperSize the paper size
-	 * @return the sheet as pdf
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public void getSheetAsPDF(long id, OutputStream outputStream, PaperSize paperSize) throws SmartsheetException;

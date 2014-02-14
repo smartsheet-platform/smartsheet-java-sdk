@@ -23,7 +23,7 @@ package com.smartsheet.api.oauth;
 
 
 /**
- * This is the exception thrown by OAuthFlow to indicate an "invalid_request" error occurred when obtaining OAuth 
+ * This is the exception thrown by {@link OAuthFlow} to indicate an "invalid_request" error occurred when obtaining OAuth 
  * tokens.
  * 
  * Thread safety: Exceptions are not thread safe.
