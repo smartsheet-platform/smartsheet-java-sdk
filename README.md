@@ -58,7 +58,7 @@ Smartsheet smartsheet = new SmartsheetBuilder().setAccessToken(token.getAccessTo
 Home home = smartsheet.home().getHome(EnumSet.of(ObjectInclusion.TEMPLATES));
 
 // List home folders
-List<Folder> homeFolders = smartsheet.home().folders().listFolders();
+List<Folder> homeFolders = home.getFolders();
 for(Folder folder : homeFolders){
     System.out.println("folder:"+folder.getName());
 }
