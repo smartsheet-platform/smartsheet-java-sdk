@@ -44,7 +44,6 @@ The SDK API documentation can be viewed online at the following location: [http:
 The documentation can also be downloaded as a jar file [here](https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java-sources&v=LATEST).
 
 ##Example Usage
----
 
 ```java
 // Set the Access Token
@@ -86,9 +85,7 @@ sheet = smartsheet.sheets().createSheet(sheet);
 ```
 
 ## Contributing
----
 If you would like to contribute a change to the SDK, please fork a branch and then submit a pull request. [More info here](https://help.github.com/articles/using-pull-requests).
 
 ##Support
----
 If you have any questions or issues with this SDK please feel free to send us an email at: api@smartsheet.com
