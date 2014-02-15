@@ -74,12 +74,12 @@ folder.setName("New Folder");
 folder = smartsheet.home().folders().createFolder(folder);
 System.out.println("Folder ID:"+folder.getId()+", Folder Name:"+folder.getName());
 
-// Setup flag Column Object
-Column flagColumn = new Column.AddColumnToSheetBuilder().setType(ColumnType.CHECKBOX).setTitle("Finished").build();
+// Setup checkbox Column Object
+Column checkboxColumn = new Column.AddColumnToSheetBuilder().setType(ColumnType.CHECKBOX).setTitle("Finished").build();
 // Setup text Column Object
 Column textColumn = new Column.AddColumnToSheetBuilder().setPrimary(true).setTitle("To Do List").setType(ColumnType.TEXT_NUMBER).build();
 // Add the 2 Columns (flag & text) to a new Sheet Object
-Sheet sheet = new Sheet.CreateSheetBuilder().setName("New Sheet").setColumns(Arrays.asList(flagColumn, textColumn)).build();
+Sheet sheet = new Sheet.CreateSheetBuilder().setName("New Sheet").setColumns(Arrays.asList(checkboxColumn, textColumn)).build();
 // Send the request to create the sheet @ Smartsheet
 sheet = smartsheet.sheets().createSheet(sheet);
 ```
