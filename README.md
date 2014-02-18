@@ -22,7 +22,7 @@ Add the SDK as a dependency in your project.
 
 ###2. Download Jar File
 <!--* [The SDK packaged in a jar with Dependencies](https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST) built in.-->
-* [The SDK packaged in a jar](https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST). This jar requires that all of the following dependencies are manually added to the path.
+* [The SDK packaged in a jar](http://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST). This jar requires that all of the following dependencies are manually added to the path.
 
         Apache HttpComponents 4.3.2
         Simple Logging Facade for Java 4.3.2
@@ -41,7 +41,7 @@ mvn package
 ## Documentation
 The SDK API documentation can be viewed online at the following location: [http://smartsheet-platform.github.io/smartsheet-java-sdk/](http://smartsheet-platform.github.io/smartsheet-java-sdk/)
 
-The documentation can also be downloaded as a jar file [here](https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java-sources&v=LATEST).
+The documentation can also be downloaded as a jar file [here](http://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST&c=javadoc).
 
 ##Example Usage
 
