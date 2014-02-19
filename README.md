@@ -48,7 +48,7 @@ The documentation can also be downloaded as a jar file [here](https://oss.sonaty
 ```java
 // Set the Access Token
 Token token = new Token();
-token.setAccessToken("15zytv32phcmx5xqowxqad5qxm");
+token.setAccessToken("INSERT_YOUR_TOKEN_HERE");
 
 // Use the Smartsheet Builder to create a Smartsheet
 Smartsheet smartsheet = new SmartsheetBuilder().setAccessToken(token.getAccessToken()).build();
