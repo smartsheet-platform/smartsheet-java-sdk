@@ -20,7 +20,7 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 

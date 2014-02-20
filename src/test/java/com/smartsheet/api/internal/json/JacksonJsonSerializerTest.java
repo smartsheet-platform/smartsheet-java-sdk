@@ -21,7 +21,8 @@ package com.smartsheet.api.internal.json;
  */
 
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -47,7 +48,6 @@ public class JacksonJsonSerializerTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		JacksonJsonSerializer.init();
 		jjs = new JacksonJsonSerializer();
 	}
 

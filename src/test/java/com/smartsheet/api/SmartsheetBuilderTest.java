@@ -50,6 +50,7 @@ public class SmartsheetBuilderTest {
 		
 		Smartsheet ss = (SmartsheetImpl)new SmartsheetBuilder().setBaseURI("a").setAccessToken("b").setHttpClient(
 				new DefaultHttpClient()).setJsonSerializer(new JacksonJsonSerializer()).setAssumedUser("user").build();
+		ss.getClass();
 	}
 
 }

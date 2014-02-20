@@ -20,17 +20,11 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import static org.junit.Assert.*;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 
 public class CommentAttachmentResourcesTest extends ResourcesImplBase {
