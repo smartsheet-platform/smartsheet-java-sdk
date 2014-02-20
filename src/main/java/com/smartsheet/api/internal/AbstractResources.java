@@ -40,12 +40,10 @@ import com.smartsheet.api.ResourceNotFoundException;
 import com.smartsheet.api.ServiceUnavailableException;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.SmartsheetRestException;
-import com.smartsheet.api.internal.http.HttpClientException;
 import com.smartsheet.api.internal.http.HttpEntity;
 import com.smartsheet.api.internal.http.HttpMethod;
 import com.smartsheet.api.internal.http.HttpRequest;
 import com.smartsheet.api.internal.http.HttpResponse;
-import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.internal.util.Util;
 
 /**
@@ -343,7 +341,7 @@ public abstract class AbstractResources {
 	 * @param path the relative path of the resource collections
 	 * @param objectClass the resource object class
 	 * @return the resources
-	 * @throws SmartsheetException the smartsheet exception
+	 * @throws SmartsheetException if an error occurred during the operation
 	 */
 	protected <T> List<T> listResources(String path, Class<T> objectClass) throws SmartsheetException {
 		Util.throwIfNull(path, objectClass);

@@ -30,72 +30,72 @@ import com.smartsheet.api.internal.oauth.OAuthFlowImpl;
 import com.smartsheet.api.internal.util.Util;
 
 /**
- * This is the builder that is used to build {@link OAuthFlow} instances.
+ * <p>This is the builder that is used to build {@link OAuthFlow} instances.</p>
  * 
- * Thread Safety: This class is not thread safe since it's mutable, one builder instance is NOT expected to be used in
- * multiple threads.
+ * <p>Thread Safety: This class is not thread safe since it's mutable, one builder instance is NOT expected to be used in
+ * multiple threads.</p>
  */
 public class OAuthFlowBuilder {
 	/**
-	 * Represents the default OAuth authorization URL
+	 * <p>Represents the default OAuth authorization URL</p>
 	 * 
-	 * It is a constant with value "https://www.smartsheet.com/b/authorize".
+	 * <p>It is a constant with value "https://www.smartsheet.com/b/authorize".</p>
 	 */
 	public static final String DEFAULT_AUTHORIZATION_URL = "https://www.smartsheet.com/b/authorize";
 
 	/**
-	 * Represents the default token URL
+	 * <p>Represents the default token URL</p>
 	 * 
-	 * It is a constant with value "https://api.smartsheet.com/1.1/token".
+	 * <p>It is a constant with value "https://api.smartsheet.com/1.1/token".</p>
 	 */
 	public static final String DEFAULT_TOKEN_URL = "https://api.smartsheet.com/1.1/token";
 
 	/**
-	 * Represents the HttpClient.
+	 * <p>Represents the HttpClient.</p>
 	 * 
-	 * It can be set using corresponding setter.
+	 * <p>It can be set using corresponding setter.</p>
 	 */
 	private HttpClient httpClient;
 
 	/**
-	 * Represents the JsonSerializer.
+	 * <p>Represents the JsonSerializer.</p>
 	 * 
-	 * It can be set using corresponding setter.
+	 * <p>It can be set using corresponding setter.</p>
 	 */
 	private JsonSerializer jsonSerializer;
 
 	/**
-	 * Represents the client ID.
+	 * <p>Represents the client ID.</p>
 	 * 
-	 * It can be set using corresponding setter.
+	 * <p>It can be set using corresponding setter.</p>
 	 */
 	private String clientId;
 
 	/**
-	 * Represents the client secret.
+	 * <p>Represents the client secret.</p>
 	 * 
-	 * It can be set using corresponding setter.
+	 * <p>It can be set using corresponding setter.</p>
 	 */
 	private String clientSecret;
 
 	/**
-	 * Represents the redirect URL.
+	 * <p>Represents the redirect URL.</p>
 	 * 
-	 * It can be set using corresponding setter.
+	 * <p>It can be set using corresponding setter.</p>
 	 */
 	private String redirectURL;
 
 	/**
-	 * Represents the authorization URL.
+	 * <p>Represents the authorization URL.</p>
 	 * 
-	 * It can be set using corresponding setter.
+	 * <p>It can be set using corresponding setter.</p>
 	 */
 	private String authorizationURL;
 
 	/**
-	 * Represents the token URL.
+	 * <p>Represents the token URL.</p>
 	 * 
-	 * It can be set using corresponding setter.
+	 * <p>It can be set using corresponding setter.</p>
 	 */
 	private String tokenURL;
 
@@ -119,12 +119,11 @@ public class OAuthFlowBuilder {
 	}
 	 
 	/**
-	 * Set the JsonSerializer.
-	 * 
-	 * Exception: - IllegalArgumentException : if any argument is null
+	 * <p>Set the JsonSerializer.</p>
 	 *
 	 * @param jsonSerializer the JsonSerializer
 	 * @return the oAuthFlowBuilder
+	 * @throws IllegalArgumentException if any argument is null/empty string
 	 */
 	public OAuthFlowBuilder setJsonSerializer(JsonSerializer jsonSerializer) {
 		Util.throwIfNull(jsonSerializer);
@@ -135,11 +134,10 @@ public class OAuthFlowBuilder {
 
 	/**
 	 * Set the client ID
-	 * 
-	 * Exception: - IllegalArgumentException : if any argument is null/empty string.
 	 *
 	 * @param clientId the value to set
 	 * @return the OAuthFlowBuilder
+	 * @throws IllegalArgumentException if any argument is null/empty string
 	 */
 	public OAuthFlowBuilder setClientId(String clientId) {
 		Util.throwIfNull(clientId);
@@ -150,11 +148,10 @@ public class OAuthFlowBuilder {
 
 	/**
 	 * Set the client secret.
-	 * 
-	 * Exception: - IllegalArgumentException : if any argument is null/empty string
 	 *
 	 * @param clientSecret the client secret
 	 * @return the OAuthFlowBuilder
+	 * @throws IllegalArgumentException if any argument is null/empty string
 	 */
 	public OAuthFlowBuilder setClientSecret(String clientSecret) {
 		Util.throwIfNull(clientSecret);
@@ -165,11 +162,10 @@ public class OAuthFlowBuilder {
 
 	/**
 	 * Set the redirect URL
-	 * 
-	 * Exception: - IllegalArgumentException : if any argument is null/empty string.
 	 *
 	 * @param redirectURL the redirect url
 	 * @return the OAuthFlowBuilder
+	 * @throws IllegalArgumentException if any argument is null/empty string
 	 */
 	public OAuthFlowBuilder setRedirectURL(String redirectURL) {
 		Util.throwIfNull(redirectURL);
@@ -180,13 +176,10 @@ public class OAuthFlowBuilder {
 
 	/**
 	 * Set the authorization URL.
-	 * 
-	 * Parameters: - authorizationURL : the value to set
-	 * 
-	 * Exception: - IllegalArgumentException : if any argument is null/empty string
 	 *
 	 * @param authorizationURL the authorization URL
 	 * @return the OAuthFlowBuilder
+	 * @throws IllegalArgumentException if any argument is null/empty string
 	 */
 	public OAuthFlowBuilder setAuthorizationURL(String authorizationURL) {
 		Util.throwIfNull(authorizationURL);
@@ -197,11 +190,10 @@ public class OAuthFlowBuilder {
 
 	/**
 	 * Set the token URL.
-	 * 
-	 * Exception: - IllegalArgumentException : if any argument is null/empty string
 	 *
 	 * @param tokenURL the token url
 	 * @return the OAuthFlowBuilder
+	 * @throws IllegalArgumentException if any argument is null/empty string
 	 */
 	public OAuthFlowBuilder setTokenURL(String tokenURL) {
 		Util.throwIfNull(tokenURL);
@@ -293,10 +285,9 @@ public class OAuthFlowBuilder {
 
 	/**
 	 * Build the OAuthFlow instance.
-	 * 
-	 * Exceptions: - IllegalStateException: if clientId, clientSecret or redirectURL isn't set yet.
 	 *
 	 * @return the OAuthFlow instance
+	 * @throws IllegalArgumentException if clientId, clientSecret or redirectURL isn't set yet.
 	 */
 	public OAuthFlow build() {
 		if(httpClient == null){

@@ -34,50 +34,39 @@ import com.smartsheet.api.models.SearchResult;
 public interface SearchResources {
 	
 	/**
-	 * Performs a search across all Sheets to which user has access.
+	 * <p>Performs a search across all Sheets to which user has access.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /search
-	 * 
-	 * Parameters: - query : the query text
-	 * 
-	 * Returns: the search result (note that if there is no such resource, this method will throw
-	 * ResourceNotFoundException rather than returning null).
-	 * 
-	 * Exceptions: - IllegalArgumentException : if query is null/empty string - InvalidRequestException : if there is
-	 * any problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
-	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
-	 * the operation - SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /search</p>
 	 *
-	 * @param query the query
-	 * @return the search result
+	 * @param query the query text
+	 * @return the search result (note that if there is no such resource, this method will throw 
+	 * ResourceNotFoundException rather than returning null).
 	 * @throws UnsupportedEncodingException the unsupported encoding exception
-	 * @throws SmartsheetException the smartsheet exception
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public SearchResult search(String query) throws UnsupportedEncodingException, SmartsheetException;
 
 	/**
-	 * Performs a search within a sheet.
+	 * <p>Performs a search within a sheet.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /search/sheet/{sheetId}
-	 * 
-	 * Parameters: - sheetId : the sheet ID - query : the query text
-	 * 
-	 * Returns: the search result (note that if there is no such resource, this method will throw
-	 * ResourceNotFoundException rather than returning null).
-	 * 
-	 * Exceptions: - IllegalArgumentException : if query is null/empty string - InvalidRequestException : if there is
-	 * any problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ResourceNotFoundException : if the resource can not be found -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /search/sheet/{sheetId}</p>
 	 *
 	 * @param sheetId the sheet id
-	 * @param query the query
-	 * @return the search result
+	 * @param query the query text
+	 * @return the search result (note that if there is no such resource, this method will throw 
+	 * ResourceNotFoundException rather than returning null).
 	 * @throws UnsupportedEncodingException the unsupported encoding exception
-	 * @throws SmartsheetException the smartsheet exception
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public SearchResult searchSheet(long sheetId, String query) throws UnsupportedEncodingException, SmartsheetException;
 }

@@ -34,44 +34,35 @@ import com.smartsheet.api.models.Folder;
 public interface HomeFolderResources {
 	
 	/**
-	 * List folders under home.
+	 * <p>List folders under home.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /home/folders
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 * GET /home/folders</p>
 	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the folders (note that empty list will be returned if there is none)
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
-	 *
-	 * @return the list
-	 * @throws SmartsheetException the smartsheet exception
+	 * @return the list of folders (note that an empty list will be returned if there is none)
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public List<Folder> listFolders() throws SmartsheetException;
 
 	/**
-	 * Create a folder in home.
+	 * <p>Create a folder in home.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /home/folders
-	 * 
-	 * Parameters: - folder : the folder to create
-	 * 
-	 * Returns: the created folder
-	 * 
-	 * Exceptions: - IllegalArgumentException : if folder is null - InvalidRequestException : if there is any problem
-	 * with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
-	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
-	 * the operation - SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 * POST /home/folders</p>
 	 *
-	 * @param folder the folder
+	 * @param folder the folder to create
 	 * @return the folder
-	 * @throws SmartsheetException the smartsheet exception
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Folder createFolder(Folder folder) throws SmartsheetException;
 }

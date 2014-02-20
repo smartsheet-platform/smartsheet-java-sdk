@@ -23,193 +23,111 @@ package com.smartsheet.api;
 
 
 /**
- * This interface is the entry point of the Smartsheet SDK, it provides convenient methods to get XXXResources instances
- * for accessing different types of resources.
+ * <p>This interface is the entry point of the Smartsheet SDK, it provides convenient methods to get XXXResources instances
+ * for accessing different types of resources.</p>
  * 
- * Thread Safety: Implementation of this interface must be thread safe.
+ * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 //TODO: could put some example code in the documentation.
 public interface Smartsheet {
 	
 	/**
-	 * Returns the HomeResources instance that provides access to Home resources.
-	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the resources instance
-	 * 
-	 * Exceptions: None
+	 * <p>Returns the HomeResources instance that provides access to Home resources.</p>
 	 *
-	 * @return the home resources
+	 * @return the home resources instance
 	 */
 	public HomeResources home();
 
 	/**
-	 * Returns the WorkspaceResources instance that provides access to Workspace resources.
-	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the resources instance
-	 * 
-	 * Exceptions: None
+	 * <p>Returns the WorkspaceResources instance that provides access to Workspace resources.</p>
 	 *
-	 * @return the workspace resources
+	 * @return the workspace resources instance
 	 */
 	public WorkspaceResources workspaces();
 
 	/**
-	 * Returns the FolderResources instance that provides access to Folder resources.
-	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the resources instance
-	 * 
-	 * Exceptions: None
+	 * <p>Returns the FolderResources instance that provides access to Folder resources.</p>
 	 *
-	 * @return the folder resources
+	 * @return the folder resources instance
 	 */
 	public FolderResources folders();
 
 	/**
-	 * Returns the TemplateResources instance that provides access to Template resources.
-	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the resources instance
-	 * 
-	 * Exceptions: None
+	 * <p>Returns the TemplateResources instance that provides access to Template resources.</p>
 	 *
-	 * @return the template resources
+	 * @return the template resources instance
 	 */
 	public TemplateResources templates();
 
 	/**
-	 * Returns the SheetResources instance that provides access to Sheet resources.
-	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the resources instance
-	 * 
-	 * Exceptions: None
+	 * <p>Returns the SheetResources instance that provides access to Sheet resources.</p>
 	 *
-	 * @return the sheet resources
+	 * @return the sheet resources instance
 	 */
 	public SheetResources sheets();
 
 	/**
-	 * Returns the ColumnResources instance that provides access to Column resources.
-	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the resources instance
-	 * 
-	 * Exceptions: None
+	 * <p>Returns the ColumnResources instance that provides access to Column resources.</p>
 	 *
-	 * @return the column resources
+	 * @return the column resources instance
 	 */
 	public ColumnResources columns();
 
 	/**
-	 * Returns the RowResources instance that provides access to Row resources.
-	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the resources instance
-	 * 
-	 * Exceptions: None
+	 * <p>Returns the RowResources instance that provides access to Row resources.</p>
 	 *
-	 * @return the row resources
+	 * @return the row resources instance
 	 */
 	public RowResources rows();
 
 	/**
-	 * Returns the AttachmentResources instance that provides access to Attachment resources.
-	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the resources instance
-	 * 
-	 * Exceptions: None
+	 * <p>Returns the AttachmentResources instance that provides access to Attachment resources.</p>
 	 *
-	 * @return the attachment resources
+	 * @return the attachment resources instance
 	 */
 	public AttachmentResources attachments();
 
 	/**
-	 * Returns the DiscussionResources instance that provides access to Discussion resources.
-	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the resources instance
-	 * 
-	 * Exceptions: None
+	 * <p>Returns the DiscussionResources instance that provides access to Discussion resources.</p>
 	 *
-	 * @return the discussion resources
+	 * @return the discussion resources instance
 	 */
 	public DiscussionResources discussions();
 
 	/**
-	 * Returns the CommentResources instance that provides access to Comment resources.
-	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the resources instance
-	 * 
-	 * Exceptions: None
+	 * <p>Returns the CommentResources instance that provides access to Comment resources.</p>
 	 *
-	 * @return the comment resources
+	 * @return the comment resources instance
 	 */
 	public CommentResources comments();
 
 	/**
-	 * Returns the UserResources instance that provides access to User resources.
-	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the resources instance
-	 * 
-	 * Exceptions: None
+	 * <p>Returns the UserResources instance that provides access to User resources.</p>
 	 *
-	 * @return the user resources
+	 * @return the user resources instance
 	 */
 	public UserResources users();
 
 	/**
-	 * Returns the SearchResources instance that provides access to searching resources.
-	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: the resources instance
-	 * 
-	 * Exceptions: None
+	 * <p>Returns the SearchResources instance that provides access to searching resources.</p>
 	 *
-	 * @return the search resources
+	 * @return the search resources instance
 	 */
 	public SearchResources search();
 
 	/**
-	 * Set the email of the user to assume.
-	 * 
-	 * Parameters: - assumedUser : the email of the user to assume
-	 * 
-	 * Returns: None
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null/empty string
+	 * <p>Set the email of the user to assume.</p>
 	 *
 	 * @param assumedUser the new assumed user
+	 * @throws IllegalArgumentException if any argument is null/empty string
 	 */
 	public void setAssumedUser(String assumedUser);
 
 	/**
-	 * Set the access token to use.
-	 * 
-	 * Parameters: - accessToken : the access token
-	 * 
-	 * Returns: None
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null/empty string
+	 * <p>Set the access token to use.</p>
 	 *
 	 * @param accessToken the new access token
+	 * @throws IllegalArgumentException if any argument is null/empty string
 	 */
 	public void setAccessToken(String accessToken);
 }

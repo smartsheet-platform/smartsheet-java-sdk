@@ -25,23 +25,23 @@ package com.smartsheet.api;
 import com.smartsheet.api.models.Error;
 
 /**
- * This is the exception to indicate errors (Error objects of Smartsheet REST API) returned from Smartsheet REST API.
+ * <p>This is the exception to indicate errors (Error objects of Smartsheet REST API) returned from Smartsheet REST API.</p>
  * 
- * Thread safety: Exceptions are not thread safe.
+ * <p>Thread safety: Exceptions are not thread safe.</p>
  */
 public class SmartsheetRestException extends SmartsheetException {
 	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
-	 * Represents the error code.
+	 * <p>Represents the error code.</p>
 	 * 
-	 * It will be initialized in constructor and will not change afterwards.
+	 * <p>It will be initialized in constructor and will not change afterwards.</p>
 	 */
 	private final int errorCode;
 
 	/**
-	 * Constructor.
+	 * <p>Constructor.</p>
 	 *
 	 * @param error the Error object from Smartsheet REST API
 	 */
@@ -53,7 +53,7 @@ public class SmartsheetRestException extends SmartsheetException {
 	
 
 	/**
-	 * Returns the error code.y
+	 * <p>Returns the error code.</p>
 	 *
 	 * @return the error code
 	 */

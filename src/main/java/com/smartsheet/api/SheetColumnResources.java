@@ -22,67 +22,47 @@ package com.smartsheet.api;
 
 
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.smartsheet.api.internal.http.HttpClientException;
-import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.models.Column;
 
 /**
- * This interface provides methods to access column resources that are associated to a sheet object.
+ * <p>This interface provides methods to access column resources that are associated to a sheet object.</p>
  * 
- * Thread Safety: Implementation of this interface must be thread safe.
+ * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface SheetColumnResources {
 	
 	/**
-	 * List columns of a given sheet.
+	 * <p>List columns of a given sheet.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /sheet/{id}/columns
-	 * 
-	 * Parameters: - sheetId : the ID of the sheet
-	 * 
-	 * Returns: the columns (note that empty list will be returned if there is none)
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /sheet/{id}/columns</p>
 	 *
 	 * @param sheetId the sheet id
-	 * @return the list
-	 * @throws SmartsheetException the smartsheet exception
+	 * @return the list of Columns (note that an empty list will be returned if there is none)
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public List<Column> listColumns(long sheetId) throws SmartsheetException;
 
 	/**
-	 * Add column to a sheet.
+	 * <p>Add column to a sheet.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /sheet/{id}/columns
-	 * 
-	 * Parameters: - sheetId : the ID of the sheet - column : the coluimn object limited to the following attributes: *
-	 * title * type * symbol (optional) * options (optional) - array of options * index (zero-based) * systemColumnType
-	 * (optional) * autoNumberFormat (optional)
-	 * 
-	 * Returns: the created column
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ResourceNotFoundException : if the resource can not be found -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method: POST /sheet/{id}/columns</p>
 	 *
 	 * @param sheetId the sheet id
-	 * @param column the column
-	 * @return the column
-	 * @throws SmartsheetException the smartsheet exception
+	 * @param column the column object
+	 * @return the created column
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Column addColumn(long sheetId, Column column) throws SmartsheetException;
 }

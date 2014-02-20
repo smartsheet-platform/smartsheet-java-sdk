@@ -22,10 +22,10 @@ package com.smartsheet.api.oauth;
 
 
 /**
- * This is the exception thrown by {@link OAuthFlow} to indicate "unsupported_grant_type" error occurred during obtaining OAuth
- * tokens.
+ * <p>This is the exception thrown by {@link OAuthFlow} to indicate "unsupported_grant_type" error occurred during obtaining OAuth
+ * tokens.</p>
  * 
- * Thread safety: Exceptions are not thread safe.
+ * <p>Thread safety: Exceptions are not thread safe.</p>
  */
 public class UnsupportedOAuthGrantTypeException extends OAuthTokenException {
 	/**

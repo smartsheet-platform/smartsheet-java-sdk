@@ -38,82 +38,65 @@ import com.smartsheet.api.models.Attachment;
 public interface AssociatedAttachmentResources {
 	
 	/**
-	 * List attachments of a given object.
+	 * <p>List attachments of a given object.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /sheet/{id}/attachments GET /row/{id}/attachments GET
-	 * /comment/{id}/attachments
-	 * 
-	 * Parameters: - objectId : the ID of the object to which the attachments are associated
-	 * 
-	 * Returns: the attachments (note that empty list will be returned if there is none)
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 *   GET /sheet/{id}/attachments<br />
+	 *   GET /row/{id}/attachments GET/comment/{id}/attachments</p>
 	 *
-	 * @param objectId the object id
-	 * @return the list
-	 * @throws SmartsheetException the smartsheet exception
+	 * @param objectId the ID of the object to which the attachments are associated
+	 * @return the attachments (note that empty list will be returned if there is none)
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 * 
 	 */
 	public List<Attachment> listAttachments(long objectId) throws SmartsheetException;
 
 	/**
-	 * Attach a file to the object.
+	 * <p>Attach a file to the object.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /sheet/{id}/attachments POST /row/{id}/attachments
-	 * POST /comment/{idd}/attachments
+	 * <p>It mirrors to the following Smartsheet REST API method:<br /> 
+	 *   POST /sheet/{id}/attachments POST /row/{id}/attachments<br />
+	 *   POST /comment/{idd}/attachments</p>
 	 * 
-	 * Parameters: - objectId : the ID of the object to share - file : the file to attach - contentType : the content
-	 * type of the file
-	 * 
-	 * Returns: the created attachment
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null or empty string - InvalidRequestException : if
-	 * there is any problem with the REST API request - AuthorizationException : if there is any problem with the REST
-	 * API authorization(access token) - ResourceNotFoundException : if the resource can not be found -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param objectId the object id
-	 * @param file the file
-	 * @param contentType the content type
-	 * @return the attachment
+	 * @param objectId the id of the object
+	 * @param file the file to attach
+	 * @param contentType the content type of the file
+	 * @return the created attachment
 	 * @throws FileNotFoundException the file not found exception
-	 * @throws SmartsheetException the smartsheet exception
 	 * @throws UnsupportedEncodingException the unsupported encoding exception
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Attachment attachFile(long objectId, File file, String contentType) throws FileNotFoundException, SmartsheetException, UnsupportedEncodingException;
 
 	/**
-	 * Attach a URL to the object.
+	 * <p>Attach a URL to the object.</p>
 	 * 
-	 * The URL can be a normal URL (attachmentType "URL"), a Google Drive URL (attachmentType "GOOGLE_DRIVE") or a
-	 * Box.com URL (attachmentType "BOX_COM").
+	 * <p>The URL can be a normal URL (attachmentType "URL"), a Google Drive URL (attachmentType "GOOGLE_DRIVE") or a
+	 * Box.com URL (attachmentType "BOX_COM").</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /sheet/{id}/attachments POST /row/{id}/attachments
-	 * POST /comment/{idd}/attachments
-	 * 
-	 * Parameters: - objectId : the ID of the object to share - attachment : the attachment object limited to the
-	 * following attributes: * name * description (applicable when attaching to sheet or row only) * url *
-	 * attachmentType * attachmentSubType
-	 * 
-	 * Returns: the created attachment
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ResourceNotFoundException : if the resource can not be found -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method:<br /> 
+	 *   POST /sheet/{id}/attachments POST /row/{id}/attachments<br />
+	 *   POST /comment/{idd}/attachments</p>
 	 *
 	 * @param objectId the object id
-	 * @param attachment the attachment
-	 * @return the attachment
-	 * @throws SmartsheetException the smartsheet exception
+	 * @param attachment the attachment object
+	 * @return the created attachment
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Attachment attachURL(long objectId, Attachment attachment) throws SmartsheetException;
 }

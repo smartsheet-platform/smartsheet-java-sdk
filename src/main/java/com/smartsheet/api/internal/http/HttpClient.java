@@ -23,7 +23,6 @@ package com.smartsheet.api.internal.http;
 
 
 import java.io.Closeable;
-import java.io.IOException;
 
 /**
  * This interface defines methods to make an HTTP request.

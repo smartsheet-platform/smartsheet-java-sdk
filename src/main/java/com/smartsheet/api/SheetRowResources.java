@@ -22,14 +22,8 @@ package com.smartsheet.api;
 
 
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.smartsheet.api.internal.http.HttpClientException;
-import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.models.Row;
 import com.smartsheet.api.models.RowWrapper;
 
@@ -41,29 +35,19 @@ import com.smartsheet.api.models.RowWrapper;
 public interface SheetRowResources {
 	
 	/**
-	 * Insert rows to a sheet.
+	 * <p>Insert rows to a sheet.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /sheet/{id}/rows
-	 * 
-	 * Parameters: - sheetId : the ID of the sheet - rowWrapper : the RowWrapper object, one of the following attributes
-	 * should be specified: * toTop : Inserts the rows at the top of the sheet. * toBottom : Inserts the rows at the
-	 * bottom of the sheet * parentId : Inserts the rows as the first child row of the parent. toBottom=true can also be
-	 * set to add the row as the last child of the parent. * siblingId : Inserts the row as the next sibling of the row
-	 * ID provided.
-	 * 
-	 * Returns: the created rows
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ResourceNotFoundException : if the resource can not be found -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method: POST /sheet/{id}/rows</p>
 	 *
 	 * @param sheetId the sheet id
 	 * @param rowWrapper the row wrapper
-	 * @return the list
-	 * @throws SmartsheetException the smartsheet exception
+	 * @return the list of created rows
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public List<Row> insertRows(long sheetId, RowWrapper rowWrapper) throws SmartsheetException;
 
@@ -71,23 +55,17 @@ public interface SheetRowResources {
 	 * Get a row.
 	 * 
 	 * It mirrors to the following Smartsheet REST API method: GET /sheet/{id}/row/{number}
-	 * 
-	 * Parameters: - sheetId : the ID of the sheet - rowNumber : the row number
-	 * 
-	 * Returns: the row (note that if there is no such resource, this method will throw ResourceNotFoundException rather
-	 * than returning null).
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
 	 *
 	 * @param id the id
 	 * @param rowNumber the row number
-	 * @return the row
-	 * @throws SmartsheetException the smartsheet exception
+	 * @return the created row (note that if there is no such resource, this method will throw ResourceNotFoundException rather
+	 * than returning null).
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Row getRow(long id, int rowNumber) throws SmartsheetException;
 }

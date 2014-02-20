@@ -22,219 +22,173 @@ package com.smartsheet.api;
 
 
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.smartsheet.api.internal.http.HttpClientException;
-import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.models.MultiShare;
 import com.smartsheet.api.models.Share;
 
 /**
- * This interface provides methods to access Share resources.
+ * <p>This interface provides methods to access Share resources.</p>
  * 
- * Thread Safety: Implementation of this interface must be thread safe.
+ * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface ShareResources {
 	
 	/**
-	 * List shares of a given object.
+	 * <p>List shares of a given object.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /workspace/{id}/shares GET /sheet/{id}/shares
-	 * 
-	 * 
-	 * Parameters: - objectId : the ID of the object to share
-	 * 
-	 * Returns: the shares (note that empty list will be returned if there is none)
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 * GET /workspace/{id}/shares <br />
+	 * GET /sheet/{id}/shares</p>
 	 *
 	 * @param objectId the object id
-	 * @return the list
-	 * @throws SmartsheetException the smartsheet exception
+	 * @return the list of Share objects (note that an empty list will be returned if there is none).
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public List<Share> listShares(long objectId) throws SmartsheetException;
 
 	/**
-	 * Get a Share.
+	 * <p>Get a Share.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /workspace/{id}/share/{userId} GET
-	 * /sheet/{id}/share/{userId}
-	 * 
-	 * Parameters: - objectId : the ID of the object to share - userId : the ID of the user to whom the object is shared
-	 * 
-	 * Returns: the share (note that if there is no such resource, this method will throw ResourceNotFoundException
-	 * rather than returning null).
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 * GET /workspace/{id}/share/{userId}<br />
+	 * GET /sheet/{id}/share/{userId}</p>
 	 *
-	 * @param objectId the object id
-	 * @param userId the user id
-	 * @return the share
-	 * @throws SmartsheetException the smartsheet exception
+	 * @param objectId the ID of the object to share
+	 * @param userId the ID of the user to whome the object is shared
+	 * @return the share (note that if there is no such resource, this method will throw ResourceNotFoundException
+	 * rather than returning null).
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Share getShare(long objectId, long userId) throws SmartsheetException;
 
 	/**
-	 * Share the object, without sending email.
+	 * <p>Share the object, without sending email.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /workspace/{id}/shares POST /sheet/{id}/shares
-	 * 
-	 * Parameters: - objectId : the ID of the object to share - share : the share object
-	 * 
-	 * Returns: the created share
-	 * 
-	 * Exceptions: - IllegalArgumentException : if share is null - InvalidRequestException : if there is any problem
-	 * with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ResourceNotFoundException : if the resource can not be found -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 * POST /workspace/{id}/shares<br />
+	 * POST /sheet/{id}/shares</p>
 	 *
-	 * @param objectId the object id
-	 * @param share the share
-	 * @return the share
-	 * @throws SmartsheetException the smartsheet exception
+	 * @param objectId the id of the object
+	 * @param share the share object
+	 * @return the created share
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Share shareTo(long objectId, Share share) throws SmartsheetException;
 
 	/**
-	 * Share the object.
+	 * <p>Share the object.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /workspace/{id}/shares POST /sheet/{id}/shares
-	 * 
-	 * Parameters: - objectId : the ID of the object to share - share : the share object - sendEmail : whether to send
-	 * email
-	 * 
-	 * Returns: the created share
-	 * 
-	 * Exceptions: - IllegalArgumentException : if share is null - InvalidRequestException : if there is any problem
-	 * with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ResourceNotFoundException : if the resource can not be found -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 * POST /workspace/{id}/shares<br />
+	 * POST /sheet/{id}/shares</p>
 	 *
-	 * @param objectId the object id
-	 * @param share the share
-	 * @param sendEmail the send email
-	 * @return the share
-	 * @throws SmartsheetException the smartsheet exception
+	 * @param objectId the ID of the object to share
+	 * @param share the share object
+	 * @param sendEmail the send email flag
+	 * @return the created share
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Share shareTo(long objectId, Share share, boolean sendEmail) throws SmartsheetException;
 
 	/**
-	 * Share the object with multiple users, without sending email.
+	 * <p>Share the object with multiple users, without sending email.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /workspace/{id}/multishare POST
-	 * /sheet/{id}/multishare
-	 * 
-	 * Parameters: - objectId : the ID of the object to share - multiShare : the MultiShare object
-	 * 
-	 * Returns: the created shares
-	 * 
-	 * Exceptions: - IllegalArgumentException : if multiShare is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ResourceNotFoundException : if the resource can not be found -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 * POST /workspace/{id}/multishare<br />
+	 * POST /sheet/{id}/multishare</p>
 	 *
-	 * @param objectId the object id
-	 * @param multiShare the multi share
-	 * @return the list
-	 * @throws SmartsheetException the smartsheet exception
+	 * @param objectId the ID of the object to share
+	 * @param multiShare the multi share object
+	 * @return the list of created Shares
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public List<Share> shareTo(long objectId, MultiShare multiShare) throws SmartsheetException;
 
 	/**
-	 * Share the object with multiple users.
+	 * <p>Share the object with multiple users.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /workspace/{id}/multishare POST
-	 * /sheet/{id}/multishare
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 * POST /workspace/{id}/multishare<br />
+	 * POST/sheet/{id}/multishare</p>
 	 * 
 	 * Parameters: - objectId : the ID of the object to share - multiShare : the MultiShare object - sendEmail : whether
 	 * to send email
-	 * 
-	 * Returns: the created shares
-	 * 
-	 * Exceptions: - IllegalArgumentException : if multiShare is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ResourceNotFoundException : if the resource can not be found -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
 	 *
 	 * @param objectId the object id
 	 * @param multiShare the multi share
-	 * @param sendEmail the send email
-	 * @return the list
-	 * @throws SmartsheetException the smartsheet exception
+	 * @param sendEmail the send email flag
+	 * @return the list of shares that were created
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public List<Share> shareTo(long objectId, MultiShare multiShare, boolean sendEmail) throws SmartsheetException;
 
 	/**
-	 * Update a share.
+	 * <p>Update a share.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: PUT /workspace/{id}/share/{userId} PUT
-	 * /sheet/{id}/share/{userId}
-	 * 
-	 * 
-	 * Parameters: - objectId : the ID of the object to share - userId : the ID of the user to whom the object is shared
-	 * - share : the share
-	 * 
-	 * Returns: the updated share (note that if there is no such resource, this method will throw
-	 * ResourceNotFoundException rather than returning null).
-	 * 
-	 * Exceptions: - IllegalArgumentException : if share is null - InvalidRequestException : if there is any problem
-	 * with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ResourceNotFoundException : if the resource can not be found -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 * PUT /workspace/{id}/share/{userId}<br />
+	 * PUT /sheet/{id}/share/{userId}</p>
 	 *
-	 * @param objectId the object id
-	 * @param userId the user id
+	 * @param objectId the ID of the object to share
+	 * @param userId the Id of the user to whom the object is shared
 	 * @param share the share
-	 * @return the share
-	 * @throws SmartsheetException the smartsheet exception
+	 * @return the updated share (note that if there is no such resource, this method will throw
+	 *  ResourceNotFoundException rather than returning null).
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Share updateShare(long objectId, long userId, Share share) throws SmartsheetException;
 
 	/**
-	 * Delete a share.
+	 * <p>Delete a share.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: DELETE /workspace/{id}/share/{userId} DELETE
-	 * /sheet/{id}/share/{userId}
-	 * 
-	 * 
-	 * Parameters: - objectId : the ID of the object to share - userId : the ID of the user to whom the object is shared
-	 * 
-	 * Returns: None
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 * DELETE /workspace/{id}/share/{userId}<br />
+	 * DELETE /sheet/{id}/share/{userId}</p>
 	 *
-	 * @param objectId the object id
-	 * @param userId the user id
-	 * @throws SmartsheetException the smartsheet exception
+	 * @param objectId the ID of the object to share
+	 * @param userId the ID of the user to whome the object is shared
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public void deleteShare(long objectId, long userId) throws SmartsheetException;
 }

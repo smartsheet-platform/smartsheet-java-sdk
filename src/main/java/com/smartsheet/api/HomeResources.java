@@ -35,35 +35,26 @@ import com.smartsheet.api.models.ObjectInclusion;
 public interface HomeResources {
 	
 	/**
-	 * Get a nested list of all Home objects, including sheets, workspaces and folders, and optionally reports and/or
-	 * templates, as shown on the Home tab..
+	 * <p>Get a nested list of all Home objects, including sheets, workspaces and folders, and optionally reports and/or
+	 * templates, as shown on the Home tab.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /home
-	 * 
-	 * Parameters: - includes : used to specify the optional objects to include, currently TEMPLATES is supported.
-	 * 
-	 * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-	 * rather than returning null).
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 * GET /home</p>
 	 *
-	 * @param includes the includes
-	 * @return the home
-	 * @throws SmartsheetException the smartsheet exception
+	 * @param includes used to specify the optional objects to include.
+	 * @return the home resource (note that if there is no such resource, this method will throw 
+	 * ResourceNotFoundException rather than returning null).
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Home getHome(EnumSet<ObjectInclusion> includes) throws SmartsheetException;
 
 	/**
-	 * Return the WorkspaceFolderResources object that provides access to Folder resources under home.
-	 * 
-	 * Returns: the WorkspaceFolderResources object
-	 * 
-	 * Exceptions: None
+	 * <p>Return the HomeFolderResources object that provides access to Folder resources under home.</p>
 	 *
 	 * @return the home folder resources
 	 */

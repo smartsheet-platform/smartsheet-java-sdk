@@ -33,26 +33,21 @@ import com.smartsheet.api.models.Discussion;
 public interface AssociatedDiscussionResources {
 	
 	/**
-	 * Create a discussion.
+	 * <p>Create a discussion.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /sheet/{id}/discussions POST /row/{id}/discussions
-	 * 
-	 * Parameters: - objectId : the ID of the object - discussion : the discussion object limited to the following
-	 * attributes: * title * comment
-	 * 
-	 * Returns: the created discussion
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ResourceNotFoundException : if the resource can not be found -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method:<br /> 
+	 * POST /sheet/{id}/discussions <br />
+	 * POST /row/{id}/discussions</p>
 	 *
-	 * @param objectId the object id
-	 * @param discussion the discussion
-	 * @return the discussion
-	 * @throws SmartsheetException the Smartsheet exception
+	 * @param objectId the object id (sheet id or row id)
+	 * @param discussion the discussion object
+	 * @return the created discussion
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Discussion createDiscussion(long objectId, Discussion discussion) throws SmartsheetException;
 }

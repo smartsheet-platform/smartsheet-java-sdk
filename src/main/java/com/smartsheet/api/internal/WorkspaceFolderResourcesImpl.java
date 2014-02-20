@@ -24,8 +24,6 @@ package com.smartsheet.api.internal;
 
 import java.util.List;
 
-import org.apache.http.annotation.Immutable;
-
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WorkspaceFolderResources;
 import com.smartsheet.api.models.Folder;

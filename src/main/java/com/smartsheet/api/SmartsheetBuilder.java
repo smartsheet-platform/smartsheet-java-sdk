@@ -29,55 +29,51 @@ import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
 
 /**
- * A convenience class to help create a {@link Smartsheet} instance with the appropriate fields.
+ * <p>A convenience class to help create a {@link Smartsheet} instance with the appropriate fields.</p>
  * 
- * Thread Safety: This class is not thread safe since it's mutable, one builder instance is NOT expected to be used in
- * multiple threads.
- */
-/**
- * @author brett
- *
+ * <p>Thread Safety: This class is not thread safe since it's mutable, one builder instance is NOT expected to be used in
+ * multiple threads.</p>
  */
 public class SmartsheetBuilder {
 	/**
-	 * Represents the HttpClient.
+	 * <p>Represents the HttpClient.</p>
 	 * 
-	 * It can be set using corresponding setter.
+	 * <p>It can be set using corresponding setter.</p>
 	 */
 	private HttpClient httpClient;
 
 	/**
-	 * Represents the JsonSerializer.
+	 * <p>Represents the JsonSerializer.</p>
 	 * 
-	 * It can be set using corresponding setter.
+	 * <p>It can be set using corresponding setter.</p>
 	 */
 	private JsonSerializer jsonSerializer;
 
 	/**
-	 * Represents the base URI.
+	 * <p>Represents the base URI.</p>
 	 * 
-	 * It can be set using corresponding setter.
+	 * <p>It can be set using corresponding setter.</p>
 	 */
 	private String baseURI;
 
 	/**
-	 * Represents the access token.
+	 * <p>Represents the access token.</p>
 	 * 
-	 * It can be set using corresponding setter.
+	 * <p>It can be set using corresponding setter.</p>
 	 */
 	private String accessToken;
 
 	/**
-	 * Represents the assumed user.
+	 * <p>Represents the assumed user.</p>
 	 * 
-	 * It can be set using corresponding setter.
+	 * <p>It can be set using corresponding setter.</p>
 	 */
 	private String assumedUser;
 
 	/**
-	 * Represents the default base URI of the Smartsheet REST API.
+	 * <p>Represents the default base URI of the Smartsheet REST API.</p>
 	 * 
-	 * It is a constant with value "https://api.smartsheet.com/1.1".
+	 * <p>It is a constant with value "https://api.smartsheet.com/1.1".</p>
 	 */
 	public static final String DEFAULT_BASE_URI = "https://api.smartsheet.com/1.1/";
 
@@ -88,7 +84,7 @@ public class SmartsheetBuilder {
 	}
 
 	/**
-	 * Set the HttpClient.
+	 * <p>Set the HttpClient.</p>
 	 *
 	 * @param httpClient the http client
 	 * @return the smartsheet builder
@@ -99,7 +95,7 @@ public class SmartsheetBuilder {
 	}
 
 	/**
-	 * Set the JsonSerializer.
+	 * <p>Set the JsonSerializer.</p>
 	 *
 	 * @param jsonSerializer the JsonSerializer
 	 * @return the SmartsheetBuilder
@@ -110,7 +106,7 @@ public class SmartsheetBuilder {
 	}
 
 	/**
-	 * Set the base URI.
+	 * <p>Set the base URI.</p>
 	 *
 	 * @param baseURI the base uri
 	 * @return the smartsheet builder
@@ -121,7 +117,7 @@ public class SmartsheetBuilder {
 	}
 
 	/**
-	 * Set the access token.
+	 * <p>Set the access token.</p>
 	 *
 	 * @param accessToken the access token
 	 * @return the smartsheet builder
@@ -132,7 +128,7 @@ public class SmartsheetBuilder {
 	}
 
 	/**
-	 * Set the assumed user.
+	 * <p>Set the assumed user.</p>
 	 *
 	 * @param assumedUser the assumed user
 	 * @return the smartsheet builder
@@ -143,7 +139,7 @@ public class SmartsheetBuilder {
 	}
 
 	/**
-	 * Gets the http client.
+	 * <p>Gets the http client.</p>
 	 *
 	 * @return the http client
 	 */
@@ -152,7 +148,7 @@ public class SmartsheetBuilder {
 	}
 
 	/**
-	 * Gets the json serializer.
+	 * <p>Gets the json serializer.</p>
 	 *
 	 * @return the json serializer
 	 */
@@ -161,7 +157,7 @@ public class SmartsheetBuilder {
 	}
 
 	/**
-	 * Gets the base uri.
+	 * <p>Gets the base uri.</p>
 	 *
 	 * @return the base uri
 	 */
@@ -170,7 +166,7 @@ public class SmartsheetBuilder {
 	}
 
 	/**
-	 * Gets the access token.
+	 * <p>Gets the access token.</p>
 	 *
 	 * @return the access token
 	 */
@@ -179,7 +175,7 @@ public class SmartsheetBuilder {
 	}
 
 	/**
-	 * Gets the assumed user.
+	 * <p>Gets the assumed user.</p>
 	 *
 	 * @return the assumed user
 	 */
@@ -188,7 +184,7 @@ public class SmartsheetBuilder {
 	}
 
 	/**
-	 * Gets the default base uri.
+	 * <p>Gets the default base uri.</p>
 	 *
 	 * @return the default base uri
 	 */
@@ -197,11 +193,10 @@ public class SmartsheetBuilder {
 	}
 
 	/**
-	 * Build the Smartsheet instance.
-	 * 
-	 * Exceptions: - IllegalStateException : if accessToken isn't set yet.
+	 * <p>Build the Smartsheet instance.</p>
 	 *
 	 * @return the Smartsheet instance
+	 * @throws IllegalStateException if accessToken isn't set yet.
 	 */
 	public Smartsheet build() {
 		if(httpClient == null){

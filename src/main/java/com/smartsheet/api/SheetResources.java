@@ -22,16 +22,10 @@ package com.smartsheet.api;
 
 
 
-import java.io.IOException;
 import java.io.OutputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.util.EnumSet;
 import java.util.List;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.smartsheet.api.internal.http.HttpClientException;
-import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.models.ObjectInclusion;
 import com.smartsheet.api.models.PaperSize;
 import com.smartsheet.api.models.Sheet;
@@ -39,462 +33,336 @@ import com.smartsheet.api.models.SheetEmail;
 import com.smartsheet.api.models.SheetPublish;
 
 /**
- * This interface provides methods to access Sheet resources.
+ * <p>This interface provides methods to access Sheet resources.</p>
  * 
- * Thread Safety: Implementation of this interface must be thread safe.
+ * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface SheetResources {
 	
 	/**
-	 * List all sheets.
+	 * <p>List all sheets.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /sheets
-	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: all sheets (note that empty list will be returned if there is none)
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /sheets</p>
 	 *
-	 * @return the list
-	 * @throws SmartsheetException the smartsheet exception
+	 * @return A list of all sheets (note that an empty list will be returned if there are none).
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public List<Sheet> listSheets() throws SmartsheetException;
 
 	/**
-	 * List all sheets in the organization.
+	 * <p>List all sheets in the organization.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /users/sheets
-	 * 
-	 * Parameters: None
-	 * 
-	 * Returns: all sheets (note that empty list will be returned if there is none)
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /users/sheets</p>
 	 *
-	 * @return the list
-	 * @throws SmartsheetException the smartsheet exception
+	 * @return the list of all sheets (note that an empty list will be returned if there are none)
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public List<Sheet> listOrganizationSheets() throws SmartsheetException;
 
 	/**
-	 * Get a sheet.
+	 * <p>Get a sheet.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /sheet/{id}
-	 * 
-	 * Parameters: - id : the ID - includes : used to specify the optional objects to include, currently DISCUSSIONS and
-	 * ATTACHMENTS are supported.
-	 * 
-	 * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-	 * rather than returning null).
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /sheet/{id}</p>
 	 *
 	 * @param id the id
-	 * @param includes the includes
-	 * @return the sheet
-	 * @throws SmartsheetException the smartsheet exception
+	 * @param includes used to specify the optional objects to include.
+	 * @return the sheet resource (note that if there is no such resource, this method will throw 
+	 * ResourceNotFoundException rather than returning null).
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Sheet getSheet(long id, EnumSet<ObjectInclusion> includes) throws SmartsheetException;
 
 	/**
-	 * Get a sheet as an Excel file.
+	 * <p>Get a sheet as an Excel file.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /sheet/{id} with "application/vnd.ms-excel" Accept
-	 * HTTP header
-	 * 
-	 * Parameters: - id : the ID - paperSize : the optional paper size - outputStream : the OutputStream to which the
-	 * Excel file will be written
-	 * 
-	 * Returns: None
-	 * 
-	 * Exceptions: - IllegalArgumentException : if outputStream is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ResourceNotFoundException : if the resource can not be found -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 * GET /sheet/{id} with "application/vnd.ms-excel" Accept HTTP header</p>
 	 *
 	 * @param id the id
-	 * @param outputStream the output stream
-	 * @throws SmartsheetException the smartsheet exception
+	 * @param outputStream the output stream to which the Excel file will be written.
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public void getSheetAsExcel(long id, OutputStream outputStream) throws SmartsheetException;
 
 	/**
-	 * Get a sheet as a PDF file.
+	 * <p>Get a sheet as a PDF file.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /sheet/{id} with "application/pdf" Accept HTTP header
-	 * 
-	 * Parameters: - id : the ID - paperSize : the optional paper size - outputStream : the OutputStream to which the
-	 * PDF file will be written
-	 * 
-	 * Returns: None
-	 * 
-	 * Exceptions: - IllegalArgumentException : if outputStream is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ResourceNotFoundException : if the resource can not be found -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 * GET /sheet/{id} with "application/pdf" Accept HTTP header</p>
 	 *
 	 * @param id the id
-	 * @param outputStream the output stream
+	 * @param outputStream the output stream to which the PDF file will be written.
 	 * @param paperSize the paper size
-	 * @throws SmartsheetException the smartsheet exception
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public void getSheetAsPDF(long id, OutputStream outputStream, PaperSize paperSize) throws SmartsheetException;
 
 	/**
-	 * Create a sheet in default "Sheets" collection.
+	 * <p>Create a sheet in default "Sheets" collection.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /sheets
-	 * 
-	 * Parameters: - sheet : the sheet to create, limited to the following required attributes: * name (string) *
-	 * columns (array of Column objects, limited to the following attributes) - title - primary - type - symbol -
-	 * options
-	 * 
-	 * Returns: the created sheet
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
-	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
-	 * the operation - SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 *  POST /sheets</p>
 	 *
-	 * @param sheet the sheet
-	 * @return the sheet
-	 * @throws SmartsheetException the smartsheet exception
+	 * @param sheet the sheet to created
+	 * @return the created sheet
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Sheet createSheet(Sheet sheet) throws SmartsheetException;
 
 	/**
-	 * Create a sheet (from existing sheet or template) in default "Sheets" collection.
+	 * <p>Create a sheet (from existing sheet or template) in default "Sheets" collection.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /sheets
-	 * 
-	 * Parameters: - sheet : the sheet to create, limited to the following required attributes: * name (string) * fromId
-	 * (number): ID of the Sheet or Template from which to create the sheet. - includes : used to specify the optional
-	 * objects to include, currently DATA, DISCUSSIONS and ATTACHMENTS are supported.
-	 * 
-	 * Returns: the created sheet
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
-	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
-	 * the operation - SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method: POST /sheets</p>
 	 *
-	 * @param sheet the sheet
-	 * @param includes the includes
-	 * @return the sheet
-	 * @throws SmartsheetException the smartsheet exception
+	 * @param sheet the sheet to create
+	 * @param includes used to specify the optional objects to include.
+	 * @return the created sheet
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Sheet createSheetFromExisting(Sheet sheet, EnumSet<ObjectInclusion> includes) throws SmartsheetException;
 
 	/**
-	 * Create a sheet in given folder.
+	 * <p>Create a sheet in given folder.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /folder/{folderId}/sheets
-	 * 
-	 * Parameters: - folderId : the folder ID - sheet : the sheet to create, limited to the following required
-	 * attributes: * name (string) * columns (array of Column objects, limited to the following attributes) - title -
-	 * primary - type - symbol - options
-	 * 
-	 * Returns: the created sheet
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
-	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
-	 * the operation - SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method: POST /folder/{folderId}/sheets</p>
 	 *
 	 * @param folderId the folder id
-	 * @param sheet the sheet
-	 * @return the sheet
-	 * @throws SmartsheetException the smartsheet exception
+	 * @param sheet the sheet to create
+	 * @return the created sheet
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Sheet createSheetInFolder(long folderId, Sheet sheet) throws SmartsheetException;
 
 	/**
-	 * Create a sheet (from existing sheet or template) in given folder.
+	 * <p>Create a sheet (from existing sheet or template) in given folder.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /folder/{folderId}/sheets
-	 * 
-	 * Parameters: - folderId : the folder ID - sheet : the sheet to create, limited to the following required
-	 * attributes: * name (string) * fromId (number): ID of the Sheet or Template from which to create the sheet. -
-	 * includes : used to specify the optional objects to include, currently DATA, DISCUSSIONS and ATTACHMENTS are
-	 * supported.
-	 * 
-	 * Returns: the created sheet
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
-	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
-	 * the operation - SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method: POST /folder/{folderId}/sheets</p>
 	 *
 	 * @param folderID the folder id
-	 * @param sheet the sheet
-	 * @param includes the includes
-	 * @return the sheet
-	 * @throws SmartsheetException the smartsheet exception
+	 * @param sheet the sheet to create
+	 * @param used to specify the optional objects to include.
+	 * @return the created sheet
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Sheet createSheetInFolderFromExisting(long folderID, Sheet sheet, EnumSet<ObjectInclusion> includes) throws SmartsheetException;
 
 	/**
-	 * Create a sheet in given workspace.
+	 * <p>Create a sheet in given workspace.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /workspace/{workspaceId}/sheets
-	 * 
-	 * Parameters: - workspaceId : the workspace ID - sheet : the sheet to create, limited to the following required
-	 * attributes: * name (string) * columns (array of Column objects, limited to the following attributes) - title -
-	 * primary - type - symbol - options
-	 * 
-	 * Returns: the created sheet
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
-	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
-	 * the operation - SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method: POST /workspace/{workspaceId}/sheets</p>
 	 *
 	 * @param workspaceId the workspace id
-	 * @param sheet the sheet
-	 * @return the sheet
-	 * @throws SmartsheetException the smartsheet exception
+	 * @param sheet the sheet to create
+	 * @return the created sheet
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Sheet createSheetInWorkspace(long workspaceId, Sheet sheet) throws SmartsheetException;
 
 	/**
-	 * Create a sheet (from existing sheet or template) in given workspace.
+	 * <p>Create a sheet (from existing sheet or template) in given workspace.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /workspace/{workspaceId}/sheets
-	 * 
-	 * Parameters: - workspaceId : the workspace ID - sheet : the sheet to create, limited to the following required
-	 * attributes: * name (string) * fromId (number): ID of the Sheet or Template from which to create the sheet. -
-	 * includes : used to specify the optional objects to include, currently DATA, DISCUSSIONS and ATTACHMENTS are
-	 * supported.
-	 * 
-	 * Returns: the created sheet
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
-	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
-	 * the operation - SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method: POST /workspace/{workspaceId}/sheets</p>
 	 *
 	 * @param workspaceId the workspace id
-	 * @param sheet the sheet
-	 * @param includes the includes
-	 * @return the sheet
-	 * @throws SmartsheetException the smartsheet exception
+	 * @param sheet the sheet to create
+	 * @param includes used to specify the optional objects to include
+	 * @return the created sheet
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Sheet createSheetInWorkspaceFromExisting(long workspaceId, Sheet sheet, EnumSet<ObjectInclusion> includes) throws SmartsheetException;
 
 	/**
-	 * Delete a sheet.
+	 * <p>Delete a sheet.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: DELETE /sheet{id}
+	 * <p>It mirrors to the following Smartsheet REST API method: DELETE /sheet{id}</p>
 	 * 
 	 * Parameters: - id : the ID of the sheet
 	 * 
 	 * Returns: None
 	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
 	 *
 	 * @param id the id
-	 * @throws SmartsheetException the smartsheet exception
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public void deleteSheet(long id) throws SmartsheetException;
 
 	/**
-	 * Update a sheet.
+	 * <p>Update a sheet.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: PUT /sheet/{id}
-	 * 
-	 * Parameters: - sheet : the sheet to update limited to the following attribute: * name (string)
-	 * 
-	 * Returns: the updated sheet (note that if there is no such resource, this method will throw
-	 * ResourceNotFoundException rather than returning null).
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ResourceNotFoundException : if the resource can not be found -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method: PUT /sheet/{id}</p>
 	 *
-	 * @param sheet the sheet
-	 * @return the sheet
-	 * @throws SmartsheetException the smartsheet exception
+	 * @param sheet the sheet to update
+	 * @return the updated sheet
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Sheet updateSheet(Sheet sheet) throws SmartsheetException;
 
 	/**
-	 * Get a sheet version.
+	 * <p>Get a sheet version.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /sheet/{id}/version
-	 * 
-	 * Parameters: - id : the ID
-	 * 
-	 * Returns: the sheet version (note that if there is no such resource, this method will throw
-	 * ResourceNotFoundException rather than returning null).
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /sheet/{id}/version</p>
 	 *
 	 * @param id the id
-	 * @return the sheet version
-	 * @throws SmartsheetException the smartsheet exception
+	 * @return the sheet version (note that if there is no such resource, this method will throw
+	 * ResourceNotFoundException)
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public int getSheetVersion(long id) throws SmartsheetException;
 
 	/**
-	 * Send a sheet as a PDF attachment via email to the designated recipients.
+	 * <p>Send a sheet as a PDF attachment via email to the designated recipients.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /sheet/{sheetId}/emails
-	 * 
-	 * Parameters: - id : the ID of the sheet - email : the SheetEmail
-	 * 
-	 * Returns: None
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
-	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
-	 * the operation - SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method: POST /sheet/{sheetId}/emails</p>
 	 *
 	 * @param id the id
 	 * @param email the email
-	 * @throws SmartsheetException the smartsheet exception
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public void sendSheet(long id, SheetEmail email) throws SmartsheetException;
 
 	/**
-	 * Return the ShareResources object that provides access to Share resources associated with Sheet resources.
-	 * 
-	 * Returns: the ShareResources object
-	 * 
-	 * Exceptions: None
+	 * <p>Return the ShareResources object that provides access to Share resources associated with Sheet resources.</p>
 	 *
-	 * @return the share resources
+	 * @return the share resources object
 	 */
 	public ShareResources shares();
 
 	/**
-	 * Return the SheetRowResources object that provides access to Row resources associated with Sheet resources.
-	 * 
-	 * Returns: the SheetRowResources object
-	 * 
-	 * Exceptions: None
+	 * <p>Return the SheetRowResources object that provides access to Row resources associated with Sheet resources.</p>
 	 *
 	 * @return the sheet row resources
 	 */
 	public SheetRowResources rows();
 
 	/**
-	 * Return the SheetColumnResources object that provides access to Column resources associated with Sheet resources.
-	 * 
-	 * Returns: the SheetColumnResources object
-	 * 
-	 * Exceptions: None
+	 * <p>Return the SheetColumnResources object that provides access to Column resources associated with Sheet resources.</p>
 	 *
 	 * @return the sheet column resources
 	 */
 	public SheetColumnResources columns();
 
 	/**
-	 * Return the AssociatedAttachmentResources object that provides access to attachment resources associated with
-	 * Sheet resources.
-	 * 
-	 * Returns: the AssociatedAttachmentResources object
-	 * 
-	 * Exceptions: None
+	 * <p>Return the AssociatedAttachmentResources object that provides access to attachment resources associated with
+	 * Sheet resources.</p>
 	 *
 	 * @return the associated attachment resources
 	 */
 	public AssociatedAttachmentResources attachments();
 
 	/**
-	 * Return the AssociatedDiscussionResources object that provides access to discussion resources associated with
-	 * Sheet resources.
-	 * 
-	 * Returns: the AssociatedDiscussionResources object
-	 * 
-	 * Exceptions: None
+	 * <p>Return the AssociatedDiscussionResources object that provides access to discussion resources associated with
+	 * Sheet resources.</p>
 	 *
 	 * @return the associated discussion resources
 	 */
 	public AssociatedDiscussionResources discussions();
 
 	/**
-	 * Get the status of the Publish settings of the sheet, including the URLs of any enabled publishings.
+	 * <p>Get the status of the Publish settings of the sheet, including the URLs of any enabled publishings.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /sheet/{sheetId}/publish
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /sheet/{sheetId}/publish</p>
 	 * 
-	 * Parameters: - id : the ID
-	 * 
-	 * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-	 * rather than returning null).
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
-	 *
 	 * @param id the id
-	 * @return the publish status
-	 * @throws SmartsheetException the smartsheet exception
+	 * @return the publish status (note that if there is no such resource, this method will throw ResourceNotFoundException rather than returning null)
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public SheetPublish getPublishStatus(long id) throws SmartsheetException;
 
 	/**
-	 * Sets the publish status of a sheet and returns the new status, including the URLs of any enabled publishings.
+	 * <p>Sets the publish status of a sheet and returns the new status, including the URLs of any enabled publishings.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: PUT /sheet/{sheetId}/publish
-	 * 
-	 * Parameters: - id : the ID - publish : the SheetPublish object limited to the following attributes *
-	 * readOnlyLiteEnabled * readOnlyFullEnabled * readWriteEnabled * icalEnabled
-	 * 
-	 * Returns: the updated SheetPublish (note that if there is no such resource, this method will throw
-	 * ResourceNotFoundException rather than returning null).
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ResourceNotFoundException : if the resource can not be found -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method: PUT /sheet/{sheetId}/publish</p>
 	 *
 	 * @param id the id
-	 * @param publish the publish
-	 * @return the sheet publish
-	 * @throws SmartsheetException the smartsheet exception
+	 * @param publish the SheetPublish object limited.
+	 * @return the update SheetPublish object (note that if there is no such resource, this method will throw a 
+	 * ResourceNotFoundException rather than returning null).
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public SheetPublish updatePublishStatus(long id, SheetPublish publish) throws SmartsheetException;
 }

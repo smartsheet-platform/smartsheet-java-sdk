@@ -27,53 +27,42 @@ import java.util.List;
 import com.smartsheet.api.models.Folder;
 
 /**
- * This interface provides methods to access Folder resources that are associated to a workspace object.
+ * T<p>his interface provides methods to access Folder resources that are associated to a workspace object.</p>
  * 
- * Thread Safety: Implementation of this interface must be thread safe.
+ * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface WorkspaceFolderResources {
 	
 	/**
-	 * List folders of a given workspace.
+	 * <p>List folders of a given workspace.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /workspace/{id}/folders
-	 * 
-	 * Parameters: - workspaceId : the ID of the workspace
-	 * 
-	 * Returns: the folders (note that empty list will be returned if there is none)
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /workspace/{id}/folders</p>
 	 *
 	 * @param workspaceId the workspace id
-	 * @return the list
-	 * @throws SmartsheetException the smartsheet exception
+	 * @return the list of folders (note that an empty list will be returned if there are none)
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public List<Folder> listFolders(long workspaceId) throws SmartsheetException;
 
 	/**
-	 * Create a folder in the workspace.
+	 * <p>Create a folder in the workspace.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /workspace/{id}/folders
-	 * 
-	 * Parameters: - workspaceId : the workspace ID - folder : the folder to create
-	 * 
-	 * Returns: the created folder
-	 * 
-	 * Exceptions: - IllegalArgumentException : if folder is null - InvalidRequestException : if there is any problem
-	 * with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
-	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
-	 * the operation - SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method: POST /workspace/{id}/folders</p>
 	 *
 	 * @param workspaceId the workspace id
-	 * @param folder the folder
-	 * @return the folder
-	 * @throws SmartsheetException the smartsheet exception
+	 * @param folder the folder to create
+	 * @return the created folder
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Folder createFolder(long workspaceId, Folder folder) throws SmartsheetException;
 }

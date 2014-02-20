@@ -32,46 +32,36 @@ import com.smartsheet.api.models.Attachment;
 public interface AttachmentResources {
 	
 	/**
-	 * Get an attachment.
+	 * <p>Get an attachment.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /attachment/{id}
-	 * 
-	 * Parameters: - id : the ID
-	 * 
-	 * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-	 * rather than returning null).
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 * GET /attachment/{id}</p>
 	 *
 	 * @param id the id
-	 * @return the attachment
-	 * @throws SmartsheetException the smartsheet exception
+	 * @return the attachment (note that if there is no such resource, this method will throw ResourceNotFoundException 
+	 * rather than returning null).
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Attachment getAttachment(long id) throws SmartsheetException;
 
 	/**
-	 * Delete an attachment.
+	 * <p>Delete an attachment.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: DELETE /attachment{id}
-	 * 
-	 * Parameters: - id : the ID of the attachment
-	 * 
-	 * Returns: None
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 * DELETE /attachment{id}</p>
 	 *
 	 * @param id the id
-	 * @throws SmartsheetException the smartsheet exception
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public void deleteAttachment(long id) throws SmartsheetException;
 }

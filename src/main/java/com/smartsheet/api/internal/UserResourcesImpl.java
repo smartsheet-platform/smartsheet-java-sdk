@@ -26,7 +26,6 @@ import java.util.List;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.UserResources;
-import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.User;
 import com.smartsheet.api.models.UserProfile;
 
