@@ -188,6 +188,24 @@ public class User extends UserProfile {
 	public static class UpdateUserBuilder {
 		private Boolean admin;
 		private Boolean licensedSheetCreator;
+		private Long id;
+
+		/**
+		 * Get the id of the user
+		 * @return
+		 */
+		public Long getId() {
+			return id;
+		}
+
+		/**
+		 * Set the id of the user
+		 * @param id
+		 */
+		public UpdateUserBuilder setId(Long id) {
+			this.id = id;
+			return this;
+		}
 
 		/**
 		 * Sets the admin flag which allows managing users and accounts.
@@ -240,8 +258,9 @@ public class User extends UserProfile {
 			}
 			
 			User user = new User();
-			user.admin = admin;
-			user.licensedSheetCreator = licensedSheetCreator;
+			user.setAdmin(admin);
+			user.setId(id);
+			user.setLicensedSheetCreator(licensedSheetCreator);
 			return user;
 		}
 	}
