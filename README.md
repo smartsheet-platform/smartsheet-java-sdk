@@ -92,5 +92,20 @@ If you would like to contribute a change to the SDK, please fork a branch and th
 ##Support
 If you have any questions or issues with this SDK please feel free to send us an email at: api@smartsheet.com
 
+##Release Notes
+
+Each specific release is available for download via [Github](https://github.com/smartsheet-platform/smartsheet-java-sdk/tags) or the [Maven repository](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.smartsheet%22%20AND%20a%3A%22smartsheet-sdk-java%22).
+
+####1.0.1 (Feb 19, 2014)
+* Synchronized the versions on github, javadoc, pom/maven repository and the readme.md
+
+
+####1.0.0 (Feb 19, 2014)
+* Initial Release of the Smartsheet Java SDK
+
+
+
+
+
 
 [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/4b2c0d7b11c532fb1693dec0e5f300d5 "githalytics.com")](http://githalytics.com/smartsheet-platform/smartsheet-java-sdk)
