@@ -23,10 +23,6 @@ package com.smartsheet.api.models;
 import java.util.Date;
 import java.util.List;
 
-import com.smartsheet.api.SheetResources;
-import com.smartsheet.api.internal.SheetResourcesImpl;
-import com.smartsheet.api.models.Workspace.UpdateWorkspaceBuilder;
-
 /**
  * Represents the Sheet object.
  */
@@ -535,6 +531,25 @@ public class Sheet extends NamedModel {
 	 */
 	public static class UpdateSheetBuilder {
 		private String sheetName;
+		private Long id;
+
+		/**
+		 * Get the id of the sheet
+		 * @return
+		 */
+		public Long getId() {
+			return id;
+		}
+
+		/**
+		 * Set the sheet id
+		 * @param id
+		 * @return the updateSheetBuilder object
+		 */
+		public UpdateSheetBuilder setId(Long id) {
+			this.id = id;
+			return this;
+		}
 
 		/**
 		 * Name.
@@ -542,7 +557,7 @@ public class Sheet extends NamedModel {
 		 * @param name the name
 		 * @return the update sheet builder
 		 */
-		public UpdateSheetBuilder name(String name) {
+		public UpdateSheetBuilder setName(String name) {
 			this.sheetName = name;
 			return this;
 		}
@@ -569,6 +584,7 @@ public class Sheet extends NamedModel {
 			
 			Sheet sheet = new Sheet();
 			sheet.setName(sheetName);
+			sheet.setId(id);
 			return sheet;
 		}
 	}
