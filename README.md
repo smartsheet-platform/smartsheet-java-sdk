@@ -84,6 +84,8 @@ Sheet sheet = new Sheet.CreateSheetBuilder().setName("New Sheet").setColumns(Arr
 sheet = smartsheet.sheets().createSheet(sheet);
 ```
 
+More Java examples can be viewed [here](https://github.com/smartsheet-platform/samples/blob/master/java-sdk/JavaSDKSample.java).
+
 ## Contributing
 If you would like to contribute a change to the SDK, please fork a branch and then submit a pull request. [More info here](https://help.github.com/articles/using-pull-requests).
 
