@@ -55,10 +55,10 @@ public class Row extends IdentifiableModel {
 	private Date modifiedAt;
 
 	/** A read-only flag to indicate if the row is expanded or collapsed. */
-	private boolean expanded;
+	private Boolean expanded;
 
 	/** The version number that is incremented every time a sheet is modified. */
-	private int version;
+	private Integer version;
 
 	/** The user's permissions on the sheet. */
 	private AccessLevel accessLevel;
@@ -86,7 +86,7 @@ public class Row extends IdentifiableModel {
 	 *
 	 * @return the version
 	 */
-	public int getVersion() {
+	public Integer getVersion() {
 		return version;
 	}
 
@@ -95,7 +95,7 @@ public class Row extends IdentifiableModel {
 	 *
 	 * @param version the new version
 	 */
-	public void setVersion(int version) {
+	public void setVersion(Integer version) {
 		this.version = version;
 	}
 
@@ -104,7 +104,7 @@ public class Row extends IdentifiableModel {
 	 *
 	 * @return true, if is expanded
 	 */
-	public boolean isExpanded() {
+	public Boolean isExpanded() {
 		return expanded;
 	}
 
@@ -113,7 +113,7 @@ public class Row extends IdentifiableModel {
 	 *
 	 * @param expanded the new expanded
 	 */
-	public void setExpanded(boolean expanded) {
+	public void setExpanded(Boolean expanded) {
 		this.expanded = expanded;
 	}
 
