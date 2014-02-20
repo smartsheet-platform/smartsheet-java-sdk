@@ -74,7 +74,7 @@ public class Share extends NamedModel {
 	/**
 	 * A convenience class for creating a {@link Share} with the necessary fields for sharing the sheet to one user.
 	 */
-	public static class shareToOneBuilder {
+	public static class ShareToOneBuilder {
 		private AccessLevel accessLevel;
 		private String email;
 
@@ -84,7 +84,7 @@ public class Share extends NamedModel {
 		 * @param accessLevel the access level
 		 * @return the share to one builder
 		 */
-		public shareToOneBuilder setAccessLevel(AccessLevel accessLevel) {
+		public ShareToOneBuilder setAccessLevel(AccessLevel accessLevel) {
 			this.accessLevel = accessLevel;
 			return this;
 		}
@@ -95,7 +95,7 @@ public class Share extends NamedModel {
 		 * @param email the email
 		 * @return the share to one builder
 		 */
-		public shareToOneBuilder setEmail(String email) {
+		public ShareToOneBuilder setEmail(String email) {
 			this.email = email;
 			return this;
 		}
