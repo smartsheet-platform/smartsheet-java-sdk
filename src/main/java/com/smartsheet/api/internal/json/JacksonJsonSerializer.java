@@ -55,7 +55,17 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
 	static {
+		// Indent for pretty printing
+		//OBJECT_MAPPER.enable(SerializationFeature.INDENT_OUTPUT);
+		
+		// Allow deserialization if there are properties that can't be deserialized
 		OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		
+		// Only include non-null properties in when serializing java beans
+		OBJECT_MAPPER.setSerializationInclusion(Include.NON_NULL);
+		
+		// Excludes "id" field from being serialized to JSON for any IdentifiableModel class
+		OBJECT_MAPPER.addMixInAnnotations(IdentifiableModel.class, IdFieldExclusionMixin.class);
 	}
 
 	/**
@@ -76,24 +86,6 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	 * Exceptions: None
 	 */
 	public JacksonJsonSerializer() {
-	}
-
-	/**
-	 * This is the static initializer of this class.
-	 */
-	public static void init() {
-
-		// Indent for pretty printing
-		OBJECT_MAPPER.enable(SerializationFeature.INDENT_OUTPUT);
-
-		// Only include non-null properties in when serializing java beans
-		OBJECT_MAPPER.setSerializationInclusion(Include.NON_NULL);
-
-		// Allow deserialization if there are properties that can't be deserialized
-		OBJECT_MAPPER.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-
-		// Excludes "id" field from being serialized to JSON for any IdentifiableModel class
-		OBJECT_MAPPER.addMixInAnnotations(IdentifiableModel.class, IdFieldExclusionMixin.class);
 	}
 
 	/**
