@@ -88,4 +88,20 @@ public class AuthorizationResult {
 	public void setState(String state) {
 		this.state = state;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("AuthorizationResult [code=");
+		builder.append(code);
+		builder.append(", expiresInSeconds=");
+		builder.append(expiresInSeconds);
+		builder.append(", state=");
+		builder.append(state);
+		builder.append("]");
+		return builder.toString();
+	}
 }
