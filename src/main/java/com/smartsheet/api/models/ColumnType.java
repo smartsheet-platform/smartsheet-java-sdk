@@ -34,7 +34,10 @@ public enum ColumnType {
 
 	/** Represents the DATE column type. */
 	DATE,
-
+	
+	/** Represents the DATETIME (auto number) column type */
+	DATETIME,
+	
 	/** Represents the CONTACT_LIST column type. */
 	CONTACT_LIST,
 

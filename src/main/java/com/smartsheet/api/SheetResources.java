@@ -74,7 +74,7 @@ public interface SheetResources {
 	 * 
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /sheet/{id}</p>
 	 *
-	 * @param id the id
+	 * @param id the id of the sheet
 	 * @param includes used to specify the optional objects to include.
 	 * @return the sheet resource (note that if there is no such resource, this method will throw 
 	 * ResourceNotFoundException rather than returning null).
@@ -93,7 +93,7 @@ public interface SheetResources {
 	 * <p>It mirrors to the following Smartsheet REST API method:<br />
 	 * GET /sheet/{id} with "application/vnd.ms-excel" Accept HTTP header</p>
 	 *
-	 * @param id the id
+	 * @param id the id of the sheet
 	 * @param outputStream the output stream to which the Excel file will be written.
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
@@ -110,7 +110,7 @@ public interface SheetResources {
 	 * <p>It mirrors to the following Smartsheet REST API method:<br />
 	 * GET /sheet/{id} with "application/pdf" Accept HTTP header</p>
 	 *
-	 * @param id the id
+	 * @param id the id of the sheet
 	 * @param outputStream the output stream to which the PDF file will be written.
 	 * @param paperSize the paper size
 	 * @throws IllegalArgumentException if any argument is null or empty string
