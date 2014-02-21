@@ -5,8 +5,8 @@ This is a Java SDK to simplify connecting to [Smartsheet API](http://www.smartsh
 ##Installation
 There are three different ways to install the SDK. Select the one that fits your environment best:
 
-1. [Maven](#1-maven)
-2. [Download Jar File or Jar with Dependencies](#2-download-jar-file)
+1. [Use Maven](#1-maven)
+2. [Download Jar File](#2-download-jar-file)
 3. [Compile From Source](#3-compile-from-source)
 
 ###1. Use Maven
@@ -22,12 +22,12 @@ Add the SDK as a dependency in your project.
 
 ###2. Download Jar File
 <!--* [The SDK packaged in a jar with Dependencies](https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST) built in.-->
-* [SDK packaged as a jar](https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST). This jar requires that all of the following dependencies are manually added to the path:
+[SDK packaged as a jar](https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST). This jar requires that all of the following dependencies are manually added to the path:
 
-        Apache HttpComponents 4.3.2
-        Simple Logging Facade for Java 4.3.2
-        Jackson FasterXML 2.2.3
-        Jackson Core 2.2.3
+	Apache HttpComponents 4.3.2
+	Simple Logging Facade for Java 4.3.2
+	Jackson FasterXML 2.2.3
+	Jackson Core 2.2.3
 
 ###3. Compile from source
 The source code for the jar can be downloaded from Github and then compiled. This can be accomplished using [git](http://git-scm.com/) and [maven](http://maven.apache.org/) with the following 3 steps.
@@ -84,7 +84,7 @@ Sheet sheet = new Sheet.CreateSheetBuilder().setName("New Sheet").setColumns(Arr
 sheet = smartsheet.sheets().createSheet(sheet);
 ```
 
-More Java examples can be viewed [here](https://github.com/smartsheet-platform/samples/blob/master/java-sdk/JavaSDKSample.java).
+More Java examples available [here](https://github.com/smartsheet-platform/samples/blob/master/java-sdk/JavaSDKSample.java).
 
 ## Contributing
 If you would like to contribute a change to the SDK, please fork a branch and then submit a pull request. [More info here](https://help.github.com/articles/using-pull-requests).
