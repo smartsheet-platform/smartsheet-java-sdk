@@ -36,7 +36,7 @@ public class Cell {
 	/**
 	 * Represents the value.
 	 */
-	private String value;
+	private Object value;
 
 	/**
 	 * Represents the display value.
@@ -87,20 +87,20 @@ public class Cell {
 	}
 
 	/**
-	 * Gets the value.
+	 * Gets the value. Can be one of type {@link String}, {@link Number}, or {@link Boolean}
 	 *
 	 * @return the value
 	 */
-	public String getValue() {
+	public Object getValue() {
 		return value;
 	}
 
 	/**
-	 * Sets the value.
+	 * Sets the value. Can be one of type {@link String}, {@link Number}, or {@link Boolean}
 	 *
 	 * @param value the new value
 	 */
-	public void setValue(String value) {
+	public void setValue(Object value) {
 		this.value = value;
 	}
 
