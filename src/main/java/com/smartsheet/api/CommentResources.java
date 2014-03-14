@@ -32,56 +32,42 @@ import com.smartsheet.api.models.Comment;
 public interface CommentResources {
 	
 	/**
-	 * Get a comment.
+	 * <p>Get a comment.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /comment/{id}
-	 * 
-	 * Parameters: - id : the ID
-	 * 
-	 * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-	 * rather than returning null).
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 * GET /comment/{id}</p>
 	 *
 	 * @param id the id
-	 * @return the comment
-	 * @throws SmartsheetException the smartsheet exception
+	 * @return the comment (note that if there is no such resource, this method will throw ResourceNotFoundException
+	 * rather than returning null).
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Comment getComment(long id) throws SmartsheetException;
 
 	/**
-	 * Delete a comment.
+	 * <p>Delete a comment.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: DELETE /comment{id}
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 * DELETE /comment{id}</p>
 	 * 
-	 * Parameters: - id : the ID of the comment
-	 * 
-	 * Returns: None
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
-	 *
 	 * @param id the id
-	 * @throws SmartsheetException the smartsheet exception
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public void deleteComment(long id) throws SmartsheetException;
 
 	/**
-	 * Return the AssociatedAttachmentResources object that provides access to attachment resources associated with
-	 * Comment resources.
-	 * 
-	 * Returns: the AssociatedAttachmentResources object
-	 * 
-	 * Exceptions: None
+	 * <p>Return the AssociatedAttachmentResources object that provides access to attachment resources associated with
+	 * Comment resources.</p>
 	 *
 	 * @return the associated attachment resources
 	 */

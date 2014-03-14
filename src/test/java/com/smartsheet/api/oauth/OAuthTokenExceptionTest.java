@@ -20,13 +20,10 @@ package com.smartsheet.api.oauth;
  * %[license]
  */
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import com.smartsheet.api.AccessTokenExpiredException;
-import com.smartsheet.api.models.Error;
 
 public class OAuthTokenExceptionTest {
 

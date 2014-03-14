@@ -36,7 +36,6 @@ import org.junit.Test;
 
 import com.smartsheet.api.HttpTestServer;
 import com.smartsheet.api.InvalidRequestException;
-import com.smartsheet.api.internal.FolderResourcesImpl;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.http.HttpClient;
 import com.smartsheet.api.internal.http.HttpClientException;

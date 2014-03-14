@@ -23,10 +23,7 @@ package com.smartsheet.api.internal;
 
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
 
-import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Attachment;
 
 /**

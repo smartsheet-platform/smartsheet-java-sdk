@@ -74,6 +74,24 @@ public class Workspace extends Folder {
 	 */
 	public static class UpdateWorkspaceBuilder {
 		private String workspaceName;
+		private Long id;
+
+		/**
+		 * Get the workspace id
+		 * @return the workspace id
+		 */
+		public Long getId() {
+			return id;
+		}
+
+		/**
+		 * Set the workspace id
+		 * @param id the workspace id
+		 */
+		public UpdateWorkspaceBuilder setId(Long id) {
+			this.id = id;
+			return this;
+		}
 
 		/**
 		 * The name of the workspace.
@@ -107,6 +125,7 @@ public class Workspace extends Folder {
 			
 			Workspace workspace = new Workspace();
 			workspace.setName(workspaceName);
+			workspace.setId(id);
 			return workspace;
 		}
 	}

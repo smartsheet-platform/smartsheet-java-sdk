@@ -1,6 +1,5 @@
 package com.smartsheet.api.internal;
 
-import java.io.File;
 import java.util.List;
 
 import com.smartsheet.api.AssociatedAttachmentResources;

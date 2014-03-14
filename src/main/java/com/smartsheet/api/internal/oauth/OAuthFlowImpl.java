@@ -265,11 +265,14 @@ public class OAuthFlowImpl implements OAuthFlow {
 		}
 		
 		 // Prepare the hash 
+		
 		String doHash = clientSecret + "|" + authorizationResult.getCode();
+
 		MessageDigest md = MessageDigest.getInstance("SHA-256"); 
 		byte[] digest = md.digest(doHash.getBytes("UTF-8"));
-		String hash = javax.xml.bind.DatatypeConverter.printHexBinary(digest);
-		
+		//String hash = javax.xml.bind.DatatypeConverter.printHexBinary(digest);
+		String hash = org.apache.commons.codec.binary.Hex.encodeHexString(digest);
+
 		// create a Map of the parameters
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("grant_type", "authorization_code");
@@ -277,7 +280,7 @@ public class OAuthFlowImpl implements OAuthFlow {
 		params.put("code", authorizationResult.getCode());
 		params.put("redirect_uri",redirectURL);
 		params.put("hash", hash);
-		
+
 		// Generate the URL and then get the token
 		return requestToken(generateURL(tokenURL, params));
 	}
@@ -350,7 +353,7 @@ public class OAuthFlowImpl implements OAuthFlow {
 		// Create the request and send it to get the response/token.
 		HttpRequest request = new HttpRequest();
 		request.setUri(new URI(url));
-		request.setMethod(HttpMethod.GET); 
+		request.setMethod(HttpMethod.POST); 
 		request.setHeaders(new HashMap<String, String>());
 		request.getHeaders().put("Content-Type", "application/x-www-form-urlencoded");
 		HttpResponse response = httpClient.request(request);
@@ -393,7 +396,7 @@ public class OAuthFlowImpl implements OAuthFlow {
 		
 		Long expiresIn;
 		try{
-			expiresIn = (Long)map.get("expires_in");
+			expiresIn = Long.parseLong(String.valueOf(map.get("expires_in")));
 		}catch(NumberFormatException nfe){
 			expiresIn = 0L;
 		}

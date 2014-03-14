@@ -33,174 +33,130 @@ import com.smartsheet.api.models.RowEmail;
 import com.smartsheet.api.models.RowWrapper;
 
 /**
- * This interface provides methods to access Row resources.
+ * <p>This interface provides methods to access Row resources.</p>
  * 
- * Thread Safety: Implementation of this interface must be thread safe.
+ * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface RowResources {
 	
 	/**
-	 * Get a row.
+	 * <p>Get a row.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /row/{id}
-	 * 
-	 * Parameters: - id : the ID - includes : used to specify the optional objects to include, currently DISCUSSIONS and
-	 * ATTACHMENTS are supported.
-	 * 
-	 * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-	 * rather than returning null).
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 * GET /row/{id}</p>
 	 *
 	 * @param id the id
-	 * @param includes the includes
-	 * @return the row
-	 * @throws SmartsheetException the smartsheet exception
+	 * @param includes used to specify the optional objects to include.
+	 * @return the row resource (note that if there is no such resource, this method will throw 
+	 * ResourceNotFoundException rather than returning null).
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Row getRow(long id, EnumSet<ObjectInclusion> includes) throws SmartsheetException;
 
 	/**
-	 * Move a row.
+	 * <p>Move a row.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: PUT /row/{id}
-	 * 
-	 * Parameters: - rowWrapper : the RowWrapper with one of the following attributes: * toTop : Moves the row (and
-	 * children rows, if any) to the top of the sheet. * toBottom : Moves the row to the bottom of the sheet * parentId
-	 * : Moves the row as the first child row of the parent. toBottom=true can also be set to add the row as the last
-	 * child of the parent. * siblingId : Moves the row as the next sibling of the row ID provided.
-	 * 
-	 * Returns: the rows that have been moved by the operaetion
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ResourceNotFoundException : if the resource can not be found -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 *  PUT /row/{id}</p>
 	 *
-	 * @param id the id
-	 * @param rowWrapper the row wrapper
-	 * @return the list
-	 * @throws SmartsheetException the smartsheet exception
+	 * @param id the id of the row to move
+	 * @param rowWrapper the row wrapper that specifies where to move the row.
+	 * @return the list of rows that have been moved by this operation.
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public List<Row> moveRow(long id, RowWrapper rowWrapper) throws SmartsheetException;
 
 	/**
-	 * Delete a row.
+	 * <p>Delete a row.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: DELETE /row{id}
-	 * 
-	 * Parameters: - id : the ID of the row
-	 * 
-	 * Returns: None
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 * DELETE /row{id}</p>
 	 *
-	 * @param id the id
-	 * @throws SmartsheetException the smartsheet exception
+	 * @param id the id of the row
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public void deleteRow(long id) throws SmartsheetException;
 
 	/**
-	 * Send a row via email to the designated recipients.
+	 * <p>Send a row via email to the designated recipients.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /row/{id}/emails
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 *  POST /row/{id}/emails</p>
 	 * 
-	 * Parameters: - id : the ID of the row - email : the RowEmail
-	 * 
-	 * Returns: None
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ServiceUnavailableException : if the REST API service is not available (possibly
-	 * due to rate limiting) - SmartsheetRestException : if there is any other REST API related error occurred during
-	 * the operation - SmartsheetException : if there is any other error occurred during the operation
-	 *
 	 * @param id the id
 	 * @param email the email
-	 * @throws SmartsheetException the smartsheet exception
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public void sendRow(long id, RowEmail email) throws SmartsheetException;
 
 	/**
-	 * Update the values of the Cells in a Row.
+	 * <p>Update the values of the Cells in a Row.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: PUT /row/{id}/cells
-	 * 
-	 * Parameters: - id : the row ID - cells : the cells to update (Cells must have the following attributes set: *
-	 * columnId * value * strict (optional)
-	 * 
-	 * Returns: the updated cells (note that if there is no such resource, this method will throw
-	 * ResourceNotFoundException rather than returning null).
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ResourceNotFoundException : if the resource can not be found -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method: PUT /row/{id}/cells</p>
 	 *
 	 * @param rowId the row id
-	 * @param cells the cells
+	 * @param cells the cells to update
 	 * @return the list
-	 * @throws SmartsheetException the smartsheet exception
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public List<Cell> updateCells(long rowId, List<Cell> cells) throws SmartsheetException;
 
 	/**
-	 * Get the cell modification history.
+	 * <p>Get the cell modification history.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /row/{rowId}/column/{columnId}/history
-	 * 
-	 * Parameters: - rowId : the row ID - columnId : the column ID
-	 * 
-	 * Returns: the modification history (note that if there is no such resource, this method will throw
-	 * ResourceNotFoundException rather than returning null).
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 * GET /row/{rowId}/column/{columnId}/history</p>
 	 *
 	 * @param rowId the row id
 	 * @param columnId the column id
-	 * @return the cell history
-	 * @throws SmartsheetException the smartsheet exception
+	 * @return the cell modification history (note that if there is no such resource, this method will throw 
+	 * ResourceeNotFoundException rather than returning null).
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public List<CellHistory> getCellHistory(long rowId, long columnId) throws SmartsheetException;
 
 	/**
-	 * Return the AssociatedAttachmentResources object that provides access to attachment resources associated with Row
-	 * resources.
-	 * 
-	 * Returns: the AssociatedAttachmentResources object
-	 * 
-	 * Exceptions: None
+	 * <p>Return the AssociatedAttachmentResources object that provides access to attachment resources associated with Row
+	 * resources.</p>
 	 *
 	 * @return the associated attachment resources
 	 */
 	public AssociatedAttachmentResources attachments();
 
 	/**
-	 * Return the AssociatedDiscussionResources object that provides access to discussion resources associated with Row
-	 * resources.
+	 * <p>Return the AssociatedDiscussionResources object that provides access to discussion resources associated with 
+	 * Row resources.</p>
 	 * 
-	 * Returns: the AssociatedDiscussionResources object
-	 * 
-	 * Exceptions: None
-	 *
 	 * @return the associated discussion resources
 	 */
 	public AssociatedDiscussionResources discussions();

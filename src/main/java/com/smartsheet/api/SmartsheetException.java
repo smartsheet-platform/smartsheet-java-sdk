@@ -24,9 +24,9 @@ package com.smartsheet.api;
 
 
 /**
- * This is the base class for all exceptions thrown from the Smartsheet SDK.
+ * <p>This is the base class for all exceptions thrown from the Smartsheet SDK.</p>
  * 
- * Thread safety: Exceptions are not thread safe.
+ * <p>Thread safety: Exceptions are not thread safe.</p>
  */
 public class SmartsheetException extends Exception {
 	
@@ -34,7 +34,7 @@ public class SmartsheetException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Constructor.
+	 * <p>Constructor.</p>
 	 *
 	 * @param message the message
 	 */
@@ -43,7 +43,7 @@ public class SmartsheetException extends Exception {
 	}
 
 	/**
-	 * Constructor.
+	 * <p>Constructor.</p>
 	 *
 	 * @param message the message
 	 * @param cause the cause
@@ -53,7 +53,7 @@ public class SmartsheetException extends Exception {
 	}
 
 	/**
-	 * Instantiates a new smartsheet exception.
+	 * <p>Instantiates a new smartsheet exception.</p>
 	 *
 	 * @param e the exception
 	 */

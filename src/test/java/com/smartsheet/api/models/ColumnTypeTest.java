@@ -20,7 +20,8 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -39,8 +40,9 @@ public class ColumnTypeTest {
 		assertNotNull(ColumnType.valueOf("DATE"));;
 		assertNotNull(ColumnType.valueOf("CONTACT_LIST"));
 		assertNotNull(ColumnType.valueOf("CHECKBOX"));
+		assertNotNull(ColumnType.valueOf("DATETIME"));
 		
-		assertEquals(5,ColumnType.values().length);
+		assertEquals(6,ColumnType.values().length);
 	}
 
 }

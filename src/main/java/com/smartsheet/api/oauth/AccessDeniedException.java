@@ -23,9 +23,9 @@ package com.smartsheet.api.oauth;
 
 
 /**
- * This is the exception thrown by {@link OAuthFlow} to indicate "access_denied" error when obtaining an authorization code.
+ * <p>This is the exception thrown by {@link OAuthFlow} to indicate "access_denied" error when obtaining an authorization code.</p>
  * 
- * Thread safety: Exceptions are not thread safe.
+ * <p>Thread safety: Exceptions are not thread safe.</p>
  */
 public class AccessDeniedException extends OAuthAuthorizationCodeException {
 	private static final long serialVersionUID = 1L;

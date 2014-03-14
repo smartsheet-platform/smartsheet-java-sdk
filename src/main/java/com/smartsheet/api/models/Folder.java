@@ -24,12 +24,11 @@ package com.smartsheet.api.models;
 
 import java.util.List;
 
-import com.smartsheet.api.models.Workspace.UpdateWorkspaceBuilder;
-
 /**
  * Represents a folder.
  */
 public class Folder extends NamedModel {
+
 	/**
 	 * Represents the sheets contained in the folder.
 	 */
@@ -110,6 +109,7 @@ public class Folder extends NamedModel {
 	 */
 	public static class UpdateFolderBuilder {
 		private String folderName;
+		private Long id;
 
 		/**
 		 * Name.
@@ -132,7 +132,26 @@ public class Folder extends NamedModel {
 		}
 
 		/**
-		 * Builds the.
+		 * Gets the folder id.
+		 * 
+		 * @return the folder id.
+		 */
+		public Long getId() {
+			return id;
+		}
+
+		/**
+		 * Sets the folder id.
+		 * 
+		 * @param id the id of the folder.
+		 */
+		public UpdateFolderBuilder setId(Long id) {
+			this.id = id;
+			return this;
+		}
+		
+		/**
+		 * Builds the folder.
 		 *
 		 * @return the folder
 		 */
@@ -142,6 +161,7 @@ public class Folder extends NamedModel {
 			}
 			
 			Folder folder = new Folder();
+			folder.setId(id);
 			folder.setName(folderName);
 			return folder;
 		}

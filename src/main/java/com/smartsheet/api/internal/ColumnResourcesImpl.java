@@ -24,21 +24,14 @@ package com.smartsheet.api.internal;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.InvocationTargetException;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.smartsheet.api.ColumnResources;
 import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.SmartsheetRestException;
-import com.smartsheet.api.internal.http.HttpClientException;
 import com.smartsheet.api.internal.http.HttpEntity;
 import com.smartsheet.api.internal.http.HttpMethod;
 import com.smartsheet.api.internal.http.HttpRequest;
 import com.smartsheet.api.internal.http.HttpResponse;
-import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Column;
 

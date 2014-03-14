@@ -24,18 +24,14 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.Folder;
-import com.smartsheet.api.models.Template;
-import com.smartsheet.api.models.Workspace;
 
 public class FolderResourcesImplTest extends ResourcesImplBase {
 

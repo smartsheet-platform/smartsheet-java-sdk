@@ -22,14 +22,6 @@ package com.smartsheet.api;
 
 
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.InvocationTargetException;
-
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.smartsheet.api.internal.http.HttpClientException;
-import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.models.Column;
 
 /**
@@ -40,50 +32,37 @@ import com.smartsheet.api.models.Column;
 public interface ColumnResources {
 	
 	/**
-	 * Update a column.
+	 * <p>Update a column.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: PUT /column/{id}
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 * PUT /column/{id}</p>
 	 * 
-	 * Parameters: - column : the column to update limited to the following attributes : * index (column's new index in
-	 * the sheet) * title * sheetId * type * options (optional) * symbol (optional) * systemColumnType (optional) *
-	 * autoNumberFormat (optional)
-	 * 
-	 * 
-	 * Returns: the updated sheet (note that if there is no such resource, this method will throw
+	 * @param column the column to update
+	 * @return the updated Column (note that if there is no such resource, this method will throw 
 	 * ResourceNotFoundException rather than returning null).
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - InvalidRequestException : if there is any
-	 * problem with the REST API request - AuthorizationException : if there is any problem with the REST API
-	 * authorization(access token) - ResourceNotFoundException : if the resource can not be found -
-	 * ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) -
-	 * SmartsheetRestException : if there is any other REST API related error occurred during the operation -
-	 * SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param column the column
-	 * @return the column
-	 * @throws SmartsheetException the smartsheet exception
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Column updateColumn(Column column) throws SmartsheetException;
 
 	/**
-	 * Delete a column.
+	 * <p>Delete a column.</p>
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: DELETE /coluimn{id}
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+	 * DELETE /coluimn{id}</p>
 	 * 
-	 * Parameters: - id : the ID of the column - sheetId : the ID of the sheet
-	 * 
-	 * Returns: None
-	 * 
-	 * Exceptions: - InvalidRequestException : if there is any problem with the REST API request -
-	 * AuthorizationException : if there is any problem with the REST API authorization(access token) -
-	 * ResourceNotFoundException : if the resource can not be found - ServiceUnavailableException : if the REST API
-	 * service is not available (possibly due to rate limiting) - SmartsheetRestException : if there is any other REST
-	 * API related error occurred during the operation - SmartsheetException : if there is any other error occurred
-	 * during the operation
-	 *
-	 * @param id the id
+	 * @param the id of the column
 	 * @param sheetId the sheet id
-	 * @throws SmartsheetException the smartsheet exception
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public void deleteColumn(long id, long sheetId) throws SmartsheetException;
 }

@@ -32,41 +32,27 @@ import com.smartsheet.api.internal.http.HttpClientException;
 import com.smartsheet.api.internal.json.JSONSerializerException;
 
 /**
- * OAuthFlow interface provides methods to do the OAuth2 authorization.
+ * <p>OAuthFlow interface provides methods to do the OAuth2 authorization.</p>
  * 
- * Thread Safety: Implementation of this interface must be thread safe.
+ * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface OAuthFlow {
 	
 	/**
-	 * Generate a new authorization URL.
-	 * 
-	 * Parameters: - scopes : the requested scopes - state : an arbitrary string that will be returned to your app;
-	 * intended to be used by you to ensure that this redirect is indeed from an OAuth flow that you initiated
-	 * 
-	 * Returns: the authorization URL
-	 * 
-	 * Exceptions: - IllegalArgumentException : if scopes is null/empty
+	 * <p>Generate a new authorization URL.</p>
 	 *
-	 * @param scopes the scopes
-	 * @param state the state
-	 * @return the string
+	 * @param scopes the requested scopes
+	 * @param state an arbitrary string that will be returned to your app; intended to be used by you to ensure that 
+	 * this redirect is indeed from an OAuth flow that you initiated.
+	 * @return the authorization URL
 	 * @throws UnsupportedEncodingException the unsupported encoding exception
+	 * @throws IllegalArgumentException if scopes is null or empty
 	 */
 	public String newAuthorizationURL(EnumSet<AccessScope> scopes, String state) throws UnsupportedEncodingException;
 
 	/**
 	 * Extract AuthorizationResult from the authorization response URL (i.e. the redirectURL with the response
 	 * parameters from Smartsheet OAuth server).
-	 * 
-	 * Parameters: - authorizationResponseURL : the authorization response URL
-	 * 
-	 * Returns: the AuthorizationResult
-	 * 
-	 * Exceptions: - IllegalArgumentException : if authorizationResponseURL is null/empty, or a malformed URL -
-	 * AccessDeniedException : if the user has denied the authorization request - UnsupportedResponseTypeException : if
-	 * the response type isn't supported - InvalidScopeException : if some of the specified scopes are invalid -
-	 * OAuthAuthorizationCodeException : if any other error occurred during the operation
 	 *
 	 * @param authorizationResponseURL the authorization response url
 	 * @return the authorization result
@@ -75,6 +61,7 @@ public interface OAuthFlow {
 	 * @throws UnsupportedResponseTypeException the unsupported response type exception
 	 * @throws InvalidScopeException the invalid scope exception
 	 * @throws OAuthAuthorizationCodeException the o auth authorization code exception
+	 * @throws IllegalArgumentException if any other error occurred during the operation
 	 */
 	public AuthorizationResult extractAuthorizationResult(String authorizationResponseURL) throws 
 		URISyntaxException, AccessDeniedException, UnsupportedResponseTypeException, InvalidScopeException, 
@@ -82,17 +69,6 @@ public interface OAuthFlow {
 
 	/**
 	 * Obtain a new token using AuthorizationResult.
-	 * 
-	 * Parameters: - authorizationResult : the authorization result
-	 * 
-	 * Returns: the token.
-	 * 
-	 * Exceptions: - IllegalArgumentException : if authorizationResult is null - InvalidTokenRequestException : if the
-	 * token request is invalid - InvalidOAuthClientException : if the client information is invalid -
-	 * InvalidOAuthGrantException : if the authorization code or refresh token is invalid or expired, the redirect_uri
-	 * does not match, or the hash value does not match the client secret and/or code -
-	 * UnsupportedOAuthGrantTypeException : if the grant type is invalid - OAuthTokenException : if any other error
-	 * occurred during the operation
 	 *
 	 * @param authorizationResult the authorization result
 	 * @return the token
@@ -103,24 +79,15 @@ public interface OAuthFlow {
 	 * @throws HttpClientException the http client exception
 	 * @throws URISyntaxException the URI syntax exception
 	 * @throws InvalidRequestException the invalid request exception
+	 * @throws IllegalArgumentException if any other error occurred during the operation
 	 */
 	public Token obtainNewToken(AuthorizationResult authorizationResult) throws NoSuchAlgorithmException, UnsupportedEncodingException, OAuthTokenException, JSONSerializerException, HttpClientException, URISyntaxException, InvalidRequestException;
 
 	/**
 	 * Refresh token.
-	 * 
-	 * Parameters: - token : the token to refresh
-	 * 
-	 * Returns: the refreshed token.
-	 * 
-	 * Exceptions: - IllegalArgumentException : if token is null. - InvalidTokenRequestException : if the token request
-	 * is invalid - InvalidOAuthClientException : if the client information is invalid - InvalidOAuthGrantException : if
-	 * the authorization code or refresh token is invalid or expired, the redirect_uri does not match, or the hash value
-	 * does not match the client secret and/or code - UnsupportedOAuthGrantTypeException : if the grant type is invalid
-	 * - OAuthTokenException : if any other error occurred during the operation
 	 *
-	 * @param token the token
-	 * @return the token
+	 * @param token the token to refresh
+	 * @return the refreshed token
 	 * @throws NoSuchAlgorithmException the no such algorithm exception
 	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 * @throws OAuthTokenException the o auth token exception
@@ -128,6 +95,7 @@ public interface OAuthFlow {
 	 * @throws HttpClientException the http client exception
 	 * @throws URISyntaxException the URI syntax exception
 	 * @throws InvalidRequestException the invalid request exception
+	 * @throws IllegalArgumentException if any other error occurred during the operation
 	 */
 	public Token refreshToken(Token token) throws NoSuchAlgorithmException, UnsupportedEncodingException, OAuthTokenException, JSONSerializerException, HttpClientException, URISyntaxException, InvalidRequestException;
 }

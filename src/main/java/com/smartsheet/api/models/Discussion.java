@@ -20,6 +20,7 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class Discussion extends IdentifiableModel {
 
 	/** Represents the comments for the discussion. */
 	private List<Comment> comments;
+	private Comment comment;
 
 	/** Represents the comment attachments. */
 	private List<Attachment> commentAttachments;
@@ -71,6 +73,15 @@ public class Discussion extends IdentifiableModel {
 	public List<Comment> getComments() {
 		return comments;
 	}
+	
+	/**
+	 * Gets the comment for the discussion.
+	 *
+	 * @return the comment
+	 */
+	public Comment getComment() {
+		return comment;
+	}
 
 	/**
 	 * Sets the comments for the discussion.
@@ -79,6 +90,20 @@ public class Discussion extends IdentifiableModel {
 	 */
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
+	}
+	
+	/**
+	 * Sets the comments for the discussion.
+	 *
+	 * @param comment the new comment
+	 */
+	public void setComment(Comment comment) {
+		// To keep the comments variable in sync
+		List<Comment> comments = new ArrayList<Comment>();
+		comments.add(comment);
+		this.comments = comments;
+		
+		this.comment = comment;
 	}
 
 	/**
@@ -159,10 +184,10 @@ public class Discussion extends IdentifiableModel {
 	 */
 	public static class CreateDiscussionBuilder {
 		private String title;
-		private List<Comment> comments;
+		private Comment comment;
 
 		/**
-		 * Sets the title for the dicussion.
+		 * Sets the title for the discussion.
 		 *
 		 * @param title the title
 		 * @return the creates the discussion builder
@@ -173,13 +198,13 @@ public class Discussion extends IdentifiableModel {
 		}
 
 		/**
-		 * Sets the comments for the dicussion.
+		 * Sets the comments for the discussion.
 		 *
 		 * @param comments the comments
 		 * @return the creates the discussion builder
 		 */
-		public CreateDiscussionBuilder setComments(List<Comment> comments) {
-			this.comments = comments;
+		public CreateDiscussionBuilder setComment(Comment comment) {
+			this.comment = comment;
 			return this;
 		}
 		
@@ -197,8 +222,8 @@ public class Discussion extends IdentifiableModel {
 		 *
 		 * @return the comments
 		 */
-		public List<Comment> getComments() {
-			return comments;
+		public Comment getComment() {
+			return comment;
 		}
 
 		/**
@@ -207,13 +232,13 @@ public class Discussion extends IdentifiableModel {
 		 * @return the discussion
 		 */
 		public Discussion build() {
-			if(title == null || comments == null){
+			if(title == null || comment == null){
 				throw new InstantiationError("A title and comment is required.");
 			}
 			
 			Discussion discussion = new Discussion();
 			discussion.title = title;
-			discussion.comments = comments;
+			discussion.comment = comment;
 			return discussion;
 		}
 	}

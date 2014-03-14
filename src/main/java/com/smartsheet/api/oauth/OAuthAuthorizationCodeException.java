@@ -25,9 +25,9 @@ package com.smartsheet.api.oauth;
 import com.smartsheet.api.SmartsheetException;
 
 /**
- * This is the exception thrown by {@link OAuthFlow} to indicate errors occurred when obtaining authorization code.
+ * <p>This is the exception thrown by {@link OAuthFlow} to indicate errors occurred when obtaining authorization code.</p>
  * 
- * Thread safety: Exceptions are not thread safe.
+ * <p>Thread safety: Exceptions are not thread safe.</p>
  */
 public class OAuthAuthorizationCodeException extends SmartsheetException {
 	/**

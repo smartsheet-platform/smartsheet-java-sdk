@@ -20,7 +20,11 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -70,6 +74,13 @@ public class RowResourcesImplTest extends ResourcesImplBase {
 		assertNull(row.getCells().get(0).getLink().getRowId());
 		assertTrue(row.getColumns().size() == 2);
 		assertTrue(row.getAccessLevel() == AccessLevel.OWNER);
+		
+		server.setResponseBody(new File("src/test/resources/getCell.json"));
+		
+		// Cell can contain a boolean or other type of object
+		row = rowResourcesImpl.getRow(6089772474099588L, EnumSet.allOf(ObjectInclusion.class));
+		assertNotEquals(row.getCells().get(7).getValue(), "true");
+		assertEquals(row.getCells().get(7).getValue(), true);
 	}
 
 	@Test

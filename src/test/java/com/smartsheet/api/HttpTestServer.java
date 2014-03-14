@@ -20,8 +20,6 @@ package com.smartsheet.api;
  * %[license]
  */
 
-import static javax.servlet.http.HttpServletResponse.SC_OK;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -46,7 +44,6 @@ public class HttpTestServer {
 	private Server _server;
 	//private String _responseBody;
 	private String _requestBody;
-	private String _mockResponseData;
 	private int port;
 	private String contentType;
 	private byte[] _responseBody;

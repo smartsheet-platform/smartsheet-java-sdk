@@ -29,7 +29,7 @@ public class Column extends IdentifiableModel {
 	/**
 	 * Represents the position.
 	 */
-	private int index;
+	private Integer index;
 
 	/**
 	 * Represents the title.
@@ -283,10 +283,6 @@ public class Column extends IdentifiableModel {
 	 * A convenience class to help create a column object with the appropriate fields for adding to a sheet.
 	 */
 	public static class AddColumnToSheetBuilder {
-		
-		/** The index. */
-		private int index;
-		
 		/** The title. */
 		private String title;
 		
@@ -304,24 +300,26 @@ public class Column extends IdentifiableModel {
 		
 		/** The auto number format. */
 		private AutoNumberFormat autoNumberFormat;
-
-		/**
-		 * Sets the position for the column.
-		 *
-		 * @param index the index
-		 * @return the adds the column to sheet builder
-		 */
-		public AddColumnToSheetBuilder setIndex(int index) {
-			this.index = index;
-			return this;
-		}
+		
+		private Boolean primary;
 		
 		/**
-		 * Gets the index.
-		 * @return the index
+		 * Gets the primary flag for the column.
+		 *
+		 * @return the primary flag
 		 */
-		public int getIndex(){
-			return index;
+		public Boolean getPrimary() {
+			return primary;
+		}
+
+		/**
+		 * Sets the primary flag for the column.
+		 * 
+		 * @param primary the new primary flag
+		 */
+		public AddColumnToSheetBuilder setPrimary(Boolean primary) {
+			this.primary = primary;
+			return this;
 		}
 
 		/**
@@ -449,11 +447,11 @@ public class Column extends IdentifiableModel {
 			}
 
 			Column column = new Column();
-			column.index = index;
 			column.title = title;
 			column.type = type;
 			column.options = options;
 			column.symbol = symbol;
+			column.primary = primary;
 			column.systemColumnType = systemColumnType;
 			column.autoNumberFormat = autoNumberFormat;
 			return column;

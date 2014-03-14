@@ -25,12 +25,12 @@ package com.smartsheet.api;
 import com.smartsheet.api.models.Error;
 
 /**
- * This is the exception to indicate a service unavailable error (possibly due to rate limiting) returned from the
- * Smartsheet REST API.
+ * <p>This is the exception to indicate a service unavailable error (possibly due to rate limiting) returned from the
+ * Smartsheet REST API.</p>
  * 
- * Basically this exception will be thrown when the Smartsheet REST API responds with "503 SERVICE UNAVAILABLE".
+ * <p>Basically this exception will be thrown when the Smartsheet REST API responds with "503 SERVICE UNAVAILABLE".</p>
  * 
- * Thread safety: Exceptions are not thread safe.
+ * <p>Thread safety: Exceptions are not thread safe.</p>
  */
 public class ServiceUnavailableException extends SmartsheetRestException {
 	

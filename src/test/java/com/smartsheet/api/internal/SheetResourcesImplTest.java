@@ -40,11 +40,6 @@ import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.smartsheet.api.AssociatedAttachmentResources;
-import com.smartsheet.api.AssociatedDiscussionResources;
-import com.smartsheet.api.ShareResources;
-import com.smartsheet.api.SheetColumnResources;
-import com.smartsheet.api.SheetRowResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.AccessLevel;
@@ -315,27 +310,27 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 
 	@Test
 	public void testShares() {
-		ShareResources shares = sheetResource.shares();
+		sheetResource.shares();
 	}
 
 	@Test
 	public void testRows() {
-		SheetRowResources rows = sheetResource.rows();
+		sheetResource.rows();
 	}
 
 	@Test
 	public void testColumns() {
-		SheetColumnResources cols = sheetResource.columns();
+		sheetResource.columns();
 	}
 
 	@Test
 	public void testAttachments() {
-		AssociatedAttachmentResources attachments = sheetResource.attachments();
+		sheetResource.attachments();
 	}
 
 	@Test
 	public void testDiscussions() {
-		AssociatedDiscussionResources discussions = sheetResource.discussions();
+		sheetResource.discussions();
 	}
 
 	@Test
