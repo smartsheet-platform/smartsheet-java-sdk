@@ -40,8 +40,9 @@ public class ColumnTypeTest {
 		assertNotNull(ColumnType.valueOf("DATE"));;
 		assertNotNull(ColumnType.valueOf("CONTACT_LIST"));
 		assertNotNull(ColumnType.valueOf("CHECKBOX"));
+		assertNotNull(ColumnType.valueOf("DATETIME"));
 		
-		assertEquals(5,ColumnType.values().length);
+		assertEquals(6,ColumnType.values().length);
 	}
 
 }
