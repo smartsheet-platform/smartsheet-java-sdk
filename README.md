@@ -96,6 +96,8 @@ If you have any questions or issues with this SDK please post on [StackOverflow 
 
 Each specific release is available for download via [Github](https://github.com/smartsheet-platform/smartsheet-java-sdk/tags) or the [Maven repository](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.smartsheet%22%20AND%20a%3A%22smartsheet-sdk-java%22).
 
+**1.0.3**
+* Added missing file required by unit test
 
 **1.0.2**
 * Cell data is returned as an Object to support both String and Boolean Cell data types.
