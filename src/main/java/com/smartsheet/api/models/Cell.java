@@ -232,7 +232,7 @@ public class Cell {
 		 * @param strict the strict
 		 * @return the update row cells builder
 		 */
-		public UpdateRowCellsBuilder addCell(Long columnId, String value, Boolean strict) {
+		public UpdateRowCellsBuilder addCell(Long columnId, Object value, Boolean strict) {
 			Cell cell = new Cell();
 			cell.setColumnId(columnId);
 			cell.setValue(value);
@@ -252,7 +252,7 @@ public class Cell {
 		 * @param value the value
 		 * @return the update row cells builder
 		 */
-		public UpdateRowCellsBuilder addCell(Long columnId, String value) {
+		public UpdateRowCellsBuilder addCell(Long columnId, Object value) {
 			addCell(columnId, value, true);
 			return this;
 		}
