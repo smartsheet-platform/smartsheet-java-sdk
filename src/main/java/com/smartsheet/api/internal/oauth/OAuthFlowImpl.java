@@ -313,14 +313,16 @@ public class OAuthFlowImpl implements OAuthFlow {
 		String doHash = clientSecret + "|" + token.getRefreshToken(); 
 		MessageDigest md = MessageDigest.getInstance("SHA-256");
 		byte[] digest = md.digest(doHash.getBytes("UTF-8"));
-		String hash = javax.xml.bind.DatatypeConverter.printHexBinary(digest);
+		//String hash = javax.xml.bind.DatatypeConverter.printHexBinary(digest);
+		String hash = org.apache.commons.codec.binary.Hex.encodeHexString(digest);
+		
 		
 		// Create a map of the parameters
 		Map<String,String> params = new HashMap<String,String>();
 		params.put("grant_type", "refresh_token");
 		params.put("client_id",clientId);
 		params.put("refresh_token",token.getRefreshToken());
-		params.put("redirect_uri", URLEncoder.encode(redirectURL, "utf-8"));
+		params.put("redirect_uri", redirectURL);
 		params.put("hash",hash);
 		
 		// Generate the URL and get the token
