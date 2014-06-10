@@ -104,7 +104,7 @@ public class AssociatedAttachmentResourcesImpl extends AbstractAssociatedResourc
 	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 	public Attachment attachFile(long objectId, File file, String contentType) throws FileNotFoundException,
-			SmartsheetException, UnsupportedEncodingException {
+			SmartsheetException {
 		Util.throwIfNull(objectId, file, contentType);
 		Util.throwIfEmpty(contentType);
 		
@@ -124,7 +124,7 @@ public class AssociatedAttachmentResourcesImpl extends AbstractAssociatedResourc
 	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 	public Attachment attachFile(long objectId, File file, String contentType, Long contentLength) throws FileNotFoundException,
-	SmartsheetException, UnsupportedEncodingException {
+	SmartsheetException {
 		Util.throwIfNull(file, contentType);
 		
 		HttpRequest request = createHttpRequest(this.getSmartsheet().getBaseURI().resolve(getMasterResourceType() + 

@@ -41,7 +41,6 @@ public interface SearchResources {
 	 * @param query the query text
 	 * @return the search result (note that if there is no such resource, this method will throw 
 	 * ResourceNotFoundException rather than returning null).
-	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
 	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
@@ -49,7 +48,7 @@ public interface SearchResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public SearchResult search(String query) throws UnsupportedEncodingException, SmartsheetException;
+	public SearchResult search(String query) throws SmartsheetException;
 
 	/**
 	 * <p>Performs a search within a sheet.</p>
@@ -60,7 +59,6 @@ public interface SearchResources {
 	 * @param query the query text
 	 * @return the search result (note that if there is no such resource, this method will throw 
 	 * ResourceNotFoundException rather than returning null).
-	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
 	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
@@ -68,5 +66,5 @@ public interface SearchResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public SearchResult searchSheet(long sheetId, String query) throws UnsupportedEncodingException, SmartsheetException;
+	public SearchResult searchSheet(long sheetId, String query) throws SmartsheetException;
 }

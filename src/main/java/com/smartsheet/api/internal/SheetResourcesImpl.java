@@ -23,7 +23,6 @@ package com.smartsheet.api.internal;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -599,11 +598,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 		}
 
 		HttpRequest request;
-		try {
-			request = createHttpRequest(this.getSmartsheet().getBaseURI().resolve(path), HttpMethod.GET);
-		} catch (UnsupportedEncodingException e) {
-			throw new SmartsheetException(e);
-		}
+		request = createHttpRequest(this.getSmartsheet().getBaseURI().resolve(path), HttpMethod.GET);
 		request.getHeaders().put("Accept", contentType);
 
 		com.smartsheet.api.internal.http.HttpResponse response = getSmartsheet().getHttpClient().request(request);

@@ -24,7 +24,6 @@ package com.smartsheet.api;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import com.smartsheet.api.models.Attachment;
@@ -68,7 +67,6 @@ public interface AssociatedAttachmentResources {
 	 * @param contentType the content type of the file
 	 * @return the created attachment
 	 * @throws FileNotFoundException the file not found exception
-	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
 	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
@@ -76,7 +74,7 @@ public interface AssociatedAttachmentResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Attachment attachFile(long objectId, File file, String contentType) throws FileNotFoundException, SmartsheetException, UnsupportedEncodingException;
+	public Attachment attachFile(long objectId, File file, String contentType) throws FileNotFoundException, SmartsheetException;
 
 	/**
 	 * <p>Attach a URL to the object.</p>

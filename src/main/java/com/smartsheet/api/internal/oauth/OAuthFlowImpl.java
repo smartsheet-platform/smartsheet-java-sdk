@@ -150,7 +150,7 @@ public class OAuthFlowImpl implements OAuthFlow {
 	 * @return the authorization URL
 	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
-	public String newAuthorizationURL(EnumSet<AccessScope> scopes, String state) throws UnsupportedEncodingException {
+	public String newAuthorizationURL(EnumSet<AccessScope> scopes, String state) {
 		Util.throwIfNull(scopes);
 		if(state == null){state = "";}
 		
@@ -257,8 +257,7 @@ public class OAuthFlowImpl implements OAuthFlow {
 	 * @throws URISyntaxException the URI syntax exception
 	 * @throws InvalidRequestException the invalid request exception
 	 */
-	public Token obtainNewToken(AuthorizationResult authorizationResult) throws NoSuchAlgorithmException, 
-		UnsupportedEncodingException, OAuthTokenException, JSONSerializerException, HttpClientException, 
+	public Token obtainNewToken(AuthorizationResult authorizationResult) throws  OAuthTokenException, JSONSerializerException, HttpClientException, 
 		URISyntaxException, InvalidRequestException {
 		if(authorizationResult == null){
 			throw new IllegalArgumentException();
@@ -268,8 +267,18 @@ public class OAuthFlowImpl implements OAuthFlow {
 		
 		String doHash = clientSecret + "|" + authorizationResult.getCode();
 
-		MessageDigest md = MessageDigest.getInstance("SHA-256"); 
-		byte[] digest = md.digest(doHash.getBytes("UTF-8"));
+		MessageDigest md;
+		try {
+			md = MessageDigest.getInstance("SHA-256");
+		} catch (NoSuchAlgorithmException e) {
+			throw new RuntimeException("Your JVM does not support SHA-256, which is required for OAuth with Smartsheet.", e);
+		} 
+		byte[] digest;
+		try {
+			digest = md.digest(doHash.getBytes("UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
 		//String hash = javax.xml.bind.DatatypeConverter.printHexBinary(digest);
 		String hash = org.apache.commons.codec.binary.Hex.encodeHexString(digest);
 
@@ -307,12 +316,21 @@ public class OAuthFlowImpl implements OAuthFlow {
 	 * @throws URISyntaxException the URI syntax exception
 	 * @throws InvalidRequestException the invalid request exception
 	 */
-	public Token refreshToken(Token token) throws NoSuchAlgorithmException, UnsupportedEncodingException,
-		OAuthTokenException, JSONSerializerException, HttpClientException, URISyntaxException, InvalidRequestException {
+	public Token refreshToken(Token token) throws OAuthTokenException, JSONSerializerException, HttpClientException, URISyntaxException, InvalidRequestException {
 		// Prepare the hash 
 		String doHash = clientSecret + "|" + token.getRefreshToken(); 
-		MessageDigest md = MessageDigest.getInstance("SHA-256");
-		byte[] digest = md.digest(doHash.getBytes("UTF-8"));
+		MessageDigest md;
+		try {
+			md = MessageDigest.getInstance("SHA-256");
+		} catch (NoSuchAlgorithmException e) {
+			throw new RuntimeException("Your JVM does not support SHA-256, which is required for OAuth with Smartsheet.", e);
+		}
+		byte[] digest;
+		try {
+			digest = md.digest(doHash.getBytes("UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
 		//String hash = javax.xml.bind.DatatypeConverter.printHexBinary(digest);
 		String hash = org.apache.commons.codec.binary.Hex.encodeHexString(digest);
 		
@@ -416,7 +434,7 @@ public class OAuthFlowImpl implements OAuthFlow {
 	 * @return A string representing the full URL.
 	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
-	protected String generateURL(String baseURL, Map<String,String> parameters) throws UnsupportedEncodingException {
+	protected String generateURL(String baseURL, Map<String,String> parameters) {
 		// Supports handling a relative URL
 		if(baseURL == null){
 			baseURL = "";
@@ -435,22 +453,26 @@ public class OAuthFlowImpl implements OAuthFlow {
 		
 		// Add the parameters to the URL
 		StringBuilder sb = new StringBuilder(baseURL);
-		if(parameters != null){
-			for(Map.Entry<String, String> param : parameters.entrySet()) {
-				// Don't add a & after a ?
-				if(needsAmpersand){
-					sb.append("&");
-				}
-				needsAmpersand = true; // this only matters for the first &;
-				
-				sb.append(URLEncoder.encode(param.getKey(),"utf-8"));
-				sb.append("=");
-				
-				String key = param.getValue();
-				if(key != null) {
-					sb.append(URLEncoder.encode(param.getValue(),"utf-8"));
+		try {
+			if(parameters != null){
+				for(Map.Entry<String, String> param : parameters.entrySet()) {
+					// Don't add a & after a ?
+					if(needsAmpersand){
+						sb.append("&");
+					}
+					needsAmpersand = true; // this only matters for the first &;
+					
+					sb.append(URLEncoder.encode(param.getKey(),"utf-8"));
+					sb.append("=");
+					
+					String key = param.getValue();
+					if(key != null) {
+						sb.append(URLEncoder.encode(param.getValue(),"utf-8"));
+					}
 				}
 			}
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
 		}
 		
 		return sb.toString();
