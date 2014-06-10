@@ -145,8 +145,9 @@ public class DefaultHttpClient implements HttpClient {
 		// Set HTTP entity
 		if (apacheHttpRequest instanceof HttpEntityEnclosingRequestBase && smartsheetRequest.getEntity() != null && 
 				smartsheetRequest.getEntity().getContent() != null) {
-			((HttpEntityEnclosingRequestBase) apacheHttpRequest).setEntity(new InputStreamEntity(smartsheetRequest
-					.getEntity().getContent()));
+			InputStreamEntity entity = new InputStreamEntity(smartsheetRequest.getEntity().getContent(), smartsheetRequest.getEntity().getContentLength());
+			entity.setChunked(false);
+			((HttpEntityEnclosingRequestBase) apacheHttpRequest).setEntity(entity);
 		}
 		
 		// Make the HTTP request
