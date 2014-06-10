@@ -80,6 +80,17 @@ public class Column extends IdentifiableModel {
 	 * Represents the sheet ID.
 	 */
 	private Long sheetId;
+	
+	/** 
+	 * Indicates if the column is locked. Defaults to false 
+	 */
+	private boolean locked = false;
+	
+	/** 
+	 * Indicates if the column is locked for the current user. Defaults to false. 
+	 */
+	private boolean lockedForUser = false;
+	
 
 	/**
 	 * Gets the position of the column.
@@ -280,11 +291,41 @@ public class Column extends IdentifiableModel {
 	}
 
 	/**
+	 * Indicates whether a column is locked or not. 
+	 * 
+	 * @return the locked status.
+	 */
+	public boolean isLocked() {
+		return locked;
+	}
+
+	/**
+	 * @param locked
+	 */
+	public void setLocked(boolean locked) {
+		this.locked = locked;
+	}
+
+	/**
+	 * Indicates whether a column is locked for the user. Users cannot modify columns that are locked for them.
+	 * @return the locked status for the user
+	 */
+	public boolean isLockedForUser() {
+		return lockedForUser;
+	}
+
+	public void setLockedForUser(Boolean lockedForUser) {
+		this.lockedForUser = lockedForUser;
+	}
+	/**
 	 * A convenience class to help create a column object with the appropriate fields for adding to a sheet.
 	 */
 	public static class AddColumnToSheetBuilder {
 		/** The title. */
 		private String title;
+		
+		/** The index **/
+		private Integer index;
 		
 		/** The type. */
 		private ColumnType type;
@@ -435,6 +476,27 @@ public class Column extends IdentifiableModel {
 		public AutoNumberFormat getAutoNumberFormat(){
 			return autoNumberFormat;
 		}
+		
+		
+		/**
+		 * Gets the index specified for the new column.
+		 * @return the index
+		 */
+		public Integer getIndex() {
+			return index;
+		}
+
+		/**
+		 * Sets the index for the column. Set this to any value greater than the index of
+		 * the last column to add it as the last column.
+		 * 
+		 * @param index
+		 * @return
+		 */
+		public AddColumnToSheetBuilder setIndex(Integer index) {
+			this.index = index;
+			return this;
+		}
 
 		/**
 		 * Builds the column.
@@ -456,6 +518,7 @@ public class Column extends IdentifiableModel {
 			column.autoNumberFormat = autoNumberFormat;
 			return column;
 		}
+
 	}
 
 	/**

@@ -26,6 +26,14 @@ import java.util.List;
 /**
  * Represents the Row object.
  */
+/**
+ * @author kskeem
+ *
+ */
+/**
+ * @author kskeem
+ *
+ */
 public class Row extends IdentifiableModel {
 	/** Represents the Sheet ID. */
 	private Long sheetId;
@@ -63,6 +71,13 @@ public class Row extends IdentifiableModel {
 	/** The user's permissions on the sheet. */
 	private AccessLevel accessLevel;
 
+	/** Indicates if the row is locked. Defaults to false **/
+	private boolean locked = false;
+	
+	/** Indicates if the row is locked for the current user. Defaults to false. **/
+	private boolean lockedForUser = false;
+	
+	
 	/**
 	 * Gets the user's permissions on the sheet.
 	 *
@@ -321,5 +336,33 @@ public class Row extends IdentifiableModel {
 	 */
 	public void setModifiedAt(Date modifiedAt) {
 		this.modifiedAt = modifiedAt;
+	}
+
+	/**
+	 * Indicates whether a row is locked or not. 
+	 * 
+	 * @return the locked status
+	 */
+	public boolean isLocked() {
+		return locked;
+	}
+
+	/**
+	 * @param locked
+	 */
+	public void setLocked(boolean locked) {
+		this.locked = locked;
+	}
+
+	/**
+	 * Indicates whether a row is locked for the user. Users cannot modify rows that are locked for them.
+	 * @return the lock status for the user
+	 */
+	public boolean isLockedForUser() {
+		return lockedForUser;
+	}
+
+	public void setLockedForUser(Boolean lockedForUser) {
+		this.lockedForUser = lockedForUser;
 	}
 }
