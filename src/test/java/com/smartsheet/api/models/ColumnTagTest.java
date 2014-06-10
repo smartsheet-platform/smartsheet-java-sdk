@@ -45,8 +45,9 @@ public class ColumnTagTest {
 		assertNotNull(ColumnTag.valueOf("GANTT_PREDECESSOR"));
 		assertNotNull(ColumnTag.valueOf("GANTT_DURATION"));
 		assertNotNull(ColumnTag.valueOf("GANTT_ASSIGNED_RESOURCE"));
+		assertNotNull(ColumnTag.valueOf("GANTT_DURATION"));
 
-		assertEquals(11,ColumnTag.values().length);
+		assertEquals(12,ColumnTag.values().length);
 	}
 
 }

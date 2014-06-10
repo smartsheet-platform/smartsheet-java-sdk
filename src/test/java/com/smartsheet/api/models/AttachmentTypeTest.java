@@ -38,8 +38,9 @@ public class AttachmentTypeTest {
 		assertNotNull(AttachmentType.valueOf("GOOGLE_DRIVE"));
 		assertNotNull(AttachmentType.valueOf("LINK"));
 		assertNotNull(AttachmentType.valueOf("BOX_COM"));
+		assertNotNull(AttachmentType.valueOf("DROPBOX"));
 		
-		assertEquals(4,AttachmentType.values().length);
+		assertEquals(5,AttachmentType.values().length);
 	}
 
 }
