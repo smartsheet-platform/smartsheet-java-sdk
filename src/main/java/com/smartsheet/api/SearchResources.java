@@ -22,8 +22,6 @@ package com.smartsheet.api;
 
 
 
-import java.io.UnsupportedEncodingException;
-
 import com.smartsheet.api.models.SearchResult;
 
 /**

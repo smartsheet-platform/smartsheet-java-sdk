@@ -22,6 +22,7 @@ package com.smartsheet.api.internal;
 
 import static org.junit.Assert.fail;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 
 import org.junit.Before;
@@ -53,7 +54,7 @@ public class DiscussionAttachmentResourcesTest extends ResourcesImplBase  {
 	@Test
 	public void testAttachFileLongFileStringLong(){
 		try{
-			discussionAttachmentResources.attachFile(1234L, new File("src/test/resources/getPDF.pdf"), "application/pdf", 1234L);
+			discussionAttachmentResources.attachFile(1234L, new ByteArrayInputStream(new byte[]{}), "application/pdf", 1234L, "file.pdf");
 			fail("Exception should have been thrown.");
 		}catch(UnsupportedOperationException ex){
 			// Expected
