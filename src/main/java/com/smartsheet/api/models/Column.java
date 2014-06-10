@@ -91,6 +91,11 @@ public class Column extends IdentifiableModel {
 	 */
 	private boolean lockedForUser = false;
 	
+	
+	/**
+	 * The width of the cell.
+	 * */
+	private Integer width;
 
 	/**
 	 * Gets the position of the column.
@@ -730,5 +735,13 @@ public class Column extends IdentifiableModel {
 			column.sheetId = sheetId;
 			return column;
 		}
+	}
+
+	public Integer getWidth() {
+		return width;
+	}
+
+	public void setWidth(Integer width) {
+		this.width = width;
 	}
 }
