@@ -59,6 +59,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
 		
 		// Allow deserialization if there are properties that can't be deserialized
 		OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		OBJECT_MAPPER.configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true);
 		
 		// Only include non-null properties in when serializing java beans
 		OBJECT_MAPPER.setSerializationInclusion(Include.NON_NULL);
