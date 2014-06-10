@@ -16,7 +16,7 @@ Add the SDK as a dependency in your project.
 <dependency>
   <groupId>com.smartsheet</groupId>
   <artifactId>smartsheet-sdk-java</artifactId>
-  <version>1.0.4</version>
+  <version>1.0.5</version>
 </dependency>
 ```
 
@@ -95,6 +95,10 @@ If you have any questions or issues with this SDK please post on [StackOverflow 
 ##Release Notes
 
 Each specific release is available for download via [Github](https://github.com/smartsheet-platform/smartsheet-java-sdk/tags) or the [Maven repository](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.smartsheet%22%20AND%20a%3A%22smartsheet-sdk-java%22).
+
+**1.0.5**
+* Improved attachments allowing for the use of InputStreams
+* Other minor improvements and bug fixes
 
 **1.0.4**
 * Fixed issue when refreshing an existing OAuth token.
