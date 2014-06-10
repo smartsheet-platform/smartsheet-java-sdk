@@ -84,12 +84,12 @@ public class Column extends IdentifiableModel {
 	/** 
 	 * Indicates if the column is locked. Defaults to false 
 	 */
-	private boolean locked = false;
+	private Boolean locked;
 	
 	/** 
 	 * Indicates if the column is locked for the current user. Defaults to false. 
 	 */
-	private boolean lockedForUser = false;
+	private Boolean lockedForUser;
 	
 	
 	/**
@@ -300,14 +300,14 @@ public class Column extends IdentifiableModel {
 	 * 
 	 * @return the locked status.
 	 */
-	public boolean isLocked() {
+	public Boolean isLocked() {
 		return locked;
 	}
 
 	/**
 	 * @param locked
 	 */
-	public void setLocked(boolean locked) {
+	public void setLocked(Boolean locked) {
 		this.locked = locked;
 	}
 
@@ -315,7 +315,7 @@ public class Column extends IdentifiableModel {
 	 * Indicates whether a column is locked for the user. Users cannot modify columns that are locked for them.
 	 * @return the locked status for the user
 	 */
-	public boolean isLockedForUser() {
+	public Boolean isLockedForUser() {
 		return lockedForUser;
 	}
 

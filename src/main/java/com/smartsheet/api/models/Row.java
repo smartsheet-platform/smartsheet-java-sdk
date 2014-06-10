@@ -64,10 +64,10 @@ public class Row extends IdentifiableModel {
 	private AccessLevel accessLevel;
 
 	/** Indicates if the row is locked. Defaults to false **/
-	private boolean locked = false;
+	private Boolean locked;
 	
 	/** Indicates if the row is locked for the current user. Defaults to false. **/
-	private boolean lockedForUser = false;
+	private Boolean lockedForUser;
 	
 	
 	/**
@@ -335,14 +335,14 @@ public class Row extends IdentifiableModel {
 	 * 
 	 * @return the locked status
 	 */
-	public boolean isLocked() {
+	public Boolean isLocked() {
 		return locked;
 	}
 
 	/**
 	 * @param locked
 	 */
-	public void setLocked(boolean locked) {
+	public void setLocked(Boolean locked) {
 		this.locked = locked;
 	}
 
@@ -350,7 +350,7 @@ public class Row extends IdentifiableModel {
 	 * Indicates whether a row is locked for the user. Users cannot modify rows that are locked for them.
 	 * @return the lock status for the user
 	 */
-	public boolean isLockedForUser() {
+	public Boolean isLockedForUser() {
 		return lockedForUser;
 	}
 
