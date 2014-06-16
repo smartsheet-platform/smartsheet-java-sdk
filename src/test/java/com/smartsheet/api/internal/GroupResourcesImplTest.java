@@ -20,7 +20,7 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -141,9 +141,30 @@ public class GroupResourcesImplTest extends ResourcesImplBase {
 		assertNotNull(group.getId());
 		
 	}
+	
 	@Test
 	public void testDeleteGroup() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/deleteGroup.json"));
 		groupResources.deleteGroup(1234l);
+	}
+	
+	@Test
+	public void testAddMembersToGroup() throws SmartsheetException, IOException {
+		server.setResponseBody(new File("src/test/resources/addGroupMembers.json"));
+		List<User> newMembers = new ArrayList<User>();
+		newMembers.add(new User.NewGroupMemberBuilder().setEmail("test3@test.com").build());
+		newMembers.add(new User.NewGroupMemberBuilder().setEmail("test4@test.com").build());
+		List<User> addedMembers = groupResources.members().addMembers(1234l, newMembers);
+		assertTrue(addedMembers.size() > 0);
+		
+		for(User member : addedMembers) {
+			assertNotNull(member.getEmail());
+			assertNotNull(member.getId());
+		}
+	}
+	@Test
+	public void testRemoveMemberFromGroup() throws SmartsheetException, IOException {
+		server.setResponseBody(new File("src/test/resources/deleteMemberFromGroup.json"));
+		groupResources.members().deleteMember(1234l, 1234l);
 	}
 }
