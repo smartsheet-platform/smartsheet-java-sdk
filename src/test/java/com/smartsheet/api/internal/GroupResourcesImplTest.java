@@ -141,4 +141,9 @@ public class GroupResourcesImplTest extends ResourcesImplBase {
 		assertNotNull(group.getId());
 		
 	}
+	@Test
+	public void testDeleteGroup() throws SmartsheetException, IOException {
+		server.setResponseBody(new File("src/test/resources/deleteGroup.json"));
+		groupResources.deleteGroup(1234l);
+	}
 }
