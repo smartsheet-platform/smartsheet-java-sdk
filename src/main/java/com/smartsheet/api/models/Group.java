@@ -157,4 +157,162 @@ public class Group extends NamedModel {
 		this.members = members;
 	}
 		
+	/**
+	 * A convenience class to make a {@link Group} object with the necessary fields to create the group by posting it 
+	 * to smartsheet.
+	 */
+	public static class CreateGroupBuilder {
+		private List<User> members;
+		private String name;
+		private String description;
+
+		/**
+		 * Sets the members for the group being created.
+		 *
+		 * @param members The {@link List} of {@link Group}s to add as members of this group.
+		 * @return the creates the builder
+		 */
+		public CreateGroupBuilder setMembers (List<User> members) {
+			this.members = members;
+			return this;
+		}
+
+		/**
+		 * Sets the name for the {@link Group} being created.
+		 *
+		 * @param name The name for the {@link Group} being created.
+		 * @return the creates the builder
+		 */
+		public CreateGroupBuilder setName(String name) {
+			this.name = name;
+			return this;
+		}
+
+		/**
+		 * Returns the list of members.
+		 *
+		 * @return the columns
+		 */
+		public List<User> getMembers() {
+			return members;
+		}
+
+		/**
+		 * Returns the name for the group.
+		 *
+		 * @return the name
+		 */
+		public String getName() {
+			return name;
+		}
+
+		/**
+		 * Creates a user by using the values from setters in this builder.
+		 *
+		 * @return the sheet
+		 */
+		public Group build() {
+			Group group = new Group();
+
+			if (members == null || name == null) {
+				throw new InstantiationError();
+			}
+			group.setName(name);
+			group.setMembers(members);
+			group.setDescription(description);
+			return group;
+		}
+
+		/**
+		 * @return the description of the group
+		 */
+		public String getDescription() {
+			return description;
+		}
+
+		/**
+		 * @param description the description to set
+		 */
+		public CreateGroupBuilder setDescription(String description) {
+			this.description = description;
+			return this;
+		}
+	}
+	
+	
+	/**
+	 * A convenience class to update a {@link Group} object with the necessary fields to create the group by putting it 
+	 * to smartsheet.
+	 */
+	public static class UpdateGroupBuilder {
+		private String name;
+		private String description;
+		private Long id;
+
+		/**
+		 * Sets the name for the {@link Group} being created.
+		 *
+		 * @param name The name for the {@link Group} being created.
+		 * @return the creates the builder
+		 */
+		public UpdateGroupBuilder setName(String name) {
+			this.name = name;
+			return this;
+		}
+
+		/**
+		 * Returns the name for the group.
+		 *
+		 * @return the name
+		 */
+		public String getName() {
+			return name;
+		}
+
+		/**
+		 * Creates a user by using the values from setters in this builder.
+		 *
+		 * @return the sheet
+		 */
+		public Group build() {
+			Group group = new Group();
+
+			if (name == null) {
+				throw new InstantiationError();
+			}
+			group.setDescription(description);
+			group.setName(name);
+			return group;
+		}
+
+		/**
+		 * @return the description of the group
+		 */
+		public String getDescription() {
+			return description;
+		}
+
+		/**
+		 * @param description the description to set
+		 */
+		public UpdateGroupBuilder setDescription(String description) {
+			this.description = description;
+			return this;
+		}
+
+		/**
+		 * @return the id of the {@link Group}
+		 */
+		public Long getId() {
+			return id;
+		}
+
+		/**
+		 * @param id the id to set
+		 */
+		public UpdateGroupBuilder setId(Long id) {
+			this.id = id;
+			return this;
+		}
+	}
 }

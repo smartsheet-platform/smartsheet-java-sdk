@@ -264,4 +264,37 @@ public class User extends UserProfile {
 			return user;
 		}
 	}
+	/**
+	 * A convenience class for making a {@link User} object with the appropriate fields for adding to a {@link Group}. See {@link CreateGroupBuilder}
+	 */
+	public static class NewGroupMemberBuilder {
+		private String email;
+
+		/**
+		 * Get the email of the user
+		 * @return
+		 */
+		public String getEmail() {
+			return email;
+		}
+
+		/**
+		 * Set the id of the user
+		 * @param id
+		 */
+		public NewGroupMemberBuilder setEmail(String email) {
+			this.email = email;
+			return this;
+		}
+
+		public User build() {
+			if(email == null){
+				throw new InstantiationError("An email address must be set.");
+			}
+			
+			User user = new User();
+			user.setEmail(email);
+			return user;
+		}
+	}
 }

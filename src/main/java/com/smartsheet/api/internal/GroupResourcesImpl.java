@@ -26,6 +26,7 @@ import java.util.List;
 
 import com.smartsheet.api.GroupResources;
 import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Group;
 
 /**
@@ -53,6 +54,18 @@ public class GroupResourcesImpl extends AbstractResources implements GroupResour
 
 	@Override
 	public Group getGroup(long groupId) throws SmartsheetException {
-		return this.getResource("/group/" + groupId, Group.class);
+		return this.getResource("group/" + groupId, Group.class);
+	}
+
+	@Override
+	public Group createGroup(Group group) throws SmartsheetException {
+		Util.throwIfNull(group);
+		return this.createResource("groups", Group.class, group);
+	}
+
+	@Override
+	public Group updateGroup(Group group) throws SmartsheetException {
+		Util.throwIfNull(group);
+		return this.updateResource("group/"+ group.getId(), Group.class, group);
 	}
 }

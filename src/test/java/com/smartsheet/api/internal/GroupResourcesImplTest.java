@@ -24,6 +24,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
@@ -32,6 +33,8 @@ import org.junit.Test;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.Group;
+import com.smartsheet.api.models.Group.CreateGroupBuilder;
+import com.smartsheet.api.models.Group.UpdateGroupBuilder;
 import com.smartsheet.api.models.User;
 
 public class GroupResourcesImplTest extends ResourcesImplBase {
@@ -86,6 +89,56 @@ public class GroupResourcesImplTest extends ResourcesImplBase {
 		}
 	
 	}
+	@Test
+	public void testCreateGroup() throws SmartsheetException, IOException {
+		server.setResponseBody(new File("src/test/resources/createGroup.json"));
+		
+		CreateGroupBuilder builder = new CreateGroupBuilder();
+		builder.setName("My Test Group")
+			.setDescription("My awesome group")	
+			.setMembers(new ArrayList<User>());
+		
+		builder.getMembers().add(new User.NewGroupMemberBuilder().setEmail("test@test.com").build());
+		builder.getMembers().add(new User.NewGroupMemberBuilder().setEmail("test2@test.com").build());
+		builder.getMembers().add(new User.NewGroupMemberBuilder().setEmail("test3@test.com").build());
+		
+		
+		Group group =  groupResources.createGroup(builder.build());
+		assertNotNull(group.getId());
+		assertNotNull(group.getName());
+		assertNotNull(group.getOwner());
+		assertNotNull(group.getOwnerId());
+		assertNotNull(group.getCreatedAt());
+		assertNotNull(group.getModifiedAt());
+		assertNotNull(group.getDescription());
+		assertNotNull(group.getId());
+		
+		for (User member : group.getMembers()) {
+			assertNotNull(member.getFirstName());
+			assertNotNull(member.getLastName());
+			assertNotNull(member.getId());
+			assertNotNull(member.getEmail());
+		}
+		
+	}
 	
-
+	@Test
+	public void testUpdateGroup() throws SmartsheetException, IOException {
+		server.setResponseBody(new File("src/test/resources/updateGroup.json"));
+		
+		UpdateGroupBuilder builder = new UpdateGroupBuilder();
+		builder.setName("My Test Group - renamed ")
+			.setDescription("My awesome group- redecribed");	
+		
+		Group group =  groupResources.updateGroup(builder.build());
+		assertNotNull(group.getId());
+		assertNotNull(group.getName());
+		assertNotNull(group.getOwner());
+		assertNotNull(group.getOwnerId());
+		assertNotNull(group.getCreatedAt());
+		assertNotNull(group.getModifiedAt());
+		assertNotNull(group.getDescription());
+		assertNotNull(group.getId());
+		
+	}
 }
