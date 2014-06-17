@@ -32,7 +32,7 @@ public enum ObjectInclusion {
 	COLUMNS("columns"), 
 	TEMPLATES("templates"),
 	FORMS("forms"),
-	CELLINKS("cellLinks"),
+	CELL_LINKS("cellLinks"),
 	;
 
 	String inclusion;
