@@ -24,7 +24,7 @@ package com.smartsheet.api;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
+import java.io.InputStream;
 import java.util.List;
 
 import com.smartsheet.api.models.Attachment;
@@ -68,7 +68,6 @@ public interface AssociatedAttachmentResources {
 	 * @param contentType the content type of the file
 	 * @return the created attachment
 	 * @throws FileNotFoundException the file not found exception
-	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
 	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
@@ -76,7 +75,29 @@ public interface AssociatedAttachmentResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Attachment attachFile(long objectId, File file, String contentType) throws FileNotFoundException, SmartsheetException, UnsupportedEncodingException;
+	public Attachment attachFile(long objectId, File file, String contentType) throws FileNotFoundException, SmartsheetException;
+
+	/**
+	 * <p>Attach a file to the object.</p>
+	 * 
+	 * <p>It mirrors to the following Smartsheet REST API method:<br /> 
+	 *   POST /sheet/{id}/attachments POST /row/{id}/attachments<br />
+	 *   POST /comment/{idd}/attachments</p>
+	 * 
+	 * @param objectId the id of the object
+	 * @param file the file to attach
+	 * @param contentType the content type of the file
+	 * @param contentLength the size of the file in bytes.
+	 * @param attachmentName the name of the file.
+	 * @return the created attachment
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	public Attachment attachFile(long objectId, InputStream inputStream, String contentType, long contentLength, String attachmentName) throws SmartsheetException;
 
 	/**
 	 * <p>Attach a URL to the object.</p>

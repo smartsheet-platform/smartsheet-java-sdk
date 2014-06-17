@@ -61,6 +61,8 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 	 */
 	public WorkspaceResourcesImpl(SmartsheetImpl smartsheet) {
 		super(smartsheet);
+		this.shares = new ShareResourcesImpl(smartsheet, "workspace");
+		this.folders = new WorkspaceFolderResourcesImpl(smartsheet);
 	}
 
 	/**

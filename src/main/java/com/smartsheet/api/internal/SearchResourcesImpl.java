@@ -66,8 +66,12 @@ public class SearchResourcesImpl extends AbstractResources implements SearchReso
 	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public SearchResult search(String query) throws UnsupportedEncodingException, SmartsheetException {
-		return this.getResource("search?query=" + URLEncoder.encode(query, "utf-8"), SearchResult.class);
+	public SearchResult search(String query) throws SmartsheetException {
+		try {
+			return this.getResource("search?query=" + URLEncoder.encode(query, "utf-8"), SearchResult.class);
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	/**
@@ -91,8 +95,12 @@ public class SearchResourcesImpl extends AbstractResources implements SearchReso
 	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public SearchResult searchSheet(long sheetId, String query) throws UnsupportedEncodingException, SmartsheetException {
-		return this.getResource("search/sheet/" + sheetId + "?query=" + URLEncoder.encode(query,
-				"utf-8"), SearchResult.class);
+	public SearchResult searchSheet(long sheetId, String query) throws SmartsheetException {
+		try {
+			return this.getResource("search/sheet/" + sheetId + "?query=" + URLEncoder.encode(query,
+					"utf-8"), SearchResult.class);
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

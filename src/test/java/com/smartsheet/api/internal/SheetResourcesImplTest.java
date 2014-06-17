@@ -107,7 +107,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		assertTrue(output.toByteArray().length > 0);
 		
 		byte[] original = IOUtils.toByteArray(new FileReader(file));
-		assertTrue(original.length != output.toByteArray().length);
+		assertEquals(original.length, output.toByteArray().length);
 	}
 
 	@Test

@@ -187,11 +187,7 @@ public abstract class AbstractResources {
 		}
 		
 		HttpRequest request;
-		try {
-			request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.GET);
-		} catch (UnsupportedEncodingException e) {
-			throw new SmartsheetException(e);
-		}
+		request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.GET);
 		
 		HttpResponse response = this.smartsheet.getHttpClient().request(request);
 		
@@ -241,11 +237,7 @@ public abstract class AbstractResources {
 		Util.throwIfEmpty(path);
 		
 		HttpRequest request;
-		try {
-			request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
-		} catch (UnsupportedEncodingException e) {
-			throw new SmartsheetException(e);
-		}
+		request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
 		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		this.smartsheet.getJsonSerializer().serialize(object, baos);
@@ -296,11 +288,7 @@ public abstract class AbstractResources {
 		Util.throwIfEmpty(path);
 		
 		HttpRequest request;
-		try {
-			request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.PUT);
-		} catch (UnsupportedEncodingException e) {
-			throw new SmartsheetException(e);
-		}
+		request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.PUT);
 		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
 		this.smartsheet.getJsonSerializer().serialize(object, baos);
@@ -348,11 +336,7 @@ public abstract class AbstractResources {
 		Util.throwIfEmpty(path);
 		
 		HttpRequest request;
-		try {
-			request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.GET);
-		} catch (UnsupportedEncodingException e) {
-			throw new SmartsheetException(e);
-		}
+		request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.GET);
 		
 		HttpResponse response = this.smartsheet.getHttpClient().request(request);
 		
@@ -393,11 +377,7 @@ public abstract class AbstractResources {
 		Util.throwIfEmpty(path);
 		
 		HttpRequest request;
-		try {
-			request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.DELETE);
-		} catch (UnsupportedEncodingException e) {
-			throw new SmartsheetException(e);
-		}
+		request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.DELETE);
 		HttpResponse response = this.smartsheet.getHttpClient().request(request);
 
 		switch (response.getStatusCode()) {
@@ -441,11 +421,7 @@ public abstract class AbstractResources {
 		Util.throwIfEmpty(path);
 		
 		HttpRequest request;
-		try {
-			request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
-		} catch (UnsupportedEncodingException e) {
-			throw new SmartsheetException(e);
-		}
+		request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
 		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		this.smartsheet.getJsonSerializer().serialize(objectToPost, baos); 
@@ -496,11 +472,7 @@ public abstract class AbstractResources {
 		Util.throwIfEmpty(path);
 		
 		HttpRequest request;
-		try {
-			request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.PUT);
-		} catch (UnsupportedEncodingException e) {
-			throw new SmartsheetException(e);
-		}
+		request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.PUT);
 		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		this.smartsheet.getJsonSerializer().serialize(objectToPut, baos); HttpEntity entity = new HttpEntity();
@@ -534,7 +506,7 @@ public abstract class AbstractResources {
 	 * @return the http request
 	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
-	protected HttpRequest createHttpRequest(URI uri, HttpMethod method) throws UnsupportedEncodingException {
+	protected HttpRequest createHttpRequest(URI uri, HttpMethod method) {
 		HttpRequest request = new HttpRequest();
 		request.setUri(uri);
 		request.setMethod(method);
@@ -545,7 +517,11 @@ public abstract class AbstractResources {
 		
 		// Set assumed user
 		if (smartsheet.getAssumedUser() != null) { 
-			request.getHeaders().put("Assume-User", URLEncoder.encode(smartsheet.getAssumedUser(), "utf-8"));
+			try {
+				request.getHeaders().put("Assume-User", URLEncoder.encode(smartsheet.getAssumedUser(), "utf-8"));
+			} catch (UnsupportedEncodingException e) {
+				throw new RuntimeException ("Unsupported encode. You must support utf-8 for the Smartsheet Java SDK to work",e);
+			}
 		}
 		
 		return request;

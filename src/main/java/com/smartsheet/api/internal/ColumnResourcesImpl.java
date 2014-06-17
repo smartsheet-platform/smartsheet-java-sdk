@@ -24,7 +24,6 @@ package com.smartsheet.api.internal;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.UnsupportedEncodingException;
 
 import com.smartsheet.api.ColumnResources;
 import com.smartsheet.api.SmartsheetException;
@@ -100,11 +99,7 @@ public class ColumnResourcesImpl extends AbstractResources implements ColumnReso
 	 */
 	public void deleteColumn(long id, long sheetId) throws SmartsheetException {
 		HttpRequest request;
-		try {
-			request = this.createHttpRequest(getSmartsheet().getBaseURI().resolve("column/" + id), HttpMethod.DELETE);
-		} catch (UnsupportedEncodingException e) {
-			throw new SmartsheetException(e);
-		}
+		request = this.createHttpRequest(getSmartsheet().getBaseURI().resolve("column/" + id), HttpMethod.DELETE);
 		
 		Column column = new Column();
 		column.setSheetId(sheetId);

@@ -95,6 +95,11 @@ public class Sheet extends NamedModel {
 	private Long fromId;
 
 	/**
+	 * The workspace the sheet belongs to.
+	 */
+	private Workspace workspace;
+	
+	/**
 	 * Gets the dependencies enabled flag.
 	 *
 	 * @return the dependencies enabled
@@ -391,6 +396,24 @@ public class Sheet extends NamedModel {
 		this.fromId = fromId;
 	}
 
+
+	/**
+	 * Returns the owning {@link Workspace}. Only present when the whole sheet is fetched.
+	 * @return The workspace
+	 */
+	public Workspace getWorkspace() {
+		return workspace;
+	}
+
+	
+	/**
+	 * Sets the workspace.
+	 * @param workspace
+	 */
+	public void setWorkspace(Workspace workspace) {
+		this.workspace = workspace;
+	}
+	
 	/**
 	 * A convenience class to make a {@link Sheet} object with the necessary fields to create the sheet by posting it 
 	 * to smartsheet.

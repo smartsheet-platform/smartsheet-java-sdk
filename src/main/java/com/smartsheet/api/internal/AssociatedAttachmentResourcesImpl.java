@@ -25,7 +25,9 @@ package com.smartsheet.api.internal;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import com.smartsheet.api.AssociatedAttachmentResources;
@@ -104,11 +106,11 @@ public class AssociatedAttachmentResourcesImpl extends AbstractAssociatedResourc
 	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
 	public Attachment attachFile(long objectId, File file, String contentType) throws FileNotFoundException,
-			SmartsheetException, UnsupportedEncodingException {
+			SmartsheetException {
 		Util.throwIfNull(objectId, file, contentType);
 		Util.throwIfEmpty(contentType);
 		
-		return attachFile(objectId, file, contentType, file.length());
+		return attachFile(objectId, new FileInputStream(file), contentType, file.length(), file.getName());
 	}
 	
 	/**
@@ -118,26 +120,31 @@ public class AssociatedAttachmentResourcesImpl extends AbstractAssociatedResourc
 	 * @param file the file
 	 * @param contentType the content type
 	 * @param contentLength the content length
+	 * @param attachmentName the name of the attachment
 	 * @return the attachment
 	 * @throws FileNotFoundException the file not found exception
 	 * @throws SmartsheetException the smartsheet exception
 	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 */
-	public Attachment attachFile(long objectId, File file, String contentType, Long contentLength) throws FileNotFoundException,
-	SmartsheetException, UnsupportedEncodingException {
-		Util.throwIfNull(file, contentType);
+	public Attachment attachFile(long objectId, InputStream inputStream, String contentType, long contentLength, String attachmentName)
+			throws SmartsheetException {
+		Util.throwIfNull(inputStream, contentType);
 		
 		HttpRequest request = createHttpRequest(this.getSmartsheet().getBaseURI().resolve(getMasterResourceType() + 
 				"/" + objectId + "/attachments"), HttpMethod.POST);
-		request.getHeaders().put("Content-Disposition", "attachment; filename=" + file.getName());
+		try {
+			request.getHeaders().put("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(attachmentName, "UTF-8") + "\"");
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
 		HttpEntity entity = new HttpEntity();
 		entity.setContentType(contentType);
-		entity.setContent(new FileInputStream(file));
+		entity.setContent(inputStream);
 		entity.setContentLength(contentLength);
 		request.setEntity(entity);
-
+		
 		HttpResponse response = this.getSmartsheet().getHttpClient().request(request);
-
+		
 		Attachment attachment = null;
 		switch (response.getStatusCode()) {
 		case 200:
@@ -149,7 +156,7 @@ public class AssociatedAttachmentResourcesImpl extends AbstractAssociatedResourc
 		}
 		
 		this.getSmartsheet().getHttpClient().releaseConnection();
-
+		
 		return attachment;
 	}
 
@@ -188,4 +195,5 @@ public class AssociatedAttachmentResourcesImpl extends AbstractAssociatedResourc
 		return this.createResource(getMasterResourceType() + "/" + objectId + "/attachments",
 				Attachment.class, attachment);
 	}
+
 }

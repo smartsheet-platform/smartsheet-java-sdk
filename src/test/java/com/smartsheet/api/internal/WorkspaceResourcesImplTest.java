@@ -105,14 +105,4 @@ public class WorkspaceResourcesImplTest extends ResourcesImplBase {
 		workspaceResources.deleteWorkspace(1234L);
 	}
 
-	@Test
-	public void testFolders() {
-		assertNull(workspaceResources.folders());
-	}
-
-	@Test
-	public void testShares() {
-		assertNull(workspaceResources.shares());
-	}
-
 }

@@ -23,6 +23,7 @@ package com.smartsheet.api.internal;
 
 
 import java.io.File;
+import java.io.InputStream;
 
 import com.smartsheet.api.models.Attachment;
 
@@ -51,7 +52,7 @@ public class DiscussionAttachmentResources extends AssociatedAttachmentResources
 	 * Attach a file to the object.
 	 * 
 	 * It mirrors to the following Smartsheet REST API method: POST /sheet/{id}/attachments POST /row/{id}/attachments
-	 * POST /comment/{idd}/attachments
+	 * POST /comment/{id}/attachments
 	 * 
 	 * Returns: the created attachment
 	 * 
@@ -66,15 +67,15 @@ public class DiscussionAttachmentResources extends AssociatedAttachmentResources
 	 */
 	@Override
 	public Attachment attachFile(long objectId, File file, String contentType) {
-		throw new UnsupportedOperationException();
+		throw new UnsupportedOperationException("Attachments can only be attached to comments, not discussions.");
 	}
 	
 	/**
 	 * Throws an UnsupportedOperationException.
 	 */
 	@Override
-	public Attachment attachFile(long objectId, File file, String contentType, Long contentLength) {
-		throw new UnsupportedOperationException();
+	public Attachment attachFile(long objectId, InputStream inputStream, String contentType, long contentLength, String fileName) {
+		throw new UnsupportedOperationException("Attachments can only be attached to comments, not discussions.");
 	}
 
 	/**

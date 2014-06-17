@@ -48,7 +48,7 @@ public interface OAuthFlow {
 	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 * @throws IllegalArgumentException if scopes is null or empty
 	 */
-	public String newAuthorizationURL(EnumSet<AccessScope> scopes, String state) throws UnsupportedEncodingException;
+	public String newAuthorizationURL(EnumSet<AccessScope> scopes, String state);
 
 	/**
 	 * Extract AuthorizationResult from the authorization response URL (i.e. the redirectURL with the response
@@ -81,7 +81,7 @@ public interface OAuthFlow {
 	 * @throws InvalidRequestException the invalid request exception
 	 * @throws IllegalArgumentException if any other error occurred during the operation
 	 */
-	public Token obtainNewToken(AuthorizationResult authorizationResult) throws NoSuchAlgorithmException, UnsupportedEncodingException, OAuthTokenException, JSONSerializerException, HttpClientException, URISyntaxException, InvalidRequestException;
+	public Token obtainNewToken(AuthorizationResult authorizationResult) throws OAuthTokenException, JSONSerializerException, HttpClientException, URISyntaxException, InvalidRequestException;
 
 	/**
 	 * Refresh token.
@@ -97,5 +97,5 @@ public interface OAuthFlow {
 	 * @throws InvalidRequestException the invalid request exception
 	 * @throws IllegalArgumentException if any other error occurred during the operation
 	 */
-	public Token refreshToken(Token token) throws NoSuchAlgorithmException, UnsupportedEncodingException, OAuthTokenException, JSONSerializerException, HttpClientException, URISyntaxException, InvalidRequestException;
+	public Token refreshToken(Token token) throws OAuthTokenException, JSONSerializerException, HttpClientException, URISyntaxException, InvalidRequestException;
 }

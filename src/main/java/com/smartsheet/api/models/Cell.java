@@ -87,7 +87,7 @@ public class Cell {
 	}
 
 	/**
-	 * Gets the value.
+	 * Gets the value. Can be one of type {@link String}, {@link Number}, or {@link Boolean}
 	 *
 	 * @return the value
 	 */
@@ -96,7 +96,7 @@ public class Cell {
 	}
 
 	/**
-	 * Sets the value.
+	 * Sets the value. Can be one of type {@link String}, {@link Number}, or {@link Boolean}
 	 *
 	 * @param value the new value
 	 */
