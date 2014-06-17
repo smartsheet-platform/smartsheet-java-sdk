@@ -27,7 +27,7 @@ import java.util.List;
  * Represents a Group Object.
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/1554165-managing-groups-team-enterprise-only-">Managing groups</a>
  */
-public class Group extends NamedModel {
+public class Group extends NamedModel<Long> {
 	
 	
 	/**

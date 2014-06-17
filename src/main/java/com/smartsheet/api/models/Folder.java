@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Represents a folder.
  */
-public class Folder extends NamedModel {
+public class Folder extends NamedModel<Long> {
 
 	/**
 	 * Represents the sheets contained in the folder.

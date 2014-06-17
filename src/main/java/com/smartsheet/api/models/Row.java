@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Represents the Row object.
  */
-public class Row extends IdentifiableModel {
+public class Row extends IdentifiableModel<Long> {
 	/** Represents the Sheet ID. */
 	private Long sheetId;
 

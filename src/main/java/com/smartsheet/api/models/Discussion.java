@@ -28,7 +28,7 @@ import java.util.List;
  * Represents the Discussion object.
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/504767-using-discussions">Help Using Discussions</a>
  */
-public class Discussion extends IdentifiableModel {
+public class Discussion extends IdentifiableModel<Long> {
 	/** Represents the title for the discussion. */
 	private String title;
 

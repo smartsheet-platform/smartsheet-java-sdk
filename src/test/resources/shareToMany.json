@@ -1,1 +1,25 @@
-{"resultCode":0,"result":[{"email":"john.doe@smartsheet.com","accessLevel":"ADMIN","id":6971283658303364},{"email":"jane.doe@smartsheet.com","accessLevel":"ADMIN","id":2467684030932868}],"message":"SUCCESS"}
+{
+	"resultCode": 0,
+	"result": [{
+		"email": "john.doe@smartsheet.com",
+		"accessLevel": "ADMIN",
+		"userId": 6971283658303364,
+		"type" : "USER",
+		"id" : "asdfDF34"
+	},
+	{
+		"email": "jane.doe@smartsheet.com",
+		"accessLevel": "ADMIN",
+		"userId": 2467684030932868,
+		"type" : "USER",
+		"id" : "sdfgfg433"
+	},
+	{
+		"name" : "Test Group",
+		"accessLevel": "ADMIN",
+		"groupId": 2467684030932868,
+		"type" : "GROUP",
+		"id" : "234dfs3433d4"
+	}],
+	"message": "SUCCESS"
+}

@@ -25,7 +25,7 @@ package com.smartsheet.api.models;
 /**
  * A profile object that contains the basic fields that most profiles will contain.
  */
-public class UserProfile extends NamedModel {
+public class UserProfile extends NamedModel<Long> {
 	/**
 	 * Represents the email address.
 	 */

@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class MultiShare {
 	/** The list of users that will be shared with. The email address must be defined for each user. */
-	private List<User> users;
+	private List<Share> shares;
 
 	/** Represents the access level for this share. */
 	private AccessLevel accessLevel;
@@ -43,12 +43,12 @@ public class MultiShare {
 	private Boolean ccMe;
 
 	/**
-	 * Gets the users.
+	 * Gets the shares.
 	 *
-	 * @return the users
+	 * @return the shares
 	 */
-	public List<User> getUsers() {
-		return users;
+	public List<Share> getShares() {
+		return shares;
 	}
 
 	/**
@@ -56,8 +56,8 @@ public class MultiShare {
 	 *
 	 * @param users the new users
 	 */
-	public void setUsers(List<User> users) {
-		this.users = users;
+	public void setShares(List<Share> shares) {
+		this.shares = shares;
 	}
 
 	/**
@@ -137,20 +137,20 @@ public class MultiShare {
 	 * many users.
 	 */
 	public static class ShareToManyBuilder {
-		private List<User> users;
+		private List<Share> shares;
 		private AccessLevel accessLevel;
 		private String subject;
 		private String message;
 		private Boolean ccMe;
 
 		/**
-		 * Sets the users that will be shared with. The email address must be defined for each user.
+		 * Sets the {@link Share}s that will be shared to. 
 		 *
 		 * @param users the users
 		 * @return the share to many builder
 		 */
-		public ShareToManyBuilder setUsers(List<User> users) {
-			this.users = users;
+		public ShareToManyBuilder setShares(List<Share> shares) {
+			this.shares = shares;
 			return this;
 		}
 
@@ -203,8 +203,8 @@ public class MultiShare {
 		 *
 		 * @return the users
 		 */
-		public List<User> getUsers() {
-			return users;
+		public List<Share> getShares() {
+			return shares;
 		}
 
 		/**
@@ -249,12 +249,12 @@ public class MultiShare {
 		 * @return the multi share
 		 */
 		public MultiShare build() {
-			if(users == null || accessLevel == null ) {
-				throw new InstantiationError("A user, access level and message are required.");
+			if(shares == null || shares.size() == 0 ||accessLevel == null ) {
+				throw new InstantiationError("At least on Share, access level and message are required.");
 			}
 			
 			MultiShare multiShare = new MultiShare();
-			multiShare.users = users;
+			multiShare.shares = shares;
 			multiShare.accessLevel = accessLevel;
 			multiShare.subject = subject;
 			multiShare.message = message;

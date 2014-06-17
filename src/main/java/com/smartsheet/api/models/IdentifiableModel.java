@@ -24,16 +24,16 @@ package com.smartsheet.api.models;
 /**
  * Represents an object with an ID.
  */
-public abstract class IdentifiableModel {
+public abstract class IdentifiableModel<T> {
 	/** Represents the ID. */
-	private Long id;
+	private T id;
 
 	/**
 	 * Gets the id.
 	 *
 	 * @return the id
 	 */
-	public Long getId() {
+	public T getId() {
 		return id;
 	}
 
@@ -42,7 +42,7 @@ public abstract class IdentifiableModel {
 	 *
 	 * @param id the new id
 	 */
-	public void setId(Long id) {
+	public void setId(T id) {
 		this.id = id;
 	}
 
@@ -60,10 +60,10 @@ public abstract class IdentifiableModel {
 			result = true;
 		}else if(object != null && object.getClass() == this.getClass() && 
 				// If they are both null
-				(((IdentifiableModel)object).getId() == this.getId()
+				(((IdentifiableModel<?>)object).getId() == this.getId()
 				// If they are not null but are equal objects.
-				|| ((IdentifiableModel)object).getId() != null && this.getId() != null && 
-				((IdentifiableModel)object).getId().equals(this.getId()))) {
+				|| ((IdentifiableModel<?>)object).getId() != null && this.getId() != null && 
+				((IdentifiableModel<?>)object).getId().equals(this.getId()))) {
 			result = true;
 		}
 		
@@ -81,9 +81,8 @@ public abstract class IdentifiableModel {
 		if(this.id == null){
 			result = super.hashCode();
 		}else{
-			result = 31 * result + (int) (this.id.longValue() ^ (this.id.longValue() >>> 32));
+			result = id.toString().hashCode();
 		}
-		
 		return result;
 	}
 }

@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Represents the Comment object.
  */
-public class Comment extends IdentifiableModel {
+public class Comment extends IdentifiableModel<Long> {
 
 	/** Represents the text for the comment. */
 	private String text;

@@ -31,6 +31,7 @@ import com.smartsheet.api.ColumnResources;
 import com.smartsheet.api.CommentResources;
 import com.smartsheet.api.DiscussionResources;
 import com.smartsheet.api.FolderResources;
+import com.smartsheet.api.GroupResources;
 import com.smartsheet.api.HomeResources;
 import com.smartsheet.api.RowResources;
 import com.smartsheet.api.SearchResources;
@@ -171,6 +172,15 @@ public class SmartsheetImpl implements Smartsheet {
 	 * effectively the underlying value is lazily created in a thread safe manner.
 	 */
 	private AtomicReference<UserResources> users;
+	
+	/**
+	 * Represents the AtomicReference to {@link GroupResources}.
+	 * 
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+	 * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
+	 * effectively the underlying value is lazily created in a thread safe manner.
+	 */
+	private AtomicReference<GroupResources> groups;
 
 	/**
 	 * Represents the AtomicReference to SearchResources.
@@ -227,6 +237,7 @@ public class SmartsheetImpl implements Smartsheet {
 		this.discussions = new AtomicReference<DiscussionResources>();
 		this.comments = new AtomicReference<CommentResources>();
 		this.users = new AtomicReference<UserResources>();
+		this.groups = new AtomicReference<GroupResources>();
 		this.search = new AtomicReference<SearchResources>();
 		this.assumedUser = new AtomicReference<String>();
 		this.accessToken = new AtomicReference<String>(accessToken);
@@ -389,7 +400,7 @@ public class SmartsheetImpl implements Smartsheet {
 	}
 
 	/**
-	 * Returns the UserResources instance that provides access to User resources.
+	 * Returns the {@link UserResources} instance that provides access to User resources.
 	 * 
 	 * @return the user resources
 	 */
@@ -399,7 +410,17 @@ public class SmartsheetImpl implements Smartsheet {
 	}
 
 	/**
-	 * Returns the SearchResources instance that provides access to searching resources.
+	 * Returns the {@link GroupResources} instance that provides access to User resources.
+	 * 
+	 * @return the user resources
+	 */
+	public GroupResources groups() {
+		groups.compareAndSet(null, new GroupResourcesImpl(this));
+		return groups.get();
+	}
+
+	/**
+	 * Returns the {@link SearchResources} instance that provides access to searching resources.
 	 * 
 	 * @return the search resources
 	 */

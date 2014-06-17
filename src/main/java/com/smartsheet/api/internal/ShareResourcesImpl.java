@@ -49,7 +49,7 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 	/**
 	 * List shares of a given object.
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /workspace/{id}/shares GET /sheet/{id}/shares
+	 * It mirrors to the following Smartsheet REST API method: GET /workspace/{id}/sharesWithGroups GET /sheet/{id}/sharesWithGroups
 	 * 
 	 * Exceptions:
 	 *   InvalidRequestException : if there is any problem with the REST API request
@@ -64,14 +64,14 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Share> listShares(long objectId) throws SmartsheetException {
-		return this.listResources(getMasterResourceType() + "/" + objectId + "/shares", Share.class);
+		return this.listResources(getMasterResourceType() + "/" + objectId + "/sharesWithGroups", Share.class);
 	}
 
 	/**
 	 * Get a Share.
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /workspace/{id}/share/{userId} GET
-	 * /sheet/{id}/share/{userId}
+	 * It mirrors to the following Smartsheet REST API method: GET /workspace/{id}/sharewithgroups/{shareId} GET
+	 * /sheet/{id}/sharewithgroups/{shareId}
 	 * 
 	 * Exceptions:
 	 *   InvalidRequestException : if there is any problem with the REST API request
@@ -87,14 +87,14 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 	 * rather than returning null).
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Share getShare(long objectId, long userId) throws SmartsheetException{
-		return this.getResource(getMasterResourceType() + "/" + objectId + "/share/" + userId, Share.class);
+	public Share getShare(long objectId, String shareId) throws SmartsheetException{
+		return this.getResource(getMasterResourceType() + "/" + objectId + "/sharewithgroups/" + shareId, Share.class);
 	}
 
 	/**
 	 * Share the object, without sending email.
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /workspace/{id}/shares POST /sheet/{id}/shares
+	 * It mirrors to the following Smartsheet REST API method: POST /workspace/{id}/sharesWithGroups POST /sheet/{id}/sharesWithGroups
 	 * 
 	 * Exceptions:
 	 *   IllegalArgumentException : if share is null
@@ -111,13 +111,13 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Share shareTo(long objectId, Share share) throws SmartsheetException {
-		return this.createResource(getMasterResourceType() + "/" + objectId + "/shares", Share.class, share);
+		return this.createResource(getMasterResourceType() + "/" + objectId + "/sharesWithGroups", Share.class, share);
 	}
 
 	/**
 	 * Share the object.
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /workspace/{id}/shares POST /sheet/{id}/shares
+	 * It mirrors to the following Smartsheet REST API method: POST /workspace/{id}/sharesWithGroups POST /sheet/{id}/sharesWithGroups
 	 * 
 	 * Returns: the created share
 	 * 
@@ -137,15 +137,15 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Share shareTo(long objectId, Share share, boolean sendEmail) throws SmartsheetException {
-		return this.createResource(getMasterResourceType() + "/" + objectId + "/shares?sendEmail=" + sendEmail,
+		return this.createResource(getMasterResourceType() + "/" + objectId + "/sharesWithGroups?sendEmail=" + sendEmail,
 				Share.class, share);
 	}
 
 	/**
 	 * Share the object with multiple users, without sending email.
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /workspace/{id}/multishare POST
-	 * /sheet/{id}/multishare
+	 * It mirrors to the following Smartsheet REST API method: POST /workspace/{id}/multisharewithgroups POST
+	 * /sheet/{id}/multisharewithgroups
 	 * 
 	 * Exceptions:
 	 *   IllegalArgumentException : if multiShare is null
@@ -162,7 +162,7 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Share> shareTo(long objectId, MultiShare multiShare) throws SmartsheetException {
-		return this.postAndReceiveList(getMasterResourceType() + "/" + objectId + "/multishare", multiShare,
+		return this.postAndReceiveList(getMasterResourceType() + "/" + objectId + "/multisharewithgroups", multiShare,
 				Share.class);
 	}
 
@@ -188,41 +188,20 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Share> shareTo(long objectId, MultiShare multiShare, boolean sendEmail) throws SmartsheetException {
-		return this.postAndReceiveList(getMasterResourceType() + "/" + objectId + "/multishare?sendEmail=" + sendEmail,
+		return this.postAndReceiveList(getMasterResourceType() + "/" + objectId + "/multisharewithgroups?sendEmail=" + sendEmail,
 				multiShare, Share.class);
 	}
 
-	/**
-	 * Update a share.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: PUT /workspace/{id}/share/{userId} PUT
-	 * /sheet/{id}/share/{userId}
-	 * 
-	 * Exceptions:
-	 *   IllegalArgumentException : if share is null
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ResourceNotFoundException : if the resource can not be found
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param objectId the ID of the object to share 
-	 * @param userId the ID of the user to whom the object is shared
-	 * @param share the share
-	 * @return the updated share (note that if there is no such resource, this method will throw
-	 * ResourceNotFoundException rather than returning null).
-	 * @throws SmartsheetException the smartsheet exception
-	 */
-	public Share updateShare(long objectId, long userId, Share share) throws SmartsheetException {
-		return this.updateResource(getMasterResourceType() + "/" + objectId + "/share/" + userId, Share.class, share);
+	@Override
+	public Share updateShare(long objectId, String shareId, Share share) throws SmartsheetException {
+		return this.updateResource(getMasterResourceType() + "/" + objectId + "/sharewithgroups/" + shareId, Share.class, share);
 	}
 
 	/**
 	 * Delete a share.
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: DELETE /workspace/{id}/share/{userId} DELETE
-	 * /sheet/{id}/share/{userId}
+	 * It mirrors to the following Smartsheet REST API method: DELETE /workspace/{id}/sharewithgroups/{userId} DELETE
+	 * /sheet/{id}/sharewithgroups/{userId}
 	 * 
 	 * Exceptions:
 	 *   InvalidRequestException : if there is any problem with the REST API request
@@ -236,7 +215,7 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 	 * @param userId the ID of the user to whom the object is shared
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public void deleteShare(long objectId, long userId) throws SmartsheetException {
-		this.deleteResource(getMasterResourceType() + "/" + objectId + "/share/" + userId, Share.class);
+	public void deleteShare(long objectId, String shareId) throws SmartsheetException {
+		this.deleteResource(getMasterResourceType() + "/" + objectId + "/sharewithgroups/" + shareId, Share.class);
 	}
 }

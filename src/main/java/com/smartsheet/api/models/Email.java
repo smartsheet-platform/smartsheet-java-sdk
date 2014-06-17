@@ -34,6 +34,11 @@ public abstract class Email {
 	private List<String> to;
 
 	/**
+	 * Represents the group recipient(s) (group id).
+	 */
+	private List<Long> toGroups;
+
+	/**
 	 * Represents the subject.
 	 */
 	private String subject;
@@ -118,6 +123,20 @@ public abstract class Email {
 	 */
 	public void setCcMe(Boolean ccMe) {
 		this.ccMe = ccMe;
+	}
+
+	/**
+	 * @return the toGroups
+	 */
+	public List<Long> getToGroups() {
+		return toGroups;
+	}
+
+	/**
+	 * @param toGroups the toGroups to set
+	 */
+	public void setToGroups(List<Long> toGroups) {
+		this.toGroups = toGroups;
 	}
 	
 	

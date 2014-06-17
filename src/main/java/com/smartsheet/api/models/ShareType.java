@@ -23,29 +23,12 @@ package com.smartsheet.api.models;
 
 
 /**
- * Represents an object with a name and an id. The id is of type T.
+ * Represents column types.
  */
-public abstract class NamedModel<T> extends IdentifiableModel<T> {
-	/**
-	 * Represents the name.
-	 */
-	private String name;
+public enum ShareType {
+	/** Represents the GROUP share type. */
+	GROUP,
 
-	/**
-	 * Gets the name.
-	 *
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * Sets the name.
-	 *
-	 * @param name the new name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+	/** Represents the USER share type. */
+	USER
 }

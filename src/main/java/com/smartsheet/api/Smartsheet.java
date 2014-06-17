@@ -109,6 +109,14 @@ public interface Smartsheet {
 	public UserResources users();
 
 	/**
+	 * <p>Returns the {@link GroupResources} instance that provides access to Group resources. </p>
+	 *
+	 * @return the group resources instance
+	 */
+	public GroupResources groups();
+
+	
+	/**
 	 * <p>Returns the SearchResources instance that provides access to searching resources.</p>
 	 *
 	 * @return the search resources instance

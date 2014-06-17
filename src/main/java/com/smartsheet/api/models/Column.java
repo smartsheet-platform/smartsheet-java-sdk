@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Represents the Column object.
  */
-public class Column extends IdentifiableModel {
+public class Column extends IdentifiableModel<Long> {
 	/**
 	 * Represents the position.
 	 */

@@ -36,7 +36,6 @@ import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.AccessLevel;
 import com.smartsheet.api.models.MultiShare;
 import com.smartsheet.api.models.Share;
-import com.smartsheet.api.models.User;
 
 public class ShareResourcesImplTest extends ResourcesImplBase {
 
@@ -68,11 +67,11 @@ public class ShareResourcesImplTest extends ResourcesImplBase {
 	public void testGetShare() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/getShare.json"));
 
-		Share share = shareResourcesImpl.getShare(1234L, 12344L);
+		Share share = shareResourcesImpl.getShare(1234L, "fhqwhgads");
 
 		assertEquals("email@email.com", share.getEmail());
 		assertEquals(AccessLevel.ADMIN, share.getAccessLevel());
-		assertEquals(8166691168380804L, share.getId().longValue());
+		assertEquals("abc123", share.getId());
 	}
 
 	@Test
@@ -112,17 +111,15 @@ public class ShareResourcesImplTest extends ResourcesImplBase {
 		share.setSubject("Testing");
 		share.setCcMe(false);
 
-		List<User> users = new ArrayList<User>();
-		User user = new User();
-		user.setEmail("john.doe@smartsheet.com");
-		users.add(user);
-		user.setEmail("jane.doe@smartsheet.com");
-		users.add(user);
-		share.setUsers(users);
+		List<Share> shares = new ArrayList<Share>();
+		shares.add(new Share.CreateUserShareBuilder().setEmailAddress("john.doe@smartsheet.com").build());
+		shares.add(new Share.CreateUserShareBuilder().setEmailAddress("jane.doe@smartsheet.com").build());
+		shares.add(new Share.CreateGroupShareBuilder().setGroupId(34343l).build());
+		share.setShares(shares);
 
-		List<Share> shares = shareResourcesImpl.shareTo(1234L, share);
+		shares = shareResourcesImpl.shareTo(1234L, share);
 
-		assertTrue(shares.size() == 2);
+		assertTrue(shares.size() == 3);
 		assertEquals("john.doe@smartsheet.com", shares.get(0).getEmail());
 		assertEquals("jane.doe@smartsheet.com", shares.get(1).getEmail());
 	}
@@ -136,18 +133,17 @@ public class ShareResourcesImplTest extends ResourcesImplBase {
 		share.setMessage("I have shared a Smartsheet with you. Please review it for the latest updates");
 		share.setCcMe(false);
 
-		List<User> users = new ArrayList<User>();
-		User user = new User();
-		user.setEmail("john.doe@smartsheet.com");
-		users.add(user);
-		user.setEmail("jane.doe@smartsheet.com");
-		users.add(user);
-		share.setUsers(users);
+		List<Share> shares = new ArrayList<Share>();
+		shares.add(new Share.CreateUserShareBuilder().setEmailAddress("john.doe@smartsheet.com").build());
+		shares.add(new Share.CreateUserShareBuilder().setEmailAddress("jane.doe@smartsheet.com").build());
+		shares.add(new Share.CreateGroupShareBuilder().setGroupId(34343l).build());
+		share.setShares(shares);
 
-		List<Share> shares = shareResourcesImpl.shareTo(1234L, share, true);
-		assertTrue(shares.size() == 2);
+		shares = shareResourcesImpl.shareTo(1234L, share, true);
+		assertTrue(shares.size() == 3);
 		assertEquals("john.doe@smartsheet.com", shares.get(0).getEmail());
 		assertEquals("jane.doe@smartsheet.com", shares.get(1).getEmail());
+		assertEquals("Test Group", shares.get(2).getName());
 	}
 
 	@Test
@@ -155,7 +151,7 @@ public class ShareResourcesImplTest extends ResourcesImplBase {
 		server.setResponseBody(new File("src/test/resources/updateShare.json"));
 		Share share = new Share();
 		share.setAccessLevel(AccessLevel.ADMIN);
-		Share newShare = shareResourcesImpl.updateShare(1234L, 123454L, share);
+		Share newShare = shareResourcesImpl.updateShare(1234L, "daffda", share);
 		assertEquals(share.getAccessLevel(), newShare.getAccessLevel());
 	}
 
@@ -163,7 +159,7 @@ public class ShareResourcesImplTest extends ResourcesImplBase {
 	public void testDeleteShare() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/deleteShare.json"));
 
-		shareResourcesImpl.deleteShare(1234L, 142124L);
+		shareResourcesImpl.deleteShare(1234L, "fhqwhgads");
 	}
 
 }

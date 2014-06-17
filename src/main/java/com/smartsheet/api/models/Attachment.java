@@ -27,7 +27,7 @@ import java.util.Date;
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/518408-uploading-attachments">Help Uploading 
  * Attachments</a>
  */
-public class Attachment extends NamedModel {
+public class Attachment extends NamedModel<Long> {
 
 	/**
 	 * Represents the URL.

@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Represents the Sheet object.
  */
-public class Sheet extends NamedModel {
+public class Sheet extends NamedModel<Long> {
 	/**
 	 * Represents the columns for the sheet.
 	 */

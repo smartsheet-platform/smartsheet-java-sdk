@@ -56,11 +56,11 @@ public interface ShareResources {
 	 * <p>Get a Share.</p>
 	 * 
 	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * GET /workspace/{id}/share/{userId}<br />
-	 * GET /sheet/{id}/share/{userId}</p>
+	 * GET /workspace/{id}/shareWithGroups/{shareId}<br />
+	 * GET /sheet/{id}/shareWithGroups/{shareId}</p>
 	 *
 	 * @param objectId the ID of the object to share
-	 * @param userId the ID of the user to whome the object is shared
+	 * @param shareId the ID of the share to whom the object is shared
 	 * @return the share (note that if there is no such resource, this method will throw ResourceNotFoundException
 	 * rather than returning null).
 	 * @throws IllegalArgumentException if any argument is null or empty string
@@ -70,7 +70,7 @@ public interface ShareResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Share getShare(long objectId, long userId) throws SmartsheetException;
+	public Share getShare(long objectId, String shareId) throws SmartsheetException;
 
 	/**
 	 * <p>Share the object, without sending email.</p>
@@ -157,11 +157,11 @@ public interface ShareResources {
 	 * <p>Update a share.</p>
 	 * 
 	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * PUT /workspace/{id}/share/{userId}<br />
-	 * PUT /sheet/{id}/share/{userId}</p>
+	 * PUT /workspace/{id}/shareWithGroups/{shareId}<br />
+	 * PUT /sheet/{id}/shareWithGroups/{shareId}</p>
 	 *
 	 * @param objectId the ID of the object to share
-	 * @param userId the Id of the user to whom the object is shared
+	 * @param shareId the Id of the user to whom the object is shared
 	 * @param share the share
 	 * @return the updated share (note that if there is no such resource, this method will throw
 	 *  ResourceNotFoundException rather than returning null).
@@ -172,14 +172,14 @@ public interface ShareResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Share updateShare(long objectId, long userId, Share share) throws SmartsheetException;
+	public Share updateShare(long objectId, String shareId, Share share) throws SmartsheetException;
 
 	/**
 	 * <p>Delete a share.</p>
 	 * 
 	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * DELETE /workspace/{id}/share/{userId}<br />
-	 * DELETE /sheet/{id}/share/{userId}</p>
+	 * DELETE /workspace/{id}/share/{shareId}<br />
+	 * DELETE /sheet/{id}/share/{shareId}</p>
 	 *
 	 * @param objectId the ID of the object to share
 	 * @param userId the ID of the user to whome the object is shared
@@ -190,5 +190,5 @@ public interface ShareResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public void deleteShare(long objectId, long userId) throws SmartsheetException;
+	public void deleteShare(long objectId, String shareId) throws SmartsheetException;
 }
