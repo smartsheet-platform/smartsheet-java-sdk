@@ -132,46 +132,19 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 		return this.getResource("user/me", UserProfile.class);
 	}
 
-	/**
-	 * Update a user.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: PUT /user/{id}
-	 *  
-	 * Exceptions: 
-	 *   - IllegalArgumentException : if any argument is null 
-	 *   - InvalidRequestException : if there is any problem with the REST API request 
-	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token) 
-	 *   - ResourceNotFoundException : if the resource can not be found 
-	 *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) 
-	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation 
-	 *   - SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param user the user to update limited to the following attributes: * admin * licensedSheetCreator
-	 * @return the updated user (note that if there is no such resource, this method will throw 
-	 * ResourceNotFoundException rather than returning null).
-	 * @throws SmartsheetException the smartsheet exception
-	 */
+
+	@Override
 	public User updateUser(User user) throws SmartsheetException {
 		return this.updateResource("user/" + user.getId(), User.class, user);
 	}
 
-	/**
-	 * Delete a user in the organization.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: DELETE /user{id}
-	 * 
-	 * Exceptions: 
-	 *   - InvalidRequestException : if there is any problem with the REST API request 
-	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token) 
-	 *   - ResourceNotFoundException : if the resource can not be found 
-	 *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) 
-	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation 
-	 *   - SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param id the id
-	 * @throws SmartsheetException the smartsheet exception
-	 */
+	@Override
 	public void deleteUser(long id) throws SmartsheetException {
 		this.deleteResource("user/" + id, User.class);
+	}
+
+	@Override
+	public void deleteUser(long id, long transferToId, boolean removeFromSharing) throws SmartsheetException {
+		this.deleteResource("user/" + id + "?transferTo=" + transferToId + "&removeFromSharing="+removeFromSharing, User.class);
 	}
 }

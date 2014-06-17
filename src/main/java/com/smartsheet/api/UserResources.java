@@ -116,7 +116,7 @@ public interface UserResources {
 	/**
 	 * <p>Delete a user in the organization.</p>
 	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method: DELETE /user{id}</p>
+	 * <p>It mirrors to the following Smartsheet REST API method: DELETE /user/{id}</p>
 	 *
 	 * @param id the id of the user
 	 * @throws IllegalArgumentException if any argument is null or empty string
@@ -127,4 +127,22 @@ public interface UserResources {
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public void deleteUser(long id) throws SmartsheetException;
+	
+	/**
+	 * <p>Delete a user in the organization.</p>
+	 * 
+	 * <p>It mirrors to the following Smartsheet REST API method: DELETE /user/{id}</p>
+	 *
+	 * @param id the id of the user
+	 * @param transferToId the id of the user to whom you want to transfer the sheets owned by this user
+	 * @param removeFromSharing indicates whether you want to remove this user from all shared sheets.
+	 * 
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	public void deleteUser(long id, long transferToId, boolean removeFromSharing) throws SmartsheetException;
 }

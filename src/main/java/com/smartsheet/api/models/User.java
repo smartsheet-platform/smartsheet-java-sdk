@@ -38,6 +38,18 @@ public class User extends UserProfile {
 	private Boolean licensedSheetCreator;
 
 	/**
+	 * Represents the resource manager flag which allows the user access to the Resource Manager functionality.
+	 */
+	private Boolean resourceManager;
+	
+	/**
+	 * Represents the group admin flag which allows users to create and modify groups.
+	 */
+	private Boolean groupAdmin;
+
+	
+	
+	/**
 	 * Represents the user status (active, pending, declined).
 	 */
 	private UserStatus status;
@@ -97,12 +109,45 @@ public class User extends UserProfile {
 	}
 
 	/**
+	 * @return the flag indicating if someone is a resource manager
+	 */
+	public Boolean getResourceManager() {
+		return resourceManager;
+	}
+
+	/**
+	 * Sets the resource manager flag.
+	 * @param resourceManager 
+	 */
+	public void setResourceManager(Boolean resourceManager) {
+		this.resourceManager = resourceManager;
+	}
+
+	/**
+	 * 
+	 * @return the flag indicating if the user is able to administer group.
+	 */
+	public Boolean getGroupAdmin() {
+		return groupAdmin;
+	}
+
+	/**
+	 * @param groupAdmin sets the flag that indicates if someone is a groupAdmin
+	 */
+	public void setGroupAdmin(Boolean groupAdmin) {
+		this.groupAdmin = groupAdmin;
+	}
+	/**
 	 * A convenience class for making a {@link User} object with the appropriate fields for adding the user.
 	 */
 	public static class AddUserBuilder {
 		private Boolean admin;
 		private String emailAddress;
 		private Boolean licensedSheetCreator;
+		private Boolean groupAdmin;
+		private Boolean resourceManager;
+		private String firstName;
+		private String lastName;
 
 		/**
 		 * Sets the admin flag which allows managing users and accounts.
@@ -147,15 +192,6 @@ public class User extends UserProfile {
 		}
 
 		/**
-		 * Gets the email address.
-		 *
-		 * @return the email address
-		 */
-		public String getEmailAddress() {
-			return emailAddress;
-		}
-
-		/**
 		 * Gets the licensed sheet creator.
 		 *
 		 * @return the licensed sheet creator
@@ -164,6 +200,65 @@ public class User extends UserProfile {
 			return licensedSheetCreator;
 		}
 
+		/**
+		 * @return the firstName
+		 */
+		public String getFirstName() {
+			return firstName;
+		}
+
+		/**
+		 * @param firstName the firstName to set
+		 */
+		public AddUserBuilder setFirstName(String firstName) {
+			this.firstName = firstName;
+			return this;
+		}
+
+		/**
+		 * @return the lastName
+		 */
+		public String getLastName() {
+			return lastName;
+		}
+
+		/**
+		 * @param lastName the lastName to set
+		 */
+		public AddUserBuilder setLastName(String lastName) {
+			this.lastName = lastName;
+			return this;
+		}
+
+		/**
+		 * @return the groupAdmin
+		 */
+		public Boolean getGroupAdmin() {
+			return groupAdmin;
+		}
+
+		/**
+		 * @param groupAdmin the groupAdmin to set
+		 */
+		public AddUserBuilder setGroupAdmin(Boolean groupAdmin) {
+			this.groupAdmin = groupAdmin;
+			return this;
+		}
+
+		/**
+		 * @return the resourceManager
+		 */
+		public Boolean getResourceManager() {
+			return resourceManager;
+		}
+
+		/**
+		 * @param resourceManager the resourceManager to set
+		 */
+		public AddUserBuilder setResourceManager(Boolean resourceManager) {
+			this.resourceManager = resourceManager;
+			return this;
+		}
 		/**
 		 * Builds the {@link User} object using the required fields.
 		 *
@@ -177,9 +272,15 @@ public class User extends UserProfile {
 			User user = new User();
 			user.admin = admin;
 			user.licensedSheetCreator = licensedSheetCreator;
+			user.groupAdmin = groupAdmin;
+			user.resourceManager = resourceManager;
+			user.setFirstName(firstName);
+			user.setLastName(lastName);
 			user.setEmail(emailAddress);
+			
 			return user;
 		}
+
 	}
 
 	/**
@@ -188,7 +289,11 @@ public class User extends UserProfile {
 	public static class UpdateUserBuilder {
 		private Boolean admin;
 		private Boolean licensedSheetCreator;
+		private Boolean groupAdmin;
+		private Boolean resourceManager;
 		private Long id;
+		private String firstName;
+		private String lastName;
 
 		/**
 		 * Get the id of the user
@@ -248,7 +353,67 @@ public class User extends UserProfile {
 		}
 
 		/**
-		 * Builds the.
+		 * @return the firstName
+		 */
+		public String getFirstName() {
+			return firstName;
+		}
+		
+		/**
+		 * @param firstName the firstName to set
+		 */
+		public UpdateUserBuilder setFirstName(String firstName) {
+			this.firstName = firstName;
+			return this;
+		}
+		
+		/**
+		 * @return the lastName
+		 */
+		public String getLastName() {
+			return lastName;
+		}
+		
+		/**
+		 * @param lastName the lastName to set
+		 */
+		public UpdateUserBuilder setLastName(String lastName) {
+			this.lastName = lastName;
+			return this;
+		}
+		
+		/**
+		 * @return the groupAdmin
+		 */
+		public Boolean getGroupAdmin() {
+			return groupAdmin;
+		}
+
+		/**
+		 * @param groupAdmin the groupAdmin to set
+		 */
+		public UpdateUserBuilder setGroupAdmin(Boolean groupAdmin) {
+			this.groupAdmin = groupAdmin;
+			return this;
+		}
+
+		/**
+		 * @return the resourceManager
+		 */
+		public Boolean getResourceManager() {
+			return resourceManager;
+		}
+
+		/**
+		 * @param resourceManager the resourceManager to set
+		 */
+		public UpdateUserBuilder setResourceManager(Boolean resourceManager) {
+			this.resourceManager = resourceManager;
+			return this;
+		}
+		
+		/**
+		 * Builds the {@link User}.
 		 *
 		 * @return the user
 		 */
@@ -258,11 +423,18 @@ public class User extends UserProfile {
 			}
 			
 			User user = new User();
-			user.setAdmin(admin);
 			user.setId(id);
-			user.setLicensedSheetCreator(licensedSheetCreator);
+			user.setFirstName(firstName);
+			user.setLastName(lastName);
+			user.admin = admin;
+			user.licensedSheetCreator = licensedSheetCreator;
+			user.groupAdmin = groupAdmin;
+			user.resourceManager = resourceManager;
 			return user;
 		}
+
+		
+
 	}
 	/**
 	 * A convenience class for making a {@link User} object with the appropriate fields for adding to a {@link Group}. See {@link CreateGroupBuilder}
@@ -297,4 +469,5 @@ public class User extends UserProfile {
 			return user;
 		}
 	}
+	
 }
