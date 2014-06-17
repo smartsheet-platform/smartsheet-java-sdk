@@ -27,15 +27,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.List;
 
 import com.smartsheet.api.AssociatedAttachmentResources;
 import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.internal.http.HttpEntity;
-import com.smartsheet.api.internal.http.HttpMethod;
-import com.smartsheet.api.internal.http.HttpRequest;
-import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Attachment;
 
@@ -129,36 +124,9 @@ public class AssociatedAttachmentResourcesImpl extends AbstractAssociatedResourc
 	public Attachment attachFile(long objectId, InputStream inputStream, String contentType, long contentLength, String attachmentName)
 			throws SmartsheetException {
 		Util.throwIfNull(inputStream, contentType);
-		
-		HttpRequest request = createHttpRequest(this.getSmartsheet().getBaseURI().resolve(getMasterResourceType() + 
-				"/" + objectId + "/attachments"), HttpMethod.POST);
-		try {
-			request.getHeaders().put("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(attachmentName, "UTF-8") + "\"");
-		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException(e);
-		}
-		HttpEntity entity = new HttpEntity();
-		entity.setContentType(contentType);
-		entity.setContent(inputStream);
-		entity.setContentLength(contentLength);
-		request.setEntity(entity);
-		
-		HttpResponse response = this.getSmartsheet().getHttpClient().request(request);
-		
-		Attachment attachment = null;
-		switch (response.getStatusCode()) {
-		case 200:
-			attachment = this.getSmartsheet().getJsonSerializer().deserializeResult(Attachment.class, 
-					response.getEntity().getContent()).getResult();
-			break;
-		default:
-			handleError(response);
-		}
-		
-		this.getSmartsheet().getHttpClient().releaseConnection();
-		
-		return attachment;
+		return super.attachFile(getMasterResourceType() +"/" + objectId + "/attachments", inputStream, contentType, contentLength, attachmentName);
 	}
+		
 
 	/**
 	 * Attach a URL to the object.

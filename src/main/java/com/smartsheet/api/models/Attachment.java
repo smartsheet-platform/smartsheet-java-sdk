@@ -69,6 +69,12 @@ public class Attachment extends NamedModel<Long> {
 	 * Represents the attachment size.
 	 */
 	private Long sizeInKb;
+	
+	
+	/**
+	 * The user who created the attachment.
+	 */
+	private User createdBy;
 
 	/**
 	 * Gets the URL.
@@ -239,5 +245,19 @@ public class Attachment extends NamedModel<Long> {
 	 */
 	public void setSizeInKb(Long sizeInKb) {
 		this.sizeInKb = sizeInKb;
+	}
+
+	/**
+	 * @return the createdBy
+	 */
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	/**
+	 * @param createdBy the createdBy to set
+	 */
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
 	}
 }

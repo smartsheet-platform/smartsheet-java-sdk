@@ -22,9 +22,11 @@ package com.smartsheet.api.internal;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -32,6 +34,8 @@ import org.junit.Test;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.Attachment;
+import com.smartsheet.api.models.AttachmentParentType;
+import com.smartsheet.api.models.AttachmentType;
 
 public class AttachmentResourcesImplTest extends ResourcesImplBase {
 
@@ -54,6 +58,15 @@ public class AttachmentResourcesImplTest extends ResourcesImplBase {
 		assertNotNull(attachment.getUrl());
 		assertEquals("AbstractResources.mup",attachment.getName());
 	}
+	
+	public void testListAttachmentVersions() throws SmartsheetException, IOException {
+		server.setResponseBody(new File("src/test/resources/listAttachmentVersions.json"));
+		
+		List<Attachment> attachments = attachmentResourcesImpl.listAttachmentVersions(1234L);
+		for (Attachment att : attachments) {
+			assertNotNull(att.getName());
+		}
+	}
 
 	@Test
 	public void testDeleteAttachment() throws SmartsheetException, IOException {
@@ -62,4 +75,17 @@ public class AttachmentResourcesImplTest extends ResourcesImplBase {
 		attachmentResourcesImpl.deleteAttachment(1234L);
 	}
 
+	@Test
+	public void testAttachNewVersionFile() throws SmartsheetException, IOException {
+		server.setResponseBody(new File("src/test/resources/attachFile.json"));
+		File file = new File("src/test/resources/large_sheet.pdf");
+		Attachment attachment = attachmentResourcesImpl.attachNewVersion(1234L, file, 
+				"application/pdf");
+		assertTrue(attachment.getId() == 7265404226692996L);
+		assertEquals("Testing.PDF", attachment.getName());
+		assertEquals(AttachmentType.FILE, attachment.getAttachmentType());
+		assertEquals("application/pdf", attachment.getMimeType());
+		assertTrue(1831L == attachment.getSizeInKb());
+		assertEquals(AttachmentParentType.SHEET, attachment.getParentType());
+	}
 }

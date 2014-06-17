@@ -22,8 +22,15 @@ package com.smartsheet.api.internal;
 
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.List;
+
 import com.smartsheet.api.AttachmentResources;
 import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Attachment;
 
 /**
@@ -87,5 +94,30 @@ public class AttachmentResourcesImpl extends AbstractResources implements Attach
 	 */
 	public void deleteAttachment(long id) throws SmartsheetException {
 		this.deleteResource("attachment/" + id, Attachment.class);
+	}
+
+	
+	@Override
+	public void deleteAllAttachmentVersions(long id) throws SmartsheetException {
+		this.deleteResource("attachment/"+ id + "/versions", Attachment.class);
+	}
+
+	@Override
+	public List<Attachment> listAttachmentVersions(long id) throws SmartsheetException {
+		return this.listResources("attachment/" + id + "/versions", Attachment.class);
+	}
+
+	@Override
+	public Attachment attachNewVersion(long attachmentId, File file, String contentType) throws FileNotFoundException, SmartsheetException {
+		Util.throwIfNull(attachmentId, file, contentType);
+		Util.throwIfEmpty(contentType);
+		
+		return attachNewVersion(attachmentId, new FileInputStream(file), contentType, file.length(), file.getName());
+	}
+
+	@Override
+	public Attachment attachNewVersion (long attachmentId, InputStream inputStream, String contentType, long contentLength, String attachmentName)
+			throws SmartsheetException {
+		return super.attachFile("attachment/"+ attachmentId +"/versions", inputStream, contentType, contentLength, attachmentName);
 	}
 }
