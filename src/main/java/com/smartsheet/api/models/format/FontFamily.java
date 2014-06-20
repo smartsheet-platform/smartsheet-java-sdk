@@ -38,6 +38,11 @@ public enum FontFamily {
 	private final String fontName;
 	private final Set<String> traits;
 	
+	/**
+	 * The default setting when the {@link Format} for {@link FontFamily} is null;
+	 */
+	public static final FontFamily DEFAULT = ARIAL;
+	
 	FontFamily (String name, List<String> traits) {
 		this.fontName = name;
 		this.traits = new HashSet<String>(traits);

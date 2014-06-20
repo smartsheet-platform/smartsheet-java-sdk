@@ -11,15 +11,15 @@ public class FormatTest {
 	public void setup() {
 		
 	}
-	
+	private final static int U = Format.UNSET;
 	enum ParserTests {
-		VALID_A 	(",,1,1,1,,,,20,29,,,,,,", 	new int[]{0,2,1,1,1,0,0,0,20,29,0,0,0,0,0,0}),
-		VALID_B 	("1,11,,,,,,,,,,13,0,1,2,", new int[]{1,11,0,0,0,0,0,0,0,0,0,13,0,1,2,0}),
-		VALID_C 	(",1,,1,1,,1,1,,27,,,,,,1", new int[]{0,1,0,1,1,0,1,1,0,27,0,0,0,0,0,1}),
-		VALID_D 	(",,,,,,2,2,,,,,,,,",		new int[]{0,2,0,0,0,0,2,2,0,0,0,0,0,0,0,0}),
-		VALID_E		("3,7,1,,,,,,,,,,,,,1", 	new int[]{3,7,1,0,0,0,0,0,0,0,0,0,0,0,0,1}),
-		TOO_MANY 	("3,7,1,,,,,,,,,,,,,1,1,2,3,1,", 	new int[]{3,7,1,0,0,0,0,0,0,0,0,0,0,0,0,1}),
-		TOO_MANY_2 	("3,7,1,,,,,,,,,,,,,1,1,2,3,1", 	new int[]{3,7,1,0,0,0,0,0,0,0,0,0,0,0,0,1}),
+		VALID_A 	(",,1,1,1,,,,20,29,,,,,,", 	new int[]{U,U,1,1,1,U,U,U,20,29,U,U,U,U,U,U}),
+		VALID_B 	("1,11,,,,,,,,,,13,0,1,2,", new int[]{1,11,U,U,U,U,U,U,U,U,U,13,0,1,2,U}),
+		VALID_C 	(",1,,1,1,,1,1,,27,,,,,,1", new int[]{U,1,U,1,1,U,1,1,U,27,U,U,U,U,U,1}),
+		VALID_D 	(",,,,,,2,2,,,,,,,,",		new int[]{U,U,U,U,U,U,2,2,U,U,U,U,U,U,U,U}),
+		VALID_E		("3,7,1,,,,,,,,,,,,,1", 	new int[]{3,7,1,U,U,U,U,U,U,U,U,U,U,U,U,1}),
+		TOO_MANY 	("3,7,1,,,,,,,,,,,,,1,1,2,3,1,", 	new int[]{3,7,1,U,U,U,U,U,U,U,U,U,U,U,U,1}),
+		TOO_MANY_2 	("3,7,1,,,,,,,,,,,,,1,1,2,3,1", 	new int[]{3,7,1,U,U,U,U,U,U,U,U,U,U,U,U,1}),
 		;
 		final static int EXPECTED_COUNT = 16;
 		final String format;
@@ -228,11 +228,11 @@ public class FormatTest {
 	}
 	
 	enum HAlignTest implements FormatTestCase<HorizontalAlignment>  {
-		DEFAULT 		(",,,,,,0,,,,,,,,,,", HorizontalAlignment.DEFAULT),
+		DEFAULT 		(",,,,,,0,,,,,,,,,,", HorizontalAlignment.DEFAULT_ALIGNMENT),
 		LEFT			(",,,,,,1,,,,,,,,,,", HorizontalAlignment.LEFT),
 		CENTER			(",,,,,,2,,,,,,,,,,", HorizontalAlignment.CENTER),
 		RIGHT 			(",,,,,,3,,,,,,,,,,", HorizontalAlignment.RIGHT),
-		SOMETHING_NEW	(",,,,,,4,,,,,,,,,,", HorizontalAlignment.DEFAULT),
+		SOMETHING_NEW	(",,,,,,4,,,,,,,,,,", HorizontalAlignment.DEFAULT_ALIGNMENT),
 		;
 		final String format;
 		HorizontalAlignment expected;
@@ -253,11 +253,11 @@ public class FormatTest {
 	}
 	
 	enum VAlignTest implements FormatTestCase<VerticalAlignment>  {
-		DEFAULT 		(",,,,,,,0,,,,,,,,,", VerticalAlignment.DEFAULT),
+		DEFAULT 		(",,,,,,,0,,,,,,,,,", VerticalAlignment.DEFAULT_ALIGNMENT),
 		LEFT			(",,,,,,,1,,,,,,,,,", VerticalAlignment.TOP),
 		CENTER			(",,,,,,,2,,,,,,,,,", VerticalAlignment.MIDDLE),
 		RIGHT 			(",,,,,,,3,,,,,,,,,", VerticalAlignment.BOTTOM),
-		SOMETHING_NEW	(",,,,,,,4,,,,,,,,,", VerticalAlignment.DEFAULT),
+		SOMETHING_NEW	(",,,,,,,4,,,,,,,,,", VerticalAlignment.DEFAULT_ALIGNMENT),
 		;
 		final String format;
 		VerticalAlignment expected;

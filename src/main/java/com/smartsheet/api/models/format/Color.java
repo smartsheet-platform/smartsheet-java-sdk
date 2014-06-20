@@ -77,6 +77,11 @@ public enum Color {
 	
 	private final String hex;
 	
+	/**
+	 * The default setting when the {@link Format} for {@link Color} is null;
+	 */
+	public static final Color DEFAULT = NONE;
+	
 	Color (String hex) {
 		this.hex = hex;
 	}

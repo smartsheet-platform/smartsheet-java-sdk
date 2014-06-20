@@ -35,6 +35,11 @@ public enum Strikethrough {
 	}
 
 	/**
+	 * The default setting when the {@link Format} for {@link Strikethrough} is null;
+	 */
+	public static final Strikethrough DEFAULT = NONE;
+	
+	/**
 	 * @return the strikeThrough
 	 */
 	public boolean isStricken() {

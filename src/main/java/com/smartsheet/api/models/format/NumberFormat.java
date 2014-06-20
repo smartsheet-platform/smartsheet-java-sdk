@@ -26,4 +26,9 @@ public enum NumberFormat {
 	CURRENCY,
 	PERCENT,
 	;
+	
+	/**
+	 * The default setting when the {@link Format} for {@link NumberFormat} is null;
+	 */
+	public static final NumberFormat DEFAULT = NONE;
 }

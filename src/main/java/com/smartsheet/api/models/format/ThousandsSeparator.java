@@ -34,6 +34,12 @@ public enum ThousandsSeparator {
 	}
 
 	/**
+	 * The default setting when the {@link Format} for {@link ThousandsSeparator} is null;
+	 */
+	public static final ThousandsSeparator DEFAULT = NONE;
+	
+	
+	/**
 	 * @return the separated
 	 */
 	public boolean isSeparated() {

@@ -53,6 +53,11 @@ public enum Currency {
 	SINGAPORE_DOLLAR    ("SGD", "$"),
 	;
 	
+	/**
+	 * The default setting when the {@link Format} for {@link Currency} is null;
+	 */
+	public static final Currency DEFAULT = NONE;
+	
 	private final String code;
 	private final String symbol;
 	

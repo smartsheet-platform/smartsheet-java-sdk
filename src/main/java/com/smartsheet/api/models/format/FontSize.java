@@ -40,6 +40,11 @@ public enum FontSize {
 	;
 	private final int pt;
 	
+	/**
+	 * The default setting when the {@link Format} for {@link FontSize} is null;
+	 */
+	public static final FontSize DEFAULT = PT_10;
+	
 	FontSize (int pt) {
 		this.pt = pt;
 	}

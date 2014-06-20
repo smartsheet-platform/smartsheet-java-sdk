@@ -29,6 +29,12 @@ public enum Bold {
 	;
 	private final boolean bold;
 	
+	
+	/**
+	 * The default setting when the {@link Format} for {@link Bold} is null;
+	 */
+	public static final Bold DEFAULT = NONE;
+	
 	private Bold (boolean bold) {
 		this.bold = bold;
 	}

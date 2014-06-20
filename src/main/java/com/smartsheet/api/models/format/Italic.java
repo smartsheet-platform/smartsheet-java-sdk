@@ -33,7 +33,12 @@ public enum Italic {
 	private Italic (boolean italic) {
 		this.italic = italic;
 	}
-
+	
+	/**
+	 * The default setting when the {@link Format} for {@link Italic} is null;
+	 */
+	public static final Italic DEFAULT = NONE;
+	
 	/**
 	 * @return the italic
 	 */

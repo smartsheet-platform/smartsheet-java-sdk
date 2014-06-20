@@ -35,6 +35,11 @@ public enum DecimalCount {
 	
 	private final int decimalCount;
 	
+	/**
+	 * The default setting when the {@link Format} for {@link DecimalCount} is null;
+	 */
+	public static final DecimalCount DEFAULT = COUNT_0;
+	
 	DecimalCount (int count) {
 		this.decimalCount = count;
 	}

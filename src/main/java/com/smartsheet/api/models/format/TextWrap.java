@@ -35,6 +35,11 @@ public enum TextWrap {
 	}
 
 	/**
+	 * The default setting when the {@link Format} for {@link TextWrap} is null;
+	 */
+	public static final TextWrap DEFAULT = NONE;
+	
+	/**
 	 * @return the wrapped
 	 */
 	public boolean isWrapped() {

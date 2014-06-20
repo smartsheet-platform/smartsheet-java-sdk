@@ -25,13 +25,19 @@ package com.smartsheet.api.models.format;
  * An enumeration representing the available horizontal alignments within Smartsheet.
  */
 public enum HorizontalAlignment {
-	DEFAULT (""),
+	DEFAULT_ALIGNMENT (""),
 	LEFT ("left"),
 	CENTER ("center"),
 	RIGHT ("right"),
 	;
 	
 	private final String position;
+	
+	/**
+	 * The default setting when the {@link Format} for {@link HorizontalAlignment} is null;
+	 */
+	public static final HorizontalAlignment DEFAULT = DEFAULT_ALIGNMENT;
+	
 	
 	private HorizontalAlignment(String position) {
 		this.position = position;

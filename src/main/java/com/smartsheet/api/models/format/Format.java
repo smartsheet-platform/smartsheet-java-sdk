@@ -33,8 +33,9 @@ import java.util.Arrays;
  */
 public class Format {
 
-	//The default format. All other formats should be over
+	//The default format.
 	private static final int[] DEFAULT_FORMAT = new int[]{0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+	static final int UNSET = Integer.MIN_VALUE;
 	int[] formatArray;
 	
 	/**
@@ -51,7 +52,7 @@ public class Format {
 		FormatTokenizer tokenizer = new FormatTokenizer(original);
 		for (int i = 0; tokenizer.next() && i < DEFAULT_FORMAT.length; i++) {
 			if (tokenizer.isNextUnset()) {
-				formatArray[i] = DEFAULT_FORMAT[i];
+				formatArray[i] = UNSET;
 			} else {
 				formatArray[i] = tokenizer.nextInt();
 			}
@@ -68,6 +69,8 @@ public class Format {
 	protected <T extends Enum<?>> T getFormatValue(FormatAttribute attribute, T[] values) {
 		if (formatArray[attribute.ordinal()] >= values.length) {
 			return values[DEFAULT_FORMAT[attribute.ordinal()]];
+		} else if (formatArray[attribute.ordinal()] == UNSET) {
+			 return null;
 		} else {
 			return values[formatArray[attribute.ordinal()]];
 		}
@@ -247,16 +250,20 @@ public class Format {
 		 */
 		public boolean next() {
 			pos++;
-			return pos < chars.length;
+			return pos < chars.length || (pos == chars.length && chars[pos -1] == SEPARATOR);
 		}
 		
 		/**
-		 * Since we want to know the difference between set to "0" and unset, this  tells us if the next position is set or not. If it is set, 
-		 * the position cursor advances, otherwise it is still suitable to get the next int.
+		 * Since we want to know the difference between set to "0" and unset, this  tells us if the next position is set or not. Accounts for
+		 * being at the end of the char array, where there is potentially one more position that needs to be accounted for.
 		 * @return whether the next position is set or not.
 		 */
 		public boolean isNextUnset() {
-			return chars[pos] == SEPARATOR;
+			if (pos >= chars.length) {
+				return true;
+			} else {
+				return chars[pos] == SEPARATOR;
+			}
 		}
 		
 		/**

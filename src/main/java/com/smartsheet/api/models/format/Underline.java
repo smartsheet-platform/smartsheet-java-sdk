@@ -34,6 +34,11 @@ public enum Underline {
 	}
 
 	/**
+	 * The default setting when the {@link Format} for {@link Underline} is null;
+	 */
+	public static final Underline DEFAULT = NONE;
+	
+	/**
 	 * @return the separated
 	 */
 	public boolean isUnderlined() {
