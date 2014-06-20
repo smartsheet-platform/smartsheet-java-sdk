@@ -16,7 +16,7 @@ Add the SDK as a dependency in your project.
 <dependency>
   <groupId>com.smartsheet</groupId>
   <artifactId>smartsheet-sdk-java</artifactId>
-  <version>1.0.3</version>
+  <version>1.1</version>
 </dependency>
 ```
 
@@ -101,6 +101,17 @@ Each specific release is available for download via [Github](https://github.com/
 * Added support for attachment versioning
 * Added support for Formats on cells, rows, and columns
 
+
+**1.0.6**
+* Improved attachments allowing for the use of InputStreams
+* Other minor improvements and bug fixes
+
+**1.0.5**
+* Nothing changed. This release is the same as 1.0.4.
+
+**1.0.4**
+* Fixed issue when refreshing an existing OAuth token.
+* Added ability to represent boolean values (without a cast) in a Cell Object.
 
 **1.0.3**
 * Added missing file required by unit test

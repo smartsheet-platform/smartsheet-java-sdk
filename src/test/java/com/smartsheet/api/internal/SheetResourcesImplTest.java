@@ -25,6 +25,9 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
@@ -121,8 +124,9 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		assertNotNull(output);
 		assertTrue(output.toByteArray().length > 0);
 		
-		byte[] original = IOUtils.toByteArray(new FileReader(file));
-		assertEquals(original.length, output.toByteArray().length);
+		//byte[] original = IOUtils.toByteArray(new FileReader(file));
+		byte[] data = Files.readAllBytes(Paths.get(file.getPath()));
+		assertEquals(data.length, output.toByteArray().length);
 	}
 
 	@Test
