@@ -1,5 +1,4 @@
-package com.smartsheet.api.internal;
-
+package com.smartsheet.api.models.format;
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -20,31 +19,30 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import org.junit.After;
-import org.junit.Before;
 
-import com.smartsheet.api.HttpTestServer;
-import com.smartsheet.api.internal.json.JacksonJsonSerializer;
-
-public class ResourcesImplBase {
-
-	HttpTestServer server;
-	FolderResourcesImpl folderResource;
-	JacksonJsonSerializer serializer;
+/**
+ * @author kskeem
+ * An enumeration representing the Decimal count formats available in Smartsheet.
+ */
+public enum DecimalCount {
+	COUNT_0 (0),
+	COUNT_1 (1),
+	COUNT_2 (2),
+	COUNT_3 (3),
+	COUNT_4 (4),
+	COUNT_5 (5),
+	;
 	
-	@Before
-	public void baseSetUp() throws Exception {
-		// Setup test server
-		server = new HttpTestServer();
-		server.setPort(9090);
-		server.start();
-
-		// Setup the serializer
-		JacksonJsonSerializer.setFailOnUnknownProperties(true);
+	private final int decimalCount;
+	
+	DecimalCount (int count) {
+		this.decimalCount = count;
 	}
-	
-	@After
-	public void baseTearDown() throws Exception {
-		server.stop();
+
+	/**
+	 * @return the decimalCount
+	 */
+	public int getDecimalCount() {
+		return decimalCount;
 	}
 }

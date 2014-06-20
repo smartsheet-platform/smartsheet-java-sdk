@@ -1,5 +1,4 @@
-package com.smartsheet.api.internal;
-
+package com.smartsheet.api.models.format;
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -20,31 +19,35 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import org.junit.After;
-import org.junit.Before;
 
-import com.smartsheet.api.HttpTestServer;
-import com.smartsheet.api.internal.json.JacksonJsonSerializer;
-
-public class ResourcesImplBase {
-
-	HttpTestServer server;
-	FolderResourcesImpl folderResource;
-	JacksonJsonSerializer serializer;
+/**
+ * @author kskeem
+ * An enumeration representing the available font sizes within Smartsheet.
+ */
+public enum FontSize {
+	PT_8 	(8),
+	PT_9 	(9),
+	PT_10 	(10),
+	PT_12 	(12),
+	PT_14 	(14),
+	PT_16 	(16),
+	PT_18	(18),
+	PT_20 	(20),
+	PT_24 	(24),
+	PT_28 	(28),
+	PT_32 	(32),
+	PT_36 	(36),
+	;
+	private final int pt;
 	
-	@Before
-	public void baseSetUp() throws Exception {
-		// Setup test server
-		server = new HttpTestServer();
-		server.setPort(9090);
-		server.start();
-
-		// Setup the serializer
-		JacksonJsonSerializer.setFailOnUnknownProperties(true);
+	FontSize (int pt) {
+		this.pt = pt;
 	}
-	
-	@After
-	public void baseTearDown() throws Exception {
-		server.stop();
+
+	/**
+	 * @return the pt
+	 */
+	public int getPt() {
+		return pt;
 	}
 }

@@ -85,6 +85,11 @@ public class Sheet extends NamedModel<Long> {
 	private Boolean dependenciesEnabled;
 
 	/**
+	 * A flag that indicates if resource management is enabled for a sheet.
+	 */
+	private Boolean resourceManagementEnabled;
+	
+	/**
 	 * Represents the version for the sheet
 	 */
 	private Integer version;
@@ -610,5 +615,20 @@ public class Sheet extends NamedModel<Long> {
 			sheet.setId(id);
 			return sheet;
 		}
+	}
+
+
+	/**
+	 * @return the flag indicating if resource management is enabled.
+	 */
+	public Boolean getResourceManagementEnabled() {
+		return resourceManagementEnabled;
+	}
+
+	/**
+	 * @param resourceManagementEnabled the resourceManagementEnabled to set
+	 */
+	public void setResourceManagementEnabled(Boolean resourceManagementEnabled) {
+		this.resourceManagementEnabled = resourceManagementEnabled;
 	}
 }

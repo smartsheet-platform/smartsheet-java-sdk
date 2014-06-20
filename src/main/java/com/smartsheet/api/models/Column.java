@@ -22,6 +22,8 @@ package com.smartsheet.api.models;
 
 import java.util.List;
 
+import com.smartsheet.api.models.format.Format;
+
 /**
  * Represents the Column object.
  */
@@ -96,6 +98,12 @@ public class Column extends IdentifiableModel<Long> {
 	 * The width of the cell.
 	 * */
 	private Integer width;
+	
+
+	/**
+	 * Represents the {@link Format} for this column.
+	 */
+	private Format format;
 
 	/**
 	 * Gets the position of the column.
@@ -743,5 +751,19 @@ public class Column extends IdentifiableModel<Long> {
 
 	public void setWidth(Integer width) {
 		this.width = width;
+	}
+
+	/**
+	 * @return the {@link Format}
+	 */
+	public Format getFormat() {
+		return format;
+	}
+
+	/**
+	 * @param format the {@link Format} to set
+	 */
+	public void setFormat(Format format) {
+		this.format = format;
 	}
 }

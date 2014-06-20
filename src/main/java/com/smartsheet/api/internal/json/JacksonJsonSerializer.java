@@ -28,13 +28,16 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.IdentifiableModel;
 import com.smartsheet.api.models.Result;
+import com.smartsheet.api.models.format.Format;
 
 /**
  * This is the Jackson based JsonSerializer implementation.
@@ -66,6 +69,12 @@ public class JacksonJsonSerializer implements JsonSerializer {
 		
 		// Excludes "id" field from being serialized to JSON for any IdentifiableModel class
 		OBJECT_MAPPER.addMixInAnnotations(IdentifiableModel.class, IdFieldExclusionMixin.class);
+		
+		//Add a custom deserializer that will convert a string to a Format object.
+		SimpleModule module = new SimpleModule("FormatDeserializerModule", Version.unknownVersion());
+		module.addDeserializer(Format.class, new FormatDeserializer());
+
+		OBJECT_MAPPER.registerModule(module);
 	}
 
 	/**
@@ -74,7 +83,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	 * @param value
 	 *            true if it should fail, false otherwise.
 	 */
-	public void setFailOnUnknownProperties(boolean value) {
+	public static void setFailOnUnknownProperties(boolean value) {
 		OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, value);
 	}
 

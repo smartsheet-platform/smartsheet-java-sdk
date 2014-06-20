@@ -1,5 +1,4 @@
-package com.smartsheet.api.internal;
-
+package com.smartsheet.api.models.format;
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -20,31 +19,25 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import org.junit.After;
-import org.junit.Before;
 
-import com.smartsheet.api.HttpTestServer;
-import com.smartsheet.api.internal.json.JacksonJsonSerializer;
-
-public class ResourcesImplBase {
-
-	HttpTestServer server;
-	FolderResourcesImpl folderResource;
-	JacksonJsonSerializer serializer;
+/**
+ * @author kskeem
+ * An enumeration representing the available Strikethrough state for a format.
+ */
+public enum Strikethrough {
+	NONE 	(false),
+	ON		(true),
+	;
+	private final boolean striken;
 	
-	@Before
-	public void baseSetUp() throws Exception {
-		// Setup test server
-		server = new HttpTestServer();
-		server.setPort(9090);
-		server.start();
-
-		// Setup the serializer
-		JacksonJsonSerializer.setFailOnUnknownProperties(true);
+	private Strikethrough (boolean striken) {
+		this.striken = striken;
 	}
-	
-	@After
-	public void baseTearDown() throws Exception {
-		server.stop();
+
+	/**
+	 * @return the strikeThrough
+	 */
+	public boolean isStricken() {
+		return striken;
 	}
 }

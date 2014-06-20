@@ -23,6 +23,8 @@ package com.smartsheet.api.models;
 import java.util.Date;
 import java.util.List;
 
+import com.smartsheet.api.models.format.Format;
+
 /**
  * Represents the Row object.
  */
@@ -68,6 +70,9 @@ public class Row extends IdentifiableModel<Long> {
 	
 	/** Indicates if the row is locked for the current user. Defaults to false. **/
 	private Boolean lockedForUser;
+
+	/** Represents the {@link Format} for this cell.*/
+	private Format format;
 	
 	
 	/**
@@ -356,5 +361,19 @@ public class Row extends IdentifiableModel<Long> {
 
 	public void setLockedForUser(Boolean lockedForUser) {
 		this.lockedForUser = lockedForUser;
+	}
+
+	/**
+	 * @return the {@link Format}
+	 */
+	public Format getFormat() {
+		return format;
+	}
+
+	/**
+	 * @param format the {@link Format} to set
+	 */
+	public void setFormat(Format format) {
+		this.format = format;
 	}
 }

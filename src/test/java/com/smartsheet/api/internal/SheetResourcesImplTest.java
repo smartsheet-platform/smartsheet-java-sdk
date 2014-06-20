@@ -20,12 +20,7 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.FileReader;
@@ -52,6 +47,9 @@ import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.SheetEmail;
 import com.smartsheet.api.models.SheetEmailFormat;
 import com.smartsheet.api.models.SheetPublish;
+import com.smartsheet.api.models.format.Color;
+import com.smartsheet.api.models.format.FontSize;
+import com.smartsheet.api.models.format.VerticalAlignment;
 
 
 public class SheetResourcesImplTest extends ResourcesImplBase {
@@ -92,6 +90,23 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		sheet = sheetResource.getSheet(123123L, EnumSet.allOf(ObjectInclusion.class));
 		assertEquals(9,sheet.getColumns().size());
 		assertEquals(0,sheet.getRows().size());
+	}
+	@Test
+	public void testGetSheetWithFormat() throws SmartsheetException, IOException {
+		
+		server.setResponseBody(new File("src/test/resources/getSheetWithFormat.json"));
+		Sheet sheet = sheetResource.getSheet(123123L, null);
+		
+		assertNotNull(sheet.getColumnByIndex(0).getFormat());
+		assertEquals(VerticalAlignment.TOP, sheet.getColumnByIndex(0).getFormat().getVerticalAlignment());
+		
+		assertNotNull(sheet.getRowByRowNumber(1).getFormat());
+		assertEquals(FontSize.PT_12, sheet.getRowByRowNumber(1).getFormat().getFontSize());
+
+		assertNotNull(sheet.getRowByRowNumber(1).getCells().get(0).getFormat());
+		assertEquals(Color.YELLOW_3, sheet.getRowByRowNumber(1).getCells().get(0).getFormat().getBackgroundColor());
+		
+		
 	}
 
 	@Test

@@ -3,6 +3,8 @@ package com.smartsheet.api.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.smartsheet.api.models.format.Format;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -67,6 +69,11 @@ public class Cell {
 	 * Represents the strict flag.
 	 */
 	private Boolean strict;
+	
+	/**
+	 * Represents the {@link Format} for this cell.
+	 */
+	private Format format;
 
 	/**
 	 * Gets the column type.
@@ -265,5 +272,19 @@ public class Cell {
 		public List<Cell> build() {
 			return cells;
 		}
+	}
+
+	/**
+	 * @return the {@link Format}
+	 */
+	public Format getFormat() {
+		return format;
+	}
+
+	/**
+	 * @param format the {@link Format} to set
+	 */
+	public void setFormat(Format format) {
+		this.format = format;
 	}
 }

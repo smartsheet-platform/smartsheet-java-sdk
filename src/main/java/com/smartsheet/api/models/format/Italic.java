@@ -1,5 +1,4 @@
-package com.smartsheet.api.internal;
-
+package com.smartsheet.api.models.format;
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -20,31 +19,25 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import org.junit.After;
-import org.junit.Before;
 
-import com.smartsheet.api.HttpTestServer;
-import com.smartsheet.api.internal.json.JacksonJsonSerializer;
-
-public class ResourcesImplBase {
-
-	HttpTestServer server;
-	FolderResourcesImpl folderResource;
-	JacksonJsonSerializer serializer;
+/**
+ * @author kskeem
+ * An enumeration representing the available Italic state for a format.
+ */
+public enum Italic {
+	NONE 	(false),
+	ON		(true),
+	;
+	private final boolean italic;
 	
-	@Before
-	public void baseSetUp() throws Exception {
-		// Setup test server
-		server = new HttpTestServer();
-		server.setPort(9090);
-		server.start();
-
-		// Setup the serializer
-		JacksonJsonSerializer.setFailOnUnknownProperties(true);
+	private Italic (boolean italic) {
+		this.italic = italic;
 	}
-	
-	@After
-	public void baseTearDown() throws Exception {
-		server.stop();
+
+	/**
+	 * @return the italic
+	 */
+	public boolean isItalic() {
+		return italic;
 	}
 }

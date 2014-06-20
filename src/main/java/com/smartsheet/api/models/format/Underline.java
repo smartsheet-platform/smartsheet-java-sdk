@@ -1,5 +1,4 @@
-package com.smartsheet.api.internal;
-
+package com.smartsheet.api.models.format;
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -20,31 +19,24 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import org.junit.After;
-import org.junit.Before;
-
-import com.smartsheet.api.HttpTestServer;
-import com.smartsheet.api.internal.json.JacksonJsonSerializer;
-
-public class ResourcesImplBase {
-
-	HttpTestServer server;
-	FolderResourcesImpl folderResource;
-	JacksonJsonSerializer serializer;
+/**
+ * @author kskeem
+ * An enumeration representing the available Underline state for a format.
+ */
+public enum Underline {
+	NONE 	(false),
+	ON		(true),
+	;
+	private final boolean underlined;
 	
-	@Before
-	public void baseSetUp() throws Exception {
-		// Setup test server
-		server = new HttpTestServer();
-		server.setPort(9090);
-		server.start();
-
-		// Setup the serializer
-		JacksonJsonSerializer.setFailOnUnknownProperties(true);
+	private Underline (boolean underlined) {
+		this.underlined = underlined;
 	}
-	
-	@After
-	public void baseTearDown() throws Exception {
-		server.stop();
+
+	/**
+	 * @return the separated
+	 */
+	public boolean isUnderlined() {
+		return underlined;
 	}
 }
