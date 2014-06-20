@@ -99,6 +99,7 @@ Each specific release is available for download via [Github](https://github.com/
 **1.1.0**
 * Added support for group administration and sharing (note there are some backwards incompatible changes to sharing)
 * Added support for attachment versioning
+* Added support for Formats on cells, rows, and columns
 
 
 **1.0.3**
