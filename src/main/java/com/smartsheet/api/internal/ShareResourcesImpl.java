@@ -64,7 +64,7 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Share> listShares(long objectId) throws SmartsheetException {
-		return this.listResources(getMasterResourceType() + "/" + objectId + "/sharesWithGroups", Share.class);
+		return this.listResources(getMasterResourceType() + "/" + objectId + "/shareswithgroups", Share.class);
 	}
 
 	/**
@@ -111,7 +111,7 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Share shareTo(long objectId, Share share) throws SmartsheetException {
-		return this.createResource(getMasterResourceType() + "/" + objectId + "/sharesWithGroups", Share.class, share);
+		return this.createResource(getMasterResourceType() + "/" + objectId + "/shareswithgroups", Share.class, share);
 	}
 
 	/**
@@ -137,7 +137,7 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Share shareTo(long objectId, Share share, boolean sendEmail) throws SmartsheetException {
-		return this.createResource(getMasterResourceType() + "/" + objectId + "/sharesWithGroups?sendEmail=" + sendEmail,
+		return this.createResource(getMasterResourceType() + "/" + objectId + "/shareswithgroups?sendEmail=" + sendEmail,
 				Share.class, share);
 	}
 
