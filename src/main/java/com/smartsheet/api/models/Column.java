@@ -119,7 +119,7 @@ public class Column extends IdentifiableModel<Long> {
 	 *
 	 * @param index the new index
 	 */
-	public void setIndex(int index) {
+	public void setIndex(Integer index) {
 		this.index = index;
 	}
 
