@@ -1,18 +1,24 @@
-[
-    {
-        "id": 94094820842,
-        "admin": true,
-        "email": "john.doe@smartsheet.com",
-        "name": "John Doe",
-        "licensedSheetCreator": true,
-        "status": "ACTIVE"
-    },
-    {
-        "id": 94094820843,
-        "admin": true,
-        "email": "jane.doe@smartsheet.com",
-        "name": "John Doe",
-        "licensedSheetCreator": true,
-        "status": "ACTIVE"
-    }
-]
+{
+    "data": [
+        {
+            "id": 94094820842,
+            "admin": true,
+            "email": "john.doe@smartsheet.com",
+            "name": "John Doe",
+            "licensedSheetCreator": true,
+            "status": "ACTIVE"
+        },
+        {
+            "id": 94094820843,
+            "admin": true,
+            "email": "jane.doe@smartsheet.com",
+            "name": "John Doe",
+            "licensedSheetCreator": true,
+            "status": "ACTIVE"
+        }
+    ],
+    "pageNumber": 1,
+    "pageSize": 100,
+    "totalCount": 418,
+    "totalPages": 5
+}

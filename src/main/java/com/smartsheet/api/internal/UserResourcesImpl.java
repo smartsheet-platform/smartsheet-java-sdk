@@ -22,10 +22,9 @@ package com.smartsheet.api.internal;
 
 
 
-import java.util.List;
-
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.UserResources;
+import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.User;
 import com.smartsheet.api.models.UserProfile;
 
@@ -35,7 +34,7 @@ import com.smartsheet.api.models.UserProfile;
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class UserResourcesImpl extends AbstractResources implements UserResources {
-	
+
 	/**
 	 * Constructor.
 	 * 
@@ -62,8 +61,9 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	 * @return all users (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public List<User> listUsers() throws SmartsheetException {
-		return this.listResources("users", User.class);
+
+	public DataWrapper<User> listUsers() throws SmartsheetException {
+		return this.listResourcesWithWrapper("users", User.class);
 	}
 
 	/**

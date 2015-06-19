@@ -47,6 +47,7 @@ import com.smartsheet.api.internal.http.HttpRequest;
 import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Attachment;
+import com.smartsheet.api.models.DataWrapper;
 
 /**
  * This is the base class of the Smartsheet REST API resources.
@@ -354,6 +355,46 @@ public abstract class AbstractResources {
 		
 		smartsheet.getHttpClient().releaseConnection();
 		
+		return obj;
+	}
+
+	/**
+	 * * List resources Wrapper (supports paging info) using Smartsheet REST API.
+	 *
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null, or path is empty string
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 * @param path
+	 * @param objectClass
+	 * @param <T>
+	 * @return
+	 * @throws SmartsheetException
+	 */
+	protected <T> DataWrapper<T> listResourcesWithWrapper(String path, Class<T> objectClass) throws SmartsheetException {
+		Util.throwIfNull(path, objectClass);
+		Util.throwIfEmpty(path);
+
+		HttpRequest request;
+		request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.GET);
+
+		HttpResponse response = this.smartsheet.getHttpClient().request(request);
+
+		DataWrapper<T> obj = null;
+		switch (response.getStatusCode()) {
+			case 200:
+				obj = this.smartsheet.getJsonSerializer().deserializeDataWrapper(objectClass,
+						response.getEntity().getContent());
+				break;
+			default:
+				handleError(response);
+		}
+
+		smartsheet.getHttpClient().releaseConnection();
+
 		return obj;
 	}
 
