@@ -24,6 +24,7 @@ package com.smartsheet.api;
 
 import java.util.List;
 
+import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.Folder;
 
 /**
@@ -47,7 +48,7 @@ public interface HomeFolderResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public List<Folder> listFolders() throws SmartsheetException;
+	public DataWrapper<Folder> listFolders() throws SmartsheetException;
 
 	/**
 	 * <p>Create a folder in home.</p>

@@ -27,6 +27,7 @@ import java.util.List;
 import com.smartsheet.api.HomeFolderResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Folder;
+import com.smartsheet.api.models.DataWrapper;
 
 /**
  * This is the implementation of the HomeFolderResources.
@@ -62,8 +63,8 @@ public class HomeFolderResourcesImpl extends AbstractResources implements HomeFo
 	 * @return the folders (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public List<Folder> listFolders() throws SmartsheetException {
-		return this.listResources("home/folders", Folder.class);
+	public DataWrapper<Folder> listFolders() throws SmartsheetException {
+		return this.listResourcesWithWrapper("home/folders", Folder.class);
 	}
 
 	/**

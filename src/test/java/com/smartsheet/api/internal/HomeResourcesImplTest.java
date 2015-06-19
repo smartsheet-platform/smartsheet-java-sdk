@@ -78,7 +78,7 @@ public class HomeResourcesImplTest extends ResourcesImplBase {
 		
 		HomeFolderResources folders = homeResources.folders();
 		assertNotNull(folders.listFolders());
-		assertTrue(folders.listFolders().size() == 5);
+		assertTrue(folders.listFolders().getPageSize() == 5);
 	}
 
 }
