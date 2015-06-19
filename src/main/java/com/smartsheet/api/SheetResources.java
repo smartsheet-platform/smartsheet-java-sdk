@@ -26,11 +26,7 @@ import java.io.OutputStream;
 import java.util.EnumSet;
 import java.util.List;
 
-import com.smartsheet.api.models.ObjectInclusion;
-import com.smartsheet.api.models.PaperSize;
-import com.smartsheet.api.models.Sheet;
-import com.smartsheet.api.models.SheetEmail;
-import com.smartsheet.api.models.SheetPublish;
+import com.smartsheet.api.models.*;
 
 /**
  * <p>This interface provides methods to access Sheet resources.</p>
@@ -52,7 +48,7 @@ public interface SheetResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public List<Sheet> listSheets() throws SmartsheetException;
+	public DataWrapper<Sheet> listSheets() throws SmartsheetException;
 
 	/**
 	 * <p>List all sheets in the organization.</p>
@@ -67,7 +63,7 @@ public interface SheetResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public List<Sheet> listOrganizationSheets() throws SmartsheetException;
+	public DataWrapper<Sheet> listOrganizationSheets() throws SmartsheetException;
 
 	/**
 	 * <p>Get a sheet.</p>

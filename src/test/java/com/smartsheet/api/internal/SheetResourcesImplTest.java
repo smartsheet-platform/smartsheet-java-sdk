@@ -50,6 +50,7 @@ import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.SheetEmail;
 import com.smartsheet.api.models.SheetEmailFormat;
 import com.smartsheet.api.models.SheetPublish;
+import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.format.Color;
 import com.smartsheet.api.models.format.FontSize;
 import com.smartsheet.api.models.format.VerticalAlignment;
@@ -70,16 +71,23 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 
 		server.setResponseBody(new File("src/test/resources/listSheets.json"));
 
-		List<Sheet> sheets = sheetResource.listSheets();
-		assertEquals(2, sheets.size());
+		DataWrapper<Sheet> sheets = sheetResource.listSheets();
+
+		assertTrue(sheets.getPageNumber() == 1);
+		assertTrue(sheets.getPageSize() == 100);
+		assertTrue(sheets.getTotalPages() == 1);
+		assertTrue(sheets.getTotalCount() == 2);
+		assertTrue(sheets.getData().size() == 2);
+		assertEquals("sheet 1", sheets.getData().get(0).getName());
+		assertEquals("sheet 2", sheets.getData().get(1).getName());
 	}
 
 	@Test
 	public void testListOrganizationSheets() throws SmartsheetException, IOException {
 
 		server.setResponseBody(new File("src/test/resources/listSheets.json"));
-		List<Sheet> sheets = sheetResource.listOrganizationSheets();
-		assertEquals(2, sheets.size());
+		DataWrapper<Sheet> sheets = sheetResource.listOrganizationSheets();
+		assertEquals(2, sheets.getData().size());
 	}
 
 	@Test
@@ -358,12 +366,11 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 
 		SheetPublish publishStatus = sheetResource.getPublishStatus(1234L);
 
-		if (publishStatus == null || publishStatus.getReadOnlyFullEnabled() != false
-				|| publishStatus.getIcalEnabled() != false || publishStatus.getReadOnlyLiteEnabled() != false
-				|| publishStatus.getReadWriteEnabled() != false) {
-
-			fail("Issue creating the publish status object");
-		}
+		assertTrue(publishStatus.getReadOnlyLiteEnabled());
+		assertTrue(publishStatus.getReadOnlyFullEnabled());
+		assertTrue(publishStatus.getReadWriteEnabled());
+		assertTrue(publishStatus.getIcalEnabled());
+		assertEquals("https://publish.smartsheet.com/6d35fa6c99334d4892f9591cf6065", publishStatus.getReadOnlyLiteUrl());
 	}
 
 	@Test

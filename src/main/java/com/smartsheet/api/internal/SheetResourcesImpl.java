@@ -41,6 +41,7 @@ import com.smartsheet.api.models.PaperSize;
 import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.SheetEmail;
 import com.smartsheet.api.models.SheetPublish;
+import com.smartsheet.api.models.DataWrapper;
 
 /**
  * This is the implementation of the SheetResources.
@@ -114,8 +115,8 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @return all sheets (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public List<Sheet> listSheets() throws SmartsheetException {
-		return this.listResources("sheets", Sheet.class);
+	public DataWrapper<Sheet> listSheets() throws SmartsheetException {
+		return this.listResourcesWithWrapper("sheets", Sheet.class);
 	}
 
 	/**
@@ -133,8 +134,8 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @return all sheets (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public List<Sheet> listOrganizationSheets() throws SmartsheetException {
-		return this.listResources("users/sheets", Sheet.class);
+	public DataWrapper<Sheet> listOrganizationSheets() throws SmartsheetException {
+		return this.listResourcesWithWrapper("users/sheets", Sheet.class);
 	}
 
 	/**
@@ -405,7 +406,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public void deleteSheet(long id) throws SmartsheetException {
-		this.deleteResource("sheet/" + id, Sheet.class);
+		this.deleteResource("sheets/" + id, Sheet.class);
 	}
 
 	/**
@@ -450,7 +451,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public int getSheetVersion(long id) throws SmartsheetException {
-		return this.getResource("sheet/" + id + "/version", Sheet.class).getVersion();
+		return this.getResource("sheets/" + id + "/version", Sheet.class).getVersion();
 	}
 
 	/**
@@ -542,7 +543,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public SheetPublish getPublishStatus(long id) throws SmartsheetException {
-		return this.getResource("sheet/" + id + "/publish", SheetPublish.class);
+		return this.getResource("sheets/" + id + "/publish", SheetPublish.class);
 	}
 
 	/**
