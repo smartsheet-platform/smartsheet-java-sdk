@@ -86,6 +86,6 @@ public class WorkspaceFolderResourcesImpl extends AbstractResources implements W
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Folder createFolder(long workspaceId, Folder folder) throws SmartsheetException {
-		return this.createResource("workspace/" + workspaceId + "/folders", Folder.class, folder);
+		return this.createResource("workspaces/" + workspaceId + "/folders", Folder.class, folder);
 	}
 }

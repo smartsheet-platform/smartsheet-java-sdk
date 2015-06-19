@@ -65,7 +65,7 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Folder getFolder(long folderId) throws SmartsheetException {
-		return this.getResource("folder/" + folderId, Folder.class);
+		return this.getResource("folders/" + folderId, Folder.class);
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 */
 	public void deleteFolder(long folderId) throws SmartsheetException {
 		
-		this.deleteResource("folder/" + folderId, Folder.class);
+		this.deleteResource("folders/" + folderId, Folder.class);
 	}
 
 	/**
@@ -157,6 +157,6 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 */
 	public Folder createFolder(long parentFolderId, Folder folder) throws SmartsheetException {
 
-		return this.createResource("folder/" + parentFolderId + "/folders", Folder.class, folder);
+		return this.createResource("folders/" + parentFolderId + "/folders", Folder.class, folder);
 	}
 }
