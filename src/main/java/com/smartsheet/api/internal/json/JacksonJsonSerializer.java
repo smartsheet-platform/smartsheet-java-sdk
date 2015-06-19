@@ -36,6 +36,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.IdentifiableModel;
+import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.format.Format;
 
@@ -131,6 +132,8 @@ public class JacksonJsonSerializer implements JsonSerializer {
 		}
 	}
 
+
+
 	/**
 	 * De-serialize an object from JSON.
 	 * 
@@ -190,6 +193,36 @@ public class JacksonJsonSerializer implements JsonSerializer {
 		}
 
 		return list;
+	}
+
+	/**
+	 * De-serialize to a DataWrapper (holds pagination info) from JSON
+	 * @param objectClass
+	 * @param inputStream
+	 * @param <T>
+	 * @return
+	 * @throws JSONSerializerException
+	 */
+	@Override
+	public <T> DataWrapper<T> deserializeDataWrapper(Class<T> objectClass, java.io.InputStream inputStream) throws JSONSerializerException{
+		Util.throwIfNull(objectClass, inputStream);
+
+		DataWrapper<T> rw = null;
+
+		try {
+			// Read the json input stream into a List.
+			rw = OBJECT_MAPPER.readValue(inputStream,
+					OBJECT_MAPPER.getTypeFactory().constructParametricType(DataWrapper.class, objectClass));
+			// list = OBJECT_MAPPER.readValue(inputStream, new TypeReference<List<T>>() {});
+		} catch (JsonParseException e) {
+			throw new JSONSerializerException(e);
+		} catch (JsonMappingException e) {
+			throw new JSONSerializerException(e);
+		} catch (IOException e) {
+			throw new JSONSerializerException(e);
+		}
+
+		return rw;
 	}
 
 	/**
