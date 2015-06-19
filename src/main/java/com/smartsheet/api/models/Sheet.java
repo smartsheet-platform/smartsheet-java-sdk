@@ -100,9 +100,34 @@ public class Sheet extends NamedModel<Long> {
 	private Long fromId;
 
 	/**
-	 * The workspace the sheet belongs to.
+	 * Represents the total number of rows in the sheet.
 	 */
-	private Workspace workspace;
+	private Integer totalRowCount;
+
+	/**
+	 * Represents effective attachment options.
+	 */
+	private List<AttachmentType> effectiveAttachmentOptions;
+
+	/**
+	 * Identifies if the sheet is marked as favorite.
+	 */
+	private Boolean favorite;
+
+	/**
+	 * Identifies if it is enabled to show parent rows for filters.
+	 */
+	private Boolean showParentRowsForFilters;
+
+	/**
+	 * Represents the user settings.
+	 */
+	private SheetUserSettings userSettings;
+
+	/**
+	 * Represents the source of the sheet.
+	 */
+	private Source source;
 	
 	/**
 	 * Gets the dependencies enabled flag.
@@ -401,24 +426,128 @@ public class Sheet extends NamedModel<Long> {
 		this.fromId = fromId;
 	}
 
-
 	/**
-	 * Returns the owning {@link Workspace}. Only present when the whole sheet is fetched.
-	 * @return The workspace
+	 * @return the flag indicating if resource management is enabled.
 	 */
-	public Workspace getWorkspace() {
-		return workspace;
+	public Boolean getResourceManagementEnabled() {
+		return resourceManagementEnabled;
 	}
 
-	
 	/**
-	 * Sets the workspace.
-	 * @param workspace
+	 * @param resourceManagementEnabled the resourceManagementEnabled to set
 	 */
-	public void setWorkspace(Workspace workspace) {
-		this.workspace = workspace;
+	public void setResourceManagementEnabled(Boolean resourceManagementEnabled) {
+		this.resourceManagementEnabled = resourceManagementEnabled;
 	}
-	
+
+	/**
+	 * Gets the total row count for the sheet.
+	 *
+	 * @return the total row count
+	 */
+	public Integer getTotalRowCount() {
+		return totalRowCount;
+	}
+
+	/**
+	 * Sets the total row count.
+	 *
+	 * @param totalRowCount the total row count
+	 */
+	public void setTotalRowCount(Integer totalRowCount) {
+		this.totalRowCount = totalRowCount;
+	}
+
+	/**
+	 * Gets the effective attachment options.
+	 *
+	 * @return list of attachment types
+	 */
+	public List<AttachmentType> getEffectiveAttachmentOptions() {
+		return effectiveAttachmentOptions;
+	}
+
+	/**
+	 * Sets the effective attachment options.
+	 *
+	 * @param effectiveAttachmentOptions the effective attachment options
+	 */
+	public void setEffectiveAttachmentOptions(List<AttachmentType> effectiveAttachmentOptions) {
+		this.effectiveAttachmentOptions = effectiveAttachmentOptions;
+	}
+
+	/**
+	 * True if the sheet is a favorite sheet.
+	 *
+	 * @return the favorite
+	 */
+	public Boolean isFavorite() {
+		return favorite;
+	}
+
+	/**
+	 * Sets the favorite sheet
+	 *
+	 * @param favorite the favorite
+	 */
+	public void setFavorite(Boolean favorite) {
+		this.favorite = favorite;
+	}
+
+	/**
+	 * True if show parent rows for filters.
+	 *
+	 * @return the show parent row for filters
+	 */
+	public Boolean getShowParentRowsForFilters() {
+		return showParentRowsForFilters;
+	}
+
+	/**
+	 * Sets the show parent rows for filters.
+	 *
+	 * @param showParentRowsForFilters the show parent rows for filters
+	 */
+	public void setShowParentRowsForFilters(Boolean showParentRowsForFilters) {
+		this.showParentRowsForFilters = showParentRowsForFilters;
+	}
+
+	/**
+	 * Gets the sheet user settings.
+	 *
+	 * @return the user settings
+	 */
+	public SheetUserSettings getUserSettings() {
+		return userSettings;
+	}
+
+	/**
+	 * Sets the user settings.
+	 *
+	 * @param userSettings the user settings
+	 */
+	public void setUserSettings(SheetUserSettings userSettings) {
+		this.userSettings = userSettings;
+	}
+
+	/**
+	 * Gets the source.
+	 *
+	 * @return the source
+	 */
+	public Source getSource() {
+		return source;
+	}
+
+	/**
+	 * Sets the source.
+	 *
+	 * @param source the source
+	 */
+	public void setSource(Source source) {
+		this.source = source;
+	}
+
 	/**
 	 * A convenience class to make a {@link Sheet} object with the necessary fields to create the sheet by posting it 
 	 * to smartsheet.
@@ -615,20 +744,5 @@ public class Sheet extends NamedModel<Long> {
 			sheet.setId(id);
 			return sheet;
 		}
-	}
-
-
-	/**
-	 * @return the flag indicating if resource management is enabled.
-	 */
-	public Boolean getResourceManagementEnabled() {
-		return resourceManagementEnabled;
-	}
-
-	/**
-	 * @param resourceManagementEnabled the resourceManagementEnabled to set
-	 */
-	public void setResourceManagementEnabled(Boolean resourceManagementEnabled) {
-		this.resourceManagementEnabled = resourceManagementEnabled;
 	}
 }
