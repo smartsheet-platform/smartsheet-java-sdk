@@ -24,6 +24,7 @@ import java.util.List;
 
 import com.smartsheet.api.FolderResources;
 import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.Folder;
 
 /**
@@ -65,7 +66,7 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Folder getFolder(long folderId) throws SmartsheetException {
-		return this.getResource("folders/" + folderId, Folder.class);
+		return this.getResource("folder/" + folderId, Folder.class);
 	}
 
 	/**
@@ -110,7 +111,7 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 */
 	public void deleteFolder(long folderId) throws SmartsheetException {
 		
-		this.deleteResource("folders/" + folderId, Folder.class);
+		this.deleteResource("folder/" + folderId, Folder.class);
 	}
 
 	/**
@@ -132,9 +133,9 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 * @return the child folders (note that empty list will be returned if no child folder found)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public List<Folder> listFolders(long parentFolderId) throws SmartsheetException {
+	public DataWrapper<Folder> listFolders(long parentFolderId) throws SmartsheetException {
 
-		return this.listResources("folder/" + parentFolderId + "/folders", Folder.class);
+		return this.listResourcesWithWrapper("folders/" + parentFolderId + "/folders", Folder.class);
 	}
 
 	/**

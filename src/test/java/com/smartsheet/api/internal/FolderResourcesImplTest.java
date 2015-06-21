@@ -21,11 +21,13 @@ package com.smartsheet.api.internal;
  */
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import com.smartsheet.api.models.DataWrapper;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -96,8 +98,12 @@ public class FolderResourcesImplTest extends ResourcesImplBase {
 		
 		server.setResponseBody(new File("src/test/resources/listFolders.json"));
 
-		List<Folder> folders = folderResource.listFolders(12345L);
-		assertEquals(2, folders.size());
+		DataWrapper<Folder> foldersWrapper = folderResource.listFolders(12345L);
+
+		assertTrue(foldersWrapper.getPageSize() == 100);
+		assertEquals("Folder 1", foldersWrapper.getData().get(0).getName());
+		assertEquals("Folder 2", foldersWrapper.getData().get(1).getName());
+		assertTrue(7116448184199044L == foldersWrapper.getData().get(0).getId());
 	}
 
 	@Test
