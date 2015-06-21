@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import com.smartsheet.api.models.DataWrapper;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -50,11 +51,14 @@ public class WorkspaceFolderResourcesImplTest extends ResourcesImplBase {
 	public void testListFolders() throws IOException, SmartsheetException {
 		server.setResponseBody(new File("src/test/resources/listWorkspaceFolders.json"));
 		
-		List<Folder> folders = workspaceFolderResources.listFolders(1234L);
-		assertEquals(1,folders.size());
-		assertEquals(4298196408133508L, folders.get(0).getId().longValue());
-		assertEquals("Human Resources", folders.get(0).getName());
-		
+		DataWrapper<Folder> foldersWrapper = workspaceFolderResources.listFolders(1234L);
+		assertEquals(2, foldersWrapper.getData().size());
+		assertEquals(7116448184199044L, foldersWrapper.getData().get(0).getId().longValue());
+		assertEquals(7116448184188022L, foldersWrapper.getData().get(1).getId().longValue());
+		assertEquals("Folder 1", foldersWrapper.getData().get(0).getName());
+		assertEquals("Folder 2", foldersWrapper.getData().get(1).getName());
+		assertEquals("https://app.smartsheet.com/b/home?lx=9sljohj8jEXqvJIbTrK2Hb", foldersWrapper.getData().get(0).getPermalink());
+		assertEquals("https://app.smartsheet.com/b/home?lx=xgDVrNNbi-O9XwINEpT5Er", foldersWrapper.getData().get(1).getPermalink());
 	}
 
 	@Test

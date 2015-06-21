@@ -26,6 +26,7 @@ import java.util.List;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WorkspaceFolderResources;
+import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.Folder;
 
 /**
@@ -63,8 +64,8 @@ public class WorkspaceFolderResourcesImpl extends AbstractResources implements W
 	 * @return the folders (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public List<Folder> listFolders(long workspaceId) throws SmartsheetException {
-		return this.listResources("workspace/" + workspaceId + "/folders", Folder.class);
+	public DataWrapper<Folder> listFolders(long workspaceId) throws SmartsheetException {
+		return this.listResourcesWithWrapper("workspaces/" + workspaceId + "/folders", Folder.class);
 	}
 
 	/**
