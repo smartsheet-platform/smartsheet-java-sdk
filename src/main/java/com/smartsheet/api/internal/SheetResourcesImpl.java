@@ -526,7 +526,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public void sendSheet(long id, SheetEmail email) throws SmartsheetException {
-		this.createResource("sheet/" + id + "/emails", SheetEmail.class, email);
+		this.createResource("sheets/" + id + "/emails", SheetEmail.class, email);
 	}
 
 	/**

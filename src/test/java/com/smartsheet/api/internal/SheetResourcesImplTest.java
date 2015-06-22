@@ -76,7 +76,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 	public void testListOrganizationSheets() throws SmartsheetException, IOException {
 
 		server.setResponseBody(new File("src/test/resources/listSheets.json"));
-		DataWrapper<Sheet> sheets = sheetResource.listOrganizationSheets();
+		DataWrapper<Sheet> sheets = sheetResource.listOrganizationSheets(null, null, null);
 		assertEquals(2, sheets.getData().size());
 	}
 
@@ -313,13 +313,18 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 	public void testSendSheet() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/sendEmails.json"));
 		
-		String[] emailAddress = { "someemail@somewhere.com" };
+		List<Recipient> recipients = new ArrayList<Recipient>();
+		Recipient recipient = new Recipient();
+		recipient.setEmail("johndoe@smartsheet.com");
+		recipients.add(recipient);
+
 		SheetEmail email = new SheetEmail();
 		email.setFormat(SheetEmailFormat.PDF);
 		FormatDetails format = new FormatDetails();
 		format.setPaperSize(PaperSize.A0);
 		email.setFormatDetails(format);
-		email.setTo(Arrays.asList(emailAddress));
+		email.setSendTo(recipients);
+
 		sheetResource.sendSheet(1234L, email);
 	}
 
