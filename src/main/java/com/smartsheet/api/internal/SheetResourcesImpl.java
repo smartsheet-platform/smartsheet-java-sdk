@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.List;
 
 import com.smartsheet.api.AssociatedAttachmentResources;
@@ -36,12 +37,8 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.HttpMethod;
 import com.smartsheet.api.internal.http.HttpRequest;
 import com.smartsheet.api.internal.util.Util;
-import com.smartsheet.api.models.ObjectInclusion;
-import com.smartsheet.api.models.PaperSize;
-import com.smartsheet.api.models.Sheet;
-import com.smartsheet.api.models.SheetEmail;
-import com.smartsheet.api.models.SheetPublish;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.internal.util.queryUtil;
+import com.smartsheet.api.models.*;
 
 /**
  * This is the implementation of the SheetResources.
@@ -112,11 +109,17 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation 
 	 *   - SmartsheetException : if there is any other error occurred during the operation
 	 *
+	 * @param includeAll include all items
+	 * @param pageSize the page size
+	 * @param page the page
 	 * @return all sheets (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Sheet> listSheets() throws SmartsheetException {
-		return this.listResourcesWithWrapper("sheets", Sheet.class);
+	public DataWrapper<Sheet> listSheets(Boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
+		String path = "sheets";
+		path += queryUtil.handlePaginationQueryParameters(includeAll, pageSize, page);
+
+		return this.listResourcesWithWrapper(path, Sheet.class);
 	}
 
 	/**
@@ -130,12 +133,18 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) 
 	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation 
 	 *   - SmartsheetException : if there is any other error occurred during the operation
-	 *   
+	 *
+	 * @param includeAll include all items
+	 * @param pageSize the page size
+	 * @param page the page
 	 * @return all sheets (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Sheet> listOrganizationSheets() throws SmartsheetException {
-		return this.listResourcesWithWrapper("users/sheets", Sheet.class);
+	public DataWrapper<Sheet> listOrganizationSheets(Boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
+		String path = "users/sheets";
+		path += queryUtil.handlePaginationQueryParameters(includeAll, pageSize, page);
+
+		return this.listResourcesWithWrapper(path, Sheet.class);
 	}
 
 	/**
@@ -158,14 +167,59 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * rather than returning null).
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Sheet getSheet(long id, EnumSet<ObjectInclusion> includes) throws SmartsheetException {
-		String path = "sheet/" + id;
+	public Sheet getSheet(long id, EnumSet<ObjectInclusion> includes, EnumSet<ObjectExclusion> excludes, List<Long> rowIds, List<Integer> rowNumbers, List<Long> columnIds, Integer pageSize, Integer page) throws SmartsheetException {
+		String path = "sheets/" + id;
+
+		// Add the parameters to a map and build the query string at the end
+		HashMap<String, String>	parameters = new HashMap<String, String>();
+
 		if (includes != null) {
-			path += "?include=";
+			String includeValues = "";
+			int includesIndex = 0;
+
 			for (ObjectInclusion oi : includes) {
-				path += oi.name().toLowerCase() + ",";
+				includeValues += oi.name().toLowerCase();
+				if (includesIndex != includes.size() - 1) {
+					includeValues += ",";
+				}
+				includesIndex++;
 			}
+			parameters.put("include", includeValues);
 		}
+		if (excludes != null) {
+			String excludeValues = "";
+			int excludesIndex = 0;
+
+			for (ObjectExclusion oe : excludes) {
+				excludeValues += oe.name().toLowerCase();
+				if (excludesIndex != excludes.size() - 1) {
+					excludeValues += ",";
+				}
+				excludesIndex++;
+			}
+			parameters.put("exclude", excludeValues);
+		}
+		if (rowIds != null) {
+			String rowIdValues = queryUtil.generateCommaSeparatedListFromList(rowIds);
+			parameters.put("rowIds", rowIdValues);
+		}
+		if (rowNumbers != null) {
+			String rowNumberValues = queryUtil.generateCommaSeparatedListFromList(rowNumbers);
+			parameters.put("rowNumbers", rowNumberValues);
+		}
+		if (columnIds != null) {
+			String columnIdValues = queryUtil.generateCommaSeparatedListFromList(columnIds);
+			parameters.put("columnIds", columnIdValues);
+		}
+		if (pageSize != null) {
+			parameters.put("pageSize", pageSize.toString());
+		}
+		if (page != null) {
+			parameters.put("page", page.toString());
+		}
+
+		// Iterate through the map of parameters and generate the query string
+		path += queryUtil.generateQueryString(parameters);
 
 		return this.getResource(path, Sheet.class);
 	}

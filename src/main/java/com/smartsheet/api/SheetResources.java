@@ -40,6 +40,9 @@ public interface SheetResources {
 	 * 
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /sheets</p>
 	 *
+	 * @param includeAll include all items
+	 * @param pageSize the page size
+	 * @param page the page
 	 * @return A list of all sheets (note that an empty list will be returned if there are none).
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
@@ -48,13 +51,16 @@ public interface SheetResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<Sheet> listSheets() throws SmartsheetException;
+	public DataWrapper<Sheet> listSheets(Boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException;
 
 	/**
 	 * <p>List all sheets in the organization.</p>
 	 * 
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /users/sheets</p>
 	 *
+	 * @param includeAll include all items
+	 * @param pageSize the page size
+	 * @param page the page
 	 * @return the list of all sheets (note that an empty list will be returned if there are none)
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
@@ -63,7 +69,7 @@ public interface SheetResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<Sheet> listOrganizationSheets() throws SmartsheetException;
+	public DataWrapper<Sheet> listOrganizationSheets(Boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException;
 
 	/**
 	 * <p>Get a sheet.</p>
@@ -81,7 +87,14 @@ public interface SheetResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Sheet getSheet(long id, EnumSet<ObjectInclusion> includes) throws SmartsheetException;
+	public Sheet getSheet(long id,
+						  EnumSet<ObjectInclusion> includes,
+						  EnumSet<ObjectExclusion> excludes,
+						  List<Long> rowIds,
+						  List<Integer> rowNumbers,
+						  List<Long> columnIds,
+						  Integer pageSize,
+						  Integer page) throws SmartsheetException;
 
 	/**
 	 * <p>Get a sheet as an Excel file.</p>

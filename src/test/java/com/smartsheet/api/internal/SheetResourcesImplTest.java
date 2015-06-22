@@ -33,6 +33,7 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
+import com.smartsheet.api.models.*;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.junit.Before;
@@ -40,17 +41,6 @@ import org.junit.Test;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.AccessLevel;
-import com.smartsheet.api.models.Column;
-import com.smartsheet.api.models.ColumnType;
-import com.smartsheet.api.models.FormatDetails;
-import com.smartsheet.api.models.ObjectInclusion;
-import com.smartsheet.api.models.PaperSize;
-import com.smartsheet.api.models.Sheet;
-import com.smartsheet.api.models.SheetEmail;
-import com.smartsheet.api.models.SheetEmailFormat;
-import com.smartsheet.api.models.SheetPublish;
-import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.format.Color;
 import com.smartsheet.api.models.format.FontSize;
 import com.smartsheet.api.models.format.VerticalAlignment;
@@ -71,7 +61,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 
 		server.setResponseBody(new File("src/test/resources/listSheets.json"));
 
-		DataWrapper<Sheet> sheets = sheetResource.listSheets();
+		DataWrapper<Sheet> sheets = sheetResource.listSheets(null, null, null);
 
 		assertTrue(sheets.getPageNumber() == 1);
 		assertTrue(sheets.getPageSize() == 100);
@@ -94,11 +84,11 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 	public void testGetSheet() throws SmartsheetException, IOException {
 
 		server.setResponseBody(new File("src/test/resources/getSheet.json"));
-		Sheet sheet = sheetResource.getSheet(123123L, null);
+		Sheet sheet = sheetResource.getSheet(123123L, null, null, null, null, null, null, null);
 		assertEquals(9,sheet.getColumns().size());
 		assertEquals(0,sheet.getRows().size());
 		
-		sheet = sheetResource.getSheet(123123L, EnumSet.allOf(ObjectInclusion.class));
+		sheet = sheetResource.getSheet(123123L, EnumSet.allOf(ObjectInclusion.class), EnumSet.allOf(ObjectExclusion.class), null, null, null, 1, 1);
 		assertEquals(9,sheet.getColumns().size());
 		assertEquals(0,sheet.getRows().size());
 	}
@@ -106,7 +96,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 	public void testGetSheetWithFormat() throws SmartsheetException, IOException {
 		
 		server.setResponseBody(new File("src/test/resources/getSheetWithFormat.json"));
-		Sheet sheet = sheetResource.getSheet(123123L, null);
+		Sheet sheet = sheetResource.getSheet(123123L, null, null, null, null, null, null, null);
 		
 		assertNotNull(sheet.getColumnByIndex(0).getFormat());
 		assertEquals(VerticalAlignment.TOP, sheet.getColumnByIndex(0).getFormat().getVerticalAlignment());
@@ -116,8 +106,6 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 
 		assertNotNull(sheet.getRowByRowNumber(1).getCells().get(0).getFormat());
 		assertEquals(Color.YELLOW_3, sheet.getRowByRowNumber(1).getCells().get(0).getFormat().getBackgroundColor());
-		
-		
 	}
 
 	@Test
