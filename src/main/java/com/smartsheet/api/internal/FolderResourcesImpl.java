@@ -90,7 +90,7 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 */
 	public Folder updateFolder(Folder folder) throws SmartsheetException {
 
-		return this.updateResource("folder/" + folder.getId(), Folder.class, folder);
+		return this.updateResource("folders/" + folder.getId(), Folder.class, folder);
 	}
 
 	/**
