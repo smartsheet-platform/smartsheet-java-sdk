@@ -48,7 +48,7 @@ public interface WorkspaceFolderResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<Folder> listFolders(long workspaceId) throws SmartsheetException;
+	public DataWrapper<Folder> listFolders(long workspaceId, boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException;
 
 	/**
 	 * <p>Create a folder in the workspace.</p>

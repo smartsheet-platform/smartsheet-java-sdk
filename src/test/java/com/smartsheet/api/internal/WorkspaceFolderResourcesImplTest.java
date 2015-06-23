@@ -51,7 +51,7 @@ public class WorkspaceFolderResourcesImplTest extends ResourcesImplBase {
 	public void testListFolders() throws IOException, SmartsheetException {
 		server.setResponseBody(new File("src/test/resources/listWorkspaceFolders.json"));
 		
-		DataWrapper<Folder> foldersWrapper = workspaceFolderResources.listFolders(1234L);
+		DataWrapper<Folder> foldersWrapper = workspaceFolderResources.listFolders(1234L,true,null,null);
 		assertEquals(2, foldersWrapper.getData().size());
 		assertEquals(7116448184199044L, foldersWrapper.getData().get(0).getId().longValue());
 		assertEquals(7116448184188022L, foldersWrapper.getData().get(1).getId().longValue());

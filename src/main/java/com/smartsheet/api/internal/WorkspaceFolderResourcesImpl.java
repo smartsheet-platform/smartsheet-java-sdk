@@ -26,6 +26,7 @@ import java.util.List;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WorkspaceFolderResources;
+import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.Folder;
 
@@ -64,8 +65,10 @@ public class WorkspaceFolderResourcesImpl extends AbstractResources implements W
 	 * @return the folders (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Folder> listFolders(long workspaceId) throws SmartsheetException {
-		return this.listResourcesWithWrapper("workspaces/" + workspaceId + "/folders", Folder.class);
+	public DataWrapper<Folder> listFolders(long workspaceId, boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
+		String path = "workspaces/" + workspaceId;
+		path += QueryUtil.handlePaginationQueryParameters(includeAll, pageSize, page);
+		return this.listResourcesWithWrapper(path + "/folders", Folder.class);
 	}
 
 	/**

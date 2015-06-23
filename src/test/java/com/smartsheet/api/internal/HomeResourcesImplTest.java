@@ -77,8 +77,11 @@ public class HomeResourcesImplTest extends ResourcesImplBase {
 		server.setResponseBody(new File("src/test/resources/getHomeFolders.json"));
 		
 		HomeFolderResources folders = homeResources.folders();
-		assertNotNull(folders.listFolders());
-		assertTrue(folders.listFolders().getPageSize() == 5);
+		assertNotNull(folders.listFolders(true,1,1));
+		assertTrue(folders.listFolders(true,null,null).getPageSize() == 100);
+		assertTrue(folders.listFolders(false,1,1).getPageSize() == 100);
+		assertTrue(folders.listFolders(true,null,null).getTotalCount() == 2);
+		assertTrue(folders.listFolders(false,null,2).getTotalCount() == 2);
 	}
 
 }

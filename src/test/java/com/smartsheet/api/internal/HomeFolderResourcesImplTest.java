@@ -53,7 +53,7 @@ public class HomeFolderResourcesImplTest extends ResourcesImplBase {
 	public void testListFolders() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/listFolders.json"));
 		
-		DataWrapper<Folder> foldersWrapper = homeFolderResources.listFolders();
+		DataWrapper<Folder> foldersWrapper = homeFolderResources.listFolders(true,null,null);
 		
 		assertTrue(foldersWrapper.getPageSize() == 100);
 		assertEquals("Folder 1", foldersWrapper.getData().get(0).getName());

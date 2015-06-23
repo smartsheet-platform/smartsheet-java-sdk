@@ -98,7 +98,7 @@ public class FolderResourcesImplTest extends ResourcesImplBase {
 		
 		server.setResponseBody(new File("src/test/resources/listFolders.json"));
 
-		DataWrapper<Folder> foldersWrapper = folderResource.listFolders(12345L);
+		DataWrapper<Folder> foldersWrapper = folderResource.listFolders(12345L,true,1,1);
 
 		assertTrue(foldersWrapper.getPageSize() == 100);
 		assertEquals("Folder 1", foldersWrapper.getData().get(0).getName());

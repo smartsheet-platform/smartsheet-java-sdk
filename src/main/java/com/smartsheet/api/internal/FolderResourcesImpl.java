@@ -26,6 +26,7 @@ import com.smartsheet.api.FolderResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.Folder;
+import com.smartsheet.api.internal.util.QueryUtil;
 
 /**
  * This is the implementation of the FolderResources.
@@ -133,9 +134,11 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 * @return the child folders (note that empty list will be returned if no child folder found)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Folder> listFolders(long parentFolderId) throws SmartsheetException {
+	public DataWrapper<Folder> listFolders(long parentFolderId, boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
 
-		return this.listResourcesWithWrapper("folders/" + parentFolderId + "/folders", Folder.class);
+		String path = "folders/" + parentFolderId;
+		path += QueryUtil.handlePaginationQueryParameters(includeAll, pageSize, page);
+		return this.listResourcesWithWrapper(path + "/folders", Folder.class);
 	}
 
 	/**

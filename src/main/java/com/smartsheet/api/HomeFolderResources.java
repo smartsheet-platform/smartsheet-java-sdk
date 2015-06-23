@@ -48,7 +48,7 @@ public interface HomeFolderResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<Folder> listFolders() throws SmartsheetException;
+	public DataWrapper<Folder> listFolders(boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException;
 
 	/**
 	 * <p>Create a folder in home.</p>

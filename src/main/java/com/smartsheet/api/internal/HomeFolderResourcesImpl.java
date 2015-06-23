@@ -26,6 +26,7 @@ import java.util.List;
 
 import com.smartsheet.api.HomeFolderResources;
 import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.Folder;
 import com.smartsheet.api.models.DataWrapper;
 
@@ -63,8 +64,10 @@ public class HomeFolderResourcesImpl extends AbstractResources implements HomeFo
 	 * @return the folders (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Folder> listFolders() throws SmartsheetException {
-		return this.listResourcesWithWrapper("home/folders", Folder.class);
+	public DataWrapper<Folder> listFolders(boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
+		String path = "home/folders";
+		path += QueryUtil.handlePaginationQueryParameters(includeAll, pageSize, page);
+		return this.listResourcesWithWrapper(path, Folder.class);
 	}
 
 	/**
