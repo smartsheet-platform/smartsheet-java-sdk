@@ -23,12 +23,16 @@ package com.smartsheet.api.internal;
 
 
 import java.util.EnumSet;
+import java.util.HashMap;
 
 import com.smartsheet.api.HomeFolderResources;
 import com.smartsheet.api.HomeResources;
 import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.Home;
 import com.smartsheet.api.models.ObjectInclusion;
+
+import javax.management.Query;
 
 /**
  * This is the implementation of the HomeResources.
@@ -75,15 +79,14 @@ public class HomeResourcesImpl extends AbstractResources implements HomeResource
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Home getHome(EnumSet<ObjectInclusion> includes) throws SmartsheetException {
+		HashMap<String, String> parameters = new HashMap<String, String>();
 		String path = "home";
-		
+
 		if (includes != null) {
-			path += "?include=";
-			for (ObjectInclusion oi : includes) {
-				path += oi.name().toLowerCase() + ",";
-			}
+			parameters.put("include", QueryUtil.generateCommaSeparatedListFromEnumSet(includes));
 		}
-		
+
+		path += QueryUtil.generateQueryString(parameters);
 		return this.getResource(path, Home.class);
 	}
 
