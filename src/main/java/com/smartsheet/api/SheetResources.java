@@ -51,7 +51,7 @@ public interface SheetResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<Sheet> listSheets(Boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException;
+	public DataWrapper<Sheet> listSheets(boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException;
 
 	/**
 	 * <p>List all sheets in the organization.</p>
@@ -69,7 +69,7 @@ public interface SheetResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<Sheet> listOrganizationSheets(Boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException;
+	public DataWrapper<Sheet> listOrganizationSheets(boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException;
 
 	/**
 	 * <p>Get a sheet.</p>

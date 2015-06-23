@@ -115,7 +115,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @return all sheets (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Sheet> listSheets(Boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
+	public DataWrapper<Sheet> listSheets(boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
 		String path = "sheets";
 		path += QueryUtil.handlePaginationQueryParameters(includeAll, pageSize, page);
 
@@ -140,7 +140,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @return all sheets (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Sheet> listOrganizationSheets(Boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
+	public DataWrapper<Sheet> listOrganizationSheets(boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
 		String path = "users/sheets";
 		path += QueryUtil.handlePaginationQueryParameters(includeAll, pageSize, page);
 
@@ -174,29 +174,11 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 		HashMap<String, String>	parameters = new HashMap<String, String>();
 
 		if (includes != null) {
-			String includeValues = "";
-			int includesIndex = 0;
-
-			for (ObjectInclusion oi : includes) {
-				includeValues += oi.name().toLowerCase();
-				if (includesIndex != includes.size() - 1) {
-					includeValues += ",";
-				}
-				includesIndex++;
-			}
+			String includeValues = QueryUtil.generateCommaSeparatedListFromEnumSet(includes);
 			parameters.put("include", includeValues);
 		}
 		if (excludes != null) {
-			String excludeValues = "";
-			int excludesIndex = 0;
-
-			for (ObjectExclusion oe : excludes) {
-				excludeValues += oe.name().toLowerCase();
-				if (excludesIndex != excludes.size() - 1) {
-					excludeValues += ",";
-				}
-				excludesIndex++;
-			}
+			String excludeValues = QueryUtil.generateCommaSeparatedListFromEnumSet(excludes);
 			parameters.put("exclude", excludeValues);
 		}
 		if (rowIds != null) {

@@ -61,7 +61,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 
 		server.setResponseBody(new File("src/test/resources/listSheets.json"));
 
-		DataWrapper<Sheet> sheets = sheetResource.listSheets(null, null, null);
+		DataWrapper<Sheet> sheets = sheetResource.listSheets(false, null, null);
 
 		assertTrue(sheets.getPageNumber() == 1);
 		assertTrue(sheets.getPageSize() == 100);
@@ -76,7 +76,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 	public void testListOrganizationSheets() throws SmartsheetException, IOException {
 
 		server.setResponseBody(new File("src/test/resources/listSheets.json"));
-		DataWrapper<Sheet> sheets = sheetResource.listOrganizationSheets(null, null, null);
+		DataWrapper<Sheet> sheets = sheetResource.listOrganizationSheets(true, null, null);
 		assertEquals(2, sheets.getData().size());
 	}
 
