@@ -24,8 +24,11 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.EnumSet;
 import java.util.List;
 
+import com.smartsheet.api.models.ObjectInclusion;
+import com.smartsheet.api.models.DataWrapper;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -51,25 +54,32 @@ public class WorkspaceResourcesImplTest extends ResourcesImplBase {
 	public void testListWorkspaces() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/listWorkspaces.json"));
 		
-		List<Workspace> workspace = workspaceResources.listWorkspaces();
-		assertEquals(7, workspace.size());
-		assertEquals(995897522841476L, workspace.get(0).getId().longValue());
-		assertEquals("Bootcamp Company", workspace.get(0).getName());
-		assertEquals(AccessLevel.OWNER, workspace.get(0).getAccessLevel());
-		assertEquals("https://app.smartsheet.com/b/home?lx=asdsa", workspace.get(0).getPermalink());
+		DataWrapper<Workspace> workspace = workspaceResources.listWorkspaces(false, 1, 1);
+		assertEquals(1, workspace.getPageNumber().longValue());
+		assertEquals(100, workspace.getPageSize().longValue());
+		assertEquals(1, workspace.getTotalPages().longValue());
+		assertEquals(2, workspace.getTotalCount().longValue());
+
+		assertEquals(2, workspace.getData().size());
+		assertEquals(AccessLevel.OWNER, workspace.getData().get(0).getAccessLevel());
+		assertEquals(3457273486960516L, workspace.getData().get(0).getId().longValue());
+		assertEquals("workspace 1", workspace.getData().get(0).getName());
+		assertEquals("https://app.smartsheet.com/b/home?lx=JNL0bgXtXc0pzni9tzAc4g", workspace.getData().get(0).getPermalink());
 	}
 
 	@Test
 	public void testGetWorkspace() throws IOException, SmartsheetException {
 		server.setResponseBody(new File("src/test/resources/getWorkspace.json"));
 		
-		Workspace workspace = workspaceResources.getWorkspace(1234L);
-		assertEquals(995897522841476L, workspace.getId().longValue());
-		assertEquals("Bootcamp Company", workspace.getName());
-		assertEquals(0, workspace.getSheets().size());
-		assertEquals(2, workspace.getFolders().size());
+		Workspace workspace = workspaceResources.getWorkspace(1234L, true, EnumSet.of(ObjectInclusion.SOURCE));
+		assertEquals(1, workspace.getSheets().size());
+		assertEquals("sheet 1", workspace.getSheets().get(0).getName());
+
+		assertEquals(7116448184199044L, workspace.getId().longValue());
+		assertEquals("New workspace", workspace.getName());
+
 		assertEquals(AccessLevel.OWNER, workspace.getAccessLevel());
-		assertEquals("https://app.smartsheet.com/b/home?asdf", workspace.getPermalink());
+		assertEquals("https://app.smartsheet.com/b/home?lx=8Z0XuFUEAkxmHCSsMw4Zgg", workspace.getPermalink());
 	}
 
 	@Test
