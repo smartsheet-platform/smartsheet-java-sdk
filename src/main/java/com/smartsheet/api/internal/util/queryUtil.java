@@ -24,9 +24,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class queryUtil {
+public class QueryUtil {
 
-    public queryUtil() {}
+    public QueryUtil() {}
 
     /**
      * Returns a query string for pagination parameters.

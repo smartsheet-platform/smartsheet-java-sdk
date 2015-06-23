@@ -376,13 +376,15 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		publish.setReadOnlyFullEnabled(true);
 		publish.setReadOnlyLiteEnabled(true);
 		publish.setReadWriteEnabled(true);
-		publish.setIcalUrl("http://somedomain.com");
+		publish.setReadWriteEnabled(true);
+		publish.setReadOnlyLiteUrl("http://somedomain.com");
 		SheetPublish newPublish = sheetResource.updatePublishStatus(1234L, publish);
 
-		assertNull(newPublish.getIcalUrl());
-		assertNotNull(newPublish.getReadOnlyFullUrl());
-		assertNotNull(newPublish.getReadOnlyLiteUrl());
-		assertNotNull(newPublish.getReadWriteUrl());
+		assertTrue(newPublish.getIcalEnabled());
+		assertTrue(newPublish.getReadOnlyFullEnabled());
+		assertTrue(newPublish.getReadOnlyLiteEnabled());
+		assertTrue(newPublish.getReadWriteEnabled());
+		assertEquals("http://somedomain.com", newPublish.getReadOnlyLiteUrl());
 		
 	}
 }

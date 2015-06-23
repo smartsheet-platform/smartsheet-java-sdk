@@ -37,7 +37,7 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.HttpMethod;
 import com.smartsheet.api.internal.http.HttpRequest;
 import com.smartsheet.api.internal.util.Util;
-import com.smartsheet.api.internal.util.queryUtil;
+import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.*;
 
 /**
@@ -117,7 +117,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 */
 	public DataWrapper<Sheet> listSheets(Boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
 		String path = "sheets";
-		path += queryUtil.handlePaginationQueryParameters(includeAll, pageSize, page);
+		path += QueryUtil.handlePaginationQueryParameters(includeAll, pageSize, page);
 
 		return this.listResourcesWithWrapper(path, Sheet.class);
 	}
@@ -142,7 +142,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 */
 	public DataWrapper<Sheet> listOrganizationSheets(Boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
 		String path = "users/sheets";
-		path += queryUtil.handlePaginationQueryParameters(includeAll, pageSize, page);
+		path += QueryUtil.handlePaginationQueryParameters(includeAll, pageSize, page);
 
 		return this.listResourcesWithWrapper(path, Sheet.class);
 	}
@@ -200,15 +200,15 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 			parameters.put("exclude", excludeValues);
 		}
 		if (rowIds != null) {
-			String rowIdValues = queryUtil.generateCommaSeparatedListFromList(rowIds);
+			String rowIdValues = QueryUtil.generateCommaSeparatedListFromList(rowIds);
 			parameters.put("rowIds", rowIdValues);
 		}
 		if (rowNumbers != null) {
-			String rowNumberValues = queryUtil.generateCommaSeparatedListFromList(rowNumbers);
+			String rowNumberValues = QueryUtil.generateCommaSeparatedListFromList(rowNumbers);
 			parameters.put("rowNumbers", rowNumberValues);
 		}
 		if (columnIds != null) {
-			String columnIdValues = queryUtil.generateCommaSeparatedListFromList(columnIds);
+			String columnIdValues = QueryUtil.generateCommaSeparatedListFromList(columnIds);
 			parameters.put("columnIds", columnIdValues);
 		}
 		if (pageSize != null) {
@@ -219,7 +219,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 		}
 
 		// Iterate through the map of parameters and generate the query string
-		path += queryUtil.generateQueryString(parameters);
+		path += QueryUtil.generateQueryString(parameters);
 
 		return this.getResource(path, Sheet.class);
 	}
@@ -349,7 +349,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 */
 	public Sheet createSheetInFolder(long folderId, Sheet sheet) throws SmartsheetException {
 		
-		return this.createResource("folder/" + folderId + "/sheets", Sheet.class, sheet);
+		return this.createResource("folders/" + folderId + "/sheets", Sheet.class, sheet);
 	}
 
 	/**
@@ -374,7 +374,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Sheet createSheetInFolderFromExisting(long folderId, Sheet sheet, EnumSet<ObjectInclusion> includes) throws SmartsheetException {
-		String path = "folder/" + folderId + "/sheets";
+		String path = "folders/" + folderId + "/sheets";
 		if (includes != null) {
 			path += "?include=";
 			for (ObjectInclusion oi : includes) {
@@ -405,7 +405,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Sheet createSheetInWorkspace(long workspaceId, Sheet sheet) throws SmartsheetException {
-		return this.createResource("workspace/" + workspaceId + "/sheets", Sheet.class, sheet);
+		return this.createResource("workspaces/" + workspaceId + "/sheets", Sheet.class, sheet);
 	}
 
 	/**
@@ -432,7 +432,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 */
 	public Sheet createSheetInWorkspaceFromExisting(long workspaceId, Sheet sheet, EnumSet<ObjectInclusion> includes)
 			throws SmartsheetException {
-		String path = "workspace/" + workspaceId + "/sheets";
+		String path = "workspaces/" + workspaceId + "/sheets";
 		if (includes != null) {
 			path += "?include=";
 			for (ObjectInclusion oi : includes) {
@@ -483,7 +483,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Sheet updateSheet(Sheet sheet) throws SmartsheetException {
-		return this.updateResource("sheet/" + sheet.getId(), Sheet.class, sheet);
+		return this.updateResource("sheets/" + sheet.getId(), Sheet.class, sheet);
 	}
 
 	/**
@@ -622,7 +622,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public SheetPublish updatePublishStatus(long id, SheetPublish publish) throws SmartsheetException{
-		return this.updateResource("sheet/" + id + "/publish", SheetPublish.class, publish);
+		return this.updateResource("sheets/" + id + "/publish", SheetPublish.class, publish);
 	}
 
 	/**
