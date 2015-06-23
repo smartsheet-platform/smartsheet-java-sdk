@@ -29,18 +29,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.EnumSet;
 
+import com.smartsheet.api.models.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.Cell;
-import com.smartsheet.api.models.Column;
-import com.smartsheet.api.models.Link;
-import com.smartsheet.api.models.LinkType;
-import com.smartsheet.api.models.Row;
-import com.smartsheet.api.models.RowWrapper;
 
 public class SheetRowResourcesImplTest extends ResourcesImplBase {
 
@@ -99,10 +95,13 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
 	public void testGetRow() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/getRow.json"));
 		
-		Row row = sheetRowResource.getRow(1234L, 1);
-		
-		assertNotNull(row);
-		assertTrue("Wrong row retrieved.", 1 == row.getRowNumber());
+		Row row = sheetRowResource.getRow(1234L, 5678L, EnumSet.of(ObjectInclusion.COLUMNS), EnumSet.of(ObjectExclusion.NONEXISTENTCELLS));
+
+        assertNotNull(row);
+        assertEquals(2361756178769796L, row.getId().longValue());
+        assertEquals(4583173393803140L, row.getSheetId().longValue());
+        assertEquals(2, row.getCells().size());
+        assertEquals("Revision 1", row.getCells().get(0).getValue());
 	}
 
 }

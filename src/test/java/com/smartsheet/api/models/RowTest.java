@@ -44,7 +44,7 @@ public class RowTest {
 		List<Column> columns = new ArrayList<Column>();
 		columns.add(col);
 		row.setColumns(columns);
-		row.setParentRowNumber(1);
+		//row.setParentRowNumber(1);
 		row.setDiscussions(new ArrayList<Discussion>());
 		row.setAttachments(new ArrayList<Attachment>());
 		

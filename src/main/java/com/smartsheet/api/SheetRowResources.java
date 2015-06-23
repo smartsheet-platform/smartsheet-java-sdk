@@ -22,8 +22,11 @@ package com.smartsheet.api;
 
 
 
+import java.util.EnumSet;
 import java.util.List;
 
+import com.smartsheet.api.models.ObjectExclusion;
+import com.smartsheet.api.models.ObjectInclusion;
 import com.smartsheet.api.models.Row;
 import com.smartsheet.api.models.RowWrapper;
 
@@ -54,10 +57,12 @@ public interface SheetRowResources {
 	/**
 	 * Get a row.
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /sheet/{id}/row/{number}
+	 * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/rows/{rowId}
 	 *
-	 * @param id the id
-	 * @param rowNumber the row number
+	 * @param sheetId the id of the sheet
+	 * @param rowId the id of the row
+	 * @param includes optional objects to include
+	 * @param excludes optional objects to exclude
 	 * @return the created row (note that if there is no such resource, this method will throw ResourceNotFoundException rather
 	 * than returning null).
 	 * @throws IllegalArgumentException if any argument is null or empty string
@@ -67,5 +72,5 @@ public interface SheetRowResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Row getRow(long id, int rowNumber) throws SmartsheetException;
+	public Row getRow(long sheetId, long rowId, EnumSet<ObjectInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException;
 }

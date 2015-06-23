@@ -23,6 +23,7 @@ package com.smartsheet.api.internal.util;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.EnumSet;
 
 public class QueryUtil {
 
@@ -36,26 +37,22 @@ public class QueryUtil {
      * @param page the page
      * @return the query string
      */
-    public static String handlePaginationQueryParameters(Boolean includeAll, Integer pageSize, Integer page) {
+    public static String handlePaginationQueryParameters(boolean includeAll, Integer pageSize, Integer page) {
         HashMap<String, String> parameters = new HashMap<String, String>();
 
-        if (includeAll != null){
-            parameters.put("includeAll", includeAll.toString());
+        parameters.put("includeAll", Boolean.toString(includeAll));
 
-            if (includeAll) {
-                return generateQueryString(parameters);
-            } else {
-                if (pageSize != null) {
-                    parameters.put("pageSize", pageSize.toString());
-                }
-                if (page != null) {
-                    parameters.put("page", page.toString());
-                }
-                return generateQueryString(parameters);
+        if (includeAll) {
+            return generateQueryString(parameters);
+        } else {
+            if (pageSize != null) {
+                parameters.put("pageSize", pageSize.toString());
             }
+            if (page != null) {
+                parameters.put("page", page.toString());
+            }
+            return generateQueryString(parameters);
         }
-
-        return "";
     }
 
     /**
@@ -74,6 +71,29 @@ public class QueryUtil {
             for (T item : list) {
                 result += item.toString();
                 if (index != list.size() - 1) {
+                    result += ",";
+                }
+                index++;
+            }
+            return result;
+        }
+    }
+
+    /**
+     * Returns a comma separated list of items as a string
+     * @param e the EnumSet
+     * @return comma separated string
+     */
+    public static String generateCommaSeparatedListFromEnumSet(EnumSet e) {
+        String result = "";
+
+        if (e == null) {
+            return result;
+        } else {
+            int index = 0;
+            for (Object obj : e) {
+                result += ((Enum)obj).name().toLowerCase();
+                if (index != e.size() - 1) {
                     result += ",";
                 }
                 index++;
@@ -108,5 +128,4 @@ public class QueryUtil {
             return result;
         }
     }
-
 }
