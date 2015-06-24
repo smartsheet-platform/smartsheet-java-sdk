@@ -76,19 +76,17 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
 		row.setCells(cells);
 		rows.add(row);
 		
-		// Create a rowWrapper to hold the rows for inserting.
-		RowWrapper rowWrapper = new RowWrapper();
-		rowWrapper.setToBottom(true);
-		rowWrapper.setRows(rows);
-		
-		List<Row> newRows = sheetRowResource.insertRows(1234L, rowWrapper);
-		
-		assertNotNull(newRows);
-		assertEquals("The number of rows created & inserted is not correct.", rows.size(), newRows.size());
-		Column col = new Column();
-		col.setId(8764071660021636L);
-		assertNull(rows.get(0).getColumnByIndex(0));
-		assertNull(rows.get(0).getColumnById(8764071660021636L));
+		List<Row> newRows = sheetRowResource.insertRows(1234L, rows);
+        Row row1 = newRows.get(0);
+        Row row2 = newRows.get(1);
+
+        assertEquals(2, newRows.size());
+        assertEquals(7670198317672324L, row1.getId().longValue());
+        assertEquals(2, row1.getCells().size());
+        assertEquals("CHECKBOX", row1.getCells().get(0).getType().toString());
+        assertEquals(2040698783459204L, row2.getId().longValue());
+        assertEquals(2, row2.getCells().size());
+        assertEquals("New status", row2.getCells().get(1).getValue());
 	}
 
 	@Test
@@ -104,4 +102,46 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
         assertEquals("Revision 1", row.getCells().get(0).getValue());
 	}
 
+    @Test
+    public void testDeleteRow() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/deleteRow.json"));
+        sheetRowResource.deleteRow(1234L, 6789L);
+    }
+
+    @Test
+    public void testSendRow() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/sendRow.json"));
+
+        Recipient recipient = new Recipient();
+        recipient.setEmail("johndoe@smartsheet.com");
+
+        RowEmail email = new RowEmail();
+
+        List<Recipient> to = new ArrayList<Recipient>();
+        to.add(recipient);
+
+        email.setSendTo(to);
+        email.setMessage("Test Message");
+        email.setSubject("Test Subject");
+        email.setIncludeAttachments(true);
+        email.setIncludeDiscussions(true);
+        email.setCcMe(true);
+
+        sheetRowResource.sendRow(1234L, 5678L, email);
+    }
+
+    @Test
+    public void testUpdateRows() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/updateRows.json"));
+
+        List<Row> rows = new ArrayList<Row>();
+
+        List<Row> updatedRows = sheetRowResource.updateRows(1234L, rows);
+        Row row1 = updatedRows.get(0);
+        Row row2 = updatedRows.get(1);
+
+        assertEquals(2, updatedRows.size());
+        assertEquals(2068827774183300L, row1.getId().longValue());
+        assertEquals(6572427401553796L, row2.getId().longValue());
+    }
 }

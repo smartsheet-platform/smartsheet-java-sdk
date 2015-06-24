@@ -323,7 +323,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		FormatDetails format = new FormatDetails();
 		format.setPaperSize(PaperSize.A0);
 		email.setFormatDetails(format);
-		email.setTo(Arrays.asList(emailAddress));
+		//email.setTo(Arrays.asList(emailAddress));
 		sheetResource.sendSheet(1234L, email);
 	}
 

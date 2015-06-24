@@ -72,10 +72,10 @@ public class Row extends IdentifiableModel<Long> {
 	private Format format;
 
 	/** Represents the parent row ID. */
-	private Integer parentId;
+	private Long parentId;
 
 	/** Represents the sibling row ID*/
-	private Integer siblingId;
+	private Long siblingId;
 
 	/** Represents the URL to the row of the sheet*/
 	private String permalink;
@@ -387,7 +387,7 @@ public class Row extends IdentifiableModel<Long> {
 	 *
 	 * @return the ID of the parent
 	 */
-	public Integer getParentId() {
+	public Long getParentId() {
 		return parentId;
 	}
 
@@ -396,7 +396,7 @@ public class Row extends IdentifiableModel<Long> {
 	 *
 	 * @param parentId the parent row id
 	 */
-	public void setParentId(Integer parentId) {
+	public void setParentId(Long parentId) {
 		this.parentId = parentId;
 	}
 
@@ -405,7 +405,7 @@ public class Row extends IdentifiableModel<Long> {
 	 *
 	 * @return the ID of the sibling
 	 */
-	public Integer getSiblingId() {
+	public Long getSiblingId() {
 		return siblingId;
 	}
 
@@ -414,7 +414,7 @@ public class Row extends IdentifiableModel<Long> {
 	 *
 	 * @param siblingId the sibling row id
 	 */
-	public void setSiblingId(Integer siblingId) {
+	public void setSiblingId(Long siblingId) {
 		this.siblingId = siblingId;
 	}
 
