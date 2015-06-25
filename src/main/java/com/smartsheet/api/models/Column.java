@@ -77,33 +77,21 @@ public class Column extends IdentifiableModel<Long> {
 	 * Represents the tags to indicate a special type of column.
 	 */
 	private List<ColumnTag> tags;
-
-	/**
-	 * Represents the sheet ID.
-	 */
-	private Long sheetId;
-	
-	/** 
-	 * Indicates if the column is locked. Defaults to false 
-	 */
-	private Boolean locked;
-	
-	/** 
-	 * Indicates if the column is locked for the current user. Defaults to false. 
-	 */
-	private Boolean lockedForUser;
-	
 	
 	/**
 	 * The width of the cell.
 	 * */
 	private Integer width;
-	
 
 	/**
 	 * Represents the {@link Format} for this column.
 	 */
 	private Format format;
+
+	/**
+	 * Represents the filter applied to the column
+	 */
+	private Filter filter;
 
 	/**
 	 * Gets the position of the column.
@@ -285,51 +273,36 @@ public class Column extends IdentifiableModel<Long> {
 		this.tags = tags;
 	}
 
-	/**
-	 * Gets the sheet id.
-	 *
-	 * @return the sheet id
-	 */
-	public Long getSheetId() {
-		return sheetId;
+	public Integer getWidth() {
+		return width;
+	}
+
+	public void setWidth(Integer width) {
+		this.width = width;
 	}
 
 	/**
-	 * Sets the sheet id.
-	 *
-	 * @param sheetId the new sheet id
+	 * @return the {@link Format}
 	 */
-	public void setSheetId(Long sheetId) {
-		this.sheetId = sheetId;
+	public Format getFormat() {
+		return format;
 	}
 
 	/**
-	 * Indicates whether a column is locked or not. 
-	 * 
-	 * @return the locked status.
+	 * @param format the {@link Format} to set
 	 */
-	public Boolean isLocked() {
-		return locked;
+	public void setFormat(Format format) {
+		this.format = format;
 	}
 
-	/**
-	 * @param locked
-	 */
-	public void setLocked(Boolean locked) {
-		this.locked = locked;
+	public Filter getFilter() {
+		return filter;
 	}
 
-	/**
-	 * Indicates whether a column is locked for the user. Users cannot modify columns that are locked for them.
-	 * @return the locked status for the user
-	 */
-	public Boolean isLockedForUser() {
-		return lockedForUser;
+	public void setFilter(Filter filter) {
+		this.filter = filter;
 	}
 
-	public void setLockedForUser(Boolean lockedForUser) {
-		this.lockedForUser = lockedForUser;
-	}
 	/**
 	 * A convenience class to help create a column object with the appropriate fields for adding to a sheet.
 	 */
@@ -503,8 +476,8 @@ public class Column extends IdentifiableModel<Long> {
 		 * Sets the index for the column. Set this to any value greater than the index of
 		 * the last column to add it as the last column.
 		 * 
-		 * @param index
-		 * @return
+		 * @param index the index
+		 * @return the index
 		 */
 		public AddColumnToSheetBuilder setIndex(Integer index) {
 			this.index = index;
@@ -740,30 +713,7 @@ public class Column extends IdentifiableModel<Long> {
 			column.symbol = symbol;
 			column.systemColumnType = systemColumnType;
 			column.autoNumberFormat = autoNumberFormat;
-			column.sheetId = sheetId;
 			return column;
 		}
-	}
-
-	public Integer getWidth() {
-		return width;
-	}
-
-	public void setWidth(Integer width) {
-		this.width = width;
-	}
-
-	/**
-	 * @return the {@link Format}
-	 */
-	public Format getFormat() {
-		return format;
-	}
-
-	/**
-	 * @param format the {@link Format} to set
-	 */
-	public void setFormat(Format format) {
-		this.format = format;
 	}
 }

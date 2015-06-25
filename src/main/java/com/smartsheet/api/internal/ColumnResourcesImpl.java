@@ -102,7 +102,7 @@ public class ColumnResourcesImpl extends AbstractResources implements ColumnReso
 		request = this.createHttpRequest(getSmartsheet().getBaseURI().resolve("column/" + id), HttpMethod.DELETE);
 		
 		Column column = new Column();
-		column.setSheetId(sheetId);
+		//column.setSheetId(sheetId);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		getSmartsheet().getJsonSerializer().serialize(column, baos);
 		HttpEntity entity = new HttpEntity();

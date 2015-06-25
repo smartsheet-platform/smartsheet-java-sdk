@@ -56,7 +56,7 @@ public class ColumnResourcesImplTest extends ResourcesImplBase {
 		
 		col.setIndex(0);
 		col.setTitle("something new");
-		col.setSheetId(2906571706525572L);
+		//col.setSheetId(2906571706525572L);
 		col.setHidden(false);
 		col.setSymbol(Symbol.STAR);
 		col.setSystemColumnType(SystemColumnType.AUTO_NUMBER);
