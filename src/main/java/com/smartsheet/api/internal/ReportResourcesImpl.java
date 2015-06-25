@@ -31,6 +31,7 @@ import com.smartsheet.api.models.Report;
 import com.smartsheet.api.models.SheetEmail;
 
 import javax.xml.crypto.Data;
+import java.io.OutputStream;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -150,6 +151,33 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
         String path= "reports";
         path += QueryUtil.handlePaginationQueryParameters(includeAll, pageSize, page);
         return this.listResourcesWithWrapper(path, Report.class);
+    }
+
+    /**
+     * Get a Report as an Excel file.
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /reports/{id} with "application/vnd.ms-excel" Accept
+     * HTTP header
+     *
+     * Exceptions:
+     *   IllegalArgumentException : if outputStream is null
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ResourceNotFoundException : if the resource can not be found
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param id the id
+     * @param outputStream the OutputStream to which the Excel file will be written
+     * @return the sheet as excel
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public void getReportAsExcel(long id, EnumSet<ObjectInclusion> includes, Integer pageSize, Integer page, OutputStream outputStream) throws SmartsheetException {
+        this.checkParameters(pageSize, page);
+        String path = "/reports";
+        path += QueryUtil.handlePaginationQueryParameters(false, pageSize, page);
+        getResourceAsFile(path, "application/vnd.ms-excel",outputStream);
     }
 
 }

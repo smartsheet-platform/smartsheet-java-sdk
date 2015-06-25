@@ -4,15 +4,19 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.*;
 import junit.framework.TestCase;
+import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.EnumSet;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -61,5 +65,21 @@ public class ReportResourcesImplTest extends ResourcesImplBase {
         assertEquals("r1", reportsWrapper.getData().get(0).getName());
         assertEquals("r2", reportsWrapper.getData().get(1).getName());
         assertTrue(6761305928427396L == reportsWrapper.getData().get(0).getId());
+    }
+
+    @Test
+    public void testGetReportAsExcel() throws SmartsheetException, IOException{
+        File file = new File("src/test/resources/getExcel.xls");
+        server.setResponseBody(file);
+        server.setContentType("application/vnd.ms-excel");
+
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        reportResources.getReportAsExcel(4583173393803140L, EnumSet.of(ObjectInclusion.ATTACHMENTS, ObjectInclusion.DISCUSSIONS),1,1, output);
+        assertNotNull(output);
+
+        assertTrue(output.toByteArray().length > 0);
+
+        byte[] data = Files.readAllBytes(Paths.get(file.getPath()));
+        assertEquals(data.length, output.toByteArray().length);
     }
 }
