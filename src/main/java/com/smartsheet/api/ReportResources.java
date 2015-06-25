@@ -21,6 +21,7 @@ package com.smartsheet.api;
  * %[license]
  */
 
+import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.ObjectInclusion;
 import com.smartsheet.api.models.Report;
 import com.smartsheet.api.models.SheetEmail;
@@ -50,7 +51,7 @@ public interface ReportResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Report getReport(long reportId, EnumSet<ObjectInclusion> includes, boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException;
+     Report getReport(long reportId, EnumSet<ObjectInclusion> includes, boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException;
 
     /**
      * <p>Send a sheet as a PDF attachment via Email To the designated recipients.</p>
@@ -67,7 +68,24 @@ public interface ReportResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public void sendSheet(long reportId, SheetEmail email) throws SmartsheetException;
+     void sendSheet(long reportId, SheetEmail email) throws SmartsheetException;
+
+    /**
+     * List all reports.
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /reports
+     *
+     * Exceptions:
+     *   - InvalidRequestException : if there is any problem with the REST API request
+     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   - SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @return all sheets (note that empty list will be returned if there is none)
+     * @throws SmartsheetException the smartsheet exception
+     */
+     DataWrapper<Report> listReports(boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException;
 
 
 }

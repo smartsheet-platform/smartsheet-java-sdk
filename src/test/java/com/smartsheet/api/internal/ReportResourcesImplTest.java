@@ -50,4 +50,16 @@ public class ReportResourcesImplTest extends ResourcesImplBase {
         email.setTo(Arrays.asList(emailAddress));
         reportResources.sendSheet(1234L, email);
     }
+
+    @Test
+    public void testListReports() throws  SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/listReports.json"));
+
+        DataWrapper<Report> reportsWrapper = reportResources.listReports(true,null,null);
+
+        assertTrue(reportsWrapper.getTotalPages() == 1);
+        assertEquals("r1", reportsWrapper.getData().get(0).getName());
+        assertEquals("r2", reportsWrapper.getData().get(1).getName());
+        assertTrue(6761305928427396L == reportsWrapper.getData().get(0).getId());
+    }
 }

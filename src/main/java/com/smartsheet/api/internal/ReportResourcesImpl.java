@@ -25,11 +25,14 @@ import com.smartsheet.api.ReportResources;
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
+import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.ObjectInclusion;
 import com.smartsheet.api.models.Report;
 import com.smartsheet.api.models.SheetEmail;
 
+import javax.xml.crypto.Data;
 import java.util.EnumSet;
+import java.util.List;
 
 /**
  * This is the implementation of the ReportResources.
@@ -126,6 +129,27 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
         {
             throw new IllegalArgumentException("Page Size must be between 1 and 500.");
         }
+    }
+
+    /**
+     * List all reports.
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /reports
+     *
+     * Exceptions:
+     *   - InvalidRequestException : if there is any problem with the REST API request
+     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   - SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @return all sheets (note that empty list will be returned if there is none)
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public DataWrapper<Report> listReports(boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
+        String path= "reports";
+        path += QueryUtil.handlePaginationQueryParameters(includeAll, pageSize, page);
+        return this.listResourcesWithWrapper(path, Report.class);
     }
 
 }
