@@ -65,4 +65,44 @@ public interface SheetColumnResources {
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Column addColumn(long sheetId, Column column) throws SmartsheetException;
+
+	/**
+	 * <p>Delete column.</p>
+	 *
+	 * <p>It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/columns/{columnId}</p>
+	 *
+	 * @param sheetId the sheet id
+	 * @param columnId the column id
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	public void deleteColumn(long sheetId, long columnId) throws SmartsheetException;
+
+	/**
+	 * Update a column.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/columns/{columnId}
+	 *
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param sheetId the sheetId
+	 * @param column the column to update limited to the following attributes: index (column's new index in the sheet),
+	 * title, sheetId, type, options (optional), symbol (optional), systemColumnType (optional),
+	 * autoNumberFormat (optional)
+	 * @return the updated sheet (note that if there is no such resource, this method will throw
+	 * ResourceNotFoundException rather than returning null).
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public Column updateColumn(long sheetId, Column column) throws SmartsheetException;
 }
