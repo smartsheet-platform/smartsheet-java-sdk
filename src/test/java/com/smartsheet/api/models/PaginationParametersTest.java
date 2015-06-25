@@ -20,25 +20,19 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-/**
- * Represents specific objects that can be included in some responses.
- */
-public enum ObjectInclusion {
-	DISCUSSIONS		("discussions"), 
-	ATTACHMENTS		("attachments"), 
-	DATA			("data"), 
-	COLUMNS			("columns"), 
-	TEMPLATES		("templates"),
-	FORMS			("forms"),
-	CELL_LINKS		("cellLinks"),
-	FORMAT			("format"),
-	;
+public class PaginationParametersTest {
 
-	String inclusion;
-
-	ObjectInclusion(String inclusion) {
-		this.inclusion = inclusion;
+	@Test
+	public void testPaginationParameters() {
+		PaginationParameters parameters = new PaginationParameters(true, 1, 1);
+		
+		assertTrue(parameters.isIncludeAll());
+		assertEquals(1, parameters.getPageSize().longValue());
+		assertEquals(1, parameters.getPage().longValue());
 	}
 }

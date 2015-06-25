@@ -22,6 +22,7 @@ package com.smartsheet.api.models;
 
 import java.util.Date;
 import java.util.List;
+import java.util.EnumSet;
 
 /**
  * Represents the Sheet object.
@@ -107,7 +108,7 @@ public class Sheet extends NamedModel<Long> {
 	/**
 	 * Represents effective attachment options.
 	 */
-	private List<AttachmentType> effectiveAttachmentOptions;
+	private EnumSet<AttachmentType> effectiveAttachmentOptions;
 
 	/**
 	 * Identifies if the sheet is marked as favorite.
@@ -463,7 +464,7 @@ public class Sheet extends NamedModel<Long> {
 	 *
 	 * @return list of attachment types
 	 */
-	public List<AttachmentType> getEffectiveAttachmentOptions() {
+	public EnumSet<AttachmentType> getEffectiveAttachmentOptions() {
 		return effectiveAttachmentOptions;
 	}
 
@@ -472,7 +473,7 @@ public class Sheet extends NamedModel<Long> {
 	 *
 	 * @param effectiveAttachmentOptions the effective attachment options
 	 */
-	public void setEffectiveAttachmentOptions(List<AttachmentType> effectiveAttachmentOptions) {
+	public void setEffectiveAttachmentOptions(EnumSet<AttachmentType> effectiveAttachmentOptions) {
 		this.effectiveAttachmentOptions = effectiveAttachmentOptions;
 	}
 

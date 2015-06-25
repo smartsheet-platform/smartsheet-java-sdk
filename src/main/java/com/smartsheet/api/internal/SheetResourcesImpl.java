@@ -116,8 +116,10 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public DataWrapper<Sheet> listSheets(boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
+		PaginationParameters parameters = new PaginationParameters(includeAll, pageSize, page);
+
 		String path = "sheets";
-		path += QueryUtil.handlePaginationQueryParameters(includeAll, pageSize, page);
+		path += parameters.toQueryString();
 
 		return this.listResourcesWithWrapper(path, Sheet.class);
 	}
@@ -141,8 +143,10 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public DataWrapper<Sheet> listOrganizationSheets(boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
+		PaginationParameters parameters = new PaginationParameters(includeAll, pageSize, page);
+
 		String path = "users/sheets";
-		path += QueryUtil.handlePaginationQueryParameters(includeAll, pageSize, page);
+		path += parameters.toQueryString();
 
 		return this.listResourcesWithWrapper(path, Sheet.class);
 	}
@@ -174,24 +178,19 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 		HashMap<String, String>	parameters = new HashMap<String, String>();
 
 		if (includes != null) {
-			String includeValues = QueryUtil.generateCommaSeparatedListFromEnumSet(includes);
-			parameters.put("include", includeValues);
+			parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 		}
 		if (excludes != null) {
-			String excludeValues = QueryUtil.generateCommaSeparatedListFromEnumSet(excludes);
-			parameters.put("exclude", excludeValues);
+			parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
 		}
 		if (rowIds != null) {
-			String rowIdValues = QueryUtil.generateCommaSeparatedListFromList(rowIds);
-			parameters.put("rowIds", rowIdValues);
+			parameters.put("rowIds", QueryUtil.generateCommaSeparatedList(rowIds));
 		}
 		if (rowNumbers != null) {
-			String rowNumberValues = QueryUtil.generateCommaSeparatedListFromList(rowNumbers);
-			parameters.put("rowNumbers", rowNumberValues);
+			parameters.put("rowNumbers", QueryUtil.generateCommaSeparatedList(rowNumbers));
 		}
 		if (columnIds != null) {
-			String columnIdValues = QueryUtil.generateCommaSeparatedListFromList(columnIds);
-			parameters.put("columnIds", columnIdValues);
+			parameters.put("columnIds", QueryUtil.generateCommaSeparatedList(columnIds));
 		}
 		if (pageSize != null) {
 			parameters.put("pageSize", pageSize.toString());
@@ -201,7 +200,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 		}
 
 		// Iterate through the map of parameters and generate the query string
-		path += QueryUtil.generateQueryString(parameters);
+		path += QueryUtil.generateUrl(null, parameters);
 
 		return this.getResource(path, Sheet.class);
 	}

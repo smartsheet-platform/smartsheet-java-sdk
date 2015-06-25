@@ -61,7 +61,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 
 		server.setResponseBody(new File("src/test/resources/listSheets.json"));
 
-		DataWrapper<Sheet> sheets = sheetResource.listSheets(false, null, null);
+		DataWrapper<Sheet> sheets = sheetResource.listSheets(false, 1, 1);
 
 		assertTrue(sheets.getPageNumber() == 1);
 		assertTrue(sheets.getPageSize() == 100);
@@ -87,8 +87,12 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		Sheet sheet = sheetResource.getSheet(123123L, null, null, null, null, null, null, null);
 		assertEquals(9,sheet.getColumns().size());
 		assertEquals(0,sheet.getRows().size());
-		
-		sheet = sheetResource.getSheet(123123L, EnumSet.allOf(ObjectInclusion.class), EnumSet.allOf(ObjectExclusion.class), null, null, null, 1, 1);
+
+		List<Long> rowIds = new ArrayList<Long>();
+		rowIds.add(123456789L);
+		rowIds.add(987654321L);
+
+		sheet = sheetResource.getSheet(123123L, EnumSet.allOf(ObjectInclusion.class), EnumSet.allOf(ObjectExclusion.class), rowIds, null, null, 1, 1);
 		assertEquals(9,sheet.getColumns().size());
 		assertEquals(0,sheet.getRows().size());
 	}
@@ -314,9 +318,14 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		server.setResponseBody(new File("src/test/resources/sendEmails.json"));
 		
 		List<Recipient> recipients = new ArrayList<Recipient>();
-		Recipient recipient = new Recipient();
-		recipient.setEmail("johndoe@smartsheet.com");
-		recipients.add(recipient);
+		RecipientEmail recipientEmail = new RecipientEmail();
+		recipientEmail.setEmail("johndoe@smartsheet.com");
+
+		RecipientGroup recipientGroup = new RecipientGroup();
+		recipientGroup.setGroupId(123456789L);
+
+		recipients.add(recipientGroup);
+		recipients.add(recipientEmail);
 
 		SheetEmail email = new SheetEmail();
 		email.setFormat(SheetEmailFormat.PDF);

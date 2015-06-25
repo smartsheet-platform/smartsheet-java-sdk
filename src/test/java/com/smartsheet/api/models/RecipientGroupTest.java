@@ -20,25 +20,17 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import org.junit.Test;
 
+import static org.junit.Assert.assertNotNull;
 
-/**
- * Represents specific objects that can be included in some responses.
- */
-public enum ObjectInclusion {
-	DISCUSSIONS		("discussions"), 
-	ATTACHMENTS		("attachments"), 
-	DATA			("data"), 
-	COLUMNS			("columns"), 
-	TEMPLATES		("templates"),
-	FORMS			("forms"),
-	CELL_LINKS		("cellLinks"),
-	FORMAT			("format"),
-	;
+public class RecipientGroupTest {
 
-	String inclusion;
+	@Test
+	public void testRecipientGroup() {
+		RecipientGroup recipient = new RecipientGroup();
+		recipient.setGroupId(123456789L);
 
-	ObjectInclusion(String inclusion) {
-		this.inclusion = inclusion;
+		assertNotNull(recipient.getGroupId());
 	}
 }

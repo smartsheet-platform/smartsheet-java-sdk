@@ -20,25 +20,23 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import org.junit.Before;
+import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-/**
- * Represents specific objects that can be included in some responses.
- */
-public enum ObjectInclusion {
-	DISCUSSIONS		("discussions"), 
-	ATTACHMENTS		("attachments"), 
-	DATA			("data"), 
-	COLUMNS			("columns"), 
-	TEMPLATES		("templates"),
-	FORMS			("forms"),
-	CELL_LINKS		("cellLinks"),
-	FORMAT			("format"),
-	;
+public class ObjectExclusionTest {
 
-	String inclusion;
-
-	ObjectInclusion(String inclusion) {
-		this.inclusion = inclusion;
+	@Before
+	public void setUp() throws Exception {
 	}
+
+	@Test
+	public void testObjectInclusion() {
+		assertNotNull(ObjectExclusion.valueOf("NONEXISTENT_CELLS"));
+		
+		assertEquals(1,ObjectExclusion.values().length);
+	}
+
 }

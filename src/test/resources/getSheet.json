@@ -2,6 +2,10 @@
    "id":295123319904012164,
    "name":"test project sheet",
    "version":0,
+   "source": {
+      "id": 3975492966606724,
+      "type": "sheet"
+   },
    "columns":[
       {
          "id":1233880841485380,

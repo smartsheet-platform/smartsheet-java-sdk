@@ -26,7 +26,7 @@ package com.smartsheet.api.models;
  * Represents specific objects that can be excluded in some responses.
  */
 public enum ObjectExclusion {
-    NONEXISTENTCELLS   ("nonexistentCells");
+    NONEXISTENT_CELLS   ("nonexistentCells");
 
     String exclusion;
 

@@ -20,25 +20,17 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import org.junit.Test;
 
+import static org.junit.Assert.*;
 
-/**
- * Represents specific objects that can be included in some responses.
- */
-public enum ObjectInclusion {
-	DISCUSSIONS		("discussions"), 
-	ATTACHMENTS		("attachments"), 
-	DATA			("data"), 
-	COLUMNS			("columns"), 
-	TEMPLATES		("templates"),
-	FORMS			("forms"),
-	CELL_LINKS		("cellLinks"),
-	FORMAT			("format"),
-	;
+public class RecipientEmailTest {
 
-	String inclusion;
+	@Test
+	public void testRecipientEmail() {
+		RecipientEmail recipient = new RecipientEmail();
+		recipient.setEmail("johndoe@smartsheet.com");
 
-	ObjectInclusion(String inclusion) {
-		this.inclusion = inclusion;
+		assertNotNull(recipient.getEmail());
 	}
 }
