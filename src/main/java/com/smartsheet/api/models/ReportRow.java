@@ -26,7 +26,7 @@ import java.util.LongSummaryStatistics;
 /**
  * Represents the ReportRow object.
  */
-public class ReportRow extends Row{
+public class ReportRow extends AbstractRow<ReportColumn, ReportCell>{
 
     /**
      * Represents the virtual ID of the cell’s column.

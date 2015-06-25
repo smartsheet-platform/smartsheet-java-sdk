@@ -53,9 +53,9 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
     }
 
     /**
-     * Get a folder.
+     * Get a report.
      *
-     * It mirrors to the following Smartsheet REST API method: GET /folder/{id}
+     * It mirrors to the following Smartsheet REST API method: GET /reports/{id}
      *
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -78,9 +78,9 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
     }
 
     /**
-     * Get a folder.
+     * Sends a report as a PDF attachment via email to the designated recipients.
      *
-     * It mirrors to the following Smartsheet REST API method: GET /folder/{id}
+     * It mirrors to the following Smartsheet REST API method: POST /reports/{id}/emails
      *
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -90,15 +90,32 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
      *   SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param reportId the folder id
+     * @param reportId the report id
+     * @param email the recipient email
      * @return the report (note that if there is no such resource, this method will throw ResourceNotFoundException
      * rather than returning null)
      * @throws SmartsheetException the smartsheet exception
      */
-    public void sendSheet(long reportId, SheetEmail email){
-
+    public void sendSheet(long reportId, SheetEmail email) throws SmartsheetException{
+         this.createResource("reports/" + reportId + "/emails", SheetEmail.class, email);
     };
 
+    /**
+     * Checks pageSize and page.
+     *
+     * Exceptions:
+     *   - InvalidRequestException : if there is any problem with the REST API request
+     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   - ResourceNotFoundException : if the resource can not be found
+     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   - SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param pageSize the page size
+     * @param page the page number
+     * @return the sheet as file
+     * @throws SmartsheetException the smartsheet exception
+     */
     private void checkParameters(Integer pageSize, Integer page){
         if (page != null && page <= 0 )
         {

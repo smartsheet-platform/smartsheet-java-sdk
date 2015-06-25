@@ -67,7 +67,7 @@ public interface ReportResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public void sendSheet(long reportId, SheetEmail email);
+    public void sendSheet(long reportId, SheetEmail email) throws SmartsheetException;
 
 
 }

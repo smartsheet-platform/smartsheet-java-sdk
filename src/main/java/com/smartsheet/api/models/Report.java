@@ -27,7 +27,7 @@ import java.util.List;
  * A report object that is a filtered view of the data from one or more Sheets.
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/522214-creating-reports">Creating Reports Help</a>
  */
-public class Report extends Sheet {
+public class Report extends AbstractSheet<ReportRow, ReportColumn, ReportCell> {
 
     /**
      * Represents the sheets that rows in the report originated from.
