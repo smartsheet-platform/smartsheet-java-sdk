@@ -41,6 +41,7 @@ import com.smartsheet.api.internal.http.HttpRequest;
 import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.internal.json.JsonSerializer;
+import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.oauth.AccessDeniedException;
 import com.smartsheet.api.oauth.AccessScope;
@@ -168,7 +169,7 @@ public class OAuthFlowImpl implements OAuthFlow {
 		params.put("scope",scopeBuffer.substring(0,scopeBuffer.length()-1));
 		
 		// Generate the URL with the parameters
-		return generateURL(authorizationURL, params);
+		return QueryUtil.generateUrl(authorizationURL, params);
 	}
 
 	/**
@@ -291,7 +292,7 @@ public class OAuthFlowImpl implements OAuthFlow {
 		params.put("hash", hash);
 
 		// Generate the URL and then get the token
-		return requestToken(generateURL(tokenURL, params));
+		return requestToken(QueryUtil.generateUrl(tokenURL, params));
 	}
 
 	/**
@@ -344,7 +345,7 @@ public class OAuthFlowImpl implements OAuthFlow {
 		params.put("hash",hash);
 		
 		// Generate the URL and get the token
-		return requestToken(generateURL(tokenURL, params));
+		return requestToken(QueryUtil.generateUrl(tokenURL, params));
 	}
 	
 	/**
@@ -423,59 +424,6 @@ public class OAuthFlowImpl implements OAuthFlow {
 		token.setExpiresInSeconds(expiresIn); 
 		
 		return token;
-	}
-	
-	/**
-	 * Helper function to generate a URL using the base URL and the given parameters. It will encode each of the 
-	 * parameters as well.
-	 *
-	 * @param baseURL The base URL that the parameters will be appended to.
-	 * @param parameters The parameters that will be appended to the base URL. Each parameter will be URL encoded.
-	 * @return A string representing the full URL.
-	 * @throws UnsupportedEncodingException the unsupported encoding exception
-	 */
-	protected String generateURL(String baseURL, Map<String,String> parameters) {
-		// Supports handling a relative URL
-		if(baseURL == null){
-			baseURL = "";
-		}
-		
-		// Add a question mark to the URL if there isn't one already.
-		if(!baseURL.contains("?")) {
-			baseURL += "?";
-		}
-		
-		// Test to see if a & should be the next character in the URL
-		boolean needsAmpersand = true;
-		if(baseURL.endsWith("?") || baseURL.endsWith("&")){
-			needsAmpersand = false;
-		}
-		
-		// Add the parameters to the URL
-		StringBuilder sb = new StringBuilder(baseURL);
-		try {
-			if(parameters != null){
-				for(Map.Entry<String, String> param : parameters.entrySet()) {
-					// Don't add a & after a ?
-					if(needsAmpersand){
-						sb.append("&");
-					}
-					needsAmpersand = true; // this only matters for the first &;
-					
-					sb.append(URLEncoder.encode(param.getKey(),"utf-8"));
-					sb.append("=");
-					
-					String key = param.getValue();
-					if(key != null) {
-						sb.append(URLEncoder.encode(param.getValue(),"utf-8"));
-					}
-				}
-			}
-		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException(e);
-		}
-		
-		return sb.toString();
 	}
 
 	/**
