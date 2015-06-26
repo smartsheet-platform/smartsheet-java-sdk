@@ -25,10 +25,8 @@ import com.smartsheet.api.ReportResources;
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
-import com.smartsheet.api.models.DataWrapper;
-import com.smartsheet.api.models.ObjectInclusion;
-import com.smartsheet.api.models.Report;
-import com.smartsheet.api.models.SheetEmail;
+import com.smartsheet.api.models.*;
+import com.sun.tools.corba.se.idl.constExpr.Not;
 
 import javax.xml.crypto.Data;
 import java.io.OutputStream;
@@ -77,7 +75,11 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
     public Report getReport(long reportId, EnumSet<ObjectInclusion> includes, boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException{
         this.checkParameters(pageSize, page);
         String path = "reports/" + reportId;
-        path += QueryUtil.generateReportQueryString(includes, includeAll, pageSize, page);
+        PaginationParameters parameters = new PaginationParameters(includeAll, pageSize, page);
+        path += parameters.toQueryString();
+        if  (!includes.isEmpty()){
+            path += "&include=" + QueryUtil.generateCommaSeparatedList(includes);
+        }
         return this.getResource(path, Report.class);
     }
 
@@ -148,8 +150,9 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * @throws SmartsheetException the smartsheet exception
      */
     public DataWrapper<Report> listReports(boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
+        PaginationParameters parameters = new PaginationParameters(includeAll, pageSize, page);
         String path= "reports";
-        path += QueryUtil.handlePaginationQueryParameters(includeAll, pageSize, page);
+        path += parameters.toQueryString();
         return this.listResourcesWithWrapper(path, Report.class);
     }
 
@@ -175,8 +178,12 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      */
     public void getReportAsExcel(long id, EnumSet<ObjectInclusion> includes, Integer pageSize, Integer page, OutputStream outputStream) throws SmartsheetException {
         this.checkParameters(pageSize, page);
+        PaginationParameters parameters = new PaginationParameters(false, pageSize, page);
         String path = "/reports";
-        path += QueryUtil.handlePaginationQueryParameters(false, pageSize, page);
+        path += parameters.toQueryString();
+        if  (!includes.isEmpty()){
+            path += "&include=" + QueryUtil.generateCommaSeparatedList(includes);
+        }
         getResourceAsFile(path, "application/vnd.ms-excel",outputStream);
     }
 
@@ -202,8 +209,9 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      */
     public void getReportAsCsv(long id, EnumSet<ObjectInclusion> includes, Integer pageSize, Integer page, OutputStream outputStream) throws SmartsheetException {
         this.checkParameters(pageSize, page);
+        PaginationParameters parameters = new PaginationParameters(false, pageSize, page);
         String path = "/reports";
-        path += QueryUtil.handlePaginationQueryParameters(false, pageSize, page);
+        path += parameters.toQueryString();
         getResourceAsFile(path, "text/csv",outputStream);
     }
 
