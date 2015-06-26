@@ -4,7 +4,11 @@
          "id": 4583173393803140,
          "name": "sheet 1",
          "accessLevel": "OWNER",
-         "permalink": "https://app.smartsheet.com/b/home?lx=8Z0XuFUEAkxmHCSsMw4Zg1"
+         "permalink": "https://app.smartsheet.com/b/home?lx=8Z0XuFUEAkxmHCSsMw4Zg1",
+         "source": {
+            "id": 4503604829677444,
+            "type": "sheet"
+         }
       }
    ],
    "accessLevel": "OWNER",

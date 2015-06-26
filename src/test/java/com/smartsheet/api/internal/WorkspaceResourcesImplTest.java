@@ -21,21 +21,19 @@ package com.smartsheet.api.internal;
  */
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.EnumSet;
 import java.util.List;
 
-import com.smartsheet.api.models.ObjectInclusion;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.AccessLevel;
-import com.smartsheet.api.models.Workspace;
 
 public class WorkspaceResourcesImplTest extends ResourcesImplBase {
 
@@ -71,9 +69,15 @@ public class WorkspaceResourcesImplTest extends ResourcesImplBase {
 	public void testGetWorkspace() throws IOException, SmartsheetException {
 		server.setResponseBody(new File("src/test/resources/getWorkspace.json"));
 		
-		Workspace workspace = workspaceResources.getWorkspace(1234L, true, EnumSet.of(ObjectInclusion.SOURCE));
+		Workspace workspace = workspaceResources.getWorkspace(1234L, true, EnumSet.allOf(WorkspaceInclusion.class));
 		assertEquals(1, workspace.getSheets().size());
-		assertEquals("sheet 1", workspace.getSheets().get(0).getName());
+
+		Sheet sheet = workspace.getSheets().get(0);
+		assertEquals("sheet 1", sheet.getName());
+
+		Source source = sheet.getSource();
+		assertNotNull(source.getId());
+		assertNotNull(source.getType());
 
 		assertEquals(7116448184199044L, workspace.getId().longValue());
 		assertEquals("New workspace", workspace.getName());
