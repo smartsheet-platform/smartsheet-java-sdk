@@ -20,14 +20,10 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-
 /**
  * Represents specific objects that can be included in some responses.
  */
-public enum ObjectInclusion implements QueryParameter{
+public enum ObjectInclusion{
 	DISCUSSIONS		("discussions"), 
 	ATTACHMENTS		("attachments"), 
 	DATA			("data"), 
@@ -44,7 +40,8 @@ public enum ObjectInclusion implements QueryParameter{
 		this.inclusion = inclusion;
 	}
 
-	public String getParameterName() {
+	@Override
+	public String toString() {
 		return inclusion;
 	}
 }

@@ -24,7 +24,7 @@ package com.smartsheet.api.models;
 /**
  * Represents specific objects that can be included in some responses.
  */
-public enum SheetInclusion implements QueryParameter{
+public enum SheetInclusion{
 	DISCUSSIONS		("discussions"),
 	ATTACHMENTS		("attachments"),
 	FORMAT			("format"),
@@ -39,7 +39,8 @@ public enum SheetInclusion implements QueryParameter{
 		this.inclusion = inclusion;
 	}
 
-	public String getParameterName() {
+	@Override
+	public String toString() {
 		return inclusion;
 	}
 }

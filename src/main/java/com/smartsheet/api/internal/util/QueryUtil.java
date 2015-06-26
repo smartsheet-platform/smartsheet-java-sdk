@@ -20,12 +20,9 @@ package com.smartsheet.api.internal.util;
  * %[license]
  */
 
-import com.smartsheet.api.models.QueryParameter;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
-import java.util.Collection;
 import java.util.Set;
 
 public class QueryUtil {
@@ -47,13 +44,7 @@ public class QueryUtil {
         } else {
             int index = 0;
             for (Object obj : list) {
-                // Check to see if it is an instance of QueryParameter -
-                // if so, call getParameterName(), otherwise, call toString()
-                if (obj instanceof QueryParameter) {
-                    result.append(((QueryParameter) obj).getParameterName());
-                } else {
-                    result.append(obj.toString());
-                }
+                result.append(obj.toString());
 
                 if (index != list.size() - 1) {
                     result.append(",");

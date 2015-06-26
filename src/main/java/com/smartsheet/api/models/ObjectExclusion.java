@@ -23,7 +23,7 @@ package com.smartsheet.api.models;
 /**
  * Represents specific objects that can be excluded in some responses.
  */
-public enum ObjectExclusion implements QueryParameter {
+public enum ObjectExclusion{
     NONEXISTENT_CELLS   ("nonexistentCells");
 
     String exclusion;
@@ -32,7 +32,8 @@ public enum ObjectExclusion implements QueryParameter {
         this.exclusion = exclusion;
     }
 
-    public String getParameterName() {
+    @Override
+    public String toString() {
         return exclusion;
     }
 }

@@ -20,23 +20,18 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-
 public enum SourceType {
-    SHEET,
-    TEMPLATE;
+    SHEET       ("sheet"),
+    TEMPLATE    ("template");
 
-    /*
-        NOTE:
-        The method below will match the JSON response to the SourceType enum so that it can
-        be deserialized into the object. Once the response in the API changes to return all
-        uppercase instead of lowercase, we will not need this method anymore.
-    */
-    @JsonCreator
-    public static SourceType fromString(String type) {
-        return type == null
-                ? null
-                : SourceType.valueOf(type.toUpperCase());
+    String type;
+
+    SourceType(String type) {
+        this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return type;
     }
 }
