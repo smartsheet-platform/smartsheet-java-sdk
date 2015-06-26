@@ -29,14 +29,9 @@ import java.util.List;
  */
 public abstract class Email {
 	/**
-	 * Represents the email recipient(s).
+	 * Represents the list of recipients to send to
 	 */
-	private List<String> to;
-
-	/**
-	 * Represents the group recipient(s) (group id).
-	 */
-	private List<Long> toGroups;
+	private List<Recipient> sendTo;
 
 	/**
 	 * Represents the subject.
@@ -54,22 +49,16 @@ public abstract class Email {
 	private Boolean ccMe;
 
 	/**
-	 * Gets the to.
-	 *
-	 * @return the to
+	 * Gets the list of recipients to send to
+	 * @return the list of recipients
 	 */
-	public List<String> getTo() {
-		return to;
-	}
+	public List<Recipient> getSendTo() { return sendTo; }
 
 	/**
-	 * Sets the to email address.
-	 *
-	 * @param to the new to
+	 * Sets the list of recipients to send to
+	 * @param sendTo list of recipients
 	 */
-	public void setTo(List<String> to) {
-		this.to = to;
-	}
+	public void setSendTo(List<Recipient> sendTo) { this.sendTo = sendTo; }
 
 	/**
 	 * Gets the subject.
@@ -124,20 +113,4 @@ public abstract class Email {
 	public void setCcMe(Boolean ccMe) {
 		this.ccMe = ccMe;
 	}
-
-	/**
-	 * @return the toGroups
-	 */
-	public List<Long> getToGroups() {
-		return toGroups;
-	}
-
-	/**
-	 * @param toGroups the toGroups to set
-	 */
-	public void setToGroups(List<Long> toGroups) {
-		this.toGroups = toGroups;
-	}
-	
-	
 }
