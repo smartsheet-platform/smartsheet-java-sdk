@@ -25,7 +25,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.EnumSet;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Set;
 
 import com.smartsheet.api.AssociatedAttachmentResources;
 import com.smartsheet.api.AssociatedDiscussionResources;
@@ -171,7 +171,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * rather than returning null).
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Sheet getSheet(long id, EnumSet<ObjectInclusion> includes, EnumSet<ObjectExclusion> excludes, List<Long> rowIds, List<Integer> rowNumbers, List<Long> columnIds, Integer pageSize, Integer page) throws SmartsheetException {
+	public Sheet getSheet(long id, EnumSet<SheetInclusion> includes, EnumSet<ObjectExclusion> excludes, Set<Long> rowIds, Set<Integer> rowNumbers, Set<Long> columnIds, Integer pageSize, Integer page) throws SmartsheetException {
 		String path = "sheets/" + id;
 
 		// Add the parameters to a map and build the query string at the end

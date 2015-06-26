@@ -23,9 +23,9 @@ package com.smartsheet.api.internal.util;
 import com.smartsheet.api.models.ObjectInclusion;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.EnumSet;
 
 import static org.junit.Assert.assertEquals;
@@ -34,7 +34,7 @@ public class QueryUtilTest {
 
 	@Test
 	public void testGenerateCommaSeparatedList() {
-		List<Long> list = new ArrayList<Long>();
+		Set<Long> list = new HashSet<Long>();
 		list.add(123456789L);
 		list.add(987654321L);
 

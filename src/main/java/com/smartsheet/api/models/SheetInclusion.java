@@ -21,26 +21,21 @@ package com.smartsheet.api.models;
  */
 
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-
 /**
  * Represents specific objects that can be included in some responses.
  */
-public enum ObjectInclusion implements QueryParameter{
-	DISCUSSIONS		("discussions"), 
-	ATTACHMENTS		("attachments"), 
-	DATA			("data"), 
-	COLUMNS			("columns"), 
-	TEMPLATES		("templates"),
-	FORMS			("forms"),
-	CELL_LINKS		("cellLinks"),
+public enum SheetInclusion implements QueryParameter{
+	DISCUSSIONS		("discussions"),
+	ATTACHMENTS		("attachments"),
 	FORMAT			("format"),
+	FILTERS			("filters"),
+	COLUMN_TYPE		("columnType"),
+	SOURCE			("source"),
 	;
 
 	String inclusion;
 
-	ObjectInclusion(String inclusion) {
+	SheetInclusion(String inclusion) {
 		this.inclusion = inclusion;
 	}
 

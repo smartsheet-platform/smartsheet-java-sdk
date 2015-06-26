@@ -25,6 +25,7 @@ package com.smartsheet.api;
 import java.io.OutputStream;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 
 import com.smartsheet.api.models.*;
 
@@ -88,11 +89,11 @@ public interface SheetResources {
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Sheet getSheet(long id,
-						  EnumSet<ObjectInclusion> includes,
+						  EnumSet<SheetInclusion> includes,
 						  EnumSet<ObjectExclusion> excludes,
-						  List<Long> rowIds,
-						  List<Integer> rowNumbers,
-						  List<Long> columnIds,
+						  Set<Long> rowIds,
+						  Set<Integer> rowNumbers,
+						  Set<Long> columnIds,
 						  Integer pageSize,
 						  Integer page) throws SmartsheetException;
 

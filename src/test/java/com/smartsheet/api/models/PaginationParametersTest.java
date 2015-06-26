@@ -35,4 +35,16 @@ public class PaginationParametersTest {
 		assertEquals(1, parameters.getPageSize().longValue());
 		assertEquals(1, parameters.getPage().longValue());
 	}
+
+	@Test
+	public void testToQueryString() {
+		PaginationParameters parameters1 = new PaginationParameters(true, null, null);
+		assertEquals("?includeAll=true", parameters1.toQueryString());
+
+		PaginationParameters parameters2 = new PaginationParameters(true, 1, 1);
+		assertEquals("?includeAll=true", parameters2.toQueryString());
+
+		PaginationParameters parameters3 = new PaginationParameters(false, 1, 1);
+		assertEquals("?page=1&pageSize=1&includeAll=false", parameters3.toQueryString());
+	}
 }

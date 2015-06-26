@@ -28,10 +28,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.List;
+import java.util.*;
 
 import com.smartsheet.api.models.*;
 import org.apache.commons.io.IOUtils;
@@ -88,11 +85,15 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		assertEquals(9,sheet.getColumns().size());
 		assertEquals(0,sheet.getRows().size());
 
-		List<Long> rowIds = new ArrayList<Long>();
+		Source source = sheet.getSource();
+		assertNotNull(source.getId());
+		assertNotNull(source.getType());
+
+		Set<Long> rowIds = new HashSet<Long>();
 		rowIds.add(123456789L);
 		rowIds.add(987654321L);
 
-		sheet = sheetResource.getSheet(123123L, EnumSet.allOf(ObjectInclusion.class), EnumSet.allOf(ObjectExclusion.class), rowIds, null, null, 1, 1);
+		sheet = sheetResource.getSheet(123123L, EnumSet.allOf(SheetInclusion.class), EnumSet.allOf(ObjectExclusion.class), rowIds, null, null, 1, 1);
 		assertEquals(9,sheet.getColumns().size());
 		assertEquals(0,sheet.getRows().size());
 	}
