@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,20 +20,18 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-/**
- * Represents specific objects that can be excluded in some responses.
- */
-public enum ObjectExclusion{
-    NONEXISTENT_CELLS   ("nonexistentCells");
+public enum SourceType {
+    SHEET       ("sheet"),
+    TEMPLATE    ("template");
 
-    String exclusion;
+    String type;
 
-    ObjectExclusion(String exclusion) {
-        this.exclusion = exclusion;
+    SourceType(String type) {
+        this.type = type;
     }
 
     @Override
     public String toString() {
-        return exclusion;
+        return type;
     }
 }

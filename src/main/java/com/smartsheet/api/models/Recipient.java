@@ -20,46 +20,4 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-public class Recipient {
-    /**
-     * The email address of an individual recipient.
-     */
-    private String email;
-
-    /**
-     * The ID of a group recipient.
-     */
-    private Long groupId;
-
-    /**
-     * Get the recipient's email
-     * @return the email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * Set the recipient's email
-     * @param email the email
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
-     * Get the group ID
-     * @return the group ID
-     */
-    public Long getGroupId() {
-        return groupId;
-    }
-
-    /**
-     * Set the group ID
-     * @param groupId the group ID
-     */
-    public void setGroupId(Long groupId) {
-        this.groupId = groupId;
-    }
-}
+public interface Recipient {}

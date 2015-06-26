@@ -20,20 +20,23 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-/**
- * Represents specific objects that can be excluded in some responses.
- */
-public enum ObjectExclusion{
-    NONEXISTENT_CELLS   ("nonexistentCells");
+import org.junit.Before;
+import org.junit.Test;
 
-    String exclusion;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-    ObjectExclusion(String exclusion) {
-        this.exclusion = exclusion;
-    }
+public class ObjectExclusionTest {
 
-    @Override
-    public String toString() {
-        return exclusion;
-    }
+	@Before
+	public void setUp() throws Exception {
+	}
+
+	@Test
+	public void testObjectInclusion() {
+		assertNotNull(ObjectExclusion.valueOf("NONEXISTENT_CELLS"));
+		
+		assertEquals(1,ObjectExclusion.values().length);
+	}
+
 }

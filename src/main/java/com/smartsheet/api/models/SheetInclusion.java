@@ -20,20 +20,27 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+
 /**
- * Represents specific objects that can be excluded in some responses.
+ * Represents specific objects that can be included in some responses.
  */
-public enum ObjectExclusion{
-    NONEXISTENT_CELLS   ("nonexistentCells");
+public enum SheetInclusion{
+	DISCUSSIONS		("discussions"),
+	ATTACHMENTS		("attachments"),
+	FORMAT			("format"),
+	FILTERS			("filters"),
+	COLUMN_TYPE		("columnType"),
+	SOURCE			("source"),
+	;
 
-    String exclusion;
+	String inclusion;
 
-    ObjectExclusion(String exclusion) {
-        this.exclusion = exclusion;
-    }
+	SheetInclusion(String inclusion) {
+		this.inclusion = inclusion;
+	}
 
-    @Override
-    public String toString() {
-        return exclusion;
-    }
+	@Override
+	public String toString() {
+		return inclusion;
+	}
 }

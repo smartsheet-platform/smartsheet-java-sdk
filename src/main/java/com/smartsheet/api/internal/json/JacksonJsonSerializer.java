@@ -33,6 +33,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.IdentifiableModel;
@@ -70,6 +71,10 @@ public class JacksonJsonSerializer implements JsonSerializer {
 		
 		// Excludes "id" field from being serialized to JSON for any IdentifiableModel class
 		OBJECT_MAPPER.addMixInAnnotations(IdentifiableModel.class, IdFieldExclusionMixin.class);
+
+		// Use toString() method on enums to serialize and deserialize
+		OBJECT_MAPPER.enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);
+		OBJECT_MAPPER.enable(DeserializationFeature.READ_ENUMS_USING_TO_STRING);
 		
 		//Add a custom deserializer that will convert a string to a Format object.
 		SimpleModule module = new SimpleModule("FormatDeserializerModule", Version.unknownVersion());

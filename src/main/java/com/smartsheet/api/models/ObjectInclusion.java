@@ -20,19 +20,17 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-
-
 /**
  * Represents specific objects that can be included in some responses.
  */
-public enum ObjectInclusion {
+public enum ObjectInclusion{
 	DISCUSSIONS		("discussions"), 
 	ATTACHMENTS		("attachments"), 
 	DATA			("data"), 
 	COLUMNS			("columns"), 
 	TEMPLATES		("templates"),
 	FORMS			("forms"),
-	CELLLINKS		("cellLinks"),
+	CELL_LINKS		("cellLinks"),
 	FORMAT			("format"),
 	SOURCE			("source"),
 	;
@@ -41,5 +39,10 @@ public enum ObjectInclusion {
 
 	ObjectInclusion(String inclusion) {
 		this.inclusion = inclusion;
+	}
+
+	@Override
+	public String toString() {
+		return inclusion;
 	}
 }

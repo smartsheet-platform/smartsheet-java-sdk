@@ -20,20 +20,17 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-/**
- * Represents specific objects that can be excluded in some responses.
- */
-public enum ObjectExclusion{
-    NONEXISTENT_CELLS   ("nonexistentCells");
+import org.junit.Test;
 
-    String exclusion;
+import static org.junit.Assert.assertNotNull;
 
-    ObjectExclusion(String exclusion) {
-        this.exclusion = exclusion;
-    }
+public class RecipientGroupTest {
 
-    @Override
-    public String toString() {
-        return exclusion;
-    }
+	@Test
+	public void testRecipientGroup() {
+		RecipientGroup recipient = new RecipientGroup();
+		recipient.setGroupId(123456789L);
+
+		assertNotNull(recipient.getGroupId());
+	}
 }
