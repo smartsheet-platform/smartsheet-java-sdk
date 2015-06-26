@@ -20,6 +20,8 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
+import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.List;
 
 import com.smartsheet.api.FolderResources;
@@ -27,6 +29,8 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.Folder;
 import com.smartsheet.api.internal.util.QueryUtil;
+import com.smartsheet.api.models.ObjectInclusion;
+import com.smartsheet.api.models.PaginationParameters;
 
 /**
  * This is the implementation of the FolderResources.
@@ -66,8 +70,16 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 * rather than returning null)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Folder getFolder(long folderId) throws SmartsheetException {
-		return this.getResource("folders/" + folderId, Folder.class);
+	public Folder getFolder(long folderId, EnumSet<ObjectInclusion> includes) throws SmartsheetException {
+		String path = "folders/" + folderId;
+		HashMap<String, String> parameters = new HashMap<String, String>();
+
+		if (includes != null) {
+			parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+		}
+
+		path += QueryUtil.generateUrl(null, parameters);
+		return this.getResource(path, Folder.class);
 	}
 
 	/**
@@ -135,10 +147,11 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public DataWrapper<Folder> listFolders(long parentFolderId, boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
+		PaginationParameters parameters = new PaginationParameters(includeAll, pageSize, page);
+		String path = "folders/" + parentFolderId + "/folders";
 
-		String path = "folders/" + parentFolderId;
-		path += QueryUtil.handlePaginationQueryParameters(includeAll, pageSize, page);
-		return this.listResourcesWithWrapper(path + "/folders", Folder.class);
+		path += parameters.toQueryString();
+		return this.listResourcesWithWrapper(path, Folder.class);
 	}
 
 	/**

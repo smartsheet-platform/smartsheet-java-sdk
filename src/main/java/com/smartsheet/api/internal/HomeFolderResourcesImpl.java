@@ -29,6 +29,7 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.Folder;
 import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PaginationParameters;
 
 /**
  * This is the implementation of the HomeFolderResources.
@@ -65,8 +66,10 @@ public class HomeFolderResourcesImpl extends AbstractResources implements HomeFo
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public DataWrapper<Folder> listFolders(boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
+		PaginationParameters parameters = new PaginationParameters(includeAll, pageSize, page);
 		String path = "home/folders";
-		path += QueryUtil.handlePaginationQueryParameters(includeAll, pageSize, page);
+
+		path += parameters.toQueryString();
 		return this.listResourcesWithWrapper(path, Folder.class);
 	}
 

@@ -25,9 +25,11 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.EnumSet;
 import java.util.List;
 
 import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.ObjectInclusion;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -61,15 +63,16 @@ public class FolderResourcesImplTest extends ResourcesImplBase {
  	
 		//folderResource.getSmartsheet().getHttpClient().close();
 		
-		Folder folder = folderResource.getFolder(123L);
+		Folder folder = folderResource.getFolder(123L, EnumSet.of(ObjectInclusion.ATTACHMENTS));
 //		folder.setTemplates(new ArrayList<Template>());
 //		folder.setWorkspaces(new ArrayList<Workspace>());
-		folderResource.getFolder(123L);
+		folderResource.getFolder(123L, EnumSet.of(ObjectInclusion.ATTACHMENTS));
 
 		// Verify results
 		assertEquals("Personal", folder.getName());
 		assertEquals(2, folder.getSheets().size());
 		assertEquals(0, folder.getFolders().size());
+		assertEquals("https://app.smartsheet.com/b/home?lx=uWicCItTmkbxJwpCfQ5wiwW", folder.getSheets().get(0).getPermalink());
 	}
 
 	@Test

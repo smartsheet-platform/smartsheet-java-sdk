@@ -29,6 +29,7 @@ import com.smartsheet.api.WorkspaceFolderResources;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.Folder;
+import com.smartsheet.api.models.PaginationParameters;
 
 /**
  * This is the implementation of the WorkspaceFolderResources.
@@ -66,9 +67,11 @@ public class WorkspaceFolderResourcesImpl extends AbstractResources implements W
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public DataWrapper<Folder> listFolders(long workspaceId, boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
-		String path = "workspaces/" + workspaceId;
-		path += QueryUtil.handlePaginationQueryParameters(includeAll, pageSize, page);
-		return this.listResourcesWithWrapper(path + "/folders", Folder.class);
+		String path = "workspaces/" + workspaceId + "/folders";
+
+		PaginationParameters parameters = new PaginationParameters(includeAll, pageSize, page);
+		path += parameters.toQueryString();
+		return this.listResourcesWithWrapper(path, Folder.class);
 	}
 
 	/**
