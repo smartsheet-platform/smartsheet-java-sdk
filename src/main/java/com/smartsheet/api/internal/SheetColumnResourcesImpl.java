@@ -20,11 +20,17 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.EnumSet;
 
 import com.smartsheet.api.*;
+import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Column;
+import com.smartsheet.api.models.ColumnInclusion;
+import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PaginationParameters;
 
 /**
  * This is the implementation of the SheetColumnResources.
@@ -47,7 +53,7 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
 	/**
 	 * List columns of a given sheet.
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /sheet/{id}/columns
+	 * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/columns
 	 * 
 	 * Exceptions:
 	 *   InvalidRequestException : if there is any problem with the REST API request
@@ -58,17 +64,30 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
 	 *   SmartsheetException : if there is any other error occurred during the operation
 	 *
 	 * @param sheetId the sheet id
+	 * @param includes list of includes
+	 * @param includeAll the include all flag
+	 * @param pageSize the page size
+	 * @param page the page
 	 * @return the columns (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public List<Column> listColumns(long sheetId) throws SmartsheetException  {
-		return this.listResources("sheet/" + sheetId + "/columns", Column.class);
+	public DataWrapper<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException  {
+		String path = "sheets/" + sheetId + "/columns";
+		PaginationParameters pagination = new PaginationParameters(includeAll, pageSize, page);
+		HashMap<String, String> parameters = pagination.toHashMap();
+
+		if (includes != null) {
+			parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+		}
+
+		path += QueryUtil.generateUrl(null, parameters);
+		return this.listResourcesWithWrapper(path, Column.class);
 	}
 
 	/**
 	 * Add column to a sheet.
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /sheet/{id}/columns
+	 * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/columns
 	 * 
 	 * Exceptions:
 	 *   IllegalArgumentException : if any argument is null
@@ -80,14 +99,14 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
 	 *   SmartsheetException : if there is any other error occurred during the operation
 	 *
 	 * @param sheetId the sheet id
-	 * @param column the coluimn object limited to the following attributes: *
+	 * @param columns the list of columns object limited to the following attributes: *
 	 * title * type * symbol (optional) * options (optional) - array of options * index (zero-based) * systemColumnType
 	 * (optional) * autoNumberFormat (optional)
-	 * @return the created column
+	 * @return the list of created columns
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Column addColumn(long sheetId, Column column) throws SmartsheetException {
-		return this.createResource("sheet/" + sheetId + "/columns", Column.class, column);
+	public List<Column> addColumns(long sheetId, List<Column> columns) throws SmartsheetException {
+		return this.postAndReceiveList("sheets/" + sheetId + "/columns", columns, Column.class);
 	}
 
 	/**

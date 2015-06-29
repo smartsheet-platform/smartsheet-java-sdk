@@ -63,7 +63,7 @@ public class ColumnResourcesImplTest extends ResourcesImplBase {
 		Column colNew = columnResource.updateColumn(col);
 		
 		assertNotNull(colNew);
-		assertEquals("something new",colNew.getTitle());
+		assertEquals("First Column",colNew.getTitle());
 		
 		try{
 			columnResource.updateColumn(null);

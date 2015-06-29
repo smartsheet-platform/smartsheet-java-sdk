@@ -22,7 +22,10 @@ package com.smartsheet.api.models;
 
 import org.junit.Test;
 
+import java.util.HashMap;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class PaginationParametersTest {
@@ -46,5 +49,30 @@ public class PaginationParametersTest {
 
 		PaginationParameters parameters3 = new PaginationParameters(false, 1, 1);
 		assertEquals("?page=1&pageSize=1&includeAll=false", parameters3.toQueryString());
+	}
+
+	@Test public void testToHashMap() {
+		PaginationParameters parameters1 = new PaginationParameters(true, null, null);
+		HashMap<String, String> map = parameters1.toHashMap();
+		assertTrue(map.containsKey("includeAll"));
+		assertEquals("true", map.get("includeAll"));
+		assertFalse(map.containsKey("pageSize"));
+		assertFalse(map.containsKey("page"));
+
+		PaginationParameters parameters2 = new PaginationParameters(true, 1, 1);
+		map = parameters2.toHashMap();
+		assertTrue(map.containsKey("includeAll"));
+		assertEquals("true", map.get("includeAll"));
+		assertFalse(map.containsKey("pageSize"));
+		assertFalse(map.containsKey("page"));
+
+		PaginationParameters parameters3 = new PaginationParameters(false, 1, 1);
+		map = parameters3.toHashMap();
+		assertTrue(map.containsKey("includeAll"));
+		assertEquals("false", map.get("includeAll"));
+		assertTrue(map.containsKey("pageSize"));
+		assertEquals("1", map.get("pageSize"));
+		assertTrue(map.containsKey("page"));
+		assertEquals("1", map.get("page"));
 	}
 }

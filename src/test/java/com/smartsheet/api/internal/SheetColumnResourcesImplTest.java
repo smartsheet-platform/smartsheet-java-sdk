@@ -22,7 +22,9 @@ package com.smartsheet.api.internal;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
 
 import com.smartsheet.api.SheetColumnResources;
@@ -54,29 +56,24 @@ public class SheetColumnResourcesImplTest extends ResourcesImplBase {
 
 		server.setResponseBody(new File("src/test/resources/listColumns.json"));
 		
-		List<Column> columns = sheetColumnResourcesImpl.listColumns(1234L);
-		assertTrue(columns.size() == 1);
-		assertEquals(columns.get(0).getTitle(),"something new");
+		DataWrapper<Column> wrapper = sheetColumnResourcesImpl.listColumns(1234L, EnumSet.allOf(ColumnInclusion.class), true, 1, 1);
+		List<Column> columns = wrapper.getData();
+		assertEquals(3, columns.size());
+		assertEquals("CHECKBOX", columns.get(0).getType().toString());
+		assertEquals("STAR", columns.get(0).getSymbol().toString());
+		assertEquals("Status", columns.get(2).getTitle());
 	}
 
 	@Test
 	public void testAddColumn() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/addColumn.json"));
-		Column col = new Column();
-		col.setIndex(1);
-		col.setTitle("Status");
-		col.setType(ColumnType.PICKLIST);
-		AutoNumberFormat format = new AutoNumberFormat();
-		format.setPrefix("pre");
-		format.setSuffix("suf");
-		format.setStartingNumber(0L);
-		format.setFill("000");
-		col.setAutoNumberFormat(format);
-		col.setOptions(Arrays.asList(new String[]{"Not Started", "Started", "Completed"}));
+		List<Column> columnsToCreate = new ArrayList<Column>();
 
-		Column newCol = sheetColumnResourcesImpl.addColumn(1234L, col);
-		assertEquals("Status", newCol.getTitle());
-		assertTrue(ColumnType.PICKLIST == col.getType());
+		List<Column> addedColumns = sheetColumnResourcesImpl.addColumns(12345L, columnsToCreate);
+		assertEquals(3, addedColumns.size());
+		assertEquals("PICKLIST", addedColumns.get(0).getType().toString());
+		assertEquals("DATE", addedColumns.get(1).getType().toString());
+		assertEquals("PICKLIST", addedColumns.get(2).getType().toString());
 	}
 
 	@Test
