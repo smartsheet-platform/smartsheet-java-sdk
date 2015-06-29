@@ -22,11 +22,15 @@ package com.smartsheet.api.internal;
 
 
 
-import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.UserResources;
+import com.smartsheet.api.*;
 import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.User;
 import com.smartsheet.api.models.UserProfile;
+import javafx.scene.control.Pagination;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * This is the implementation of the UserResources.
@@ -58,11 +62,19 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation 
 	 *   - SmartsheetException : if there is any other error occurred during the operation
 	 *
+	 * @param email the list of email addresses
+	 * @param includeAll the include all flag
+	 * @param pageSize the page size
+	 * @param page the page
 	 * @return all users (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 
-	public DataWrapper<User> listUsers() throws SmartsheetException {
+	public DataWrapper<User> listUsers(List<String> email, boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
+		// TODO: update method to reflect changes to PaginationParameters.toHashMap();
+		//PaginationParameters pagination = new PaginationParameters(includeAll, pageSize, page);
+		//HashMap<String, String> parameters = pagination.toHashMap();
+
 		return this.listResourcesWithWrapper("users", User.class);
 	}
 
@@ -112,6 +124,24 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	}
 
 	/**
+	 * <p>Get the current user.</p>
+	 *
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /users/{userId}</p>
+	 *
+	 * @param userId the user id
+	 * @return the user
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	public UserProfile getUser(long userId) throws SmartsheetException {
+		return this.getResource("users/" + userId, UserProfile.class);
+	}
+
+	/**
 	 * Get the current user.
 	 * 
 	 * It mirrors to the following Smartsheet REST API method: GET /user/me 
@@ -135,16 +165,11 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 
 	@Override
 	public User updateUser(User user) throws SmartsheetException {
-		return this.updateResource("user/" + user.getId(), User.class, user);
+		return this.updateResource("users/" + user.getId(), User.class, user);
 	}
 
 	@Override
-	public void deleteUser(long id) throws SmartsheetException {
-		this.deleteResource("user/" + id, User.class);
-	}
-
-	@Override
-	public void deleteUser(long id, long transferToId, boolean removeFromSharing) throws SmartsheetException {
-		this.deleteResource("user/" + id + "?transferTo=" + transferToId + "&removeFromSharing="+removeFromSharing, User.class);
+	public void deleteUser(long userId, long transferToId, boolean transferSheets, boolean removeFromSharing) throws SmartsheetException {
+		this.deleteResource("users/" + userId + "?transferTo=" + transferToId + "&transferSheets=" + transferSheets + "&removeFromSharing="+removeFromSharing, User.class);
 	}
 }

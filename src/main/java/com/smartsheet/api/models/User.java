@@ -40,7 +40,7 @@ public class User extends UserProfile {
 	/**
 	 * Represents the resource manager flag which allows the user access to the Resource Manager functionality.
 	 */
-	private Boolean resourceManager;
+	private Boolean resourceViewer; // TODO: resourceViewer or resourceManager?
 	
 	/**
 	 * Represents the group admin flag which allows users to create and modify groups.
@@ -111,16 +111,16 @@ public class User extends UserProfile {
 	/**
 	 * @return the flag indicating if someone is a resource manager
 	 */
-	public Boolean getResourceManager() {
-		return resourceManager;
+	public Boolean getResourceViewer() {
+		return resourceViewer;
 	}
 
 	/**
 	 * Sets the resource manager flag.
-	 * @param resourceManager 
+	 * @param resourceViewer
 	 */
-	public void setResourceManager(Boolean resourceManager) {
-		this.resourceManager = resourceManager;
+	public void setResourceViewer(Boolean resourceViewer) {
+		this.resourceViewer = resourceViewer;
 	}
 
 	/**
@@ -145,7 +145,7 @@ public class User extends UserProfile {
 		private String emailAddress;
 		private Boolean licensedSheetCreator;
 		private Boolean groupAdmin;
-		private Boolean resourceManager;
+		private Boolean resourceViewer;
 		private String firstName;
 		private String lastName;
 
@@ -246,17 +246,17 @@ public class User extends UserProfile {
 		}
 
 		/**
-		 * @return the resourceManager
+		 * @return the resourceViewer
 		 */
-		public Boolean getResourceManager() {
-			return resourceManager;
+		public Boolean getResourceViewer() {
+			return resourceViewer;
 		}
 
 		/**
-		 * @param resourceManager the resourceManager to set
+		 * @param resourceViewer the resourceViewer to set
 		 */
-		public AddUserBuilder setResourceManager(Boolean resourceManager) {
-			this.resourceManager = resourceManager;
+		public AddUserBuilder setResourceViewer(Boolean resourceViewer) {
+			this.resourceViewer = resourceViewer;
 			return this;
 		}
 		/**
@@ -273,7 +273,7 @@ public class User extends UserProfile {
 			user.admin = admin;
 			user.licensedSheetCreator = licensedSheetCreator;
 			user.groupAdmin = groupAdmin;
-			user.resourceManager = resourceManager;
+			user.resourceViewer = resourceViewer;
 			user.setFirstName(firstName);
 			user.setLastName(lastName);
 			user.setEmail(emailAddress);
@@ -290,7 +290,7 @@ public class User extends UserProfile {
 		private Boolean admin;
 		private Boolean licensedSheetCreator;
 		private Boolean groupAdmin;
-		private Boolean resourceManager;
+		private Boolean resourceViewer;
 		private Long id;
 		private String firstName;
 		private String lastName;
@@ -398,17 +398,17 @@ public class User extends UserProfile {
 		}
 
 		/**
-		 * @return the resourceManager
+		 * @return the resourceViewer
 		 */
-		public Boolean getResourceManager() {
-			return resourceManager;
+		public Boolean getResourceViewer() {
+			return resourceViewer;
 		}
 
 		/**
-		 * @param resourceManager the resourceManager to set
+		 * @param resourceViewer the resourceViewer to set
 		 */
-		public UpdateUserBuilder setResourceManager(Boolean resourceManager) {
-			this.resourceManager = resourceManager;
+		public UpdateUserBuilder setResourceViewer(Boolean resourceViewer) {
+			this.resourceViewer = resourceViewer;
 			return this;
 		}
 		
@@ -429,7 +429,7 @@ public class User extends UserProfile {
 			user.admin = admin;
 			user.licensedSheetCreator = licensedSheetCreator;
 			user.groupAdmin = groupAdmin;
-			user.resourceManager = resourceManager;
+			user.resourceViewer = resourceViewer;
 			return user;
 		}
 

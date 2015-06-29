@@ -26,6 +26,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.smartsheet.api.models.DataWrapper;
@@ -54,8 +55,8 @@ public class UserResourcesImplTest extends ResourcesImplBase {
 	@Test
 	public void testListUsers() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/listUsers.json"));
-		
-		DataWrapper<User> userWrapper = userResources.listUsers();
+		List<String> email = new ArrayList<String>();
+		DataWrapper<User> userWrapper = userResources.listUsers(email, true, 1, 1);
 		assertTrue(userWrapper.getPageNumber() == 1);
 		assertTrue(userWrapper.getPageSize() == 100);
 		assertTrue(userWrapper.getTotalCount() == 418);
@@ -110,6 +111,17 @@ public class UserResourcesImplTest extends ResourcesImplBase {
 	}
 
 	@Test
+	public void testGetUser() throws SmartsheetException, IOException {
+		server.setResponseBody(new File("src/test/resources/getUser.json"));
+
+		UserProfile user = userResources.getUser(12345L);
+		assertEquals("john.doe@smartsheet.com",user.getEmail());
+		assertEquals(48569348493401200L, user.getId().longValue());
+		assertEquals("John", user.getFirstName());
+		assertEquals("Doe", user.getLastName());
+	}
+
+	@Test
 	public void testGetCurrentUser() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/getCurrentUser.json"));
 
@@ -139,8 +151,7 @@ public class UserResourcesImplTest extends ResourcesImplBase {
 	@Test
 	public void testDeleteUser() throws IOException, SmartsheetException {
 		server.setResponseBody(new File("src/test/resources/deleteUser.json"));
-		
-		userResources.deleteUser(1234L);
+		userResources.deleteUser(1234L, 56789L, true, true);
 	}
 
 }
