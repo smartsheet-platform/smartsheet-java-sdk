@@ -20,86 +20,51 @@ package com.smartsheet.api.internal.util;
  * %[license]
  */
 
-import java.util.HashMap;
-import java.util.List;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Map;
-import java.util.EnumSet;
+import java.util.Set;
 
 public class QueryUtil {
 
     public QueryUtil() {}
 
     /**
-     * Returns a query string for pagination parameters.
-     *
-     * @param includeAll include all items
-     * @param pageSize the page size
-     * @param page the page
-     * @return the query string
-     */
-    public static String handlePaginationQueryParameters(boolean includeAll, Integer pageSize, Integer page) {
-        HashMap<String, String> parameters = new HashMap<String, String>();
-
-        parameters.put("includeAll", Boolean.toString(includeAll));
-
-        if (includeAll) {
-            return generateQueryString(parameters);
-        } else {
-            if (pageSize != null) {
-                parameters.put("pageSize", pageSize.toString());
-            }
-            if (page != null) {
-                parameters.put("page", page.toString());
-            }
-            return generateQueryString(parameters);
-        }
-    }
-
-    /**
-     * Returns a comma separate list of items as a string.
-     *
-     * @param list the list of items
+     * Returns a comma seperated list of items as a string
+     * @param list the collecion
+     * @param <T> the type
      * @return comma separated string
      */
-    public static <T> String generateCommaSeparatedListFromList(List<T> list) {
-        String result = "";
+    public static <T> String generateCommaSeparatedList(Set<T> list) {
+
+        StringBuilder result = new StringBuilder();
 
         if (list == null) {
-            return result;
+            return result.toString();
         } else {
             int index = 0;
-            for (T item : list) {
-                result += item.toString();
+            for (Object obj : list) {
+                result.append(obj.toString());
+
                 if (index != list.size() - 1) {
-                    result += ",";
+                    result.append(",");
                 }
                 index++;
             }
-            return result;
+            return result.toString();
         }
     }
 
-    /**
-     * Returns a comma separated list of items as a string
-     * @param e the EnumSet
-     * @return comma separated string
-     */
-    public static String generateCommaSeparatedListFromEnumSet(EnumSet e) {
-        String result = "";
-
-        if (e == null) {
-            return result;
-        } else {
-            int index = 0;
-            for (Object obj : e) {
-                result += ((Enum)obj).name().toLowerCase();
-                if (index != e.size() - 1) {
-                    result += ",";
-                }
-                index++;
-            }
-            return result;
+    public static String generateUrl(String baseUrl, Map<String, String> parameters) {
+        if (baseUrl == null) {
+            baseUrl = "";
         }
+
+        StringBuilder result = new StringBuilder();
+        result.append(baseUrl);
+        result.append(generateQueryString(parameters));
+
+        return result.toString();
     }
 
     /**
@@ -108,24 +73,34 @@ public class QueryUtil {
      * @param parameters the map of query string keys and values
      * @return the query string
      */
-    public static String generateQueryString(HashMap<String, String> parameters) {
-        String result = "";
+    protected static String generateQueryString(Map<String, String> parameters) {
+        StringBuilder result = new StringBuilder();
 
         if (parameters == null) {
-            return result;
+            return result.toString();
         } else {
-            int parametersIndex = 0;
-            for(Map.Entry<String, String> entry : parameters.entrySet()) {
-                if (parametersIndex == 0) {
-                    result += "?";
-                } else {
-                    result += "&";
-                }
+            try {
+                int parametersIndex = 0;
+                for(Map.Entry<String, String> entry : parameters.entrySet()) {
+                    if (parametersIndex == 0) {
+                        result.append("?");
+                    } else {
+                        result.append("&");
+                    }
 
-                result += entry.getKey() + "=" + entry.getValue();
-                parametersIndex++;
+                    result.append(URLEncoder.encode(entry.getKey(), "utf-8"));
+                    result.append("=");
+
+                    if (entry.getValue() != null) {
+                        result.append(URLEncoder.encode(entry.getValue(), "utf-8"));
+                    }
+                    parametersIndex++;
+                }
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException(e);
             }
-            return result;
+
+            return result.toString();
         }
     }
 }
