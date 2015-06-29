@@ -37,7 +37,7 @@ public interface SheetRowResources {
 	/**
 	 * <p>Insert rows to a sheet.</p>
 	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method: POST /sheet/{id}/rows</p>
+	 * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{id}/rows</p>
 	 *
 	 * @param sheetId the sheet id
 	 * @param rows the list of rows to create
