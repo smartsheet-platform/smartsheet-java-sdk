@@ -69,7 +69,7 @@ public interface SheetRowResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Row getRow(long sheetId, long rowId, EnumSet<ObjectInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException;
+	public Row getRow(long sheetId, long rowId, EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException;
 
 	/**
 	 * Delete a row.

@@ -96,19 +96,19 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 * than returning null).
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Row getRow(long sheetId, long rowId, EnumSet<ObjectInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException {
+	public Row getRow(long sheetId, long rowId, EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException {
 		String path = "sheets/" + sheetId + "/rows/" + rowId;
 
 		HashMap<String, String> parameters = new HashMap<String, String>();
 
 		if (includes != null) {
-			parameters.put("include", QueryUtil.generateCommaSeparatedListFromEnumSet(includes));
+			parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 		}
 		if (excludes != null) {
-			parameters.put("exclude", QueryUtil.generateCommaSeparatedListFromEnumSet(excludes));
+			parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
 		}
 
-		path += QueryUtil.generateQueryString(parameters);
+		path += QueryUtil.generateUrl(null, parameters);
 		return this.getResource(path, Row.class);
 	}
 

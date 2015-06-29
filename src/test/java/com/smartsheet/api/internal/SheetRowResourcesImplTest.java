@@ -93,7 +93,7 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
 	public void testGetRow() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/getRow.json"));
 		
-		Row row = sheetRowResource.getRow(1234L, 5678L, EnumSet.of(ObjectInclusion.COLUMNS), EnumSet.of(ObjectExclusion.NONEXISTENTCELLS));
+		Row row = sheetRowResource.getRow(1234L, 5678L, EnumSet.of(RowInclusion.COLUMNS, RowInclusion.FORMAT), EnumSet.of(ObjectExclusion.NONEXISTENT_CELLS));
 
         assertNotNull(row);
         assertEquals(2361756178769796L, row.getId().longValue());
@@ -112,7 +112,7 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
     public void testSendRow() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/sendRow.json"));
 
-        Recipient recipient = new Recipient();
+        RecipientEmail recipient = new RecipientEmail();
         recipient.setEmail("johndoe@smartsheet.com");
 
         RowEmail email = new RowEmail();
