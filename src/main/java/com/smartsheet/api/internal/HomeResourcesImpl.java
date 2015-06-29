@@ -88,7 +88,7 @@ public class HomeResourcesImpl extends AbstractResources implements HomeResource
 		}
 
 		path += QueryUtil.generateUrl(null, parameters);
-		System.out.println(path);
+		
 		return this.getResource(path, Home.class);
 	}
 
