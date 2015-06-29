@@ -30,6 +30,7 @@ import com.smartsheet.api.HomeResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.Home;
+import com.smartsheet.api.models.HomeInclusion;
 import com.smartsheet.api.models.ObjectInclusion;
 
 import javax.management.Query;
@@ -78,15 +79,16 @@ public class HomeResourcesImpl extends AbstractResources implements HomeResource
 	 * rather than returning null).
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Home getHome(EnumSet<ObjectInclusion> includes) throws SmartsheetException {
+	public Home getHome(EnumSet<HomeInclusion> includes) throws SmartsheetException {
 		HashMap<String, String> parameters = new HashMap<String, String>();
 		String path = "home";
 
 		if (includes != null) {
-			parameters.put("include", QueryUtil.generateCommaSeparatedListFromEnumSet(includes));
+			parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 		}
 
-		path += QueryUtil.generateQueryString(parameters);
+		path += QueryUtil.generateUrl(null, parameters);
+		System.out.println(path);
 		return this.getResource(path, Home.class);
 	}
 

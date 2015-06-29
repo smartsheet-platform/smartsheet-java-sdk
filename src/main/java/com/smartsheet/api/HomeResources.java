@@ -25,6 +25,7 @@ package com.smartsheet.api;
 import java.util.EnumSet;
 
 import com.smartsheet.api.models.Home;
+import com.smartsheet.api.models.HomeInclusion;
 import com.smartsheet.api.models.ObjectInclusion;
 
 /**
@@ -51,7 +52,7 @@ public interface HomeResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Home getHome(EnumSet<ObjectInclusion> includes) throws SmartsheetException;
+	public Home getHome(EnumSet<HomeInclusion> includes) throws SmartsheetException;
 
 	/**
 	 * <p>Return the HomeFolderResources object that provides access to Folder resources under home.</p>
