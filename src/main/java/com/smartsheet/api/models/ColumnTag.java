@@ -38,14 +38,8 @@ public enum ColumnTag {
     /** Represents GANTT_END_DATE tag. */
     GANTT_END_DATE,
 
-    /** Represents GANT_PERCENT_COMPLETE tag. */
-    GANT_PERCENT_COMPLETE,
-
     /** Represents GANTT_PERCENT_COMPLETE tag. */
     GANTT_PERCENT_COMPLETE,
-
-    /** Represents GANT_DISPLAY_LEVEL tag. */
-    GANT_DISPLAY_LEVEL,
 
     /** Represents GANTT_DISPLAY_LABEL tag. */
     GANTT_DISPLAY_LABEL,
@@ -57,8 +51,5 @@ public enum ColumnTag {
     GANTT_DURATION,
     
     /** Represents GANTT_ASSIGNED_RESOURCE. */
-    GANTT_ASSIGNED_RESOURCE,
-
-    /** Represents GANTT_ALLOCATION. */
-    GANTT_ALLOCATION;
+    GANTT_ASSIGNED_RESOURCE;
 }
