@@ -97,7 +97,7 @@ public class SearchResourcesImpl extends AbstractResources implements SearchReso
 	 */
 	public SearchResult searchSheet(long sheetId, String query) throws SmartsheetException {
 		try {
-			return this.getResource("search/sheet/" + sheetId + "?query=" + URLEncoder.encode(query,
+			return this.getResource("search/sheets/" + sheetId + "?query=" + URLEncoder.encode(query,
 					"utf-8"), SearchResult.class);
 		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException(e);

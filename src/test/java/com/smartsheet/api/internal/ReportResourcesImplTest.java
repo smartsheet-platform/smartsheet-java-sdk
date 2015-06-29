@@ -32,8 +32,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -62,13 +64,23 @@ public class ReportResourcesImplTest extends ResourcesImplBase {
     public void testSendSheet() throws Exception {
         server.setResponseBody(new File("src/test/resources/sendEmails.json"));
 
-        String[] emailAddress = { "someemail@somewhere.com" };
+        List<Recipient> recipients = new ArrayList<Recipient>();
+        RecipientEmail recipientEmail = new RecipientEmail();
+        recipientEmail.setEmail("johndoe@smartsheet.com");
+
+        RecipientGroup recipientGroup = new RecipientGroup();
+        recipientGroup.setGroupId(123456789L);
+
+        recipients.add(recipientGroup);
+        recipients.add(recipientEmail);
+
         SheetEmail email = new SheetEmail();
         email.setFormat(SheetEmailFormat.PDF);
         FormatDetails format = new FormatDetails();
         format.setPaperSize(PaperSize.A0);
         email.setFormatDetails(format);
-        email.setTo(Arrays.asList(emailAddress));
+        email.setSendTo(recipients);
+
         reportResources.sendSheet(1234L, email);
     }
 

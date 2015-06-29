@@ -111,7 +111,7 @@ public class RowResourcesImplTest extends ResourcesImplBase {
 		RowEmail email = new RowEmail();
 		List<String> to = new ArrayList<String>();
 		to.add("email@email.com");
-		email.setTo(to);
+		//email.setTo(to);
 		email.setMessage("Test Message");
 		email.setSubject("Test Subject");
 		email.setIncludeAttachments(true);

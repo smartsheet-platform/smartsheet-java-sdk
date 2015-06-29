@@ -1,6 +1,7 @@
 package com.smartsheet.api.models;
 
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.List;
 
 
@@ -79,19 +80,34 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
     private Long fromId;
 
     /**
-     * The workspace the sheet belongs to.
+     * Represents the total number of rows in the sheet.
      */
-    private Workspace workspace;
+    private Integer totalRowCount;
 
-    private int totalRowCount;
+    /**
+     * Represents effective attachment options.
+     */
+    private EnumSet<AttachmentType> effectiveAttachmentOptions;
 
-    public int getTotalRowCount() {
-        return totalRowCount;
-    }
+    /**
+     * Identifies if the sheet is marked as favorite.
+     */
+    private Boolean favorite;
 
-    public void setTotalRowCount(int totalRowCount) {
-        this.totalRowCount = totalRowCount;
-    }
+    /**
+     * Identifies if it is enabled to show parent rows for filters.
+     */
+    private Boolean showParentRowsForFilters;
+
+    /**
+     * Represents the user settings.
+     */
+    private SheetUserSettings userSettings;
+
+    /**
+     * Represents the source of the sheet.
+     */
+    private Source source;
 
     /**
      * Gets the dependencies enabled flag.
@@ -388,5 +404,127 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      */
     public void setFromId(Long fromId) {
         this.fromId = fromId;
+    }
+
+    /**
+     * @return the flag indicating if resource management is enabled.
+     */
+    public Boolean getResourceManagementEnabled() {
+        return resourceManagementEnabled;
+    }
+
+    /**
+     * @param resourceManagementEnabled the resourceManagementEnabled to set
+     */
+    public void setResourceManagementEnabled(Boolean resourceManagementEnabled) {
+        this.resourceManagementEnabled = resourceManagementEnabled;
+    }
+
+    /**
+     * Gets the total row count for the sheet.
+     *
+     * @return the total row count
+     */
+    public Integer getTotalRowCount() {
+        return totalRowCount;
+    }
+
+    /**
+     * Sets the total row count.
+     *
+     * @param totalRowCount the total row count
+     */
+    public void setTotalRowCount(Integer totalRowCount) {
+        this.totalRowCount = totalRowCount;
+    }
+
+    /**
+     * Gets the effective attachment options.
+     *
+     * @return list of attachment types
+     */
+    public EnumSet<AttachmentType> getEffectiveAttachmentOptions() {
+        return effectiveAttachmentOptions;
+    }
+
+    /**
+     * Sets the effective attachment options.
+     *
+     * @param effectiveAttachmentOptions the effective attachment options
+     */
+    public void setEffectiveAttachmentOptions(EnumSet<AttachmentType> effectiveAttachmentOptions) {
+        this.effectiveAttachmentOptions = effectiveAttachmentOptions;
+    }
+
+    /**
+     * True if the sheet is a favorite sheet.
+     *
+     * @return the favorite
+     */
+    public Boolean isFavorite() {
+        return favorite;
+    }
+
+    /**
+     * Sets the favorite sheet
+     *
+     * @param favorite the favorite
+     */
+    public void setFavorite(Boolean favorite) {
+        this.favorite = favorite;
+    }
+
+    /**
+     * True if show parent rows for filters.
+     *
+     * @return the show parent row for filters
+     */
+    public Boolean getShowParentRowsForFilters() {
+        return showParentRowsForFilters;
+    }
+
+    /**
+     * Sets the show parent rows for filters.
+     *
+     * @param showParentRowsForFilters the show parent rows for filters
+     */
+    public void setShowParentRowsForFilters(Boolean showParentRowsForFilters) {
+        this.showParentRowsForFilters = showParentRowsForFilters;
+    }
+
+    /**
+     * Gets the sheet user settings.
+     *
+     * @return the user settings
+     */
+    public SheetUserSettings getUserSettings() {
+        return userSettings;
+    }
+
+    /**
+     * Sets the user settings.
+     *
+     * @param userSettings the user settings
+     */
+    public void setUserSettings(SheetUserSettings userSettings) {
+        this.userSettings = userSettings;
+    }
+
+    /**
+     * Gets the source.
+     *
+     * @return the source
+     */
+    public Source getSource() {
+        return source;
+    }
+
+    /**
+     * Sets the source.
+     *
+     * @param source the source
+     */
+    public void setSource(Source source) {
+        this.source = source;
     }
 }

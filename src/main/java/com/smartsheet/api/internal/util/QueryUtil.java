@@ -20,19 +20,23 @@ package com.smartsheet.api.internal.util;
  * %[license]
  */
 
-import com.smartsheet.api.models.ObjectInclusion;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.EnumSet;
 import java.util.Map;
-import java.util.Collection;
+import java.util.Set;
 
 public class QueryUtil {
 
     public QueryUtil() {}
 
-    public static <T> String generateCommaSeparatedList(Collection<T> list) {
+    /**
+     * Returns a comma seperated list of items as a string
+     * @param list the collecion
+     * @param <T> the type
+     * @return comma separated string
+     */
+    public static <T> String generateCommaSeparatedList(Set<T> list) {
+
         StringBuilder result = new StringBuilder();
 
         if (list == null) {
@@ -40,7 +44,8 @@ public class QueryUtil {
         } else {
             int index = 0;
             for (Object obj : list) {
-                result.append(obj.toString().toLowerCase());
+                result.append(obj.toString());
+
                 if (index != list.size() - 1) {
                     result.append(",");
                 }
@@ -98,7 +103,4 @@ public class QueryUtil {
             return result.toString();
         }
     }
-    }
-
-
-
+}

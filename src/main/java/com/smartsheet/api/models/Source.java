@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,29 +20,28 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-/**
- * Represents specific objects that can be included in some responses.
- */
-public enum ObjectInclusion{
-	DISCUSSIONS		("discussions"), 
-	ATTACHMENTS		("attachments"), 
-	DATA			("data"), 
-	COLUMNS			("columns"), 
-	TEMPLATES		("templates"),
-	FORMS			("forms"),
-	CELL_LINKS		("cellLinks"),
-	FORMAT			("format"),
-	SOURCESHEETS	("sourceSheets")
-	;
+public class Source extends IdentifiableModel<Long> {
+    /**
+     * Represents the type.
+     */
+    private SourceType type;
 
-	String inclusion;
+    /**
+     * Gets the type.
+     *
+     * @return the name
+     */
+    public SourceType getType() {
+        return type;
+    }
 
-	ObjectInclusion(String inclusion) {
-		this.inclusion = inclusion;
-	}
+    /**
+     * Sets the type.
+     *
+     * @param type the type
+     */
+    public void setType(SourceType type) {
+        this.type = type;
+    }
 
-	@Override
-	public String toString() {
-		return inclusion;
-	}
 }

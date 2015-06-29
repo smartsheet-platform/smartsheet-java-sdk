@@ -22,6 +22,7 @@ package com.smartsheet.api.models;
 
 import java.util.Date;
 import java.util.List;
+import java.util.EnumSet;
 
 /**
  * Represents the Sheet object.
@@ -29,7 +30,7 @@ import java.util.List;
 public class Sheet extends AbstractSheet<Row, Column, Cell> {
 
 	/**
-	 * A convenience class to make a {@link Sheet} object with the necessary fields to create the sheet by posting it
+	 * A convenience class to make a {@link Sheet} object with the necessary fields to create the sheet by posting it 
 	 * to smartsheet.
 	 */
 	public static class CreateSheetBuilder {
@@ -225,7 +226,4 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
 			return sheet;
 		}
 	}
-
-
-
 }
