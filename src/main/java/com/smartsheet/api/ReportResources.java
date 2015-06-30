@@ -21,10 +21,7 @@ package com.smartsheet.api;
  * %[license]
  */
 
-import com.smartsheet.api.models.DataWrapper;
-import com.smartsheet.api.models.ObjectInclusion;
-import com.smartsheet.api.models.Report;
-import com.smartsheet.api.models.SheetEmail;
+import com.smartsheet.api.models.*;
 
 import java.util.EnumSet;
 
@@ -43,7 +40,7 @@ public interface ReportResources {
      *
      * @param reportId the reportId of the report
      * @param includes used To specify the optional objects to include.
-     * @param includeAll If true, include all results (i.e. do not paginate)
+     * @param pagination parametrs for pagination
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
      * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
@@ -51,7 +48,7 @@ public interface ReportResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-     Report getReport(long reportId, EnumSet<ObjectInclusion> includes, boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException;
+     Report getReport(long reportId, EnumSet<ObjectInclusion> includes, PaginationParameters pagination) throws SmartsheetException;
 
     /**
      * <p>Send a sheet as a PDF attachment via Email To the designated recipients.</p>
@@ -85,7 +82,7 @@ public interface ReportResources {
      * @return all sheets (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
-     DataWrapper<Report> listReports(boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException;
+     DataWrapper<Report> listReports(PaginationParameters parameters) throws SmartsheetException;
 
 
 }

@@ -55,7 +55,8 @@ public class ReportResourcesImplTest extends ResourcesImplBase {
     @Test
     public void testGetReport() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getReport.json"));
-        Report report = reportResources.getReport(4583173393803140L, EnumSet.of(ObjectInclusion.ATTACHMENTS, ObjectInclusion.DISCUSSIONS), true, 1, 1);
+        PaginationParameters pagination = new PaginationParameters(true, 1, 1);
+        Report report = reportResources.getReport(4583173393803140L, EnumSet.of(ObjectInclusion.ATTACHMENTS, ObjectInclusion.DISCUSSIONS), pagination);
         assertEquals(report.getPermalink(), "https://app.smartsheet.com/b/home?lx=pWNSDH9itjBXxBzFmyf-5w");
         assertTrue(report.getColumns().get(0).getVirtualId() == 4583173393803140L);
     }
@@ -87,8 +88,8 @@ public class ReportResourcesImplTest extends ResourcesImplBase {
     @Test
     public void testListReports() throws  SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listReports.json"));
-
-        DataWrapper<Report> reportsWrapper = reportResources.listReports(true,null,null);
+        PaginationParameters pagination = new PaginationParameters(true, null, null);
+        DataWrapper<Report> reportsWrapper = reportResources.listReports(pagination);
 
         assertTrue(reportsWrapper.getTotalPages() == 1);
         assertEquals("r1", reportsWrapper.getData().get(0).getName());

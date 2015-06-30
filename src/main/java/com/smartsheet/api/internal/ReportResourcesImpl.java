@@ -31,6 +31,7 @@ import com.sun.tools.corba.se.idl.constExpr.Not;
 import javax.xml.crypto.Data;
 import java.io.OutputStream;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -72,14 +73,22 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * rather than returning null)
      * @throws SmartsheetException the smartsheet exception
      */
-    public Report getReport(long reportId, EnumSet<ObjectInclusion> includes, boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException{
-        this.checkParameters(pageSize, page);
+    public Report getReport(long reportId, EnumSet<ObjectInclusion> includes, PaginationParameters pagination) throws SmartsheetException{
+        this.checkParameters(pagination.getPageSize(), pagination.getPage());
         String path = "reports/" + reportId;
-        PaginationParameters parameters = new PaginationParameters(includeAll, pageSize, page);
-        path += parameters.toQueryString();
-        if  (!includes.isEmpty()){
-            path += "&include=" + QueryUtil.generateCommaSeparatedList(includes);
+
+        HashMap<String, String> parameters = new HashMap<String, String>();
+
+        //PaginationParameters parameters = new PaginationParameters(includeAll, pageSize, page);
+        //path += parameters.toQueryString();
+
+        if  (pagination != null){
+            parameters = pagination.toHashMap();
         }
+        if (includes != null) {
+            parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+        }
+        path += QueryUtil.generateUrl(null, parameters);
         return this.getResource(path, Report.class);
     }
 
@@ -149,10 +158,11 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * @return all sheets (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
-    public DataWrapper<Report> listReports(boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
-        PaginationParameters parameters = new PaginationParameters(includeAll, pageSize, page);
+    public DataWrapper<Report> listReports(PaginationParameters parameters) throws SmartsheetException {
         String path= "reports";
-        path += parameters.toQueryString();
+        if (parameters != null) {
+            path += parameters.toQueryString();
+            }
         return this.listResourcesWithWrapper(path, Report.class);
     }
 
