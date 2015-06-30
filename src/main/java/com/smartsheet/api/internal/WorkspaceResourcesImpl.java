@@ -85,17 +85,16 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 	 *   
 	 *   - SmartsheetException : if there is any other error occurred during the operation
 	 *
-	 * @param includeAll include all items
-	 * @param pageSize the page size
-	 * @param page the page
+	 * @param parameters the object containing the pagination parameters
 	 * @return all workspaces (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Workspace> listWorkspaces(boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
+	public DataWrapper<Workspace> listWorkspaces(PaginationParameters parameters) throws SmartsheetException {
 		String path = "workspaces";
-		PaginationParameters parameters = new PaginationParameters(includeAll, pageSize, page);
 
-		path += parameters.toQueryString();
+		if (parameters != null) {
+			path += parameters.toQueryString();
+		}
 		return this.listResourcesWithWrapper(path, Workspace.class);
 	}
 

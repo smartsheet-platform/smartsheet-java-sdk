@@ -22,10 +22,7 @@ package com.smartsheet.api;
 
 import java.util.EnumSet;
 
-import com.smartsheet.api.models.DataWrapper;
-import com.smartsheet.api.models.ObjectInclusion;
-import com.smartsheet.api.models.Workspace;
-import com.smartsheet.api.models.WorkspaceInclusion;
+import com.smartsheet.api.models.*;
 
 /**
  * <p>This interface provides methods to access Workspace resources.</p>
@@ -47,7 +44,7 @@ public interface WorkspaceResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<Workspace> listWorkspaces(boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException;
+	public DataWrapper<Workspace> listWorkspaces(PaginationParameters parameters) throws SmartsheetException;
 
 	/**
 	 * <p>Get a workspace.</p>
