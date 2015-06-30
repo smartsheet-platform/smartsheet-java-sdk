@@ -23,14 +23,13 @@ package com.smartsheet.api.internal;
 
 
 import com.smartsheet.api.*;
-import com.smartsheet.api.models.DataWrapper;
-import com.smartsheet.api.models.PaginationParameters;
-import com.smartsheet.api.models.User;
-import com.smartsheet.api.models.UserProfile;
+import com.smartsheet.api.internal.util.QueryUtil;
+import com.smartsheet.api.models.*;
 import javafx.scene.control.Pagination;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  * This is the implementation of the UserResources.
@@ -63,19 +62,21 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	 *   - SmartsheetException : if there is any other error occurred during the operation
 	 *
 	 * @param email the list of email addresses
-	 * @param includeAll the include all flag
-	 * @param pageSize the page size
-	 * @param page the page
+	 * @param pagination the object containing the pagination query parameters
 	 * @return all users (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 
-	public DataWrapper<User> listUsers(List<String> email, boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
-		// TODO: update method to reflect changes to PaginationParameters.toHashMap();
-		//PaginationParameters pagination = new PaginationParameters(includeAll, pageSize, page);
-		//HashMap<String, String> parameters = pagination.toHashMap();
+	public DataWrapper<User> listUsers(Set<String> email, PaginationParameters pagination) throws SmartsheetException {
+		String path = "users";
+		HashMap<String, String> parameters = pagination.toHashMap();
 
-		return this.listResourcesWithWrapper("users", User.class);
+		if (email != null) {
+			parameters.put("email", QueryUtil.generateCommaSeparatedList(email));
+		}
+
+		path += QueryUtil.generateUrl(null, parameters);
+		return this.listResourcesWithWrapper(path, User.class);
 	}
 
 	/**
@@ -169,7 +170,13 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	}
 
 	@Override
-	public void deleteUser(long userId, long transferToId, boolean transferSheets, boolean removeFromSharing) throws SmartsheetException {
-		this.deleteResource("users/" + userId + "?transferTo=" + transferToId + "&transferSheets=" + transferSheets + "&removeFromSharing="+removeFromSharing, User.class);
+	public void deleteUser(long userId, DeleteUserParameters parameters) throws SmartsheetException {
+		String path = "users/" + userId;
+
+		if (parameters != null) {
+			path += parameters.toQueryString();
+		}
+
+		this.deleteResource(path, User.class);
 	}
 }

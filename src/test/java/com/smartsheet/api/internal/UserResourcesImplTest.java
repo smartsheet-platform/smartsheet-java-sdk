@@ -27,17 +27,16 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.User;
-import com.smartsheet.api.models.UserProfile;
-import com.smartsheet.api.models.UserStatus;
 
 public class UserResourcesImplTest extends ResourcesImplBase {
 
@@ -55,8 +54,13 @@ public class UserResourcesImplTest extends ResourcesImplBase {
 	@Test
 	public void testListUsers() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/listUsers.json"));
-		List<String> email = new ArrayList<String>();
-		DataWrapper<User> userWrapper = userResources.listUsers(email, true, 1, 1);
+		Set<String> email = new HashSet<String>();
+		PaginationParameters pagination = new PaginationParameters();
+		pagination.setIncludeAll(true);
+		pagination.setPageSize(1);
+		pagination.setPage(1);
+
+		DataWrapper<User> userWrapper = userResources.listUsers(email, pagination);
 		assertTrue(userWrapper.getPageNumber() == 1);
 		assertTrue(userWrapper.getPageSize() == 100);
 		assertTrue(userWrapper.getTotalCount() == 418);
@@ -151,7 +155,7 @@ public class UserResourcesImplTest extends ResourcesImplBase {
 	@Test
 	public void testDeleteUser() throws IOException, SmartsheetException {
 		server.setResponseBody(new File("src/test/resources/deleteUser.json"));
-		userResources.deleteUser(1234L, 56789L, true, true);
+		DeleteUserParameters parameters = new DeleteUserParameters(12345L, true, true);
+		userResources.deleteUser(1234L, parameters);
 	}
-
 }
