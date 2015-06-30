@@ -40,6 +40,8 @@ public class PaginationParameters {
      */
     private Integer page;
 
+    public PaginationParameters() {}
+
     public PaginationParameters(boolean includeAll, Integer pageSize, Integer page) {
         this.includeAll = includeAll;
         this.pageSize = pageSize;
@@ -109,6 +111,24 @@ public class PaginationParameters {
                 parameters.put("page", page.toString());
             }
             return QueryUtil.generateUrl(null, parameters);
+        }
+    }
+
+    public HashMap<String, String> toHashMap() {
+        HashMap<String, String> parameters = new HashMap<String, String>();
+
+        parameters.put("includeAll", Boolean.toString(includeAll));
+
+        if (includeAll) {
+            return parameters;
+        } else {
+            if (pageSize != null) {
+                parameters.put("pageSize", pageSize.toString());
+            }
+            if (page != null) {
+                parameters.put("page", page.toString());
+            }
+            return parameters;
         }
     }
 }

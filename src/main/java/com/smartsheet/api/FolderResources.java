@@ -28,6 +28,7 @@ import java.util.List;
 import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.Folder;
 import com.smartsheet.api.models.ObjectInclusion;
+import com.smartsheet.api.models.PaginationParameters;
 
 /**
  * <p>This interface provides methods to access Folder resources.</p>
@@ -98,7 +99,7 @@ public interface FolderResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<Folder> listFolders(long parentFolderId, boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException;
+	public DataWrapper<Folder> listFolders(long parentFolderId, PaginationParameters parameters) throws SmartsheetException;
 
 	/**
 	 * <p>Create a folder.</p>

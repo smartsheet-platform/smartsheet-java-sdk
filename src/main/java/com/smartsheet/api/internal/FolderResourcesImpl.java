@@ -146,11 +146,13 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 * @return the child folders (note that empty list will be returned if no child folder found)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Folder> listFolders(long parentFolderId, boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
-		PaginationParameters parameters = new PaginationParameters(includeAll, pageSize, page);
+	public DataWrapper<Folder> listFolders(long parentFolderId, PaginationParameters parameters) throws SmartsheetException {
 		String path = "folders/" + parentFolderId + "/folders";
 
-		path += parameters.toQueryString();
+		if (parameters != null) {
+			path += parameters.toQueryString();
+		}
+
 		return this.listResourcesWithWrapper(path, Folder.class);
 	}
 

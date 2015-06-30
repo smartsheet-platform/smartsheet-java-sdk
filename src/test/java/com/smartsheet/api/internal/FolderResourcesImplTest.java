@@ -30,6 +30,7 @@ import java.util.List;
 
 import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.ObjectInclusion;
+import com.smartsheet.api.models.PaginationParameters;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -100,8 +101,8 @@ public class FolderResourcesImplTest extends ResourcesImplBase {
 	public void testListFolders() throws SmartsheetException, IOException {
 		
 		server.setResponseBody(new File("src/test/resources/listFolders.json"));
-
-		DataWrapper<Folder> foldersWrapper = folderResource.listFolders(12345L,true,1,1);
+		PaginationParameters parameters = new PaginationParameters(true,1,1);
+		DataWrapper<Folder> foldersWrapper = folderResource.listFolders(12345L, parameters);
 
 		assertTrue(foldersWrapper.getPageSize() == 100);
 		assertEquals("Folder 1", foldersWrapper.getData().get(0).getName());

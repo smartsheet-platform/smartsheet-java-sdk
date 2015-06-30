@@ -66,11 +66,13 @@ public class WorkspaceFolderResourcesImpl extends AbstractResources implements W
 	 * @return the folders (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Folder> listFolders(long workspaceId, boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
+	public DataWrapper<Folder> listFolders(long workspaceId, PaginationParameters parameters) throws SmartsheetException {
 		String path = "workspaces/" + workspaceId + "/folders";
 
-		PaginationParameters parameters = new PaginationParameters(includeAll, pageSize, page);
-		path += parameters.toQueryString();
+		if (parameters != null) {
+			path += parameters.toQueryString();
+		}
+
 		return this.listResourcesWithWrapper(path, Folder.class);
 	}
 

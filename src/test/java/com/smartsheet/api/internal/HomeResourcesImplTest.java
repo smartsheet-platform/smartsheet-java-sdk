@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
+import com.smartsheet.api.models.PaginationParameters;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -77,11 +78,17 @@ public class HomeResourcesImplTest extends ResourcesImplBase {
 		server.setResponseBody(new File("src/test/resources/getHomeFolders.json"));
 		
 		HomeFolderResources folders = homeResources.folders();
-		assertNotNull(folders.listFolders(true,1,1));
-		assertTrue(folders.listFolders(true,null,null).getPageSize() == 100);
-		assertTrue(folders.listFolders(false,1,1).getPageSize() == 100);
-		assertTrue(folders.listFolders(true,null,null).getTotalCount() == 2);
-		assertTrue(folders.listFolders(false,null,2).getTotalCount() == 2);
+		PaginationParameters parameters = new PaginationParameters(true,1,1);
+		assertNotNull(folders.listFolders(parameters));
+
+		PaginationParameters parameters1 = new PaginationParameters(true,null,null);
+		assertTrue(folders.listFolders(parameters1).getPageSize() == 100);
+
+		PaginationParameters parameters2 = new PaginationParameters(false,1,1);
+		assertTrue(folders.listFolders(parameters2).getPageSize() == 100);
+
+		PaginationParameters parameters3 = new PaginationParameters(true,null,null);
+		assertTrue(folders.listFolders(parameters3).getTotalCount() == 2);
 	}
 
 }

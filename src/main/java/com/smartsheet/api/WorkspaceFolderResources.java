@@ -26,6 +26,7 @@ import java.util.List;
 
 import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.Folder;
+import com.smartsheet.api.models.PaginationParameters;
 
 /**
  * T<p>his interface provides methods to access Folder resources that are associated to a workspace object.</p>
@@ -48,7 +49,7 @@ public interface WorkspaceFolderResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<Folder> listFolders(long workspaceId, boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException;
+	public DataWrapper<Folder> listFolders(long workspaceId, PaginationParameters parameters) throws SmartsheetException;
 
 	/**
 	 * <p>Create a folder in the workspace.</p>

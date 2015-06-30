@@ -65,11 +65,13 @@ public class HomeFolderResourcesImpl extends AbstractResources implements HomeFo
 	 * @return the folders (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Folder> listFolders(boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
-		PaginationParameters parameters = new PaginationParameters(includeAll, pageSize, page);
+	public DataWrapper<Folder> listFolders(PaginationParameters parameters) throws SmartsheetException {
+
 		String path = "home/folders";
 
-		path += parameters.toQueryString();
+		if (parameters != null) {
+			path += parameters.toQueryString();
+		}
 		return this.listResourcesWithWrapper(path, Folder.class);
 	}
 
