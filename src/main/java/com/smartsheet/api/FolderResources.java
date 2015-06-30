@@ -25,10 +25,7 @@ package com.smartsheet.api;
 import java.util.EnumSet;
 import java.util.List;
 
-import com.smartsheet.api.models.DataWrapper;
-import com.smartsheet.api.models.Folder;
-import com.smartsheet.api.models.ObjectInclusion;
-import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.*;
 
 /**
  * <p>This interface provides methods to access Folder resources.</p>
@@ -52,7 +49,7 @@ public interface FolderResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Folder getFolder(long folderId, EnumSet<ObjectInclusion> includes) throws SmartsheetException;
+	public Folder getFolder(long folderId, EnumSet<FolderInclusion> includes) throws SmartsheetException;
 
 	/**
 	 * <p>Update a folder.</p>

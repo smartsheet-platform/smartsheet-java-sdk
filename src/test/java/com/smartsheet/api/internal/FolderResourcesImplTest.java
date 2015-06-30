@@ -28,15 +28,12 @@ import java.io.IOException;
 import java.util.EnumSet;
 import java.util.List;
 
-import com.smartsheet.api.models.DataWrapper;
-import com.smartsheet.api.models.ObjectInclusion;
-import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.Folder;
 
 public class FolderResourcesImplTest extends ResourcesImplBase {
 
@@ -64,10 +61,10 @@ public class FolderResourcesImplTest extends ResourcesImplBase {
  	
 		//folderResource.getSmartsheet().getHttpClient().close();
 		
-		Folder folder = folderResource.getFolder(123L, EnumSet.of(ObjectInclusion.ATTACHMENTS));
+		Folder folder = folderResource.getFolder(123L, EnumSet.of(FolderInclusion.SOURCE));
 //		folder.setTemplates(new ArrayList<Template>());
 //		folder.setWorkspaces(new ArrayList<Workspace>());
-		folderResource.getFolder(123L, EnumSet.of(ObjectInclusion.ATTACHMENTS));
+		folderResource.getFolder(123L, EnumSet.of(FolderInclusion.SOURCE));
 
 		// Verify results
 		assertEquals("Personal", folder.getName());

@@ -26,11 +26,8 @@ import java.util.List;
 
 import com.smartsheet.api.FolderResources;
 import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.models.DataWrapper;
-import com.smartsheet.api.models.Folder;
+import com.smartsheet.api.models.*;
 import com.smartsheet.api.internal.util.QueryUtil;
-import com.smartsheet.api.models.ObjectInclusion;
-import com.smartsheet.api.models.PaginationParameters;
 
 /**
  * This is the implementation of the FolderResources.
@@ -70,7 +67,7 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 * rather than returning null)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Folder getFolder(long folderId, EnumSet<ObjectInclusion> includes) throws SmartsheetException {
+	public Folder getFolder(long folderId, EnumSet<FolderInclusion> includes) throws SmartsheetException {
 		String path = "folders/" + folderId;
 		HashMap<String, String> parameters = new HashMap<String, String>();
 
