@@ -40,6 +40,8 @@ public class PaginationParameters {
      */
     private Integer page;
 
+    public PaginationParameters() {}
+
     public PaginationParameters(boolean includeAll, Integer pageSize, Integer page) {
         this.includeAll = includeAll;
         this.pageSize = pageSize;

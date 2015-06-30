@@ -28,6 +28,7 @@ import java.util.List;
 import com.smartsheet.api.models.Column;
 import com.smartsheet.api.models.ColumnInclusion;
 import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PaginationParameters;
 
 /**
  * <p>This interface provides methods to access column resources that are associated to a sheet object.</p>
@@ -43,9 +44,7 @@ public interface SheetColumnResources {
 	 *
 	 * @param sheetId the sheet id
 	 * @param includes list of includes
-	 * @param includeAll the include all flag
-	 * @param pageSize the page size
-	 * @param page the page
+	 * @param pagination the object containing the pagination parameters
 	 * @return the list of Columns (note that an empty list will be returned if there is none)
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
@@ -54,7 +53,7 @@ public interface SheetColumnResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException;
+	public DataWrapper<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, PaginationParameters pagination) throws SmartsheetException;
 
 	/**
 	 * <p>Add column to a sheet.</p>

@@ -65,17 +65,17 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
 	 *
 	 * @param sheetId the sheet id
 	 * @param includes list of includes
-	 * @param includeAll the include all flag
-	 * @param pageSize the page size
-	 * @param page the page
+	 * @param pagination the object containing the pagination parameters
 	 * @return the columns (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException  {
+	public DataWrapper<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, PaginationParameters pagination) throws SmartsheetException  {
 		String path = "sheets/" + sheetId + "/columns";
-		PaginationParameters pagination = new PaginationParameters(includeAll, pageSize, page);
-		HashMap<String, String> parameters = pagination.toHashMap();
 
+		HashMap<String, String> parameters = new HashMap<String, String>();
+		if (pagination != null) {
+			parameters = pagination.toHashMap();
+		}
 		if (includes != null) {
 			parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 		}

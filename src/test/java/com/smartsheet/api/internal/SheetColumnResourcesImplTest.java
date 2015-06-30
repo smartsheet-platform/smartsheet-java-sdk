@@ -55,8 +55,8 @@ public class SheetColumnResourcesImplTest extends ResourcesImplBase {
 	public void testListColumns() throws SmartsheetException, IOException {
 
 		server.setResponseBody(new File("src/test/resources/listColumns.json"));
-		
-		DataWrapper<Column> wrapper = sheetColumnResourcesImpl.listColumns(1234L, EnumSet.allOf(ColumnInclusion.class), true, 1, 1);
+		PaginationParameters paginationParameters = new PaginationParameters(true, 1, 1);
+		DataWrapper<Column> wrapper = sheetColumnResourcesImpl.listColumns(1234L, EnumSet.allOf(ColumnInclusion.class), paginationParameters);
 		List<Column> columns = wrapper.getData();
 		assertEquals(3, columns.size());
 		assertEquals("CHECKBOX", columns.get(0).getType().toString());
