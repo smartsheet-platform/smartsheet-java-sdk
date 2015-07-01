@@ -47,4 +47,12 @@ public class PaginationParametersTest {
 		PaginationParameters parameters3 = new PaginationParameters(false, 1, 1);
 		assertEquals("?page=1&pageSize=1&includeAll=false", parameters3.toQueryString());
 	}
+
+	@Test
+	public void testBuilder() {
+		PaginationParameters pagination = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).setPageSize(2).setPage(1).build();
+		assertTrue(pagination.isIncludeAll());
+		assertEquals(2, pagination.getPageSize().longValue());
+		assertEquals(1, pagination.getPage().longValue());
+	}
 }
