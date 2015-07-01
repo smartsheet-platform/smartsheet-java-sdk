@@ -61,7 +61,7 @@ public interface WorkspaceResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Workspace getWorkspace(long id, boolean loadAll, EnumSet<WorkspaceInclusion> includes ) throws SmartsheetException;
+	public Workspace getWorkspace(long id, boolean loadAll, EnumSet<SourceInclusion> includes ) throws SmartsheetException;
 
 	/**
 	 * <p>Create a workspace.</p>

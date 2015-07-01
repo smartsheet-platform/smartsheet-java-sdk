@@ -26,7 +26,6 @@ import static org.junit.Assert.assertNotNull;
 import java.io.File;
 import java.io.IOException;
 import java.util.EnumSet;
-import java.util.List;
 
 import com.smartsheet.api.models.*;
 import org.junit.Before;
@@ -69,7 +68,7 @@ public class WorkspaceResourcesImplTest extends ResourcesImplBase {
 	public void testGetWorkspace() throws IOException, SmartsheetException {
 		server.setResponseBody(new File("src/test/resources/getWorkspace.json"));
 		
-		Workspace workspace = workspaceResources.getWorkspace(1234L, true, EnumSet.allOf(WorkspaceInclusion.class));
+		Workspace workspace = workspaceResources.getWorkspace(1234L, true, EnumSet.allOf(SourceInclusion.class));
 		assertEquals(1, workspace.getSheets().size());
 
 		Sheet sheet = workspace.getSheets().get(0);

@@ -25,7 +25,6 @@ package com.smartsheet.api.internal;
 
 import java.util.EnumSet;
 import java.util.HashMap;
-import java.util.List;
 
 import com.smartsheet.api.ShareResources;
 import com.smartsheet.api.SmartsheetException;
@@ -124,7 +123,7 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 	 * rather than returning null).
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Workspace getWorkspace(long id, boolean loadAll, EnumSet<WorkspaceInclusion> includes) throws SmartsheetException {
+	public Workspace getWorkspace(long id, boolean loadAll, EnumSet<SourceInclusion> includes) throws SmartsheetException {
 		String path = "workspaces/" + id;
 
 		// Add the parameters to a map and build the query string at the end

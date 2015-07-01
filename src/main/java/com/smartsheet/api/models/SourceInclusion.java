@@ -23,13 +23,13 @@ package com.smartsheet.api.models;
 /**
  * Represents specific objects that can be included in some responses.
  */
-public enum WorkspaceInclusion {
+public enum SourceInclusion {
 	SOURCE	("source"),
 	;
 
 	String inclusion;
 
-	WorkspaceInclusion(String inclusion) {
+	SourceInclusion(String inclusion) {
 		this.inclusion = inclusion;
 	}
 
