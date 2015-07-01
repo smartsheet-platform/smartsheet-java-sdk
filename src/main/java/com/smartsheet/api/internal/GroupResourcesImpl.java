@@ -28,7 +28,9 @@ import com.smartsheet.api.GroupResources;
 import com.smartsheet.api.GroupMemberResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.Util;
+import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.Group;
+import com.smartsheet.api.models.PaginationParameters;
 
 /**
  * This is the implementation of the HomeResources.
@@ -50,8 +52,8 @@ public class GroupResourcesImpl extends AbstractResources implements GroupResour
 	}
 
 	@Override
-	public List<Group> listGroups() throws SmartsheetException {
-		return this.listResources("groups", Group.class);
+	public DataWrapper<Group> listGroups(PaginationParameters parameters) throws SmartsheetException {
+		return this.listResourcesWithWrapper("groups" + parameters.toQueryString(), Group.class);
 	}
 
 	@Override
@@ -68,7 +70,7 @@ public class GroupResourcesImpl extends AbstractResources implements GroupResour
 	@Override
 	public Group updateGroup(Group group) throws SmartsheetException {
 		Util.throwIfNull(group);
-		return this.updateResource("group/"+ group.getId(), Group.class, group);
+		return this.updateResource("groups/"+ group.getId(), Group.class, group);
 	}
 
 	@Override

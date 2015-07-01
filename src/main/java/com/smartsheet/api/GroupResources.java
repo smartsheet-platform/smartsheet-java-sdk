@@ -24,7 +24,9 @@ package com.smartsheet.api;
 
 import java.util.List;
 
+import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.Group;
+import com.smartsheet.api.models.PaginationParameters;
 
 /**
  * <p>This interface provides methods to access Group resources </p>
@@ -38,6 +40,7 @@ public interface GroupResources {
 	 * 
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /groups</p>
 	 *
+	 * @param parameters the paging parameters object
 	 * @return A list of all {@link Group}s. Note that the groups do not contain the membership details. You must get each group individually for group memebership.
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
@@ -46,7 +49,7 @@ public interface GroupResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public List<Group> listGroups() throws SmartsheetException;
+	public DataWrapper<Group> listGroups(PaginationParameters parameters) throws SmartsheetException;
 
 	
 	/**
