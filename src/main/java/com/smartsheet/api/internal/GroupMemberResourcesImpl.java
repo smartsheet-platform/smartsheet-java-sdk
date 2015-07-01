@@ -48,17 +48,17 @@ public class GroupMemberResourcesImpl extends AbstractAssociatedResources implem
 	}
 
 	@Override
-	public List<GroupMember> addGroupMembers(long objectId, List<GroupMember> members) throws SmartsheetException {
+	public List<GroupMember> addGroupMembers(long groupId, List<GroupMember> members) throws SmartsheetException {
 		Util.throwIfNull(members);
 		if (members.size() == 0) {
 			return members;
 		}
-		return this.postAndReceiveList("groups/" + objectId + "/members", members, GroupMember.class);
+		return this.postAndReceiveList("groups/" + groupId + "/members", members, GroupMember.class);
 	}
 
 	@Override
-	public void deleteGroupMember(long objectId, long userId) throws SmartsheetException {
-		this.deleteResource(this.getMasterResourceType() + "/" + objectId + "/member/" + userId, User.class);
+	public void deleteGroupMember(long groupId, long userId) throws SmartsheetException {
+		this.deleteResource("groups/" + "/" + groupId + "/member/" + userId, User.class);
 	}
 
 }

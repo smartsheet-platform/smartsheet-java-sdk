@@ -42,32 +42,56 @@ public class GroupMember extends NamedModel<Long> {
      */
     private String lastName;
 
+    /**
+     * Gets the Group Member’s email address
+     *
+     * @return the email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * @param email the group member's email address to set
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Gets the Group Member’s first name
+     *
+     * @return the firstname
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * @param firstName the Group Member's first name to set
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     * Gets the Group Member’s last name
+     *
+     * @return the last name
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * @param lastName the Group Member’s last name to set
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
     /**
-     * A convenience class for making a {@link User} object with the appropriate fields for adding to a {@link Group}. See {@link CreateGroupBuilder}
+     * A convenience class for making a {@link GroupMember} object with the appropriate fields for adding to a {@link Group}.
      */
     public static class NewGroupMemberBuilder {
         private String email;
