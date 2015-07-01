@@ -55,8 +55,7 @@ public class ReportResourcesImplTest extends ResourcesImplBase {
     @Test
     public void testGetReport() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getReport.json"));
-        PaginationParameters pagination = new PaginationParameters(true, 1, 1);
-        Report report = reportResources.getReport(4583173393803140L, EnumSet.of(ObjectInclusion.ATTACHMENTS, ObjectInclusion.DISCUSSIONS), pagination);
+        Report report = reportResources.getReport(4583173393803140L, EnumSet.of(ReportInclusion.ATTACHMENTS, ReportInclusion.DISCUSSIONS), 1,1);
         assertEquals(report.getPermalink(), "https://app.smartsheet.com/b/home?lx=pWNSDH9itjBXxBzFmyf-5w");
         assertTrue(report.getColumns().get(0).getVirtualId() == 4583173393803140L);
     }
@@ -104,7 +103,7 @@ public class ReportResourcesImplTest extends ResourcesImplBase {
         server.setContentType("application/vnd.ms-excel");
 
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        reportResources.getReportAsExcel(4583173393803140L, EnumSet.of(ObjectInclusion.ATTACHMENTS, ObjectInclusion.DISCUSSIONS),1,1, output);
+        reportResources.getReportAsExcel(4583173393803140L, EnumSet.of(ReportInclusion.ATTACHMENTS, ReportInclusion.DISCUSSIONS),1,1, output);
         assertNotNull(output);
 
         assertTrue(output.toByteArray().length > 0);
@@ -120,7 +119,7 @@ public class ReportResourcesImplTest extends ResourcesImplBase {
         server.setContentType("text/csv");
 
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        reportResources.getReportAsExcel(4583173393803140L, EnumSet.of(ObjectInclusion.ATTACHMENTS, ObjectInclusion.DISCUSSIONS),1,1, output);
+        reportResources.getReportAsExcel(4583173393803140L, EnumSet.of(ReportInclusion.ATTACHMENTS, ReportInclusion.DISCUSSIONS),1,1, output);
         assertNotNull(output);
 
         assertTrue(output.toByteArray().length > 0);

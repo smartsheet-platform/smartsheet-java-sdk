@@ -69,25 +69,30 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      *   SmartsheetException : if there is any other error occurred during the operation
      *
      * @param reportId the folder id
+     * @param includes the optional objects to include in response
+     * @param pageSize Number of rows per page
+     * @param page page number to return
      * @return the report (note that if there is no such resource, this method will throw ResourceNotFoundException
      * rather than returning null)
      * @throws SmartsheetException the smartsheet exception
      */
-    public Report getReport(long reportId, EnumSet<ObjectInclusion> includes, PaginationParameters pagination) throws SmartsheetException{
-        this.checkParameters(pagination.getPageSize(), pagination.getPage());
+    public Report getReport(long reportId, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page) throws SmartsheetException{
+        this.checkParameters(pageSize, page);
         String path = "reports/" + reportId;
-
         HashMap<String, String> parameters = new HashMap<String, String>();
 
-        //PaginationParameters parameters = new PaginationParameters(includeAll, pageSize, page);
-        //path += parameters.toQueryString();
-
-        if  (pagination != null){
-            parameters = pagination.toHashMap();
-        }
         if (includes != null) {
             parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         }
+
+        if (pageSize != null) {
+            parameters.put("pageSize", pageSize.toString());
+        }
+
+        if (page != null) {
+            parameters.put("page", page.toString());
+        }
+
         path += QueryUtil.generateUrl(null, parameters);
         return this.getResource(path, Report.class);
     }
@@ -182,25 +187,39 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      *   SmartsheetException : if there is any other error occurred during the operation
      *
      * @param id the id
+     * @param includes the optional objects to include in response
+     * @param pageSize Number of rows per page
+     * @param page page number to return
      * @param outputStream the OutputStream to which the Excel file will be written
-     * @return the sheet as excel
+     * @return the sheet as csv
      * @throws SmartsheetException the smartsheet exception
      */
-    public void getReportAsExcel(long id, EnumSet<ObjectInclusion> includes, Integer pageSize, Integer page, OutputStream outputStream) throws SmartsheetException {
+    public void getReportAsExcel(long id, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page, OutputStream outputStream) throws SmartsheetException {
         this.checkParameters(pageSize, page);
-        PaginationParameters parameters = new PaginationParameters(false, pageSize, page);
+
         String path = "/reports";
-        path += parameters.toQueryString();
-        if  (!includes.isEmpty()){
-            path += "&include=" + QueryUtil.generateCommaSeparatedList(includes);
+        HashMap<String, String> parameters = new HashMap<String, String>();
+
+        if (includes != null) {
+            parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         }
+
+        if (pageSize != null) {
+            parameters.put("pageSize", pageSize.toString());
+        }
+
+        if (page != null) {
+            parameters.put("page", page.toString());
+        }
+
+        path += QueryUtil.generateUrl(null, parameters);
         getResourceAsFile(path, "application/vnd.ms-excel",outputStream);
     }
 
     /**
      * Get a Report as an csv file.
      *
-     * It mirrors to the following Smartsheet REST API method: GET /reports/{id} with "application/vnd.ms-excel" Accept
+     * It mirrors to the following Smartsheet REST API method: GET /reports/{id} with "text/csv" Accept
      * HTTP header
      *
      * Exceptions:
@@ -213,15 +232,33 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      *   SmartsheetException : if there is any other error occurred during the operation
      *
      * @param id the id
+     * @param includes the optional objects to include in response
+     * @param pageSize Number of rows per page
+     * @param page page number to return
      * @param outputStream the OutputStream to which the Excel file will be written
-     * @return the sheet as excel
+     * @return the sheet as csv
      * @throws SmartsheetException the smartsheet exception
      */
-    public void getReportAsCsv(long id, EnumSet<ObjectInclusion> includes, Integer pageSize, Integer page, OutputStream outputStream) throws SmartsheetException {
+    public void getReportAsCsv(long id, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page, OutputStream outputStream) throws SmartsheetException {
         this.checkParameters(pageSize, page);
-        PaginationParameters parameters = new PaginationParameters(false, pageSize, page);
         String path = "/reports";
-        path += parameters.toQueryString();
+
+        HashMap<String, String> parameters = new HashMap<String, String>();
+
+        if (includes != null) {
+            parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+        }
+
+        if (pageSize != null) {
+            parameters.put("pageSize", pageSize.toString());
+        }
+
+        if (page != null) {
+            parameters.put("page", page.toString());
+        }
+
+        path += QueryUtil.generateUrl(null, parameters);
+
         getResourceAsFile(path, "text/csv",outputStream);
     }
 

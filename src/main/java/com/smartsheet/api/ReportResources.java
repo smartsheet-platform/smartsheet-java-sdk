@@ -23,6 +23,7 @@ package com.smartsheet.api;
 
 import com.smartsheet.api.models.*;
 
+import java.io.OutputStream;
 import java.util.EnumSet;
 
 /**
@@ -48,7 +49,7 @@ public interface ReportResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-     Report getReport(long reportId, EnumSet<ObjectInclusion> includes, PaginationParameters pagination) throws SmartsheetException;
+     Report getReport(long reportId, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page) throws SmartsheetException;
 
     /**
      * <p>Send a sheet as a PDF attachment via Email To the designated recipients.</p>
@@ -84,5 +85,48 @@ public interface ReportResources {
      */
      DataWrapper<Report> listReports(PaginationParameters parameters) throws SmartsheetException;
 
+    /**
+     * Get a Report as an excel file.
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /reports/{id} with "application/vnd.ms-excel" Accept
+     * HTTP header
+     *
+     * Exceptions:
+     *   IllegalArgumentException : if outputStream is null
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ResourceNotFoundException : if the resource can not be found
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param id the id
+     * @param outputStream the OutputStream to which the Excel file will be written
+     * @return the sheet as csv
+     * @throws SmartsheetException the smartsheet exception
+     * */
+    void getReportAsExcel(long id, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page, OutputStream outputStream) throws SmartsheetException;
+
+/**
+ * Get a Report as an csv file.
+ *
+ * It mirrors to the following Smartsheet REST API method: GET /reports/{id} with "application/vnd.ms-excel" Accept
+ * HTTP header
+ *
+ * Exceptions:
+ *   IllegalArgumentException : if outputStream is null
+ *   InvalidRequestException : if there is any problem with the REST API request
+ *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+ *   ResourceNotFoundException : if the resource can not be found
+ *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+ *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+ *   SmartsheetException : if there is any other error occurred during the operation
+ *
+ * @param id the id
+ * @param outputStream the OutputStream to which the Excel file will be written
+ * @return the sheet as csv
+ * @throws SmartsheetException the smartsheet exception
+ * */
+    void getReportAsCsv(long id, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page, OutputStream outputStream) throws SmartsheetException;
 
 }
