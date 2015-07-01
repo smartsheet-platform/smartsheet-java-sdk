@@ -56,7 +56,7 @@ public class GroupResourcesImpl extends AbstractResources implements GroupResour
 
 	@Override
 	public Group getGroup(long groupId) throws SmartsheetException {
-		return this.getResource("group/" + groupId, Group.class);
+		return this.getResource("groups/" + groupId, Group.class);
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class GroupResourcesImpl extends AbstractResources implements GroupResour
 
 	@Override
 	public void deleteGroup(long groupId) throws SmartsheetException {
-		this.deleteResource("group/" + groupId, Group.class);
+		this.deleteResource("groups/" + groupId, Group.class);
 	}
 
 	@Override
