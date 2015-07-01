@@ -25,7 +25,7 @@ package com.smartsheet.api.internal;
 import java.util.List;
 
 import com.smartsheet.api.GroupResources;
-import com.smartsheet.api.MemberResources;
+import com.smartsheet.api.GroupMemberResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Group;
@@ -36,7 +36,7 @@ import com.smartsheet.api.models.Group;
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class GroupResourcesImpl extends AbstractResources implements GroupResources {
-	private MemberResources members;
+	private GroupMemberResources members;
 	/**
 	 * Constructor.
 	 * 
@@ -46,7 +46,7 @@ public class GroupResourcesImpl extends AbstractResources implements GroupResour
 	 */
 	public GroupResourcesImpl(SmartsheetImpl smartsheet) {
 		super(smartsheet); 
-		this.members = new MemberResourcesImpl(smartsheet, "group");
+		this.members = new GroupMemberResourcesImpl(smartsheet, "group");
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class GroupResourcesImpl extends AbstractResources implements GroupResour
 	}
 
 	@Override
-	public MemberResources members() throws SmartsheetException {
+	public GroupMemberResources members() throws SmartsheetException {
 		return members;
 	}
 }

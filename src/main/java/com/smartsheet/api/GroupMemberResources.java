@@ -24,6 +24,7 @@ package com.smartsheet.api;
 
 import java.util.List;
 
+import com.smartsheet.api.models.GroupMember;
 import com.smartsheet.api.models.User;
 
 /**
@@ -31,7 +32,7 @@ import com.smartsheet.api.models.User;
  * 
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
-public interface MemberResources {
+public interface GroupMemberResources {
 	
 	/**
 	 * <p>Add members to a group.</p>
@@ -49,7 +50,7 @@ public interface MemberResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public List<User> addMembers(long objectId, List<User> members) throws SmartsheetException;
+	public List<GroupMember> addGroupMembers(long objectId, List<GroupMember> members) throws SmartsheetException;
 
 	/**
 	 * <p>Remove a member from a group.</p>
@@ -66,5 +67,5 @@ public interface MemberResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public void deleteMember(long objectId, long userId) throws SmartsheetException;
+	public void deleteGroupMember(long objectId, long userId) throws SmartsheetException;
 }

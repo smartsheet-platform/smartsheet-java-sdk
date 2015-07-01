@@ -22,9 +22,10 @@ package com.smartsheet.api.internal;
 
 import java.util.List;
 
-import com.smartsheet.api.MemberResources;
+import com.smartsheet.api.GroupMemberResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.Util;
+import com.smartsheet.api.models.GroupMember;
 import com.smartsheet.api.models.User;
 
 /**
@@ -32,7 +33,7 @@ import com.smartsheet.api.models.User;
  * 
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
-public class MemberResourcesImpl extends AbstractAssociatedResources implements MemberResources {
+public class GroupMemberResourcesImpl extends AbstractAssociatedResources implements GroupMemberResources {
 	
 	/**
 	 * Constructor.
@@ -42,22 +43,22 @@ public class MemberResourcesImpl extends AbstractAssociatedResources implements 
 	 * @param smartsheet the smartsheet
 	 * @param masterResourceType the master resource type (e.g. "sheet", "workspace")
 	 */
-	public MemberResourcesImpl(SmartsheetImpl smartsheet, String masterResourceType) {
+	public GroupMemberResourcesImpl(SmartsheetImpl smartsheet, String masterResourceType) {
 		super(smartsheet, masterResourceType);
 	}
 
 	@Override
-	public List<User> addMembers(long objectId, List<User> members) throws SmartsheetException {
+	public List<GroupMember> addGroupMembers(long objectId, List<GroupMember> members) throws SmartsheetException {
 		Util.throwIfNull(members);
 		if (members.size() == 0) {
 			return members;
 		}
-		return this.postAndReceiveList(this.getMasterResourceType() +"/" + objectId + "/members", members, User.class);
+		return this.postAndReceiveList("groups/" + objectId + "/members", members, GroupMember.class);
 	}
 
 	@Override
-	public void deleteMember(long objectId, long userId) throws SmartsheetException {
-		this.deleteResource(this.getMasterResourceType() +"/" + objectId + "/member/" + userId, User.class);
+	public void deleteGroupMember(long objectId, long userId) throws SmartsheetException {
+		this.deleteResource(this.getMasterResourceType() + "/" + objectId + "/member/" + userId, User.class);
 	}
 
 }
