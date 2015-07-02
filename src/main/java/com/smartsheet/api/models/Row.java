@@ -541,4 +541,360 @@ public class Row extends IdentifiableModel<Long> {
 	public void setAbove(Boolean above) {
 		this.above = above;
 	}
+
+	/**
+	 * A convenience class for creating a {@link RowWrapper} with the necessary fields for inserting a {@link Row} or
+	 * set of rows.
+	 */
+	public static class InsertRowBuilder {
+		private Boolean toTop;
+		private Boolean toBottom;
+		private Long parentId;
+		private Long siblingId;
+		private Boolean above;
+		private Format format;
+		private Boolean expanded;
+		private List<Cell> cells;
+
+		/**
+		 * Gets the to top.
+		 *
+		 * @return the to top
+		 */
+		public Boolean getToTop() {
+			return toTop;
+		}
+
+		/**
+		 * Sets the to top flag that puts the row at the top of the sheet.
+		 *
+		 * @param toTop the to top flag
+		 * @return the insert rows builder
+		 */
+		public InsertRowBuilder setToTop(Boolean toTop) {
+			this.toTop = toTop;
+			return this;
+		}
+
+		/**
+		 * Gets the to bottom.
+		 *
+		 * @return the to bottom
+		 */
+		public Boolean getToBottom() {
+			return toBottom;
+		}
+
+		/**
+		 * Sets the to bottom flag that puts the row at the bottom of the sheet.
+		 *
+		 * @param toBottom the to bottom
+		 * @return the insert rows builder
+		 */
+		public InsertRowBuilder setToBottom(Boolean toBottom) {
+			this.toBottom = toBottom;
+			return this;
+		}
+
+		/**
+		 * Gets the parent id.
+		 *
+		 * @return the parent id
+		 */
+		public Long getParentId() {
+			return parentId;
+		}
+
+		/**
+		 * Sets the parent id that puts the row as the first child of the specified id.
+		 *
+		 * @param parentId the parent id
+		 * @return the insert rows builder
+		 */
+		public InsertRowBuilder setParentId(Long parentId) {
+			this.parentId = parentId;
+			return this;
+		}
+
+		/**
+		 * Gets the sibling id.
+		 *
+		 * @return the sibling id
+		 */
+		public Long getSiblingId() {
+			return siblingId;
+		}
+
+		/**
+		 * Sets the sibling id that puts the row as the next row at the same hierarchical level of this row.
+		 *
+		 * @param siblingId the sibling id
+		 * @return the insert rows builder
+		 */
+		public InsertRowBuilder setSiblingId(Long siblingId) {
+			this.siblingId = siblingId;
+			return this;
+		}
+
+		/**
+		 * Gets the above flag
+		 * @return the above flag
+		 */
+		public Boolean getAbove() { return above; }
+
+		/**
+		 * Sets the above flag
+		 * @param above the above flag
+		 * @return the insert rows builder
+		 */
+		public InsertRowBuilder setAbove(Boolean above) {
+			this.above = above;
+			return this;
+		}
+
+		/**
+		 * Gets the format
+		 * @return the format
+		 */
+		public Format getFormat() { return format; }
+
+		/**
+		 * Sets the format
+		 * @param format the format
+		 * @return the insert rows builder
+		 */
+		public InsertRowBuilder setFormat(Format format) {
+			this.format = format;
+			return this;
+		}
+
+		/**
+		 * Gets the expanded flag
+		 * @return the expanded flag
+		 */
+		public Boolean getExpanded() { return expanded; }
+
+		/**
+		 * Sets the expanded flag
+		 * @param expanded the expanded flag
+		 * @return the insert rows builder
+		 */
+		public InsertRowBuilder setExpanded(Boolean expanded) {
+			this.expanded = expanded;
+			return this;
+		}
+
+		/**
+		 * Gets the list of cells
+		 * @return the list of cells
+		 */
+		public List<Cell> getCells() { return cells; }
+
+		/**
+		 * Sets the list of cells
+		 * @param cells the list of cells
+		 * @return the insert rows builder
+		 */
+		public InsertRowBuilder setCells(List<Cell> cells) {
+			this.cells = cells;
+			return this;
+		}
+
+		/**
+		 * Builds the row object
+		 * @return the row object
+		 */
+		public Row build() {
+			if (toTop == null && toBottom == null && parentId == null && siblingId == null && above == null) {
+				new InstantiationException("One of the following fields must be set toTop, toBottom, parentId, siblingId or above.");
+			}
+
+			Row row = new Row();
+			row.toTop = toTop;
+			row.toBottom = toBottom;
+			row.parentId = parentId;
+			row.siblingId = siblingId;
+			row.above = above;
+			row.format = format;
+			row.expanded = expanded;
+			row.cells = cells;
+			return row;
+		}
+	}
+
+	public static class UpdateRowBuilder {
+		private Boolean toTop;
+		private Boolean toBottom;
+		private Long parentId;
+		private Long siblingId;
+		private Format format;
+		private Boolean expanded;
+		private List<Cell> cells;
+		private Boolean locked;
+
+		/**
+		 * Gets the to top.
+		 *
+		 * @return the to top
+		 */
+		public Boolean getToTop() {
+			return toTop;
+		}
+
+		/**
+		 * Sets the to top flag that puts the row at the top of the sheet.
+		 *
+		 * @param toTop the to top flag
+		 * @return the update rows builder
+		 */
+		public UpdateRowBuilder setToTop(Boolean toTop) {
+			this.toTop = toTop;
+			return this;
+		}
+
+		/**
+		 * Gets the to bottom.
+		 *
+		 * @return the to bottom
+		 */
+		public Boolean getToBottom() {
+			return toBottom;
+		}
+
+		/**
+		 * Sets the to bottom flag that puts the row at the bottom of the sheet.
+		 *
+		 * @param toBottom the to bottom
+		 * @return the update rows builder
+		 */
+		public UpdateRowBuilder setToBottom(Boolean toBottom) {
+			this.toBottom = toBottom;
+			return this;
+		}
+
+		/**
+		 * Gets the parent id.
+		 *
+		 * @return the parent id
+		 */
+		public Long getParentId() {
+			return parentId;
+		}
+
+		/**
+		 * Sets the parent id that puts the row as the first child of the specified id.
+		 *
+		 * @param parentId the parent id
+		 * @return the update rows builder
+		 */
+		public UpdateRowBuilder setParentId(Long parentId) {
+			this.parentId = parentId;
+			return this;
+		}
+
+		/**
+		 * Gets the sibling id.
+		 *
+		 * @return the sibling id
+		 */
+		public Long getSiblingId() {
+			return siblingId;
+		}
+
+		/**
+		 * Sets the sibling id that puts the row as the next row at the same hierarchical level of this row.
+		 *
+		 * @param siblingId the sibling id
+		 * @return the update rows builder
+		 */
+		public UpdateRowBuilder setSiblingId(Long siblingId) {
+			this.siblingId = siblingId;
+			return this;
+		}
+
+		/**
+		 * Gets the format
+		 * @return the format
+		 */
+		public Format getFormat() { return format; }
+
+		/**
+		 * Sets the format
+		 * @param format the format
+		 * @return the update rows builder
+		 */
+		public UpdateRowBuilder setFormat(Format format) {
+			this.format = format;
+			return this;
+		}
+
+		/**
+		 * Gets the expanded flag
+		 * @return the expanded flag
+		 */
+		public Boolean getExpanded() { return expanded; }
+
+		/**
+		 * Sets the expanded flag
+		 * @param expanded the expanded flag
+		 * @return the update rows builder
+		 */
+		public UpdateRowBuilder setExpanded(Boolean expanded) {
+			this.expanded = expanded;
+			return this;
+		}
+
+		/**
+		 * Gets the list of cells
+		 * @return the list of cells
+		 */
+		public List<Cell> getCells() { return cells; }
+
+		/**
+		 * Sets the list of cells
+		 * @param cells the list of cells
+		 * @return the update rows builder
+		 */
+		public UpdateRowBuilder setCells(List<Cell> cells) {
+			this.cells = cells;
+			return this;
+		}
+
+		/**
+		 * Gets the locked flag
+		 * @return the locked flag
+		 */
+		public Boolean getLocked() {return locked; }
+
+		/**
+		 * Sets the locked flag
+		 * @param locked the locked flag
+		 * @return the update rows builder
+		 */
+		public UpdateRowBuilder setLocked(Boolean locked) {
+			this.locked = locked;
+			return this;
+		}
+
+		/**
+		 * Builds the row object
+		 * @return the row object
+		 */
+		public Row build() {
+			if (toTop == null && toBottom == null && parentId == null && siblingId == null) {
+				new InstantiationException("One of the following fields must be set toTop, toBottom, parentId or siblingId.");
+			}
+
+			Row row = new Row();
+			row.toTop = toTop;
+			row.toBottom = toBottom;
+			row.parentId = parentId;
+			row.siblingId = siblingId;
+			row.format = format;
+			row.expanded = expanded;
+			row.cells = cells;
+			row.locked = locked;
+			return row;
+		}
+	}
 }
