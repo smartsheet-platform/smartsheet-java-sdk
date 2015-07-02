@@ -20,11 +20,6 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,6 +32,8 @@ import org.junit.Test;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
+
+import static org.junit.Assert.*;
 
 public class SheetRowResourcesImplTest extends ResourcesImplBase {
 
@@ -138,10 +135,12 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
 
         List<Row> updatedRows = sheetRowResource.updateRows(1234L, rows);
         Row row1 = updatedRows.get(0);
-        Row row2 = updatedRows.get(1);
 
-        assertEquals(2, updatedRows.size());
-        assertEquals(2068827774183300L, row1.getId().longValue());
-        assertEquals(6572427401553796L, row2.getId().longValue());
+        assertTrue(row1.getCells().size() == 6);
+        assertEquals(3L, row1.getRowNumber().longValue());
+        assertEquals(1231490655774596L, row1.getId().longValue());
+
+        Cell cell = row1.getCells().get(0);
+        assertEquals(7670639323572100L, cell.getColumnId().longValue());
     }
 }
