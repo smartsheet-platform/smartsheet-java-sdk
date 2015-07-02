@@ -386,24 +386,24 @@ public class Column extends IdentifiableModel<Long> {
 		/** The auto number format. */
 		private AutoNumberFormat autoNumberFormat;
 		
-		private Boolean primary;
+		private Integer width;
 		
 		/**
-		 * Gets the primary flag for the column.
+		 * Gets the width for the column.
 		 *
-		 * @return the primary flag
+		 * @return the width
 		 */
-		public Boolean getPrimary() {
-			return primary;
+		public Integer getWidth() {
+			return width;
 		}
 
 		/**
-		 * Sets the primary flag for the column.
+		 * Sets the width for the column.
 		 * 
-		 * @param primary the new primary flag
+		 * @param width the width
 		 */
-		public AddColumnToSheetBuilder setPrimary(Boolean primary) {
-			this.primary = primary;
+		public AddColumnToSheetBuilder setWidth(Integer width) {
+			this.width = width;
 			return this;
 		}
 
@@ -557,7 +557,8 @@ public class Column extends IdentifiableModel<Long> {
 			column.type = type;
 			column.options = options;
 			column.symbol = symbol;
-			column.primary = primary;
+			column.index = index;
+			column.width = width;
 			column.systemColumnType = systemColumnType;
 			column.autoNumberFormat = autoNumberFormat;
 			return column;
@@ -592,6 +593,12 @@ public class Column extends IdentifiableModel<Long> {
 		
 		/** The sheet id. */
 		private Long sheetId;
+
+		/** The width */
+		private Integer width;
+
+		/** The format */
+		private Format format;
 
 		/**
 		 * Sets the position for the column.
@@ -680,6 +687,26 @@ public class Column extends IdentifiableModel<Long> {
 			this.sheetId = sheetId;
 			return this;
 		}
+
+		/**
+		 * Sets the format
+		 * @param format the format
+		 * @return the modify column builder
+		 */
+		public ModifyColumnBuilder setFormat(Format format) {
+			this.format = format;
+			return this;
+		}
+
+		/**
+		 * Sets the width
+		 * @param width the width
+		 * @return the modify column builder
+		 */
+		public ModifyColumnBuilder setWidth(Integer width) {
+			this.width = width;
+			return this;
+		}
 		
 		/**
 		 * Gets the index.
@@ -754,6 +781,22 @@ public class Column extends IdentifiableModel<Long> {
 		}
 
 		/**
+		 * Gets the width
+		 * @return the width
+		 */
+		public Integer getWidth() {
+			return width;
+		}
+
+		/**
+		 * Gets the format
+		 * @return the format
+		 */
+		public Format getFormat() {
+			return format;
+		}
+
+		/**
 		 * Builds the column.
 		 *
 		 * @return the column
@@ -771,6 +814,8 @@ public class Column extends IdentifiableModel<Long> {
 			column.symbol = symbol;
 			column.systemColumnType = systemColumnType;
 			column.autoNumberFormat = autoNumberFormat;
+			column.width = width;
+			column.format = format;
 			return column;
 		}
 	}
