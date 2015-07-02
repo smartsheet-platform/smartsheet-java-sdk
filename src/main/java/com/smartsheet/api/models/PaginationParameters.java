@@ -97,12 +97,17 @@ public class PaginationParameters {
     }
 
     public String toQueryString() {
+        HashMap<String, String> parameters = toHashMap();
+        return QueryUtil.generateUrl(null, parameters);
+    }
+
+    public HashMap<String, String> toHashMap() {
         HashMap<String, String> parameters = new HashMap<String, String>();
 
         parameters.put("includeAll", Boolean.toString(includeAll));
 
         if (includeAll) {
-            return QueryUtil.generateUrl(null, parameters);
+            return parameters;
         } else {
             if (pageSize != null) {
                 parameters.put("pageSize", pageSize.toString());
@@ -110,7 +115,7 @@ public class PaginationParameters {
             if (page != null) {
                 parameters.put("page", page.toString());
             }
-            return QueryUtil.generateUrl(null, parameters);
+            return parameters;
         }
     }
 

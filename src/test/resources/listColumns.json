@@ -1,1 +1,30 @@
-[{"id":8764071660021636,"index":0,"title":"something new","type":"TEXT_NUMBER","primary":true}]
+{
+  "pageNumber": 1,
+  "pageSize": 100,
+  "totalPages": 1,
+  "totalCount": 3,
+  "data": [
+    {
+      "id": 7960873114331012,
+      "index": 0,
+      "symbol": "STAR",
+      "title": "Favorite",
+      "type": "CHECKBOX",
+      "locked": true,
+      "lockedForUser": false
+    },
+    {
+      "id": 642523719853956,
+      "index": 1,
+      "primary": true,
+      "title": "Primary Column",
+      "type": "TEXT_NUMBER"
+    },
+    {
+      "id": 5146123347224452,
+      "index": 2,
+      "title": "Status",
+      "type": "PICKLIST"
+    }
+  ]
+}
