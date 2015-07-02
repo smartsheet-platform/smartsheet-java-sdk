@@ -40,6 +40,8 @@ public class PaginationParameters {
      */
     private Integer page;
 
+    public PaginationParameters() {}
+
     public PaginationParameters(boolean includeAll, Integer pageSize, Integer page) {
         this.includeAll = includeAll;
         this.pageSize = pageSize;
@@ -109,6 +111,79 @@ public class PaginationParameters {
                 parameters.put("page", page.toString());
             }
             return QueryUtil.generateUrl(null, parameters);
+        }
+    }
+
+    /**
+     * A convenience class for creating a PaginationParameters object
+     */
+    public static class PaginationParametersBuilder {
+        private boolean includeAll;
+        private Integer pageSize;
+        private Integer page;
+
+        /**
+         * Gets the include all flag
+         * @return the include all flag
+         */
+        public boolean isIncludeAll() {
+            return includeAll;
+        }
+
+        /**
+         * Sets the include All Flag
+         * @param includeAll the include all flag
+         */
+        public PaginationParametersBuilder setIncludeAll(boolean includeAll) {
+            this.includeAll = includeAll;
+            return this;
+        }
+
+        /**
+         * Gets the page
+         * @return the page
+         */
+        public Integer getPage() {
+            return page;
+        }
+
+        /**
+         * Sets the page
+         * @param page the page
+         */
+        public PaginationParametersBuilder setPage(Integer page) {
+            this.page = page;
+            return this;
+        }
+
+        /**
+         * Gets the page size
+         * @return the page size
+         */
+        public Integer getPageSize() {
+            return pageSize;
+        }
+
+        /**
+         * Sets the page size
+         * @param pageSize the page size
+         */
+        public PaginationParametersBuilder setPageSize(Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        /**
+         * Builds the PaginationParameters object
+         * @return
+         */
+        public PaginationParameters build() {
+            PaginationParameters pagination = new PaginationParameters();
+            pagination.setIncludeAll(includeAll);
+            pagination.setPageSize(pageSize);
+            pagination.setPage(page);
+
+            return pagination;
         }
     }
 }
