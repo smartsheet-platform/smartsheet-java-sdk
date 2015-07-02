@@ -705,10 +705,6 @@ public class Row extends IdentifiableModel<Long> {
 		 * @return the row object
 		 */
 		public Row build() {
-			if (toTop == null && toBottom == null && parentId == null && siblingId == null && above == null) {
-				new InstantiationException("One of the following fields must be set toTop, toBottom, parentId, siblingId or above.");
-			}
-
 			Row row = new Row();
 			row.toTop = toTop;
 			row.toBottom = toBottom;
@@ -881,10 +877,6 @@ public class Row extends IdentifiableModel<Long> {
 		 * @return the row object
 		 */
 		public Row build() {
-			if (toTop == null && toBottom == null && parentId == null && siblingId == null) {
-				new InstantiationException("One of the following fields must be set toTop, toBottom, parentId or siblingId.");
-			}
-
 			Row row = new Row();
 			row.toTop = toTop;
 			row.toBottom = toBottom;
