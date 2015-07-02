@@ -9,7 +9,9 @@
       "index": 0,
       "symbol": "STAR",
       "title": "Favorite",
-      "type": "CHECKBOX"
+      "type": "CHECKBOX",
+      "locked": true,
+      "lockedForUser": false
     },
     {
       "id": 642523719853956,

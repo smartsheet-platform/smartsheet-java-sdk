@@ -61,6 +61,8 @@ public class SheetColumnResourcesImplTest extends ResourcesImplBase {
 		assertEquals(3, columns.size());
 		assertEquals("CHECKBOX", columns.get(0).getType().toString());
 		assertEquals("STAR", columns.get(0).getSymbol().toString());
+		assertTrue(columns.get(0).isLocked());
+		assertFalse(columns.get(0).isLockedForUser());
 		assertEquals("Status", columns.get(2).getTitle());
 	}
 

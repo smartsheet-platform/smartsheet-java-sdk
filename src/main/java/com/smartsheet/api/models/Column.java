@@ -77,7 +77,17 @@ public class Column extends IdentifiableModel<Long> {
 	 * Represents the tags to indicate a special type of column.
 	 */
 	private List<ColumnTag> tags;
-	
+
+	/**
+	 * Represents if the column is locked
+	 */
+	private Boolean locked;
+
+	/**
+	 * Represents if the column is locked for the user
+	 */
+	private Boolean lockedForUser;
+
 	/**
 	 * The width of the cell.
 	 * */
@@ -273,10 +283,50 @@ public class Column extends IdentifiableModel<Long> {
 		this.tags = tags;
 	}
 
+	/**
+	 * Gets the locked flag
+	 * @return the locked flag
+	 */
+	public Boolean isLocked() {
+		return locked;
+	}
+
+	/**
+	 * Sets the locked flag
+	 * @param locked the locked flag
+	 */
+	public void setLocked(Boolean locked) {
+		this.locked = locked;
+	}
+
+	/**
+	 * Gets the locked for user flag
+	 * @return the locked for user flag
+	 */
+	public Boolean isLockedForUser() {
+		return lockedForUser;
+	}
+
+	/**
+	 * Sets the locked for user flag
+	 * @param lockedForUser the locked for user flag
+	 */
+	public void setLockedForUser(Boolean lockedForUser) {
+		this.lockedForUser = lockedForUser;
+	}
+
+	/**
+	 * Gets the width
+	 * @return the width
+	 */
 	public Integer getWidth() {
 		return width;
 	}
 
+	/**
+	 * Sets the width
+	 * @param width the width
+	 */
 	public void setWidth(Integer width) {
 		this.width = width;
 	}
@@ -295,10 +345,18 @@ public class Column extends IdentifiableModel<Long> {
 		this.format = format;
 	}
 
+	/**
+	 * Gets the filter
+	 * @return the filter
+	 */
 	public Filter getFilter() {
 		return filter;
 	}
 
+	/**
+	 * Sets the filter
+	 * @param filter the filter
+	 */
 	public void setFilter(Filter filter) {
 		this.filter = filter;
 	}
