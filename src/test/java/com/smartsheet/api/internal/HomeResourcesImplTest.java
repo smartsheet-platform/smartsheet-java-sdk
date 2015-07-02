@@ -30,16 +30,13 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-import com.smartsheet.api.models.HomeInclusion;
+import com.smartsheet.api.models.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.smartsheet.api.HomeFolderResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.Home;
-import com.smartsheet.api.models.ObjectInclusion;
-import com.smartsheet.api.models.Template;
 
 public class HomeResourcesImplTest extends ResourcesImplBase {
 
@@ -59,7 +56,7 @@ public class HomeResourcesImplTest extends ResourcesImplBase {
 		server.setResponseBody(new File("src/test/resources/getHome.json"));
 		
 		List<Home> homes = new ArrayList<Home>();
-		homes.add(homeResources.getHome(EnumSet.of(HomeInclusion.SOURCE)));
+		homes.add(homeResources.getHome(EnumSet.of(SourceInclusion.SOURCE)));
 		homes.add(homeResources.getHome(null));
 		for(Home home : homes){
 			assertNotNull(home.getSheets());
