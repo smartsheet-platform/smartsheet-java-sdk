@@ -20,22 +20,22 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 import com.smartsheet.api.internal.http.DefaultHttpClient;
+import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.Favorite;
-import junit.framework.TestCase;
+import com.smartsheet.api.models.PaginationParameters;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.*;
 
 public class FavoriteResourcesImplTest extends ResourcesImplBase {
-    private FavoriteResourcesImpl favoriteResourcesImpl;
+    private FavoriteResourcesImpl favoriteResources;
 
     @Before
     public void setUp() throws Exception {
-        favoriteResourcesImpl = new FavoriteResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
+        favoriteResources = new FavoriteResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
                 "accessToken", new DefaultHttpClient(), serializer));
     }
 
@@ -43,7 +43,17 @@ public class FavoriteResourcesImplTest extends ResourcesImplBase {
     public void testAddFavorites() throws Exception {
         server.setResponseBody(new File("src/test/resources/addFavorites.json"));
         List<Favorite> favoritesToAdd = new Favorite.AddFavoriteBuilder().addFavorite(8400677765441412L, "sheet").build();
-        List < Favorite > addedfavorites = favoriteResourcesImpl.addFavorites(favoritesToAdd);
+        List < Favorite > addedfavorites = favoriteResources.addFavorites(favoritesToAdd);
         assertEquals(1, addedfavorites.size());
+    }
+
+    @Test
+    public void testListFavorites() throws Exception {
+        server.setResponseBody(new File("src/test/resources/listFavorites.json"));
+        PaginationParameters parameters = new PaginationParameters(false,1,1);
+        DataWrapper<Favorite> favorites = favoriteResources.listFavorites(parameters);
+        assertNotNull(favorites.getData().get(0).getType());
+        assertEquals(favorites.getData().get(0).getType(), "sheet");
+        //assertEquals(favorites.getData().get(1).getType(), "folder");
     }
 }

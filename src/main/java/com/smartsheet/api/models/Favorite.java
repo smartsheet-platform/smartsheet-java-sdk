@@ -1,6 +1,5 @@
 package com.smartsheet.api.models;
 
-
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -31,15 +30,28 @@ public class Favorite{
      */
     private String type;
 
+    /**
+     * Represents ID of the favorited item.
+     */
+    private Long objectId;
+
+    /**
+     * Gets the ID of the favorited item.
+     *
+     * @return the objectId
+     */
     public Long getObjectId() {
         return objectId;
     }
 
+    /**
+     * Sets the ID of the favorited item.
+     *
+     * @param objectId ID of the favorited item.
+     */
     public void setObjectId(Long objectId) {
         this.objectId = objectId;
     }
-
-    private Long objectId;
 
     /**
      * Gets the type of favorite (workspace, folder, sheet, report, template).
@@ -60,7 +72,7 @@ public class Favorite{
     }
 
     /**
-     * A convenience class for making a {@link GroupMember} object with the appropriate fields for adding to a {@link Group}.
+     * A convenience class for making a {@link Favorite} object with the appropriate fields for adding to a {@link Favorite}.
      */
     public static class AddFavoriteBuilder {
 
@@ -75,6 +87,6 @@ public class Favorite{
         }
 
         public List<Favorite> build() { return favorites; }
-        }
     }
+}
 

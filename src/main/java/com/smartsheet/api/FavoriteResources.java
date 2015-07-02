@@ -21,7 +21,9 @@ package com.smartsheet.api;
  * %[license]
  */
 
+import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.Favorite;
+import com.smartsheet.api.models.PaginationParameters;
 
 import java.util.List;
 
@@ -47,4 +49,24 @@ public interface FavoriteResources {
      * @throws SmartsheetException the smartsheet exception
      */
      List<Favorite> addFavorites(List<Favorite> favorites) throws SmartsheetException;
+
+    /**
+     * Gets a list of all of the user’s Favorite items.
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /favorites
+     *
+     * Exceptions:
+     *   IllegalArgumentException : if any argument is null
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ResourceNotFoundException : if the resource can not be found
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param parameters pagination parameters
+     * @return a single Favorite object or an array of Favorite objects
+     * @throws SmartsheetException the smartsheet exception
+     */
+    DataWrapper<Favorite> listFavorites(PaginationParameters parameters) throws SmartsheetException;
 }
