@@ -20,36 +20,21 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-
-
 /**
- * Represents column types.
+ * Represents specific objects that can be included in some responses.
  */
-public enum ColumnType {
-	/** Represents the TEXT_NUMBER column type. */
-	TEXT_NUMBER,
+public enum ColumnInclusion {
+	FILTERS("filters")
+	;
 
-	/** Represents the CONTACT_LIST column type. */
-	CONTACT_LIST,
+	String inclusion;
 
-	/** Represents the DATE column type. */
-	DATE,
+	ColumnInclusion(String inclusion) {
+		this.inclusion = inclusion;
+	}
 
-	/** Represents the DATETIME column type. */
-	DATETIME,
-
-	/** Represents the PICKLIST column type. */
-	PICKLIST,
-
-	/** Represents the CHECKBOX column type. */
-	CHECKBOX,
-
-	/** Represents the DURATION column type. */
-	DURATION,
-
-	/** Represents the PREDECESSOR column type. */
-	PREDECESSOR,
-	
-	/** Represents the ABSTRACT_DATETIME (auto number) column type */
-	ABSTRACT_DATETIME,
+	@Override
+	public String toString() {
+		return inclusion;
+	}
 }
