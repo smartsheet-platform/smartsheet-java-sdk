@@ -74,13 +74,6 @@ public interface Smartsheet {
 	public ColumnResources columns();
 
 	/**
-	 * <p>Returns the RowResources instance that provides access to Row resources.</p>
-	 *
-	 * @return the row resources instance
-	 */
-	public RowResources rows();
-
-	/**
 	 * <p>Returns the AttachmentResources instance that provides access to Attachment resources.</p>
 	 *
 	 * @return the attachment resources instance

@@ -75,4 +75,12 @@ public class PaginationParametersTest {
 		assertTrue(map.containsKey("page"));
 		assertEquals("1", map.get("page"));
 	}
+
+	@Test
+	public void testBuilder() {
+		PaginationParameters pagination = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).setPageSize(2).setPage(1).build();
+		assertTrue(pagination.isIncludeAll());
+		assertEquals(2, pagination.getPageSize().longValue());
+		assertEquals(1, pagination.getPage().longValue());
+	}
 }

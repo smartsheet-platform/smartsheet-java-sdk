@@ -23,21 +23,18 @@ package com.smartsheet.api.models;
 /**
  * Represents specific objects that can be included in some responses.
  */
-public enum ObjectInclusion{
-	DISCUSSIONS		("discussions"), 
-	ATTACHMENTS		("attachments"), 
-	DATA			("data"), 
-	COLUMNS			("columns"), 
-	TEMPLATES		("templates"),
-	FORMS			("forms"),
-	CELL_LINKS		("cellLinks"),
+public enum RowInclusion {
+	DISCUSSIONS		("discussions"),
+	ATTACHMENTS		("attachments"),
 	FORMAT			("format"),
-	SOURCE			("source"),
+	FILTERS			("filters"),
+	COLUMN_TYPE		("columnType"),
+	COLUMNS			("columns"),
 	;
 
 	String inclusion;
 
-	ObjectInclusion(String inclusion) {
+	RowInclusion(String inclusion) {
 		this.inclusion = inclusion;
 	}
 
