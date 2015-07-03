@@ -67,7 +67,7 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 * rather than returning null)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Folder getFolder(long folderId, EnumSet<FolderInclusion> includes) throws SmartsheetException {
+	public Folder getFolder(long folderId, EnumSet<SourceInclusion> includes) throws SmartsheetException {
 		String path = "folders/" + folderId;
 		HashMap<String, String> parameters = new HashMap<String, String>();
 

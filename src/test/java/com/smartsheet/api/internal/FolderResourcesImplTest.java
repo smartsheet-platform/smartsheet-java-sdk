@@ -61,10 +61,10 @@ public class FolderResourcesImplTest extends ResourcesImplBase {
  	
 		//folderResource.getSmartsheet().getHttpClient().close();
 		
-		Folder folder = folderResource.getFolder(123L, EnumSet.of(FolderInclusion.SOURCE));
+		Folder folder = folderResource.getFolder(123L, EnumSet.of(SourceInclusion.SOURCE));
 //		folder.setTemplates(new ArrayList<Template>());
 //		folder.setWorkspaces(new ArrayList<Workspace>());
-		folderResource.getFolder(123L, EnumSet.of(FolderInclusion.SOURCE));
+		folderResource.getFolder(123L, EnumSet.of(SourceInclusion.SOURCE));
 
 		// Verify results
 		assertEquals("Personal", folder.getName());
