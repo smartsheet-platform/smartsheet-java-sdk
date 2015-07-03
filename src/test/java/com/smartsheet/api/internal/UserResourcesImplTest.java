@@ -60,6 +60,9 @@ public class UserResourcesImplTest extends ResourcesImplBase {
 		pagination.setPageSize(1);
 		pagination.setPage(1);
 
+		DataWrapper<User> userWrapper1 = userResources.listUsers();
+		assertTrue(userWrapper1.getData().size() == 2);
+
 		DataWrapper<User> userWrapper = userResources.listUsers(email, pagination);
 		assertTrue(userWrapper.getPageNumber() == 1);
 		assertTrue(userWrapper.getPageSize() == 100);

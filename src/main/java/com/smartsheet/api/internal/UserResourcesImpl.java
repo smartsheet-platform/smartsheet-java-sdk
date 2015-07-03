@@ -50,6 +50,23 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	}
 
 	/**
+	 * <p>List all users.</p>
+	 *
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /users</p>
+	 *
+	 * @return the list of all users
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	public DataWrapper<User> listUsers() throws SmartsheetException {
+		return this.listResourcesWithWrapper("users", User.class);
+	}
+
+	/**
 	 * List all users.
 	 * 
 	 * It mirrors to the following Smartsheet REST API method: GET /users

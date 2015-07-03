@@ -40,8 +40,17 @@ public class DeleteUserParameters {
      */
     private Boolean removeFromSharing;
 
+    /**
+     * Constructor for creating the DeleteUserParameters object
+     */
     public DeleteUserParameters() {}
 
+    /**
+     * Constructor for creating the DeleteUserParameters object
+     * @param transferToId the transferToId
+     * @param transferSheets the transferSheets flag
+     * @param removeFromSharing the removeFromSharing flag
+     */
     public DeleteUserParameters(Long transferToId, Boolean transferSheets, Boolean removeFromSharing) {
         this.transferToId = transferToId;
         this.transferSheets = transferSheets;

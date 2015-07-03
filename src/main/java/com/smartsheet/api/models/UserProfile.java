@@ -42,6 +42,11 @@ public class UserProfile extends NamedModel<Long> {
 	private String lastName;
 
 	/**
+	 * Represents the user's customer account
+	 */
+	private Account account;
+
+	/**
 	 * Gets the email address.
 	 *
 	 * @return the email address
@@ -93,5 +98,21 @@ public class UserProfile extends NamedModel<Long> {
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	/**
+	 * Gets the account
+	 * @return the account
+	 */
+	public Account getAccount() {
+		return account;
+	}
+
+	/**
+	 * Sets the account
+	 * @param account the account
+	 */
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 }
