@@ -23,13 +23,15 @@ package com.smartsheet.api.internal;
 
 
 
-import java.util.List;
+import java.util.EnumSet;
+import java.util.HashMap;
 
 import com.smartsheet.api.ShareResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WorkspaceFolderResources;
 import com.smartsheet.api.WorkspaceResources;
-import com.smartsheet.api.models.Workspace;
+import com.smartsheet.api.internal.util.QueryUtil;
+import com.smartsheet.api.models.*;
 
 /**
  * This is the implementation of the WorkspaceResources.
@@ -82,11 +84,17 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 	 *   
 	 *   - SmartsheetException : if there is any other error occurred during the operation
 	 *
+	 * @param parameters the object containing the pagination parameters
 	 * @return all workspaces (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public List<Workspace> listWorkspaces() throws SmartsheetException {
-		return this.listResources("workspaces", Workspace.class);
+	public DataWrapper<Workspace> listWorkspaces(PaginationParameters parameters) throws SmartsheetException {
+		String path = "workspaces";
+
+		if (parameters != null) {
+			path += parameters.toQueryString();
+		}
+		return this.listResourcesWithWrapper(path, Workspace.class);
 	}
 
 	/**
@@ -109,12 +117,26 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 	 *   - SmartsheetException : if there is any other error occurred during the operation
 	 *
 	 * @param id the id
+	 * @param loadAll load all contents in a workspace
+	 * @param includes used to specify the optional objects to include
 	 * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
 	 * rather than returning null).
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Workspace getWorkspace(long id) throws SmartsheetException {
-		return this.getResource("workspace/" + id, Workspace.class);
+	public Workspace getWorkspace(long id, boolean loadAll, EnumSet<SourceInclusion> includes) throws SmartsheetException {
+		String path = "workspaces/" + id;
+
+		// Add the parameters to a map and build the query string at the end
+		HashMap<String, String> parameters = new HashMap<String, String>();
+
+		if (includes != null) {
+			parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+		}
+		parameters.put("loadAll", Boolean.toString(loadAll));
+
+		path += QueryUtil.generateUrl(null, parameters);
+
+		return this.getResource(path, Workspace.class);
 	}
 
 	/**
@@ -122,7 +144,7 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 	 * 
 	 * It mirrors to the following Smartsheet REST API method: POST /workspaces
 	 * 
-	 * Exceptions: 
+	 * Exceptions:
 	 *   
 	 *   - IllegalArgumentException : if any argument is null 
 	 *   
@@ -171,7 +193,7 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Workspace updateWorkspace(Workspace workspace) throws SmartsheetException {
-		return this.updateResource("workspace/" + workspace.getId(), Workspace.class, workspace);
+		return this.updateResource("workspaces/" + workspace.getId(), Workspace.class, workspace);
 	}
 
 	/**
@@ -191,7 +213,7 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public void deleteWorkspace(long id) throws SmartsheetException {
-		this.deleteResource("workspace/" + id, Workspace.class);
+		this.deleteResource("workspaces/" + id, Workspace.class);
 	}
 
 	/**

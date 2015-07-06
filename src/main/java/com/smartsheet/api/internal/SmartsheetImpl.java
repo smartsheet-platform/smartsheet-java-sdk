@@ -27,13 +27,11 @@ import java.net.URI;
 import java.util.concurrent.atomic.AtomicReference;
 
 import com.smartsheet.api.AttachmentResources;
-import com.smartsheet.api.ColumnResources;
 import com.smartsheet.api.CommentResources;
 import com.smartsheet.api.DiscussionResources;
 import com.smartsheet.api.FolderResources;
 import com.smartsheet.api.GroupResources;
 import com.smartsheet.api.HomeResources;
-import com.smartsheet.api.RowResources;
 import com.smartsheet.api.SearchResources;
 import com.smartsheet.api.SheetResources;
 import com.smartsheet.api.Smartsheet;
@@ -118,24 +116,6 @@ public class SmartsheetImpl implements Smartsheet {
 	 * effectively the underlying value is lazily created in a thread safe manner.
 	 */
 	private AtomicReference<SheetResources> sheets;
-
-	/**
-	 * Represents the AtomicReference to ColumnResources.
-	 * 
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-	 * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
-	 * effectively the underlying value is lazily created in a thread safe manner.
-	 */
-	private AtomicReference<ColumnResources> columns;
-
-	/**
-	 * Represents the AtomicReference to RowResources.
-	 * 
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-	 * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
-	 * effectively the underlying value is lazily created in a thread safe manner.
-	 */
-	private AtomicReference<RowResources> rows;
 
 	/**
 	 * Represents the AtomicReference to AttachmentResources.
@@ -231,8 +211,6 @@ public class SmartsheetImpl implements Smartsheet {
 		this.folders = new AtomicReference<FolderResources>();
 		this.templates = new AtomicReference<TemplateResources>();
 		this.sheets = new AtomicReference<SheetResources>();
-		this.columns = new AtomicReference<ColumnResources>();
-		this.rows = new AtomicReference<RowResources>();
 		this.attachments = new AtomicReference<AttachmentResources>();
 		this.discussions = new AtomicReference<DiscussionResources>();
 		this.comments = new AtomicReference<CommentResources>();
@@ -347,26 +325,6 @@ public class SmartsheetImpl implements Smartsheet {
 	public SheetResources sheets() {
 		sheets.compareAndSet(null, new SheetResourcesImpl(this));
 		return sheets.get();
-	}
-
-	/**
-	 * Returns the ColumnResources instance that provides access to Column resources.
-	 * 
-	 * @return the column resources
-	 */
-	public ColumnResources columns() {
-		columns.compareAndSet(null, new ColumnResourcesImpl(this));
-		return columns.get();
-	}
-
-	/**
-	 * Returns the RowResources instance that provides access to Row resources.
-	 * 
-	 * @return the row resources
-	 */
-	public RowResources rows() {
-		rows.compareAndSet(null, new RowResourcesImpl(this));
-		return rows.get();
 	}
 
 	/**

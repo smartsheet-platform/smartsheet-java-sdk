@@ -41,9 +41,7 @@ public interface SheetResources {
 	 * 
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /sheets</p>
 	 *
-	 * @param includeAll include all items
-	 * @param pageSize the page size
-	 * @param page the page
+	 * @param parameters the object containing the pagination parameters
 	 * @return A list of all sheets (note that an empty list will be returned if there are none).
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
@@ -52,16 +50,14 @@ public interface SheetResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<Sheet> listSheets(boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException;
+	public DataWrapper<Sheet> listSheets(PaginationParameters parameters) throws SmartsheetException;
 
 	/**
 	 * <p>List all sheets in the organization.</p>
 	 * 
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /users/sheets</p>
 	 *
-	 * @param includeAll include all items
-	 * @param pageSize the page size
-	 * @param page the page
+	 * @param parameters the object containing the pagination parameters
 	 * @return the list of all sheets (note that an empty list will be returned if there are none)
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
@@ -70,7 +66,7 @@ public interface SheetResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<Sheet> listOrganizationSheets(boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException;
+	public DataWrapper<Sheet> listOrganizationSheets(PaginationParameters parameters) throws SmartsheetException;
 
 	/**
 	 * <p>Get a sheet.</p>

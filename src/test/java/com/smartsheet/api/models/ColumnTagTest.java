@@ -38,16 +38,14 @@ public class ColumnTagTest {
 		assertNotNull(ColumnTag.valueOf("CALENDAR_END_DATE"));
 		assertNotNull(ColumnTag.valueOf("GANTT_START_DATE"));
 		assertNotNull(ColumnTag.valueOf("GANTT_END_DATE"));
-		assertNotNull(ColumnTag.valueOf("GANT_PERCENT_COMPLETE"));
 		assertNotNull(ColumnTag.valueOf("GANTT_PERCENT_COMPLETE"));
-		assertNotNull(ColumnTag.valueOf("GANT_DISPLAY_LEVEL"));
 		assertNotNull(ColumnTag.valueOf("GANTT_DISPLAY_LABEL"));
 		assertNotNull(ColumnTag.valueOf("GANTT_PREDECESSOR"));
 		assertNotNull(ColumnTag.valueOf("GANTT_DURATION"));
 		assertNotNull(ColumnTag.valueOf("GANTT_ASSIGNED_RESOURCE"));
 		assertNotNull(ColumnTag.valueOf("GANTT_DURATION"));
 
-		assertEquals(12,ColumnTag.values().length);
+		assertEquals(9,ColumnTag.values().length);
 	}
 
 }
