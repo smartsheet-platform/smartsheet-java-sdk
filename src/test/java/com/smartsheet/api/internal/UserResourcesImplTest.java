@@ -72,9 +72,9 @@ public class UserResourcesImplTest extends ResourcesImplBase {
 
 		List<User> users = userWrapper.getData();
 		assertEquals(2, users.size());
-		assertEquals(94094820842L, users.get(0).getId().longValue());
-		assertEquals(true, users.get(0).getAdmin());
-		assertEquals("john.doe@smartsheet.com", users.get(0).getEmail());
+		assertEquals(242165701390534L, users.get(0).getId().longValue());
+		assertEquals(false, users.get(0).getAdmin());
+		assertEquals("test@smartsheet.com", users.get(0).getEmail());
 		assertEquals("John Doe", users.get(0). getName());
 		assertEquals(true, users.get(0).getLicensedSheetCreator());
 		assertEquals(UserStatus.ACTIVE, users.get(0).getStatus());
@@ -127,6 +127,8 @@ public class UserResourcesImplTest extends ResourcesImplBase {
 		assertEquals(48569348493401200L, user.getId().longValue());
 		assertEquals("John", user.getFirstName());
 		assertEquals("Doe", user.getLastName());
+		assertEquals("en_US", user.getLocale());
+		assertEquals("US/Pacific", user.getTimeZone());
 	}
 
 	@Test
@@ -134,10 +136,16 @@ public class UserResourcesImplTest extends ResourcesImplBase {
 		server.setResponseBody(new File("src/test/resources/getCurrentUser.json"));
 
 		UserProfile user = userResources.getCurrentUser();
-		assertEquals("email@email.com",user.getEmail());
-		assertEquals(6199527427336068L, user.getId().longValue());
-		assertEquals("Brett", user.getFirstName());
-		assertEquals("Batie", user.getLastName());
+		assertEquals("test@smartsheet.com",user.getEmail());
+		assertEquals(2222222222L, user.getId().longValue());
+		assertEquals("John", user.getFirstName());
+		assertEquals("Doe", user.getLastName());
+		assertEquals("en_US", user.getLocale());
+		assertEquals("US/Pacific", user.getTimeZone());
+
+		Account account = user.getAccount();
+		assertEquals("Smartsheet", account.getName());
+		assertEquals(111111111111L, account.getId().longValue());
 	}
 
 	@Test
