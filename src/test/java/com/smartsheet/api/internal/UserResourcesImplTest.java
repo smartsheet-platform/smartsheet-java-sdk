@@ -22,11 +22,13 @@ package com.smartsheet.api.internal;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import com.smartsheet.api.models.DataWrapper;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -53,8 +55,13 @@ public class UserResourcesImplTest extends ResourcesImplBase {
 	public void testListUsers() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/listUsers.json"));
 		
-		List<User> users = userResources.listUsers();
-		assertNotNull(users);
+		DataWrapper<User> userWrapper = userResources.listUsers();
+		assertTrue(userWrapper.getPageNumber() == 1);
+		assertTrue(userWrapper.getPageSize() == 100);
+		assertTrue(userWrapper.getTotalCount() == 418);
+		assertTrue(userWrapper.getTotalPages() == 5);
+
+		List<User> users = userWrapper.getData();
 		assertEquals(2, users.size());
 		assertEquals(94094820842L, users.get(0).getId().longValue());
 		assertEquals(true, users.get(0).getAdmin());

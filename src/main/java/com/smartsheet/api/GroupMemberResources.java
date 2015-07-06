@@ -22,24 +22,27 @@ package com.smartsheet.api;
 
 
 
-import com.smartsheet.api.models.Column;
+import java.util.List;
+
+import com.smartsheet.api.models.GroupMember;
+import com.smartsheet.api.models.User;
 
 /**
- * <p>This interface provides methods to access Column resources.</p>
+ * <p>This interface provides methods to access Share resources.</p>
  * 
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
-public interface ColumnResources {
+public interface GroupMemberResources {
 	
 	/**
-	 * <p>Update a column.</p>
+	 * <p>Add members to a group.</p>
 	 * 
 	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * PUT /column/{id}</p>
-	 * 
-	 * @param column the column to update
-	 * @return the updated Column (note that if there is no such resource, this method will throw 
-	 * ResourceNotFoundException rather than returning null).
+	 * POST /group/{id}/members<br/>
+	 *
+	 * @param groupId the ID of the object to add members to.
+	 * @param members the list of members to add. Users that are already members will be ignored.
+	 * @return the list of newly added members. Users that were added to the group. Pre-existing members are not included in the result. 
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
 	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
@@ -47,16 +50,16 @@ public interface ColumnResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Column updateColumn(Column column) throws SmartsheetException;
+	public List<GroupMember> addGroupMembers(long groupId, List<GroupMember> members) throws SmartsheetException;
 
 	/**
-	 * <p>Delete a column.</p>
+	 * <p>Remove a member from a group.</p>
 	 * 
 	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * DELETE /coluimn{id}</p>
-	 * 
-	 * @param the id of the column
-	 * @param sheetId the sheet id
+	 * DELETE /group/{id}/member/{userId}<br />
+	 *
+	 * @param groupId the ID of the object to remove the member from
+	 * @param userId the ID of the user to remove.
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
 	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
@@ -64,5 +67,5 @@ public interface ColumnResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public void deleteColumn(long id, long sheetId) throws SmartsheetException;
+	public void deleteGroupMember(long groupId, long userId) throws SmartsheetException;
 }

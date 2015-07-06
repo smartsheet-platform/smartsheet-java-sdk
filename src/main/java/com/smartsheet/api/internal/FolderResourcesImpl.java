@@ -20,11 +20,14 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
+import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.List;
 
 import com.smartsheet.api.FolderResources;
 import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.models.Folder;
+import com.smartsheet.api.models.*;
+import com.smartsheet.api.internal.util.QueryUtil;
 
 /**
  * This is the implementation of the FolderResources.
@@ -64,8 +67,16 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 * rather than returning null)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Folder getFolder(long folderId) throws SmartsheetException {
-		return this.getResource("folder/" + folderId, Folder.class);
+	public Folder getFolder(long folderId, EnumSet<SourceInclusion> includes) throws SmartsheetException {
+		String path = "folders/" + folderId;
+		HashMap<String, String> parameters = new HashMap<String, String>();
+
+		if (includes != null) {
+			parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+		}
+
+		path += QueryUtil.generateUrl(null, parameters);
+		return this.getResource(path, Folder.class);
 	}
 
 	/**
@@ -89,7 +100,7 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 */
 	public Folder updateFolder(Folder folder) throws SmartsheetException {
 
-		return this.updateResource("folder/" + folder.getId(), Folder.class, folder);
+		return this.updateResource("folders/" + folder.getId(), Folder.class, folder);
 	}
 
 	/**
@@ -110,7 +121,7 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 */
 	public void deleteFolder(long folderId) throws SmartsheetException {
 		
-		this.deleteResource("folder/" + folderId, Folder.class);
+		this.deleteResource("folders/" + folderId, Folder.class);
 	}
 
 	/**
@@ -132,9 +143,14 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 * @return the child folders (note that empty list will be returned if no child folder found)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public List<Folder> listFolders(long parentFolderId) throws SmartsheetException {
+	public DataWrapper<Folder> listFolders(long parentFolderId, PaginationParameters parameters) throws SmartsheetException {
+		String path = "folders/" + parentFolderId + "/folders";
 
-		return this.listResources("folder/" + parentFolderId + "/folders", Folder.class);
+		if (parameters != null) {
+			path += parameters.toQueryString();
+		}
+
+		return this.listResourcesWithWrapper(path, Folder.class);
 	}
 
 	/**
@@ -157,6 +173,6 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 */
 	public Folder createFolder(long parentFolderId, Folder folder) throws SmartsheetException {
 
-		return this.createResource("folder/" + parentFolderId + "/folders", Folder.class, folder);
+		return this.createResource("folders/" + parentFolderId + "/folders", Folder.class, folder);
 	}
 }

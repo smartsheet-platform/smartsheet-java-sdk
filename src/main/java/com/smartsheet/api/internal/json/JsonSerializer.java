@@ -29,6 +29,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.Result;
 
 /**
@@ -55,6 +56,17 @@ public interface JsonSerializer {
 	 * @throws JSONSerializerException the JSON serializer exception
 	 */
 	public <T> void serialize(T object, java.io.OutputStream outputStream) throws JSONSerializerException;
+
+
+	/**
+	 * De-serialize json to DataWrapper.
+	 * @param objectClass the object class
+	 * @param inputStream the input stream
+	 * @param <T> the generic type
+	 * @return the DataWrapper containing a list of type T
+	 * @throws JSONSerializerException
+	 */
+	public <T> DataWrapper<T> deserializeDataWrapper(Class<T> objectClass, java.io.InputStream inputStream) throws JSONSerializerException;
 
 	/**
 	 * De-serialize an object from JSON.
