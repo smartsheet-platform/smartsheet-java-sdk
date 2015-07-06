@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.smartsheet.api.models.GroupMember;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -151,13 +152,13 @@ public class GroupResourcesImplTest extends ResourcesImplBase {
 	@Test
 	public void testAddMembersToGroup() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/addGroupMembers.json"));
-		List<User> newMembers = new ArrayList<User>();
-		newMembers.add(new User.NewGroupMemberBuilder().setEmail("test3@test.com").build());
-		newMembers.add(new User.NewGroupMemberBuilder().setEmail("test4@test.com").build());
-		List<User> addedMembers = groupResources.members().addMembers(1234l, newMembers);
+		List<GroupMember> newMembers = new ArrayList<GroupMember>();
+		newMembers.add(new GroupMember.NewGroupMemberBuilder().setEmail("test3@test.com").build());
+		newMembers.add(new GroupMember.NewGroupMemberBuilder().setEmail("test4@test.com").build());
+		List<GroupMember> addedMembers = groupResources.members().addGroupMembers(1234l, newMembers);
 		assertTrue(addedMembers.size() > 0);
 		
-		for(User member : addedMembers) {
+		for(GroupMember member : addedMembers) {
 			assertNotNull(member.getEmail());
 			assertNotNull(member.getId());
 		}
@@ -165,6 +166,6 @@ public class GroupResourcesImplTest extends ResourcesImplBase {
 	@Test
 	public void testRemoveMemberFromGroup() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/deleteMemberFromGroup.json"));
-		groupResources.members().deleteMember(1234l, 1234l);
+		groupResources.members().deleteGroupMember(1234l, 1234l);
 	}
 }

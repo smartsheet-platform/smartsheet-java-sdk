@@ -22,10 +22,9 @@ package com.smartsheet.api;
 
 
 
-import java.util.List;
-
 import com.smartsheet.api.models.User;
 import com.smartsheet.api.models.UserProfile;
+import com.smartsheet.api.models.DataWrapper;
 
 /**
  * <p>This interface provides methods to access User resources.</p>
@@ -47,7 +46,7 @@ public interface UserResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public List<User> listUsers() throws SmartsheetException;
+	public DataWrapper<User> listUsers() throws SmartsheetException;
 
 	/**
 	 * <p>Add a user to the organization, without sending email.</p>

@@ -75,7 +75,7 @@ public class SmartsheetBuilder {
 	 * 
 	 * <p>It is a constant with value "https://api.smartsheet.com/1.1".</p>
 	 */
-	public static final String DEFAULT_BASE_URI = "https://api.smartsheet.com/1.1/";
+	public static final String DEFAULT_BASE_URI = "https://api.smartsheet.com/2.0/";
 
 	/**
 	 * Constructor.
