@@ -20,26 +20,19 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-
-
 /**
  * A profile object that contains the basic fields that most profiles will contain.
  */
-public class UserProfile extends NamedModel<Long> {
+public class UserProfile extends AbstractUser {
 	/**
-	 * Represents the email address.
+	 * Represents the user's time zone
 	 */
-	private String email;
+	private String timeZone;
 
 	/**
-	 * Represents the first name.
+	 * Represents the user's locale
 	 */
-	private String firstName;
-
-	/**
-	 * Represents the last name.
-	 */
-	private String lastName;
+	private String locale;
 
 	/**
 	 * Represents the user's customer account
@@ -47,57 +40,35 @@ public class UserProfile extends NamedModel<Long> {
 	private Account account;
 
 	/**
-	 * Gets the email address.
-	 *
-	 * @return the email address
+	 * Gets the time zone
+	 * @return the time zone
 	 */
-	public String getEmail() {
-		return email;
+	public String getTimeZone() {
+		return timeZone;
 	}
 
 	/**
-	 * Sets the email address.
-	 *
-	 * @param email the new email address
+	 * Sets the time zone
+	 * @param timeZone the time zone
 	 */
-	public void setEmail(String email) {
-		this.email = email;
+	public void setTimeZone(String timeZone) {
+		this.timeZone = timeZone;
 	}
 
 	/**
-	 * Gets the first name.
-	 *
-	 * @return the first name
+	 * Gets the locale
+	 * @return the locale
 	 */
-	public String getFirstName() {
-		return firstName;
+	public String getLocale() {
+		return locale;
 	}
 
 	/**
-	 * Sets the first name.
-	 *
-	 * @param firstName the new first name
+	 * Sets the locale
+	 * @param locale the locale
 	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	/**
-	 * Gets the last name.
-	 *
-	 * @return the last name
-	 */
-	public String getLastName() {
-		return lastName;
-	}
-
-	/**
-	 * Sets the last name.
-	 *
-	 * @param lastName the new last name
-	 */
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLocale(String locale) {
+		this.locale = locale;
 	}
 
 	/**
