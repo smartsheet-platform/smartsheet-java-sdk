@@ -26,7 +26,7 @@ package com.smartsheet.api.models;
  * Managing Users</a>
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/520100-user-types">User Types Help</a>
  */
-public class User extends UserProfile {
+public class User extends AbstractUser {
 	/**
 	 * Represents the name
 	 */
@@ -429,7 +429,7 @@ public class User extends UserProfile {
 			user.admin = admin;
 			user.licensedSheetCreator = licensedSheetCreator;
 			user.groupAdmin = groupAdmin;
-			//user.resourceViewer = resourceViewer; // TODO: Determine if this value should be resourceViewer or resourceManager. Comment out until then.
+			user.resourceViewer = resourceViewer;
 			return user;
 		}
 
