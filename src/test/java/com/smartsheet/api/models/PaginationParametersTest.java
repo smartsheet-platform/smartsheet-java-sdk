@@ -53,7 +53,7 @@ public class PaginationParametersTest {
 
 	@Test public void testToHashMap() {
 		PaginationParameters parameters1 = new PaginationParameters(true, null, null);
-		HashMap<String, String> map = parameters1.toHashMap();
+		HashMap<String, Object> map = parameters1.toHashMap();
 		assertTrue(map.containsKey("includeAll"));
 		assertEquals("true", map.get("includeAll"));
 		assertFalse(map.containsKey("pageSize"));
@@ -71,9 +71,9 @@ public class PaginationParametersTest {
 		assertTrue(map.containsKey("includeAll"));
 		assertEquals("false", map.get("includeAll"));
 		assertTrue(map.containsKey("pageSize"));
-		assertEquals("1", map.get("pageSize"));
+		assertEquals("1", map.get("pageSize").toString());
 		assertTrue(map.containsKey("page"));
-		assertEquals("1", map.get("page"));
+		assertEquals("1", map.get("page").toString());
 	}
 
 	@Test

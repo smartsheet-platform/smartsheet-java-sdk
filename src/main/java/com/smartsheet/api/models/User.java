@@ -42,11 +42,10 @@ public class User extends UserProfile {
 	 */
 	private Boolean licensedSheetCreator;
 
-	// TODO: Determine if this value should be resourceViewer or resourceManager. Comment out until then.
-//	/**
-//	 * Represents the resource manager flag which allows the user access to the Resource Manager functionality.
-//	 */
-//	private Boolean resourceViewer;
+	/**
+	 * Represents the resource manager flag which allows the user access to the Resource Manager functionality.
+	 */
+	private Boolean resourceViewer;
 	
 	/**
 	 * Represents the group admin flag which allows users to create and modify groups.
@@ -128,21 +127,20 @@ public class User extends UserProfile {
 		this.status = status;
 	}
 
-	// TODO: Determine if this value should be resourceViewer or resourceManager. Comment out until then.
-//	/**
-//	 * @return the flag indicating if someone is a resource manager
-//	 */
-//	public Boolean getResourceViewer() {
-//		return resourceViewer;
-//	}
-//
-//	/**
-//	 * Sets the resource manager flag.
-//	 * @param resourceViewer
-//	 */
-//	public void setResourceViewer(Boolean resourceViewer) {
-//		this.resourceViewer = resourceViewer;
-//	}
+	/**
+	 * @return the flag indicating if someone is a resource manager
+	 */
+	public Boolean getResourceViewer() {
+		return resourceViewer;
+	}
+
+	/**
+	 * Sets the resource manager flag.
+	 * @param resourceViewer
+	 */
+	public void setResourceViewer(Boolean resourceViewer) {
+		this.resourceViewer = resourceViewer;
+	}
 
 	/**
 	 * 
@@ -166,7 +164,7 @@ public class User extends UserProfile {
 		private String emailAddress;
 		private Boolean licensedSheetCreator;
 		private Boolean groupAdmin;
-		//private Boolean resourceViewer; // TODO: Determine if this value should be resourceViewer or resourceManager. Comment out until then.
+		private Boolean resourceViewer;
 		private String firstName;
 		private String lastName;
 
@@ -266,21 +264,20 @@ public class User extends UserProfile {
 			return this;
 		}
 
-		// TODO: Determine if this value should be resourceViewer or resourceManager. Comment out until then.
-//		/**
-//		 * @return the resourceViewer
-//		 */
-//		public Boolean getResourceViewer() {
-//			return resourceViewer;
-//		}
-//
-//		/**
-//		 * @param resourceViewer the resourceViewer to set
-//		 */
-//		public AddUserBuilder setResourceViewer(Boolean resourceViewer) {
-//			this.resourceViewer = resourceViewer;
-//			return this;
-//		}
+		/**
+		 * @return the resourceViewer
+		 */
+		public Boolean getResourceViewer() {
+			return resourceViewer;
+		}
+
+		/**
+		 * @param resourceViewer the resourceViewer to set
+		 */
+		public AddUserBuilder setResourceViewer(Boolean resourceViewer) {
+			this.resourceViewer = resourceViewer;
+			return this;
+		}
 		/**
 		 * Builds the {@link User} object using the required fields.
 		 *
@@ -295,7 +292,7 @@ public class User extends UserProfile {
 			user.admin = admin;
 			user.licensedSheetCreator = licensedSheetCreator;
 			user.groupAdmin = groupAdmin;
-			//user.resourceViewer = resourceViewer; // TODO: Determine if this value should be resourceViewer or resourceManager. Comment out until then.
+			user.resourceViewer = resourceViewer;
 			user.setFirstName(firstName);
 			user.setLastName(lastName);
 			user.setEmail(emailAddress);
@@ -312,7 +309,7 @@ public class User extends UserProfile {
 		private Boolean admin;
 		private Boolean licensedSheetCreator;
 		private Boolean groupAdmin;
-		//private Boolean resourceViewer; // TODO: Determine if this value should be resourceViewer or resourceManager. Comment out until then.
+		private Boolean resourceViewer;
 		private String firstName;
 		private String lastName;
 
@@ -401,21 +398,20 @@ public class User extends UserProfile {
 			return this;
 		}
 
-		// TODO: Determine if this value should be resourceViewer or resourceManager. Comment out until then.
-//		/**
-//		 * @return the resourceViewer
-//		 */
-//		public Boolean getResourceViewer() {
-//			return resourceViewer;
-//		}
-//
-//		/**
-//		 * @param resourceViewer the resourceViewer to set
-//		 */
-//		public UpdateUserBuilder setResourceViewer(Boolean resourceViewer) {
-//			this.resourceViewer = resourceViewer;
-//			return this;
-//		}
+		/**
+		 * @return the resourceViewer
+		 */
+		public Boolean getResourceViewer() {
+			return resourceViewer;
+		}
+
+		/**
+		 * @param resourceViewer the resourceViewer to set
+		 */
+		public UpdateUserBuilder setResourceViewer(Boolean resourceViewer) {
+			this.resourceViewer = resourceViewer;
+			return this;
+		}
 		
 		/**
 		 * Builds the {@link User}.

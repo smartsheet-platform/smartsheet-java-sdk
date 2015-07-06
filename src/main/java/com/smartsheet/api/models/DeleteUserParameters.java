@@ -106,18 +106,11 @@ public class DeleteUserParameters {
     }
 
     public String toQueryString() {
-        HashMap<String, String> parameters = new HashMap<String, String>();
+        HashMap<String, Object> parameters = new HashMap<String, Object>();
 
-        if (transferToId != null) {
-            parameters.put("transferTo", transferToId.toString());
-            if (transferSheets != null) {
-                parameters.put("transferSheets", transferSheets.toString());
-            }
-        }
-
-        if (removeFromSharing != null) {
-            parameters.put("removeFromSharing", removeFromSharing.toString());
-        }
+        parameters.put("transferTo", transferToId);
+        parameters.put("transferSheets", transferSheets);
+        parameters.put("removeFromSharing", removeFromSharing);
 
         return QueryUtil.generateUrl(null, parameters);
     }

@@ -84,14 +84,12 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 
 	public DataWrapper<User> listUsers(Set<String> email, PaginationParameters pagination) throws SmartsheetException {
 		String path = "users";
-		HashMap<String, String> parameters = new HashMap<String, String>();
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
 
 		if (pagination != null){
 			parameters = pagination.toHashMap();
 		}
-		if (email != null) {
-			parameters.put("email", QueryUtil.generateCommaSeparatedList(email));
-		}
+		parameters.put("email", QueryUtil.generateCommaSeparatedList(email));
 
 		path += QueryUtil.generateUrl(null, parameters);
 		return this.listResourcesWithWrapper(path, User.class);

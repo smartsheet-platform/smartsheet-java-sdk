@@ -55,6 +55,7 @@ public class UserResourcesImplTest extends ResourcesImplBase {
 	public void testListUsers() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/listUsers.json"));
 		Set<String> email = new HashSet<String>();
+		email.add("test@example.com");
 		PaginationParameters pagination = new PaginationParameters();
 		pagination.setIncludeAll(true);
 		pagination.setPageSize(1);
