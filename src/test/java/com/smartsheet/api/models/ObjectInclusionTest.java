@@ -42,6 +42,7 @@ public class ObjectInclusionTest {
 		assertNotNull(ObjectInclusion.valueOf("FORMS"));
 		assertNotNull(ObjectInclusion.valueOf("CELL_LINKS"));
 		assertNotNull(ObjectInclusion.valueOf("FORMAT"));
+		assertNotNull(ObjectInclusion.valueOf("SOURCE"));
 		
 		assertEquals(9,ObjectInclusion.values().length);
 	}

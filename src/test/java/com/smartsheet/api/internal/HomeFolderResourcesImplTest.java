@@ -27,6 +27,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PaginationParameters;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -51,13 +53,14 @@ public class HomeFolderResourcesImplTest extends ResourcesImplBase {
 	@Test
 	public void testListFolders() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/listFolders.json"));
+
+		PaginationParameters parameters = new PaginationParameters(true, null, null);
+		DataWrapper<Folder> foldersWrapper = homeFolderResources.listFolders(parameters);
 		
-		List<Folder> folders = homeFolderResources.listFolders();
-		
-		assertTrue(folders.size() == 2);
-		assertEquals("Personal", folders.get(0).getName());
-		assertEquals("Expenses", folders.get(1).getName());
-		assertTrue(1138268709382020L == folders.get(0).getId());
+		assertTrue(foldersWrapper.getPageSize() == 100);
+		assertEquals("Folder 1", foldersWrapper.getData().get(0).getName());
+		assertEquals("Folder 2", foldersWrapper.getData().get(1).getName());
+		assertTrue(7116448184199044L == foldersWrapper.getData().get(0).getId());
 	}
 
 	@Test

@@ -106,18 +106,16 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation 
 	 *   - SmartsheetException : if there is any other error occurred during the operation
 	 *
-	 * @param includeAll include all items
-	 * @param pageSize the page size
-	 * @param page the page
+	 * @param parameters the object containing the pagination parameters
 	 * @return all sheets (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Sheet> listSheets(boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
-		PaginationParameters parameters = new PaginationParameters(includeAll, pageSize, page);
-
+	public DataWrapper<Sheet> listSheets(PaginationParameters parameters) throws SmartsheetException {
 		String path = "sheets";
-		path += parameters.toQueryString();
 
+		if (parameters != null) {
+			path += parameters.toQueryString();
+		}
 		return this.listResourcesWithWrapper(path, Sheet.class);
 	}
 
@@ -133,18 +131,16 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation 
 	 *   - SmartsheetException : if there is any other error occurred during the operation
 	 *
-	 * @param includeAll include all items
-	 * @param pageSize the page size
-	 * @param page the page
+	 * @param parameters the object containing the pagination parameters
 	 * @return all sheets (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Sheet> listOrganizationSheets(boolean includeAll, Integer pageSize, Integer page) throws SmartsheetException {
-		PaginationParameters parameters = new PaginationParameters(includeAll, pageSize, page);
-
+	public DataWrapper<Sheet> listOrganizationSheets(PaginationParameters parameters) throws SmartsheetException {
 		String path = "users/sheets";
-		path += parameters.toQueryString();
 
+		if (parameters != null) {
+			path += parameters.toQueryString();
+		}
 		return this.listResourcesWithWrapper(path, Sheet.class);
 	}
 

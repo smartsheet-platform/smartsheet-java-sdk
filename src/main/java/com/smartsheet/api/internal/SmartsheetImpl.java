@@ -26,7 +26,18 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.concurrent.atomic.AtomicReference;
 
-import com.smartsheet.api.*;
+import com.smartsheet.api.AttachmentResources;
+import com.smartsheet.api.CommentResources;
+import com.smartsheet.api.DiscussionResources;
+import com.smartsheet.api.FolderResources;
+import com.smartsheet.api.GroupResources;
+import com.smartsheet.api.HomeResources;
+import com.smartsheet.api.SearchResources;
+import com.smartsheet.api.SheetResources;
+import com.smartsheet.api.Smartsheet;
+import com.smartsheet.api.TemplateResources;
+import com.smartsheet.api.UserResources;
+import com.smartsheet.api.WorkspaceResources;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.http.HttpClient;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
@@ -107,24 +118,6 @@ public class SmartsheetImpl implements Smartsheet {
 	private AtomicReference<SheetResources> sheets;
 
 	/**
-	 * Represents the AtomicReference to ColumnResources.
-	 * 
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-	 * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
-	 * effectively the underlying value is lazily created in a thread safe manner.
-	 */
-	private AtomicReference<ColumnResources> columns;
-
-	/**
-	 * Represents the AtomicReference to RowResources.
-	 * 
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-	 * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
-	 * effectively the underlying value is lazily created in a thread safe manner.
-	 */
-	private AtomicReference<RowResources> rows;
-
-	/**
 	 * Represents the AtomicReference to AttachmentResources.
 	 * 
 	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
@@ -197,16 +190,6 @@ public class SmartsheetImpl implements Smartsheet {
 	private final AtomicReference<String> accessToken;
 
 	/**
-	 * Represents the AtomicReference for report.
-	 *
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-	 * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
-	 * SmartsheetImpl in thread safe manner.
-	 */
-	private final AtomicReference<ReportResources> reports;
-
-
-	/**
 	 * Create an instance with given server URI, HttpClient (optional) and JsonSerializer (optional)
 	 * 
 	 * Exceptions: - IllegalArgumentException : if serverURI/version/accessToken is null/empty
@@ -228,8 +211,6 @@ public class SmartsheetImpl implements Smartsheet {
 		this.folders = new AtomicReference<FolderResources>();
 		this.templates = new AtomicReference<TemplateResources>();
 		this.sheets = new AtomicReference<SheetResources>();
-		this.columns = new AtomicReference<ColumnResources>();
-		this.rows = new AtomicReference<RowResources>();
 		this.attachments = new AtomicReference<AttachmentResources>();
 		this.discussions = new AtomicReference<DiscussionResources>();
 		this.comments = new AtomicReference<CommentResources>();
@@ -238,7 +219,6 @@ public class SmartsheetImpl implements Smartsheet {
 		this.search = new AtomicReference<SearchResources>();
 		this.assumedUser = new AtomicReference<String>();
 		this.accessToken = new AtomicReference<String>(accessToken);
-		this.reports = new AtomicReference<ReportResources>();
 	}
 
 	/**
@@ -348,26 +328,6 @@ public class SmartsheetImpl implements Smartsheet {
 	}
 
 	/**
-	 * Returns the ColumnResources instance that provides access to Column resources.
-	 * 
-	 * @return the column resources
-	 */
-	public ColumnResources columns() {
-		columns.compareAndSet(null, new ColumnResourcesImpl(this));
-		return columns.get();
-	}
-
-	/**
-	 * Returns the RowResources instance that provides access to Row resources.
-	 * 
-	 * @return the row resources
-	 */
-	public RowResources rows() {
-		rows.compareAndSet(null, new RowResourcesImpl(this));
-		return rows.get();
-	}
-
-	/**
 	 * Returns the AttachmentResources instance that provides access to Attachment resources.
 	 * 
 	 * @return the attachment resources
@@ -448,15 +408,5 @@ public class SmartsheetImpl implements Smartsheet {
 	 */
 	public void setAccessToken(String accessToken) {
 		this.accessToken.set(accessToken);
-	}
-
-	/**
-	 * Returns the ReportResources instance that provides access to Report resources.
-	 *
-	 * @return the Report resources
-	 */
-	public ReportResources reports() {
-		reports.compareAndSet(null, new ReportResourcesImpl(this));
-		return reports.get();
 	}
 }

@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,36 +20,27 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-
-
-/**
- * Represents column types.
- */
-public enum ColumnType {
-	/** Represents the TEXT_NUMBER column type. */
-	TEXT_NUMBER,
-
-	/** Represents the CONTACT_LIST column type. */
-	CONTACT_LIST,
-
-	/** Represents the DATE column type. */
-	DATE,
-
-	/** Represents the DATETIME column type. */
-	DATETIME,
-
-	/** Represents the PICKLIST column type. */
-	PICKLIST,
-
-	/** Represents the CHECKBOX column type. */
-	CHECKBOX,
-
-	/** Represents the DURATION column type. */
-	DURATION,
-
-	/** Represents the PREDECESSOR column type. */
-	PREDECESSOR,
-	
-	/** Represents the ABSTRACT_DATETIME (auto number) column type */
-	ABSTRACT_DATETIME,
+public enum Operator {
+    /**
+     * Represents the various operators for a criteria
+     */
+    EQUAL,
+    NOT_EQUAL,
+    GREATER_THAN,
+    LESS_THAN,
+    CONTAINS,
+    BETWEEN,
+    TODAY,
+    PAST,
+    FUTURE,
+    LAST_N_DAYS,
+    NEXT_N_DAYS,
+    IS_BLANK,
+    IS_NOT_BLANK,
+    IS_NUMBER,
+    IS_NOT_NUMBER,
+    IS_DATE,
+    IS_NOT_DATE,
+    IS_CHECKED,
+    IS_NOT_CHECKED
 }

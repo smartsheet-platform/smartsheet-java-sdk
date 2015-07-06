@@ -32,7 +32,7 @@ public enum ObjectInclusion{
 	FORMS			("forms"),
 	CELL_LINKS		("cellLinks"),
 	FORMAT			("format"),
-	SOURCESHEETS	("sourceSheets")
+	SOURCE			("source"),
 	;
 
 	String inclusion;

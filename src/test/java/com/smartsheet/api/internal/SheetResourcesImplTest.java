@@ -57,8 +57,8 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 	public void testListSheets() throws SmartsheetException, IOException {
 
 		server.setResponseBody(new File("src/test/resources/listSheets.json"));
-
-		DataWrapper<Sheet> sheets = sheetResource.listSheets(false, 1, 1);
+		PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+		DataWrapper<Sheet> sheets = sheetResource.listSheets(parameters);
 
 		assertTrue(sheets.getPageNumber() == 1);
 		assertTrue(sheets.getPageSize() == 100);
@@ -73,7 +73,11 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 	public void testListOrganizationSheets() throws SmartsheetException, IOException {
 
 		server.setResponseBody(new File("src/test/resources/listSheets.json"));
-		DataWrapper<Sheet> sheets = sheetResource.listOrganizationSheets(true, null, null);
+		PaginationParameters parameters = new PaginationParameters();
+		parameters.setIncludeAll(true);
+		parameters.setPageSize(null);
+		parameters.setPage(null);
+		DataWrapper<Sheet> sheets = sheetResource.listOrganizationSheets(parameters);
 		assertEquals(2, sheets.getData().size());
 	}
 

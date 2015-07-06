@@ -72,6 +72,32 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
     /** Represents the {@link Format} for this cell.*/
     private Format format;
 
+    /** Represents the parent row ID. */
+    private Long parentId;
+
+    /** Represents the sibling row ID*/
+    private Long siblingId;
+
+    /** Represents the URL to the row of the sheet*/
+    private String permalink;
+
+    /** Indicates if the row is filtered out by a column filter*/
+    private Boolean filteredOut;
+
+    /** Indicates if the sheet is a project sheet with dependencies enabled and this row is in the critical path*/
+    private Boolean inCriticalPath;
+
+    /** Represents the conditional {@link Format} for this row.*/
+    private Format conditionalFormat;
+
+    /** Indicates if the row should be put at the top of the sheet*/
+    private Boolean toTop;
+
+    /** Indicates if the row should be put at the bottom of the sheet*/
+    private Boolean toBottom;
+
+    /** Indicates if the row should be put above the specified sibling row*/
+    private Boolean above;
 
     /**
      * Gets the user's permissions on the sheet.
@@ -373,5 +399,165 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
      */
     public void setFormat(Format format) {
         this.format = format;
+    }
+
+    /**
+     * Gets the row's parent ID.
+     *
+     * @return the ID of the parent
+     */
+    public Long getParentId() {
+        return parentId;
+    }
+
+    /**
+     * Sets the parent row id.
+     *
+     * @param parentId the parent row id
+     */
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
+    /**
+     * Gets the row's sibling ID.
+     *
+     * @return the ID of the sibling
+     */
+    public Long getSiblingId() {
+        return siblingId;
+    }
+
+    /**
+     * Sets the sibling row id.
+     *
+     * @param siblingId the sibling row id
+     */
+    public void setSiblingId(Long siblingId) {
+        this.siblingId = siblingId;
+    }
+
+    /**
+     * Gets the row's permalink URL.
+     *
+     * @return the permalink URL of the row
+     */
+    public String getPermalink() {
+        return permalink;
+    }
+
+    /**
+     * Sets the parmalink URL.
+     *
+     * @param permalink the URL to the row
+     */
+    public void setPermalink(String permalink) {
+        this.permalink = permalink;
+    }
+
+    /**
+     * Check if the row is filtered out
+     *
+     * @return true, if it is filtered out
+     */
+    public Boolean isFilteredOut() {
+        return filteredOut;
+    }
+
+    /**
+     * Sets the row to be filtered out.
+     *
+     * @param filteredOut if the row is filtered out
+     */
+    public void setFilteredOut(Boolean filteredOut) {
+        this.filteredOut = filteredOut;
+    }
+
+    /**
+     * Check if the row is in critical path
+     *
+     * @return true, if it is in critical path
+     */
+    public Boolean isInCriticalPath() {
+        return inCriticalPath;
+    }
+
+    /**
+     * Sets the row to be in critical path.
+     *
+     * @param inCriticalPath if the row is in critical path
+     */
+    public void setInCriticalPath(Boolean inCriticalPath) {
+        this.inCriticalPath = inCriticalPath;
+    }
+
+    /**
+     * @return the conditional {@link Format}
+     */
+    public Format getConditionalFormat() {
+        return conditionalFormat;
+    }
+
+    /**
+     * Sets the conditional format of the row.
+     *
+     * @param conditionalFormat the conditional format
+     */
+    public void setConditionalFormat(Format conditionalFormat) {
+        this.conditionalFormat = conditionalFormat;
+    }
+
+    /**
+     * Gets the to top.
+     *
+     * @return true, if row should be at the top
+     */
+    public Boolean getToTop() {
+        return toTop;
+    }
+
+    /**
+     * Sets the to top
+     *
+     * @param toTop if the row is to the top
+     */
+    public void setToTop(Boolean toTop) {
+        this.toTop = toTop;
+    }
+
+    /**
+     * Gets the to bottom.
+     *
+     * @return true, if row should be at the bottom
+     */
+    public Boolean getToBottom() {
+        return toBottom;
+    }
+
+    /**
+     * Sets the to bottom
+     *
+     * @param toBottom if the row is to the bottom
+     */
+    public void setToBottom(Boolean toBottom) {
+        this.toBottom = toBottom;
+    }
+
+    /**
+     * Gets the above.
+     *
+     * @return true, if row should be above the specified sibling ID
+     */
+    public Boolean getAbove() {
+        return above;
+    }
+
+    /**
+     * Sets the above
+     *
+     * @param above if the row is above a specified row
+     */
+    public void setAbove(Boolean above) {
+        this.above = above;
     }
 }
