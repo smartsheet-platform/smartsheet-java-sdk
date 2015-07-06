@@ -20,22 +20,22 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
 
+import com.smartsheet.api.SheetColumnResources;
+import com.smartsheet.api.models.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.AutoNumberFormat;
-import com.smartsheet.api.models.Column;
-import com.smartsheet.api.models.ColumnType;
+
+import static org.junit.Assert.*;
 
 public class SheetColumnResourcesImplTest extends ResourcesImplBase {
 
@@ -55,32 +55,56 @@ public class SheetColumnResourcesImplTest extends ResourcesImplBase {
 	public void testListColumns() throws SmartsheetException, IOException {
 
 		server.setResponseBody(new File("src/test/resources/listColumns.json"));
-		
-		List<Column> columns = sheetColumnResourcesImpl.listColumns(1234L);
-		assertTrue(columns.size() == 1);
-		assertEquals(columns.get(0).getTitle(),"something new");
+		PaginationParameters paginationParameters = new PaginationParameters(true, 1, 1);
+		DataWrapper<Column> wrapper = sheetColumnResourcesImpl.listColumns(1234L, EnumSet.allOf(ColumnInclusion.class), paginationParameters);
+		List<Column> columns = wrapper.getData();
+		assertEquals(3, columns.size());
+		assertEquals("CHECKBOX", columns.get(0).getType().toString());
+		assertEquals("STAR", columns.get(0).getSymbol().toString());
+		assertTrue(columns.get(0).isLocked());
+		assertFalse(columns.get(0).isLockedForUser());
+		assertEquals("Status", columns.get(2).getTitle());
 	}
 
 	@Test
 	public void testAddColumn() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/addColumn.json"));
-		Column col = new Column();
-		col.setIndex(1);
-		col.setTitle("Status");
-		col.setType(ColumnType.PICKLIST);
-		AutoNumberFormat format = new AutoNumberFormat();
-		format.setPrefix("pre");
-		format.setSuffix("suf");
-		format.setStartingNumber(0L);
-		format.setFill("000");
-		col.setAutoNumberFormat(format);
-		col.setOptions(Arrays.asList(new String[]{"Not Started", "Started", "Completed"}));
+		List<Column> columnsToCreate = new ArrayList<Column>();
 
-		Column newCol = sheetColumnResourcesImpl.addColumn(1234L, col);
-		assertEquals("Status", newCol.getTitle());
-		assertTrue(ColumnType.PICKLIST == col.getType());
-		
-		
+		List<Column> addedColumns = sheetColumnResourcesImpl.addColumns(12345L, columnsToCreate);
+		assertEquals(3, addedColumns.size());
+		assertEquals("PICKLIST", addedColumns.get(0).getType().toString());
+		assertEquals("DATE", addedColumns.get(1).getType().toString());
+		assertEquals("PICKLIST", addedColumns.get(2).getType().toString());
 	}
 
+	@Test
+	public void testUpdateColumn() throws SmartsheetException, IOException {
+		server.setResponseBody(new File("src/test/resources/updateColumn.json"));
+
+		Column col = new Column();
+		col.setId(5005385858869124L);
+		col.setIndex(0);
+		col.setTitle("First Column");
+		col.setType(ColumnType.PICKLIST);
+
+
+		Column updatedColumn = sheetColumnResourcesImpl.updateColumn(123456789L, col);
+
+		assertNotNull(updatedColumn);
+		assertEquals("First Column",updatedColumn.getTitle());
+
+		try{
+			sheetColumnResourcesImpl.updateColumn(123456789L, null);
+			fail("Exception should have been thrown");
+		}catch(IllegalArgumentException ex){
+			// expected
+		}
+	}
+
+	@Test
+	public void testDeleteColumn() throws SmartsheetException, IOException {
+		server.setResponseBody(new File("src/test/resources/deleteColumn.json"));
+		sheetColumnResourcesImpl.deleteColumn(123456789L, 987654321L);
+	}
 }

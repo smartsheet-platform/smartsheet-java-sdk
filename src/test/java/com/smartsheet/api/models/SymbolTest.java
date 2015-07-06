@@ -39,8 +39,28 @@ public class SymbolTest {
 		assertNotNull(Symbol.valueOf("HARVEY_BALLS"));
 		assertNotNull(Symbol.valueOf("RYG"));
 		assertNotNull(Symbol.valueOf("PRIORITY"));
-		
-		assertEquals(5,Symbol.values().length);
+		assertNotNull(Symbol.valueOf("PRIORITY_HML"));
+		assertNotNull(Symbol.valueOf("DECISION_SYMBOLS"));
+		assertNotNull(Symbol.valueOf("DECISION_SHAPES"));
+		assertNotNull(Symbol.valueOf("VCR"));
+		assertNotNull(Symbol.valueOf("RYGB"));
+		assertNotNull(Symbol.valueOf("RYGG"));
+		assertNotNull(Symbol.valueOf("WEATHER"));
+		assertNotNull(Symbol.valueOf("PROGRESS"));
+		assertNotNull(Symbol.valueOf("ARROWS_3_WAY"));
+		assertNotNull(Symbol.valueOf("ARROWS_4_WAY"));
+		assertNotNull(Symbol.valueOf("ARROWS_5_WAY"));
+		assertNotNull(Symbol.valueOf("DIRECTIONS_3_WAY"));
+		assertNotNull(Symbol.valueOf("DIRECTIONS_4_WAY"));
+		assertNotNull(Symbol.valueOf("SKI"));
+		assertNotNull(Symbol.valueOf("SIGNAL"));
+		assertNotNull(Symbol.valueOf("STAR_RATING"));
+		assertNotNull(Symbol.valueOf("HEARTS"));
+		assertNotNull(Symbol.valueOf("MONEY"));
+		assertNotNull(Symbol.valueOf("EFFORT"));
+		assertNotNull(Symbol.valueOf("PAIN"));
+
+		assertEquals(25,Symbol.values().length);
 	}
 
 }

@@ -43,14 +43,112 @@ public enum Symbol {
 	HARVEY_BALLS,
 
 	/**
+	 * Represents the PRIORITY symbol.
+	 */
+	PRIORITY,
+
+	/**
 	 * Represents the RYG symbol.
 	 */
 	RYG,
 
 	/**
-	 * Represents the PRIORITY symbol.
+	 * Represents the PRIORITY_HML symbol.
 	 */
-	PRIORITY;
-	
-	
+	PRIORITY_HML,
+
+	/**
+	 * Represents the DECISION_SYMBOLS symbol.
+	 */
+	DECISION_SYMBOLS,
+
+	/**
+	 * Represents the DECISION_SHAPES symbol.
+	 */
+	DECISION_SHAPES,
+
+	/**
+	 * Represents the VCR symbol.
+	 */
+	VCR,
+
+	/**
+	 * Represents the RYGB symbol.
+	 */
+	RYGB,
+
+	/**
+	 * Represents the RYGG symbol.
+	 */
+	RYGG,
+
+	/**
+	 * Represents the WEATHER symbol.
+	 */
+	WEATHER,
+
+	/**
+	 * Represents the PROGRESS symbol.
+	 */
+	PROGRESS,
+
+	/**
+	 * Represents the ARROWS_3_WAY symbol.
+	 */
+	ARROWS_3_WAY,
+
+	/**
+	 * Represents the ARROWS_4_WAY symbol.
+	 */
+	ARROWS_4_WAY,
+
+	/**
+	 * Represents the ARROWS_5_WAY symbol.
+	 */
+	ARROWS_5_WAY,
+
+	/**
+	 * Represents the DIRECTIONS_3_WAY symbol.
+	 */
+	DIRECTIONS_3_WAY,
+
+	/**
+	 * Represents the DIRECTIONS_4_WAY symbol.
+	 */
+	DIRECTIONS_4_WAY,
+
+	/**
+	 * Represents the SKI symbol.
+	 */
+	SKI,
+
+	/**
+	 * Represents the SIGNAL symbol.
+	 */
+	SIGNAL,
+
+	/**
+	 * Represents the STAR_RATING symbol.
+	 */
+	STAR_RATING,
+
+	/**
+	 * Represents the HEARTS symbol.
+	 */
+	HEARTS,
+
+	/**
+	 * Represents the MONEY symbol.
+	 */
+	MONEY,
+
+	/**
+	 * Represents the EFFORT symbol.
+	 */
+	EFFORT,
+
+	/**
+	 * Represents the PAIN symbol.
+	 */
+	PAIN,
 }
