@@ -400,15 +400,11 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @return the created sheet
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Sheet createSheetInWorkspaceFromExisting(long workspaceId, Sheet sheet, EnumSet<ObjectInclusion> includes)
+	public Sheet createSheetInWorkspaceFromExisting(long workspaceId, Sheet sheet, EnumSet<SheetTemplateInclusion> includes)
 			throws SmartsheetException {
-		String path = "workspaces/" + workspaceId + "/sheets";
-		if (includes != null) {
-			path += "?include=";
-			for (ObjectInclusion oi : includes) {
-				path += oi.name().toLowerCase() + ",";
-			}
-		}
+		HashMap<String, String> parameters = new HashMap<String, String>();
+		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+		String path = QueryUtil.generateUrl("workspaces/" + workspaceId + "/sheets", parameters);
 
 		return this.createResource(path, Sheet.class, sheet);
 	}

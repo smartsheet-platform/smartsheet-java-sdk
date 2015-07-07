@@ -217,7 +217,7 @@ public interface SheetResources {
 	/**
 	 * <p>Create a sheet (from existing sheet or template) in given workspace.</p>
 	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method: POST /workspace/{workspaceId}/sheets</p>
+	 * <p>It mirrors to the following Smartsheet REST API method: POST /workspaces/{workspaceId}/sheets</p>
 	 *
 	 * @param workspaceId the workspace id
 	 * @param sheet the sheet to create
@@ -230,7 +230,7 @@ public interface SheetResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Sheet createSheetInWorkspaceFromExisting(long workspaceId, Sheet sheet, EnumSet<ObjectInclusion> includes) throws SmartsheetException;
+	public Sheet createSheetInWorkspaceFromExisting(long workspaceId, Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException;
 
 	/**
 	 * <p>Delete a sheet.</p>
