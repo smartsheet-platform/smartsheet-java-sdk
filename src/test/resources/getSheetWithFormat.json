@@ -16,8 +16,6 @@
 		"index": 1,
 		"title": "Duration",
 		"type": "TEXT_NUMBER",
-		"locked": true,
-		"lockedForUser": false,
 		"tags": ["GANTT_DURATION"],
 		"width": 72
 	},
