@@ -79,31 +79,29 @@ public class Column extends IdentifiableModel<Long> {
 	private List<ColumnTag> tags;
 
 	/**
-	 * Represents the sheet ID.
-	 */
-	private Long sheetId;
-	
-	/** 
-	 * Indicates if the column is locked. Defaults to false 
+	 * Represents if the column is locked
 	 */
 	private Boolean locked;
-	
-	/** 
-	 * Indicates if the column is locked for the current user. Defaults to false. 
+
+	/**
+	 * Represents if the column is locked for the user
 	 */
 	private Boolean lockedForUser;
-	
-	
+
 	/**
 	 * The width of the cell.
 	 * */
 	private Integer width;
-	
 
 	/**
 	 * Represents the {@link Format} for this column.
 	 */
 	private Format format;
+
+	/**
+	 * Represents the filter applied to the column
+	 */
+	private Filter filter;
 
 	/**
 	 * Gets the position of the column.
@@ -286,50 +284,83 @@ public class Column extends IdentifiableModel<Long> {
 	}
 
 	/**
-	 * Gets the sheet id.
-	 *
-	 * @return the sheet id
-	 */
-	public Long getSheetId() {
-		return sheetId;
-	}
-
-	/**
-	 * Sets the sheet id.
-	 *
-	 * @param sheetId the new sheet id
-	 */
-	public void setSheetId(Long sheetId) {
-		this.sheetId = sheetId;
-	}
-
-	/**
-	 * Indicates whether a column is locked or not. 
-	 * 
-	 * @return the locked status.
+	 * Gets the locked flag
+	 * @return the locked flag
 	 */
 	public Boolean isLocked() {
 		return locked;
 	}
 
 	/**
-	 * @param locked
+	 * Sets the locked flag
+	 * @param locked the locked flag
 	 */
 	public void setLocked(Boolean locked) {
 		this.locked = locked;
 	}
 
 	/**
-	 * Indicates whether a column is locked for the user. Users cannot modify columns that are locked for them.
-	 * @return the locked status for the user
+	 * Gets the locked for user flag
+	 * @return the locked for user flag
 	 */
 	public Boolean isLockedForUser() {
 		return lockedForUser;
 	}
 
+	/**
+	 * Sets the locked for user flag
+	 * @param lockedForUser the locked for user flag
+	 */
 	public void setLockedForUser(Boolean lockedForUser) {
 		this.lockedForUser = lockedForUser;
 	}
+
+	/**
+	 * Gets the width
+	 * @return the width
+	 */
+	public Integer getWidth() {
+		return width;
+	}
+
+	/**
+	 * Sets the width
+	 * @param width the width
+	 */
+	public void setWidth(Integer width) {
+		this.width = width;
+	}
+
+	/**
+	 * @return the {@link Format}
+	 */
+	public Format getFormat() {
+		return format;
+	}
+
+	/**
+	 * @param format the {@link Format} to set
+	 */
+	public void setFormat(Format format) {
+		this.format = format;
+	}
+
+	/**
+	 * Gets the filter
+	 * @return the filter
+	 */
+	public Filter getFilter() {
+		return filter;
+	}
+
+	/**
+	 * Sets the filter
+	 * @param filter the filter
+	 */
+	public void setFilter(Filter filter) {
+		this.filter = filter;
+	}
+
 	/**
 	 * A convenience class to help create a column object with the appropriate fields for adding to a sheet.
 	 */
@@ -355,24 +386,24 @@ public class Column extends IdentifiableModel<Long> {
 		/** The auto number format. */
 		private AutoNumberFormat autoNumberFormat;
 		
-		private Boolean primary;
+		private Integer width;
 		
 		/**
-		 * Gets the primary flag for the column.
+		 * Gets the width for the column.
 		 *
-		 * @return the primary flag
+		 * @return the width
 		 */
-		public Boolean getPrimary() {
-			return primary;
+		public Integer getWidth() {
+			return width;
 		}
 
 		/**
-		 * Sets the primary flag for the column.
+		 * Sets the width for the column.
 		 * 
-		 * @param primary the new primary flag
+		 * @param width the width
 		 */
-		public AddColumnToSheetBuilder setPrimary(Boolean primary) {
-			this.primary = primary;
+		public AddColumnToSheetBuilder setWidth(Integer width) {
+			this.width = width;
 			return this;
 		}
 
@@ -503,8 +534,8 @@ public class Column extends IdentifiableModel<Long> {
 		 * Sets the index for the column. Set this to any value greater than the index of
 		 * the last column to add it as the last column.
 		 * 
-		 * @param index
-		 * @return
+		 * @param index the index
+		 * @return the index
 		 */
 		public AddColumnToSheetBuilder setIndex(Integer index) {
 			this.index = index;
@@ -526,7 +557,8 @@ public class Column extends IdentifiableModel<Long> {
 			column.type = type;
 			column.options = options;
 			column.symbol = symbol;
-			column.primary = primary;
+			column.index = index;
+			column.width = width;
 			column.systemColumnType = systemColumnType;
 			column.autoNumberFormat = autoNumberFormat;
 			return column;
@@ -561,6 +593,12 @@ public class Column extends IdentifiableModel<Long> {
 		
 		/** The sheet id. */
 		private Long sheetId;
+
+		/** The width */
+		private Integer width;
+
+		/** The format */
+		private Format format;
 
 		/**
 		 * Sets the position for the column.
@@ -649,6 +687,26 @@ public class Column extends IdentifiableModel<Long> {
 			this.sheetId = sheetId;
 			return this;
 		}
+
+		/**
+		 * Sets the format
+		 * @param format the format
+		 * @return the modify column builder
+		 */
+		public ModifyColumnBuilder setFormat(Format format) {
+			this.format = format;
+			return this;
+		}
+
+		/**
+		 * Sets the width
+		 * @param width the width
+		 * @return the modify column builder
+		 */
+		public ModifyColumnBuilder setWidth(Integer width) {
+			this.width = width;
+			return this;
+		}
 		
 		/**
 		 * Gets the index.
@@ -723,6 +781,22 @@ public class Column extends IdentifiableModel<Long> {
 		}
 
 		/**
+		 * Gets the width
+		 * @return the width
+		 */
+		public Integer getWidth() {
+			return width;
+		}
+
+		/**
+		 * Gets the format
+		 * @return the format
+		 */
+		public Format getFormat() {
+			return format;
+		}
+
+		/**
 		 * Builds the column.
 		 *
 		 * @return the column
@@ -740,30 +814,9 @@ public class Column extends IdentifiableModel<Long> {
 			column.symbol = symbol;
 			column.systemColumnType = systemColumnType;
 			column.autoNumberFormat = autoNumberFormat;
-			column.sheetId = sheetId;
+			column.width = width;
+			column.format = format;
 			return column;
 		}
-	}
-
-	public Integer getWidth() {
-		return width;
-	}
-
-	public void setWidth(Integer width) {
-		this.width = width;
-	}
-
-	/**
-	 * @return the {@link Format}
-	 */
-	public Format getFormat() {
-		return format;
-	}
-
-	/**
-	 * @param format the {@link Format} to set
-	 */
-	public void setFormat(Format format) {
-		this.format = format;
 	}
 }

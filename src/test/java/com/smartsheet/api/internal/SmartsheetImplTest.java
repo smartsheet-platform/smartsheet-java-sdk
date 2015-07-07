@@ -98,16 +98,6 @@ public class SmartsheetImplTest extends ResourcesImplBase {
 	}
 
 	@Test
-	public void testColumns() {
-		assertNotNull(smartsheet.columns());
-	}
-
-	@Test
-	public void testRows() {
-		assertNotNull(smartsheet.rows());
-	}
-
-	@Test
 	public void testAttachments() {
 		assertNotNull(smartsheet.attachments());
 	}

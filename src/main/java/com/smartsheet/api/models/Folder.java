@@ -49,7 +49,54 @@ public class Folder extends NamedModel<Long> {
 	 * Represents the templates contained in the folder.
 	 */
 	private List<Template> templates;
-	
+
+
+	/**
+	 * Returns if the user has marked the Folder as a Favorite in their Home tab.
+	 */
+	private Boolean favorite;
+
+	/**
+	 * Represents the Direct URL to Folder.
+	 */
+	private String permalink;
+
+	/**
+	 * Gets the Direct URL to Folder.
+	 *
+	 * @return the sheets
+	 */
+	public String getPermalink() {
+		return permalink;
+	}
+
+	/**
+	 * Sets the Direct URL to Folder.
+	 *
+	 * @param permalink the new sheets
+	 */
+	public void setPermalink(String permalink) {
+		this.permalink = permalink;
+	}
+
+	/**
+	 * Gets the favorite boolean value of folder in Home.
+	 *
+	 * @return the sheets
+	 */
+	public Boolean getFavorite() {
+		return favorite;
+	}
+
+	/**
+	 * Sets the favorite boolean value of folder in Home.
+	 *
+	 * @param favorite the new sheets
+	 */
+	public void setFavorite(Boolean favorite) {
+		this.favorite = favorite;
+	}
+
 	/**
 	 * Gets the sheets in the folder.
 	 *
