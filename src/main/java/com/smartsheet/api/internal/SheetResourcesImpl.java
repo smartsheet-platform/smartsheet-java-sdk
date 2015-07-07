@@ -613,7 +613,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 			throws SmartsheetException {
 		Util.throwIfNull(outputStream, contentType);
 		
-		String path = "sheet/" + id;
+		String path = "sheets/" + id;
 		if (paperSize != null) {
 			path += "?paperSize=" + paperSize;
 		}
