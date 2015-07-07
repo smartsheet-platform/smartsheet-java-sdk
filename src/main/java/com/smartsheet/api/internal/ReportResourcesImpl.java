@@ -80,10 +80,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
         this.checkParameters(pageSize, page);
         String path = "reports/" + reportId;
         HashMap<String, String> parameters = new HashMap<String, String>();
-
-        if (includes != null) {
-            parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-        }
+        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 
         if (pageSize != null) {
             parameters.put("pageSize", pageSize.toString());
@@ -199,10 +196,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
 
         String path = "/reports";
         HashMap<String, String> parameters = new HashMap<String, String>();
-
-        if (includes != null) {
-            parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-        }
+        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 
         if (pageSize != null) {
             parameters.put("pageSize", pageSize.toString());
@@ -244,10 +238,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
         String path = "/reports";
 
         HashMap<String, String> parameters = new HashMap<String, String>();
-
-        if (includes != null) {
-            parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-        }
+        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 
         if (pageSize != null) {
             parameters.put("pageSize", pageSize.toString());
@@ -258,7 +249,6 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
         }
 
         path += QueryUtil.generateUrl(null, parameters);
-
         getResourceAsFile(path, "text/csv",outputStream);
     }
 
