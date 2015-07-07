@@ -165,7 +165,7 @@ public interface SheetResources {
 	/**
 	 * <p>Create a sheet in given folder.</p>
 	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method: POST /folder/{folderId}/sheets</p>
+	 * <p>It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/sheets</p>
 	 *
 	 * @param folderId the folder id
 	 * @param sheet the sheet to create
@@ -182,7 +182,7 @@ public interface SheetResources {
 	/**
 	 * <p>Create a sheet (from existing sheet or template) in given folder.</p>
 	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method: POST /folder/{folderId}/sheets</p>
+	 * <p>It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/sheets</p>
 	 *
 	 * @param folderID the folder id
 	 * @param sheet the sheet to create
@@ -195,7 +195,7 @@ public interface SheetResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Sheet createSheetInFolderFromExisting(long folderID, Sheet sheet, EnumSet<ObjectInclusion> includes) throws SmartsheetException;
+	public Sheet createSheetInFolderFromExisting(long folderID, Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException;
 
 	/**
 	 * <p>Create a sheet in given workspace.</p>

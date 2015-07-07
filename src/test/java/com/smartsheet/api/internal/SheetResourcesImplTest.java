@@ -238,7 +238,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		Sheet sheet = new Sheet();
 		sheet.setFromId(2906571706525572L);
 		Sheet newSheet = sheetResource.createSheetInFolderFromExisting(1234L, sheet,
-				EnumSet.allOf(ObjectInclusion.class));
+				EnumSet.allOf(SheetTemplateInclusion.class));
 
 		if (newSheet.getId().toString().isEmpty() || newSheet.getAccessLevel() != AccessLevel.OWNER
 				|| newSheet.getPermalink().toString().isEmpty()) {

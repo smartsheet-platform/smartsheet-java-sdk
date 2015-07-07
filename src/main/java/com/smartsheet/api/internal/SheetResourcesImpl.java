@@ -304,7 +304,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	/**
 	 * Create a sheet in given folder.
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /folder/{folderId}/sheets
+	 * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/sheets
 	 * 
 	 * Exceptions:
 	 *   IllegalArgumentException : if any argument is null
@@ -347,14 +347,10 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * primary - type - symbol - options
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Sheet createSheetInFolderFromExisting(long folderId, Sheet sheet, EnumSet<ObjectInclusion> includes) throws SmartsheetException {
-		String path = "folders/" + folderId + "/sheets";
-		if (includes != null) {
-			path += "?include=";
-			for (ObjectInclusion oi : includes) {
-				path += oi.name().toLowerCase() + ",";
-			}
-		}
+	public Sheet createSheetInFolderFromExisting(long folderId, Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException {
+		HashMap<String, String> parameters = new HashMap<String, String>();
+		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+		String path = QueryUtil.generateUrl("folders/" + folderId + "/sheets", parameters);
 
 		return this.createResource(path, Sheet.class, sheet);
 	}
