@@ -293,14 +293,11 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @return the sheet
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Sheet createSheetFromExisting(Sheet sheet, EnumSet<ObjectInclusion> includes) throws SmartsheetException {
-		String path = "sheets";
-		if (includes != null) {
-			path += "?include=";
-			for (ObjectInclusion oi : includes) {
-				path += oi.name().toLowerCase() + ",";
-			}
-		}
+	public Sheet createSheetFromExisting(Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException {
+		HashMap<String, String> parameters = new HashMap<String, String>();
+		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+		String path = QueryUtil.generateUrl("sheets", parameters);
+
 		return this.createResource(path, Sheet.class, sheet);
 	}
 

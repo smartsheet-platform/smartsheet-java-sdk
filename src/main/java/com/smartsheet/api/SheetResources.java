@@ -160,7 +160,7 @@ public interface SheetResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Sheet createSheetFromExisting(Sheet sheet, EnumSet<ObjectInclusion> includes) throws SmartsheetException;
+	public Sheet createSheetFromExisting(Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException;
 
 	/**
 	 * <p>Create a sheet in given folder.</p>
