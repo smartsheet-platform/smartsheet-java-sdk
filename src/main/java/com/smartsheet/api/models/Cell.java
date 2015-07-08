@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.smartsheet.api.models.format.Format;
+import javafx.scene.control.Hyperlink;
 
 /*
  * #[license]
@@ -31,9 +32,9 @@ import com.smartsheet.api.models.format.Format;
 public class Cell {
 
 	/**
-	 * Represents the column type.
+	 * Represents the column columnType.
 	 */
-	private ColumnType type;
+	private ColumnType columnType;
 
 	/**
 	 * Represents the value.
@@ -56,9 +57,24 @@ public class Cell {
 	private Long rowId;
 
 	/**
-	 * Represents the optional link that a cell might have.
+	 * Represents the hyperlink to a URL, sheet, or report.
 	 */
-	private Link link;
+	private com.smartsheet.api.models.Hyperlink hyperlink;
+
+	/**
+	 * Represents an inbound link from a cell in another sheet.
+	 */
+	private CellLink linkInFromCell;
+
+	/**
+	 * Represents an array of CellLink objects.
+	 */
+	private List<CellLink> linksOutToCells;
+
+	/**
+	 * Represents the format descriptor describing this cell’s conditional format.
+	 */
+	private String conditionalFormat;
 
 	/**
 	 * The formula for the cell.
@@ -76,25 +92,25 @@ public class Cell {
 	private Format format;
 
 	/**
-	 * Gets the column type.
+	 * Gets the column columnType.
 	 *
-	 * @return the type
+	 * @return the columnType
 	 */
-	public ColumnType getType() {
-		return type;
+	public ColumnType getColumnType() {
+		return columnType;
 	}
 
 	/**
-	 * Sets the column type.
+	 * Sets the column columnType.
 	 *
-	 * @param type the new type
+	 * @param columnType the new columnType
 	 */
-	public void setType(ColumnType type) {
-		this.type = type;
+	public void setColumnType(ColumnType columnType) {
+		this.columnType = columnType;
 	}
 
 	/**
-	 * Gets the value. Can be one of type {@link String}, {@link Number}, or {@link Boolean}
+	 * Gets the value. Can be one of columnType {@link String}, {@link Number}, or {@link Boolean}
 	 *
 	 * @return the value
 	 */
@@ -103,7 +119,7 @@ public class Cell {
 	}
 
 	/**
-	 * Sets the value. Can be one of type {@link String}, {@link Number}, or {@link Boolean}
+	 * Sets the value. Can be one of columnType {@link String}, {@link Number}, or {@link Boolean}
 	 *
 	 * @param value the new value
 	 */
@@ -163,24 +179,6 @@ public class Cell {
 	 */
 	public void setRowId(Long rowId) {
 		this.rowId = rowId;
-	}
-
-	/**
-	 * Gets the link for this cell.
-	 *
-	 * @return the link
-	 */
-	public Link getLink() {
-		return link;
-	}
-
-	/**
-	 * Sets the optional link for this cell.
-	 *
-	 * @param link the new link
-	 */
-	public void setLink(Link link) {
-		this.link = link;
 	}
 
 	/**
@@ -287,4 +285,62 @@ public class Cell {
 	public void setFormat(Format format) {
 		this.format = format;
 	}
+
+	/**
+	 * @return hyperlink to a URL, sheet, or report
+	 */
+	public com.smartsheet.api.models.Hyperlink getHyperlink() {
+		return hyperlink;
+	}
+
+	/**
+	 * @param hyperlink hyperlink to a URL, sheet, or report to set
+	 */
+	public void setHyperlink(com.smartsheet.api.models.Hyperlink hyperlink) {
+		this.hyperlink = hyperlink;
+	}
+
+	/**
+	 * @return inbound link from a cell in another sheet
+	 */
+	public CellLink getLinkInFromCell() {
+		return linkInFromCell;
+	}
+
+	/**
+	 * @param linkInFromCell inbound link from a cell in another sheet to set
+	 */
+	public void setLinkInFromCell(CellLink linkInFromCell) {
+		this.linkInFromCell = linkInFromCell;
+	}
+
+	/**
+	 * @return array of CellLink objects
+	 */
+	public List<CellLink> getLinksOutToCells() {
+		return linksOutToCells;
+	}
+
+	/**
+	 * @param linksOutToCells array of CellLink objects
+	 */
+	public void setLinksOutToCells(List<CellLink> linksOutToCells) {
+		this.linksOutToCells = linksOutToCells;
+	}
+
+	/**
+	 * @return the format descriptor describing this cell’s conditional format
+	 */
+	public String getConditionalFormat() {
+		return conditionalFormat;
+	}
+
+	/**
+	 * @param conditionalFormat the format descriptor describing this cell’s conditional format to set
+	 */
+	public void setConditionalFormat(String conditionalFormat) {
+		this.conditionalFormat = conditionalFormat;
+	}
+
+
 }

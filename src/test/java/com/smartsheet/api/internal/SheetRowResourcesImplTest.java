@@ -64,7 +64,7 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
 		link.setSheetId(1234L);
 		link.setColumnId(1234L);
 		link.setRowId(1234L);
-		cell.setLink(link);
+		//cell.setLink(link);
 		cell.setFormula("=1+1");
 		
 		// Create a row and add the cells to it.
@@ -80,7 +80,7 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
         assertEquals(2, newRows.size());
         assertEquals(7670198317672324L, row1.getId().longValue());
         assertEquals(2, row1.getCells().size());
-        assertEquals("CHECKBOX", row1.getCells().get(0).getType().toString());
+        assertEquals("CHECKBOX", row1.getCells().get(0).getColumnType().toString());
         assertEquals(2040698783459204L, row2.getId().longValue());
         assertEquals(2, row2.getCells().size());
         assertEquals("New status", row2.getCells().get(1).getValue());
@@ -159,7 +159,7 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testCopyRow() throws Exception {
+    public void testCopyRow() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/moveRow.json"));
         CopyOrMoveRowDirective copyOrMoveRowDirective = new CopyOrMoveRowDirective();
         CopyOrMoveRowDestination copyOrMoveRowDestination = new CopyOrMoveRowDestination();
@@ -170,5 +170,15 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
         rowIds.add(145417762563972L);
         copyOrMoveRowDirective.setRowIds(rowIds);
         sheetRowResource.copyRow(2258256056870788L, EnumSet.of(RowCopyInclusion.ATTACHMENTS), false, copyOrMoveRowDirective);
+    }
+
+    @Test
+    public void testGetCellHistory() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getCellHistory.json"));
+        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+        DataWrapper<CellHistory> cellHistory= sheetRowResource.getCellHistory(123L, 123L, 123L, parameters);
+
+        assertTrue(cellHistory.getTotalPages() == 1);
+        assertEquals(cellHistory.getData().get(1).getModifiedBy().getName(), "Joe Smart");
     }
 }

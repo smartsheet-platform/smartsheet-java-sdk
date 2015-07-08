@@ -109,12 +109,6 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		
 		assertNotNull(sheet.getColumnByIndex(0).getFormat());
 		assertEquals(VerticalAlignment.TOP, sheet.getColumnByIndex(0).getFormat().getVerticalAlignment());
-		
-		assertNotNull(sheet.getRowByRowNumber(1).getFormat());
-		assertEquals(FontSize.PT_12, sheet.getRowByRowNumber(1).getFormat().getFontSize());
-
-		assertNotNull(sheet.getRowByRowNumber(1).getCells().get(0).getFormat());
-		assertEquals(Color.YELLOW_3, sheet.getRowByRowNumber(1).getCells().get(0).getFormat().getBackgroundColor());
 	}
 
 	@Test
