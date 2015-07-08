@@ -27,12 +27,11 @@ import java.util.List;
 import java.util.EnumSet;
 import java.util.HashMap;
 
-import com.smartsheet.api.AssociatedAttachmentResources;
-import com.smartsheet.api.AssociatedDiscussionResources;
 import com.smartsheet.api.SheetRowResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.*;
+import sun.security.krb5.internal.PAEncTSEnc;
 
 /**
  * This is the implementation of the SheetRowResources.
@@ -182,60 +181,64 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	}
 
 	// TODO: These methods will still need to be completed
-//	/**
-//	 * Move a row.
-//	 *
-//	 * It mirrors to the following Smartsheet REST API method: PUT /row/{id}
-//	 *
-//	 * Exceptions:
-//	 *   IllegalArgumentException : if any argument is null
-//	 *   InvalidRequestException : if there is any problem with the REST API request
-//	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-//	 *   ResourceNotFoundException : if the resource can not be found
-//	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-//	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-//	 *   SmartsheetException : if there is any other error occurred during the operation
-//	 *
-//	 * @param id the id
-//	 * @param rowWrapper the the RowWrapper with one of the following attributes:
-//	 *   - toTop : Moves the row (and children rows, if any) to the top of the sheet.
-//	 *   - toBottom : Moves the row to the bottom of the sheet
-//	 *   - parentId : Moves the row as the first child row of the parent.
-//	 *   - toBottom=true can also be set to add the row as the last child of the parent.
-//	 *   - siblingId : Moves the row as the next sibling of the row ID provided.
-//	 *
-//	 * @return the rows that have been moved by the operation
-//	 * @throws SmartsheetException the smartsheet exception
-//	 */
-//	public List<Row> moveRow(long id, RowWrapper rowWrapper) throws SmartsheetException {
-//		return this.putAndReceiveList("row/" + id, rowWrapper, Row.class);
-//	}
-//
-//	/**
-//	 * Update the values of the Cells in a Row.
-//	 *
-//	 * It mirrors to the following Smartsheet REST API method: PUT /row/{id}/cells
-//	 *
-//	 * Exceptions:
-//	 *   IllegalArgumentException : if any argument is null
-//	 *   InvalidRequestException : if there is any problem with the REST API request
-//	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-//	 *   ResourceNotFoundException : if the resource can not be found
-//	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-//	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-//	 *   SmartsheetException : if there is any other error occurred during the operation
-//	 *
-//	 * @param rowId the row id
-//	 * @param cells the cells to update (Cells must have the following attributes set: *
-//	 * columnId * value * strict (optional)
-//	 * @return the updated cells (note that if there is no such resource, this method will throw
-//	 * ResourceNotFoundException rather than returning null).
-//	 * @throws SmartsheetException the smartsheet exception
-//	 */
-//	public List<Cell> updateCells(long rowId, List<Cell> cells) throws SmartsheetException {
-//		return this.putAndReceiveList("row/" + rowId + "/cells", cells, Cell.class);
-//	}
-//
+	/**
+	 * Moves Row(s) from the Sheet specified in the URL to (the bottom of) another sheet.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/move
+	 *
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null, or path is empty string
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param sheetId the sheet ID to move
+	 * @param includes the parameters to include
+	 * @param ignoreRowsNotFound optional,specifying row Ids that do not exist within the source sheet
+	 * @param moveParameters   CopyOrMoveRowDirective object
+	 * @return the result object
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public CopyOrMoveRowResult moveRow(Long sheetId,EnumSet<RowMoveInclusion> includes, Boolean ignoreRowsNotFound, CopyOrMoveRowDirective moveParameters) throws SmartsheetException {
+		String path = "sheets/" + sheetId +"/rows/move";
+		HashMap<String, String> parameters = new HashMap<String, String>();
+		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+
+		if (ignoreRowsNotFound != null){
+			parameters.put("ignoreRowsNotFound", ignoreRowsNotFound.toString());
+		}
+
+		path += QueryUtil.generateUrl(path, parameters);
+		return this.postAndReceiveRowObject("sheets/" + sheetId +"/rows/move", moveParameters);
+	}
+
+	/**
+	 * Update the values of the Cells in a Row.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: PUT /row/{id}/cells
+	 *
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param rowId the row id
+	 * @param cells the cells to update (Cells must have the following attributes set: *
+	 * columnId * value * strict (optional)
+	 * @return the updated cells (note that if there is no such resource, this method will throw
+	 * ResourceNotFoundException rather than returning null).
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public List<Cell> updateCells(long rowId, List<Cell> cells) throws SmartsheetException {
+		return this.putAndReceiveList("row/" + rowId + "/cells", cells, Cell.class);
+	}
+
 //	/**
 //	 * Get the cell modification history.
 //	 *

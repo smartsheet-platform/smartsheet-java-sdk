@@ -29,6 +29,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.smartsheet.api.models.CopyOrMoveRowResult;
 import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.Result;
 
@@ -158,6 +159,26 @@ public interface JsonSerializer {
 	 * @throws JSONSerializerException the JSON serializer exception
 	 */
 	public <T> Result<List<T>> deserializeListResult(Class<T> objectClass, java.io.InputStream inputStream)
+			throws JSONSerializerException;
+
+	/**
+	 * De-serialize a Result<List<T>> object from JSON.
+	 *
+	 * Parameters: - objectClass : the class of the object (of the Result) to de-serialize - inputStream : the input
+	 * stream from which the JSON will be read
+	 *
+	 * Returns: the de-serialized result
+	 *
+	 * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
+	 * other error occurred during the operation
+	 *
+	 * @param <T> the generic type
+	 * @param objectClass the object class
+	 * @param inputStream the input stream
+	 * @return the result
+	 * @throws JSONSerializerException the JSON serializer exception
+	 */
+	public CopyOrMoveRowResult deserializeCopyOrMoveRow(java.io.InputStream inputStream)
 			throws JSONSerializerException;
 
 }

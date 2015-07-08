@@ -143,4 +143,18 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
         Cell cell = row1.getCells().get(0);
         assertEquals(7670639323572100L, cell.getColumnId().longValue());
     }
+
+    @Test
+    public void testMoveRow() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/moveRow.json"));
+        CopyOrMoveRowDirective copyOrMoveRowDirective = new CopyOrMoveRowDirective();
+        CopyOrMoveRowDestination copyOrMoveRowDestination = new CopyOrMoveRowDestination();
+        copyOrMoveRowDestination.setSheetID(2258256056870788L);
+
+        copyOrMoveRowDirective.setTo(copyOrMoveRowDestination);
+       List<Long> rowIds = new ArrayList<Long>();
+        rowIds.add(145417762563972L);
+        copyOrMoveRowDirective.setRowIds(rowIds);
+        sheetRowResource.moveRow(2258256056870788L, EnumSet.of(RowMoveInclusion.ATTACHMENTS), false, copyOrMoveRowDirective);
+    }
 }
