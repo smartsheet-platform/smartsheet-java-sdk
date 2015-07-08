@@ -335,10 +335,8 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	}
 
 	/**
-	 * De-serialize to a DataWrapper (holds pagination info) from JSON
-	 * @param objectClass
+	 * De-serialize to a CopyOrMoveRowResult object from JSON
 	 * @param inputStream
-	 * @param <T>
 	 * @return
 	 * @throws JSONSerializerException
 	 */

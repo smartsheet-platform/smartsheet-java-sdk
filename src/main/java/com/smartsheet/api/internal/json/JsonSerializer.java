@@ -162,7 +162,7 @@ public interface JsonSerializer {
 			throws JSONSerializerException;
 
 	/**
-	 * De-serialize a Result<List<T>> object from JSON.
+	 * De-serialize a Result object from JSON.
 	 *
 	 * Parameters: - objectClass : the class of the object (of the Result) to de-serialize - inputStream : the input
 	 * stream from which the JSON will be read
@@ -172,8 +172,6 @@ public interface JsonSerializer {
 	 * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
 	 * other error occurred during the operation
 	 *
-	 * @param <T> the generic type
-	 * @param objectClass the object class
 	 * @param inputStream the input stream
 	 * @return the result
 	 * @throws JSONSerializerException the JSON serializer exception
