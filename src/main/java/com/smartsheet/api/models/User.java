@@ -26,7 +26,12 @@ package com.smartsheet.api.models;
  * Managing Users</a>
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/520100-user-types">User Types Help</a>
  */
-public class User extends UserProfile {
+public class User extends AbstractUser {
+	/**
+	 * Represents the name
+	 */
+	private String name;
+
 	/**
 	 * Represents the admin flag which allows managing users and accounts.
 	 */
@@ -40,19 +45,33 @@ public class User extends UserProfile {
 	/**
 	 * Represents the resource manager flag which allows the user access to the Resource Manager functionality.
 	 */
-	private Boolean resourceManager;
+	private Boolean resourceViewer;
 	
 	/**
 	 * Represents the group admin flag which allows users to create and modify groups.
 	 */
 	private Boolean groupAdmin;
-
-	
 	
 	/**
 	 * Represents the user status (active, pending, declined).
 	 */
 	private UserStatus status;
+
+	/**
+	 * Gets the name
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * Sets the name
+	 * @param name the name
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	/**
 	 * Gets the admin flag which allows managing users and accounts.
@@ -111,16 +130,16 @@ public class User extends UserProfile {
 	/**
 	 * @return the flag indicating if someone is a resource manager
 	 */
-	public Boolean getResourceManager() {
-		return resourceManager;
+	public Boolean getResourceViewer() {
+		return resourceViewer;
 	}
 
 	/**
 	 * Sets the resource manager flag.
-	 * @param resourceManager 
+	 * @param resourceViewer
 	 */
-	public void setResourceManager(Boolean resourceManager) {
-		this.resourceManager = resourceManager;
+	public void setResourceViewer(Boolean resourceViewer) {
+		this.resourceViewer = resourceViewer;
 	}
 
 	/**
@@ -145,7 +164,7 @@ public class User extends UserProfile {
 		private String emailAddress;
 		private Boolean licensedSheetCreator;
 		private Boolean groupAdmin;
-		private Boolean resourceManager;
+		private Boolean resourceViewer;
 		private String firstName;
 		private String lastName;
 
@@ -246,17 +265,17 @@ public class User extends UserProfile {
 		}
 
 		/**
-		 * @return the resourceManager
+		 * @return the resourceViewer
 		 */
-		public Boolean getResourceManager() {
-			return resourceManager;
+		public Boolean getResourceViewer() {
+			return resourceViewer;
 		}
 
 		/**
-		 * @param resourceManager the resourceManager to set
+		 * @param resourceViewer the resourceViewer to set
 		 */
-		public AddUserBuilder setResourceManager(Boolean resourceManager) {
-			this.resourceManager = resourceManager;
+		public AddUserBuilder setResourceViewer(Boolean resourceViewer) {
+			this.resourceViewer = resourceViewer;
 			return this;
 		}
 		/**
@@ -273,7 +292,7 @@ public class User extends UserProfile {
 			user.admin = admin;
 			user.licensedSheetCreator = licensedSheetCreator;
 			user.groupAdmin = groupAdmin;
-			user.resourceManager = resourceManager;
+			user.resourceViewer = resourceViewer;
 			user.setFirstName(firstName);
 			user.setLastName(lastName);
 			user.setEmail(emailAddress);
@@ -290,27 +309,9 @@ public class User extends UserProfile {
 		private Boolean admin;
 		private Boolean licensedSheetCreator;
 		private Boolean groupAdmin;
-		private Boolean resourceManager;
-		private Long id;
+		private Boolean resourceViewer;
 		private String firstName;
 		private String lastName;
-
-		/**
-		 * Get the id of the user
-		 * @return
-		 */
-		public Long getId() {
-			return id;
-		}
-
-		/**
-		 * Set the id of the user
-		 * @param id
-		 */
-		public UpdateUserBuilder setId(Long id) {
-			this.id = id;
-			return this;
-		}
 
 		/**
 		 * Sets the admin flag which allows managing users and accounts.
@@ -398,17 +399,17 @@ public class User extends UserProfile {
 		}
 
 		/**
-		 * @return the resourceManager
+		 * @return the resourceViewer
 		 */
-		public Boolean getResourceManager() {
-			return resourceManager;
+		public Boolean getResourceViewer() {
+			return resourceViewer;
 		}
 
 		/**
-		 * @param resourceManager the resourceManager to set
+		 * @param resourceViewer the resourceViewer to set
 		 */
-		public UpdateUserBuilder setResourceManager(Boolean resourceManager) {
-			this.resourceManager = resourceManager;
+		public UpdateUserBuilder setResourceViewer(Boolean resourceViewer) {
+			this.resourceViewer = resourceViewer;
 			return this;
 		}
 		
@@ -423,13 +424,12 @@ public class User extends UserProfile {
 			}
 			
 			User user = new User();
-			user.setId(id);
 			user.setFirstName(firstName);
 			user.setLastName(lastName);
 			user.admin = admin;
 			user.licensedSheetCreator = licensedSheetCreator;
 			user.groupAdmin = groupAdmin;
-			user.resourceManager = resourceManager;
+			user.resourceViewer = resourceViewer;
 			return user;
 		}
 
