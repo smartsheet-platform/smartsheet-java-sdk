@@ -214,7 +214,7 @@ public class Group extends NamedModel<Long> {
 		public Group build() {
 			Group group = new Group();
 
-			if (members == null || name == null) {
+			if ( name == null ) {
 				throw new InstantiationError();
 			}
 			group.setName(name);
