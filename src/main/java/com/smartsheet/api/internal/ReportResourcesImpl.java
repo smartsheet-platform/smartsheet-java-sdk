@@ -26,13 +26,9 @@ import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.*;
-import com.sun.tools.corba.se.idl.constExpr.Not;
-
-import javax.xml.crypto.Data;
 import java.io.OutputStream;
 import java.util.EnumSet;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * This is the implementation of the ReportResources.

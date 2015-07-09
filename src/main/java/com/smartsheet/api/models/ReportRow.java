@@ -20,9 +20,6 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-
-import java.util.LongSummaryStatistics;
-
 /**
  * Represents the ReportRow object.
  */
