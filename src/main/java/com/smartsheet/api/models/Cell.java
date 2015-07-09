@@ -237,11 +237,13 @@ public class Cell {
 		 * @param strict the strict
 		 * @return the update row cells builder
 		 */
-		public UpdateRowCellsBuilder addCell(Long columnId, Object value, Boolean strict) {
+		public UpdateRowCellsBuilder addCell(Long columnId, Object value, Boolean strict, com.smartsheet.api.models.Hyperlink hyperlink,  CellLink linkInFromCell) {
 			Cell cell = new Cell();
 			cell.setColumnId(columnId);
 			cell.setValue(value);
 			cell.setStrict(strict);
+			cell.setHyperlink(hyperlink);
+			cell.setLinkInFromCell(linkInFromCell);
 			cells.add(cell);
 			return this;
 		}
@@ -258,7 +260,7 @@ public class Cell {
 		 * @return the update row cells builder
 		 */
 		public UpdateRowCellsBuilder addCell(Long columnId, Object value) {
-			addCell(columnId, value, true);
+			addCell(columnId, value, true, null, null);
 			return this;
 		}
 		
