@@ -280,7 +280,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Sheet createSheetFromExisting(Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException {
-		HashMap<String, String> parameters = new HashMap<String, String>();
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 		String path = QueryUtil.generateUrl("sheets", parameters);
 
@@ -334,7 +334,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Sheet createSheetInFolderFromExisting(long folderId, Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException {
-		HashMap<String, String> parameters = new HashMap<String, String>();
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 		String path = QueryUtil.generateUrl("folders/" + folderId + "/sheets", parameters);
 
@@ -388,7 +388,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 */
 	public Sheet createSheetInWorkspaceFromExisting(long workspaceId, Sheet sheet, EnumSet<SheetTemplateInclusion> includes)
 			throws SmartsheetException {
-		HashMap<String, String> parameters = new HashMap<String, String>();
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 		String path = QueryUtil.generateUrl("workspaces/" + workspaceId + "/sheets", parameters);
 
