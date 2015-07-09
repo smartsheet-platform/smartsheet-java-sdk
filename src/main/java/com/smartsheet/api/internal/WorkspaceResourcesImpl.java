@@ -127,11 +127,9 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 		String path = "workspaces/" + id;
 
 		// Add the parameters to a map and build the query string at the end
-		HashMap<String, String> parameters = new HashMap<String, String>();
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
 
-		if (includes != null) {
-			parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-		}
+		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 		parameters.put("loadAll", Boolean.toString(loadAll));
 
 		path += QueryUtil.generateUrl(null, parameters);

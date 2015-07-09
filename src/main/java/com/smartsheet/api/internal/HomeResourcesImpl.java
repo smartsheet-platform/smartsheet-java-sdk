@@ -79,11 +79,9 @@ public class HomeResourcesImpl extends AbstractResources implements HomeResource
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Home getHome(EnumSet<SourceInclusion> includes) throws SmartsheetException {
-		HashMap<String, String> parameters = new HashMap<String, String>();
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
 
-		if (includes != null) {
-			parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-		}
+		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 
 		String path = QueryUtil.generateUrl("home", parameters);
 		

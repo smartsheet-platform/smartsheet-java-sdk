@@ -26,17 +26,17 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.User;
-import com.smartsheet.api.models.UserProfile;
-import com.smartsheet.api.models.UserStatus;
 
 public class UserResourcesImplTest extends ResourcesImplBase {
 
@@ -54,8 +54,17 @@ public class UserResourcesImplTest extends ResourcesImplBase {
 	@Test
 	public void testListUsers() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/listUsers.json"));
-		
-		DataWrapper<User> userWrapper = userResources.listUsers();
+		Set<String> email = new HashSet<String>();
+		email.add("test@example.com");
+		PaginationParameters pagination = new PaginationParameters();
+		pagination.setIncludeAll(true);
+		pagination.setPageSize(1);
+		pagination.setPage(1);
+
+		DataWrapper<User> userWrapper1 = userResources.listUsers();
+		assertTrue(userWrapper1.getData().size() == 2);
+
+		DataWrapper<User> userWrapper = userResources.listUsers(email, pagination);
 		assertTrue(userWrapper.getPageNumber() == 1);
 		assertTrue(userWrapper.getPageSize() == 100);
 		assertTrue(userWrapper.getTotalCount() == 418);
@@ -63,9 +72,9 @@ public class UserResourcesImplTest extends ResourcesImplBase {
 
 		List<User> users = userWrapper.getData();
 		assertEquals(2, users.size());
-		assertEquals(94094820842L, users.get(0).getId().longValue());
-		assertEquals(true, users.get(0).getAdmin());
-		assertEquals("john.doe@smartsheet.com", users.get(0).getEmail());
+		assertEquals(242165701390534L, users.get(0).getId().longValue());
+		assertEquals(false, users.get(0).getAdmin());
+		assertEquals("test@smartsheet.com", users.get(0).getEmail());
 		assertEquals("John Doe", users.get(0). getName());
 		assertEquals(true, users.get(0).getLicensedSheetCreator());
 		assertEquals(UserStatus.ACTIVE, users.get(0).getStatus());
@@ -110,14 +119,33 @@ public class UserResourcesImplTest extends ResourcesImplBase {
 	}
 
 	@Test
+	public void testGetUser() throws SmartsheetException, IOException {
+		server.setResponseBody(new File("src/test/resources/getUser.json"));
+
+		UserProfile user = userResources.getUser(12345L);
+		assertEquals("john.doe@smartsheet.com",user.getEmail());
+		assertEquals(48569348493401200L, user.getId().longValue());
+		assertEquals("John", user.getFirstName());
+		assertEquals("Doe", user.getLastName());
+		assertEquals("en_US", user.getLocale());
+		assertEquals("US/Pacific", user.getTimeZone());
+	}
+
+	@Test
 	public void testGetCurrentUser() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/getCurrentUser.json"));
 
 		UserProfile user = userResources.getCurrentUser();
-		assertEquals("email@email.com",user.getEmail());
-		assertEquals(6199527427336068L, user.getId().longValue());
-		assertEquals("Brett", user.getFirstName());
-		assertEquals("Batie", user.getLastName());
+		assertEquals("test@smartsheet.com",user.getEmail());
+		assertEquals(2222222222L, user.getId().longValue());
+		assertEquals("John", user.getFirstName());
+		assertEquals("Doe", user.getLastName());
+		assertEquals("en_US", user.getLocale());
+		assertEquals("US/Pacific", user.getTimeZone());
+
+		Account account = user.getAccount();
+		assertEquals("Smartsheet", account.getName());
+		assertEquals(111111111111L, account.getId().longValue());
 	}
 
 	@Test
@@ -139,8 +167,7 @@ public class UserResourcesImplTest extends ResourcesImplBase {
 	@Test
 	public void testDeleteUser() throws IOException, SmartsheetException {
 		server.setResponseBody(new File("src/test/resources/deleteUser.json"));
-		
-		userResources.deleteUser(1234L);
+		DeleteUserParameters parameters = new DeleteUserParameters(12345L, true, true);
+		userResources.deleteUser(1234L, parameters);
 	}
-
 }
