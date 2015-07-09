@@ -22,9 +22,10 @@ package com.smartsheet.api;
 
 
 
-import com.smartsheet.api.models.User;
-import com.smartsheet.api.models.UserProfile;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.*;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * <p>This interface provides methods to access User resources.</p>
@@ -32,10 +33,10 @@ import com.smartsheet.api.models.DataWrapper;
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface UserResources {
-	
+
 	/**
 	 * <p>List all users.</p>
-	 * 
+	 *
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /users</p>
 	 *
 	 * @return the list of all users
@@ -47,6 +48,23 @@ public interface UserResources {
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public DataWrapper<User> listUsers() throws SmartsheetException;
+
+	/**
+	 * <p>List all users.</p>
+	 * 
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /users</p>
+	 *
+	 * @param email the list of email addresses
+	 * @param pagination object containing pagination query parameters
+	 * @return the list of all users
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	public DataWrapper<User> listUsers(Set<String> email, PaginationParameters pagination) throws SmartsheetException;
 
 	/**
 	 * <p>Add a user to the organization, without sending email.</p>
@@ -71,7 +89,7 @@ public interface UserResources {
 	 *
 	 * @param user the user
 	 * @param sendEmail the send email flag
-	 * @return the created user
+	 * @return the user
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
 	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
@@ -80,6 +98,22 @@ public interface UserResources {
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public User addUser(User user, boolean sendEmail) throws SmartsheetException;
+
+	/**
+	 * <p>Get the current user.</p>
+	 *
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /users/{userId}</p>
+	 *
+	 * @param userId the user id
+	 * @return the current user
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	public UserProfile getUser(long userId) throws SmartsheetException;
 
 	/**
 	 * <p>Get the current user.</p>
@@ -111,21 +145,6 @@ public interface UserResources {
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public User updateUser(User user) throws SmartsheetException;
-
-	/**
-	 * <p>Delete a user in the organization.</p>
-	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method: DELETE /user/{id}</p>
-	 *
-	 * @param id the id of the user
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
-	 */
-	public void deleteUser(long id) throws SmartsheetException;
 	
 	/**
 	 * <p>Delete a user in the organization.</p>
@@ -133,9 +152,7 @@ public interface UserResources {
 	 * <p>It mirrors to the following Smartsheet REST API method: DELETE /user/{id}</p>
 	 *
 	 * @param id the id of the user
-	 * @param transferToId the id of the user to whom you want to transfer the sheets owned by this user
-	 * @param removeFromSharing indicates whether you want to remove this user from all shared sheets.
-	 * 
+	 * @param parameters the object containing parameters for deleting users
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
 	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
@@ -143,5 +160,5 @@ public interface UserResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public void deleteUser(long id, long transferToId, boolean removeFromSharing) throws SmartsheetException;
+	public void deleteUser(long id, DeleteUserParameters parameters) throws SmartsheetException;
 }
