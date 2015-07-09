@@ -72,13 +72,12 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
 	public DataWrapper<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, PaginationParameters pagination) throws SmartsheetException  {
 		String path = "sheets/" + sheetId + "/columns";
 
-		HashMap<String, String> parameters = new HashMap<String, String>();
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
 		if (pagination != null) {
 			parameters = pagination.toHashMap();
 		}
-		if (includes != null) {
-			parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-		}
+
+		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 
 		path += QueryUtil.generateUrl(null, parameters);
 		return this.listResourcesWithWrapper(path, Column.class);

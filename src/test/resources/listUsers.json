@@ -1,19 +1,27 @@
 {
     "data": [
         {
-            "id": 94094820842,
-            "admin": true,
-            "email": "john.doe@smartsheet.com",
+            "email": "test@smartsheet.com",
             "name": "John Doe",
+            "firstName": "John",
+            "lastName": "Doe",
+            "admin": false,
             "licensedSheetCreator": true,
+            "groupAdmin": false,
+            "resourceViewer": false,
+            "id": 242165701390534,
             "status": "ACTIVE"
         },
         {
-            "id": 94094820843,
-            "admin": true,
-            "email": "jane.doe@smartsheet.com",
+            "email": "test@smartsheet.com",
             "name": "John Doe",
+            "firstName": "John",
+            "lastName": "Doe",
+            "admin": false,
             "licensedSheetCreator": true,
+            "groupAdmin": false,
+            "resourceViewer": false,
+            "id": 242165701390534,
             "status": "ACTIVE"
         }
     ],

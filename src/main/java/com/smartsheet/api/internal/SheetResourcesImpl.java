@@ -171,29 +171,15 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 		String path = "sheets/" + id;
 
 		// Add the parameters to a map and build the query string at the end
-		HashMap<String, String>	parameters = new HashMap<String, String>();
+		HashMap<String, Object>	parameters = new HashMap<String, Object>();
 
-		if (includes != null) {
-			parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-		}
-		if (excludes != null) {
-			parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
-		}
-		if (rowIds != null) {
-			parameters.put("rowIds", QueryUtil.generateCommaSeparatedList(rowIds));
-		}
-		if (rowNumbers != null) {
-			parameters.put("rowNumbers", QueryUtil.generateCommaSeparatedList(rowNumbers));
-		}
-		if (columnIds != null) {
-			parameters.put("columnIds", QueryUtil.generateCommaSeparatedList(columnIds));
-		}
-		if (pageSize != null) {
-			parameters.put("pageSize", pageSize.toString());
-		}
-		if (page != null) {
-			parameters.put("page", page.toString());
-		}
+		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+		parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
+		parameters.put("rowIds", QueryUtil.generateCommaSeparatedList(rowIds));
+		parameters.put("rowNumbers", QueryUtil.generateCommaSeparatedList(rowNumbers));
+		parameters.put("columnIds", QueryUtil.generateCommaSeparatedList(columnIds));
+		parameters.put("pageSize", pageSize);
+		parameters.put("page", page);
 
 		// Iterate through the map of parameters and generate the query string
 		path += QueryUtil.generateUrl(null, parameters);

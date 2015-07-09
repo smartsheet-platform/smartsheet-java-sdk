@@ -97,24 +97,19 @@ public class PaginationParameters {
     }
 
     public String toQueryString() {
-        HashMap<String, String> parameters = toHashMap();
+        HashMap<String, Object> parameters = toHashMap();
         return QueryUtil.generateUrl(null, parameters);
     }
 
-    public HashMap<String, String> toHashMap() {
-        HashMap<String, String> parameters = new HashMap<String, String>();
+    public HashMap<String, Object> toHashMap() {
+        HashMap<String, Object> parameters = new HashMap<String, Object>();
 
         parameters.put("includeAll", Boolean.toString(includeAll));
-
         if (includeAll) {
             return parameters;
         } else {
-            if (pageSize != null) {
-                parameters.put("pageSize", pageSize.toString());
-            }
-            if (page != null) {
-                parameters.put("page", page.toString());
-            }
+            parameters.put("pageSize", pageSize);
+            parameters.put("page", page);
             return parameters;
         }
     }
