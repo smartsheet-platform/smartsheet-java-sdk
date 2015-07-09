@@ -54,13 +54,44 @@ public class QueryUtilTest {
 		assertEquals("", QueryUtil.generateUrl(null, null));
 		assertEquals("url", QueryUtil.generateUrl("url", null));
 
-		HashMap<String, String> map = new HashMap<String, String>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("param1", "1");
 		map.put("param2", "2");
 		assertEquals("?param1=1&param2=2", QueryUtil.generateUrl(null, map));
 		map.clear();
 
 		map.put("param3", null);
-		assertEquals("?param3=", QueryUtil.generateUrl(null, map));
+		assertEquals("", QueryUtil.generateUrl(null, map));
+		map.clear();
+
+		map.put(null, null);
+		assertEquals("", QueryUtil.generateUrl(null, map));
+		map.clear();
+
+		map.put("param1", 1);
+		map.put("param2", null);
+		assertEquals("?param1=1", QueryUtil.generateUrl(null, map));
+		map.clear();
+
+		map.put("param1", 1);
+		map.put("param2", null);
+		map.put("param3", 3);
+		assertEquals("?param1=1&param3=3", QueryUtil.generateUrl(null, map));
+		map.clear();
+
+		map.put("param1", 1);
+		map.put("param2", "");
+		assertEquals("?param1=1", QueryUtil.generateUrl(null, map));
+		map.clear();
+
+		map.put("param1", "");
+		map.put("param2", "");
+		assertEquals("", QueryUtil.generateUrl(null, map));
+		map.clear();
+
+		map.put(null, "");
+		map.put("param2", "");
+		assertEquals("", QueryUtil.generateUrl(null, map));
+		map.clear();
 	}
 }

@@ -22,11 +22,12 @@ package com.smartsheet.api.internal;
 
 
 
-import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.UserResources;
-import com.smartsheet.api.models.DataWrapper;
-import com.smartsheet.api.models.User;
-import com.smartsheet.api.models.UserProfile;
+import com.smartsheet.api.*;
+import com.smartsheet.api.internal.util.QueryUtil;
+import com.smartsheet.api.models.*;
+
+import java.util.HashMap;
+import java.util.Set;
 
 /**
  * This is the implementation of the UserResources.
@@ -47,6 +48,23 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	}
 
 	/**
+	 * <p>List all users.</p>
+	 *
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /users</p>
+	 *
+	 * @return the list of all users
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	public DataWrapper<User> listUsers() throws SmartsheetException {
+		return this.listResourcesWithWrapper("users", User.class);
+	}
+
+	/**
 	 * List all users.
 	 * 
 	 * It mirrors to the following Smartsheet REST API method: GET /users
@@ -58,12 +76,23 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation 
 	 *   - SmartsheetException : if there is any other error occurred during the operation
 	 *
+	 * @param email the list of email addresses
+	 * @param pagination the object containing the pagination query parameters
 	 * @return all users (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 
-	public DataWrapper<User> listUsers() throws SmartsheetException {
-		return this.listResourcesWithWrapper("users", User.class);
+	public DataWrapper<User> listUsers(Set<String> email, PaginationParameters pagination) throws SmartsheetException {
+		String path = "users";
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+
+		if (pagination != null){
+			parameters = pagination.toHashMap();
+		}
+		parameters.put("email", QueryUtil.generateCommaSeparatedList(email));
+
+		path += QueryUtil.generateUrl(null, parameters);
+		return this.listResourcesWithWrapper(path, User.class);
 	}
 
 	/**
@@ -112,6 +141,24 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	}
 
 	/**
+	 * <p>Get the current user.</p>
+	 *
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /users/{userId}</p>
+	 *
+	 * @param userId the user id
+	 * @return the user
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	public UserProfile getUser(long userId) throws SmartsheetException {
+		return this.getResource("users/" + userId, UserProfile.class);
+	}
+
+	/**
 	 * Get the current user.
 	 * 
 	 * It mirrors to the following Smartsheet REST API method: GET /user/me 
@@ -135,16 +182,17 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 
 	@Override
 	public User updateUser(User user) throws SmartsheetException {
-		return this.updateResource("user/" + user.getId(), User.class, user);
+		return this.updateResource("users/" + user.getId(), User.class, user);
 	}
 
 	@Override
-	public void deleteUser(long id) throws SmartsheetException {
-		this.deleteResource("user/" + id, User.class);
-	}
+	public void deleteUser(long userId, DeleteUserParameters parameters) throws SmartsheetException {
+		String path = "users/" + userId;
 
-	@Override
-	public void deleteUser(long id, long transferToId, boolean removeFromSharing) throws SmartsheetException {
-		this.deleteResource("user/" + id + "?transferTo=" + transferToId + "&removeFromSharing="+removeFromSharing, User.class);
+		if (parameters != null) {
+			path += parameters.toQueryString();
+		}
+
+		this.deleteResource(path, User.class);
 	}
 }

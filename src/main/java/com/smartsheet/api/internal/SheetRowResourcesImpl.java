@@ -100,14 +100,10 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	public Row getRow(long sheetId, long rowId, EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException {
 		String path = "sheets/" + sheetId + "/rows/" + rowId;
 
-		HashMap<String, String> parameters = new HashMap<String, String>();
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
 
-		if (includes != null) {
-			parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-		}
-		if (excludes != null) {
-			parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
-		}
+		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+		parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
 
 		path += QueryUtil.generateUrl(null, parameters);
 		return this.getResource(path, Row.class);
@@ -203,7 +199,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 */
 	public CopyOrMoveRowResult moveRow(Long sheetId,EnumSet<RowMoveInclusion> includes, Boolean ignoreRowsNotFound, CopyOrMoveRowDirective moveParameters) throws SmartsheetException {
 		String path = "sheets/" + sheetId +"/rows/move";
-		HashMap<String, String> parameters = new HashMap<String, String>();
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 
 		if (ignoreRowsNotFound != null){
@@ -237,7 +233,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 */
 	public CopyOrMoveRowResult copyRow(Long sheetId,EnumSet<RowCopyInclusion> includes, Boolean ignoreRowsNotFound, CopyOrMoveRowDirective copyParameters) throws SmartsheetException {
 		String path = "sheets/" + sheetId +"/rows/move";
-		HashMap<String, String> parameters = new HashMap<String, String>();
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 
 		if (ignoreRowsNotFound != null){
