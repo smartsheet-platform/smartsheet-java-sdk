@@ -21,11 +21,11 @@ package com.smartsheet.api.models;
  */
 
 /**
- * Represents the Group object.
+ * Represents the Group Member object.
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/1554165-managing-groups-team-enterprise-only-">Help
  * Managing Groups</a>
  */
-public class GroupMember extends NamedModel<Long> {
+public class GroupMember extends UserModelWithName {
 
     /**
      * Represents the Group Member’s email address

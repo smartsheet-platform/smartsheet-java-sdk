@@ -26,11 +26,7 @@ package com.smartsheet.api.models;
  * Managing Users</a>
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/520100-user-types">User Types Help</a>
  */
-public class User extends AbstractUser {
-	/**
-	 * Represents the name
-	 */
-	private String name;
+public class User extends UserModelWithName {
 
 	/**
 	 * Represents the admin flag which allows managing users and accounts.
@@ -56,22 +52,6 @@ public class User extends AbstractUser {
 	 * Represents the user status (active, pending, declined).
 	 */
 	private UserStatus status;
-
-	/**
-	 * Gets the name
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * Sets the name
-	 * @param name the name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	/**
 	 * Gets the admin flag which allows managing users and accounts.
