@@ -52,7 +52,7 @@ public class CommentResourcesImplTest extends ResourcesImplBase  {
 	public void testGetComment() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/getComment.json"));
 		
-		Comment comment = commentResources.getComment(1234L);
+		Comment comment = commentResources.getComment(1234L, 1245L);
 		assertEquals(3831661625403268L, comment.getId().longValue());
 		assertEquals("This text is the body of the first comment", comment.getText());
 		assertEquals("Brett Batie",comment.getCreatedBy().getName());
@@ -68,7 +68,7 @@ public class CommentResourcesImplTest extends ResourcesImplBase  {
 	public void testDeleteComment() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/deleteComment.json"));
 
-		commentResources.deleteComment(1234L);
+		commentResources.deleteComment(1234L, 2345L);
 	}
 
 	@Test
