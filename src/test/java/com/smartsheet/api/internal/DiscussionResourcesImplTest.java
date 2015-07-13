@@ -35,6 +35,7 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.Comment;
 import com.smartsheet.api.models.Discussion;
+import org.omg.PortableInterceptor.DISCARDING;
 
 public class DiscussionResourcesImplTest extends ResourcesImplBase {
 
@@ -83,4 +84,14 @@ public class DiscussionResourcesImplTest extends ResourcesImplBase {
 		assertNull(discussionResources.attachments());
 	}
 
+	@Test
+	public void testCreateDiscussionOnRow() throws Exception {
+		server.setResponseBody(new File("src/test/resources/createDiscussionOnRow.json"));
+
+		Discussion discussion = new Discussion();
+		discussion.setTitle("new discussion");
+		Discussion newDisc = discussionResources.createDiscussionOnRow(1234L, 5678L, discussion);
+		assertEquals("This is a new discussion", newDisc.getTitle());
+		assertTrue(newDisc.getId() == 4583173393803140L);
+	}
 }
