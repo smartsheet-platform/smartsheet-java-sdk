@@ -24,29 +24,4 @@ package com.smartsheet.api.models;
  * Represents the ReportRow object.
  */
 public class ReportRow extends AbstractRow<ReportColumn, ReportCell>{
-
-    /**
-     * Represents the virtual ID of the cell’s column.
-     */
-    private Long sheetId;
-
-
-    /**
-     * Gets the ID of the Sheet from which the Row originates.
-     *
-     * @return the index
-     */
-    @Override
-    public Long getSheetId() {
-        return sheetId;
-    }
-
-    /**
-     * Sets the ID of the Sheet from which the Row originates.
-     *
-     * @param sheetId the new title
-     */
-    public void setSheetId(Long sheetId) {
-        this.sheetId = sheetId;
-    }
 }
