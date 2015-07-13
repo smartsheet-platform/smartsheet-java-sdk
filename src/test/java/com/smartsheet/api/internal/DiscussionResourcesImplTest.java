@@ -28,6 +28,8 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 
+import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PaginationParameters;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -85,13 +87,32 @@ public class DiscussionResourcesImplTest extends ResourcesImplBase {
 	}
 
 	@Test
-	public void testCreateDiscussionOnRow() throws Exception {
+	public void testCreateDiscussionOnRow() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/createDiscussionOnRow.json"));
 
 		Discussion discussion = new Discussion();
 		discussion.setTitle("new discussion");
-		Discussion newDisc = discussionResources.createDiscussionOnRow(1234L, 5678L, discussion);
-		assertEquals("This is a new discussion", newDisc.getTitle());
-		assertTrue(newDisc.getId() == 4583173393803140L);
+		Discussion newDiscussion = discussionResources.createDiscussionOnRow(1234L, 5678L, discussion);
+		assertEquals("This is a new discussion", newDiscussion.getTitle());
+		assertTrue(newDiscussion.getId() == 4583173393803140L);
+	}
+
+	@Test
+	public void testDeleteDiscussion() throws SmartsheetException, IOException {
+		server.setResponseBody(new File("src/test/resources/deleteDiscussion.json"));
+
+		discussionResources.deleteDiscussion(1234L, 2345L);
+	}
+
+	@Test
+	public void testGetAllDiscussions() throws SmartsheetException, IOException {
+		server.setResponseBody(new File("src/test/resources/getAllDiscussions.json"));
+		PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+
+		DataWrapper<Discussion> newDiscussion = discussionResources.getAllDiscussions(123L,parameters);
+		assertTrue(newDiscussion.getTotalPages() == 1);
+		assertTrue(newDiscussion.getPageSize() == 100);
+		assertTrue(newDiscussion.getTotalCount() == 1);
+		assertTrue(newDiscussion.getData().size() == 1);
 	}
 }

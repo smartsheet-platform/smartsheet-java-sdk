@@ -47,6 +47,33 @@ public class Discussion extends IdentifiableModel<Long> {
 
 	private String accessLevel;
 
+	/** Represents ID of the directly associated row or sheet. */
+	private Long parentId;
+
+	/** Represents the “SHEET” or “ROW”: present only when the direct association is not clear. */
+	private ParentType parentType;
+
+	/** Represents the User object containing name and email of the creator of the Discussion. */
+	private User createdBy;
+
+	/**
+	 * Gets the created by
+	 *
+	 * @return the created by
+	 */
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	/**
+	 * Sets the created by.
+	 *
+	 * @param createdBy the created by
+	 */
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
+
 	/**
 	 * Gets the title for the discussion.
 	 *
@@ -179,6 +206,42 @@ public class Discussion extends IdentifiableModel<Long> {
 	}
 
 	/**
+	 * Gets the ID of the directly associated row or sheet
+	 *
+	 * @return the parent ID
+	 */
+	public Long getParentId() {
+		return parentId;
+	}
+
+	/**
+	 * Sets the ID of the directly associated row or sheet
+	 *
+	 * @param parentId the new access level
+	 */
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
+	}
+
+	/**
+	 * Gets the type to row or sheet
+	 *
+	 * @return the parent type
+	 */
+	public ParentType getParentType() {
+		return parentType;
+	}
+
+	/**
+	 * Sets the type to row or sheet
+	 *
+	 * @param parentType the new access level
+	 */
+	public void setParentType(ParentType parentType) {
+		this.parentType = parentType;
+	}
+
+	/**
 	 * A convenience class to help generate discussion object with the appropriate fields for adding a discussion to 
 	 * a sheet.
 	 */
@@ -200,7 +263,7 @@ public class Discussion extends IdentifiableModel<Long> {
 		/**
 		 * Sets the comments for the discussion.
 		 *
-		 * @param comments the comments
+		 * @param comment the comments
 		 * @return the creates the discussion builder
 		 */
 		public CreateDiscussionBuilder setComment(Comment comment) {

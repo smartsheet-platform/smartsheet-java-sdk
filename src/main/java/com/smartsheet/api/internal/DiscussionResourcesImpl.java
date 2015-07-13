@@ -25,8 +25,7 @@ package com.smartsheet.api.internal;
 import com.smartsheet.api.AssociatedAttachmentResources;
 import com.smartsheet.api.DiscussionResources;
 import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.models.Comment;
-import com.smartsheet.api.models.Discussion;
+import com.smartsheet.api.models.*;
 
 /**
  * This is the implementation of the DiscussionResources.
@@ -130,6 +129,38 @@ public class DiscussionResourcesImpl extends AbstractResources implements Discus
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Discussion createDiscussionOnRow(long sheetId, long rowId, Discussion discussion) throws SmartsheetException{
-		return this.createResource("sheets" + sheetId + "/rows/" + rowId + "discussions", Discussion.class, discussion);
+		return this.createResource("sheets/" + sheetId + "/rows/" + rowId + "discussions", Discussion.class, discussion);
+	}
+
+	/**
+	 * Delete discussion.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/discussions/{discussionId}
+	 *
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param sheetId the sheet ID
+	 * @param discussionId the discussion ID
+	 * @return the created comment
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public void deleteDiscussion(long sheetId, long discussionId) throws SmartsheetException{
+		this.deleteResource("sheets/" + sheetId + "/discussions/" + discussionId, Discussion.class);
+	}
+
+	public DataWrapper<Discussion> getAllDiscussions(long sheetId, PaginationParameters parameters) throws SmartsheetException{
+		String path = "sheets/" + sheetId + "/discussions";
+
+		if (parameters != null) {
+			path += parameters.toQueryString();
+		}
+
+		return this.listResourcesWithWrapper(path, Discussion.class);
 	}
 }
