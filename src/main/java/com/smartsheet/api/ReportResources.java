@@ -41,7 +41,8 @@ public interface ReportResources {
      *
      * @param reportId the reportId of the report
      * @param includes used To specify the optional objects to include.
-     * @param pagination parametrs for pagination
+     * @param pageSize page size parameter for pagination
+     * @param page page parameter for pagination
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
      * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
@@ -80,6 +81,7 @@ public interface ReportResources {
      *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
      *   - SmartsheetException : if there is any other error occurred during the operation
      *
+     * @param parameters pagination parameters for paging result
      * @return all sheets (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
@@ -101,6 +103,9 @@ public interface ReportResources {
      *   SmartsheetException : if there is any other error occurred during the operation
      *
      * @param id the id
+     * @param includes list of optional objects to include in the response
+     * @param pageSize page size parameter for pagination
+     * @param page page parameter for pagination
      * @param outputStream the OutputStream to which the Excel file will be written
      * @return the sheet as csv
      * @throws SmartsheetException the smartsheet exception
@@ -123,6 +128,9 @@ public interface ReportResources {
  *   SmartsheetException : if there is any other error occurred during the operation
  *
  * @param id the id
+ * @param includes list of optional objects to include in the response
+ * @param pageSize page size parameter for pagination
+ * @param page page parameter for pagination
  * @param outputStream the OutputStream to which the Excel file will be written
  * @return the sheet as csv
  * @throws SmartsheetException the smartsheet exception

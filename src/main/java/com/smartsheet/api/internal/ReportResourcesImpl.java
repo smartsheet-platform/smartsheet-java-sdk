@@ -73,7 +73,6 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * @throws SmartsheetException the smartsheet exception
      */
     public Report getReport(long reportId, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page) throws SmartsheetException{
-        this.checkParameters(pageSize, page);
         String path = "reports/" + reportId;
         HashMap<String, String> parameters = new HashMap<String, String>();
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
@@ -114,34 +113,6 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
     };
 
     /**
-     * Checks pageSize and page.
-     *
-     * Exceptions:
-     *   - InvalidRequestException : if there is any problem with the REST API request
-     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   - ResourceNotFoundException : if the resource can not be found
-     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   - SmartsheetException : if there is any other error occurred during the operation
-     *
-     * @param pageSize the page size
-     * @param page the page number
-     * @return the sheet as file
-     * @throws SmartsheetException the smartsheet exception
-     */
-    private void checkParameters(Integer pageSize, Integer page){
-        if (page != null && page <= 0 )
-        {
-            throw new IllegalArgumentException("Page Number must be greater than 0.");
-        }
-
-        if (pageSize != null && (pageSize <= 0 || pageSize > 500))
-        {
-            throw new IllegalArgumentException("Page Size must be between 1 and 500.");
-        }
-    }
-
-    /**
      * List all reports.
      *
      * It mirrors to the following Smartsheet REST API method: GET /reports
@@ -153,6 +124,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
      *   - SmartsheetException : if there is any other error occurred during the operation
      *
+     * @param parameters pagination parameters for paging result
      * @return all sheets (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
@@ -188,8 +160,6 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * @throws SmartsheetException the smartsheet exception
      */
     public void getReportAsExcel(long id, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page, OutputStream outputStream) throws SmartsheetException {
-        this.checkParameters(pageSize, page);
-
         String path = "/reports";
         HashMap<String, String> parameters = new HashMap<String, String>();
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
@@ -230,7 +200,6 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * @throws SmartsheetException the smartsheet exception
      */
     public void getReportAsCsv(long id, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page, OutputStream outputStream) throws SmartsheetException {
-        this.checkParameters(pageSize, page);
         String path = "/reports";
 
         HashMap<String, String> parameters = new HashMap<String, String>();
