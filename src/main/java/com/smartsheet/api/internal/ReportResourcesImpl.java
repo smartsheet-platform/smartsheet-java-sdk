@@ -75,15 +75,10 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
     public Report getReport(long reportId, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page) throws SmartsheetException{
         String path = "reports/" + reportId;
         HashMap<String, String> parameters = new HashMap<String, String>();
+
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-
-        if (pageSize != null) {
-            parameters.put("pageSize", pageSize.toString());
-        }
-
-        if (page != null) {
-            parameters.put("page", page.toString());
-        }
+        parameters.put("pageSize", pageSize.toString());
+        parameters.put("page", page.toString());
 
         path += QueryUtil.generateUrl(null, parameters);
         return this.getResource(path, Report.class);
@@ -104,12 +99,11 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      *
      * @param reportId the report id
      * @param email the recipient email
-     * @return the report (note that if there is no such resource, this method will throw ResourceNotFoundException
-     * rather than returning null)
+     * @return the result object with status of action
      * @throws SmartsheetException the smartsheet exception
      */
-    public void sendSheet(long reportId, SheetEmail email) throws SmartsheetException{
-         this.createResource("reports/" + reportId + "/emails", SheetEmail.class, email);
+    public Result sendSheet(long reportId, SheetEmail email) throws SmartsheetException{
+        return this.sendResult("reports/" + reportId + "/emails", email);
     };
 
     /**
@@ -164,13 +158,8 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
         HashMap<String, String> parameters = new HashMap<String, String>();
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 
-        if (pageSize != null) {
-            parameters.put("pageSize", pageSize.toString());
-        }
-
-        if (page != null) {
-            parameters.put("page", page.toString());
-        }
+        parameters.put("pageSize", pageSize.toString());
+        parameters.put("page", page.toString());
 
         path += QueryUtil.generateUrl(null, parameters);
         getResourceAsFile(path, "application/vnd.ms-excel",outputStream);
@@ -201,17 +190,11 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      */
     public void getReportAsCsv(long id, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page, OutputStream outputStream) throws SmartsheetException {
         String path = "/reports";
-
         HashMap<String, String> parameters = new HashMap<String, String>();
+
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-
-        if (pageSize != null) {
-            parameters.put("pageSize", pageSize.toString());
-        }
-
-        if (page != null) {
-            parameters.put("page", page.toString());
-        }
+        parameters.put("pageSize", pageSize.toString());
+        parameters.put("page", page.toString());
 
         path += QueryUtil.generateUrl(null, parameters);
         getResourceAsFile(path, "text/csv",outputStream);
