@@ -9,9 +9,9 @@ package com.smartsheet.api.internal.util;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -55,7 +55,7 @@ public class QueryUtil {
         }
     }
 
-    public static String generateUrl(String baseUrl, Map<String, String> parameters) {
+    public static String generateUrl(String baseUrl, Map<String, Object> parameters) {
         if (baseUrl == null) {
             baseUrl = "";
         }
@@ -63,7 +63,7 @@ public class QueryUtil {
         StringBuilder result = new StringBuilder();
         result.append(baseUrl);
         result.append(generateQueryString(parameters));
-
+        
         return result.toString();
     }
 
@@ -73,7 +73,7 @@ public class QueryUtil {
      * @param parameters the map of query string keys and values
      * @return the query string
      */
-    protected static String generateQueryString(Map<String, String> parameters) {
+    protected static String generateQueryString(Map<String, Object> parameters) {
         StringBuilder result = new StringBuilder();
 
         if (parameters == null) {
@@ -81,20 +81,21 @@ public class QueryUtil {
         } else {
             try {
                 int parametersIndex = 0;
-                for(Map.Entry<String, String> entry : parameters.entrySet()) {
-                    if (parametersIndex == 0) {
-                        result.append("?");
-                    } else {
-                        result.append("&");
-                    }
+                for(Map.Entry<String, Object> entry : parameters.entrySet()) {
+                    // Check to see if the key/value isn't null or empty string
+                    if (entry.getKey() != null && (entry.getValue() != null && !entry.getValue().toString().equals(""))) {
+                        if (parametersIndex == 0) {
+                            result.append("?");
+                        } else {
+                            result.append("&");
+                        }
 
-                    result.append(URLEncoder.encode(entry.getKey(), "utf-8"));
-                    result.append("=");
+                        result.append(URLEncoder.encode(entry.getKey(), "utf-8"));
+                        result.append("=");
+                        result.append(URLEncoder.encode(entry.getValue().toString(), "utf-8"));
 
-                    if (entry.getValue() != null) {
-                        result.append(URLEncoder.encode(entry.getValue(), "utf-8"));
+                        parametersIndex++;
                     }
-                    parametersIndex++;
                 }
             } catch (UnsupportedEncodingException e) {
                 throw new RuntimeException(e);
