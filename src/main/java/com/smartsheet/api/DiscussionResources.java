@@ -38,9 +38,10 @@ public interface DiscussionResources {
 	 * <p>Get a discussion.</p>
 	 * 
 	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * GET /discussion/{id}</p>
+	 * GET /sheets/{sheetId}/discussions/{discussionId}</p>
 	 *
-	 * @param id the id
+	 * @param discussionId the discussion id
+	 * @param sheetId the sheet id
 	 * @return the discussion (note that if there is no such resource, this method will throw ResourceNotFoundException
 	 * rather than returning null).
 	 * @throws IllegalArgumentException if any argument is null or empty string
@@ -50,7 +51,7 @@ public interface DiscussionResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Discussion getDiscussion(long id) throws SmartsheetException;
+	public Discussion getDiscussion(long sheetId, long discussionId) throws SmartsheetException;
 
 	/**
 	 * <p>Add a comment to a discussion.</p>

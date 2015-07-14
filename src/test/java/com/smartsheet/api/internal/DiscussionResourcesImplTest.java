@@ -57,7 +57,7 @@ public class DiscussionResourcesImplTest extends ResourcesImplBase {
 	public void testGetDiscussion() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/getDiscussion.json"));
 		
-		Discussion discussion = discussionResources.getDiscussion(1234L);
+		Discussion discussion = discussionResources.getDiscussion(1234L, 5678L);
 		
 		assertEquals("New Discussion", discussion.getTitle());
 		assertNotNull(discussion.getComments());

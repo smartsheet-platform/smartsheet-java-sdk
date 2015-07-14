@@ -56,6 +56,27 @@ public class Discussion extends IdentifiableModel<Long> {
 	/** Represents the User object containing name and email of the creator of the Discussion. */
 	private User createdBy;
 
+	/** Represents the status of the Discussion. */
+	private Boolean readOnly;
+
+	/**
+	 * Gets the read only status
+	 *
+	 * @return the read only status
+	 */
+	public Boolean getReadOnly() {
+		return readOnly;
+	}
+
+	/**
+	 * Sets the read only status.
+	 *
+	 * @param readOnly the read only status
+	 */
+	public void setReadOnly(Boolean readOnly) {
+		this.readOnly = readOnly;
+	}
+
 	/**
 	 * Gets the created by
 	 *
