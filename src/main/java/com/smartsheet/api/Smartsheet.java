@@ -21,6 +21,7 @@ package com.smartsheet.api;
  */
 
 
+import com.smartsheet.api.models.Report;
 
 /**
  * <p>This interface is the entry point of the Smartsheet SDK, it provides convenient methods to get XXXResources instances
@@ -109,6 +110,12 @@ public interface Smartsheet {
 	 */
 	public SearchResources search();
 
+	/**
+	 * <p>Returns the ReportResources instance that provides access to report resources.</p>
+	 *
+	 * @return the report resources instance
+	 */
+	public ReportResources reports();
 	/**
 	 * <p>Set the email of the user to assume.</p>
 	 *

@@ -69,7 +69,7 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 */
 	public Folder getFolder(long folderId, EnumSet<SourceInclusion> includes) throws SmartsheetException {
 		String path = "folders/" + folderId;
-		HashMap<String, String> parameters = new HashMap<String, String>();
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
 
 		if (includes != null) {
 			parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));

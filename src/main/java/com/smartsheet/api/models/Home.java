@@ -42,8 +42,7 @@ public class Home {
 	/**
 	 * Represents the reports in the home location.
 	 */
-	//TODO: implement reports
-	// private List<Report> reports;
+	private List<Report> reports;
 
 	/**
 	 * Represents the templates in the home location.
@@ -89,6 +88,24 @@ public class Home {
 	 */
 	public void setFolders(List<Folder> folders) {
 		this.folders = folders;
+	}
+
+	/**
+	 * Gets the reports.
+	 *
+	 * @return the reports
+	 */
+	public List<Report> getReports() {
+		return reports;
+	}
+
+	/**
+	 * Sets the reports.
+	 *
+	 * @param reports the new reports
+	 */
+	public void setReports(List<Report> reports) {
+		this.reports = reports;
 	}
 
 	/**

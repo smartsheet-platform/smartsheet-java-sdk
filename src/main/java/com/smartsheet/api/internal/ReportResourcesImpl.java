@@ -74,7 +74,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      */
     public Report getReport(long reportId, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page) throws SmartsheetException{
         String path = "reports/" + reportId;
-        HashMap<String, String> parameters = new HashMap<String, String>();
+        HashMap<String, Object> parameters = new HashMap<String, Object>();
 
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         parameters.put("pageSize", pageSize.toString());
@@ -156,7 +156,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      */
     public void getReportAsExcel(long id, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page, OutputStream outputStream) throws SmartsheetException {
         String path = "/reports";
-        HashMap<String, String> parameters = new HashMap<String, String>();
+        HashMap<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 
         parameters.put("pageSize", pageSize.toString());
@@ -191,7 +191,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      */
     public void getReportAsCsv(long id, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page, OutputStream outputStream) throws SmartsheetException {
         String path = "/reports";
-        HashMap<String, String> parameters = new HashMap<String, String>();
+        HashMap<String, Object> parameters = new HashMap<String, Object>();
 
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         parameters.put("pageSize", pageSize.toString());
