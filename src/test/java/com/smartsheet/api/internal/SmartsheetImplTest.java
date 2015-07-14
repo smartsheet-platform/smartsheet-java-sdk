@@ -118,10 +118,14 @@ public class SmartsheetImplTest extends ResourcesImplBase {
 	}
 
 	@Test
-	public void testSearch() {
+	 public void testSearch() {
 		assertNotNull(smartsheet.search());
 	}
 
+	@Test
+	public void testReports() {
+		assertNotNull(smartsheet.reports());
+	}
 	@Test
 	public void testSetAssumedUser() {
 		smartsheet.setAssumedUser("user");

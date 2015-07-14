@@ -42,8 +42,7 @@ public class Folder extends NamedModel<Long> {
 	/**
 	 * Represents the reports.
 	 */
-	//TODO: implement reports
-	// private List<Report> reports;
+	 private List<Report> reports;
 
 	/**
 	 * Represents the templates contained in the folder.
@@ -131,6 +130,24 @@ public class Folder extends NamedModel<Long> {
 	 */
 	public void setFolders(List<Folder> folders) {
 		this.folders = folders;
+	}
+
+	/**
+	 * Gets the reports.
+	 *
+	 * @return the reports
+	 */
+	public List<Report> getReports() {
+		return reports;
+	}
+
+	/**
+	 * Sets the reports.
+	 *
+	 * @param reports the new reports
+	 */
+	public void setReports(List<Report> reports) {
+		this.reports = reports;
 	}
 
 	/**
