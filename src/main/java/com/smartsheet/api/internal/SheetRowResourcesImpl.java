@@ -199,7 +199,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 */
 	public CopyOrMoveRowResult moveRow(Long sheetId,EnumSet<RowMoveInclusion> includes, Boolean ignoreRowsNotFound, CopyOrMoveRowDirective moveParameters) throws SmartsheetException {
 		String path = "sheets/" + sheetId +"/rows/move";
-		HashMap<String, String> parameters = new HashMap<String, String>();
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 
 		if (ignoreRowsNotFound != null){
@@ -233,7 +233,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 */
 	public CopyOrMoveRowResult copyRow(Long sheetId,EnumSet<RowCopyInclusion> includes, Boolean ignoreRowsNotFound, CopyOrMoveRowDirective copyParameters) throws SmartsheetException {
 		String path = "sheets/" + sheetId +"/rows/move";
-		HashMap<String, String> parameters = new HashMap<String, String>();
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 
 		if (ignoreRowsNotFound != null){
