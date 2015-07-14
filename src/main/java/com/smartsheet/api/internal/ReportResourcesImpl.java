@@ -99,11 +99,12 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      *
      * @param reportId the report id
      * @param email the recipient email
-     * @return the result object with status of action
+     * @return the report (note that if there is no such resource, this method will throw ResourceNotFoundException
+     * rather than returning null)
      * @throws SmartsheetException the smartsheet exception
      */
-    public Result sendSheet(long reportId, SheetEmail email) throws SmartsheetException{
-        return this.sendResult("reports/" + reportId + "/emails", email);
+    public void sendSheet(long reportId, SheetEmail email) throws SmartsheetException{
+         this.createResource("reports/" + reportId + "/emails", SheetEmail.class, email);
     };
 
     /**

@@ -80,9 +80,7 @@ public class ReportResourcesImplTest extends ResourcesImplBase {
         format.setPaperSize(PaperSize.A0);
         email.setFormatDetails(format);
         email.setSendTo(recipients);
-        Result result= reportResources.sendSheet(1234L, email);
-
-        assertEquals(result.getMessage(), "SUCCESS");
+        reportResources.sendSheet(1234L, email);
 
     }
 

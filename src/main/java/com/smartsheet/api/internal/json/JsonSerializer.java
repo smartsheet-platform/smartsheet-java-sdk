@@ -160,22 +160,4 @@ public interface JsonSerializer {
 	public <T> Result<List<T>> deserializeListResult(Class<T> objectClass, java.io.InputStream inputStream)
 			throws JSONSerializerException;
 
-	/**
-	 * De-serialize the Result object from JSON.
-	 *
-	 * Parameters: - objectClass : the class of the object (of the Result) to de-serialize - inputStream : the input
-	 * stream from which the JSON will be read
-	 *
-	 * Returns: the de-serialized result
-	 *
-	 * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
-	 * other error occurred during the operation
-	 *
-	 * @param inputStream the input stream
-	 * @return the result
-	 * @throws JSONSerializerException the JSON serializer exception
-	 */
-	public Result deserializeReturnResult(java.io.InputStream inputStream)
-			throws JSONSerializerException;
-
 }
