@@ -3,6 +3,7 @@ package com.smartsheet.api.internal;
 import java.util.List;
 
 import com.smartsheet.api.AssociatedAttachmentResources;
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Attachment;
 
 /*
@@ -48,7 +49,7 @@ public class CommentAttachmentResources extends AssociatedAttachmentResourcesImp
 	 * @param smartsheet the smartsheet
 	 */
 	public CommentAttachmentResources(SmartsheetImpl smartsheet) {
-		super(smartsheet, "comment");
+		super(smartsheet, "comments");
 	}
 
 	/* (non-Javadoc)
@@ -58,4 +59,6 @@ public class CommentAttachmentResources extends AssociatedAttachmentResourcesImp
 	public List<Attachment> listAttachments(long objectId) {
 		throw new UnsupportedOperationException();
 	}
+
+
 }
