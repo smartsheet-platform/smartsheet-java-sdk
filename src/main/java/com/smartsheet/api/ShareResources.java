@@ -24,7 +24,9 @@ package com.smartsheet.api;
 
 import java.util.List;
 
+import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.MultiShare;
+import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Share;
 
 /**
@@ -42,6 +44,7 @@ public interface ShareResources {
 	 * GET /sheet/{id}/shares</p>
 	 *
 	 * @param objectId the object id
+	 * @param parameters the pagination parameters
 	 * @return the list of Share objects (note that an empty list will be returned if there is none).
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
@@ -50,7 +53,7 @@ public interface ShareResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public List<Share> listShares(long objectId) throws SmartsheetException;
+	public DataWrapper<Share> listShares(long objectId, PaginationParameters parameters) throws SmartsheetException;
 
 	/**
 	 * <p>Get a Share.</p>

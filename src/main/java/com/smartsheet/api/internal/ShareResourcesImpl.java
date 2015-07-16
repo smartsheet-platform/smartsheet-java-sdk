@@ -24,7 +24,9 @@ import java.util.List;
 
 import com.smartsheet.api.ShareResources;
 import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.MultiShare;
+import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Share;
 
 /**
@@ -60,11 +62,16 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 	 *   SmartsheetException : if there is any other error occurred during the operation
 	 *
 	 * @param objectId the id of the object to share.
+	 * @param parameters the pagination parameters
 	 * @return the shares (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public List<Share> listShares(long objectId) throws SmartsheetException {
-		return this.listResources(getMasterResourceType() + "/" + objectId + "/shareswithgroups", Share.class);
+	public DataWrapper<Share> listShares(long objectId, PaginationParameters parameters) throws SmartsheetException {
+		String path = getMasterResourceType() + "/" + objectId + "/shares";
+		if (parameters != null) {
+			path += parameters.toQueryString();
+		}
+		return this.listResourcesWithWrapper(path, Share.class);
 	}
 
 	/**

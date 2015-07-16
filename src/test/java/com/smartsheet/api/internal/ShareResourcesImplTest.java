@@ -28,14 +28,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.smartsheet.api.models.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.AccessLevel;
-import com.smartsheet.api.models.MultiShare;
-import com.smartsheet.api.models.Share;
 
 public class ShareResourcesImplTest extends ResourcesImplBase {
 
@@ -55,12 +53,12 @@ public class ShareResourcesImplTest extends ResourcesImplBase {
 	public void testListShares() throws SmartsheetException, IOException {
 
 		server.setResponseBody(new File("src/test/resources/listShares.json"));
+		PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+		DataWrapper<Share> shares = shareResourcesImpl.listShares(2906571706525572L, parameters);
+		assertTrue("The number of shares returned is incorrect.", shares.getTotalCount() == 2);
 
-		List<Share> shares = shareResourcesImpl.listShares(2906571706525572L);
-		assertTrue("The number of shares returned is incorrect.", shares.size() == 2);
-
-		assertEquals("Email attribute of the share is incorrect.", "email@email.com", shares.get(0).getEmail());
-		assertEquals("Email attribute of the share is incorrect.", "someone@somewhere.com", shares.get(1).getEmail());
+		assertEquals("Email attribute of the share is incorrect.", "john.doe@smartsheet.com", shares.getData().get(0).getEmail());
+		assertEquals("Email attribute of the share is incorrect.",null, shares.getData().get(1).getEmail());
 	}
 
 	@Test
