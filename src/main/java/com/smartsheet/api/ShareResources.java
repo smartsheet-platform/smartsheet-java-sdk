@@ -56,22 +56,24 @@ public interface ShareResources {
 	public DataWrapper<Share> listShares(long objectId, PaginationParameters parameters) throws SmartsheetException;
 
 	/**
-	 * <p>Get a Share.</p>
-	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * GET /workspace/{id}/shareWithGroups/{shareId}<br />
-	 * GET /sheet/{id}/shareWithGroups/{shareId}</p>
+	 * Get a Share.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: GET /workspaces/{workspaceId}/shares/{shareId} GET
+	 * /sheets/{sheetId}/shares/{shareId} GET /reports/{reportId}/shares
+	 *
+	 * Exceptions:
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
 	 *
 	 * @param objectId the ID of the object to share
-	 * @param shareId the ID of the share to whom the object is shared
+	 * @param shareId the ID of the share
 	 * @return the share (note that if there is no such resource, this method will throw ResourceNotFoundException
 	 * rather than returning null).
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Share getShare(long objectId, String shareId) throws SmartsheetException;
 
@@ -158,10 +160,11 @@ public interface ShareResources {
 
 	/**
 	 * <p>Update a share.</p>
-	 * 
+	 *
 	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * PUT /workspace/{id}/shareWithGroups/{shareId}<br />
-	 * PUT /sheet/{id}/shareWithGroups/{shareId}</p>
+	 * PUT /workspaces/{workspaceId}/shares/{shareId}<br />
+	 * PUT /sheets/{sheetId}/shares/{shareId}</p>
+	 * PUT /reports/{reportId}/shares/{shareId}</p>
 	 *
 	 * @param objectId the ID of the object to share
 	 * @param shareId the Id of the user to whom the object is shared
@@ -178,20 +181,22 @@ public interface ShareResources {
 	public Share updateShare(long objectId, String shareId, Share share) throws SmartsheetException;
 
 	/**
-	 * <p>Delete a share.</p>
-	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * DELETE /workspace/{id}/share/{shareId}<br />
-	 * DELETE /sheet/{id}/share/{shareId}</p>
+	 * Delete a share.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: DELETE /workspaces/{workspaceId}/shares/{shareId} DELETE
+	 * /sheets/{sheetId}/shares/{shareId} DELETE /reports/{reportId}/shares/{shareId}
+	 *
+	 * Exceptions:
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
 	 *
 	 * @param objectId the ID of the object to share
 	 * @param shareId the ID of the share to delete
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
+	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public void deleteShare(long objectId, String shareId) throws SmartsheetException;
 }
