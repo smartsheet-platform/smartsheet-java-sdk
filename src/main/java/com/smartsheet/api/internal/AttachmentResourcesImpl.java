@@ -79,7 +79,7 @@ public class AttachmentResourcesImpl extends AbstractResources implements Attach
 	/**
 	 * Delete an attachment.
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: DELETE /attachment{id}
+	 * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/attachments/{attachmentId}
 	 * 
 	 * Exceptions:
 	 *   InvalidRequestException : if there is any problem with the REST API request
@@ -89,14 +89,14 @@ public class AttachmentResourcesImpl extends AbstractResources implements Attach
 	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
 	 *   SmartsheetException : if there is any other error occurred during the operation
 	 *
-	 * @param id the ID of the attachment
+	 * @param sheetId the ID of the sheet
+	 * @param attachmentId the ID of the attachment
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public void deleteAttachment(long id) throws SmartsheetException {
-		this.deleteResource("attachment/" + id, Attachment.class);
+	public void deleteAttachment(long sheetId, long attachmentId) throws SmartsheetException {
+		this.deleteResource("sheets/" + sheetId + "/attachment/" + attachmentId, Attachment.class);
 	}
 
-	
 	@Override
 	public void deleteAllAttachmentVersions(long id) throws SmartsheetException {
 		this.deleteResource("attachment/"+ id + "/versions", Attachment.class);

@@ -72,7 +72,7 @@ public class AttachmentResourcesImplTest extends ResourcesImplBase {
 	public void testDeleteAttachment() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/deleteAttachment.json"));
 		
-		attachmentResourcesImpl.deleteAttachment(1234L);
+		attachmentResourcesImpl.deleteAttachment(1234L, 4567L);
 	}
 
 	@Test

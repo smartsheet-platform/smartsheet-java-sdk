@@ -128,4 +128,23 @@ public interface AttachmentResources {
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Attachment attachNewVersion(long attachmentId, InputStream inputStream, String contentType, long contentLength, String attachmentName) throws SmartsheetException;
+
+	/**
+	 * Delete an attachment.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/attachments/{attachmentId}
+	 *
+	 * Exceptions:
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param sheetId the ID of the sheet
+	 * @param attachmentId the ID of the attachment
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public void deleteAttachment(long sheetId, long attachmentId) throws SmartsheetException;
 }
