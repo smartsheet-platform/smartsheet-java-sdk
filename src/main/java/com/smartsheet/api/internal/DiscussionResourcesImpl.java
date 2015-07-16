@@ -25,7 +25,11 @@ package com.smartsheet.api.internal;
 import com.smartsheet.api.AssociatedAttachmentResources;
 import com.smartsheet.api.DiscussionResources;
 import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.*;
+
+import java.util.EnumSet;
+import java.util.HashMap;
 
 /**
  * This is the implementation of the DiscussionResources.
@@ -111,29 +115,6 @@ public class DiscussionResourcesImpl extends AbstractResources implements Discus
 	}
 
 	/**
-	 * Create discussion on a row.
-	 *
-	 * It mirrors to the following Smartsheet REST API method: /sheets/{sheetId}/rows/{rowId}/discussions
-	 *
-	 * Exceptions:
-	 *   IllegalArgumentException : if any argument is null
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param sheetId the sheet ID
-	 * @param rowId the row ID
-	 * @param discussion the comment to add, limited to the following required attributes: text
-	 * @return the created comment
-	 * @throws SmartsheetException the smartsheet exception
-	 */
-	public Discussion createDiscussionOnRow(long sheetId, long rowId, Discussion discussion) throws SmartsheetException{
-		return this.createResource("sheets/" + sheetId + "/rows/" + rowId + "discussions", Discussion.class, discussion);
-	}
-
-	/**
 	 * Delete discussion.
 	 *
 	 * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/discussions/{discussionId}
@@ -169,15 +150,20 @@ public class DiscussionResourcesImpl extends AbstractResources implements Discus
 	 *   SmartsheetException : if there is any other error occurred during the operation
 	 *
 	 * @param sheetId the sheet ID
-	 * @param parameters the pagination parameters
+	 * @param pagination the pagination pagination
+	 * @param includes the optional include parameters
 	 * @return all the discussions
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Discussion> getAllDiscussions(long sheetId, PaginationParameters parameters) throws SmartsheetException{
+	public DataWrapper<Discussion> getAllDiscussions(long sheetId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException{
 		String path = "sheets/" + sheetId + "/discussions";
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
 
-		if (parameters != null) {
-			path += parameters.toQueryString();
+		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+		path += QueryUtil.generateUrl(null, parameters);
+
+		if (pagination != null) {
+			path += pagination.toQueryString();
 		}
 
 		return this.listResourcesWithWrapper(path, Discussion.class);

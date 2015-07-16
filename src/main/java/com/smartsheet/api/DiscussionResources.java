@@ -22,10 +22,9 @@ package com.smartsheet.api;
 
 
 
-import com.smartsheet.api.models.Comment;
-import com.smartsheet.api.models.DataWrapper;
-import com.smartsheet.api.models.Discussion;
-import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.*;
+
+import java.util.EnumSet;
 
 /**
  * <p>This interface provides methods to access Discussion resources.</p>
@@ -80,27 +79,6 @@ public interface DiscussionResources {
 	public AssociatedAttachmentResources attachments();
 
 	/**
-	 * Create discussion on a row.
-	 *
-	 * It mirrors to the following Smartsheet REST API method: /sheets/{sheetId}/rows/{rowId}/discussions
-	 *
-	 * Exceptions:
-	 *   IllegalArgumentException : if any argument is null
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param sheetId the sheet ID
-	 * @param rowId the row ID
-	 * @param discussion the comment to add, limited to the following required attributes: text
-	 * @return the created comment
-	 * @throws SmartsheetException the smartsheet exception
-	 */
-	public Discussion createDiscussionOnRow(long sheetId, long rowId, Discussion discussion) throws SmartsheetException;
-
-	/**
 	 * Delete discussion.
 	 *
 	 * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/discussions/{discussionId}
@@ -120,5 +98,24 @@ public interface DiscussionResources {
 	 */
 	public void deleteDiscussion(long sheetId, long discussionId) throws SmartsheetException;
 
-	public DataWrapper<Discussion> getAllDiscussions(long sheetId, PaginationParameters parameters) throws SmartsheetException;
+	/**
+	 * Get all discussions
+	 *
+	 * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/discussions/{discussionId}
+	 *
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param sheetId the sheet ID
+	 * @param pagination the pagination parameters
+	 * @param includes the optional paramters to include
+	 * @return a list of discussions
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public DataWrapper<Discussion> getAllDiscussions(long sheetId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException;
 }

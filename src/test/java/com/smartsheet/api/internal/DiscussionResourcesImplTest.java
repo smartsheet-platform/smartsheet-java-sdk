@@ -27,16 +27,14 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.EnumSet;
 
-import com.smartsheet.api.models.DataWrapper;
-import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.Comment;
-import com.smartsheet.api.models.Discussion;
 import org.omg.PortableInterceptor.DISCARDING;
 
 public class DiscussionResourcesImplTest extends ResourcesImplBase {
@@ -87,17 +85,6 @@ public class DiscussionResourcesImplTest extends ResourcesImplBase {
 	}
 
 	@Test
-	public void testCreateDiscussionOnRow() throws SmartsheetException, IOException {
-		server.setResponseBody(new File("src/test/resources/createDiscussionOnRow.json"));
-
-		Discussion discussion = new Discussion();
-		discussion.setTitle("new discussion");
-		Discussion newDiscussion = discussionResources.createDiscussionOnRow(1234L, 5678L, discussion);
-		assertEquals("This is a new discussion", newDiscussion.getTitle());
-		assertTrue(newDiscussion.getId() == 4583173393803140L);
-	}
-
-	@Test
 	public void testDeleteDiscussion() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/deleteDiscussion.json"));
 
@@ -109,7 +96,7 @@ public class DiscussionResourcesImplTest extends ResourcesImplBase {
 		server.setResponseBody(new File("src/test/resources/getAllDiscussions.json"));
 		PaginationParameters parameters = new PaginationParameters(false, 1, 1);
 
-		DataWrapper<Discussion> newDiscussion = discussionResources.getAllDiscussions(123L,parameters);
+		DataWrapper<Discussion> newDiscussion = discussionResources.getAllDiscussions(123L, parameters, EnumSet.of(DiscussionInclusion.COMMENTS));
 		assertTrue(newDiscussion.getTotalPages() == 1);
 		assertTrue(newDiscussion.getPageSize() == 100);
 		assertTrue(newDiscussion.getTotalCount() == 1);
