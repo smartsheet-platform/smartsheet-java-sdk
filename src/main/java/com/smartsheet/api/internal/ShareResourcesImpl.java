@@ -24,7 +24,6 @@ import java.util.List;
 
 import com.smartsheet.api.*;
 import com.smartsheet.api.models.DataWrapper;
-import com.smartsheet.api.models.MultiShare;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Share;
 
@@ -97,86 +96,86 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 		return this.getResource(getMasterResourceType() + "/" + objectId + "/shares/" + shareId, Share.class);
 	}
 
-	/**
-	 * Share the object, without sending email.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /workspace/{id}/sharesWithGroups POST /sheet/{id}/sharesWithGroups
-	 * 
-	 * Exceptions:
-	 *   IllegalArgumentException : if share is null
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ResourceNotFoundException : if the resource can not be found
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param objectId the ID of the object to share - share : the share object
-	 * @param share the share
-	 * @return the created share
-	 * @throws SmartsheetException the smartsheet exception
-	 */
-	public Share shareTo(long objectId, Share share) throws SmartsheetException {
-		return this.createResource(getMasterResourceType() + "/" + objectId + "/shareswithgroups", Share.class, share);
-	}
+//	/**
+//	 * Share the object, without sending email.
+//	 *
+//	 * It mirrors to the following Smartsheet REST API method: POST /workspace/{id}/sharesWithGroups POST /sheet/{id}/sharesWithGroups
+//	 *
+//	 * Exceptions:
+//	 *   IllegalArgumentException : if share is null
+//	 *   InvalidRequestException : if there is any problem with the REST API request
+//	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+//	 *   ResourceNotFoundException : if the resource can not be found
+//	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+//	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+//	 *   SmartsheetException : if there is any other error occurred during the operation
+//	 *
+//	 * @param objectId the ID of the object to share - share : the share object
+//	 * @param share the share
+//	 * @return the created share
+//	 * @throws SmartsheetException the smartsheet exception
+//	 */
+//	public Share shareTo(long objectId, Share share) throws SmartsheetException {
+//		return this.createResource(getMasterResourceType() + "/" + objectId + "/shareswithgroups", Share.class, share);
+//	}
+//
+//	/**
+//	 * Share the object.
+//	 *
+//	 * It mirrors to the following Smartsheet REST API method: POST /workspace/{id}/sharesWithGroups POST /sheet/{id}/sharesWithGroups
+//	 *
+//	 * Returns: the created share
+//	 *
+//	 * Exceptions:
+//	 *   IllegalArgumentException : if share is null
+//	 *   InvalidRequestException : if there is any problem with the REST API request
+//	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+//	 *   ResourceNotFoundException : if the resource can not be found
+//	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+//	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+//	 *   SmartsheetException : if there is any other error occurred during the operation
+//	 *
+//	 * @param objectId the id of the object to share
+//	 * @param share the share object
+//	 * @param sendEmail whether to send email
+//	 * @return the created share
+//	 * @throws SmartsheetException the smartsheet exception
+//	 */
+//	public Share shareTo(long objectId, Share share, boolean sendEmail) throws SmartsheetException {
+//		return this.createResource(getMasterResourceType() + "/" + objectId + "/shareswithgroups?sendEmail=" + sendEmail,
+//				Share.class, share);
+//	}
+//
+//	/**
+//	 * Share the object with multiple users, without sending email.
+//	 *
+//	 * It mirrors to the following Smartsheet REST API method: POST /workspace/{id}/multisharewithgroups POST
+//	 * /sheet/{id}/multisharewithgroups
+//	 *
+//	 * Exceptions:
+//	 *   IllegalArgumentException : if multiShare is null
+//	 *   InvalidRequestException : if there is any problem with the REST API request
+//	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+//	 *   ResourceNotFoundException : if the resource can not be found
+//	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+//	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+//	 *   SmartsheetException : if there is any other error occurred during the operation
+//	 *
+//	 * @param objectId the ID of the object to share
+//	 * @param multiShare the MultiShare object
+//	 * @return the created shares
+//	 * @throws SmartsheetException the smartsheet exception
+//	 */
+//	public List<Share> shareTo(long objectId, MultiShare multiShare) throws SmartsheetException {
+//		return this.postAndReceiveList(getMasterResourceType() + "/" + objectId + "/shares", multiShare,
+//				Share.class);
+//	}
 
 	/**
-	 * Share the object.
+	 * Shares the object with the specified Users and Groups.
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /workspace/{id}/sharesWithGroups POST /sheet/{id}/sharesWithGroups
-	 * 
-	 * Returns: the created share
-	 * 
-	 * Exceptions:
-	 *   IllegalArgumentException : if share is null
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ResourceNotFoundException : if the resource can not be found
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param objectId the id of the object to share
-	 * @param share the share object
-	 * @param sendEmail whether to send email
-	 * @return the created share
-	 * @throws SmartsheetException the smartsheet exception
-	 */
-	public Share shareTo(long objectId, Share share, boolean sendEmail) throws SmartsheetException {
-		return this.createResource(getMasterResourceType() + "/" + objectId + "/shareswithgroups?sendEmail=" + sendEmail,
-				Share.class, share);
-	}
-
-	/**
-	 * Share the object with multiple users, without sending email.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /workspace/{id}/multisharewithgroups POST
-	 * /sheet/{id}/multisharewithgroups
-	 * 
-	 * Exceptions:
-	 *   IllegalArgumentException : if multiShare is null
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ResourceNotFoundException : if the resource can not be found
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param objectId the ID of the object to share
-	 * @param multiShare the MultiShare object
-	 * @return the created shares
-	 * @throws SmartsheetException the smartsheet exception
-	 */
-	public List<Share> shareTo(long objectId, MultiShare multiShare) throws SmartsheetException {
-		return this.postAndReceiveList(getMasterResourceType() + "/" + objectId + "/multisharewithgroups", multiShare,
-				Share.class);
-	}
-
-	/**
-	 * Share the object with multiple users.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /workspace/{id}/multishare POST
-	 * /sheet/{id}/multishare
+	 * It mirrors to the following Smartsheet REST API method: POST /workspaces/{id}/shares POST
+	 * /sheets/{id}/shares POST /reports/{reportId}/shares
 	 * 
 	 * Exceptions:
 	 *   IllegalArgumentException : if multiShare is null
@@ -188,14 +187,17 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 	 *   SmartsheetException : if there is any other error occurred during the operation
 	 *
 	 * @param objectId the ID of the object to share 
-	 * @param multiShare the MultiShare object
+	 * @param shares list of share objects
 	 * @param sendEmail whether to send email
 	 * @return the created shares
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public List<Share> shareTo(long objectId, MultiShare multiShare, boolean sendEmail) throws SmartsheetException {
-		return this.postAndReceiveList(getMasterResourceType() + "/" + objectId + "/multisharewithgroups?sendEmail=" + sendEmail,
-				multiShare, Share.class);
+	public List<Share> shareTo(long objectId, List<Share> shares, Boolean sendEmail) throws SmartsheetException {
+		String path = getMasterResourceType() + "/" + objectId + "/shares";
+		if (sendEmail != null){
+			path += "?sendEmail=" + sendEmail;
+		}
+		return this.postAndReceiveList(path, shares, Share.class);
 	}
 
 	/**
