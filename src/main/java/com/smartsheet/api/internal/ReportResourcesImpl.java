@@ -22,6 +22,7 @@ package com.smartsheet.api.internal;
 
 
 import com.smartsheet.api.ReportResources;
+import com.smartsheet.api.ShareResources;
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
@@ -39,6 +40,13 @@ import java.util.HashMap;
 public class ReportResourcesImpl extends AbstractResources implements ReportResources{
 
     /**
+     * Represents the ShareResources.
+     *
+     * It will be initialized in constructor and will not change afterwards.
+     */
+    private ShareResources shares;
+
+    /**
      * Constructor.
      *
      * Parameters: - smartsheet : the SmartsheetImpl
@@ -49,6 +57,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      */
     public ReportResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
+        this.shares = new ShareResourcesImpl(smartsheet, "reports");
     }
 
     /**
