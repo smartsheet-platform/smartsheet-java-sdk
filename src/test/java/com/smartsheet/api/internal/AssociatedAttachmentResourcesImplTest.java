@@ -74,19 +74,19 @@ public class AssociatedAttachmentResourcesImplTest extends ResourcesImplBase {
 		assertEquals(AttachmentParentType.SHEET, attachment.getParentType());
 	}
 
-	@Test
-	public void testAttachURL() throws SmartsheetException, IOException {
-		server.setResponseBody(new File("src/test/resources/attachLink.json"));
-		
-		Attachment attachment = new Attachment();
-		attachment.setUrl("http://www.smartsheet.com/sites/all/themes/blue_sky/logo.png");
-		attachment.setAttachmentType(AttachmentType.LINK);
-		attachment.setUrlExpiresInMillis(1L);
-		attachment.setAttachmentSubType(AttachmentSubType.PDF);
-		
-		Attachment newAttachment = associatedAttachment.attachURL(1234L, attachment);
-		assertEquals("http://www.smartsheet.com/sites/all/themes/blue_sky/logo.png", newAttachment.getName());
-		assertEquals(AttachmentType.LINK, newAttachment.getAttachmentType());
-	}
+//	@Test
+//	public void testAttachURL() throws SmartsheetException, IOException {
+//		server.setResponseBody(new File("src/test/resources/attachLink.json"));
+//
+//		Attachment attachment = new Attachment();
+//		attachment.setUrl("http://www.smartsheet.com/sites/all/themes/blue_sky/logo.png");
+//		attachment.setAttachmentType(AttachmentType.LINK);
+//		attachment.setUrlExpiresInMillis(1L);
+//		attachment.setAttachmentSubType(AttachmentSubType.PDF);
+//
+//		Attachment newAttachment = associatedAttachment.attachURL(1234L, attachment);
+//		assertEquals("http://www.smartsheet.com/sites/all/themes/blue_sky/logo.png", newAttachment.getName());
+//		assertEquals(AttachmentType.LINK, newAttachment.getAttachmentType());
+//	}
 
 }

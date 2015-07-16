@@ -1,4 +1,4 @@
-package com.smartsheet.api.internal;
+package com.smartsheet.api;
 
 /*
  * #[license]
@@ -19,19 +19,15 @@ package com.smartsheet.api.internal;
  * limitations under the License.
  * %[license]
  */
-import com.smartsheet.api.*;
+
 import com.smartsheet.api.models.Attachment;
 
 /**
- * This is the implementation of the CommentAttachmentResources.
+ * <p>This interface provides methods to access RowAttachment resources.</p>
  *
- * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
+ * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
-public class CommentAttachmentResourcesImpl extends AbstractResources implements com.smartsheet.api.CommentAttachmentResources{
-
-    public CommentAttachmentResourcesImpl(SmartsheetImpl smartsheet) {
-        super(smartsheet);
-    }
+public interface RowAttachmentResources{
 
     /**
      * <p>Attach a URL to a comment.</p>
@@ -40,10 +36,10 @@ public class CommentAttachmentResourcesImpl extends AbstractResources implements
      * Box.com URL (attachmentType "BOX_COM").</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method:<br />
-     *   POST /sheets/{sheetId}/comments/{commentId}/attachments
+     *   POST /sheets/{sheetId}/rows/{rowId}/attachments
      *
      * @param sheetId the sheet id
-     * @param commentId the comment id
+     * @param rowId the row id
      * @param attachment the attachment object
      * @return the created attachment
      * @throws IllegalArgumentException if any argument is null or empty string
@@ -53,8 +49,5 @@ public class CommentAttachmentResourcesImpl extends AbstractResources implements
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Attachment attachUrl(long sheetId, long commentId, Attachment attachment) throws SmartsheetException
-    {
-        return this.createResource("sheets/" + sheetId + "/comments/" + commentId + "/attachments", Attachment.class, attachment);
-    }
+    public Attachment attachUrl(long sheetId, long rowId, Attachment attachment) throws SmartsheetException;
 }

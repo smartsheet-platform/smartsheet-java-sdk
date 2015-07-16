@@ -25,5 +25,26 @@ import com.smartsheet.api.models.Attachment;
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface CommentAttachmentResources {
+
+    /**
+     * <p>Attach a URL to a comment.</p>
+     *
+     * <p>The URL can be a normal URL (attachmentType "URL"), a Google Drive URL (attachmentType "GOOGLE_DRIVE") or a
+     * Box.com URL (attachmentType "BOX_COM").</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method:<br />
+     *   POST /sheets/{sheetId}/comments/{commentId}/attachments
+     *
+     * @param sheetId the sheet id
+     * @param commentId the comment id
+     * @param attachment the attachment object
+     * @return the created attachment
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
     public Attachment attachUrl(long sheetId, long commentId, Attachment attachment) throws SmartsheetException;
 }

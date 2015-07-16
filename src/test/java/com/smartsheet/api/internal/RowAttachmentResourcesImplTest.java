@@ -1,6 +1,5 @@
 package com.smartsheet.api.internal;
 
-import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.Attachment;
 import com.smartsheet.api.models.AttachmentSubType;
@@ -10,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 
@@ -33,18 +31,17 @@ import static org.junit.Assert.assertEquals;
  * limitations under the License.
  * %[license]
  */
-public class CommentAttachmentResourcesImplTest extends ResourcesImplBase {
+public class RowAttachmentResourcesImplTest extends ResourcesImplBase {
 
-    private  CommentAttachmentResourcesImpl commentAttachmentResources;
+    private  RowAttachmentResourcesImpl rowAttachmentResources;
 
     @Before
     public void setUp() throws Exception {
-        commentAttachmentResources = new CommentAttachmentResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
+        rowAttachmentResources = new RowAttachmentResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
                 "accessToken", new DefaultHttpClient(), serializer));
     }
-
     @Test
-    public void testAttachURL() throws SmartsheetException, IOException {
+    public void testAttachUrl() throws Exception {
         server.setResponseBody(new File("src/test/resources/attachLink.json"));
 
         Attachment attachment = new Attachment();
@@ -53,7 +50,7 @@ public class CommentAttachmentResourcesImplTest extends ResourcesImplBase {
         attachment.setUrlExpiresInMillis(1L);
         attachment.setAttachmentSubType(AttachmentSubType.PDF);
 
-        Attachment newAttachment = commentAttachmentResources.attachUrl(1234L, 3456L, attachment);
+        Attachment newAttachment = rowAttachmentResources.attachUrl(1234L, 3456L, attachment);
         assertEquals("Search Engine", newAttachment.getName());
         assertEquals(AttachmentType.LINK, newAttachment.getAttachmentType());
     }
