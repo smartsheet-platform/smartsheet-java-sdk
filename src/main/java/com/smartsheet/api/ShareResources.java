@@ -182,7 +182,7 @@ public interface ShareResources {
 	 * DELETE /sheet/{id}/share/{shareId}</p>
 	 *
 	 * @param objectId the ID of the object to share
-	 * @param userId the ID of the user to whome the object is shared
+	 * @param shareId the ID of the share to delete
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
 	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)

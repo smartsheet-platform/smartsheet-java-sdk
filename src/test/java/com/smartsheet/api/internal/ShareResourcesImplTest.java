@@ -44,7 +44,7 @@ public class ShareResourcesImplTest extends ResourcesImplBase {
 	@Before
 	public void setUp() throws Exception {
 		shareResourcesImpl = new ShareResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", "accessToken",
-				new DefaultHttpClient(), serializer), "sheet");
+				new DefaultHttpClient(), serializer), "sheets");
 	}
 
 	@Test
@@ -69,9 +69,9 @@ public class ShareResourcesImplTest extends ResourcesImplBase {
 
 		Share share = shareResourcesImpl.getShare(1234L, "fhqwhgads");
 
-		assertEquals("email@email.com", share.getEmail());
+		assertEquals("Group 1", share.getName());
 		assertEquals(AccessLevel.ADMIN, share.getAccessLevel());
-		assertEquals("abc123", share.getId());
+		assertEquals("AQAISF82FOeE", share.getId());
 	}
 
 	@Test
@@ -161,5 +161,4 @@ public class ShareResourcesImplTest extends ResourcesImplBase {
 
 		shareResourcesImpl.deleteShare(1234L, "fhqwhgads");
 	}
-
 }

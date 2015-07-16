@@ -34,8 +34,7 @@ public class Share extends NamedModel<String> {
 	 * Represents the email for this specific share.
 	 */
 	private String email;
-	
-	
+
 	/**
 	 * Represents the userId if the share is of type {@link ShareType#USER}
 	 */
@@ -46,12 +45,80 @@ public class Share extends NamedModel<String> {
 	 */
 	private Long groupId;
 
-	
 	/**
 	 * Indicates what type of share this is.
 	 */
 	private ShareType type;
-	
+
+	/**
+	 * Represents the subject of the email that will optionally be sent to notify the recipient.
+	 */
+	private String subject;
+
+	/**
+	 * Represents the message to be included in the body of the email.
+	 */
+	private String message;
+
+	/**
+	 * Represents the flag to indicate whether or not to send a copy of the email to the sharer of the sheet.
+	 */
+	private boolean ccMe;
+
+	/**
+	 * Gets the subject of the email that will optionally be sent to notify the recipient.
+	 *
+	 * @return the subject
+	 */
+	public String getSubject() {
+		return subject;
+	}
+
+	/**
+	 * Sets the subject of the email that will optionally be sent to notify the recipient.
+	 *
+	 * @param subject the subject of the email
+	 */
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	/**
+	 * Gets the message to be included in the body of the email.
+	 *
+	 * @return the message
+	 */
+	public String getMessage() {
+		return message;
+	}
+
+	/**
+	 * Sets the message to be included in the body of the email.
+	 *
+	 * @param message the message
+	 */
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	/**
+	 * Gets the flag to indicate whether or not to send a copy of the email to the sharer
+	 *
+	 * @return the flag for CC
+	 */
+	public boolean isCcMe() {
+		return ccMe;
+	}
+
+	/**
+	 * Sets the flag to indicate whether or not to send a copy of the email to the sharer.
+	 *
+	 * @param ccMe the flag for CC
+	 */
+	public void setCcMe(boolean ccMe) {
+		this.ccMe = ccMe;
+	}
+
 	/**
 	 * Gets the access level for this specific share.
 	 *

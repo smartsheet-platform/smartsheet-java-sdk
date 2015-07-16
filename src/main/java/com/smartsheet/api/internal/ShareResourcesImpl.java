@@ -82,13 +82,13 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 	 *   SmartsheetException : if there is any other error occurred during the operation
 	 *
 	 * @param objectId the ID of the object to share 
-	 * @param userId the ID of the user to whome the object is shared
+	 * @param shareId the ID of the share
 	 * @return the share (note that if there is no such resource, this method will throw ResourceNotFoundException
 	 * rather than returning null).
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Share getShare(long objectId, String shareId) throws SmartsheetException{
-		return this.getResource(getMasterResourceType() + "/" + objectId + "/sharewithgroups/" + shareId, Share.class);
+		return this.getResource(getMasterResourceType() + "/" + objectId + "/shares/" + shareId, Share.class);
 	}
 
 	/**
@@ -212,10 +212,10 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 	 *   SmartsheetException : if there is any other error occurred during the operation
 	 *
 	 * @param objectId the ID of the object to share
-	 * @param userId the ID of the user to whom the object is shared
+	 * @param shareId the ID of the share to delete
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public void deleteShare(long objectId, String shareId) throws SmartsheetException {
-		this.deleteResource(getMasterResourceType() + "/" + objectId + "/sharewithgroups/" + shareId, Share.class);
+		this.deleteResource(getMasterResourceType() + "/" + objectId + "/shares/" + shareId, Share.class);
 	}
 }
