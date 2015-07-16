@@ -87,7 +87,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 */
 	public SheetResourcesImpl(SmartsheetImpl smartsheet) {
 		super(smartsheet);
-		this.shares = new ShareResourcesImpl(smartsheet, "sheet");
+		this.shares = new ShareResourcesImpl(smartsheet, "sheets");
 		this.rows = new SheetRowResourcesImpl(smartsheet);
 		this.columns = new SheetColumnResourcesImpl(smartsheet);
 		this.attachments = new AssociatedAttachmentResourcesImpl(smartsheet, "sheet");
