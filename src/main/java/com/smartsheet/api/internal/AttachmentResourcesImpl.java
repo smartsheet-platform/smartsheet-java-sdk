@@ -51,52 +51,6 @@ public class AttachmentResourcesImpl extends AbstractResources implements Attach
 		super(smartsheet);
 	}
 
-	/**
-	 * Get an attachment.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /attachment/{id}
-	 * 
-	 * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-	 * rather than returning null).
-	 * 
-	 * Exceptions:
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ResourceNotFoundException : if the resource can not be found
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param id the id
-	 * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException 
-	 * rather than returning null).
-	 * @throws SmartsheetException the smartsheet exception
-	 */
-	public Attachment getAttachment(long id) throws SmartsheetException {
-		return this.getResource("attachment/" + id, Attachment.class);
-	}
-
-	/**
-	 * Delete an attachment.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/attachments/{attachmentId}
-	 * 
-	 * Exceptions:
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ResourceNotFoundException : if the resource can not be found
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param sheetId the ID of the sheet
-	 * @param attachmentId the ID of the attachment
-	 * @throws SmartsheetException the smartsheet exception
-	 */
-	public void deleteAttachment(long sheetId, long attachmentId) throws SmartsheetException {
-		this.deleteResource("sheets/" + sheetId + "/attachment/" + attachmentId, Attachment.class);
-	}
-
 	@Override
 	public void deleteAllAttachmentVersions(long id) throws SmartsheetException {
 		this.deleteResource("attachment/"+ id + "/versions", Attachment.class);

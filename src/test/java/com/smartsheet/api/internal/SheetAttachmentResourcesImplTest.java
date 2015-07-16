@@ -57,4 +57,11 @@ public class SheetAttachmentResourcesImplTest extends ResourcesImplBase {
         assertEquals("Search Engine", newAttachment.getName());
         assertEquals(AttachmentType.LINK, newAttachment.getAttachmentType());
     }
+
+    @Test
+    public void testDeleteAttachment() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/deleteAttachment.json"));
+
+        sheetAttachmentResources.deleteAttachment(1234L, 4567L);
+    }
 }

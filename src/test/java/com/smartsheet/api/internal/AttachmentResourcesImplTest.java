@@ -69,13 +69,6 @@ public class AttachmentResourcesImplTest extends ResourcesImplBase {
 	}
 
 	@Test
-	public void testDeleteAttachment() throws SmartsheetException, IOException {
-		server.setResponseBody(new File("src/test/resources/deleteAttachment.json"));
-		
-		attachmentResourcesImpl.deleteAttachment(1234L, 4567L);
-	}
-
-	@Test
 	public void testAttachNewVersionFile() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/attachFile.json"));
 		File file = new File("src/test/resources/large_sheet.pdf");
