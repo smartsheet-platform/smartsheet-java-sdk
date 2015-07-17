@@ -409,7 +409,7 @@ public class OAuthFlowImpl implements OAuthFlow {
 		// Create a token based on the response
 		Token token = new Token();
 		Object tempObj = map.get("access_token");
-		token.setAccessToken(tempObj==null?"":(String)tempObj);
+		token.setAccessToken(tempObj == null ? "" : (String) tempObj);
 		tempObj = map.get("token_type");
 		token.setTokenType(tempObj==null?"":(String)tempObj);
 		tempObj = map.get("refresh_token");
@@ -425,6 +425,43 @@ public class OAuthFlowImpl implements OAuthFlow {
 
 		return token;
 	}
+
+	/**
+	 * Revoke access token.
+	 *
+	 * Exceptions:
+	 *   - IllegalArgumentException : if url is null or empty
+	 *   - InvalidTokenRequestException : if the token request is invalid
+	 *   - InvalidOAuthClientException : if the client information is invalid
+	 *   - InvalidOAuthGrantException : if the authorization code or refresh token is invalid or
+	 *   expired, the redirect_uri does not match, or the hash value does not match the client secret and/or code
+	 *   - UnsupportedOAuthGrantTypeException : if the grant type is invalid
+	 *   - OAuthTokenException : if any other error occurred during the operation
+	 *
+	 * @param accessToken the access token to revoke access from
+	 * @throws OAuthTokenException the o auth token exception
+	 * @throws JSONSerializerException the JSON serializer exception
+	 * @throws HttpClientException the http client exception
+	 * @throws URISyntaxException the URI syntax exception
+	 * @throws InvalidRequestException the invalid request exception
+	 */
+	public void revokeAccessToken(Token token) throws OAuthTokenException, JSONSerializerException, HttpClientException,
+			URISyntaxException, InvalidRequestException{
+		HttpRequest request = new HttpRequest();
+		request.setUri(new URI(tokenURL));
+		request.setMethod(HttpMethod.DELETE);
+
+		request.setHeaders(new HashMap<String, String>());
+		request.getHeaders().put("Authorization", "Bearer " + token.getAccessToken());
+		HttpResponse response = httpClient.request(request);
+
+		if(response.getStatusCode() != 200){
+			throw new OAuthTokenException("Token request failed with http error code: "+response.getStatusCode());
+		}
+
+		httpClient.releaseConnection();
+	}
+
 
 	/**
 	 * Gets the http client.

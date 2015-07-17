@@ -98,4 +98,26 @@ public interface OAuthFlow {
 	 * @throws IllegalArgumentException if any other error occurred during the operation
 	 */
 	public Token refreshToken(Token token) throws OAuthTokenException, JSONSerializerException, HttpClientException, URISyntaxException, InvalidRequestException;
+
+	/**
+	 * Revoke access token.
+	 *
+	 * Exceptions:
+	 *   - IllegalArgumentException : if url is null or empty
+	 *   - InvalidTokenRequestException : if the token request is invalid
+	 *   - InvalidOAuthClientException : if the client information is invalid
+	 *   - InvalidOAuthGrantException : if the authorization code or refresh token is invalid or
+	 *   expired, the redirect_uri does not match, or the hash value does not match the client secret and/or code
+	 *   - UnsupportedOAuthGrantTypeException : if the grant type is invalid
+	 *   - OAuthTokenException : if any other error occurred during the operation
+	 *
+	 * @param accessToken the access token to revoke access from
+	 * @throws OAuthTokenException the o auth token exception
+	 * @throws JSONSerializerException the JSON serializer exception
+	 * @throws HttpClientException the http client exception
+	 * @throws URISyntaxException the URI syntax exception
+	 * @throws InvalidRequestException the invalid request exception
+	 */
+	public void revokeAccessToken(Token token) throws OAuthTokenException, JSONSerializerException, HttpClientException,
+			URISyntaxException, InvalidRequestException;
 }

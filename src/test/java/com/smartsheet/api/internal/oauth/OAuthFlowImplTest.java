@@ -219,4 +219,22 @@ public class OAuthFlowImplTest {
 		}
 	}
 
+	@Test
+	public void testRevokeAccessToken() throws InvalidRequestException, NoSuchAlgorithmException,
+			UnsupportedEncodingException, OAuthTokenException, JSONSerializerException, HttpClientException,
+			URISyntaxException {
+		oauth.setTokenURL("https://api.smartsheet.com/1.1/token");
+
+		Token token = new Token();
+		token.setAccessToken("AccessToken");
+		token.setExpiresInSeconds(10L);
+		token.setRefreshToken("refreshToken");
+		token.setTokenType("tokenType");
+		try{
+			oauth.revokeAccessToken(token);
+			fail("An expection should have been thrown.");
+		}catch(InvalidOAuthClientException ex){
+			// Expected
+		}
+	}
 }
