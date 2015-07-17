@@ -56,28 +56,6 @@ public class AssociatedAttachmentResourcesImpl extends AbstractAssociatedResourc
 	}
 
 	/**
-	 * List attachments of a given object.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /sheet/{id}/attachments GET /row/{id}/attachments GET
-	 * /comment/{id}/attachments
-	 * 
-	 * Exceptions:
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ResourceNotFoundException : if the resource can not be found
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param objectId the ID of the object to which the attachments are associated
-	 * @return the attachments (note that empty list will be returned if there is none)
-	 * @throws SmartsheetException the smartsheet exception
-	 */
-	public List<Attachment> listAttachments(long objectId) throws SmartsheetException {
-		return this.listResources(getMasterResourceType() + "/" + objectId + "/attachments", Attachment.class);
-	}
-
-	/**
 	 * Attach a file to the object.
 	 * 
 	 * It mirrors to the following Smartsheet REST API method: POST /sheet/{id}/attachments POST /row/{id}/attachments
@@ -125,43 +103,6 @@ public class AssociatedAttachmentResourcesImpl extends AbstractAssociatedResourc
 			throws SmartsheetException {
 		Util.throwIfNull(inputStream, contentType);
 		return super.attachFile(getMasterResourceType() +"/" + objectId + "/attachments", inputStream, contentType, contentLength, attachmentName);
-	}
-		
-
-	/**
-	 * Attach a URL to the object.
-	 * 
-	 * The URL can be a normal URL (attachmentType "URL"), a Google Drive URL (attachmentType "GOOGLE_DRIVE") or a
-	 * Box.com URL (attachmentType "BOX_COM").
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /sheet/{id}/attachments POST /row/{id}/attachments
-	 * POST /comment/{idd}/attachments
-	 * 
-	 * Parameters: - objectId : the ID of the object - attachment : the attachment object limited to the following
-	 * attributes: * name * description (applicable when attaching to sheet or row only) * url * attachmentType *
-	 * attachmentSubType
-	 * 
-	 * Returns: the created attachment
-	 * 
-	 * Exceptions:
-	 *   IllegalArgumentException : if any argument is null
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ResourceNotFoundException : if the resource can not be found
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param objectId the object id
-	 * @param attachment the attachment
-	 * @return the attachment
-	 * @throws SmartsheetException the smartsheet exception
-	 */
-	public Attachment attachURL(long objectId, Attachment attachment) throws SmartsheetException {
-		Util.throwIfNull(objectId, attachment);
-		
-		return this.createResource(getMasterResourceType() + "/" + objectId + "/attachments",
-				Attachment.class, attachment);
 	}
 
 }

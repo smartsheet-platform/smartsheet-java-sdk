@@ -51,14 +51,4 @@ public class CommentAttachmentResources extends AssociatedAttachmentResourcesImp
 	public CommentAttachmentResources(SmartsheetImpl smartsheet) {
 		super(smartsheet, "comments");
 	}
-
-	/* (non-Javadoc)
-	 * @see com.smartsheet.api.internal.AssociatedAttachmentResourcesImpl#listAttachments(long)
-	 */
-	@Override
-	public List<Attachment> listAttachments(long objectId) {
-		throw new UnsupportedOperationException();
-	}
-
-
 }

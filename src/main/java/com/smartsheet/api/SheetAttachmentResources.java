@@ -1,6 +1,10 @@
 package com.smartsheet.api;
 
 import com.smartsheet.api.models.Attachment;
+import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PaginationParameters;
+
+import java.util.List;
 
 /**
  * Created by anioding on 7/16/15.
@@ -70,4 +74,24 @@ public interface SheetAttachmentResources {
      * @throws SmartsheetException the smartsheet exception
      */
     public Attachment getAttachment(long sheetId, long attachmentId) throws SmartsheetException;
+
+    /**
+     * Gets a list of all Attachments that are on the Sheet, including Sheet, Row, and Discussion level Attachments.
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/attachments
+     *
+     * Exceptions:
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ResourceNotFoundException : if the resource can not be found
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param sheetId the ID of the sheet to which the attachments are associated
+     * @param parameters the pagination parameters
+     * @return the attachments (note that empty list will be returned if there is none)
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public DataWrapper<Attachment> listAttachments(long sheetId, PaginationParameters parameters) throws SmartsheetException;
 }
