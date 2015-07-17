@@ -63,4 +63,18 @@ public class TemplateResourcesImplTest extends ResourcesImplBase {
 		assertEquals(3457273486960516L, templates.getData().get(0).getId().longValue());
 		assertEquals("This is template 1", templates.getData().get(0).getDescription());
 	}
+
+	@Test
+	public void testListPublicTemplates() throws IOException, SmartsheetException {
+		server.setResponseBody(new File("src/test/resources/listTemplates.json"));
+
+		PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+		DataWrapper<Template> templates = templateResources.listPublicTemplates(parameters);
+
+		assertNotNull(templates);
+		assertEquals("template 1", templates.getData().get(0).getName());
+		assertEquals(AccessLevel.OWNER, templates.getData().get(0).getAccessLevel());
+		assertEquals(3457273486960516L, templates.getData().get(0).getId().longValue());
+		assertEquals("This is template 1", templates.getData().get(0).getDescription());
+	}
 }
