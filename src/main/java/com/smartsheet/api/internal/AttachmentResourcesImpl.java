@@ -51,16 +51,6 @@ public class AttachmentResourcesImpl extends AbstractResources implements Attach
 		super(smartsheet);
 	}
 
-//	@Override
-//	public void deleteAllAttachmentVersions(long id) throws SmartsheetException {
-//		this.deleteResource("attachment/"+ id + "/versions", Attachment.class);
-//	}
-
-	@Override
-	public List<Attachment> listAttachmentVersions(long id) throws SmartsheetException {
-		return this.listResources("attachment/" + id + "/versions", Attachment.class);
-	}
-
 	@Override
 	public Attachment attachNewVersion(long attachmentId, File file, String contentType) throws FileNotFoundException, SmartsheetException {
 		Util.throwIfNull(attachmentId, file, contentType);

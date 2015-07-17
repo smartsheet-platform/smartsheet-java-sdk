@@ -50,24 +50,6 @@ public class AttachmentResourcesImplTest extends ResourcesImplBase {
 	@Test
 	public void testAttachmentResourcesImpl() {}
 
-//	@Test
-//	public void testGetAttachment() throws SmartsheetException, IOException {
-//		server.setResponseBody(new File("src/test/resources/getAttachment.json"));
-//
-//		Attachment attachment = attachmentResourcesImpl.getAttachment(1234L);
-//		assertNotNull(attachment.getUrl());
-//		assertEquals("AbstractResources.mup",attachment.getName());
-//	}
-	
-	public void testListAttachmentVersions() throws SmartsheetException, IOException {
-		server.setResponseBody(new File("src/test/resources/listAttachmentVersions.json"));
-		
-		List<Attachment> attachments = attachmentResourcesImpl.listAttachmentVersions(1234L);
-		for (Attachment att : attachments) {
-			assertNotNull(att.getName());
-		}
-	}
-
 	@Test
 	public void testAttachNewVersionFile() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/attachFile.json"));
