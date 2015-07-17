@@ -51,10 +51,10 @@ public class AttachmentResourcesImpl extends AbstractResources implements Attach
 		super(smartsheet);
 	}
 
-	@Override
-	public void deleteAllAttachmentVersions(long id) throws SmartsheetException {
-		this.deleteResource("attachment/"+ id + "/versions", Attachment.class);
-	}
+//	@Override
+//	public void deleteAllAttachmentVersions(long id) throws SmartsheetException {
+//		this.deleteResource("attachment/"+ id + "/versions", Attachment.class);
+//	}
 
 	@Override
 	public List<Attachment> listAttachmentVersions(long id) throws SmartsheetException {

@@ -36,22 +36,22 @@ import com.smartsheet.api.models.Attachment;
  */
 public interface AttachmentResources {
 
-	/**
-	 * <p>Deletes an attachment, including all of its versions.</p>
-	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * DELETE /attachment/{id}/versions</p>
-	 *
-	 * @param id the id
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
-	 */
-	public void deleteAllAttachmentVersions(long id) throws SmartsheetException;
-	
+//	/**
+//	 * <p>Deletes an attachment, including all of its versions.</p>
+//	 *
+//	 * <p>It mirrors to the following Smartsheet REST API method:<br />
+//	 * DELETE /attachment/{id}/versions</p>
+//	 *
+//	 * @param id the id
+//	 * @throws IllegalArgumentException if any argument is null or empty string
+//	 * @throws InvalidRequestException if there is any problem with the REST API request
+//	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+//	 * @throws ResourceNotFoundException if the resource cannot be found
+//	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+//	 * @throws SmartsheetException if there is any other error during the operation
+//	 */
+//	public void deleteAllAttachmentVersions(long id) throws SmartsheetException;
+//
 	/**
 	 * <p>Get all versions of an attachment.</p>
 	 * 
