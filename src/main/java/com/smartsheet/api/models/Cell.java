@@ -36,6 +36,8 @@ public class Cell {
 	 */
 	private ColumnType columnType;
 
+	private ColumnType type;
+
 	/**
 	 * Represents the value.
 	 */
@@ -97,7 +99,7 @@ public class Cell {
 	 * @return the columnType
 	 */
 	public ColumnType getColumnType() {
-		return columnType;
+		return type;
 	}
 
 	/**
@@ -106,7 +108,25 @@ public class Cell {
 	 * @param columnType the new columnType
 	 */
 	public void setColumnType(ColumnType columnType) {
-		this.columnType = columnType;
+		this.type = columnType;
+	}
+
+	/**
+	 * Gets the column columnType.
+	 *
+	 * @return the columnType
+	 */
+	public ColumnType getType() {
+		return type;
+	}
+
+	/**
+	 * Sets the column columnType.
+	 *
+	 * @param type the new columnType
+	 */
+	public void setType(ColumnType type) {
+		this.type = type;
 	}
 
 	/**

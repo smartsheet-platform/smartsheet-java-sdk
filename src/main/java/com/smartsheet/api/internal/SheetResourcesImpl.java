@@ -641,7 +641,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @param output the output
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	private static void copyStream(InputStream input, OutputStream output) throws IOException {
+	public static void copyStream(InputStream input, OutputStream output) throws IOException {
 		byte[] buffer = new byte[BUFFER_SIZE];
 		int len;
 		while ((len = input.read(buffer)) != -1) {
