@@ -84,4 +84,14 @@ public class SheetAttachmentResourcesImplTest extends ResourcesImplBase {
         assertTrue(attachments.getTotalCount() == 2);
         assertTrue(attachments.getData().get(0).getId() == 4583173393803140L);
     }
+
+    @Test
+    public void testGetDiscussionAttachments() throws Exception {
+        server.setResponseBody(new File("src/test/resources/listAssociatedAttachments.json"));
+        PaginationParameters parameters = new PaginationParameters(false, 1,1);
+
+        DataWrapper<Attachment> attachments = sheetAttachmentResources.getDiscussionAttachments(1234L, 456L, parameters);
+        assertTrue(attachments.getTotalCount() == 2);
+        assertTrue(attachments.getData().get(0).getId() == 4583173393803140L);
+    }
 }

@@ -94,4 +94,28 @@ public interface SheetAttachmentResources {
      * @throws SmartsheetException the smartsheet exception
      */
     public DataWrapper<Attachment> listAttachments(long sheetId, PaginationParameters parameters) throws SmartsheetException;
+
+    /**
+     * Get discussion attachment.
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/discussions/{discussionId}/attachments
+     *
+     * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
+     * rather than returning null).
+     *
+     * Exceptions:
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ResourceNotFoundException : if the resource can not be found
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param sheetId the sheet id
+     * @param discussionId the discussion id
+     * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
+     * rather than returning null).
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public DataWrapper<Attachment> getDiscussionAttachments(long sheetId, long discussionId, PaginationParameters parameters) throws SmartsheetException;
 }
