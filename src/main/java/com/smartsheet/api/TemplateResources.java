@@ -24,6 +24,8 @@ package com.smartsheet.api;
 
 import java.util.List;
 
+import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Template;
 
 /**
@@ -32,19 +34,22 @@ import com.smartsheet.api.models.Template;
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface TemplateResources {
-	
+
 	/**
-	 * <p>List all templates.</p>
-	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method: GET /templates</p>
+	 * List user-created templates.
 	 *
-	 * @return the list of templates (note that an empty list will be returned if there are none).
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
+	 * It mirrors to the following Smartsheet REST API method: GET /templates
+	 *
+	 * @param parameters the pagination parameters
+	 * Exceptions:
+	 *   - InvalidRequestException : if there is any problem with the REST API request
+	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   - SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @return all templates (note that empty list will be returned if there is none)
+	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public List<Template> listTemplates() throws SmartsheetException;
+	public DataWrapper<Template> listTemplates(PaginationParameters parameters) throws SmartsheetException;
 }
