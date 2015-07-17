@@ -46,9 +46,6 @@ import com.smartsheet.api.models.*;
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class SheetResourcesImpl extends AbstractResources implements SheetResources {
-	
-	/** The Constant BUFFER_SIZE. */
-	private final static int BUFFER_SIZE = 4098;
 
 	/**
 	 * Represents the ShareResources.
@@ -171,29 +168,15 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 		String path = "sheets/" + id;
 
 		// Add the parameters to a map and build the query string at the end
-		HashMap<String, String>	parameters = new HashMap<String, String>();
+		HashMap<String, Object>	parameters = new HashMap<String, Object>();
 
-		if (includes != null) {
-			parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-		}
-		if (excludes != null) {
-			parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
-		}
-		if (rowIds != null) {
-			parameters.put("rowIds", QueryUtil.generateCommaSeparatedList(rowIds));
-		}
-		if (rowNumbers != null) {
-			parameters.put("rowNumbers", QueryUtil.generateCommaSeparatedList(rowNumbers));
-		}
-		if (columnIds != null) {
-			parameters.put("columnIds", QueryUtil.generateCommaSeparatedList(columnIds));
-		}
-		if (pageSize != null) {
-			parameters.put("pageSize", pageSize.toString());
-		}
-		if (page != null) {
-			parameters.put("page", page.toString());
-		}
+		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+		parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
+		parameters.put("rowIds", QueryUtil.generateCommaSeparatedList(rowIds));
+		parameters.put("rowNumbers", QueryUtil.generateCommaSeparatedList(rowNumbers));
+		parameters.put("columnIds", QueryUtil.generateCommaSeparatedList(columnIds));
+		parameters.put("pageSize", pageSize);
+		parameters.put("page", page);
 
 		// Iterate through the map of parameters and generate the query string
 		path += QueryUtil.generateUrl(null, parameters);
@@ -604,15 +587,15 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 
 	/**
 	 * Get a sheet as a file.
-	 * 
-	 * Exceptions: 
-	 *   - InvalidRequestException : if there is any problem with the REST API request 
-	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token) 
-	 *   - ResourceNotFoundException : if the resource can not be found 
-	 *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) 
-	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation 
+	 *
+	 * Exceptions:
+	 *   - InvalidRequestException : if there is any problem with the REST API request
+	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   - ResourceNotFoundException : if the resource can not be found
+	 *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
 	 *   - SmartsheetException : if there is any other error occurred during the operation
-	 * 
+	 *
 	 * @param id the id
 	 * @param paperSize the paper size
 	 * @param outputStream the OutputStream to which the Excel file will be written
@@ -623,7 +606,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	private void getSheetAsFile(long id, PaperSize paperSize, OutputStream outputStream, String contentType)
 			throws SmartsheetException {
 		Util.throwIfNull(outputStream, contentType);
-		
+
 		String path = "sheet/" + id;
 		if (paperSize != null) {
 			path += "?paperSize=" + paperSize;
@@ -646,31 +629,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 		default:
 			handleError(response);
 		}
-		
-		getSmartsheet().getHttpClient().releaseConnection();
-	}
 
-	/*
-	 * Copy an input stream to an output stream.
-	 * 
-	 * @param input The input stream to copy.
-	 * 
-	 * @param output the output stream to write to.
-	 * 
-	 * @throws IOException if there is trouble reading or writing to the streams.
-	 */
-	/**
-	 * Copy stream.
-	 *
-	 * @param input the input
-	 * @param output the output
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 */
-	private static void copyStream(InputStream input, OutputStream output) throws IOException {
-		byte[] buffer = new byte[BUFFER_SIZE];
-		int len;
-		while ((len = input.read(buffer)) != -1) {
-			output.write(buffer, 0, len);
-		}
+		getSmartsheet().getHttpClient().releaseConnection();
 	}
 }

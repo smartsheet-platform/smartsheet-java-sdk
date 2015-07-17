@@ -156,7 +156,7 @@ public class OAuthFlowImpl implements OAuthFlow {
 		if(state == null){state = "";}
 
 		// Build a map of parameters for the URL
-		HashMap<String,String> params = new HashMap<String, String>();
+		HashMap<String,Object> params = new HashMap<String, Object>();
 		params.put("response_type", "code");
 		params.put("client_id", clientId);
 		params.put("redirect_uri", redirectURL);
@@ -284,7 +284,7 @@ public class OAuthFlowImpl implements OAuthFlow {
 		String hash = org.apache.commons.codec.binary.Hex.encodeHexString(digest);
 
 		// create a Map of the parameters
-		HashMap<String, String> params = new HashMap<String, String>();
+		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("grant_type", "authorization_code");
 		params.put("client_id", clientId);
 		params.put("code", authorizationResult.getCode());
@@ -337,7 +337,7 @@ public class OAuthFlowImpl implements OAuthFlow {
 
 
 		// Create a map of the parameters
-		Map<String,String> params = new HashMap<String,String>();
+		Map<String,Object> params = new HashMap<String,Object>();
 		params.put("grant_type", "refresh_token");
 		params.put("client_id",clientId);
 		params.put("refresh_token",token.getRefreshToken());
