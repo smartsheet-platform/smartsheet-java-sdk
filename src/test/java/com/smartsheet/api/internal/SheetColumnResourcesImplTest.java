@@ -107,4 +107,17 @@ public class SheetColumnResourcesImplTest extends ResourcesImplBase {
 		server.setResponseBody(new File("src/test/resources/deleteColumn.json"));
 		sheetColumnResourcesImpl.deleteColumn(123456789L, 987654321L);
 	}
+
+	@Test
+	public void testGetColumn() throws SmartsheetException, IOException {
+		server.setResponseBody(new File("src/test/resources/getColumn.json"));
+		Column col = new Column();
+		col.setIndex(2);
+		col.setTitle("Favorite");
+		col.setType(ColumnType.CHECKBOX);
+
+		Column newCol = sheetColumnResourcesImpl.getColumn(123L, 456L);
+		assertNotNull(newCol);
+		assertEquals(col.getTitle(), newCol.getTitle());
+	}
 }
