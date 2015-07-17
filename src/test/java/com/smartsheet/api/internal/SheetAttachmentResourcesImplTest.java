@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /*
  * #[license]
@@ -44,7 +45,14 @@ public class SheetAttachmentResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testAttachURL() throws SmartsheetException, IOException {
+    public void testDeleteAttachment() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/deleteAttachment.json"));
+
+        sheetAttachmentResources.deleteAttachment(1234L, 4567L);
+    }
+
+    @Test
+    public void testAttachUrl() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/attachLink.json"));
 
         Attachment attachment = new Attachment();
@@ -59,9 +67,11 @@ public class SheetAttachmentResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testDeleteAttachment() throws SmartsheetException, IOException {
-        server.setResponseBody(new File("src/test/resources/deleteAttachment.json"));
+    public void testGetAttachment() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getAttachment.json"));
 
-        sheetAttachmentResources.deleteAttachment(1234L, 4567L);
+        Attachment attachment = sheetAttachmentResources.getAttachment(1234L, 345L);
+        assertNotNull(attachment.getUrl());
+        assertEquals("AbstractResources.mup",attachment.getName());
     }
 }
