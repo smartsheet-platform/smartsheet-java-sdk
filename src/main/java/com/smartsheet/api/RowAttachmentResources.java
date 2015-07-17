@@ -21,6 +21,8 @@ package com.smartsheet.api;
  */
 
 import com.smartsheet.api.models.Attachment;
+import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PaginationParameters;
 
 /**
  * <p>This interface provides methods to access RowAttachment resources.</p>
@@ -50,4 +52,28 @@ public interface RowAttachmentResources{
      * @throws SmartsheetException if there is any other error during the operation
      */
     public Attachment attachUrl(long sheetId, long rowId, Attachment attachment) throws SmartsheetException;
+
+    /**
+     * Get row attachment.
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/rows/{rowId}/attachments
+     *
+     * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
+     * rather than returning null).
+     *
+     * Exceptions:
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ResourceNotFoundException : if the resource can not be found
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param sheetId the sheet id
+     * @param rowId the row id
+     * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
+     * rather than returning null).
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public DataWrapper<Attachment> getAttachments(long sheetId, long rowId, PaginationParameters parameters) throws SmartsheetException;
 }

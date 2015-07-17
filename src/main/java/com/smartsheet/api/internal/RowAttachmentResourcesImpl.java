@@ -22,6 +22,8 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.*;
 import com.smartsheet.api.models.Attachment;
+import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PaginationParameters;
 
 public class RowAttachmentResourcesImpl extends AbstractResources implements RowAttachmentResources{
 
@@ -52,5 +54,35 @@ public class RowAttachmentResourcesImpl extends AbstractResources implements Row
     public Attachment attachUrl(long sheetId, long rowId, Attachment attachment) throws SmartsheetException
     {
         return this.createResource("sheets/" + sheetId + "/rows/" + rowId + "/attachments", Attachment.class, attachment);
+    }
+
+    /**
+     * Get row attachment.
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/rows/{rowId}/attachments
+     *
+     * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
+     * rather than returning null).
+     *
+     * Exceptions:
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ResourceNotFoundException : if the resource can not be found
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param sheetId the sheet id
+     * @param rowId the row id
+     * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
+     * rather than returning null).
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public DataWrapper<Attachment> getAttachments(long sheetId, long rowId, PaginationParameters parameters) throws SmartsheetException {
+        String path= "sheets/" + sheetId + "/rows/" + rowId + "/attachments";
+        if (parameters != null) {
+            path += parameters.toQueryString();
+        }
+        return this.listResourcesWithWrapper(path, Attachment.class);
     }
 }

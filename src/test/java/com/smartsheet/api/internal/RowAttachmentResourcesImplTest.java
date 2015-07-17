@@ -1,16 +1,17 @@
 package com.smartsheet.api.internal;
 
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.Attachment;
-import com.smartsheet.api.models.AttachmentSubType;
-import com.smartsheet.api.models.AttachmentType;
+import com.smartsheet.api.models.*;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /*
  * #[license]
@@ -41,7 +42,7 @@ public class RowAttachmentResourcesImplTest extends ResourcesImplBase {
                 "accessToken", new DefaultHttpClient(), serializer));
     }
     @Test
-    public void testAttachUrl() throws Exception {
+    public void testAttachUrl() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/attachLink.json"));
 
         Attachment attachment = new Attachment();
@@ -53,5 +54,15 @@ public class RowAttachmentResourcesImplTest extends ResourcesImplBase {
         Attachment newAttachment = rowAttachmentResources.attachUrl(1234L, 3456L, attachment);
         assertEquals("Search Engine", newAttachment.getName());
         assertEquals(AttachmentType.LINK, newAttachment.getAttachmentType());
+    }
+
+    @Test
+    public void testGetAttachments() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/listAssociatedAttachments.json"));
+        PaginationParameters parameters = new PaginationParameters(false, 1,1);
+
+        DataWrapper<Attachment> attachments = rowAttachmentResources.getAttachments(1234L, 456L, parameters);
+        assertTrue(attachments.getTotalCount() == 2);
+        assertTrue(attachments.getData().get(0).getId() == 4583173393803140L);
     }
 }
