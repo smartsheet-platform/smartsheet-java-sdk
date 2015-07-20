@@ -70,10 +70,10 @@ public class JacksonJsonSerializer implements JsonSerializer {
 		// Excludes "id" field from being serialized to JSON for any IdentifiableModel class
 		OBJECT_MAPPER.addMixInAnnotations(IdentifiableModel.class, IdFieldExclusionMixin.class);
 		
-		//Add a custom deserializer that will convert a string to a Format object.
-		SimpleModule module = new SimpleModule("FormatDeserializerModule", Version.unknownVersion());
+		//Add custom deserializer and serializer that will convert a string to a Format object and vice versa.
+		SimpleModule module = new SimpleModule("FormatSerializationModule", Version.unknownVersion());
 		module.addDeserializer(Format.class, new FormatDeserializer());
-
+		module.addSerializer(Format.class, new FormatSerializer());
 		OBJECT_MAPPER.registerModule(module);
 	}
 
