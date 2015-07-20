@@ -75,6 +75,21 @@ public class Format {
 			return values[formatArray[attribute.ordinal()]];
 		}
 	}
+
+	/**
+	 * @return the String describing this format for {@link #Format(String)} or REST requests.
+	 */
+	public String getStringRepresentation(){
+		StringBuilder sb = new StringBuilder();
+		for(int i : formatArray){
+			if (i != UNSET) {
+				sb.append(String.valueOf(i));
+			}
+			sb.append(',');
+		}
+		sb.deleteCharAt(sb.lastIndexOf(","));
+		return sb.toString();
+	}
 	
 	/**
 	 * @return the {@link FontFamily}.
