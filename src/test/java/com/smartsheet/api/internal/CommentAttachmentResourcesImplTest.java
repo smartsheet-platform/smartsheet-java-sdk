@@ -1,10 +1,11 @@
 package com.smartsheet.api.internal;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.Attachment;
-import com.smartsheet.api.models.AttachmentSubType;
-import com.smartsheet.api.models.AttachmentType;
+import com.smartsheet.api.internal.json.JacksonJsonSerializer;
+import com.smartsheet.api.models.*;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /*
  * #[license]
@@ -23,9 +25,9 @@ import static org.junit.Assert.assertEquals;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -56,5 +58,30 @@ public class CommentAttachmentResourcesImplTest extends ResourcesImplBase {
         Attachment newAttachment = commentAttachmentResources.attachUrl(1234L, 3456L, attachment);
         assertEquals("Search Engine", newAttachment.getName());
         assertEquals(AttachmentType.LINK, newAttachment.getAttachmentType());
+    }
+
+    @Test
+    public void testattachFileWithSimpleUpload() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/attachFile.json"));
+        File file = new File("src/test/resources/large_sheet.pdf");
+        Attachment attachment = commentAttachmentResources.attachFileWithSimpleUpload(1234L, 345L, file,
+                "application/pdf");
+        assertTrue(attachment.getId() == 7265404226692996L);
+        assertEquals("Testing.PDF", attachment.getName());
+        assertEquals(AttachmentType.FILE, attachment.getAttachmentType());
+        assertEquals("application/pdf", attachment.getMimeType());
+        assertTrue(1831L == attachment.getSizeInKb());
+        assertEquals(AttachmentParentType.SHEET, attachment.getParentType());
+    }
+
+    @Test
+    public void testAttachFileWithMultipartUpload() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/attachFile.json"));
+        File file = new File("src/test/resources/large_sheet.pdf");
+        Comment comment = new Comment.AddCommentBuilder().setText("new comment").build();
+        comment.setId(345L);
+
+        Attachment attachment = commentAttachmentResources.attachFileWithMultipartUpload(123L, comment, file, "application/pdf");
+
     }
 }

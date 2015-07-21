@@ -58,6 +58,23 @@ public interface JsonSerializer {
 	 */
 	public <T> void serialize(T object, java.io.OutputStream outputStream) throws JSONSerializerException;
 
+	/**
+	 * Serialize an object to JSON.
+	 *
+	 * Parameters: - object : the object to serialize - outputStream : the output stream to which the JSON will be
+	 * written
+	 *
+	 * Returns: None
+	 *
+	 * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
+	 * other error occurred during the operation
+	 *
+	 * @param <T> the generic type
+	 * @param object the object
+	 * @throws JSONSerializerException the JSON serializer exception
+	 */
+	public <T> String serialize(T object) throws JSONSerializerException;
+
 
 	/**
 	 * De-serialize json to DataWrapper.
