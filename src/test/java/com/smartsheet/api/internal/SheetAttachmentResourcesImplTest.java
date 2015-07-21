@@ -84,4 +84,18 @@ public class SheetAttachmentResourcesImplTest extends ResourcesImplBase {
         assertTrue(attachments.getTotalCount() == 2);
         assertTrue(attachments.getData().get(0).getId() == 4583173393803140L);
     }
+
+    @Test
+    public void testAttachFile() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/attachFile.json"));
+        File file = new File("src/test/resources/large_sheet.pdf");
+        Attachment attachment = sheetAttachmentResources.attachFile(1234L, file,
+                "application/pdf");
+        assertTrue(attachment.getId() == 7265404226692996L);
+        assertEquals("Testing.PDF", attachment.getName());
+        assertEquals(AttachmentType.FILE, attachment.getAttachmentType());
+        assertEquals("application/pdf", attachment.getMimeType());
+        assertTrue(1831L == attachment.getSizeInKb());
+        assertEquals(AttachmentParentType.SHEET, attachment.getParentType());
+    }
 }
