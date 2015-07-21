@@ -24,6 +24,9 @@ import com.smartsheet.api.models.Attachment;
 import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.PaginationParameters;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
 /**
  * <p>This interface provides methods to access RowAttachment resources.</p>
  *
@@ -76,4 +79,25 @@ public interface RowAttachmentResources{
      * @throws SmartsheetException the smartsheet exception
      */
     public DataWrapper<Attachment> getAttachments(long sheetId, long rowId, PaginationParameters parameters) throws SmartsheetException;
+
+    /**
+     * <p>Attach a file to a row with simple upload.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method:<br />
+     *   POST /sheets/{sheetId}/rows/{rowId}/attachments</p>
+     *
+     * @param sheetId the id of the sheet
+     * @param rowId the id of the comment
+     * @param file the file to attach
+     * @param contentType the content type of the file
+     * @return the created attachment
+     * @throws FileNotFoundException the file not found exception
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Attachment attachFile(long sheetId, long rowId, File file, String contentType) throws FileNotFoundException, SmartsheetException;
 }

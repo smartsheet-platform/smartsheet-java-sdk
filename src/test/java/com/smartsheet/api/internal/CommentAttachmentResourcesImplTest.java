@@ -61,7 +61,7 @@ public class CommentAttachmentResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testattachFileWithSimpleUpload() throws SmartsheetException, IOException {
+    public void testattachFile() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/attachFile.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
         Attachment attachment = commentAttachmentResources.attachFile(1234L, 345L, file,
