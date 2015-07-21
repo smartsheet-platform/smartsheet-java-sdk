@@ -74,8 +74,8 @@ public class DiscussionResourcesImplTest extends ResourcesImplBase {
 		
 		Comment newComment = discussionResources.addDiscussionComment(1234L, comment);
 		
-		assertEquals("Some new text",newComment.getText());
-		assertEquals("Brett Batie", newComment.getCreatedBy().getName());
+		assertEquals("This is a new comment.",newComment.getText());
+		assertEquals("John Doe", newComment.getCreatedBy().getName());
 	}
 
 	@Test

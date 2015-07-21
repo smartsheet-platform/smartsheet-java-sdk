@@ -269,6 +269,61 @@ public abstract class AbstractResources {
 	}
 
 	/**
+	 * Create a resource using Smartsheet REST API.
+	 *
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null, or path is empty string
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param <T> the generic type
+	 * @param path the relative path of the resource collections
+	 * @param objectClass the resource object class
+	 * @param object the object to create
+	 * @return the created resource
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	protected <T> T createResourceWithAttachment(String path, Class<T> objectClass, T object, String partName,InputStream inputStream, String contentType, String attachmentName) throws SmartsheetException {
+		Util.throwIfNull(path, object);
+		Util.throwIfEmpty(path);
+
+		HttpRequest request;
+		final String boundary = "----" + System.currentTimeMillis() ;
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		HttpPost uploadFile = createHttpPost(this.getSmartsheet().getBaseURI().resolve(path));
+
+		try {
+			uploadFile.addHeader("Content-Type", "multipart/form-data; boundary=" + boundary);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+		builder.setBoundary(boundary);
+		builder.addTextBody(partName, this.getSmartsheet().getJsonSerializer().serialize(object), ContentType.APPLICATION_JSON);
+		builder.addBinaryBody("file", inputStream, ContentType.create(contentType), attachmentName);
+		org.apache.http.HttpEntity multipart = builder.build();
+
+		uploadFile.setEntity(multipart);
+
+		T obj = null;
+		//implement switch case
+		try {
+			CloseableHttpResponse response = httpClient.execute(uploadFile);
+			org.apache.http.HttpEntity responseEntity = response.getEntity();
+			obj = this.getSmartsheet().getJsonSerializer().deserializeResult(objectClass,
+					responseEntity.getContent()).getResult();
+		}
+		catch (Exception e) {
+			throw  new RuntimeException(e);
+		}
+		return obj;
+	}
+
+	/**
 	 * Update a resource using Smartsheet REST API.
 	 * 
 	 * Exceptions:
@@ -694,21 +749,26 @@ public abstract class AbstractResources {
 
 		try {
 			uploadFile.addHeader("Content-Type", "multipart/form-data; boundary=" + boundary);
-			MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-			builder.setBoundary(boundary);
-			builder.addTextBody(partName, this.getSmartsheet().getJsonSerializer().serialize(t), ContentType.APPLICATION_JSON);
-			builder.addBinaryBody("file", inputstream, ContentType.create(contentType), attachmentName);
-			org.apache.http.HttpEntity multipart = builder.build();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 
-			uploadFile.setEntity(multipart);
+		MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+		builder.setBoundary(boundary);
+		builder.addTextBody(partName, this.getSmartsheet().getJsonSerializer().serialize(t), ContentType.APPLICATION_JSON);
+		builder.addBinaryBody("file", inputstream, ContentType.create(contentType), attachmentName);
+		org.apache.http.HttpEntity multipart = builder.build();
 
+		uploadFile.setEntity(multipart);
+
+		try {
 			CloseableHttpResponse response = httpClient.execute(uploadFile);
 			org.apache.http.HttpEntity responseEntity = response.getEntity();
 			attachment = this.getSmartsheet().getJsonSerializer().deserializeResult(Attachment.class,
 					responseEntity.getContent()).getResult();
-
-		} catch (Exception e) {
-			throw new RuntimeException(e);
+		}
+		catch (Exception e) {
+			throw  new RuntimeException(e);
 		}
 		return attachment;
 	}
