@@ -64,7 +64,7 @@ public class CommentAttachmentResourcesImplTest extends ResourcesImplBase {
     public void testattachFileWithSimpleUpload() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/attachFile.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
-        Attachment attachment = commentAttachmentResources.attachFileWithSimpleUpload(1234L, 345L, file,
+        Attachment attachment = commentAttachmentResources.attachFile(1234L, 345L, file,
                 "application/pdf");
         assertTrue(attachment.getId() == 7265404226692996L);
         assertEquals("Testing.PDF", attachment.getName());
@@ -74,14 +74,14 @@ public class CommentAttachmentResourcesImplTest extends ResourcesImplBase {
         assertEquals(AttachmentParentType.SHEET, attachment.getParentType());
     }
 
-    @Test
-    public void testAttachFileWithMultipartUpload() throws SmartsheetException, IOException {
-        server.setResponseBody(new File("src/test/resources/attachFile.json"));
-        File file = new File("src/test/resources/large_sheet.pdf");
-        Comment comment = new Comment.AddCommentBuilder().setText("new comment").build();
-        comment.setId(345L);
-
-        Attachment attachment = commentAttachmentResources.attachFileWithMultipartUpload(123L, comment, file, "application/pdf");
-
-    }
+//    @Test
+//    public void testAttachFileWithMultipartUpload() throws SmartsheetException, IOException {
+//        server.setResponseBody(new File("src/test/resources/attachFile.json"));
+//        File file = new File("src/test/resources/large_sheet.pdf");
+//        Comment comment = new Comment.AddCommentBuilder().setText("new comment").build();
+//        comment.setId(345L);
+//
+//        Attachment attachment = commentAttachmentResources.attachFileWithMultipartUpload(123L, comment, file, "application/pdf");
+//
+//    }
 }

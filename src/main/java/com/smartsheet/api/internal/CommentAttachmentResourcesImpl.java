@@ -82,12 +82,12 @@ public class CommentAttachmentResourcesImpl extends AbstractResources implements
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Attachment attachFileWithSimpleUpload(long sheetId, long commentId, File file, String contentType) throws FileNotFoundException,
+    public Attachment attachFile(long sheetId, long commentId, File file, String contentType) throws FileNotFoundException,
             SmartsheetException {
         Util.throwIfNull(sheetId, commentId, file, contentType);
         Util.throwIfEmpty(contentType);
 
-        return attachFile(sheetId, commentId, new FileInputStream(file), contentType, file.length(), file.getName());
+        return attachFileWithSimpleUpload(sheetId, commentId, new FileInputStream(file), contentType, file.length(), file.getName());
     }
 
     /**
@@ -103,54 +103,54 @@ public class CommentAttachmentResourcesImpl extends AbstractResources implements
      * @throws SmartsheetException the smartsheet exception
      * @throws UnsupportedEncodingException the unsupported encoding exception
      */
-    private Attachment attachFile(long sheetId, long commentId, InputStream inputStream, String contentType, long contentLength, String attachmentName)
+    private Attachment attachFileWithSimpleUpload(long sheetId, long commentId, InputStream inputStream, String contentType, long contentLength, String attachmentName)
             throws SmartsheetException {
         Util.throwIfNull(inputStream, contentType);
-        return super.attachFile( "sheets/"+ sheetId +"/comments/"+ commentId + "/attachments", inputStream, contentType, contentLength, attachmentName);
+        return super.attachFile("sheets/" + sheetId + "/comments/" + commentId + "/attachments", inputStream, contentType, contentLength, attachmentName);
     }
 
-    /**
-     * <p>Attach a file to a comment with multipart upload.</p>
-     *
-     * <p>It mirrors to the following Smartsheet REST API method:<br />
-     *   POST /sheets/{sheetId}/comments/{commentId}/attachments</p>
-     *
-     * @param sheetId the id of the sheet
-     * @param comment the comment object to be added
-     * @param file the file to attach
-     * @param contentType the content type of the file
-     * @return the created attachment
-     * @throws FileNotFoundException the file not found exception
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
-     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
-     */
-    public Attachment attachFileWithMultipartUpload(long sheetId, Comment comment, File file, String contentType) throws FileNotFoundException, SmartsheetException{
-        Util.throwIfNull(sheetId, comment, file, contentType);
-        Util.throwIfEmpty(contentType);
-
-        return attachFileWithMultipartUpload(sheetId, comment, new FileInputStream(file), contentType, file.getName());
-    }
-
-    /**
-     * Attach file for multipart upload.
-     *
-     * @param sheetId the sheet id
-     * @param comment the comment object
-     * @param inputStream the inputstream
-     * @param contentType the content type
-     * @param attachmentName the name of the attachment
-     * @return the attachment
-     * @throws FileNotFoundException the file not found exception
-     * @throws SmartsheetException the smartsheet exception
-     * @throws UnsupportedEncodingException the unsupported encoding exception
-     */
-    private Attachment attachFileWithMultipartUpload(long sheetId, Comment comment, InputStream inputStream, String contentType, String attachmentName)
-            throws SmartsheetException {
-        Util.throwIfNull(inputStream, contentType);
-        return super.attachFile( "sheets/"+ sheetId +"/comments/"+ comment.getId() + "/attachments", comment, "comment", inputStream, contentType, attachmentName);
-    }
+//    /**
+//     * <p>Attach a file to a comment with multipart upload.</p>
+//     *
+//     * <p>It mirrors to the following Smartsheet REST API method:<br />
+//     *   POST /sheets/{sheetId}/comments/{commentId}/attachments</p>
+//     *
+//     * @param sheetId the id of the sheet
+//     * @param comment the comment object to be added
+//     * @param file the file to attach
+//     * @param contentType the content type of the file
+//     * @return the created attachment
+//     * @throws FileNotFoundException the file not found exception
+//     * @throws IllegalArgumentException if any argument is null or empty string
+//     * @throws InvalidRequestException if there is any problem with the REST API request
+//     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+//     * @throws ResourceNotFoundException if the resource cannot be found
+//     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+//     * @throws SmartsheetException if there is any other error during the operation
+//     */
+//    public Attachment attachFileWithMultipartUpload(long sheetId, Comment comment, File file, String contentType) throws FileNotFoundException, SmartsheetException{
+//        Util.throwIfNull(sheetId, comment, file, contentType);
+//        Util.throwIfEmpty(contentType);
+//
+//        return attachFileWithMultipartUpload(sheetId, comment, new FileInputStream(file), contentType, file.getName());
+//    }
+//
+//    /**
+//     * Attach file for multipart upload.
+//     *
+//     * @param sheetId the sheet id
+//     * @param comment the comment object
+//     * @param inputStream the inputstream
+//     * @param contentType the content type
+//     * @param attachmentName the name of the attachment
+//     * @return the attachment
+//     * @throws FileNotFoundException the file not found exception
+//     * @throws SmartsheetException the smartsheet exception
+//     * @throws UnsupportedEncodingException the unsupported encoding exception
+//     */
+//    private Attachment attachFileWithMultipartUpload(long sheetId, Comment comment, InputStream inputStream, String contentType, String attachmentName)
+//            throws SmartsheetException {
+//        Util.throwIfNull(inputStream, contentType);
+//        return super.attachFile("sheets/" + sheetId + "/comments/" + comment.getId() + "/attachments", comment, "comment", inputStream, contentType, attachmentName);
+//    }
 }
