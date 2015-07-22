@@ -51,21 +51,6 @@ public class DiscussionResourcesImplTest extends ResourcesImplBase {
 	}
 
 	@Test
-	public void testGetDiscussion() throws SmartsheetException, IOException {
-		server.setResponseBody(new File("src/test/resources/getDiscussion.json"));
-		
-		Discussion discussion = discussionResources.getDiscussion(1234L, 5678L);
-		
-		assertEquals("New Discussion", discussion.getTitle());
-		assertNotNull(discussion.getComments());
-		assertTrue(discussion.getComments().size() == 3);
-		assertEquals("This text is the body of the first comment4", discussion.getComments().get(0).getText());
-		assertNotNull(discussion.getComments().get(0).getCreatedBy());
-		assertEquals("Brett Batie", discussion.getComments().get(0).getCreatedBy().getName());
-		assertEquals("email@email.com", discussion.getComments().get(0).getCreatedBy().getEmail());
-	}
-
-	@Test
 	public void testAddDiscussionComment() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/addDiscussionComment.json"));
 		
@@ -81,24 +66,5 @@ public class DiscussionResourcesImplTest extends ResourcesImplBase {
 	@Test
 	public void testAttachments() {
 		assertNull(discussionResources.attachments());
-	}
-
-	@Test
-	public void testDeleteDiscussion() throws SmartsheetException, IOException {
-		server.setResponseBody(new File("src/test/resources/deleteDiscussion.json"));
-
-		discussionResources.deleteDiscussion(1234L, 2345L);
-	}
-
-	@Test
-	public void testGetAllDiscussions() throws SmartsheetException, IOException {
-		server.setResponseBody(new File("src/test/resources/getAllDiscussions.json"));
-		PaginationParameters parameters = new PaginationParameters(false, 1, 1);
-
-		DataWrapper<Discussion> newDiscussion = discussionResources.listDiscussions(123L, parameters, EnumSet.of(DiscussionInclusion.COMMENTS));
-		assertTrue(newDiscussion.getTotalPages() == 1);
-		assertTrue(newDiscussion.getPageSize() == 100);
-		assertTrue(newDiscussion.getTotalCount() == 1);
-		assertTrue(newDiscussion.getData().size() == 1);
 	}
 }

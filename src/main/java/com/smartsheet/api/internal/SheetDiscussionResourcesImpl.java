@@ -1,13 +1,19 @@
 package com.smartsheet.api.internal;
 
 import com.smartsheet.api.*;
+import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
+import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.Discussion;
+import com.smartsheet.api.models.DiscussionInclusion;
+import com.smartsheet.api.models.PaginationParameters;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.EnumSet;
+import java.util.HashMap;
 
 /*
  * #[license]
@@ -91,5 +97,87 @@ public class SheetDiscussionResourcesImpl extends  AbstractResources implements 
 
     private Discussion createDiscussionWithAttachment(String path, Discussion discussion, InputStream inputStream, String contentType, String attachmentName) throws SmartsheetException{
         return this.createResourceWithAttachment(path, Discussion.class, discussion, "discussion", inputStream, contentType, attachmentName);
+    }
+
+    /**
+     * Get a discussion.
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/discussions/{discussionId}
+     *
+     * Parameters: - discussionId : the ID
+     *
+     * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
+     * rather than returning null).
+     *
+     * Exceptions:
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ResourceNotFoundException : if the resource can not be found
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param sheetId the sheetId
+     * @param discussionId the discussionId
+     * @return the discussion
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Discussion getDiscussion(long sheetId, long discussionId) throws SmartsheetException {
+        return this.getResource("sheets/" + sheetId + "/discussions/" + discussionId, Discussion.class);
+    }
+
+    /**
+     * Delete discussion.
+     *
+     * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/discussions/{discussionId}
+     *
+     * Exceptions:
+     *   IllegalArgumentException : if any argument is null
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param sheetId the sheet ID
+     * @param discussionId the discussion ID
+     * @return the created comment
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public void deleteDiscussion(long sheetId, long discussionId) throws SmartsheetException{
+        this.deleteResource("sheets/" + sheetId + "/discussions/" + discussionId, Discussion.class);
+    }
+
+    /**
+     * Get all discussions.
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/discussions
+     *
+     * Exceptions:
+     *   IllegalArgumentException : if any argument is null
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param sheetId the sheet ID
+     * @param pagination the pagination pagination
+     * @param includes the optional include parameters
+     * @return all the discussions
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public DataWrapper<Discussion> listDiscussions(long sheetId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException{
+        String path = "sheets/" + sheetId + "/discussions";
+        HashMap<String, Object> parameters = new HashMap<String, Object>();
+
+        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+        path += QueryUtil.generateUrl(null, parameters);
+
+        if (pagination != null) {
+            path += pagination.toQueryString();
+        }
+
+        return this.listResourcesWithWrapper(path, Discussion.class);
     }
 }

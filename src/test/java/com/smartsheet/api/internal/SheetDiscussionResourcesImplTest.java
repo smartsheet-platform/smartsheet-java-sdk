@@ -3,10 +3,7 @@ package com.smartsheet.api.internal;
 import com.smartsheet.api.InvalidRequestException;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.Attachment;
-import com.smartsheet.api.models.Comment;
-import com.smartsheet.api.models.Discussion;
-import com.smartsheet.api.models.User;
+import com.smartsheet.api.models.*;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -133,5 +131,39 @@ public class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
         }catch(InvalidRequestException ex){
             // expected
         }
+    }
+
+    @Test
+    public void testGetDiscussion() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getDiscussion.json"));
+
+        Discussion discussion = sheetDiscussionResources.getDiscussion(1234L, 5678L);
+
+        assertEquals("New Discussion", discussion.getTitle());
+        assertNotNull(discussion.getComments());
+        assertTrue(discussion.getComments().size() == 3);
+        assertEquals("This text is the body of the first comment4", discussion.getComments().get(0).getText());
+        assertNotNull(discussion.getComments().get(0).getCreatedBy());
+        assertEquals("Brett Batie", discussion.getComments().get(0).getCreatedBy().getName());
+        assertEquals("email@email.com", discussion.getComments().get(0).getCreatedBy().getEmail());
+    }
+
+    @Test
+    public void testDeleteDiscussion() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/deleteDiscussion.json"));
+
+        sheetDiscussionResources.deleteDiscussion(1234L, 2345L);
+    }
+
+    @Test
+    public void testGetAllDiscussions() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getAllDiscussions.json"));
+        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+
+        DataWrapper<Discussion> newDiscussion = sheetDiscussionResources.listDiscussions(123L, parameters, EnumSet.of(DiscussionInclusion.COMMENTS));
+        assertTrue(newDiscussion.getTotalPages() == 1);
+        assertTrue(newDiscussion.getPageSize() == 100);
+        assertTrue(newDiscussion.getTotalCount() == 1);
+        assertTrue(newDiscussion.getData().size() == 1);
     }
 }
