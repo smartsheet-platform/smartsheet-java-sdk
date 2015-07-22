@@ -65,7 +65,6 @@ public class DiscussionAttachmentResources extends AssociatedAttachmentResources
 	 * @param contentType the content type of the file
 	 * @return the attachment
 	 */
-	@Override
 	public Attachment attachFile(long objectId, File file, String contentType) {
 		throw new UnsupportedOperationException("Attachments can only be attached to comments, not discussions.");
 	}
@@ -73,7 +72,6 @@ public class DiscussionAttachmentResources extends AssociatedAttachmentResources
 	/**
 	 * Throws an UnsupportedOperationException.
 	 */
-	@Override
 	public Attachment attachFile(long objectId, InputStream inputStream, String contentType, long contentLength, String fileName) {
 		throw new UnsupportedOperationException("Attachments can only be attached to comments, not discussions.");
 	}
