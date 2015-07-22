@@ -161,7 +161,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	/**
 	 * Get the current user.
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /user/me 
+	 * It mirrors to the following Smartsheet REST API method: GET /users/me
 	 * 
 	 * Exceptions: 
 	 *   - InvalidRequestException : if there is any problem with the REST API request 
@@ -176,7 +176,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public UserProfile getCurrentUser() throws SmartsheetException {
-		return this.getResource("user/me", UserProfile.class);
+		return this.getResource("users/me", UserProfile.class);
 	}
 
 

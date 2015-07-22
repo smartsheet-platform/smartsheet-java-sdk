@@ -37,6 +37,10 @@ public class Cell {
 	private ColumnType columnType;
 
 	/**
+	 * Represents the column columnType.
+	 */
+	private ColumnType type;
+	/**
 	 * Represents the value.
 	 */
 	private Object value;
@@ -107,6 +111,24 @@ public class Cell {
 	 */
 	public void setColumnType(ColumnType columnType) {
 		this.columnType = columnType;
+	}
+
+	/**
+	 * Gets the column columnType.
+	 *
+	 * @return the columnType
+	 */
+	public ColumnType getType() {
+		return columnType;
+	}
+
+	/**
+	 * Sets the column columnType.
+	 *
+	 * @param type the new columnType
+	 */
+	public void setType(ColumnType type) {
+		this.columnType = type;
 	}
 
 	/**
