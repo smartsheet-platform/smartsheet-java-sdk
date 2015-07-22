@@ -34,8 +34,8 @@ public interface AssociatedDiscussionResources {
 	
 	/**
 	 * <p>Create a discussion.</p>
-	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br /> 
+	 *
+	 * <p>It mirrors to the following Smartsheet REST API method:<br />
 	 * POST /sheet/{id}/discussions <br />
 	 * POST /row/{id}/discussions</p>
 	 *

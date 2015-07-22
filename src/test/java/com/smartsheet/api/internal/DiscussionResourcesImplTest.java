@@ -35,7 +35,6 @@ import org.junit.Test;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import org.omg.PortableInterceptor.DISCARDING;
 
 public class DiscussionResourcesImplTest extends ResourcesImplBase {
 
@@ -96,7 +95,7 @@ public class DiscussionResourcesImplTest extends ResourcesImplBase {
 		server.setResponseBody(new File("src/test/resources/getAllDiscussions.json"));
 		PaginationParameters parameters = new PaginationParameters(false, 1, 1);
 
-		DataWrapper<Discussion> newDiscussion = discussionResources.getAllDiscussions(123L, parameters, EnumSet.of(DiscussionInclusion.COMMENTS));
+		DataWrapper<Discussion> newDiscussion = discussionResources.listDiscussions(123L, parameters, EnumSet.of(DiscussionInclusion.COMMENTS));
 		assertTrue(newDiscussion.getTotalPages() == 1);
 		assertTrue(newDiscussion.getPageSize() == 100);
 		assertTrue(newDiscussion.getTotalCount() == 1);

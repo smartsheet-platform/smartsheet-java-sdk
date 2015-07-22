@@ -6,11 +6,9 @@ import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.Discussion;
 import com.smartsheet.api.models.DiscussionInclusion;
 import com.smartsheet.api.models.PaginationParameters;
-import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.IOException;
 import java.util.EnumSet;
@@ -52,7 +50,7 @@ public class DiscussionRowResourcesImplTest extends ResourcesImplBase {
 
         Discussion discussion = new Discussion();
         discussion.setTitle("new discussion");
-        Discussion newDiscussion = discussionRowResources.createDiscussionOnRow(1234L, 5678L, discussion);
+        Discussion newDiscussion = discussionRowResources.createDiscussion(1234L, 5678L, discussion);
         assertEquals("This is a new discussion", newDiscussion.getTitle());
         assertTrue(newDiscussion.getId() == 4583173393803140L);
     }
@@ -64,7 +62,7 @@ public class DiscussionRowResourcesImplTest extends ResourcesImplBase {
         Discussion discussion = new Discussion();
         discussion.setTitle("new discussion");
         PaginationParameters parameters = new PaginationParameters(false, 1, 1);
-        DataWrapper<Discussion> newDiscussion = discussionRowResources.getRowDiscussions(1234L, 5678L, parameters, EnumSet.of(DiscussionInclusion.COMMENTS));
+        DataWrapper<Discussion> newDiscussion = discussionRowResources.listDiscussions(1234L, 5678L, parameters, EnumSet.of(DiscussionInclusion.COMMENTS));
         assertEquals("Lincoln", newDiscussion.getData().get(0).getTitle());
         assertTrue(newDiscussion.getData().get(0).getId() == 3138415114905476L);
 

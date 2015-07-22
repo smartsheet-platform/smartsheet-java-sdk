@@ -155,7 +155,7 @@ public class DiscussionResourcesImpl extends AbstractResources implements Discus
 	 * @return all the discussions
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Discussion> getAllDiscussions(long sheetId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException{
+	public DataWrapper<Discussion> listDiscussions(long sheetId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException{
 		String path = "sheets/" + sheetId + "/discussions";
 		HashMap<String, Object> parameters = new HashMap<String, Object>();
 

@@ -117,5 +117,5 @@ public interface DiscussionResources {
 	 * @return a list of discussions
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Discussion> getAllDiscussions(long sheetId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException;
+	public DataWrapper<Discussion> listDiscussions(long sheetId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException;
 }

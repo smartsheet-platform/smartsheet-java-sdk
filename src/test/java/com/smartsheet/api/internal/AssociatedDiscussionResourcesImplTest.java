@@ -59,7 +59,7 @@ public class AssociatedDiscussionResourcesImplTest extends ResourcesImplBase {
 	@Test
 	public void testCreateDiscussion() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/createDiscussion.json"));
-		
+
 		// Test success
 		List<Comment> comments = new ArrayList<Comment>();
 		Comment comment = new Comment();
@@ -73,13 +73,13 @@ public class AssociatedDiscussionResourcesImplTest extends ResourcesImplBase {
 		discussion.setLastCommentedAt(new Date());
 		discussion.setCommentAttachments(new ArrayList<Attachment>());
 		Discussion newDiscussion = discussionResources.createDiscussion(1234L, discussion);
-		
+
 		assertNotNull(newDiscussion.getComments());
 		assertTrue(newDiscussion.getComments().size() == 1);
 		assertEquals("Brett Batie", newDiscussion.getComments().get(0).getCreatedBy().getName());
 		assertEquals("email@email.com", newDiscussion.getComments().get(0).getCreatedBy().getEmail());
-		
-		
+
+
 		// Test failure - CreatedBy not allowed & only one comment can be added when creating a discussion.
 		server.setStatus(400);
 		server.setResponseBody(new File("src/test/resources/createDiscussion_1032.json"));

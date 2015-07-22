@@ -1,6 +1,7 @@
 package com.smartsheet.api.internal;
 
 import com.smartsheet.api.DiscussionResources;
+import com.smartsheet.api.DiscussionRowResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.DataWrapper;
@@ -31,7 +32,7 @@ import java.util.HashMap;
  * limitations under the License.
  * %[license]
  */
-public class DiscussionRowResourcesImpl extends AbstractResources {
+public class DiscussionRowResourcesImpl extends AbstractResources implements DiscussionRowResources{
 
     public DiscussionRowResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
@@ -56,7 +57,7 @@ public class DiscussionRowResourcesImpl extends AbstractResources {
      * @return the created comment
      * @throws SmartsheetException the smartsheet exception
      */
-    public Discussion createDiscussionOnRow(long sheetId, long rowId, Discussion discussion) throws SmartsheetException{
+    public Discussion createDiscussion(long sheetId, long rowId, Discussion discussion) throws SmartsheetException{
         return this.createResource("sheets/" + sheetId + "/rows/" + rowId + "/discussions", Discussion.class, discussion);
     }
 
@@ -80,7 +81,7 @@ public class DiscussionRowResourcesImpl extends AbstractResources {
      * @return the row discussions
      * @throws SmartsheetException the smartsheet exception
      */
-    public DataWrapper<Discussion> getRowDiscussions(long sheetId, long rowId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException{
+    public DataWrapper<Discussion> listDiscussions(long sheetId, long rowId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException{
         String path = "sheets/" + sheetId + "/rows/" + rowId + "/discussions" ;
         HashMap<String, Object> parameters = new HashMap<String, Object>();
 
