@@ -1,11 +1,16 @@
 package com.smartsheet.api.internal;
 
 import com.smartsheet.api.*;
+import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Attachment;
 import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.PaginationParameters;
 import com.sun.javafx.geom.transform.SingularMatrixException;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.List;
 
 /*
@@ -85,5 +90,55 @@ public class AttachmentVersioningResourcesImpl extends AbstractResources impleme
             path += parameters.toQueryString();
         }
         return this.listResourcesWithWrapper(path, Attachment.class);
+    }
+
+    /**
+     * <p>Attach a new version of an attachment.</p>
+     * <p>It mirrors to the following Smartsheet REST API method:<br />
+     *   POST /attachment/{id}/versions
+     *
+     * @param sheetId the id of the sheet
+     * @param attachmentId the id of the attachment to upload a new version.
+     * @param file the file to attach
+     * @param contentType the content type of the file
+     * @return the created attachment
+     * @throws FileNotFoundException the file not found exception
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Attachment attachNewVersion(long sheetId ,long attachmentId, File file, String contentType) throws FileNotFoundException, SmartsheetException {
+        Util.throwIfNull(attachmentId, file, contentType);
+        Util.throwIfEmpty(contentType);
+
+        return attachNewVersion(sheetId ,attachmentId, new FileInputStream(file), contentType, file.length(), file.getName());
+    }
+
+    /**
+     * <p>Attach a new version of an attachment.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method:<br />
+     *  POST /attachment/{id}/versions
+     *
+     * @param sheetId the id of the sheet
+     * @param attachmentId the id of the object
+     * @param inputStream the {@link InputStream} of the file to attach
+     * @param contentType the content type of the file
+     * @param contentLength the size of the file in bytes.
+     * @param attachmentName the name of the file.
+     * @return the created attachment
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Attachment attachNewVersion (long sheetId, long attachmentId, InputStream inputStream, String contentType, long contentLength, String attachmentName)
+            throws SmartsheetException {
+        return super.attachFile("sheets/"+ sheetId + "/attachments/"+ attachmentId +"/versions", inputStream, contentType, contentLength, attachmentName);
     }
 }
