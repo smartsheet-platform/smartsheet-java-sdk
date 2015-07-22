@@ -37,6 +37,10 @@ public class Cell {
 	private ColumnType columnType;
 
 	/**
+	 * Represents the column columnType.
+	 */
+	private ColumnType type;
+	/**
 	 * Represents the value.
 	 */
 	private Object value;
@@ -85,7 +89,7 @@ public class Cell {
 	 * Represents the strict flag.
 	 */
 	private Boolean strict;
-	
+
 	/**
 	 * Represents the {@link Format} for this cell.
 	 */
@@ -107,6 +111,24 @@ public class Cell {
 	 */
 	public void setColumnType(ColumnType columnType) {
 		this.columnType = columnType;
+	}
+
+	/**
+	 * Gets the column columnType.
+	 *
+	 * @return the columnType
+	 */
+	public ColumnType getType() {
+		return columnType;
+	}
+
+	/**
+	 * Sets the column columnType.
+	 *
+	 * @param type the new columnType
+	 */
+	public void setType(ColumnType type) {
+		this.columnType = type;
 	}
 
 	/**
@@ -225,10 +247,10 @@ public class Cell {
 	 */
 	// TODO: check if default values can be used for any of the builders.
 	public static class UpdateRowCellsBuilder {
-		
+
 		/** The cells. */
 		List<Cell> cells = new ArrayList<Cell>();
-		
+
 		/**
 		 * Adds the cell.
 		 *
@@ -247,11 +269,11 @@ public class Cell {
 			cells.add(cell);
 			return this;
 		}
-		
+
 		public List<Cell> getCells(){
 			return cells;
 		}
-		
+
 		/**
 		 * Adds the cell.
 		 *
@@ -263,7 +285,7 @@ public class Cell {
 			addCell(columnId, value, true, null, null);
 			return this;
 		}
-		
+
 		/**
 		 * Returns the list of cells.
 		 *

@@ -20,4 +20,24 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-public interface Recipient {}
+/**
+ * Represents specific objects that can be included in some responses.
+ */
+public enum ReportInclusion{
+    DISCUSSIONS		("discussions"),
+    ATTACHMENTS		("attachments"),
+    FORMAT			("format"),
+    SOURCESHEETS	("sourceSheets")
+    ;
+
+    String inclusion;
+
+    ReportInclusion(String inclusion) {
+        this.inclusion = inclusion;
+    }
+
+    @Override
+    public String toString() {
+        return inclusion;
+    }
+}
