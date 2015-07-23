@@ -1,11 +1,4 @@
 package com.smartsheet.api.internal;
-
-import com.smartsheet.api.*;
-import com.smartsheet.api.DiscussionAttachmentResources;
-import com.smartsheet.api.models.Attachment;
-import com.smartsheet.api.models.DataWrapper;
-import com.smartsheet.api.models.PaginationParameters;
-
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -24,6 +17,17 @@ import com.smartsheet.api.models.PaginationParameters;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * %[license]
+ */
+
+import com.smartsheet.api.*;
+import com.smartsheet.api.DiscussionAttachmentResources;
+import com.smartsheet.api.models.Attachment;
+import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PaginationParameters;
+/**
+ * This is the implementation of the DiscussionAttachmentResources.
+ *
+ * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class DiscussionAttachmentResourcesImpl extends AbstractResources implements DiscussionAttachmentResources{
 

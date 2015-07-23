@@ -1,14 +1,4 @@
 package com.smartsheet.api.internal;
-
-import com.smartsheet.api.*;
-import com.smartsheet.api.internal.util.Util;
-import com.smartsheet.api.models.Comment;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -27,6 +17,19 @@ import java.io.InputStream;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * %[license]
+ */
+import com.smartsheet.api.*;
+import com.smartsheet.api.internal.util.Util;
+import com.smartsheet.api.models.Comment;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+/**
+ * This is the implementation of the DiscussionCommentResources.
+ *
+ * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class DiscussionCommentResourcesImpl extends AbstractResources implements DiscussionCommentResources{
 

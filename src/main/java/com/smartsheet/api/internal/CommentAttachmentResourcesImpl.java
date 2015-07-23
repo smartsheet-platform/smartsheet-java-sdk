@@ -20,10 +20,8 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 import com.smartsheet.api.*;
-import com.smartsheet.api.CommentAttachmentResources;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Attachment;
-import com.smartsheet.api.models.Comment;
 
 import java.io.*;
 
@@ -109,7 +107,7 @@ public class CommentAttachmentResourcesImpl extends AbstractResources implements
         return super.attachFile("sheets/" + sheetId + "/comments/" + commentId + "/attachments", inputStream, contentType, contentLength, attachmentName);
     }
 
-//    /**
+//    /** Changes for multipart upload.
 //     * <p>Attach a file to a comment with multipart upload.</p>
 //     *
 //     * <p>It mirrors to the following Smartsheet REST API method:<br />

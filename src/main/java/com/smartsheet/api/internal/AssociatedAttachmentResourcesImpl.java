@@ -20,19 +20,7 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.List;
-
 import com.smartsheet.api.AssociatedAttachmentResources;
-import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.internal.util.Util;
-import com.smartsheet.api.models.Attachment;
 
 /**
  * This is the implementation of the AssociatedAttachmentResources.

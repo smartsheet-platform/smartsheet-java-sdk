@@ -27,7 +27,11 @@ import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.PaginationParameters;
 
 import java.io.*;
-
+/**
+ * This is the implementation of the RowAttachmentResources.
+ *
+ * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
+ */
 public class RowAttachmentResourcesImpl extends AbstractResources implements RowAttachmentResources{
 
     public RowAttachmentResourcesImpl(SmartsheetImpl smartsheet) {

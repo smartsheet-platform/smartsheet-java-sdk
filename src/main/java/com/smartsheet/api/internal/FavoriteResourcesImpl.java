@@ -25,9 +25,12 @@ import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.Favorite;
 import com.smartsheet.api.models.PaginationParameters;
 
-import java.util.HashMap;
 import java.util.List;
-
+/**
+ * This is the implementation of the FavoriteResources.
+ *
+ * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
+ */
 public class FavoriteResourcesImpl extends AbstractResources{
 
     /**

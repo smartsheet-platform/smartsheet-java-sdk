@@ -1,14 +1,4 @@
 package com.smartsheet.api.internal;
-
-import com.smartsheet.api.*;
-import com.smartsheet.api.internal.util.Util;
-import com.smartsheet.api.models.Attachment;
-import com.smartsheet.api.models.DataWrapper;
-import com.smartsheet.api.models.PaginationParameters;
-
-import java.io.*;
-import java.util.List;
-
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -27,6 +17,18 @@ import java.util.List;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * %[license]
+ */
+import com.smartsheet.api.*;
+import com.smartsheet.api.internal.util.Util;
+import com.smartsheet.api.models.Attachment;
+import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PaginationParameters;
+
+import java.io.*;
+/**
+ * This is the implementation of the ShareResources.
+ *
+ * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class SheetAttachmentResourcesImpl extends AbstractResources implements SheetAttachmentResources{
 
