@@ -137,7 +137,7 @@ public class AttachmentVersioningResourcesImpl extends AbstractResources impleme
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Attachment attachNewVersion (long sheetId, long attachmentId, InputStream inputStream, String contentType, long contentLength, String attachmentName)
+    private Attachment attachNewVersion (long sheetId, long attachmentId, InputStream inputStream, String contentType, long contentLength, String attachmentName)
             throws SmartsheetException {
         return super.attachFile("sheets/"+ sheetId + "/attachments/"+ attachmentId +"/versions", inputStream, contentType, contentLength, attachmentName);
     }
