@@ -111,4 +111,24 @@ public interface SheetColumnResources {
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Column updateColumn(long sheetId, Column column) throws SmartsheetException;
+
+	/**
+	 * Gets the Column specified in the URL.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/columns/{columnId}
+	 *
+	 * Exceptions:
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param sheetId the sheet id
+	 * @param columnId list of includes
+	 * @return the column (note that empty list will be returned if there is none)
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public Column getColumn(long sheetId, long columnId) throws SmartsheetException;
 }
