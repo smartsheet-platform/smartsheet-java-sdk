@@ -25,10 +25,12 @@ package com.smartsheet.api.internal;
 import java.util.List;
 
 import com.smartsheet.api.GroupResources;
-import com.smartsheet.api.MemberResources;
+import com.smartsheet.api.GroupMemberResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.Util;
+import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.Group;
+import com.smartsheet.api.models.PaginationParameters;
 
 /**
  * This is the implementation of the HomeResources.
@@ -36,7 +38,7 @@ import com.smartsheet.api.models.Group;
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class GroupResourcesImpl extends AbstractResources implements GroupResources {
-	private MemberResources members;
+	private GroupMemberResources members;
 	/**
 	 * Constructor.
 	 * 
@@ -46,17 +48,17 @@ public class GroupResourcesImpl extends AbstractResources implements GroupResour
 	 */
 	public GroupResourcesImpl(SmartsheetImpl smartsheet) {
 		super(smartsheet); 
-		this.members = new MemberResourcesImpl(smartsheet, "group");
+		this.members = new GroupMemberResourcesImpl(smartsheet, "group");
 	}
 
 	@Override
-	public List<Group> listGroups() throws SmartsheetException {
-		return this.listResources("groups", Group.class);
+	public DataWrapper<Group> listGroups(PaginationParameters parameters) throws SmartsheetException {
+		return this.listResourcesWithWrapper("groups" + parameters.toQueryString(), Group.class);
 	}
 
 	@Override
 	public Group getGroup(long groupId) throws SmartsheetException {
-		return this.getResource("group/" + groupId, Group.class);
+		return this.getResource("groups/" + groupId, Group.class);
 	}
 
 	@Override
@@ -68,16 +70,16 @@ public class GroupResourcesImpl extends AbstractResources implements GroupResour
 	@Override
 	public Group updateGroup(Group group) throws SmartsheetException {
 		Util.throwIfNull(group);
-		return this.updateResource("group/"+ group.getId(), Group.class, group);
+		return this.updateResource("groups/"+ group.getId(), Group.class, group);
 	}
 
 	@Override
 	public void deleteGroup(long groupId) throws SmartsheetException {
-		this.deleteResource("group/" + groupId, Group.class);
+		this.deleteResource("groups/" + groupId, Group.class);
 	}
 
 	@Override
-	public MemberResources members() throws SmartsheetException {
+	public GroupMemberResources members() throws SmartsheetException {
 		return members;
 	}
 }

@@ -24,6 +24,7 @@ package com.smartsheet.api;
 
 import java.util.List;
 
+import com.smartsheet.api.models.GroupMember;
 import com.smartsheet.api.models.User;
 
 /**
@@ -31,7 +32,7 @@ import com.smartsheet.api.models.User;
  * 
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
-public interface MemberResources {
+public interface GroupMemberResources {
 	
 	/**
 	 * <p>Add members to a group.</p>
@@ -39,7 +40,7 @@ public interface MemberResources {
 	 * <p>It mirrors to the following Smartsheet REST API method:<br />
 	 * POST /group/{id}/members<br/>
 	 *
-	 * @param objectId the ID of the object to add members to.
+	 * @param groupId the ID of the object to add members to.
 	 * @param members the list of members to add. Users that are already members will be ignored.
 	 * @return the list of newly added members. Users that were added to the group. Pre-existing members are not included in the result. 
 	 * @throws IllegalArgumentException if any argument is null or empty string
@@ -49,7 +50,7 @@ public interface MemberResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public List<User> addMembers(long objectId, List<User> members) throws SmartsheetException;
+	public List<GroupMember> addGroupMembers(long groupId, List<GroupMember> members) throws SmartsheetException;
 
 	/**
 	 * <p>Remove a member from a group.</p>
@@ -57,7 +58,7 @@ public interface MemberResources {
 	 * <p>It mirrors to the following Smartsheet REST API method:<br />
 	 * DELETE /group/{id}/member/{userId}<br />
 	 *
-	 * @param objectId the ID of the object to remove the member from
+	 * @param groupId the ID of the object to remove the member from
 	 * @param userId the ID of the user to remove.
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
@@ -66,5 +67,5 @@ public interface MemberResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public void deleteMember(long objectId, long userId) throws SmartsheetException;
+	public void deleteGroupMember(long groupId, long userId) throws SmartsheetException;
 }
