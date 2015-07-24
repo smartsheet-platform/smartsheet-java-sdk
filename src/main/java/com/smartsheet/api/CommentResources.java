@@ -37,7 +37,8 @@ public interface CommentResources {
 	 * <p>It mirrors to the following Smartsheet REST API method:<br />
 	 * GET /comment/{id}</p>
 	 *
-	 * @param id the id
+	 * @param sheetId the ID of the sheet
+	 * @param commentId the ID of the comment
 	 * @return the comment (note that if there is no such resource, this method will throw ResourceNotFoundException
 	 * rather than returning null).
 	 * @throws IllegalArgumentException if any argument is null or empty string
@@ -47,15 +48,16 @@ public interface CommentResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Comment getComment(long id) throws SmartsheetException;
+	public Comment getComment(long sheetId, long commentId) throws SmartsheetException;
 
 	/**
 	 * <p>Delete a comment.</p>
 	 * 
 	 * <p>It mirrors to the following Smartsheet REST API method:<br />
 	 * DELETE /comment{id}</p>
-	 * 
-	 * @param id the id
+	 *
+	 * @param sheetId the ID of the sheet
+	 * @param commentId the ID of the comment
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
 	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
@@ -63,7 +65,7 @@ public interface CommentResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public void deleteComment(long id) throws SmartsheetException;
+	public void deleteComment(long sheetId, long commentId) throws SmartsheetException;
 
 	/**
 	 * <p>Return the AssociatedAttachmentResources object that provides access to attachment resources associated with

@@ -65,13 +65,14 @@ public class CommentResourcesImpl extends AbstractResources implements CommentRe
 	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
 	 *   SmartsheetException : if there is any other error occurred during the operation
 	 *
-	 * @param id the id
+	 * @param sheetId the ID of the sheet
+	 * @param commentId the ID of the comment
 	 * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
 	 * rather than returning null)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Comment getComment(long id) throws SmartsheetException {
-		return this.getResource("comment/" + id, Comment.class);
+	public Comment getComment(long sheetId, long commentId) throws SmartsheetException {
+		return this.getResource("sheets/" + sheetId + "/comments/" + commentId, Comment.class);
 	}
 
 	/**
@@ -87,11 +88,12 @@ public class CommentResourcesImpl extends AbstractResources implements CommentRe
 	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
 	 *   SmartsheetException : if there is any other error occurred during the operation
 	 *
-	 * @param id the ID of the comment
+	 * @param sheetId the ID of the sheet
+	 * @param commentId the ID of the comment
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public void deleteComment(long id) throws SmartsheetException {
-		this.deleteResource("comment/" + id, Comment.class);
+	public void deleteComment(long sheetId, long commentId) throws SmartsheetException {
+		this.deleteResource("sheets/" + sheetId + "/comments/" + commentId, Comment.class);
 	}
 
 	/**
