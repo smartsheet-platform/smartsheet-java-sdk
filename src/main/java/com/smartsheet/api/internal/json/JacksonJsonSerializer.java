@@ -36,6 +36,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.smartsheet.api.internal.util.Util;
+import com.smartsheet.api.models.CopyOrMoveRowResult;
 import com.smartsheet.api.models.IdentifiableModel;
 import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.Result;
@@ -331,5 +332,32 @@ public class JacksonJsonSerializer implements JsonSerializer {
 			throw new JSONSerializerException(e);
 		}
 		return result;
+	}
+
+	/**
+	 * De-serialize to a CopyOrMoveRowResult object from JSON
+	 * @param inputStream
+	 * @return
+	 * @throws JSONSerializerException
+	 */
+	@Override
+	public CopyOrMoveRowResult deserializeCopyOrMoveRow(java.io.InputStream inputStream) throws JSONSerializerException{
+		Util.throwIfNull(inputStream);
+
+		CopyOrMoveRowResult rw = null;
+
+		try {
+			// Read the json input stream into a List.
+			rw = OBJECT_MAPPER.readValue(inputStream, CopyOrMoveRowResult.class);
+			// list = OBJECT_MAPPER.readValue(inputStream, new TypeReference<List<T>>() {});
+		} catch (JsonParseException e) {
+			throw new JSONSerializerException(e);
+		} catch (JsonMappingException e) {
+			throw new JSONSerializerException(e);
+		} catch (IOException e) {
+			throw new JSONSerializerException(e);
+		}
+
+		return rw;
 	}
 }

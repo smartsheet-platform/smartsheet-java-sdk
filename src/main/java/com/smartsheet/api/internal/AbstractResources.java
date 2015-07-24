@@ -43,6 +43,8 @@ import com.smartsheet.api.internal.http.HttpRequest;
 import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Attachment;
+import com.smartsheet.api.models.CopyOrMoveRowDirective;
+import com.smartsheet.api.models.CopyOrMoveRowResult;
 import com.smartsheet.api.models.DataWrapper;
 import com.smartsheet.api.models.PaperSize;
 
@@ -477,7 +479,7 @@ public abstract class AbstractResources {
 		List<S> obj = null;
 		switch (response.getStatusCode()) { 
 			case 200:
-				obj = this.smartsheet.getJsonSerializer().deserializeListResult(objectClassToReceive, 
+				obj = this.smartsheet.getJsonSerializer().deserializeListResult(objectClassToReceive,
 						response.getEntity().getContent()).getResult();
 				break;
 			default:
@@ -486,6 +488,59 @@ public abstract class AbstractResources {
 		
 		smartsheet.getHttpClient().releaseConnection();
 		
+		return obj;
+	}
+
+
+
+	/**
+	 * Post an object to Smartsheet REST API and receive a CopyOrMoveRowResult object from response.
+	 *
+	 * Parameters: - path : the relative path of the resource collections - objectToPost : the object to post -
+	 *
+	 * Returns: the object
+	 *
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null, or path is empty string
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param path the path
+	 * @param objectToPost the object to post
+	 * @return the result object
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	protected CopyOrMoveRowResult postAndReceiveRowObject(String path, CopyOrMoveRowDirective objectToPost) throws SmartsheetException {
+		Util.throwIfNull(path, objectToPost);
+		Util.throwIfEmpty(path);
+
+		HttpRequest request;
+		request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		this.smartsheet.getJsonSerializer().serialize(objectToPost, baos);
+		HttpEntity entity = new HttpEntity();
+		entity.setContentType("application/json");
+		entity.setContent(new ByteArrayInputStream(baos.toByteArray()));
+		entity.setContentLength(baos.size()); request.setEntity(entity);
+
+		HttpResponse response = this.smartsheet.getHttpClient().request(request);
+
+		CopyOrMoveRowResult obj = null;
+		switch (response.getStatusCode()) {
+			case 200:
+				obj = this.smartsheet.getJsonSerializer().deserializeCopyOrMoveRow(
+						response.getEntity().getContent());
+				break;
+			default:
+				handleError(response);
+		}
+
+		smartsheet.getHttpClient().releaseConnection();
+
 		return obj;
 	}
 

@@ -132,4 +132,48 @@ public interface SheetRowResources {
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Row> updateRows(long sheetId, List<Row> rows) throws SmartsheetException;
+
+	/**
+	 * Moves Row(s) from the Sheet specified in the URL to (the bottom of) another sheet.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/move
+	 *
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null, or path is empty string
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param sheetId the sheet ID to move
+	 * @param includes the parameters to include
+	 * @param ignoreRowsNotFound optional,specifying row Ids that do not exist within the source sheet
+	 * @param moveParameters   CopyOrMoveRowDirective object
+	 * @return the result object
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public CopyOrMoveRowResult moveRow(Long sheetId,EnumSet<RowMoveInclusion> includes, Boolean ignoreRowsNotFound, CopyOrMoveRowDirective moveParameters) throws SmartsheetException;
+
+	/**
+	 * Copies Row(s) from the Sheet specified in the URL to (the bottom of) another sheet.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/move
+	 *
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null, or path is empty string
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param sheetId the sheet ID to move
+	 * @param includes the parameters to include
+	 * @param ignoreRowsNotFound optional,specifying row Ids that do not exist within the source sheet
+	 * @param copyParameters   CopyOrMoveRowDirective object
+	 * @return the result object
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public CopyOrMoveRowResult copyRow(Long sheetId,EnumSet<RowCopyInclusion> includes, Boolean ignoreRowsNotFound, CopyOrMoveRowDirective copyParameters) throws SmartsheetException;
 }
