@@ -75,7 +75,6 @@ public interface JsonSerializer {
 	 */
 	public <T> String serialize(T object) throws JSONSerializerException;
 
-
 	/**
 	 * De-serialize json to DataWrapper.
 	 * @param objectClass the object class

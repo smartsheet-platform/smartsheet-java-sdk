@@ -42,45 +42,48 @@ import com.smartsheet.api.models.*;
 
 /**
  * This is the implementation of the SheetResources.
- *
+ * 
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class SheetResourcesImpl extends AbstractResources implements SheetResources {
+	
+	/** The Constant BUFFER_SIZE. */
+	private final static int BUFFER_SIZE = 4098;
 
 	/**
 	 * Represents the ShareResources.
-	 *
+	 * 
 	 * It will be initialized in constructor and will not change afterwards.
 	 */
 	private ShareResources shares;
 	/**
 	 * Represents the SheetRowResources.
-	 *
+	 * 
 	 * It will be initialized in constructor and will not change afterwards.
 	 */
 	private SheetRowResources rows;
 	/**
 	 * Represents the SheetColumnResources.
-	 *
+	 * 
 	 * It will be initialized in constructor and will not change afterwards.
 	 */
 	private SheetColumnResources columns;
 	/**
 	 * Represents the AssociatedAttachmentResources.
-	 *
+	 * 
 	 * It will be initialized in constructor and will not change afterwards.
 	 */
 	private AssociatedAttachmentResources attachments;
 	/**
 	 * Represents the AssociatedDiscussionResources.
-	 *
+	 * 
 	 * It will be initialized in constructor and will not change afterwards.
 	 */
 	private AssociatedDiscussionResources discussions;
 
 	/**
 	 * Constructor.
-	 *
+	 * 
 	 * Exceptions: - IllegalArgumentException : if any argument is null
 	 *
 	 * @param smartsheet the smartsheet
@@ -96,9 +99,9 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 
 	/**
 	 * List all sheets.
-	 *
+	 * 
 	 * It mirrors to the following Smartsheet REST API method: GET /sheets
-	 *
+	 * 
 	 * Exceptions: 
 	 *   - InvalidRequestException : if there is any problem with the REST API request 
 	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token) 
@@ -121,9 +124,9 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 
 	/**
 	 * List all sheets in the organization.
-	 *
+	 * 
 	 * It mirrors to the following Smartsheet REST API method: GET /users/sheets
-	 *
+	 * 
 	 * Exceptions: 
 	 *   - InvalidRequestException : if there is any problem with the REST API request 
 	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token) 
@@ -146,9 +149,9 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 
 	/**
 	 * Get a sheet.
-	 *
-	 * It mirrors to the following Smartsheet REST API method: GET /sheet/{id}
-	 *
+	 * 
+	 * It mirrors to the following Smartsheet REST API method: GET /sheet/{id} 
+	 * 
 	 * Exceptions: 
 	 *   - InvalidRequestException : if there is any problem with the REST API request 
 	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token) 
@@ -186,10 +189,10 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 
 	/**
 	 * Get a sheet as an Excel file.
-	 *
+	 * 
 	 * It mirrors to the following Smartsheet REST API method: GET /sheet/{id} with "application/vnd.ms-excel" Accept
 	 * HTTP header 
-	 *
+	 * 
 	 * Exceptions:
 	 *   IllegalArgumentException : if outputStream is null
 	 *   InvalidRequestException : if there is any problem with the REST API request
@@ -210,10 +213,10 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 
 	/**
 	 * Get a sheet as a PDF file.
-	 *
+	 * 
 	 * It mirrors to the following Smartsheet REST API method: GET /sheet/{id} with "application/pdf" Accept HTTP 
 	 * header
-	 *
+	 * 
 	 * Exceptions:
 	 *   IllegalArgumentException : if outputStream is null
 	 *   InvalidRequestException : if there is any problem with the REST API request
@@ -235,9 +238,9 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 
 	/**
 	 * Create a sheet in default "Sheets" collection.
-	 *
+	 * 
 	 * It mirrors to the following Smartsheet REST API method: POST /sheets 
-	 *
+	 * 
 	 * Exceptions:
 	 *   IllegalArgumentException : if any argument is null
 	 *   InvalidRequestException : if there is any problem with the REST API request
@@ -258,9 +261,9 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 
 	/**
 	 * Create a sheet (from existing sheet or template) in default "Sheets" collection.
-	 *
+	 * 
 	 * It mirrors to the following Smartsheet REST API method: POST /sheets 
-	 *
+	 * 
 	 * Exceptions:
 	 *   IllegalArgumentException : if any argument is null
 	 *   InvalidRequestException : if there is any problem with the REST API request 
@@ -277,21 +280,18 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Sheet createSheetFromExisting(Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException {
-		String path = "sheets";
-		if (includes != null) {
-			path += "?include=";
-			for (SheetTemplateInclusion si : includes) {
-				path += si.name().toLowerCase() + ",";
-			}
-		}
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+		String path = QueryUtil.generateUrl("sheets", parameters);
+
 		return this.createResource(path, Sheet.class, sheet);
 	}
 
 	/**
 	 * Create a sheet in given folder.
-	 *
-	 * It mirrors to the following Smartsheet REST API method: POST /folder/{folderId}/sheets
-	 *
+	 * 
+	 * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/sheets
+	 * 
 	 * Exceptions:
 	 *   IllegalArgumentException : if any argument is null
 	 *   InvalidRequestException : if there is any problem with the REST API request
@@ -308,15 +308,15 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Sheet createSheetInFolder(long folderId, Sheet sheet) throws SmartsheetException {
-
+		
 		return this.createResource("folders/" + folderId + "/sheets", Sheet.class, sheet);
 	}
 
 	/**
 	 * Create a sheet in given folder.
-	 *
+	 * 
 	 * It mirrors to the following Smartsheet REST API method: POST /folder/{folderId}/sheets 
-	 *
+	 * 
 	 * Exceptions:
 	 *   IllegalArgumentException : if any argument is null
 	 *   InvalidRequestException : if there is any problem with the REST API request
@@ -334,22 +334,18 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Sheet createSheetInFolderFromExisting(long folderId, Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException {
-		String path = "folders/" + folderId + "/sheets";
-		if (includes != null) {
-			path += "?include=";
-			for (SheetTemplateInclusion si : includes) {
-				path += si.name().toLowerCase() + ",";
-			}
-		}
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+		String path = QueryUtil.generateUrl("folders/" + folderId + "/sheets", parameters);
 
 		return this.createResource(path, Sheet.class, sheet);
 	}
 
 	/**
 	 * Create a sheet in given workspace.
-	 *
+	 * 
 	 * It mirrors to the following Smartsheet REST API method: POST /workspace/{workspaceId}/sheets
-	 *
+	 * 
 	 * Exceptions:
 	 *   IllegalArgumentException : if any argument is null 
 	 *   InvalidRequestException : if there is any problem with the REST API request
@@ -370,9 +366,9 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 
 	/**
 	 * Create a sheet (from existing sheet or template) in given workspace.
-	 *
+	 * 
 	 * It mirrors to the following Smartsheet REST API method: POST /workspace/{workspaceId}/sheets 
-	 *
+	 * 
 	 * Exceptions:
 	 *   IllegalArgumentException : if any argument is null
 	 *   InvalidRequestException : if there is any problem with the REST API request
@@ -392,22 +388,18 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 */
 	public Sheet createSheetInWorkspaceFromExisting(long workspaceId, Sheet sheet, EnumSet<SheetTemplateInclusion> includes)
 			throws SmartsheetException {
-		String path = "workspaces/" + workspaceId + "/sheets";
-		if (includes != null) {
-			path += "?include=";
-			for (SheetTemplateInclusion si : includes) {
-				path += si.name().toLowerCase() + ",";
-			}
-		}
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+		String path = QueryUtil.generateUrl("workspaces/" + workspaceId + "/sheets", parameters);
 
 		return this.createResource(path, Sheet.class, sheet);
 	}
 
 	/**
 	 * Delete a sheet.
-	 *
+	 * 
 	 * It mirrors to the following Smartsheet REST API method: DELETE /sheet{id}
-	 *
+	 * 
 	 * Exceptions:
 	 *   InvalidRequestException : if there is any problem with the REST API request
 	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -425,9 +417,9 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 
 	/**
 	 * Update a sheet.
-	 *
+	 * 
 	 * It mirrors to the following Smartsheet REST API method: PUT /sheet/{id}
-	 *
+	 * 
 	 * Exceptions:
 	 *   IllegalArgumentException : if any argument is null
 	 *   InvalidRequestException : if there is any problem with the REST API request
@@ -448,9 +440,9 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 
 	/**
 	 * Get a sheet version.
-	 *
+	 * 
 	 * It mirrors to the following Smartsheet REST API method: GET /sheet/{id}/version
-	 *
+	 * 
 	 * Exceptions:
 	 *   InvalidRequestException : if there is any problem with the REST API request
 	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -470,9 +462,9 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 
 	/**
 	 * Send a sheet as a PDF attachment via email to the designated recipients.
-	 *
+	 * 
 	 * It mirrors to the following Smartsheet REST API method: POST /sheet/{sheetId}/emails
-	 *
+	 * 
 	 * Exceptions: 
 	 *   - IllegalArgumentException : if any argument is null 
 	 *   - InvalidRequestException : if there is any problem with the REST API request 
@@ -538,12 +530,12 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 
 	/**
 	 * Get the status of the Publish settings of the sheet, including the URLs of any enabled publishings.
-	 *
+	 * 
 	 * It mirrors to the following Smartsheet REST API method: GET /sheet/{sheetId}/publish
-	 *
+	 * 
 	 * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
 	 * rather than returning null).
-	 *
+	 * 
 	 * Exceptions: 
 	 *   - InvalidRequestException : if there is any problem with the REST API request 
 	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token) 
@@ -562,9 +554,9 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 
 	/**
 	 * Sets the publish status of a sheet and returns the new status, including the URLs of any enabled publishings.
-	 *
+	 * 
 	 * It mirrors to the following Smartsheet REST API method: PUT /sheet/{sheetId}/publish
-	 *
+	 * 
 	 * Exceptions: 
 	 *   - IllegalArgumentException : if any argument is null 
 	 *   - InvalidRequestException : if there is any problem with the REST API request 
@@ -587,15 +579,15 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 
 	/**
 	 * Get a sheet as a file.
-	 *
-	 * Exceptions:
-	 *   - InvalidRequestException : if there is any problem with the REST API request
-	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   - ResourceNotFoundException : if the resource can not be found
-	 *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 * 
+	 * Exceptions: 
+	 *   - InvalidRequestException : if there is any problem with the REST API request 
+	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token) 
+	 *   - ResourceNotFoundException : if the resource can not be found 
+	 *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) 
+	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation 
 	 *   - SmartsheetException : if there is any other error occurred during the operation
-	 *
+	 * 
 	 * @param id the id
 	 * @param paperSize the paper size
 	 * @param outputStream the OutputStream to which the Excel file will be written
@@ -606,8 +598,8 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	private void getSheetAsFile(long id, PaperSize paperSize, OutputStream outputStream, String contentType)
 			throws SmartsheetException {
 		Util.throwIfNull(outputStream, contentType);
-
-		String path = "sheet/" + id;
+		
+		String path = "sheets/" + id;
 		if (paperSize != null) {
 			path += "?paperSize=" + paperSize;
 		}
@@ -619,17 +611,41 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 		com.smartsheet.api.internal.http.HttpResponse response = getSmartsheet().getHttpClient().request(request);
 
 		switch (response.getStatusCode()) {
-			case 200:
-				try {
-					copyStream(response.getEntity().getContent(), outputStream);
-				} catch (IOException e) {
-					throw new SmartsheetException(e);
-				}
-				break;
-			default:
-				handleError(response);
+		case 200:
+			try {
+				copyStream(response.getEntity().getContent(), outputStream);
+			} catch (IOException e) {
+				throw new SmartsheetException(e);
+			}
+			break;
+		default:
+			handleError(response);
 		}
-
+		
 		getSmartsheet().getHttpClient().releaseConnection();
+	}
+
+	/*
+	 * Copy an input stream to an output stream.
+	 * 
+	 * @param input The input stream to copy.
+	 * 
+	 * @param output the output stream to write to.
+	 * 
+	 * @throws IOException if there is trouble reading or writing to the streams.
+	 */
+	/**
+	 * Copy stream.
+	 *
+	 * @param input the input
+	 * @param output the output
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
+	public static void copyStream(InputStream input, OutputStream output) throws IOException {
+		byte[] buffer = new byte[BUFFER_SIZE];
+		int len;
+		while ((len = input.read(buffer)) != -1) {
+			output.write(buffer, 0, len);
+		}
 	}
 }

@@ -50,12 +50,12 @@ public class AssociatedDiscussionResourcesImpl extends AbstractAssociatedResourc
 
 	/**
 	 * Create a discussion.
-	 * 
+	 *
 	 * It mirrors to the following Smartsheet REST API method: POST /sheet/{id}/discussions POST /row/{id}/discussions
-	 * 
+	 *
 	 * Returns: the created discussion
-	 * 
-	 * Exceptions: 
+	 *
+	 * Exceptions:
 	 *   IllegalArgumentException : if any argument is null
 	 *   InvalidRequestException : if there is any problem with the REST API request
 	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -71,7 +71,7 @@ public class AssociatedDiscussionResourcesImpl extends AbstractAssociatedResourc
 	 */
 	public Discussion createDiscussion(long objectId, Discussion discussion) throws SmartsheetException {
 		Util.throwIfNull(objectId, discussion);
-		return this.createResource(getMasterResourceType() + "/" + objectId + "/discussions", 
+		return this.createResource(getMasterResourceType() + "/" + objectId + "/discussions",
 				Discussion.class, discussion);
 	}
 }

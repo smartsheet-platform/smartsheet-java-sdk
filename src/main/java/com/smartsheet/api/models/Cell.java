@@ -101,7 +101,7 @@ public class Cell {
 	 * @return the columnType
 	 */
 	public ColumnType getColumnType() {
-		return columnType;
+		return type;
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class Cell {
 	 * @param columnType the new columnType
 	 */
 	public void setColumnType(ColumnType columnType) {
-		this.columnType = columnType;
+		this.type = columnType;
 	}
 
 	/**
@@ -119,7 +119,7 @@ public class Cell {
 	 * @return the columnType
 	 */
 	public ColumnType getType() {
-		return columnType;
+		return type;
 	}
 
 	/**
@@ -128,7 +128,7 @@ public class Cell {
 	 * @param type the new columnType
 	 */
 	public void setType(ColumnType type) {
-		this.columnType = type;
+		this.type = type;
 	}
 
 	/**

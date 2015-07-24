@@ -22,8 +22,9 @@ package com.smartsheet.api;
 
 
 
-import com.smartsheet.api.models.Comment;
-import com.smartsheet.api.models.Discussion;
+import com.smartsheet.api.models.*;
+
+import java.util.EnumSet;
 
 /**
  * <p>This interface provides methods to access Discussion resources.</p>
@@ -31,24 +32,6 @@ import com.smartsheet.api.models.Discussion;
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface DiscussionResources {
-	
-	/**
-	 * <p>Get a discussion.</p>
-	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * GET /discussion/{id}</p>
-	 *
-	 * @param id the id
-	 * @return the discussion (note that if there is no such resource, this method will throw ResourceNotFoundException
-	 * rather than returning null).
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
-	 */
-	public Discussion getDiscussion(long id) throws SmartsheetException;
 
 	/**
 	 * <p>Add a comment to a discussion.</p>
