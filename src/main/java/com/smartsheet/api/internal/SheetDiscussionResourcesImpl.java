@@ -1,6 +1,7 @@
 package com.smartsheet.api.internal;
 
 import com.smartsheet.api.*;
+import com.smartsheet.api.DiscussionAttachmentResources;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.DataWrapper;
@@ -35,6 +36,8 @@ import java.util.HashMap;
  * %[license]
  */
 public class SheetDiscussionResourcesImpl extends  AbstractResources implements SheetDiscussionResources {
+    DiscussionAttachmentResources attachmentResources;
+    DiscussionCommentResources commentResources;
 
     /**
      * Constructor.
@@ -46,6 +49,8 @@ public class SheetDiscussionResourcesImpl extends  AbstractResources implements 
      */
     public SheetDiscussionResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
+        this.attachmentResources = new DiscussionAttachmentResourcesImpl(smartsheet);
+        this.commentResources = new DiscussionCommentResourcesImpl(smartsheet);
     }
 
     /**
@@ -179,5 +184,25 @@ public class SheetDiscussionResourcesImpl extends  AbstractResources implements 
         }
 
         return this.listResourcesWithWrapper(path, Discussion.class);
+    }
+
+    /**
+     * <p>Creates an object of DiscussionCommentResources for access to discussion comments through SheetDiscussionResources.</p>
+     *
+     * @return the created DiscussionCommentResources object
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public DiscussionCommentResources commentResources() throws SmartsheetException{
+        return this.commentResources;
+    }
+
+    /**
+     * <p>Creates an object of DiscussionAttachmentResources for access to discussion attachments through SheetDiscussionResources.</p>
+     *
+     * @return the created DiscussionAttachmentResources object
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public DiscussionAttachmentResources attachmentResources() throws SmartsheetException{
+        return this.attachmentResources;
     }
 }

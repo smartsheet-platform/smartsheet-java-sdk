@@ -31,10 +31,10 @@ import java.io.*;
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class SheetAttachmentResourcesImpl extends AbstractResources implements SheetAttachmentResources{
-    AttachmentVersioningResources attachmentVersioningResources;
+    AttachmentVersioningResources versioningResources;
     public SheetAttachmentResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
-        this.attachmentVersioningResources = new AttachmentVersioningResourcesImpl(smartsheet);
+        this.versioningResources = new AttachmentVersioningResourcesImpl(smartsheet);
     }
 
     /**
@@ -185,7 +185,7 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
      * @return the created attachment
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public AttachmentVersioningResources attachmentVersioningResources() throws SmartsheetException{
-        return attachmentVersioningResources;
+    public AttachmentVersioningResources versioningResources() throws SmartsheetException{
+        return versioningResources;
     }
 }

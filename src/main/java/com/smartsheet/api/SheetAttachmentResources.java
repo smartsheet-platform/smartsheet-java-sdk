@@ -137,5 +137,5 @@ public interface SheetAttachmentResources {
      * @return the created attachment
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public AttachmentVersioningResources attachmentVersioningResources() throws SmartsheetException;
+    public AttachmentVersioningResources versioningResources() throws SmartsheetException;
 }

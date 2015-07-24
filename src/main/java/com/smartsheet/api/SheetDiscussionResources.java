@@ -127,4 +127,20 @@ public interface SheetDiscussionResources {
      * @throws SmartsheetException the smartsheet exception
      */
     public DataWrapper<Discussion> listDiscussions(long sheetId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException;
+
+    /**
+     * <p>Creates an object of DiscussionCommentResources for access to discussion comments through SheetDiscussionResources.</p>
+     *
+     * @return the created DiscussionCommentResources object
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public DiscussionCommentResources commentResources() throws SmartsheetException;
+
+    /**
+     * <p>Creates an object of DiscussionAttachmentResources for access to discussion attachments through SheetDiscussionResources.</p>
+     *
+     * @return the created DiscussionAttachmentResources object
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public DiscussionAttachmentResources attachmentResources() throws SmartsheetException;
 }
