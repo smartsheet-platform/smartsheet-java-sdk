@@ -26,14 +26,15 @@ import com.smartsheet.api.models.PaginationParameters;
 
 import java.io.*;
 /**
- * This is the implementation of the ShareResources.
+ * This is the implementation of the SheetAttachmentResources.
  *
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class SheetAttachmentResourcesImpl extends AbstractResources implements SheetAttachmentResources{
-
+    AttachmentVersioningResources attachmentVersioningResources;
     public SheetAttachmentResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
+        this.attachmentVersioningResources = new AttachmentVersioningResourcesImpl(smartsheet);
     }
 
     /**
@@ -176,5 +177,15 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
             throws SmartsheetException {
         Util.throwIfNull(inputStream, contentType);
         return super.attachFile("sheets/" + sheetId + "/attachments", inputStream, contentType, contentLength, attachmentName);
+    }
+
+    /**
+     * <p>Creates an object of AttachmentVersioningResources for access to versioning through SheetAttachmentResources.</p>
+     *
+     * @return the created attachment
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public AttachmentVersioningResources attachmentVersioningResources() throws SmartsheetException{
+        return attachmentVersioningResources;
     }
 }

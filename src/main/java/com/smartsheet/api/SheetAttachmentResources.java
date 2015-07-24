@@ -130,4 +130,12 @@ public interface SheetAttachmentResources {
      * @throws SmartsheetException if there is any other error during the operation
      */
     public Attachment attachFile(long sheetId, File file, String contentType) throws FileNotFoundException, SmartsheetException;
+
+    /**
+     * <p>Creates an object of AttachmentVersioningResources for access to versioning through SheetAttachmentResources.</p>
+     *
+     * @return the created attachment
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public AttachmentVersioningResources attachmentVersioningResources() throws SmartsheetException;
 }
