@@ -233,7 +233,7 @@ public class OAuthFlowImplTest {
 		try{
 			oauth.revokeAccessToken(token);
 			fail("An expection should have been thrown.");
-		}catch(InvalidOAuthClientException ex){
+		}catch(OAuthTokenException ex){
 			// Expected
 		}
 	}
