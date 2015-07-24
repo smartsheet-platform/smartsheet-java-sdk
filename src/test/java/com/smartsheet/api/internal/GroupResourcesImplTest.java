@@ -100,9 +100,9 @@ public class GroupResourcesImplTest extends ResourcesImplBase {
 			.setDescription("My awesome group")	
 			.setMembers(new ArrayList<GroupMember>());
 		
-		builder.getMembers().add(new GroupMember.NewGroupMemberBuilder().setEmail("test@test.com").build());
-		builder.getMembers().add(new GroupMember.NewGroupMemberBuilder().setEmail("test2@test.com").build());
-		builder.getMembers().add(new GroupMember.NewGroupMemberBuilder().setEmail("test3@test.com").build());
+		builder.getMembers().add(new GroupMember.AddGroupMemberBuilder().setEmail("test@test.com").build());
+		builder.getMembers().add(new GroupMember.AddGroupMemberBuilder().setEmail("test2@test.com").build());
+		builder.getMembers().add(new GroupMember.AddGroupMemberBuilder().setEmail("test3@test.com").build());
 		
 		
 		Group group =  groupResources.createGroup(builder.build());
@@ -154,8 +154,8 @@ public class GroupResourcesImplTest extends ResourcesImplBase {
 	public void testAddMembersToGroup() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/addGroupMembers.json"));
 		List<GroupMember> newMembers = new ArrayList<GroupMember>();
-		newMembers.add(new GroupMember.NewGroupMemberBuilder().setEmail("test3@test.com").build());
-		newMembers.add(new GroupMember.NewGroupMemberBuilder().setEmail("test4@test.com").build());
+		newMembers.add(new GroupMember.AddGroupMemberBuilder().setEmail("test3@test.com").build());
+		newMembers.add(new GroupMember.AddGroupMemberBuilder().setEmail("test4@test.com").build());
 		List<GroupMember> addedMembers = groupResources.members().addGroupMembers(1234l, newMembers);
 		assertTrue(addedMembers.size() > 0);
 		

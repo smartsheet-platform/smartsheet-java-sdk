@@ -20,7 +20,7 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-public abstract class AbstractUser extends IdentifiableModel<Long> {
+public abstract class UserModel extends IdentifiableModel<Long> {
     /**
      * Represents the email address.
      */

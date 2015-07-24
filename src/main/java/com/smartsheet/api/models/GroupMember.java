@@ -21,11 +21,11 @@ package com.smartsheet.api.models;
  */
 
 /**
- * Represents the Group object.
+ * Represents the Group Member object.
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/1554165-managing-groups-team-enterprise-only-">Help
  * Managing Groups</a>
  */
-public class GroupMember extends NamedModel<Long> {
+public class GroupMember extends UserModelWithName {
 
     /**
      * Represents the Group Member’s email address
@@ -93,7 +93,7 @@ public class GroupMember extends NamedModel<Long> {
     /**
      * A convenience class for making a {@link GroupMember} object with the appropriate fields for adding to a {@link Group}.
      */
-    public static class NewGroupMemberBuilder {
+    public static class AddGroupMemberBuilder {
         private String email;
 
         /**
@@ -108,7 +108,7 @@ public class GroupMember extends NamedModel<Long> {
          * Set the id of the group member
          * @param email
          */
-        public NewGroupMemberBuilder setEmail(String email) {
+        public AddGroupMemberBuilder setEmail(String email) {
             this.email = email;
             return this;
         }
