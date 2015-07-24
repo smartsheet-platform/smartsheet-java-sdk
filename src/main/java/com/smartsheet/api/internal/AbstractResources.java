@@ -49,6 +49,8 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import com.smartsheet.api.models.Attachment;
+import com.smartsheet.api.models.DataWrapper;
 
 /**
  * This is the base class of the Smartsheet REST API resources.
@@ -56,8 +58,10 @@ import org.apache.http.impl.client.HttpClients;
  * Thread Safety: This class is thread safe because it is immutable and the underlying SmartsheetImpl is thread safe.
  */
 public abstract class AbstractResources {
-	
-	
+
+	/** The Constant BUFFER_SIZE. */
+	private final static int BUFFER_SIZE = 4098;
+
 	/**
 	 * The Enum ErrorCode.
 	 */
@@ -72,7 +76,7 @@ public abstract class AbstractResources {
 		
 		/** The error code. */
 		int errorCode;
-		
+
 		/** The Exception class. */
 		Class<? extends SmartsheetRestException> exceptionClass;
 
@@ -812,7 +816,6 @@ public abstract class AbstractResources {
 		}
 	}
 	
-
 	/**
 	 * Gets the smartsheet.
 	 *
@@ -829,5 +832,71 @@ public abstract class AbstractResources {
 	 */
 	public void setSmartsheet(SmartsheetImpl smartsheet) {
 		this.smartsheet = smartsheet;
+	}
+
+	/**
+	 * Get a sheet as a file.
+	 *
+	 * Exceptions:
+	 *   - InvalidRequestException : if there is any problem with the REST API request
+	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   - ResourceNotFoundException : if the resource can not be found
+	 *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   - SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param path the path
+	 * @param fileType the output file type
+	 * @param outputStream the OutputStream to which the file will be written
+	 * @return the report as file
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public void getResourceAsFile(String path, String fileType, OutputStream outputStream)
+			throws SmartsheetException {
+		Util.throwIfNull(outputStream, fileType);
+
+		HttpRequest request;
+		request = createHttpRequest(this.getSmartsheet().getBaseURI().resolve(path), HttpMethod.GET);
+		request.getHeaders().put("Accept", fileType);
+
+		com.smartsheet.api.internal.http.HttpResponse response = getSmartsheet().getHttpClient().request(request);
+
+		switch (response.getStatusCode()) {
+			case 200:
+				try {
+					copyStream(response.getEntity().getContent(), outputStream);
+				} catch (IOException e) {
+					throw new SmartsheetException(e);
+				}
+				break;
+			default:
+				handleError(response);
+		}
+
+		getSmartsheet().getHttpClient().releaseConnection();
+	}
+
+	/*
+	 * Copy an input stream to an output stream.
+	 *
+	 * @param input The input stream to copy.
+	 *
+	 * @param output the output stream to write to.
+	 *
+	 * @throws IOException if there is trouble reading or writing to the streams.
+	 */
+	/**
+	 * Copy stream.
+	 *
+	 * @param input the input
+	 * @param output the output
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
+	public static void copyStream(InputStream input, OutputStream output) throws IOException {
+		byte[] buffer = new byte[BUFFER_SIZE];
+		int len;
+		while ((len = input.read(buffer)) != -1) {
+			output.write(buffer, 0, len);
+		}
 	}
 }

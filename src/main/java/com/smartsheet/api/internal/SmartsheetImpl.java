@@ -180,6 +180,14 @@ public class SmartsheetImpl implements Smartsheet {
 	private AtomicReference<SearchResources> search;
 
 	/**
+	 * Represents the AtomicReference to ReportResources.
+	 *
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+	 * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
+	 * effectively the underlying value is lazily created in a thread safe manner.
+	 */
+	private AtomicReference<ReportResources> reports;
+	/**
 	 * Represents the AtomicReference for assumed user email.
 	 * 
 	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
@@ -300,6 +308,7 @@ public class SmartsheetImpl implements Smartsheet {
 		this.search = new AtomicReference<SearchResources>();
 		this.assumedUser = new AtomicReference<String>();
 		this.accessToken = new AtomicReference<String>(accessToken);
+		this.reports = new AtomicReference<ReportResources>();
 	}
 
 	/**
@@ -553,6 +562,15 @@ public class SmartsheetImpl implements Smartsheet {
 		return search.get();
 	}
 
+	/**
+	 * Returns the {@link ReportResources} instance that provides access to Report resources.
+	 *
+	 * @return the report resources
+	 */
+	public ReportResources reports() {
+		reports.compareAndSet(null, new ReportResourcesImpl(this));
+		return reports.get();
+	}
 	/**
 	 * Set the email of the user to assume. Null/empty string indicates no user is assumed.
 	 * 

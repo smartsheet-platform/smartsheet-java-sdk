@@ -37,6 +37,8 @@ public enum AccessScope {
 	DELETE_SHEETS("DELETE_SHEETS"),
 	/** Create new sheets */
 	CREATE_SHEETS("CREATE_SHEETS"),
+	/** Retrieve users and groups for your Smartsheet organization */
+	READ_USERS("READ_USERS"),
 	/** Add and remove users from your smartsheet organization */
 	ADMIN_USERS("ADMIN_USERS"),
 	/** Modify sheet structure, including comlumn definition, publish state, etc */
