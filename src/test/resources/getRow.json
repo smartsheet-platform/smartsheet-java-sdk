@@ -5,13 +5,13 @@
   "expanded": true,
   "cells": [
     {
-      "type": "TEXT_NUMBER",
+      "columnType": "TEXT_NUMBER",
       "value": "Revision 1",
       "displayValue": "Revision 1",
       "columnId": 4583173393803140
     },
     {
-      "type": "PICKLIST",
+      "columnType": "PICKLIST",
       "value": "completed",
       "displayValue": "completed",
       "columnId": 2331373580117892

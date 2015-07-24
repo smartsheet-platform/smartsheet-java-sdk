@@ -270,28 +270,34 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 		return this.putAndReceiveList("row/" + rowId + "/cells", cells, Cell.class);
 	}
 
-//	/**
-//	 * Get the cell modification history.
-//	 *
-//	 * It mirrors to the following Smartsheet REST API method: GET /row/{rowId}/column/{columnId}/history
-//	 *
-//	 * Exceptions:
-//	 *   InvalidRequestException : if there is any problem with the REST API request
-//	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-//	 *   ResourceNotFoundException : if the resource can not be found
-//	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-//	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-//	 *   SmartsheetException : if there is any other error occurred during the operation
-//	 *
-//	 * @param rowId the row id
-//	 * @param columnId the column id
-//	 * @return the modification history (note that if there is no such resource, this method will throw
-//	 * ResourceNotFoundException rather than returning null).
-//	 * @throws SmartsheetException the smartsheet exception
-//	 */
-//	public List<CellHistory> getCellHistory(long rowId, long columnId) throws SmartsheetException {
-//		return this.listResources("row/" + rowId + "/column/" + columnId + "/history", CellHistory.class);
-//	}
+	/**
+	 * Get the cell modification history.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/rows/{rowId}/columns/{columnId}/history
+	 *
+	 * Exceptions:
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param rowId the row id
+	 * @param columnId the column id
+	 * @return the modification history (note that if there is no such resource, this method will throw
+	 * ResourceNotFoundException rather than returning null).
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public DataWrapper<CellHistory> getCellHistory(long sheetId, long rowId, long columnId, PaginationParameters parameters) throws SmartsheetException {
+		String path = "sheetId/" + sheetId + "/rows/"+rowId+"/columns/"+columnId + "/history";
+
+		if (parameters != null) {
+			path += parameters.toQueryString();
+		}
+
+		return this.listResourcesWithWrapper(path, CellHistory.class);
+	}
 //
 //	/**
 //	 * Return the AssociatedAttachmentResources object that provides access to attachment resources associated with Row

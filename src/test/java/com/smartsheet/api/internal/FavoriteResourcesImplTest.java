@@ -54,6 +54,6 @@ public class FavoriteResourcesImplTest extends ResourcesImplBase {
         DataWrapper<Favorite> favorites = favoriteResources.listFavorites(parameters);
         assertNotNull(favorites.getData().get(0).getType());
         assertEquals(favorites.getData().get(0).getType(), "sheet");
-        //assertEquals(favorites.getData().get(1).getType(), "folder");
+        //assertEquals(favorites.getData().get(1).getColumnType(), "folder");
     }
 }
