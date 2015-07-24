@@ -191,17 +191,12 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		server.setResponseBody(new File("src/test/resources/createSheetFromExisting.json"));
 
 		Sheet sheet = new Sheet();
-		sheet.setFromId(2906571706525572L);
-		Sheet newSheet = sheetResource.createSheetFromExisting(sheet, EnumSet.allOf(ObjectInclusion.class));
+		sheet.setFromId(7960873114331012L);
+		Sheet newSheet = sheetResource.createSheetFromExisting(sheet, EnumSet.allOf(SheetTemplateInclusion.class));
 
-		assertEquals(466343087630212L, newSheet.getId().longValue());
+		assertEquals(7960873114331012L, newSheet.getId().longValue());
 		assertEquals(AccessLevel.OWNER, newSheet.getAccessLevel());
-		assertEquals("https://app.smartsheet.com/b/home?lx=asdf",newSheet.getPermalink());
-
-		newSheet = sheetResource.createSheetFromExisting(sheet, null);
-		assertEquals(466343087630212L, newSheet.getId().longValue());
-		assertEquals(AccessLevel.OWNER, newSheet.getAccessLevel());
-		assertEquals("https://app.smartsheet.com/b/home?lx=asdf",newSheet.getPermalink());
+		assertEquals("https://app.smartsheet.com/b/home?lx=lbKEF1UakfTNJTZ5XkpxWg",newSheet.getPermalink());
 
 	}
 
@@ -243,7 +238,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		Sheet sheet = new Sheet();
 		sheet.setFromId(2906571706525572L);
 		Sheet newSheet = sheetResource.createSheetInFolderFromExisting(1234L, sheet,
-				EnumSet.allOf(ObjectInclusion.class));
+				EnumSet.allOf(SheetTemplateInclusion.class));
 
 		if (newSheet.getId().toString().isEmpty() || newSheet.getAccessLevel() != AccessLevel.OWNER
 				|| newSheet.getPermalink().toString().isEmpty()) {
@@ -282,11 +277,11 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		Sheet sheet = new Sheet();
 		sheet.setFromId(2906571706525572L);
 		Sheet newSheet = sheetResource.createSheetInWorkspaceFromExisting(1234L, sheet,
-				EnumSet.allOf(ObjectInclusion.class));
+				EnumSet.allOf(SheetTemplateInclusion.class));
 
-		assertEquals(466343087630212L, newSheet.getId().longValue());
+		assertEquals(7960873114331012L, newSheet.getId().longValue());
 		assertEquals(AccessLevel.OWNER, newSheet.getAccessLevel());
-		assertEquals("https://app.smartsheet.com/b/home?lx=asdf",newSheet.getPermalink());
+		assertEquals("https://app.smartsheet.com/b/home?lx=lbKEF1UakfTNJTZ5XkpxWg",newSheet.getPermalink());
 
 		newSheet = sheetResource.createSheetInWorkspaceFromExisting(1234L, sheet, null);
 	}

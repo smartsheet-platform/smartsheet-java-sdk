@@ -87,7 +87,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 */
 	public SheetResourcesImpl(SmartsheetImpl smartsheet) {
 		super(smartsheet);
-		this.shares = new ShareResourcesImpl(smartsheet, "sheet");
+		this.shares = new ShareResourcesImpl(smartsheet, "sheets");
 		this.rows = new SheetRowResourcesImpl(smartsheet);
 		this.columns = new SheetColumnResourcesImpl(smartsheet);
 		this.attachments = new AssociatedAttachmentResourcesImpl(smartsheet, "sheet");
@@ -276,12 +276,12 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @return the sheet
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Sheet createSheetFromExisting(Sheet sheet, EnumSet<ObjectInclusion> includes) throws SmartsheetException {
+	public Sheet createSheetFromExisting(Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException {
 		String path = "sheets";
 		if (includes != null) {
 			path += "?include=";
-			for (ObjectInclusion oi : includes) {
-				path += oi.name().toLowerCase() + ",";
+			for (SheetTemplateInclusion si : includes) {
+				path += si.name().toLowerCase() + ",";
 			}
 		}
 		return this.createResource(path, Sheet.class, sheet);
@@ -333,12 +333,12 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * primary - type - symbol - options
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Sheet createSheetInFolderFromExisting(long folderId, Sheet sheet, EnumSet<ObjectInclusion> includes) throws SmartsheetException {
+	public Sheet createSheetInFolderFromExisting(long folderId, Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException {
 		String path = "folders/" + folderId + "/sheets";
 		if (includes != null) {
 			path += "?include=";
-			for (ObjectInclusion oi : includes) {
-				path += oi.name().toLowerCase() + ",";
+			for (SheetTemplateInclusion si : includes) {
+				path += si.name().toLowerCase() + ",";
 			}
 		}
 
@@ -390,13 +390,13 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @return the created sheet
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Sheet createSheetInWorkspaceFromExisting(long workspaceId, Sheet sheet, EnumSet<ObjectInclusion> includes)
+	public Sheet createSheetInWorkspaceFromExisting(long workspaceId, Sheet sheet, EnumSet<SheetTemplateInclusion> includes)
 			throws SmartsheetException {
 		String path = "workspaces/" + workspaceId + "/sheets";
 		if (includes != null) {
 			path += "?include=";
-			for (ObjectInclusion oi : includes) {
-				path += oi.name().toLowerCase() + ",";
+			for (SheetTemplateInclusion si : includes) {
+				path += si.name().toLowerCase() + ",";
 			}
 		}
 
