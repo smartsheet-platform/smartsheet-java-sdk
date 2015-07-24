@@ -51,62 +51,6 @@ public class AttachmentResourcesImpl extends AbstractResources implements Attach
 		super(smartsheet);
 	}
 
-	/**
-	 * Get an attachment.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /attachment/{id}
-	 * 
-	 * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-	 * rather than returning null).
-	 * 
-	 * Exceptions:
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ResourceNotFoundException : if the resource can not be found
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param id the id
-	 * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException 
-	 * rather than returning null).
-	 * @throws SmartsheetException the smartsheet exception
-	 */
-	public Attachment getAttachment(long id) throws SmartsheetException {
-		return this.getResource("attachment/" + id, Attachment.class);
-	}
-
-	/**
-	 * Delete an attachment.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: DELETE /attachment{id}
-	 * 
-	 * Exceptions:
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ResourceNotFoundException : if the resource can not be found
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param id the ID of the attachment
-	 * @throws SmartsheetException the smartsheet exception
-	 */
-	public void deleteAttachment(long id) throws SmartsheetException {
-		this.deleteResource("attachment/" + id, Attachment.class);
-	}
-
-	
-	@Override
-	public void deleteAllAttachmentVersions(long id) throws SmartsheetException {
-		this.deleteResource("attachment/"+ id + "/versions", Attachment.class);
-	}
-
-	@Override
-	public List<Attachment> listAttachmentVersions(long id) throws SmartsheetException {
-		return this.listResources("attachment/" + id + "/versions", Attachment.class);
-	}
-
 	@Override
 	public Attachment attachNewVersion(long attachmentId, File file, String contentType) throws FileNotFoundException, SmartsheetException {
 		Util.throwIfNull(attachmentId, file, contentType);

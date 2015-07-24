@@ -62,16 +62,6 @@ public class DiscussionAttachmentResourcesTest extends ResourcesImplBase  {
 	}
 
 	@Test
-	public void testAttachURL() {
-		try{
-			discussionAttachmentResources.attachURL(1234L, new Attachment());
-			fail("Exception should have been thrown.");
-		}catch(UnsupportedOperationException ex){
-			// Expected
-		}
-	}
-
-	@Test
 	public void testDiscussionAttachmentResources() {}
 
 }

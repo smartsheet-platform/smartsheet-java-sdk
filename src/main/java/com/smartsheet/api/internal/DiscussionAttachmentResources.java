@@ -65,7 +65,6 @@ public class DiscussionAttachmentResources extends AssociatedAttachmentResources
 	 * @param contentType the content type of the file
 	 * @return the attachment
 	 */
-	@Override
 	public Attachment attachFile(long objectId, File file, String contentType) {
 		throw new UnsupportedOperationException("Attachments can only be attached to comments, not discussions.");
 	}
@@ -73,30 +72,7 @@ public class DiscussionAttachmentResources extends AssociatedAttachmentResources
 	/**
 	 * Throws an UnsupportedOperationException.
 	 */
-	@Override
 	public Attachment attachFile(long objectId, InputStream inputStream, String contentType, long contentLength, String fileName) {
 		throw new UnsupportedOperationException("Attachments can only be attached to comments, not discussions.");
-	}
-
-	/**
-	 * Attach a URL to the object.
-	 * 
-	 * The URL can be a normal URL (attachmentType "URL"), a Google Drive URL (attachmentType "GOOGLE_DRIVE") or a
-	 * Box.com URL (attachmentType "BOX_COM").
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /sheet/{id}/attachments POST /row/{id}/attachments
-	 * POST /comment/{idd}/attachments
-	 * 
-	 * Exceptions: - UnsupportedOperationException : this exception is always thrown since this method is not supported
-	 * by discussion resources.
-	 * 
-	 *
-	 * @param objectId the object id
-	 * @param attachment the attachment
-	 * @return the attachment
-	 */
-	@Override
-	public Attachment attachURL(long objectId, Attachment attachment) {
-		throw new UnsupportedOperationException();
 	}
 }

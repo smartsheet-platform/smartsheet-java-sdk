@@ -138,7 +138,39 @@ public class JacksonJsonSerializer implements JsonSerializer {
 		}
 	}
 
+	/**
+	 * Serialize an object to JSON.
+	 *
+	 * Parameters:
+	 *   object : the object to serialize
+	 *   outputStream : the output stream to which the JSON will be written
+	 *
+	 * Returns: None
+	 *
+	 * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
+	 * other error occurred during the operation
+	 *
+	 * @param object
+	 * @throws JSONSerializerException
+	 * @throws IOException
+	 * @throws JsonMappingException
+	 * @throws JsonGenerationException
+	 */
+	public <T> String serialize(T object) throws JSONSerializerException {
+		Util.throwIfNull(object);
+		String value;
 
+		try {
+			value= OBJECT_MAPPER.writeValueAsString(object);
+		} catch (JsonGenerationException e) {
+			throw new JSONSerializerException(e);
+		} catch (JsonMappingException e) {
+			throw new JSONSerializerException(e);
+		} catch (IOException e) {
+			throw new JSONSerializerException(e);
+		}
+		return value;
+	}
 
 	/**
 	 * De-serialize an object from JSON.

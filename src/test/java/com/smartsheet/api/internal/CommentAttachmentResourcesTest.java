@@ -40,13 +40,4 @@ public class CommentAttachmentResourcesTest extends ResourcesImplBase {
 	@Test
 	public void testCommentAttachmentResources() {}
 
-	@Test
-	public void testListAttachments() {
-		try{
-			commentAttachmentResource.listAttachments(1234L);
-			fail("Should have thrown an exception");
-		}catch(UnsupportedOperationException ex){
-			// Expected
-		}
-	}
 }
