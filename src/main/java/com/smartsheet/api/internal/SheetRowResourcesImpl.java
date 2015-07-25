@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.EnumSet;
 import java.util.HashMap;
 
+import com.smartsheet.api.RowAttachmentResources;
+import com.smartsheet.api.RowDiscussionResources;
 import com.smartsheet.api.SheetRowResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
@@ -39,7 +41,8 @@ import sun.security.krb5.internal.PAEncTSEnc;
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class SheetRowResourcesImpl extends AbstractResources implements SheetRowResources {
-	
+	RowAttachmentResources attachmentResources;
+	RowDiscussionResources discussionResources;
 	/**
 	 * Constructor.
 	 * 
@@ -51,6 +54,8 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 */
 	public SheetRowResourcesImpl(SmartsheetImpl smartsheet) {
 		super(smartsheet);
+		this.attachmentResources = new RowAttachmentResourcesImpl(smartsheet);
+		this.discussionResources = new RowDiscussionResourcesImpl(smartsheet);
 	}
 
 	/**
@@ -271,51 +276,30 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	}
 
 	/**
-	 * Get the cell modification history.
+	 * <p>Creates an object of RowAttachmentResources.</p>
 	 *
-	 * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/rows/{rowId}/columns/{columnId}/history
-	 *
-	 * Exceptions:
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ResourceNotFoundException : if the resource can not be found
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param rowId the row id
-	 * @param columnId the column id
-	 * @return the modification history (note that if there is no such resource, this method will throw
-	 * ResourceNotFoundException rather than returning null).
-	 * @throws SmartsheetException the smartsheet exception
+	 * @return the created RowAttachmentResources object
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<CellHistory> getCellHistory(long sheetId, long rowId, long columnId, PaginationParameters parameters) throws SmartsheetException {
-		String path = "sheetId/" + sheetId + "/rows/"+rowId+"/columns/"+columnId + "/history";
-
-		if (parameters != null) {
-			path += parameters.toQueryString();
-		}
-
-		return this.listResourcesWithWrapper(path, CellHistory.class);
+	public RowAttachmentResources attachmentResources(){
+		return attachmentResources;
 	}
-//
-//	/**
-//	 * Return the AssociatedAttachmentResources object that provides access to attachment resources associated with Row
-//	 * resources.
-//	 *
-//	 * @return the associated attachment resources
-//	 */
-//	public AssociatedAttachmentResources attachments() {
-//		return this.attachments;
-//	}
-//
-//	/**
-//	 * Return the AssociatedDiscussionResources object that provides access to discussion resources associated with Row
-//	 * resources.
-//	 *
-//	 * @return the associated discussion resources
-//	 */
-//	public AssociatedDiscussionResources discussions() {
-//		return this.discussions;
-//	}
+
+	/**
+	 * <p>Creates an object of RowDiscussionResources.</p>
+	 *
+	 * @return the created RowDiscussionResources object
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	public RowDiscussionResources discussionResources(){
+		return discussionResources;
+	}
+
+	/**
+	 * <p>Creates an object of RowColumnResources.</p>
+	 *
+	 * @return the created RowColumnResources object
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	//public RowColumnResources cellResources();
 }

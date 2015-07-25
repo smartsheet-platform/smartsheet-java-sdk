@@ -171,14 +171,4 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
         copyOrMoveRowDirective.setRowIds(rowIds);
         sheetRowResource.copyRow(2258256056870788L, EnumSet.of(RowCopyInclusion.ATTACHMENTS), false, copyOrMoveRowDirective);
     }
-
-    @Test
-    public void testGetCellHistory() throws SmartsheetException, IOException {
-        server.setResponseBody(new File("src/test/resources/getCellHistory.json"));
-        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
-        DataWrapper<CellHistory> cellHistory= sheetRowResource.getCellHistory(123L, 123L, 123L, parameters);
-
-        assertTrue(cellHistory.getTotalPages() == 1);
-        assertEquals(cellHistory.getData().get(1).getModifiedBy().getName(), "Joe Smart");
-    }
 }

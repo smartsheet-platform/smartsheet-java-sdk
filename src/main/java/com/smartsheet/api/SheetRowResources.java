@@ -178,23 +178,26 @@ public interface SheetRowResources {
 	public CopyOrMoveRowResult copyRow(Long sheetId,EnumSet<RowCopyInclusion> includes, Boolean ignoreRowsNotFound, CopyOrMoveRowDirective copyParameters) throws SmartsheetException;
 
 	/**
-	 * Get the cell modification history.
+	 * <p>Creates an object of RowAttachmentResources.</p>
 	 *
-	 * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/rows/{rowId}/columns/{columnId}/history
-	 *
-	 * Exceptions:
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ResourceNotFoundException : if the resource can not be found
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param rowId the row id
-	 * @param columnId the column id
-	 * @return the modification history (note that if there is no such resource, this method will throw
-	 * ResourceNotFoundException rather than returning null).
-	 * @throws SmartsheetException the smartsheet exception
+	 * @return the created RowAttachmentResources object
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<CellHistory> getCellHistory(long sheetId, long rowId, long columnId, PaginationParameters parameters) throws SmartsheetException;
+	public RowAttachmentResources attachmentResources();
+
+	/**
+	 * <p>Creates an object of RowDiscussionResources.</p>
+	 *
+	 * @return the created RowDiscussionResources object
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	public RowDiscussionResources discussionResources();
+
+	/**
+	 * <p>Creates an object of RowColumnResources.</p>
+	 *
+	 * @return the created RowColumnResources object
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	//public RowColumnResources cellResources();
 }
