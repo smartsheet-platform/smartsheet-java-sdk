@@ -21,7 +21,6 @@ package com.smartsheet.api;
  */
 
 
-
 import com.smartsheet.api.models.Comment;
 
 /**
@@ -30,43 +29,31 @@ import com.smartsheet.api.models.Comment;
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface CommentResources {
-	
 	/**
 	 * <p>Get a comment.</p>
-	 * 
+	 *
 	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * GET /comment/{id}</p>
+	 * GET /sheets/{sheetId}/comments/{commentId}</p>
 	 *
 	 * @param sheetId the ID of the sheet
 	 * @param commentId the ID of the comment
 	 * @return the comment (note that if there is no such resource, this method will throw ResourceNotFoundException
 	 * rather than returning null).
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Comment getComment(long sheetId, long commentId) throws SmartsheetException;
 
 	/**
 	 * <p>Delete a comment.</p>
-	 * 
+	 *
 	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * DELETE /comment{id}</p>
+	 * DELETE /sheets/{sheetId}/comments/{commentId}</p>
 	 *
 	 * @param sheetId the ID of the sheet
 	 * @param commentId the ID of the comment
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public void deleteComment(long sheetId, long commentId) throws SmartsheetException;
-
 	/**
 	 * <p>Return the AssociatedAttachmentResources object that provides access to attachment resources associated with
 	 * Comment resources.</p>

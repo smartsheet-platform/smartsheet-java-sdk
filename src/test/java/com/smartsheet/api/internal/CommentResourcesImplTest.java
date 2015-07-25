@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -43,37 +43,4 @@ public class CommentResourcesImplTest extends ResourcesImplBase  {
 		commentResources = new CommentResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", 
 				"accessToken", new DefaultHttpClient(), serializer));
 	}
-
-	@Test
-	public void testCommentResourcesImpl() {
-	}
-
-	@Test
-	public void testGetComment() throws SmartsheetException, IOException {
-		server.setResponseBody(new File("src/test/resources/getComment.json"));
-		
-		Comment comment = commentResources.getComment(1234L, 1245L);
-		assertEquals(3831661625403268L, comment.getId().longValue());
-		assertEquals("This text is the body of the first comment", comment.getText());
-		assertEquals("Brett Batie",comment.getCreatedBy().getName());
-		assertEquals("email@email.com", comment.getCreatedBy().getEmail());
-		
-		// Test equals method
-		Comment newComment = new Comment();
-		newComment.setId(3831661625403268L);
-		assertTrue(comment.hashCode() == newComment.hashCode());
-	}
-
-	@Test
-	public void testDeleteComment() throws SmartsheetException, IOException {
-		server.setResponseBody(new File("src/test/resources/deleteComment.json"));
-
-		commentResources.deleteComment(1234L, 2345L);
-	}
-
-	@Test
-	public void testAttachments() {
-		assertNotNull(commentResources.attachments());
-	}
-
 }

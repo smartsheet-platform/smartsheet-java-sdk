@@ -20,10 +20,9 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-
-
 import com.smartsheet.api.AssociatedAttachmentResources;
 import com.smartsheet.api.CommentResources;
+import com.smartsheet.api.ResourceNotFoundException;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Comment;
 
@@ -34,13 +33,6 @@ import com.smartsheet.api.models.Comment;
  */
 public class CommentResourcesImpl extends AbstractResources implements CommentResources {
 	/**
-	 * Represents the AssociatedAttachmentResources.
-	 * 
-	 * It will be initialized in constructor and will not change afterwards.
-	 */
-	private AssociatedAttachmentResources attachments;
-
-	/**
 	 * Constructor.
 	 * 
 	 * Exceptions: - IllegalArgumentException : if any argument is null
@@ -49,51 +41,6 @@ public class CommentResourcesImpl extends AbstractResources implements CommentRe
 	 */
 	public CommentResourcesImpl(SmartsheetImpl smartsheet) {
 		super(smartsheet);
-		this.attachments = new CommentAttachmentResources(smartsheet);
-	}
-
-	/**
-	 * Get a comment.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /comment/{id}
-	 * 
-	 * Exceptions:
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ResourceNotFoundException : if the resource can not be found
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param sheetId the ID of the sheet
-	 * @param commentId the ID of the comment
-	 * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-	 * rather than returning null)
-	 * @throws SmartsheetException the smartsheet exception
-	 */
-	public Comment getComment(long sheetId, long commentId) throws SmartsheetException {
-		return this.getResource("sheets/" + sheetId + "/comments/" + commentId, Comment.class);
-	}
-
-	/**
-	 * Delete a comment.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: DELETE /comment{id}
-	 * 
-	 * Exceptions:
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ResourceNotFoundException : if the resource can not be found
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param sheetId the ID of the sheet
-	 * @param commentId the ID of the comment
-	 * @throws SmartsheetException the smartsheet exception
-	 */
-	public void deleteComment(long sheetId, long commentId) throws SmartsheetException {
-		this.deleteResource("sheets/" + sheetId + "/comments/" + commentId, Comment.class);
 	}
 
 	/**
@@ -103,6 +50,14 @@ public class CommentResourcesImpl extends AbstractResources implements CommentRe
 	 * @return the associated attachment resources
 	 */
 	public AssociatedAttachmentResources attachments() {
-		return this.attachments;
+		throw new UnsupportedOperationException("Method moved to SheetCommentResources.");
+	}
+
+	public Comment getComment(long sheetId, long commentId) {
+		throw new UnsupportedOperationException("Method moved to SheetCommentResources.");
+	}
+
+	public void deleteComment(long sheetId, long commentId) {
+		throw new UnsupportedOperationException("Method moved to SheetCommentResources.");
 	}
 }
