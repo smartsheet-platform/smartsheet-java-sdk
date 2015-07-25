@@ -27,10 +27,7 @@ import java.util.List;
 import java.util.EnumSet;
 import java.util.HashMap;
 
-import com.smartsheet.api.RowAttachmentResources;
-import com.smartsheet.api.RowDiscussionResources;
-import com.smartsheet.api.SheetRowResources;
-import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.*;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.*;
 import sun.security.krb5.internal.PAEncTSEnc;
@@ -43,6 +40,7 @@ import sun.security.krb5.internal.PAEncTSEnc;
 public class SheetRowResourcesImpl extends AbstractResources implements SheetRowResources {
 	RowAttachmentResources attachmentResources;
 	RowDiscussionResources discussionResources;
+	RowColumnResources columnResources;
 	/**
 	 * Constructor.
 	 * 
@@ -56,6 +54,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 		super(smartsheet);
 		this.attachmentResources = new RowAttachmentResourcesImpl(smartsheet);
 		this.discussionResources = new RowDiscussionResourcesImpl(smartsheet);
+		this.columnResources = new RowColumnResourcesImpl(smartsheet);
 	}
 
 	/**
@@ -301,5 +300,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 * @return the created RowColumnResources object
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	//public RowColumnResources cellResources();
+	public RowColumnResources cellResources(){
+		return columnResources;
+	}
 }

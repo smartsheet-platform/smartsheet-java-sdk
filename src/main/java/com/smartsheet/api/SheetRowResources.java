@@ -199,5 +199,5 @@ public interface SheetRowResources {
 	 * @return the created RowColumnResources object
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	//public RowColumnResources cellResources();
+	public RowColumnResources cellResources();
 }
