@@ -1,4 +1,17 @@
-package com.smartsheet.api;
+package com.smartsheet.api.internal;
+
+import com.smartsheet.api.RowDiscussionResources;
+import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.internal.util.QueryUtil;
+import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.Discussion;
+import com.smartsheet.api.models.DiscussionInclusion;
+import com.smartsheet.api.models.PaginationParameters;
+
+import java.util.EnumSet;
+import java.util.HashMap;
+
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -18,14 +31,11 @@ package com.smartsheet.api;
  * limitations under the License.
  * %[license]
  */
-import com.smartsheet.api.models.DataWrapper;
-import com.smartsheet.api.models.Discussion;
-import com.smartsheet.api.models.DiscussionInclusion;
-import com.smartsheet.api.models.PaginationParameters;
+public class RowDiscussionResourcesImpl extends AbstractResources implements RowDiscussionResources {
 
-import java.util.EnumSet;
-
-public interface DiscussionRowResources {
+    public RowDiscussionResourcesImpl(SmartsheetImpl smartsheet) {
+        super(smartsheet);
+    }
 
     /**
      * Create discussion on a row.
@@ -46,7 +56,9 @@ public interface DiscussionRowResources {
      * @return the created comment
      * @throws SmartsheetException the smartsheet exception
      */
-    public Discussion createDiscussion(long sheetId, long rowId, Discussion discussion) throws SmartsheetException;
+    public Discussion createDiscussion(long sheetId, long rowId, Discussion discussion) throws SmartsheetException{
+        return this.createResource("sheets/" + sheetId + "/rows/" + rowId + "/discussions", Discussion.class, discussion);
+    }
 
     /**
      * Gets a list of all Discussions associated with the specified Row.
@@ -68,5 +80,17 @@ public interface DiscussionRowResources {
      * @return the row discussions
      * @throws SmartsheetException the smartsheet exception
      */
-    public DataWrapper<Discussion> listDiscussions(long sheetId, long rowId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException;
+    public DataWrapper<Discussion> listDiscussions(long sheetId, long rowId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException{
+        String path = "sheets/" + sheetId + "/rows/" + rowId + "/discussions" ;
+        HashMap<String, Object> parameters = new HashMap<String, Object>();
+
+        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+        path += QueryUtil.generateUrl(null, parameters);
+
+        if (pagination != null) {
+            path += pagination.toQueryString();
+        }
+
+        return this.listResourcesWithWrapper(path, Discussion.class);
+    }
 }

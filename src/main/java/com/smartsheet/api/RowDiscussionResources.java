@@ -1,18 +1,4 @@
-package com.smartsheet.api.internal;
-
-import com.smartsheet.api.DiscussionResources;
-import com.smartsheet.api.DiscussionRowResources;
-import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.internal.util.QueryUtil;
-import com.smartsheet.api.models.DataWrapper;
-import com.smartsheet.api.models.Discussion;
-import com.smartsheet.api.models.DiscussionInclusion;
-import com.smartsheet.api.models.PaginationParameters;
-
-import java.util.EnumSet;
-import java.util.HashMap;
-
-
+package com.smartsheet.api;
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -32,11 +18,18 @@ import java.util.HashMap;
  * limitations under the License.
  * %[license]
  */
-public class DiscussionRowResourcesImpl extends AbstractResources implements DiscussionRowResources{
+import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.Discussion;
+import com.smartsheet.api.models.DiscussionInclusion;
+import com.smartsheet.api.models.PaginationParameters;
 
-    public DiscussionRowResourcesImpl(SmartsheetImpl smartsheet) {
-        super(smartsheet);
-    }
+import java.util.EnumSet;
+/**
+ * <p>This interface provides methods to access Row Discussion resources.</p>
+ *
+ * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
+ */
+public interface RowDiscussionResources {
 
     /**
      * Create discussion on a row.
@@ -57,9 +50,7 @@ public class DiscussionRowResourcesImpl extends AbstractResources implements Dis
      * @return the created comment
      * @throws SmartsheetException the smartsheet exception
      */
-    public Discussion createDiscussion(long sheetId, long rowId, Discussion discussion) throws SmartsheetException{
-        return this.createResource("sheets/" + sheetId + "/rows/" + rowId + "/discussions", Discussion.class, discussion);
-    }
+    public Discussion createDiscussion(long sheetId, long rowId, Discussion discussion) throws SmartsheetException;
 
     /**
      * Gets a list of all Discussions associated with the specified Row.
@@ -81,17 +72,5 @@ public class DiscussionRowResourcesImpl extends AbstractResources implements Dis
      * @return the row discussions
      * @throws SmartsheetException the smartsheet exception
      */
-    public DataWrapper<Discussion> listDiscussions(long sheetId, long rowId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException{
-        String path = "sheets/" + sheetId + "/rows/" + rowId + "/discussions" ;
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
-
-        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-        path += QueryUtil.generateUrl(null, parameters);
-
-        if (pagination != null) {
-            path += pagination.toQueryString();
-        }
-
-        return this.listResourcesWithWrapper(path, Discussion.class);
-    }
+    public DataWrapper<Discussion> listDiscussions(long sheetId, long rowId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException;
 }

@@ -35,12 +35,12 @@ import static org.junit.Assert.assertTrue;
  * limitations under the License.
  * %[license]
  */
-public class DiscussionRowResourcesImplTest extends ResourcesImplBase {
+public class RowDiscussionResourcesImplTest extends ResourcesImplBase {
 
-    private DiscussionRowResourcesImpl discussionRowResources;
+    private RowDiscussionResourcesImpl discussionRowResources;
     @Before
     public void setUp() throws Exception {
-        discussionRowResources = new DiscussionRowResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
+        discussionRowResources = new RowDiscussionResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
                 "accessToken", new DefaultHttpClient(), serializer));
     }
 
