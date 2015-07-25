@@ -23,7 +23,6 @@ package com.smartsheet.api.internal;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.*;
-import junit.framework.TestCase;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +32,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -80,7 +78,7 @@ public class ReportResourcesImplTest extends ResourcesImplBase {
         format.setPaperSize(PaperSize.A0);
         email.setFormatDetails(format);
         email.setSendTo(recipients);
-        reportResources.sendSheet(1234L, email);
+        reportResources.sendReport(1234L, email);
 
     }
 

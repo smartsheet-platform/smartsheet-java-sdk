@@ -49,7 +49,7 @@ public interface SheetRowResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public List<Row> insertRows(long sheetId, List<Row> rows) throws SmartsheetException;
+	public List<Row> addRows(long sheetId, List<Row> rows) throws SmartsheetException;
 
 	/**
 	 * Get a row.

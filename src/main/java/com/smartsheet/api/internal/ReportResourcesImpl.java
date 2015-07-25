@@ -112,7 +112,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * rather than returning null)
      * @throws SmartsheetException the smartsheet exception
      */
-    public void sendSheet(long reportId, SheetEmail email) throws SmartsheetException{
+    public void sendReport(long reportId, SheetEmail email) throws SmartsheetException{
          this.createResource("reports/" + reportId + "/emails", SheetEmail.class, email);
     };
 
@@ -210,4 +210,13 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
         getResourceAsFile(path, "text/csv",outputStream);
     }
 
+    /**
+     * <p>Creates an object of ShareResources.</p>
+     *
+     * @return the created ShareResources object
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public ShareResources shareResources(){
+        return this.shares;
+    }
 }

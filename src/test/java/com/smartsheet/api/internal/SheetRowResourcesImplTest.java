@@ -73,7 +73,7 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
 		row.setCells(cells);
 		rows.add(row);
 		
-		List<Row> newRows = sheetRowResource.insertRows(1234L, rows);
+		List<Row> newRows = sheetRowResource.addRows(1234L, rows);
         Row row1 = newRows.get(0);
         Row row2 = newRows.get(1);
 

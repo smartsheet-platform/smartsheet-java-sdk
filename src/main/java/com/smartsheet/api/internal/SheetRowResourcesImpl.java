@@ -76,7 +76,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 * @return the created rows
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public List<Row> insertRows(long sheetId, List<Row> rows) throws SmartsheetException {
+	public List<Row> addRows(long sheetId, List<Row> rows) throws SmartsheetException {
 		return this.postAndReceiveList("sheets/" + sheetId + "/rows", rows, Row.class);
 	}
 

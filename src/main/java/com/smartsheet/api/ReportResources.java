@@ -67,7 +67,7 @@ public interface ReportResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-     void sendSheet(long reportId, SheetEmail email) throws SmartsheetException;
+     void sendReport(long reportId, SheetEmail email) throws SmartsheetException;
 
     /**
      * List all reports.
@@ -137,4 +137,11 @@ public interface ReportResources {
  * */
     void getReportAsCsv(long id, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page, OutputStream outputStream) throws SmartsheetException;
 
+    /**
+     * <p>Creates an object of ShareResources.</p>
+     *
+     * @return the created ShareResources object
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    ShareResources shareResources();
 }
