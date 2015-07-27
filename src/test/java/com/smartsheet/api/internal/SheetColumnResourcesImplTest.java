@@ -23,11 +23,9 @@ package com.smartsheet.api.internal;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
-import com.smartsheet.api.SheetColumnResources;
 import com.smartsheet.api.models.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -56,7 +54,7 @@ public class SheetColumnResourcesImplTest extends ResourcesImplBase {
 
 		server.setResponseBody(new File("src/test/resources/listColumns.json"));
 		PaginationParameters paginationParameters = new PaginationParameters(true, 1, 1);
-		DataWrapper<Column> wrapper = sheetColumnResourcesImpl.listColumns(1234L, EnumSet.allOf(ColumnInclusion.class), paginationParameters);
+		PagedResult<Column> wrapper = sheetColumnResourcesImpl.listColumns(1234L, EnumSet.allOf(ColumnInclusion.class), paginationParameters);
 		List<Column> columns = wrapper.getData();
 		assertEquals(3, columns.size());
 		assertEquals("CHECKBOX", columns.get(0).getType().toString());

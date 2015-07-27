@@ -54,7 +54,7 @@ public class ShareResourcesImplTest extends ResourcesImplBase {
 
 		server.setResponseBody(new File("src/test/resources/listShares.json"));
 		PaginationParameters parameters = new PaginationParameters(false, 1, 1);
-		DataWrapper<Share> shares = shareResourcesImpl.listShares(2906571706525572L, parameters);
+		PagedResult<Share> shares = shareResourcesImpl.listShares(2906571706525572L, parameters);
 		assertTrue("The number of shares returned is incorrect.", shares.getTotalCount() == 2);
 
 		assertEquals("Email attribute of the share is incorrect.", "john.doe@smartsheet.com", shares.getData().get(0).getEmail());

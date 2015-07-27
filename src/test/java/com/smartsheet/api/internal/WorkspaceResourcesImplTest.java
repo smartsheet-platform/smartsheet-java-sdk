@@ -51,7 +51,7 @@ public class WorkspaceResourcesImplTest extends ResourcesImplBase {
 	public void testListWorkspaces() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/listWorkspaces.json"));
 		PaginationParameters parameters = new PaginationParameters(false, 1, 1);
-		DataWrapper<Workspace> workspace = workspaceResources.listWorkspaces(parameters);
+		PagedResult<Workspace> workspace = workspaceResources.listWorkspaces(parameters);
 		assertEquals(1, workspace.getPageNumber().longValue());
 		assertEquals(100, workspace.getPageSize().longValue());
 		assertEquals(1, workspace.getTotalPages().longValue());

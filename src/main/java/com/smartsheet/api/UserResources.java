@@ -24,7 +24,6 @@ package com.smartsheet.api;
 
 import com.smartsheet.api.models.*;
 
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -47,7 +46,7 @@ public interface UserResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<User> listUsers() throws SmartsheetException;
+	public PagedResult<User> listUsers() throws SmartsheetException;
 
 	/**
 	 * <p>List all users.</p>
@@ -64,7 +63,7 @@ public interface UserResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<User> listUsers(Set<String> email, PaginationParameters pagination) throws SmartsheetException;
+	public PagedResult<User> listUsers(Set<String> email, PaginationParameters pagination) throws SmartsheetException;
 
 	/**
 	 * <p>Add a user to the organization, without sending email.</p>

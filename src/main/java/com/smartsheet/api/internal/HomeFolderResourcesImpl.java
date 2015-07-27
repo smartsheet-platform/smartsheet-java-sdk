@@ -22,13 +22,10 @@ package com.smartsheet.api.internal;
 
 
 
-import java.util.List;
-
 import com.smartsheet.api.HomeFolderResources;
 import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.Folder;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 
 /**
@@ -65,7 +62,7 @@ public class HomeFolderResourcesImpl extends AbstractResources implements HomeFo
 	 * @return the folders (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Folder> listFolders(PaginationParameters parameters) throws SmartsheetException {
+	public PagedResult<Folder> listFolders(PaginationParameters parameters) throws SmartsheetException {
 
 		String path = "home/folders";
 

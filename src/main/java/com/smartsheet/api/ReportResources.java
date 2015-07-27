@@ -85,7 +85,7 @@ public interface ReportResources {
      * @return all sheets (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
-     DataWrapper<Report> listReports(PaginationParameters parameters) throws SmartsheetException;
+     PagedResult<Report> listReports(PaginationParameters parameters) throws SmartsheetException;
 
     /**
      * Get a Report as an excel file.

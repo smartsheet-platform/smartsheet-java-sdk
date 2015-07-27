@@ -19,13 +19,11 @@ package com.smartsheet.api;
  * %[license]
  */
 import com.smartsheet.api.models.Attachment;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.List;
 
 /**
  * <p>This interface provides methods to access AttachmentVersioning resources.</p>
@@ -69,7 +67,7 @@ public interface AttachmentVersioningResources {
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public DataWrapper<Attachment> listAllVersions(long sheetId, long attachmentId, PaginationParameters parameters) throws SmartsheetException;
+    public PagedResult<Attachment> listAllVersions(long sheetId, long attachmentId, PaginationParameters parameters) throws SmartsheetException;
 
     /**
      * <p>Attach a new version of an attachment.</p>

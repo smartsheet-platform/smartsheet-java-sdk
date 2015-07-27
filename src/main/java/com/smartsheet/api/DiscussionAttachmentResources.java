@@ -1,7 +1,7 @@
 package com.smartsheet.api;
 
 import com.smartsheet.api.models.Attachment;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 
 /*
@@ -48,5 +48,5 @@ public interface DiscussionAttachmentResources {
      * rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
-    public DataWrapper<Attachment> getAttachments(long sheetId, long discussionId, PaginationParameters parameters) throws SmartsheetException;
+    public PagedResult<Attachment> getAttachments(long sheetId, long discussionId, PaginationParameters parameters) throws SmartsheetException;
 }

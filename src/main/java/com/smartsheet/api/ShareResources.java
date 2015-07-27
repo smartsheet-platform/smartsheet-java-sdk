@@ -24,7 +24,7 @@ package com.smartsheet.api;
 
 import java.util.List;
 
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Share;
 
@@ -52,7 +52,7 @@ public interface ShareResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<Share> listShares(long objectId, PaginationParameters parameters) throws SmartsheetException;
+	public PagedResult<Share> listShares(long objectId, PaginationParameters parameters) throws SmartsheetException;
 
 	/**
 	 * Get a Share.

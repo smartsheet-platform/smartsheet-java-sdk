@@ -22,7 +22,7 @@ package com.smartsheet.api.internal;
 import com.smartsheet.api.*;
 import com.smartsheet.api.DiscussionAttachmentResources;
 import com.smartsheet.api.models.Attachment;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 /**
  * This is the implementation of the DiscussionAttachmentResources.
@@ -65,7 +65,7 @@ public class DiscussionAttachmentResourcesImpl extends AbstractResources impleme
      * rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
-    public DataWrapper<Attachment> getAttachments(long sheetId, long discussionId, PaginationParameters parameters) throws SmartsheetException {
+    public PagedResult<Attachment> getAttachments(long sheetId, long discussionId, PaginationParameters parameters) throws SmartsheetException {
         String path= "sheets/" + sheetId + "/discussions/" + discussionId + "/attachments";
         if (parameters != null) {
             path += parameters.toQueryString();

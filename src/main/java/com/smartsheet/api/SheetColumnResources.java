@@ -27,7 +27,7 @@ import java.util.List;
 
 import com.smartsheet.api.models.Column;
 import com.smartsheet.api.models.ColumnInclusion;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 
 /**
@@ -53,7 +53,7 @@ public interface SheetColumnResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, PaginationParameters pagination) throws SmartsheetException;
+	public PagedResult<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, PaginationParameters pagination) throws SmartsheetException;
 
 	/**
 	 * <p>Add column to a sheet.</p>

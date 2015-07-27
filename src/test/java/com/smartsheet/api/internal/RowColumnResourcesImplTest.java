@@ -3,9 +3,8 @@ package com.smartsheet.api.internal;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.CellHistory;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
-import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -48,7 +47,7 @@ public class RowColumnResourcesImplTest extends ResourcesImplBase {
     public void testGetCellHistory() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/getCellHistory.json"));
         PaginationParameters parameters = new PaginationParameters(false, 1, 1);
-        DataWrapper<CellHistory> cellHistory= rowColumnResources.getCellHistory(123L, 123L, 123L, parameters);
+        PagedResult<CellHistory> cellHistory= rowColumnResources.getCellHistory(123L, 123L, 123L, parameters);
 
         assertTrue(cellHistory.getTotalPages() == 1);
         assertEquals(cellHistory.getData().get(1).getModifiedBy().getName(), "Joe Smart");

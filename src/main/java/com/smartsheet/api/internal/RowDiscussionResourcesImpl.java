@@ -3,7 +3,7 @@ package com.smartsheet.api.internal;
 import com.smartsheet.api.RowDiscussionResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Discussion;
 import com.smartsheet.api.models.DiscussionInclusion;
 import com.smartsheet.api.models.PaginationParameters;
@@ -80,7 +80,7 @@ public class RowDiscussionResourcesImpl extends AbstractResources implements Row
      * @return the row discussions
      * @throws SmartsheetException the smartsheet exception
      */
-    public DataWrapper<Discussion> listDiscussions(long sheetId, long rowId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException{
+    public PagedResult<Discussion> listDiscussions(long sheetId, long rowId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException{
         String path = "sheets/" + sheetId + "/rows/" + rowId + "/discussions" ;
         HashMap<String, Object> parameters = new HashMap<String, Object>();
 

@@ -20,7 +20,7 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Favorite;
 import com.smartsheet.api.models.PaginationParameters;
 import org.junit.Before;
@@ -51,7 +51,7 @@ public class FavoriteResourcesImplTest extends ResourcesImplBase {
     public void testListFavorites() throws Exception {
         server.setResponseBody(new File("src/test/resources/listFavorites.json"));
         PaginationParameters parameters = new PaginationParameters(false,1,1);
-        DataWrapper<Favorite> favorites = favoriteResources.listFavorites(parameters);
+        PagedResult<Favorite> favorites = favoriteResources.listFavorites(parameters);
         assertNotNull(favorites.getData().get(0).getType());
         assertEquals(favorites.getData().get(0).getType(), "sheet");
         //assertEquals(favorites.getData().get(1).getColumnType(), "folder");

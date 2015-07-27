@@ -27,7 +27,7 @@ import java.util.List;
  * of objects of the specified type.
  * @param <T>
  */
-public class DataWrapper<T> {
+public class PagedResult<T> {
     Integer pageNumber;
     Integer pageSize;
     Integer totalCount;

@@ -44,7 +44,7 @@ public interface WorkspaceResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<Workspace> listWorkspaces(PaginationParameters parameters) throws SmartsheetException;
+	public PagedResult<Workspace> listWorkspaces(PaginationParameters parameters) throws SmartsheetException;
 
 	/**
 	 * <p>Get a workspace.</p>

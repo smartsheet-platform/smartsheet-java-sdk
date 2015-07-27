@@ -25,9 +25,8 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,7 +54,7 @@ public class TemplateResourcesImplTest extends ResourcesImplBase {
 		server.setResponseBody(new File("src/test/resources/listTemplates.json"));
 
 		PaginationParameters parameters = new PaginationParameters(false, 1, 1);
-		DataWrapper<Template> templates = templateResources.listTemplates(parameters);
+		PagedResult<Template> templates = templateResources.listTemplates(parameters);
 
 		assertNotNull(templates);
 		assertEquals("template 1", templates.getData().get(0).getName());
@@ -69,7 +68,7 @@ public class TemplateResourcesImplTest extends ResourcesImplBase {
 		server.setResponseBody(new File("src/test/resources/listTemplates.json"));
 
 		PaginationParameters parameters = new PaginationParameters(false, 1, 1);
-		DataWrapper<Template> templates = templateResources.listPublicTemplates(parameters);
+		PagedResult<Template> templates = templateResources.listPublicTemplates(parameters);
 
 		assertNotNull(templates);
 		assertEquals("template 1", templates.getData().get(0).getName());

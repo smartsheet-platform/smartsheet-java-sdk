@@ -21,7 +21,7 @@ package com.smartsheet.api.internal;
 import com.smartsheet.api.*;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Attachment;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import java.io.File;
 import java.io.FileInputStream;
@@ -83,7 +83,7 @@ public class AttachmentVersioningResourcesImpl extends AbstractResources impleme
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public DataWrapper<Attachment> listAllVersions(long sheetId, long attachmentId, PaginationParameters parameters) throws SmartsheetException {
+    public PagedResult<Attachment> listAllVersions(long sheetId, long attachmentId, PaginationParameters parameters) throws SmartsheetException {
         String path = "sheets/"+ sheetId + "/attachments/" + attachmentId + "/versions";
 
         if (parameters != null) {

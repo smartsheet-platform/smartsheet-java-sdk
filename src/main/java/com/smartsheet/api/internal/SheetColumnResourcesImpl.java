@@ -29,7 +29,7 @@ import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Column;
 import com.smartsheet.api.models.ColumnInclusion;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 
 /**
@@ -69,7 +69,7 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
 	 * @return the columns (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, PaginationParameters pagination) throws SmartsheetException  {
+	public PagedResult<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, PaginationParameters pagination) throws SmartsheetException  {
 		String path = "sheets/" + sheetId + "/columns";
 
 		HashMap<String, Object> parameters = new HashMap<String, Object>();

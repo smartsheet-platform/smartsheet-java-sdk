@@ -86,7 +86,7 @@ public class ReportResourcesImplTest extends ResourcesImplBase {
     public void testListReports() throws  SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/listReports.json"));
         PaginationParameters pagination = new PaginationParameters(true, null, null);
-        DataWrapper<Report> reportsWrapper = reportResources.listReports(pagination);
+        PagedResult<Report> reportsWrapper = reportResources.listReports(pagination);
 
         assertTrue(reportsWrapper.getTotalPages() == 1);
         assertEquals("r1", reportsWrapper.getData().get(0).getName());

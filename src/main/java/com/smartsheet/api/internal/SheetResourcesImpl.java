@@ -113,7 +113,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @return all sheets (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Sheet> listSheets(PaginationParameters parameters) throws SmartsheetException {
+	public PagedResult<Sheet> listSheets(PaginationParameters parameters) throws SmartsheetException {
 		String path = "sheets";
 
 		if (parameters != null) {
@@ -138,7 +138,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @return all sheets (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Sheet> listOrganizationSheets(PaginationParameters parameters) throws SmartsheetException {
+	public PagedResult<Sheet> listOrganizationSheets(PaginationParameters parameters) throws SmartsheetException {
 		String path = "users/sheets";
 
 		if (parameters != null) {

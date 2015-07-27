@@ -22,9 +22,7 @@ package com.smartsheet.api;
 
 
 
-import java.util.List;
-
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Group;
 import com.smartsheet.api.models.PaginationParameters;
 
@@ -49,7 +47,7 @@ public interface GroupResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<Group> listGroups(PaginationParameters parameters) throws SmartsheetException;
+	public PagedResult<Group> listGroups(PaginationParameters parameters) throws SmartsheetException;
 
 	
 	/**

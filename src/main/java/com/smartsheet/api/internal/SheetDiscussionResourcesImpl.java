@@ -4,7 +4,7 @@ import com.smartsheet.api.*;
 import com.smartsheet.api.DiscussionAttachmentResources;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Discussion;
 import com.smartsheet.api.models.DiscussionInclusion;
 import com.smartsheet.api.models.PaginationParameters;
@@ -172,7 +172,7 @@ public class SheetDiscussionResourcesImpl extends  AbstractResources implements 
      * @return all the discussions
      * @throws SmartsheetException the smartsheet exception
      */
-    public DataWrapper<Discussion> listDiscussions(long sheetId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException{
+    public PagedResult<Discussion> listDiscussions(long sheetId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException{
         String path = "sheets/" + sheetId + "/discussions";
         HashMap<String, Object> parameters = new HashMap<String, Object>();
 

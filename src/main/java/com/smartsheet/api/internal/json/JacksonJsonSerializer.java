@@ -38,7 +38,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.CopyOrMoveRowResult;
 import com.smartsheet.api.models.IdentifiableModel;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.format.Format;
 
@@ -234,7 +234,7 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	}
 
 	/**
-	 * De-serialize to a DataWrapper (holds pagination info) from JSON
+	 * De-serialize to a PagedResult (holds pagination info) from JSON
 	 * @param objectClass
 	 * @param inputStream
 	 * @param <T>
@@ -242,15 +242,15 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	 * @throws JSONSerializerException
 	 */
 	@Override
-	public <T> DataWrapper<T> deserializeDataWrapper(Class<T> objectClass, java.io.InputStream inputStream) throws JSONSerializerException{
+	public <T> PagedResult<T> deserializeDataWrapper(Class<T> objectClass, java.io.InputStream inputStream) throws JSONSerializerException{
 		Util.throwIfNull(objectClass, inputStream);
 
-		DataWrapper<T> rw = null;
+		PagedResult<T> rw = null;
 
 		try {
 			// Read the json input stream into a List.
 			rw = OBJECT_MAPPER.readValue(inputStream,
-					OBJECT_MAPPER.getTypeFactory().constructParametricType(DataWrapper.class, objectClass));
+					OBJECT_MAPPER.getTypeFactory().constructParametricType(PagedResult.class, objectClass));
 			// list = OBJECT_MAPPER.readValue(inputStream, new TypeReference<List<T>>() {});
 		} catch (JsonParseException e) {
 			throw new JSONSerializerException(e);

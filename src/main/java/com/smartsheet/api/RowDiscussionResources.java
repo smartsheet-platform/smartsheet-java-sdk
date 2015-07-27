@@ -18,7 +18,7 @@ package com.smartsheet.api;
  * limitations under the License.
  * %[license]
  */
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Discussion;
 import com.smartsheet.api.models.DiscussionInclusion;
 import com.smartsheet.api.models.PaginationParameters;
@@ -72,5 +72,5 @@ public interface RowDiscussionResources {
      * @return the row discussions
      * @throws SmartsheetException the smartsheet exception
      */
-    public DataWrapper<Discussion> listDiscussions(long sheetId, long rowId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException;
+    public PagedResult<Discussion> listDiscussions(long sheetId, long rowId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException;
 }

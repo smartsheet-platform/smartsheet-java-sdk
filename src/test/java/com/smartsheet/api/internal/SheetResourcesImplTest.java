@@ -23,23 +23,18 @@ package com.smartsheet.api.internal;
 import static org.junit.Assert.*;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
 import com.smartsheet.api.models.*;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.format.Color;
-import com.smartsheet.api.models.format.FontSize;
 import com.smartsheet.api.models.format.VerticalAlignment;
 
 
@@ -58,7 +53,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 
 		server.setResponseBody(new File("src/test/resources/listSheets.json"));
 		PaginationParameters parameters = new PaginationParameters(false, 1, 1);
-		DataWrapper<Sheet> sheets = sheetResource.listSheets(parameters);
+		PagedResult<Sheet> sheets = sheetResource.listSheets(parameters);
 
 		assertTrue(sheets.getPageNumber() == 1);
 		assertTrue(sheets.getPageSize() == 100);
@@ -77,7 +72,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		parameters.setIncludeAll(true);
 		parameters.setPageSize(null);
 		parameters.setPage(null);
-		DataWrapper<Sheet> sheets = sheetResource.listOrganizationSheets(parameters);
+		PagedResult<Sheet> sheets = sheetResource.listOrganizationSheets(parameters);
 		assertEquals(2, sheets.getData().size());
 	}
 

@@ -50,7 +50,7 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import com.smartsheet.api.models.Attachment;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 
 /**
  * This is the base class of the Smartsheet REST API resources.
@@ -434,7 +434,7 @@ public abstract class AbstractResources {
 	 * @return
 	 * @throws SmartsheetException
 	 */
-	protected <T> DataWrapper<T> listResourcesWithWrapper(String path, Class<T> objectClass) throws SmartsheetException {
+	protected <T> PagedResult<T> listResourcesWithWrapper(String path, Class<T> objectClass) throws SmartsheetException {
 		Util.throwIfNull(path, objectClass);
 		Util.throwIfEmpty(path);
 
@@ -443,7 +443,7 @@ public abstract class AbstractResources {
 
 		HttpResponse response = this.smartsheet.getHttpClient().request(request);
 
-		DataWrapper<T> obj = null;
+		PagedResult<T> obj = null;
 		switch (response.getStatusCode()) {
 			case 200:
 				obj = this.smartsheet.getJsonSerializer().deserializeDataWrapper(objectClass,

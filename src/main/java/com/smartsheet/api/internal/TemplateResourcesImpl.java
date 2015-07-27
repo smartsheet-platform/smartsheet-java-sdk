@@ -22,11 +22,9 @@ package com.smartsheet.api.internal;
 
 
 
-import java.util.List;
-
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.TemplateResources;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Template;
 
@@ -64,7 +62,7 @@ public class TemplateResourcesImpl extends AbstractResources implements Template
 	 * @return all templates (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Template> listTemplates(PaginationParameters parameters) throws SmartsheetException {
+	public PagedResult<Template> listTemplates(PaginationParameters parameters) throws SmartsheetException {
 		String path = "templates";
 
 		if (parameters != null) {
@@ -90,7 +88,7 @@ public class TemplateResourcesImpl extends AbstractResources implements Template
 	 * @return all templates (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Template> listPublicTemplates(PaginationParameters parameters) throws SmartsheetException {
+	public PagedResult<Template> listPublicTemplates(PaginationParameters parameters) throws SmartsheetException {
 		String path = "templates/public";
 
 		if (parameters != null) {

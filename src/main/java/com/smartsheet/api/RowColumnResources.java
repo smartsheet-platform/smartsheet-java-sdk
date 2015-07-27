@@ -20,7 +20,7 @@ package com.smartsheet.api;
  * %[license]
  */
 import com.smartsheet.api.models.CellHistory;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 
 /**
@@ -48,5 +48,5 @@ public interface RowColumnResources {
      * ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
-    public DataWrapper<CellHistory> getCellHistory(long sheetId, long rowId, long columnId, PaginationParameters parameters) throws SmartsheetException;
+    public PagedResult<CellHistory> getCellHistory(long sheetId, long rowId, long columnId, PaginationParameters parameters) throws SmartsheetException;
 }

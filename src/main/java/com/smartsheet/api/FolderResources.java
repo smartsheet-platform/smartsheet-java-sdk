@@ -23,7 +23,6 @@ package com.smartsheet.api;
 
 
 import java.util.EnumSet;
-import java.util.List;
 
 import com.smartsheet.api.models.*;
 
@@ -96,7 +95,7 @@ public interface FolderResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<Folder> listFolders(long parentFolderId, PaginationParameters parameters) throws SmartsheetException;
+	public PagedResult<Folder> listFolders(long parentFolderId, PaginationParameters parameters) throws SmartsheetException;
 
 	/**
 	 * <p>Create a folder.</p>

@@ -19,12 +19,12 @@ package com.smartsheet.api;
  * %[license]
  */
 import com.smartsheet.api.models.Attachment;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.List;
+
 public interface SheetAttachmentResources {
 
     /**
@@ -109,7 +109,7 @@ public interface SheetAttachmentResources {
      * @return the attachments (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
-    public DataWrapper<Attachment> listAttachments(long sheetId, PaginationParameters parameters) throws SmartsheetException;
+    public PagedResult<Attachment> listAttachments(long sheetId, PaginationParameters parameters) throws SmartsheetException;
 
     /**
      * <p>Attach a file to a sheet with simple upload.</p>

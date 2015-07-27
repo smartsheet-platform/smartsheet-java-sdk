@@ -3,13 +3,11 @@ package com.smartsheet.api.internal;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.*;
-import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -80,7 +78,7 @@ public class SheetAttachmentResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/listAssociatedAttachments.json"));
         PaginationParameters parameters = new PaginationParameters(false, 1,1);
 
-        DataWrapper<Attachment> attachments = sheetAttachmentResources.listAttachments(1234L, parameters);
+        PagedResult<Attachment> attachments = sheetAttachmentResources.listAttachments(1234L, parameters);
         assertTrue(attachments.getTotalCount() == 2);
         assertTrue(attachments.getData().get(0).getId() == 4583173393803140L);
     }

@@ -21,7 +21,7 @@ package com.smartsheet.api.internal;
  */
 
 import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Favorite;
 import com.smartsheet.api.models.PaginationParameters;
 
@@ -85,7 +85,7 @@ public class FavoriteResourcesImpl extends AbstractResources{
      * @return a single Favorite object or an array of Favorite objects
      * @throws SmartsheetException the smartsheet exception
      */
-    DataWrapper<Favorite> listFavorites(PaginationParameters parameters) throws SmartsheetException{
+    PagedResult<Favorite> listFavorites(PaginationParameters parameters) throws SmartsheetException{
         return  this.listResourcesWithWrapper("favorites" + parameters.toQueryString(), Favorite.class);
     }
 }

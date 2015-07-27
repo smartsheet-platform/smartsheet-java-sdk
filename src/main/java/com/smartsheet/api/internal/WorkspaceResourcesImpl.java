@@ -88,7 +88,7 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 	 * @return all workspaces (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Workspace> listWorkspaces(PaginationParameters parameters) throws SmartsheetException {
+	public PagedResult<Workspace> listWorkspaces(PaginationParameters parameters) throws SmartsheetException {
 		String path = "workspaces";
 
 		if (parameters != null) {

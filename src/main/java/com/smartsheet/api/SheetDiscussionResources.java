@@ -1,6 +1,6 @@
 package com.smartsheet.api;
 
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Discussion;
 import com.smartsheet.api.models.DiscussionInclusion;
 import com.smartsheet.api.models.PaginationParameters;
@@ -126,7 +126,7 @@ public interface SheetDiscussionResources {
      * @return a list of discussions
      * @throws SmartsheetException the smartsheet exception
      */
-    public DataWrapper<Discussion> listDiscussions(long sheetId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException;
+    public PagedResult<Discussion> listDiscussions(long sheetId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException;
 
     /**
      * <p>Creates an object of DiscussionCommentResources for access to discussion comments through SheetDiscussionResources.</p>

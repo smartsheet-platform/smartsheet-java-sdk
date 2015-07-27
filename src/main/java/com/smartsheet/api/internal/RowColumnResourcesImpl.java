@@ -22,7 +22,7 @@ package com.smartsheet.api.internal;
 import com.smartsheet.api.RowColumnResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.CellHistory;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 
 /**
@@ -64,7 +64,7 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
      * ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
-    public DataWrapper<CellHistory> getCellHistory(long sheetId, long rowId, long columnId, PaginationParameters parameters) throws SmartsheetException {
+    public PagedResult<CellHistory> getCellHistory(long sheetId, long rowId, long columnId, PaginationParameters parameters) throws SmartsheetException {
         String path = "sheetId/" + sheetId + "/rows/"+rowId+"/columns/"+columnId + "/history";
 
         if (parameters != null) {

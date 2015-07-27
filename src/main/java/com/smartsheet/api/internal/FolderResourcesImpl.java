@@ -22,7 +22,6 @@ package com.smartsheet.api.internal;
 
 import java.util.EnumSet;
 import java.util.HashMap;
-import java.util.List;
 
 import com.smartsheet.api.FolderResources;
 import com.smartsheet.api.SmartsheetException;
@@ -140,7 +139,7 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 * @return the child folders (note that empty list will be returned if no child folder found)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Folder> listFolders(long parentFolderId, PaginationParameters parameters) throws SmartsheetException {
+	public PagedResult<Folder> listFolders(long parentFolderId, PaginationParameters parameters) throws SmartsheetException {
 		String path = "folders/" + parentFolderId + "/folders";
 
 		if (parameters != null) {

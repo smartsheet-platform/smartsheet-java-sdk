@@ -22,9 +22,8 @@ package com.smartsheet.api.internal;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.Attachment;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
-import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -48,7 +47,7 @@ public class DiscussionAttachmentResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/listAssociatedAttachments.json"));
         PaginationParameters parameters = new PaginationParameters(false, 1,1);
 
-        DataWrapper<Attachment> attachments = discussionAttachmentResources.getAttachments(1234L, 456L, parameters);
+        PagedResult<Attachment> attachments = discussionAttachmentResources.getAttachments(1234L, 456L, parameters);
         assertTrue(attachments.getTotalCount() == 2);
         assertTrue(attachments.getData().get(0).getId() == 4583173393803140L);
     }

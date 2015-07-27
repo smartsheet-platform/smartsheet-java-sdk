@@ -4,7 +4,6 @@ import com.smartsheet.api.InvalidRequestException;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.*;
-import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -160,7 +159,7 @@ public class SheetDiscussionResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/getAllDiscussions.json"));
         PaginationParameters parameters = new PaginationParameters(false, 1, 1);
 
-        DataWrapper<Discussion> newDiscussion = sheetDiscussionResources.listDiscussions(123L, parameters, EnumSet.of(DiscussionInclusion.COMMENTS));
+        PagedResult<Discussion> newDiscussion = sheetDiscussionResources.listDiscussions(123L, parameters, EnumSet.of(DiscussionInclusion.COMMENTS));
         assertTrue(newDiscussion.getTotalPages() == 1);
         assertTrue(newDiscussion.getPageSize() == 100);
         assertTrue(newDiscussion.getTotalCount() == 1);

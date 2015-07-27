@@ -21,7 +21,7 @@ package com.smartsheet.api;
  */
 
 import com.smartsheet.api.models.Attachment;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 
 import java.io.File;
@@ -78,7 +78,7 @@ public interface RowAttachmentResources{
      * rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
-    public DataWrapper<Attachment> getAttachments(long sheetId, long rowId, PaginationParameters parameters) throws SmartsheetException;
+    public PagedResult<Attachment> getAttachments(long sheetId, long rowId, PaginationParameters parameters) throws SmartsheetException;
 
     /**
      * <p>Attach a file to a row with simple upload.</p>

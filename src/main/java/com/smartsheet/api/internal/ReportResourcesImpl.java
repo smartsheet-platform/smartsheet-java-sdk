@@ -23,7 +23,6 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.ReportResources;
 import com.smartsheet.api.ShareResources;
-import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.*;
@@ -132,7 +131,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * @return all sheets (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
-    public DataWrapper<Report> listReports(PaginationParameters parameters) throws SmartsheetException {
+    public PagedResult<Report> listReports(PaginationParameters parameters) throws SmartsheetException {
         String path= "reports";
         if (parameters != null) {
             path += parameters.toQueryString();

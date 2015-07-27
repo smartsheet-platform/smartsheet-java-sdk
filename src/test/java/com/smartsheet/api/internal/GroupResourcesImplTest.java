@@ -36,8 +36,6 @@ import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.Group.CreateGroupBuilder;
 import com.smartsheet.api.models.Group.UpdateGroupBuilder;
 
-import javax.xml.crypto.Data;
-
 public class GroupResourcesImplTest extends ResourcesImplBase {
 
 	private GroupResourcesImpl groupResources;
@@ -56,7 +54,7 @@ public class GroupResourcesImplTest extends ResourcesImplBase {
 		server.setResponseBody(new File("src/test/resources/listGroups.json"));
 
 		PaginationParameters parameters = new PaginationParameters(false,1,1);
-		DataWrapper<Group> groups =  groupResources.listGroups(parameters);
+		PagedResult<Group> groups =  groupResources.listGroups(parameters);
 
 			assertNotNull(groups.getData().get(0).getId());
 			assertNotNull(groups.getData().get(0).getName());

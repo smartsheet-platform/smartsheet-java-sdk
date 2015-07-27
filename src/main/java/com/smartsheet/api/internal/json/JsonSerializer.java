@@ -30,7 +30,7 @@ import java.util.Map;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.smartsheet.api.models.CopyOrMoveRowResult;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Result;
 
 /**
@@ -76,14 +76,14 @@ public interface JsonSerializer {
 	public <T> String serialize(T object) throws JSONSerializerException;
 
 	/**
-	 * De-serialize json to DataWrapper.
+	 * De-serialize json to PagedResult.
 	 * @param objectClass the object class
 	 * @param inputStream the input stream
 	 * @param <T> the generic type
-	 * @return the DataWrapper containing a list of type T
+	 * @return the PagedResult containing a list of type T
 	 * @throws JSONSerializerException
 	 */
-	public <T> DataWrapper<T> deserializeDataWrapper(Class<T> objectClass, java.io.InputStream inputStream) throws JSONSerializerException;
+	public <T> PagedResult<T> deserializeDataWrapper(Class<T> objectClass, java.io.InputStream inputStream) throws JSONSerializerException;
 
 	/**
 	 * De-serialize an object from JSON.

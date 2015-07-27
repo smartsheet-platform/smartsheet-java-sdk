@@ -24,7 +24,6 @@ package com.smartsheet.api;
 
 import java.io.OutputStream;
 import java.util.EnumSet;
-import java.util.List;
 import java.util.Set;
 
 import com.smartsheet.api.models.*;
@@ -50,7 +49,7 @@ public interface SheetResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<Sheet> listSheets(PaginationParameters parameters) throws SmartsheetException;
+	public PagedResult<Sheet> listSheets(PaginationParameters parameters) throws SmartsheetException;
 
 	/**
 	 * <p>List all sheets in the organization.</p>
@@ -66,7 +65,7 @@ public interface SheetResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<Sheet> listOrganizationSheets(PaginationParameters parameters) throws SmartsheetException;
+	public PagedResult<Sheet> listOrganizationSheets(PaginationParameters parameters) throws SmartsheetException;
 
 	/**
 	 * <p>Get a sheet.</p>

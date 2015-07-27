@@ -21,7 +21,7 @@ package com.smartsheet.api.internal;
 import com.smartsheet.api.*;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Attachment;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 
 import java.io.*;
@@ -126,7 +126,7 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
      * @return the attachments (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
-    public DataWrapper<Attachment> listAttachments(long sheetId, PaginationParameters parameters) throws SmartsheetException {
+    public PagedResult<Attachment> listAttachments(long sheetId, PaginationParameters parameters) throws SmartsheetException {
         String path = "sheets/" + sheetId + "/attachments";
 
         if (parameters != null) {

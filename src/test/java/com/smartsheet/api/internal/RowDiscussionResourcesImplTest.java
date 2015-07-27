@@ -2,7 +2,7 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Discussion;
 import com.smartsheet.api.models.DiscussionInclusion;
 import com.smartsheet.api.models.PaginationParameters;
@@ -62,7 +62,7 @@ public class RowDiscussionResourcesImplTest extends ResourcesImplBase {
         Discussion discussion = new Discussion();
         discussion.setTitle("new discussion");
         PaginationParameters parameters = new PaginationParameters(false, 1, 1);
-        DataWrapper<Discussion> newDiscussion = discussionRowResources.listDiscussions(1234L, 5678L, parameters, EnumSet.of(DiscussionInclusion.COMMENTS));
+        PagedResult<Discussion> newDiscussion = discussionRowResources.listDiscussions(1234L, 5678L, parameters, EnumSet.of(DiscussionInclusion.COMMENTS));
         assertEquals("Lincoln", newDiscussion.getData().get(0).getTitle());
         assertTrue(newDiscussion.getData().get(0).getId() == 3138415114905476L);
 

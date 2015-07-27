@@ -26,7 +26,6 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 import java.util.EnumSet;
-import java.util.List;
 
 import com.smartsheet.api.models.*;
 import org.junit.Before;
@@ -99,7 +98,7 @@ public class FolderResourcesImplTest extends ResourcesImplBase {
 		
 		server.setResponseBody(new File("src/test/resources/listFolders.json"));
 		PaginationParameters parameters = new PaginationParameters(true,1,1);
-		DataWrapper<Folder> foldersWrapper = folderResource.listFolders(12345L, parameters);
+		PagedResult<Folder> foldersWrapper = folderResource.listFolders(12345L, parameters);
 
 		assertTrue(foldersWrapper.getPageSize() == 100);
 		assertEquals("Folder 1", foldersWrapper.getData().get(0).getName());
