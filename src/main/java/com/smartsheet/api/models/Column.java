@@ -385,8 +385,12 @@ public class Column extends IdentifiableModel<Long> {
 		
 		/** The auto number format. */
 		private AutoNumberFormat autoNumberFormat;
-		
+
+		/** The column width. */
 		private Integer width;
+
+		/**Represents the primary flag.*/
+		private Boolean primary;
 		
 		/**
 		 * Gets the width for the column.
@@ -404,6 +408,25 @@ public class Column extends IdentifiableModel<Long> {
 		 */
 		public AddColumnToSheetBuilder setWidth(Integer width) {
 			this.width = width;
+			return this;
+		}
+
+		/**
+		 * Gets the primary status for the column.
+		 *
+		 * @return the boolean primary
+		 */
+		public Boolean getPrimary() {
+			return primary;
+		}
+
+		/**
+		 * Sets the primary status for the column.
+		 *
+		 * @param primary the boolean primary
+		 */
+		public AddColumnToSheetBuilder setPrimary(Boolean primary) {
+			this.primary = primary;
 			return this;
 		}
 
@@ -561,6 +584,7 @@ public class Column extends IdentifiableModel<Long> {
 			column.width = width;
 			column.systemColumnType = systemColumnType;
 			column.autoNumberFormat = autoNumberFormat;
+			column.primary = primary;
 			return column;
 		}
 
