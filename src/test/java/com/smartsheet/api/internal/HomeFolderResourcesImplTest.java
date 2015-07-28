@@ -66,8 +66,7 @@ public class HomeFolderResourcesImplTest extends ResourcesImplBase {
 	public void testCreateFolder() throws IOException, SmartsheetException {
 		server.setResponseBody(new File("src/test/resources/createFolders.json"));
 		
-		Folder folder = new Folder();
-		folder.setName("Hello World");
+		Folder folder = new Folder.CreateFolderBuilder().setName("Hello World").build();
 		
 		Folder newFolder = homeFolderResources.createFolder(folder);
 		assertTrue(6821399500220292L == newFolder.getId());

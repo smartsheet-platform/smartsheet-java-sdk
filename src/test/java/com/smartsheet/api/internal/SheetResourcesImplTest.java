@@ -175,13 +175,12 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 	}
 
 	@Test
-	public void testCreateSheetFromExisting() throws SmartsheetException, IOException {
+	public void testCreateSheetFromTemplate() throws SmartsheetException, IOException {
 
 		server.setResponseBody(new File("src/test/resources/createSheetFromExisting.json"));
 
-		Sheet sheet = new Sheet();
-		sheet.setFromId(7960873114331012L);
-		Sheet newSheet = sheetResource.createSheetFromExisting(sheet, EnumSet.allOf(SheetTemplateInclusion.class));
+		Sheet sheet = new Sheet.CreateFromTemplateOrSheetBuilder().setFromId(7960873114331012L).setName("New test sheet from template").build();
+		Sheet newSheet = sheetResource.createSheetFromTemplate(sheet, EnumSet.allOf(SheetTemplateInclusion.class));
 
 		assertEquals(7960873114331012L, newSheet.getId().longValue());
 		assertEquals(AccessLevel.OWNER, newSheet.getAccessLevel());
@@ -193,21 +192,14 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 	public void testCreateSheetInFolder() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/createSheet.json"));
 
-		Sheet sheet = new Sheet();
-		sheet.setName("NEW TEST SHEET");
 		ArrayList<Column> list = new ArrayList<Column>();
-		Column col = new Column();
-		col.setPrimary(true);
-		col.setTitle("column1");
-		col.setType(ColumnType.TEXT_NUMBER);
+		Column col = new Column.AddColumnToSheetBuilder().setTitle("column1").setType(ColumnType.TEXT_NUMBER).setPrimary(true).build();
 		list.add(col);
-		col = new Column();
-		col.setTitle("column2");
-		col.setType(ColumnType.TEXT_NUMBER);
+		col = new Column.AddColumnToSheetBuilder().setTitle("column2").setType(ColumnType.TEXT_NUMBER).setPrimary(false).build();
 		col.setId(4049365800118148L);
 		list.add(col);
 
-		sheet.setColumns(list);
+		Sheet sheet = new Sheet.CreateSheetBuilder().setName("NEW TEST SHEET").setColumns(list).build();
 		Sheet newSheet = sheetResource.createSheetInFolder(12345L, sheet);
 
 		assertEquals(2, newSheet.getColumns().size());

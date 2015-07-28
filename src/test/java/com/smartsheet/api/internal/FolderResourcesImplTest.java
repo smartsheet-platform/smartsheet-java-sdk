@@ -53,13 +53,6 @@ public class FolderResourcesImplTest extends ResourcesImplBase {
 		// Set a fake response
 		server.setResponseBody(new File("src/test/resources/getFolder.json"));
 
-		//server.getClass().getClassLoader().getResourceAsStream(
-		//		"com/smartsheet/api/internal/getFolder.json")
-		
-		// Send the request for a folder
- 	
-		//folderResource.getSmartsheet().getHttpClient().close();
-		
 		Folder folder = folderResource.getFolder(123L, EnumSet.of(SourceInclusion.SOURCE));
 //		folder.setTemplates(new ArrayList<Template>());
 //		folder.setWorkspaces(new ArrayList<Workspace>());
