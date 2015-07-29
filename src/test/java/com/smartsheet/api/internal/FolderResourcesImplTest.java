@@ -54,9 +54,6 @@ public class FolderResourcesImplTest extends ResourcesImplBase {
 		server.setResponseBody(new File("src/test/resources/getFolder.json"));
 
 		Folder folder = folderResource.getFolder(123L, EnumSet.of(SourceInclusion.SOURCE));
-//		folder.setTemplates(new ArrayList<Template>());
-//		folder.setWorkspaces(new ArrayList<Workspace>());
-		folderResource.getFolder(123L, EnumSet.of(SourceInclusion.SOURCE));
 
 		// Verify results
 		assertEquals("Personal", folder.getName());
@@ -69,10 +66,7 @@ public class FolderResourcesImplTest extends ResourcesImplBase {
 	public void testUpdateFolder() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/updateFolder.json"));
 
-		Folder newFolder = new Folder();
-		newFolder.setName("New Name");
-		newFolder.setId(1138268709382020L);
-		
+		Folder newFolder = new Folder.UpdateFolderBuilder().setName("New Name").setId(1138268709382020L).build();
 		Folder resultFolder = folderResource.updateFolder(newFolder);
 		
 		assertEquals(resultFolder.getName(), newFolder.getName());
@@ -80,9 +74,7 @@ public class FolderResourcesImplTest extends ResourcesImplBase {
 
 	@Test
 	public void testDeleteFolder() throws SmartsheetException, IOException {
-
 		server.setResponseBody(new File("src/test/resources/deleteFolder.json"));
-
 		folderResource.deleteFolder(7752230582413188L);
 	}
 
@@ -103,8 +95,7 @@ public class FolderResourcesImplTest extends ResourcesImplBase {
 	public void testCreateFolder() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/createFolder.json"));
 
-		Folder newFolder = new Folder();
-		newFolder.setName("new folder by brett");
+		Folder newFolder = new Folder.CreateFolderBuilder().setName("new folder by brett").build();
 		Folder createdFolder = folderResource.createFolder(123L, newFolder);
 
 		assertEquals(createdFolder.getName(), newFolder.getName());
