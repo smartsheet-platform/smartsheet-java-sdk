@@ -354,6 +354,7 @@ public class Share extends NamedModel<String> {
 	public static class CreateUserShareBuilder {
 		private String email;
 		private Long userId;
+		private AccessLevel accessLevel;
 		
 		/**
 		 * Email address for the {@link ShareType#USER} share.
@@ -394,6 +395,15 @@ public class Share extends NamedModel<String> {
 			return userId;
 		}
 
+		public AccessLevel getAccessLevel() {
+			return accessLevel;
+		}
+
+		public CreateUserShareBuilder setAccessLevel(AccessLevel accessLevel) {
+			this.accessLevel = accessLevel;
+			return this;
+		}
+
 		/**
 		 * Builds the {@link Share} object.
 		 *
@@ -404,11 +414,15 @@ public class Share extends NamedModel<String> {
 			   email != null && userId != null){
 				throw new InstantiationError("You must provide one and only one of emailAddress and userId");
 			}
+
+//			if (accessLevel == null){
+//				throw new InstantiationError("You must provide share access level.");
+//			}
 			
 			Share share = new Share();
 			share.userId  = userId;
 			share.email = email;
-			share.type = ShareType.USER;
+			share.accessLevel = accessLevel;
 			return share;
 		}
 	}
