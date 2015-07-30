@@ -149,10 +149,10 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/moveRow.json"));
         CopyOrMoveRowDirective copyOrMoveRowDirective = new CopyOrMoveRowDirective();
         CopyOrMoveRowDestination copyOrMoveRowDestination = new CopyOrMoveRowDestination();
-        copyOrMoveRowDestination.setSheetID(2258256056870788L);
+        copyOrMoveRowDestination.setSheetId(2258256056870788L);
 
         copyOrMoveRowDirective.setTo(copyOrMoveRowDestination);
-       List<Long> rowIds = new ArrayList<Long>();
+        List<Long> rowIds = new ArrayList<Long>();
         rowIds.add(145417762563972L);
         copyOrMoveRowDirective.setRowIds(rowIds);
         sheetRowResource.moveRow(2258256056870788L, EnumSet.of(RowMoveInclusion.ATTACHMENTS), false, copyOrMoveRowDirective);
@@ -163,7 +163,7 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/moveRow.json"));
         CopyOrMoveRowDirective copyOrMoveRowDirective = new CopyOrMoveRowDirective();
         CopyOrMoveRowDestination copyOrMoveRowDestination = new CopyOrMoveRowDestination();
-        copyOrMoveRowDestination.setSheetID(2258256056870788L);
+        copyOrMoveRowDestination.setSheetId(2258256056870788L);
 
         copyOrMoveRowDirective.setTo(copyOrMoveRowDestination);
         List<Long> rowIds = new ArrayList<Long>();

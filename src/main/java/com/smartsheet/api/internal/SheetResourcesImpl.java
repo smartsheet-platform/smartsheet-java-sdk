@@ -333,7 +333,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * primary - type - symbol - options
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Sheet createSheetInFolderFromExisting(long folderId, Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException {
+	public Sheet createSheetInFolderFromTemplate(long folderId, Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException {
 		HashMap<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 		String path = QueryUtil.generateUrl("folders/" + folderId + "/sheets", parameters);
@@ -386,7 +386,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @return the created sheet
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Sheet createSheetInWorkspaceFromExisting(long workspaceId, Sheet sheet, EnumSet<SheetTemplateInclusion> includes)
+	public Sheet createSheetInWorkspaceFromTemplate(long workspaceId, Sheet sheet, EnumSet<SheetTemplateInclusion> includes)
 			throws SmartsheetException {
 		HashMap<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));

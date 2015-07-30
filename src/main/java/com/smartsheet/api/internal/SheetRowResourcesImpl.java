@@ -210,8 +210,8 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 			parameters.put("ignoreRowsNotFound", ignoreRowsNotFound.toString());
 		}
 
-		path += QueryUtil.generateUrl(path, parameters);
-		return this.postAndReceiveRowObject("sheets/" + sheetId +"/rows/move", moveParameters);
+		path += QueryUtil.generateUrl(null, parameters);
+		return this.postAndReceiveRowObject(path, moveParameters);
 	}
 
 
@@ -236,7 +236,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public CopyOrMoveRowResult copyRow(Long sheetId,EnumSet<RowCopyInclusion> includes, Boolean ignoreRowsNotFound, CopyOrMoveRowDirective copyParameters) throws SmartsheetException {
-		String path = "sheets/" + sheetId +"/rows/move";
+		String path = "sheets/" + sheetId +"/rows/copy";
 		HashMap<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 
@@ -244,8 +244,8 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 			parameters.put("ignoreRowsNotFound", ignoreRowsNotFound.toString());
 		}
 
-		path += QueryUtil.generateUrl(path, parameters);
-		return this.postAndReceiveRowObject("sheets/" + sheetId +"/rows/move", copyParameters);
+		path += QueryUtil.generateUrl(null, parameters);
+		return this.postAndReceiveRowObject(path, copyParameters);
 	}
 
 
