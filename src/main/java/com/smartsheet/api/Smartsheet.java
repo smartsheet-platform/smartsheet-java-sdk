@@ -20,6 +20,8 @@ package com.smartsheet.api;
  * %[license]
  */
 
+import com.smartsheet.api.internal.ServerInfoResourcesImpl;
+
 /**
  * <p>This interface is the entry point of the Smartsheet SDK, it provides convenient methods to get XXXResources instances
  * for accessing different types of resources.</p>
@@ -71,27 +73,6 @@ public interface Smartsheet {
 	 */
 	public AttachmentResources attachments();
 
-	/**
-	 * <p>Returns the AttachmentVersioningResources instance that provides access to Attachment Versioning resources.</p>
-	 *
-	 * @return the attachment resources instance
-	 */
-	public AttachmentVersioningResources attachmentVersionings();
-
-	/**
-	 * <p>Returns the CommentAttachmentResources instance that provides access to Comment Attachment resources.</p>
-	 *
-	 * @return the comment attachment resources instance
-	 */
-	public CommentAttachmentResources commentAttachments();
-
-	/**
-	 * <p>Returns the DiscussionAttachmentResources instance that provides access to Discussion Attachment resources.</p>
-	 *
-	 * @return the discussion attachment resources instance
-	 */
-	public DiscussionAttachmentResources discussionAttachments();
-
 //	/**
 //	 * <p>Returns the FavoriteResources instance that provides access to Favorite resources.</p>
 //	 *
@@ -100,46 +81,11 @@ public interface Smartsheet {
 //	public FavoriteResources favorites();
 
 	/**
-	 * <p>Returns the RowAttachmentResources instance that provides access to Row Attachment resources.</p>
-	 *
-	 * @return the row attachment resources instance
-	 */
-	public RowAttachmentResources rowAttachments();
-
-	/**
-	 * <p>Returns the SheetAttachmentResources instance that provides access to Sheet Attachment resources.</p>
-	 *
-	 * @return the sheet attachment resources instance
-	 */
-	public SheetAttachmentResources sheetAttachments();
-
-	/**
-	 * <p>Returns the SheetRowResources instance that provides access to Sheet Attachment resources.</p>
-	 *
-	 * @return the sheet attachment resources instance
-	 */
-	public SheetRowResources sheetRows();
-
-	/**
 	 * <p>Returns the DiscussionResources instance that provides access to Discussion resources.</p>
 	 *
 	 * @return the discussion resources instance
 	 */
 	public DiscussionResources discussions();
-
-	/**
-	 * <p>Returns the DiscussionCommentResources instance that provides access to Discussion comment resources.</p>
-	 *
-	 * @return the discussion comment resources instance
-	 */
-	public DiscussionCommentResources discussionComments();
-
-	/**
-	 * <p>Returns the SheetDiscussionResources instance that provides access to Sheet Discussion resources.</p>
-	 *
-	 * @return the sheet discussion resources instance
-	 */
-	public SheetDiscussionResources sheetDiscussions();
 
 	/**
 	 * <p>Returns the CommentResources instance that provides access to Comment resources.</p>
@@ -162,6 +108,12 @@ public interface Smartsheet {
 	 */
 	public GroupResources groups();
 
+	/**
+	 * <p>Returns the {@link ServerInfoResources} instance that provides access to Server Info resources. </p>
+	 *
+	 * @return the serverinfo resources instance
+	 */
+	public ServerInfoResources serverInfo();
 	
 	/**
 	 * <p>Returns the SearchResources instance that provides access to searching resources.</p>

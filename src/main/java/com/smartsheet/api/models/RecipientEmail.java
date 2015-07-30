@@ -20,6 +20,8 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import java.util.List;
+
 public class RecipientEmail implements Recipient {
     /**
      * The email address of an individual recipient.
@@ -40,5 +42,44 @@ public class RecipientEmail implements Recipient {
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * A convenience class to help create a RecipientEmail object with the appropriate fields.
+     */
+    public static class AddRecipientEmailBuilder {
+        /**
+         * The email address of an individual recipient.
+         */
+        private String email;
+
+        /**
+         * Get the recipient's email
+         * @return the email
+         */
+        public String getEmail() {
+            return email;
+        }
+
+        /**
+         * Set the recipient's email
+         * @param email the email
+         */
+        public AddRecipientEmailBuilder setEmail(String email) {
+            this.email = email;
+            return this;
+        }
+
+        /**
+         * Builds the column.
+         *
+         * @return the column
+         */
+        public RecipientEmail build() {
+            RecipientEmail recipientEmail = new RecipientEmail();
+            recipientEmail.email = email;
+            return recipientEmail;
+        }
+
     }
 }

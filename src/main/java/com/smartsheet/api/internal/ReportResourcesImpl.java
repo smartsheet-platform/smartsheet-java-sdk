@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -163,12 +163,17 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * @throws SmartsheetException the smartsheet exception
      */
     public void getReportAsExcel(long id, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page, OutputStream outputStream) throws SmartsheetException {
-        String path = "/reports";
+        String path = "reports/" + id;
         HashMap<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 
+        if (pageSize != null){
         parameters.put("pageSize", pageSize.toString());
-        parameters.put("page", page.toString());
+        }
+
+        if (pageSize != null) {
+            parameters.put("page", page.toString());
+        }
 
         path += QueryUtil.generateUrl(null, parameters);
         getResourceAsFile(path, "application/vnd.ms-excel",outputStream);
@@ -198,12 +203,17 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * @throws SmartsheetException the smartsheet exception
      */
     public void getReportAsCsv(long id, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page, OutputStream outputStream) throws SmartsheetException {
-        String path = "/reports";
+        String path = "reports/" + id;
         HashMap<String, Object> parameters = new HashMap<String, Object>();
 
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-        parameters.put("pageSize", pageSize.toString());
-        parameters.put("page", page.toString());
+        if (pageSize != null){
+            parameters.put("pageSize", pageSize.toString());
+        }
+
+        if (pageSize != null) {
+            parameters.put("page", page.toString());
+        }
 
         path += QueryUtil.generateUrl(null, parameters);
         getResourceAsFile(path, "text/csv",outputStream);

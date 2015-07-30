@@ -73,6 +73,72 @@ public class SheetEmail extends Email {
 	public void setFormatDetails(FormatDetails formatDetails) {
 		this.formatDetails = formatDetails;
 	}
+
+	/**
+	 * A convenience class to help create a SheetEmail object with the appropriate fields.
+	 */
+	public static class AddSheetEmailBuilder {
+		/**
+		 * Represents the sheet email format (PDF or Excel).
+		 */
+		private SheetEmailFormat format;
+
+		/**
+		 * Represents the format details (paper dimensions).
+		 */
+		private FormatDetails formatDetails;
+
+		/**
+		 * Gets the sheet email format (PDF or Excel).
+		 *
+		 * @return the format
+		 */
+		public SheetEmailFormat getFormat() {
+			return format;
+		}
+
+		/**
+		 * Sets the sheet email format (PDF or Excel).
+		 *
+		 * @param format the new format
+		 */
+		public AddSheetEmailBuilder setFormat(SheetEmailFormat format) {
+			this.format = format;
+			return this;
+		}
+
+		/**
+		 * Gets the format details (paper dimensions).
+		 *
+		 * @return the format details
+		 */
+		public FormatDetails getFormatDetails() {
+			return formatDetails;
+		}
+
+		/**
+		 * Sets the format details (paper dimensions).
+		 *
+		 * @param formatDetails the new format details
+		 */
+		public AddSheetEmailBuilder setFormatDetails(FormatDetails formatDetails) {
+			this.formatDetails = formatDetails;
+			return this;
+		}
+
+		/**
+		 * Builds the sheetEmail.
+		 *
+		 * @return the sheetEmail
+		 */
+		public SheetEmail build() {
+			SheetEmail sheetEmail = new SheetEmail();
+			sheetEmail.format = format;
+			sheetEmail.formatDetails = formatDetails;
+			return sheetEmail;
+		}
+
+	}
 	
 	
 }

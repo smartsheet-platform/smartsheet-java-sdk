@@ -126,24 +126,6 @@ public class SmartsheetImpl implements Smartsheet {
 	private AtomicReference<DiscussionResources> discussions;
 
 	/**
-	 * Represents the AtomicReference to DiscussionCommentResources.
-	 *
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-	 * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
-	 * effectively the underlying value is lazily created in a thread safe manner.
-	 */
-	private AtomicReference<DiscussionCommentResources> discussionComments;
-
-	/**
-	 * Represents the AtomicReference to SheetDiscussionResources.
-	 *
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-	 * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
-	 * effectively the underlying value is lazily created in a thread safe manner.
-	 */
-	private AtomicReference<SheetDiscussionResources> sheetDiscussions;
-
-	/**
 	 * Represents the AtomicReference to CommentResources.
 	 * 
 	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
@@ -205,33 +187,15 @@ public class SmartsheetImpl implements Smartsheet {
 	 */
 	private final AtomicReference<String> accessToken;
 
-	/////////////////////////////////
 	/**
-	 * Represents the AtomicReference for  AttachmentVersioningResources.
+	 * Represents the AtomicReference for ServerInfoResources.
 	 *
 	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
 	 * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
 	 * SmartsheetImpl in thread safe manner.
 	 */
-	private final AtomicReference< AttachmentVersioningResources> attachmentVersionings;
+	private final AtomicReference<ServerInfoResources> serverInfo;
 
-	/**
-	 * Represents the AtomicReference for CommentAttachmentResources.
-	 *
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-	 * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
-	 * SmartsheetImpl in thread safe manner.
-	 */
-	private final AtomicReference<com.smartsheet.api.CommentAttachmentResources> commentAttachments;
-
-	/**
-	 * Represents the AtomicReference for DiscussionAttachmentResources.
-	 *
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-	 * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
-	 * SmartsheetImpl in thread safe manner.
-	 */
-	private final AtomicReference<DiscussionAttachmentResources> discussionAttachments;
 
 	/**
 	 * Represents the AtomicReference for FavoriteResources.
@@ -242,32 +206,6 @@ public class SmartsheetImpl implements Smartsheet {
 	 */
 	private final AtomicReference<FavoriteResources> favorites;
 
-	/**
-	 * Represents the AtomicReference for RowAttachmentResources.
-	 *
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-	 * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
-	 * SmartsheetImpl in thread safe manner.
-	 */
-	private final AtomicReference<RowAttachmentResources> rowAttachments;
-
-	/**
-	 * Represents the AtomicReference for SheetAttachmentResources.
-	 *
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-	 * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
-	 * SmartsheetImpl in thread safe manner.
-	 */
-	private final AtomicReference<SheetAttachmentResources> sheetAttachments;
-
-	/**
-	 * Represents the AtomicReference for SheetRowResources.
-	 *
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-	 * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
-	 * SmartsheetImpl in thread safe manner.
-	 */
-	private final AtomicReference<SheetRowResources> sheetRows;
 
 	/**
 	 * Create an instance with given server URI, HttpClient (optional) and JsonSerializer (optional)
@@ -293,15 +231,7 @@ public class SmartsheetImpl implements Smartsheet {
 		this.sheets = new AtomicReference<SheetResources>();
 		this.attachments = new AtomicReference<AttachmentResources>();
 		this.discussions = new AtomicReference<DiscussionResources>();
-		this.discussionComments = new AtomicReference<DiscussionCommentResources>();
-		this.attachmentVersionings = new AtomicReference<AttachmentVersioningResources>();
-		this.commentAttachments = new AtomicReference<CommentAttachmentResources>();
-		this.discussionAttachments = new AtomicReference<com.smartsheet.api.DiscussionAttachmentResources>();
 		this.favorites = new AtomicReference<FavoriteResources>();
-		this.rowAttachments = new AtomicReference<RowAttachmentResources>();
-		this.sheetAttachments = new AtomicReference<SheetAttachmentResources>();
-		this.sheetRows = new AtomicReference<SheetRowResources>();
-		this.sheetDiscussions = new AtomicReference<SheetDiscussionResources>();
 		this.comments = new AtomicReference<CommentResources>();
 		this.users = new AtomicReference<UserResources>();
 		this.groups = new AtomicReference<GroupResources>();
@@ -309,6 +239,7 @@ public class SmartsheetImpl implements Smartsheet {
 		this.assumedUser = new AtomicReference<String>();
 		this.accessToken = new AtomicReference<String>(accessToken);
 		this.reports = new AtomicReference<ReportResources>();
+		this.serverInfo = new AtomicReference<ServerInfoResources>();
 	}
 
 	/**
@@ -437,43 +368,7 @@ public class SmartsheetImpl implements Smartsheet {
 		return discussions.get();
 	}
 
-	/**
-	 * Returns the DiscussionCommentResources instance that provides access to Discussion resources.
-	 *
-	 * @return the discussion resources
-	 */
-	public DiscussionCommentResources discussionComments() {
-		discussionComments.compareAndSet(null, new DiscussionCommentResourcesImpl(this));
-		return discussionComments.get();
-	}
 
-	/**
-	 * Returns the AttachmentVersioningResources instance that provides access to Attachment Versioning resources.
-	 *
-	 * @return the attachment versioning resources
-	 */
-	public AttachmentVersioningResources attachmentVersionings() {
-		attachmentVersionings.compareAndSet(null, new AttachmentVersioningResourcesImpl(this));
-		return attachmentVersionings.get();
-	}
-	/**
-	 * Returns the CommentAttachmentResources instance that provides access to Comment Attachment resources.
-	 *
-	 * @return the comment attachment resources
-	 */
-	public com.smartsheet.api.CommentAttachmentResources commentAttachments() {
-		commentAttachments.compareAndSet(null, new CommentAttachmentResourcesImpl(this));
-		return commentAttachments.get();
-	}
-	/**
-	 * Returns the DiscussionAttachmentResources instance that provides access to Discussion Attachment resources.
-	 *
-	 * @return the discussion attachment resources
-	 */
-	public com.smartsheet.api.DiscussionAttachmentResources discussionAttachments() {
-		discussionAttachments.compareAndSet(null, new DiscussionAttachmentResourcesImpl(this));
-		return discussionAttachments.get();
-	}
 	/**
 	 * Returns the FavoriteResources instance that provides access to Favorite resources.
 	 *
@@ -483,44 +378,6 @@ public class SmartsheetImpl implements Smartsheet {
 //		favorites.compareAndSet(null, new FavoriteResourcesImpl(this));
 //		return favorites.get();
 //	}
-
-	/**
-	 * Returns the RowAttachmentResources instance that provides access to Row Attachment resources.
-	 *
-	 * @return the row attachment resources
-	 */
-	public RowAttachmentResources rowAttachments() {
-		rowAttachments.compareAndSet(null, new RowAttachmentResourcesImpl(this));
-		return rowAttachments.get();
-	}
-	/**
-	 * Returns the SheetAttachmentResources instance that provides access to Sheet Attachment resources.
-	 *
-	 * @return the sheet attachment resources
-	 */
-	public SheetAttachmentResources sheetAttachments() {
-		sheetAttachments.compareAndSet(null, new SheetAttachmentResourcesImpl(this));
-		return sheetAttachments.get();
-	}
-	/**
-	 * Returns the SheetRowResources instance that provides access to Sheet Row resources.
-	 *
-	 * @return the sheet row resources
-	 */
-	public SheetRowResources sheetRows() {
-		sheetRows.compareAndSet(null, new SheetRowResourcesImpl(this));
-		return sheetRows.get();
-	}
-
-	/**
-	 * Returns the SheetDiscussionResources instance that provides access to Discussion resources.
-	 *
-	 * @return the discussion resources
-	 */
-	public SheetDiscussionResources sheetDiscussions() {
-		sheetDiscussions.compareAndSet(null, new SheetDiscussionResourcesImpl(this));
-		return sheetDiscussions.get();
-	}
 
 	/**
 	 * Returns the CommentResources instance that provides access to Comment resources.
@@ -571,6 +428,17 @@ public class SmartsheetImpl implements Smartsheet {
 		reports.compareAndSet(null, new ReportResourcesImpl(this));
 		return reports.get();
 	}
+
+	/**
+	 * Returns the {@link ServerInfoResources} instance that provides access to ServerInfo resources.
+	 *
+	 * @return the ServerInfo resources
+	 */
+	public ServerInfoResources serverInfo() {
+		serverInfo.compareAndSet(null, new ServerInfoResourcesImpl(this));
+		return serverInfo.get();
+	}
+
 	/**
 	 * Set the email of the user to assume. Null/empty string indicates no user is assumed.
 	 * 

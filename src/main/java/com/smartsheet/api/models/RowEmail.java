@@ -71,4 +71,71 @@ public class RowEmail extends Email {
 	public void setIncludeDiscussions(Boolean includeDiscussions) {
 		this.includeDiscussions = includeDiscussions;
 	}
+
+	/**
+	 * A convenience class to help create a RowEmail object with the appropriate fields.
+	 */
+	public static class AddRowEmailBuilder {
+		/**
+		 * A flag to indicate if attachments should be included in the email.
+		 */
+		private Boolean includeAttachments;
+
+		/**
+		 * A flag to indicate if discussions should be included in the email.
+		 */
+		private Boolean includeDiscussions;
+
+		/**
+		 * Gets the flag that indicates if attachments should be included in the email.
+		 *
+		 * @return the include attachments
+		 */
+		public Boolean getIncludeAttachments() {
+			return includeAttachments;
+		}
+
+		/**
+		 * Sets the flag that indicates if attachments should be included in the email.
+		 *
+		 * @param includeAttachments the new include attachments
+		 */
+		public AddRowEmailBuilder setIncludeAttachments(Boolean includeAttachments) {
+			this.includeAttachments = includeAttachments;
+			return this;
+		}
+
+		/**
+		 * Gets the flag that indicates if discussions should be included in the email.
+		 *
+		 * @return the include discussions
+		 */
+		public Boolean getIncludeDiscussions() {
+			return includeDiscussions;
+		}
+
+		/**
+		 * Sets the flag that indicates if discussions should be included in the email.
+		 *
+		 * @param includeDiscussions the new include discussions
+		 */
+		public AddRowEmailBuilder setIncludeDiscussions(Boolean includeDiscussions) {
+			this.includeDiscussions = includeDiscussions;
+			return this;
+		}
+
+
+		/**
+		 * Builds the sheetEmail.
+		 *
+		 * @return the sheetEmail
+		 */
+		public RowEmail build() {
+			RowEmail rowEmail = new RowEmail();
+			rowEmail.includeAttachments = includeAttachments;
+			rowEmail.includeDiscussions = includeDiscussions;
+			return rowEmail;
+		}
+
+	}
 }
