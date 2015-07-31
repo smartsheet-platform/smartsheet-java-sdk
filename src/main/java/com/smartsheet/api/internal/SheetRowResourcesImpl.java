@@ -30,7 +30,6 @@ import java.util.HashMap;
 import com.smartsheet.api.*;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.*;
-import sun.security.krb5.internal.PAEncTSEnc;
 
 /**
  * This is the implementation of the SheetRowResources.
@@ -38,9 +37,9 @@ import sun.security.krb5.internal.PAEncTSEnc;
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class SheetRowResourcesImpl extends AbstractResources implements SheetRowResources {
-	RowAttachmentResources attachmentResources;
-	RowDiscussionResources discussionResources;
-	RowColumnResources columnResources;
+	RowAttachmentResources attachments;
+	RowDiscussionResources discussions;
+	RowColumnResources columns;
 	/**
 	 * Constructor.
 	 * 
@@ -52,9 +51,9 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 */
 	public SheetRowResourcesImpl(SmartsheetImpl smartsheet) {
 		super(smartsheet);
-		this.attachmentResources = new RowAttachmentResourcesImpl(smartsheet);
-		this.discussionResources = new RowDiscussionResourcesImpl(smartsheet);
-		this.columnResources = new RowColumnResourcesImpl(smartsheet);
+		this.attachments = new RowAttachmentResourcesImpl(smartsheet);
+		this.discussions = new RowDiscussionResourcesImpl(smartsheet);
+		this.columns = new RowColumnResourcesImpl(smartsheet);
 	}
 
 	/**
@@ -180,7 +179,6 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 		return this.putAndReceiveList("sheets/" + sheetId + "/rows", rows, Row.class);
 	}
 
-	// TODO: These methods will still need to be completed
 	/**
 	 * Moves Row(s) from the Sheet specified in the URL to (the bottom of) another sheet.
 	 *
@@ -280,8 +278,8 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 * @return the created RowAttachmentResources object
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public RowAttachmentResources attachmentResources(){
-		return attachmentResources;
+	public RowAttachmentResources attachments(){
+		return attachments;
 	}
 
 	/**
@@ -290,8 +288,8 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 * @return the created RowDiscussionResources object
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public RowDiscussionResources discussionResources(){
-		return discussionResources;
+	public RowDiscussionResources discussions(){
+		return discussions;
 	}
 
 	/**
@@ -300,7 +298,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 * @return the created RowColumnResources object
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public RowColumnResources cellResources(){
-		return columnResources;
+	public RowColumnResources cells(){
+		return columns;
 	}
 }

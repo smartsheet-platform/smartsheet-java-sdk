@@ -63,7 +63,7 @@ public class Share extends NamedModel<String> {
 	/**
 	 * Represents the flag to indicate whether or not to send a copy of the email to the sharer of the sheet.
 	 */
-	private boolean ccMe;
+	private Boolean ccMe;
 
 	/**
 	 * Gets the subject of the email that will optionally be sent to notify the recipient.
@@ -106,7 +106,7 @@ public class Share extends NamedModel<String> {
 	 *
 	 * @return the flag for CC
 	 */
-	public boolean isCcMe() {
+	public Boolean isCcMe() {
 		return ccMe;
 	}
 
@@ -115,7 +115,7 @@ public class Share extends NamedModel<String> {
 	 *
 	 * @param ccMe the flag for CC
 	 */
-	public void setCcMe(boolean ccMe) {
+	public void setCcMe(Boolean ccMe) {
 		this.ccMe = ccMe;
 	}
 

@@ -25,9 +25,9 @@ import java.util.HashMap;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,8 +36,8 @@ import java.util.HashMap;
  * %[license]
  */
 public class SheetDiscussionResourcesImpl extends  AbstractResources implements SheetDiscussionResources {
-    DiscussionAttachmentResources attachmentResources;
-    DiscussionCommentResources commentResources;
+    DiscussionAttachmentResources attachments;
+    DiscussionCommentResources comments;
 
     /**
      * Constructor.
@@ -49,8 +49,8 @@ public class SheetDiscussionResourcesImpl extends  AbstractResources implements 
      */
     public SheetDiscussionResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
-        this.attachmentResources = new DiscussionAttachmentResourcesImpl(smartsheet);
-        this.commentResources = new DiscussionCommentResourcesImpl(smartsheet);
+        this.attachments = new DiscussionAttachmentResourcesImpl(smartsheet);
+        this.comments = new DiscussionCommentResourcesImpl(smartsheet);
     }
 
     /**
@@ -192,8 +192,8 @@ public class SheetDiscussionResourcesImpl extends  AbstractResources implements 
      * @return the created DiscussionCommentResources object
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public DiscussionCommentResources commentResources() throws SmartsheetException{
-        return this.commentResources;
+    public DiscussionCommentResources comments() throws SmartsheetException{
+        return this.comments;
     }
 
     /**
@@ -202,7 +202,7 @@ public class SheetDiscussionResourcesImpl extends  AbstractResources implements 
      * @return the created DiscussionAttachmentResources object
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public DiscussionAttachmentResources attachmentResources() throws SmartsheetException{
-        return this.attachmentResources;
+    public DiscussionAttachmentResources attachments() throws SmartsheetException{
+        return this.attachments;
     }
 }

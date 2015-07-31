@@ -183,7 +183,7 @@ public interface SheetRowResources {
 	 * @return the created RowAttachmentResources object
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public RowAttachmentResources attachmentResources();
+	public RowAttachmentResources attachments();
 
 	/**
 	 * <p>Creates an object of RowDiscussionResources.</p>
@@ -191,7 +191,7 @@ public interface SheetRowResources {
 	 * @return the created RowDiscussionResources object
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public RowDiscussionResources discussionResources();
+	public RowDiscussionResources discussions();
 
 	/**
 	 * <p>Creates an object of RowColumnResources.</p>
@@ -199,5 +199,5 @@ public interface SheetRowResources {
 	 * @return the created RowColumnResources object
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public RowColumnResources cellResources();
+	public RowColumnResources cells();
 }

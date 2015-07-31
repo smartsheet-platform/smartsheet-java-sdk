@@ -27,13 +27,7 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Set;
 
-import com.smartsheet.api.AssociatedAttachmentResources;
-import com.smartsheet.api.AssociatedDiscussionResources;
-import com.smartsheet.api.ShareResources;
-import com.smartsheet.api.SheetColumnResources;
-import com.smartsheet.api.SheetResources;
-import com.smartsheet.api.SheetRowResources;
-import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.*;
 import com.smartsheet.api.internal.http.HttpMethod;
 import com.smartsheet.api.internal.http.HttpRequest;
 import com.smartsheet.api.internal.util.Util;
@@ -73,13 +67,20 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * 
 	 * It will be initialized in constructor and will not change afterwards.
 	 */
-	private AssociatedAttachmentResources attachments;
+	private SheetAttachmentResources attachments;
 	/**
 	 * Represents the AssociatedDiscussionResources.
 	 * 
 	 * It will be initialized in constructor and will not change afterwards.
 	 */
-	private AssociatedDiscussionResources discussions;
+	private SheetDiscussionResources discussions;
+
+	/**
+	 * Represents the SheetCommentResources.
+	 *
+	 * It will be initialized in constructor and will not change afterwards
+	 */
+	public SheetCommentResources comments;
 
 	/**
 	 * Constructor.
@@ -90,11 +91,12 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 */
 	public SheetResourcesImpl(SmartsheetImpl smartsheet) {
 		super(smartsheet);
-		this.shares = new ShareResourcesImpl(smartsheet, "sheet");
+		this.shares = new ShareResourcesImpl(smartsheet, "sheets");
 		this.rows = new SheetRowResourcesImpl(smartsheet);
 		this.columns = new SheetColumnResourcesImpl(smartsheet);
-		this.attachments = new AssociatedAttachmentResourcesImpl(smartsheet, "sheet");
-		this.discussions = new AssociatedDiscussionResourcesImpl(smartsheet, "sheet");
+		this.attachments = new SheetAttachmentResourcesImpl(smartsheet);
+		this.discussions = new SheetDiscussionResourcesImpl(smartsheet);
+		this.comments = new SheetCommentResourcesImpl(smartsheet);
 	}
 
 	/**
@@ -514,7 +516,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 *
 	 * @return the associated attachment resources
 	 */
-	public AssociatedAttachmentResources attachments() {
+	public SheetAttachmentResources attachments() {
 		return this.attachments;
 	}
 
@@ -524,8 +526,18 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 *
 	 * @return the associated discussion resources
 	 */
-	public AssociatedDiscussionResources discussions() {
+	public SheetDiscussionResources discussions() {
 		return this.discussions;
+	}
+
+	/**
+	 * <p>Return the SheetCommentResources object that provides access to discussion resources associated with
+	 * Sheet resources.</p>
+	 *
+	 * @return the associated comment resources
+	 */
+	public SheetCommentResources comments(){
+		return this.comments();
 	}
 
 	/**

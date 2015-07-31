@@ -318,11 +318,6 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 	}
 
 	@Test
-	public void testAttachments() {
-		sheetResource.attachments();
-	}
-
-	@Test
 	public void testDiscussions() {
 		sheetResource.discussions();
 	}

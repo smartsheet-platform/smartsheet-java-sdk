@@ -20,7 +20,9 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Represents the Attachment object.
@@ -282,5 +284,124 @@ public class Attachment extends NamedModel<Long> {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	/**
+	 * A convenience class for quickly creating a List of cells to update.
+	 */
+	public static class AddAttachmentBuilder {
+
+		/**
+		 * Represents the URL.
+		 */
+		private String url;
+
+		/**
+		 * Represents the attachment type.
+		 */
+		private AttachmentType attachmentType;
+
+		/**
+		 * Represents the attachment sub type.
+		 */
+		private AttachmentSubType attachmentSubType;
+
+		/**
+		 * Represents the attachment description
+		 */
+		private String description;
+
+		/**
+		 * Gets the URL.
+		 *
+		 * @return The url.
+		 */
+		public String getUrl() {
+			return url;
+		}
+
+		/**
+		 * Sets the URL.
+		 *
+		 * @param url
+		 *            the new url
+		 */
+		public AddAttachmentBuilder setUrl(String url) {
+			this.url = url;
+			return this;
+		}
+
+		/**
+		 * Gets the attachment type.
+		 *
+		 * @return the attachment type
+		 */
+		public AttachmentType getAttachmentType() {
+			return attachmentType;
+		}
+
+		/**
+		 * Sets the attachment type.
+		 *
+		 * @param attachmentType
+		 *            the new attachment type
+		 */
+		public AddAttachmentBuilder setAttachmentType(AttachmentType attachmentType) {
+			this.attachmentType = attachmentType;
+			return this;
+		}
+
+		/**
+		 * Gets the attachment sub type.
+		 *
+		 * @return the attachment sub type
+		 */
+		public AttachmentSubType getAttachmentSubType() {
+			return attachmentSubType;
+		}
+
+		/**
+		 * Sets the attachment sub type.
+		 *
+		 * @param attachmentSubType
+		 *            the new attachment sub type
+		 */
+		public AddAttachmentBuilder setAttachmentSubType(AttachmentSubType attachmentSubType) {
+			this.attachmentSubType = attachmentSubType;
+			return this;
+		}
+
+		/**
+		 * Gets the attachment description.
+		 *
+		 * @return the attachment description.
+		 */
+		public String getDescription() {
+			return description;
+		}
+
+		/**
+		 * Sets the attachment description.
+		 *
+		 * @param description the description
+		 *
+		 */
+		public AddAttachmentBuilder setDescription(String description) {
+			this.description = description;
+			return this;
+		}
+
+		/**
+		 * Returns the list of cells.
+		 *
+		 * @return the list
+		 */
+		public Attachment build() {
+			Attachment attachment = new Attachment();
+			attachment.attachmentSubType= attachmentSubType;
+			attachment.attachmentType = attachmentType;
+			attachment.description=description;
+			return attachment;
+		}
 	}
 }

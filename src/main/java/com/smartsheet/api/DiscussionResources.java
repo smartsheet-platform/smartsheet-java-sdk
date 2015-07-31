@@ -58,4 +58,11 @@ public interface DiscussionResources {
 	 * @return the associated attachment resources
 	 */
 	public AssociatedAttachmentResources attachments();
+
+	/**
+	 * Represents the DiscussionCommentResources.
+	 *
+	 * It will be initialized in constructor and will not change afterwards.
+	 */
+	public DiscussionCommentResources comments();
 }

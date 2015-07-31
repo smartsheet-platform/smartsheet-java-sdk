@@ -22,9 +22,7 @@ package com.smartsheet.api.internal;
 
 
 
-import com.smartsheet.api.AssociatedAttachmentResources;
-import com.smartsheet.api.DiscussionResources;
-import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.*;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.*;
 
@@ -43,6 +41,14 @@ public class DiscussionResourcesImpl extends AbstractResources implements Discus
 	 * It will be initialized in constructor and will not change afterwards.
 	 */
 	private AssociatedAttachmentResources attachments;
+
+
+	/**
+	 * Represents the DiscussionCommentResources.
+	 *
+	 * It will be initialized in constructor and will not change afterwards.
+	 */
+	private DiscussionCommentResources comments;
 
 	/**
 	 * Constructor.
@@ -87,5 +93,15 @@ public class DiscussionResourcesImpl extends AbstractResources implements Discus
 	 */
 	public AssociatedAttachmentResources attachments() {
 		return this.attachments;
+	}
+
+	/**
+	 * Return the DiscussionCommentResources object that provides access to attachment resources associated with
+	 * Discussion resources.
+	 *
+	 * @return the associated attachment resources
+	 */
+	public DiscussionCommentResources comments() {
+		return this.comments;
 	}
 }

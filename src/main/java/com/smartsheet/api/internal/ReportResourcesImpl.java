@@ -225,7 +225,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * @return the created ShareResources object
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public ShareResources shareResources(){
+    public ShareResources shares(){
         return this.shares;
     }
 }

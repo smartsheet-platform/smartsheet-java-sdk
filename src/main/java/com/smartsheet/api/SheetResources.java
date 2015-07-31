@@ -322,20 +322,29 @@ public interface SheetResources {
 	public SheetColumnResources columns();
 
 	/**
-	 * <p>Return the AssociatedAttachmentResources object that provides access to attachment resources associated with
+	 * <p>Return the AttachmentResources object that provides access to attachment resources associated with
 	 * Sheet resources.</p>
 	 *
 	 * @return the associated attachment resources
 	 */
-	public AssociatedAttachmentResources attachments();
+	public SheetAttachmentResources attachments();
 
 	/**
-	 * <p>Return the AssociatedDiscussionResources object that provides access to discussion resources associated with
+	 * <p>Return the SheetDiscussionResources object that provides access to discussion resources associated with
 	 * Sheet resources.</p>
 	 *
 	 * @return the associated discussion resources
 	 */
-	public AssociatedDiscussionResources discussions();
+	public SheetDiscussionResources discussions();
+
+
+	/**
+	 * <p>Return the SheetCommentResources object that provides access to discussion resources associated with
+	 * Sheet resources.</p>
+	 *
+	 * @return the associated comment resources
+	 */
+	public SheetCommentResources comments();
 
 	/**
 	 * <p>Get the status of the Publish settings of the sheet, including the URLs of any enabled publishings.</p>
