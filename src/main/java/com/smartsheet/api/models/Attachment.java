@@ -401,6 +401,7 @@ public class Attachment extends NamedModel<Long> {
 			attachment.attachmentSubType= attachmentSubType;
 			attachment.attachmentType = attachmentType;
 			attachment.description=description;
+			attachment.url = url;
 			return attachment;
 		}
 	}

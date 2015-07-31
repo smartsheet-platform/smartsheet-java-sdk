@@ -8,9 +8,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,10 +31,10 @@ import java.io.*;
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class SheetAttachmentResourcesImpl extends AbstractResources implements SheetAttachmentResources{
-    AttachmentVersioningResources versioningResources;
+    private AttachmentVersioningResources versioning;
     public SheetAttachmentResourcesImpl(SmartsheetImpl smartsheet) {
         super(smartsheet);
-        this.versioningResources = new AttachmentVersioningResourcesImpl(smartsheet);
+        this.versioning = new AttachmentVersioningResourcesImpl(smartsheet);
     }
 
     /**
@@ -79,7 +79,7 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
      * @throws SmartsheetException the smartsheet exception
      */
     public void deleteAttachment(long sheetId, long attachmentId) throws SmartsheetException {
-        this.deleteResource("sheets/" + sheetId + "/attachment/" + attachmentId, Attachment.class);
+        this.deleteResource("sheets/" + sheetId + "/attachments/" + attachmentId, Attachment.class);
     }
 
     /**
@@ -185,7 +185,7 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
      * @return the created attachment
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public AttachmentVersioningResources versioningResources() throws SmartsheetException{
-        return versioningResources;
+    public AttachmentVersioningResources versioning() throws SmartsheetException{
+        return versioning;
     }
 }

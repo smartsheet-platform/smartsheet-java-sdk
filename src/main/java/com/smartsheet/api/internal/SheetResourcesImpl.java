@@ -80,7 +80,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 *
 	 * It will be initialized in constructor and will not change afterwards
 	 */
-	public SheetCommentResources comments;
+	private SheetCommentResources comments;
 
 	/**
 	 * Constructor.
@@ -537,7 +537,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @return the associated comment resources
 	 */
 	public SheetCommentResources comments(){
-		return this.comments();
+		return this.comments;
 	}
 
 	/**
