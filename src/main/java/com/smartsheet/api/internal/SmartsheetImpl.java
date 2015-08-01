@@ -374,10 +374,10 @@ public class SmartsheetImpl implements Smartsheet {
 	 *
 	 * @return the favorite resources
 	 */
-//	public FavoriteResources favorites() {
-//		favorites.compareAndSet(null, new FavoriteResourcesImpl(this));
-//		return favorites.get();
-//	}
+	public FavoriteResources favorites() {
+		favorites.compareAndSet(null, new FavoriteResourcesImpl(this));
+		return favorites.get();
+	}
 
 	/**
 	 * Returns the CommentResources instance that provides access to Comment resources.

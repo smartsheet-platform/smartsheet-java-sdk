@@ -73,12 +73,12 @@ public interface Smartsheet {
 	 */
 	public AttachmentResources attachments();
 
-//	/**
-//	 * <p>Returns the FavoriteResources instance that provides access to Favorite resources.</p>
-//	 *
-//	 * @return the favorite resources instance
-//	 */
-//	public FavoriteResources favorites();
+	/**
+	 * <p>Returns the FavoriteResources instance that provides access to Favorite resources.</p>
+	 *
+	 * @return the favorite resources instance
+	 */
+	public FavoriteResources favorites();
 
 	/**
 	 * <p>Returns the DiscussionResources instance that provides access to Discussion resources.</p>

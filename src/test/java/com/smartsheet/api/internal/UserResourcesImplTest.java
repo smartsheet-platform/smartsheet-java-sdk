@@ -169,4 +169,10 @@ public class UserResourcesImplTest extends ResourcesImplBase {
 		DeleteUserParameters parameters = new DeleteUserParameters(12345L, true, true);
 		userResources.deleteUser(1234L, parameters);
 	}
+
+	@Test
+	public void testListOrgSheets() throws SmartsheetException, IOException {
+		server.setResponseBody(new File("src/test/resources/listOrgSheets.json"));
+		PagedResult<Sheet> sheets = userResources.listOrgSheets();
+	}
 }

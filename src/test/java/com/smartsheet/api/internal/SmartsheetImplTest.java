@@ -103,6 +103,11 @@ public class SmartsheetImplTest extends ResourcesImplBase {
 	}
 
 	@Test
+	public void testfavorites() {
+		assertNotNull(smartsheet.favorites());
+	}
+
+	@Test
 	public void testDiscussions() {
 		assertNotNull(smartsheet.discussions());
 	}
