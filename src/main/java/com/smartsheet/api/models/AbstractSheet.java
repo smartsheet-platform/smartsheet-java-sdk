@@ -137,7 +137,7 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
     /**
      * Represents the owner id of the owner.
      */
-    private long ownerId;
+    private Long ownerId;
 
     /**
      * Gets the owner email.
@@ -162,7 +162,7 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @return the ownerid
      */
-    public long getOwnerId() {
+    public Long getOwnerId() {
         return ownerId;
     }
 
