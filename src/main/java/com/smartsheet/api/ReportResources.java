@@ -36,13 +36,15 @@ public interface ReportResources {
     /**
      * <p>Get a report.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:<br />
-     * GET /report/{reportId}<br/>
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>GET /report/{reportId}</p>
      *
      * @param reportId the reportId of the report
      * @param includes used To specify the optional objects to include.
      * @param pageSize page size parameter for pagination
      * @param page page parameter for pagination
+     * @return  the report (note that if there is no such resource, this method will throw ResourceNotFoundException
+     * rather than returning null)
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
      * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
@@ -55,8 +57,8 @@ public interface ReportResources {
     /**
      * <p>Send a sheet as a PDF attachment via Email To the designated recipients.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:<br />
-     * POST /reports/{reportId}/emails<br/>
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>POST /reports/{reportId}/emails</p>
      *
      * @param reportId the reportId of the report
      * @param email email of designated recipient.
@@ -107,41 +109,38 @@ public interface ReportResources {
      * @param pageSize page size parameter for pagination
      * @param page page parameter for pagination
      * @param outputStream the OutputStream to which the Excel file will be written
-     * @return the sheet as csv
      * @throws SmartsheetException the smartsheet exception
      * */
     void getReportAsExcel(long id, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page, OutputStream outputStream) throws SmartsheetException;
 
-/**
- * Get a Report as an csv file.
- *
- * It mirrors to the following Smartsheet REST API method: GET /reports/{id} with "application/vnd.ms-excel" Accept
- * HTTP header
- *
- * Exceptions:
- *   IllegalArgumentException : if outputStream is null
- *   InvalidRequestException : if there is any problem with the REST API request
- *   AuthorizationException : if there is any problem with the REST API authorization(access token)
- *   ResourceNotFoundException : if the resource can not be found
- *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
- *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
- *   SmartsheetException : if there is any other error occurred during the operation
- *
- * @param id the id
- * @param includes list of optional objects to include in the response
- * @param pageSize page size parameter for pagination
- * @param page page parameter for pagination
- * @param outputStream the OutputStream to which the Excel file will be written
- * @return the sheet as csv
- * @throws SmartsheetException the smartsheet exception
- * */
+    /**
+     * Get a Report as an csv file.
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /reports/{id} with "application/vnd.ms-excel" Accept
+     * HTTP header
+     *
+     * Exceptions:
+     *   IllegalArgumentException : if outputStream is null
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ResourceNotFoundException : if the resource can not be found
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param id the id
+     * @param includes list of optional objects to include in the response
+     * @param pageSize page size parameter for pagination
+     * @param page page parameter for pagination
+     * @param outputStream the OutputStream to which the Excel file will be written
+     * @throws SmartsheetException the smartsheet exception
+     * */
     void getReportAsCsv(long id, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page, OutputStream outputStream) throws SmartsheetException;
 
     /**
      * <p>Creates an object of ShareResources.</p>
      *
      * @return the created ShareResources object
-     * @throws SmartsheetException if there is any other error during the operation
      */
-    ShareResources shares();
+    ShareResources shareResources();
 }

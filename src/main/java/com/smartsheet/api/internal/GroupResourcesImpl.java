@@ -36,7 +36,7 @@ import com.smartsheet.api.models.PaginationParameters;
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class GroupResourcesImpl extends AbstractResources implements GroupResources {
-	private GroupMemberResources members;
+	private GroupMemberResources groupMemberResources;
 	/**
 	 * Constructor.
 	 * 
@@ -46,7 +46,7 @@ public class GroupResourcesImpl extends AbstractResources implements GroupResour
 	 */
 	public GroupResourcesImpl(SmartsheetImpl smartsheet) {
 		super(smartsheet); 
-		this.members = new GroupMemberResourcesImpl(smartsheet, "group");
+		this.groupMemberResources = new GroupMemberResourcesImpl(smartsheet, "group");
 	}
 
 	@Override
@@ -77,7 +77,14 @@ public class GroupResourcesImpl extends AbstractResources implements GroupResour
 	}
 
 	@Override
+	/**
+	 * <p>Represents the GroupMemberResources.</p>
+	 * <p>It will be initialized in constructor and will not change afterwards.</p>
+	 *
+	 * @return members object
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
 	public GroupMemberResources members() throws SmartsheetException {
-		return members;
+		return groupMemberResources;
 	}
 }

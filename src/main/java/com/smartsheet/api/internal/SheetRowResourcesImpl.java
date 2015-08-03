@@ -20,9 +20,6 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -173,6 +170,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 *
 	 * @param sheetId the id of the sheet
 	 * @param rows the list of rows
+	 * @return a list of rows
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Row> updateRows(long sheetId, List<Row> rows) throws SmartsheetException {
@@ -276,9 +274,8 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 * <p>Creates an object of RowAttachmentResources.</p>
 	 *
 	 * @return the created RowAttachmentResources object
-	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public RowAttachmentResources attachments(){
+	public RowAttachmentResources attachmentResources(){
 		return attachments;
 	}
 
@@ -286,9 +283,8 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 * <p>Creates an object of RowDiscussionResources.</p>
 	 *
 	 * @return the created RowDiscussionResources object
-	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public RowDiscussionResources discussions(){
+	public RowDiscussionResources discussionResources(){
 		return discussions;
 	}
 
@@ -296,9 +292,8 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 * <p>Creates an object of RowColumnResources.</p>
 	 *
 	 * @return the created RowColumnResources object
-	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public RowColumnResources cells(){
+	public RowColumnResources cellResources(){
 		return columns;
 	}
 }

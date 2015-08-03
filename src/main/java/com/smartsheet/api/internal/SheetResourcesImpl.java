@@ -165,6 +165,12 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @param id the id
 	 * @param includes used to specify the optional objects to include, currently DISCUSSIONS and
 	 * ATTACHMENTS are supported.
+	 * @param columnIds the column ids
+	 * @param excludes the exclude parameters
+	 * @param page the page number
+	 * @param pageSize the page size
+	 * @param rowIds the row ids
+	 * @param rowNumbers the row numbers
 	 * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
 	 * rather than returning null).
 	 * @throws SmartsheetException the smartsheet exception
@@ -488,7 +494,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 *
 	 * @return the ShareResources object
 	 */
-	public ShareResources shares() {
+	public ShareResources shareResources() {
 		return this.shares;
 	}
 
@@ -497,7 +503,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 *
 	 * @return the sheet row resources
 	 */
-	public SheetRowResources rows() {
+	public SheetRowResources rowResources() {
 		return this.rows;
 	}
 
@@ -506,7 +512,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 *
 	 * @return the sheet column resources
 	 */
-	public SheetColumnResources columns() {
+	public SheetColumnResources columnResources() {
 		return this.columns;
 	}
 
@@ -516,7 +522,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 *
 	 * @return the associated attachment resources
 	 */
-	public SheetAttachmentResources attachments() {
+	public SheetAttachmentResources attachmentResources() {
 		return this.attachments;
 	}
 
@@ -526,7 +532,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 *
 	 * @return the associated discussion resources
 	 */
-	public SheetDiscussionResources discussions() {
+	public SheetDiscussionResources discussionResources() {
 		return this.discussions;
 	}
 
@@ -536,7 +542,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 *
 	 * @return the associated comment resources
 	 */
-	public SheetCommentResources comments(){
+	public SheetCommentResources commentResources(){
 		return this.comments;
 	}
 

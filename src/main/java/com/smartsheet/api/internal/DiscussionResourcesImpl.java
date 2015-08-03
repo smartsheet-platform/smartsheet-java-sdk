@@ -41,8 +41,7 @@ public class DiscussionResourcesImpl extends AbstractResources implements Discus
 	 * It will be initialized in constructor and will not change afterwards.
 	 */
 	private AssociatedAttachmentResources attachments;
-
-
+	
 	/**
 	 * Represents the DiscussionCommentResources.
 	 *
@@ -60,9 +59,7 @@ public class DiscussionResourcesImpl extends AbstractResources implements Discus
 	public DiscussionResourcesImpl(SmartsheetImpl smartsheet) {
 		super(smartsheet);
 	}
-
-
-
+	
 	/**
 	 * Add a comment to a discussion.
 	 * 

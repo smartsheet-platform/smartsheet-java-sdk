@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * A wrapper object used to Wrap the data that comes back from the API. It holds the paging info as well as a List
  * of objects of the specified type.
- * @param <T>
+ * @param <T> object
  */
 public class PagedResult<T> {
     Integer pageNumber;

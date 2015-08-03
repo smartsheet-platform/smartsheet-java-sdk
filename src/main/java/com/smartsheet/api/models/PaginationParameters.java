@@ -58,7 +58,7 @@ public class PaginationParameters {
 
     /**
      * Sets includeAll
-     * @param includeAll
+     * @param includeAll include all parameter
      */
     public void setIncludeAll(boolean includeAll) {
         this.includeAll = includeAll;
@@ -74,7 +74,7 @@ public class PaginationParameters {
 
     /**
      * Sets the page size
-     * @param pageSize
+     * @param pageSize the page size
      */
     public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
@@ -82,7 +82,7 @@ public class PaginationParameters {
 
     /**
      * Gets the page
-     * @return page
+     * @return page the page number
      */
     public Integer getPage() {
         return page;
@@ -90,7 +90,7 @@ public class PaginationParameters {
 
     /**
      * Sets the page
-     * @param page
+     * @param page the page number
      */
     public void setPage(Integer page) {
         this.page = page;
@@ -133,6 +133,7 @@ public class PaginationParameters {
         /**
          * Sets the include All Flag
          * @param includeAll the include all flag
+         * @return the builder
          */
         public PaginationParametersBuilder setIncludeAll(boolean includeAll) {
             this.includeAll = includeAll;
@@ -150,6 +151,7 @@ public class PaginationParameters {
         /**
          * Sets the page
          * @param page the page
+         * @return the builder
          */
         public PaginationParametersBuilder setPage(Integer page) {
             this.page = page;
@@ -167,6 +169,7 @@ public class PaginationParameters {
         /**
          * Sets the page size
          * @param pageSize the page size
+         * @return the builder
          */
         public PaginationParametersBuilder setPageSize(Integer pageSize) {
             this.pageSize = pageSize;
@@ -175,7 +178,7 @@ public class PaginationParameters {
 
         /**
          * Builds the PaginationParameters object
-         * @return
+         * @return pagination parameter object
          */
         public PaginationParameters build() {
             PaginationParameters pagination = new PaginationParameters();

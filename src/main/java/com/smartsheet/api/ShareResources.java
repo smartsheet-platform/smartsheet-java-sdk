@@ -38,9 +38,9 @@ public interface ShareResources {
 	/**
 	 * <p>List shares of a given object.</p>
 	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * GET /workspace/{id}/shares <br />
-	 * GET /sheet/{id}/shares</p>
+	 * <p>It mirrors to the following Smartsheet REST API method:</p>
+	 * <p>GET /workspace/{id}/shares </p>
+	 * <p>GET /sheet/{id}/shares</p>
 	 *
 	 * @param objectId the object id
 	 * @param parameters the pagination parameters
@@ -102,10 +102,10 @@ public interface ShareResources {
 	/**
 	 * <p>Update a share.</p>
 	 *
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * PUT /workspaces/{workspaceId}/shares/{shareId}<br />
-	 * PUT /sheets/{sheetId}/shares/{shareId}</p>
-	 * PUT /reports/{reportId}/shares/{shareId}</p>
+	 * <p>It mirrors to the following Smartsheet REST API method:</p>
+	 * <p>PUT /workspaces/{workspaceId}/shares/{shareId}</p>
+	 * <p>PUT /sheets/{sheetId}/shares/{shareId}</p>
+	 * <p>PUT /reports/{reportId}/shares/{shareId}</p>
 	 *
 	 * @param objectId the ID of the object to share
 	 * @param shareId the Id of the user to whom the object is shared

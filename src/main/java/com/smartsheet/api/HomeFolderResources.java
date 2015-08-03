@@ -36,9 +36,10 @@ public interface HomeFolderResources {
 	/**
 	 * <p>List folders under home.</p>
 	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * GET /home/folders</p>
-	 * 
+	 * <p>It mirrors to the following Smartsheet REST API method:</p>
+	 * <p>GET /home/folders</p>
+	 *
+	 * @param parameters the pagination parameters
 	 * @return the list of folders (note that an empty list will be returned if there is none)
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
@@ -52,8 +53,8 @@ public interface HomeFolderResources {
 	/**
 	 * <p>Create a folder in home.</p>
 	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * POST /home/folders</p>
+	 * <p>It mirrors to the following Smartsheet REST API method:</p>
+	 * <p>POST /home/folders</p>
 	 *
 	 * @param folder the folder to create
 	 * @return the folder

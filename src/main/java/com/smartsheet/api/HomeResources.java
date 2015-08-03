@@ -38,8 +38,8 @@ public interface HomeResources {
 	 * <p>Get a nested list of all Home objects, including sheets, workspaces and folders, and optionally reports and/or
 	 * templates, as shown on the Home tab.</p>
 	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * GET /home</p>
+	 * <p>It mirrors to the following Smartsheet REST API method:</p>
+	 * <p>GET /home</p>
 	 *
 	 * @param includes used to specify the optional objects to include.
 	 * @return the home resource (note that if there is no such resource, this method will throw 
@@ -58,5 +58,5 @@ public interface HomeResources {
 	 *
 	 * @return the home folder resources
 	 */
-	public HomeFolderResources folders();
+	public HomeFolderResources folderResources();
 }

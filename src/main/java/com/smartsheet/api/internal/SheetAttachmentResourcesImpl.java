@@ -43,8 +43,8 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
      * <p>The URL can be a normal URL (attachmentType "URL"), a Google Drive URL (attachmentType "GOOGLE_DRIVE") or a
      * Box.com URL (attachmentType "BOX_COM").</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:<br />
-     *   POST /sheets/{sheetId}/attachments
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>POST /sheets/{sheetId}/attachments
      *
      * @param sheetId the sheet id
      * @param attachment the attachment object
@@ -138,8 +138,8 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
     /**
      * <p>Attach a file to a sheet with simple upload.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:<br />
-     *   POST /sheets/{sheetId}/attachments</p>
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>POST /sheets/{sheetId}/attachments</p>
      *
      * @param sheetId the id of the sheet
      * @param file the file to attach
@@ -185,7 +185,7 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
      * @return the created attachment
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public AttachmentVersioningResources versioning() throws SmartsheetException{
+    public AttachmentVersioningResources versioningResources() throws SmartsheetException{
         return versioning;
     }
 }

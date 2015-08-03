@@ -8,9 +8,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -49,8 +49,8 @@ public class AttachmentVersioningResourcesImpl extends AbstractResources impleme
     /**
      * <p>Deletes an attachment, including all of its versions.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:<br />
-     * DELETE /sheets/{sheetId}/attachments/{attachmentId}/versions</p>
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>DELETE /sheets/{sheetId}/attachments/{attachmentId}/versions</p>
      *
      * @param sheetId the sheet id
      * @param attachentId the attachment id
@@ -68,8 +68,8 @@ public class AttachmentVersioningResourcesImpl extends AbstractResources impleme
     /**
      * <p>Get all versions of an attachment.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:<br />
-     * GET /sheets/{sheetId}/attachments/{attachmentId}/versions</p>
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>GET /sheets/{sheetId}/attachments/{attachmentId}/versions</p>
      *
      * @param sheetId the id
      * @param attachmentId the attachment id
@@ -94,8 +94,8 @@ public class AttachmentVersioningResourcesImpl extends AbstractResources impleme
 
     /**
      * <p>Attach a new version of an attachment.</p>
-     * <p>It mirrors to the following Smartsheet REST API method:<br />
-     *   POST /attachment/{id}/versions
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>POST /attachment/{id}/versions
      *
      * @param sheetId the id of the sheet
      * @param attachmentId the id of the attachment to upload a new version.
@@ -120,8 +120,8 @@ public class AttachmentVersioningResourcesImpl extends AbstractResources impleme
     /**
      * <p>Attach a new version of an attachment.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:<br />
-     *  POST /attachment/{id}/versions
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     *  <p>POST /attachment/{id}/versions
      *
      * @param sheetId the id of the sheet
      * @param attachmentId the id of the object

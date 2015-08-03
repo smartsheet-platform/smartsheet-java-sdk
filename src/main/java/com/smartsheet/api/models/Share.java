@@ -263,7 +263,7 @@ public class Share extends NamedModel<String> {
 		/**
 		 * Group Id for this share.
 		 *
-		 * @param userId the User Id.
+		 * @param groupId the group Id.
 		 * @return the share to one builder
 		 */
 		public ShareToOneGroupBuilder setUserId(Long groupId) {
@@ -359,7 +359,7 @@ public class Share extends NamedModel<String> {
 		/**
 		 * Email address for the {@link ShareType#USER} share.
 		 *
-		 * @param emailAddress
+		 * @param emailAddress the email address
 		 * @return the {@link CreateUserShareBuilder}
 		 */
 		public CreateUserShareBuilder setEmailAddress(String emailAddress) {
@@ -378,7 +378,7 @@ public class Share extends NamedModel<String> {
 		/**
 		 * User ID for the {@link ShareType#USER} share.
 		 *
-		 * @param userId
+		 * @param userId user id
 		 * @return the update share builder
 		 */
 		public CreateUserShareBuilder setUserId(Long userId) {
@@ -437,7 +437,7 @@ public class Share extends NamedModel<String> {
 		/**
 		 * Group ID for the {@link ShareType#GROUP} share.
 		 *
-		 * @param groupId
+		 * @param groupId the group id
 		 * @return the update share builder
 		 */
 		public CreateGroupShareBuilder setGroupId(Long groupId) {

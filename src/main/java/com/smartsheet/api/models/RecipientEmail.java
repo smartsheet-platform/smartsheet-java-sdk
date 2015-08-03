@@ -64,6 +64,7 @@ public class RecipientEmail implements Recipient {
         /**
          * Set the recipient's email
          * @param email the email
+         * @return the builder
          */
         public AddRecipientEmailBuilder setEmail(String email) {
             this.email = email;

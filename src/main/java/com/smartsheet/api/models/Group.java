@@ -232,6 +232,7 @@ public class Group extends NamedModel<Long> {
 
 		/**
 		 * @param description the description to set
+		 * @return the builder
 		 */
 		public CreateGroupBuilder setDescription(String description) {
 			this.description = description;
@@ -294,6 +295,7 @@ public class Group extends NamedModel<Long> {
 
 		/**
 		 * @param description the description to set
+		 * @return the builder
 		 */
 		public UpdateGroupBuilder setDescription(String description) {
 			this.description = description;
@@ -309,6 +311,7 @@ public class Group extends NamedModel<Long> {
 
 		/**
 		 * @param id the id to set
+		 * @return the builder
 		 */
 		public UpdateGroupBuilder setId(Long id) {
 			this.id = id;

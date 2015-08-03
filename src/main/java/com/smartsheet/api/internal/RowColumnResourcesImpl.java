@@ -60,6 +60,8 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
      *
      * @param rowId the row id
      * @param columnId the column id
+     * @param sheetId the sheet Id
+     * @param parameters the pagination parameters
      * @return the modification history (note that if there is no such resource, this method will throw
      * ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception

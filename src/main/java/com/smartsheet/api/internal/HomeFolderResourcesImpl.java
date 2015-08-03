@@ -50,7 +50,7 @@ public class HomeFolderResourcesImpl extends AbstractResources implements HomeFo
 	 * List folders under home.
 	 * 
 	 * It mirrors to the following Smartsheet REST API method: GET /home/folders
-	 * 
+	 *
 	 * Exceptions:
 	 *   InvalidRequestException : if there is any problem with the REST API request
 	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -59,6 +59,7 @@ public class HomeFolderResourcesImpl extends AbstractResources implements HomeFo
 	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
 	 *   SmartsheetException : if there is any other error occurred during the operation
 	 *
+	 * @param parameters the pagination parameters
 	 * @return the folders (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */

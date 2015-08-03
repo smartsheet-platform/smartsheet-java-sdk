@@ -22,8 +22,6 @@ package com.smartsheet.api.models;
 
 /**
  * Represents RowEmail object.
- * @see <a href="http://help.smartsheet.com/customer/portal/articles/504773-sending-sheets-rows-via-email">Help Sending 
- * Sheets & Rows via Email</a>
  */
 public class RowEmail extends Email {
 	/**
@@ -99,6 +97,7 @@ public class RowEmail extends Email {
 		 * Sets the flag that indicates if attachments should be included in the email.
 		 *
 		 * @param includeAttachments the new include attachments
+		 * @return the builder
 		 */
 		public AddRowEmailBuilder setIncludeAttachments(Boolean includeAttachments) {
 			this.includeAttachments = includeAttachments;
@@ -118,6 +117,7 @@ public class RowEmail extends Email {
 		 * Sets the flag that indicates if discussions should be included in the email.
 		 *
 		 * @param includeDiscussions the new include discussions
+		 * @return the builder
 		 */
 		public AddRowEmailBuilder setIncludeDiscussions(Boolean includeDiscussions) {
 			this.includeDiscussions = includeDiscussions;

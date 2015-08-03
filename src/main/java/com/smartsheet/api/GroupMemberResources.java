@@ -37,8 +37,8 @@ public interface GroupMemberResources {
 	/**
 	 * <p>Add members to a group.</p>
 	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * POST /group/{id}/members<br/>
+	 * <p>It mirrors to the following Smartsheet REST API method:</p>
+	 * <p>POST /group/{id}/members</p>
 	 *
 	 * @param groupId the ID of the object to add members to.
 	 * @param members the list of members to add. Users that are already members will be ignored.
@@ -55,8 +55,8 @@ public interface GroupMemberResources {
 	/**
 	 * <p>Remove a member from a group.</p>
 	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * DELETE /group/{id}/member/{userId}<br />
+	 * <p>It mirrors to the following Smartsheet REST API method:</p>
+	 * <p>DELETE /group/{id}/member/{userId}</p>
 	 *
 	 * @param groupId the ID of the object to remove the member from
 	 * @param userId the ID of the user to remove.

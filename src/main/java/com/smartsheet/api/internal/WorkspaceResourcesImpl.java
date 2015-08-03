@@ -220,7 +220,7 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 	 *
 	 * @return the workspace folder resources
 	 */
-	public WorkspaceFolderResources folders() {
+	public WorkspaceFolderResources folderResources() {
 		return this.folders;
 	}
 
@@ -229,7 +229,7 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 	 *
 	 * @return the share resources
 	 */
-	public ShareResources shares() {
+	public ShareResources shareResources() {
 		return this.shares;
 	}
 }

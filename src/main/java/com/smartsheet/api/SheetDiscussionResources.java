@@ -33,8 +33,8 @@ public interface SheetDiscussionResources {
     /**
      * <p>Create a discussion on a sheet.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:<br />
-     * POST /sheets/{sheetId}/discussions</p>
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>POST /sheets/{sheetId}/discussions</p>
      *
      * @param sheetId the sheet id
      * @param discussion the discussion object
@@ -51,8 +51,8 @@ public interface SheetDiscussionResources {
     /**
      * <p>Create a discussion with attachments on a sheet.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:<br />
-     * POST /sheets/{sheetId}/discussions</p>
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>POST /sheets/{sheetId}/discussions</p>
      *
      * @param sheetId the sheet id
      * @param discussion the discussion object
@@ -65,14 +65,15 @@ public interface SheetDiscussionResources {
      * @throws ResourceNotFoundException if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
+     * @throws IOException is there is with file
      */
     public Discussion createDiscussionWithAttachment(long sheetId, Discussion discussion, File file, String contentType) throws SmartsheetException, IOException;
 
     /**
      * <p>Get a discussion.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:<br />
-     * GET /sheets/{sheetId}/discussions/{discussionId}</p>
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>GET /sheets/{sheetId}/discussions/{discussionId}</p>
      *
      * @param discussionId the discussion id
      * @param sheetId the sheet id
@@ -102,7 +103,6 @@ public interface SheetDiscussionResources {
      *
      * @param sheetId the sheet ID
      * @param discussionId the discussion ID
-     * @return the created comment
      * @throws SmartsheetException the smartsheet exception
      */
     public void deleteDiscussion(long sheetId, long discussionId) throws SmartsheetException;
@@ -134,7 +134,7 @@ public interface SheetDiscussionResources {
      * @return the created DiscussionCommentResources object
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public DiscussionCommentResources comments() throws SmartsheetException;
+    public DiscussionCommentResources commentResources() throws SmartsheetException;
 
     /**
      * <p>Creates an object of DiscussionAttachmentResources for access to discussion attachments through SheetDiscussionResources.</p>
@@ -142,5 +142,5 @@ public interface SheetDiscussionResources {
      * @return the created DiscussionAttachmentResources object
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public DiscussionAttachmentResources attachments() throws SmartsheetException;
+    public DiscussionAttachmentResources attachmentResources() throws SmartsheetException;
 }

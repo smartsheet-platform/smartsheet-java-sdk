@@ -26,7 +26,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.List;
 
 import com.smartsheet.api.AttachmentResources;
 import com.smartsheet.api.SmartsheetException;

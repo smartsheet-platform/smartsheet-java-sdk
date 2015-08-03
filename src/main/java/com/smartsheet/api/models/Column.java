@@ -405,6 +405,7 @@ public class Column extends IdentifiableModel<Long> {
 		 * Sets the width for the column.
 		 * 
 		 * @param width the width
+		 * @return the column to sheet builder
 		 */
 		public AddColumnToSheetBuilder setWidth(Integer width) {
 			this.width = width;
@@ -424,6 +425,7 @@ public class Column extends IdentifiableModel<Long> {
 		 * Sets the primary status for the column.
 		 *
 		 * @param primary the boolean primary
+		 * @return the column to sheet builder
 		 */
 		public AddColumnToSheetBuilder setPrimary(Boolean primary) {
 			this.primary = primary;
@@ -434,7 +436,7 @@ public class Column extends IdentifiableModel<Long> {
 		 * Sets the title for the column.
 		 *
 		 * @param title the title
-		 * @return the adds the column to sheet builder
+		 * @return the add the column to sheet builder
 		 */
 		public AddColumnToSheetBuilder setTitle(String title) {
 			this.title = title;

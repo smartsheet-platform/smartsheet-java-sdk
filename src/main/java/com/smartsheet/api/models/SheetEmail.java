@@ -24,8 +24,6 @@ package com.smartsheet.api.models;
 
 /**
  * Represents Sheet Email object used for sending a sheet by email.
- * @see <a href="http://help.smartsheet.com/customer/portal/articles/504773-sending-sheets-rows-via-email">Help Sending
- * Sheets & Rows via Email</a>
  */
 public class SheetEmail extends Email {
 	/**
@@ -101,6 +99,7 @@ public class SheetEmail extends Email {
 		 * Sets the sheet email format (PDF or Excel).
 		 *
 		 * @param format the new format
+		 * @return the builder
 		 */
 		public AddSheetEmailBuilder setFormat(SheetEmailFormat format) {
 			this.format = format;
@@ -120,6 +119,7 @@ public class SheetEmail extends Email {
 		 * Sets the format details (paper dimensions).
 		 *
 		 * @param formatDetails the new format details
+		 * @return the builder
 		 */
 		public AddSheetEmailBuilder setFormatDetails(FormatDetails formatDetails) {
 			this.formatDetails = formatDetails;

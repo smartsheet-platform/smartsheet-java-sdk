@@ -20,9 +20,6 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-/**
- * Created by anioding on 7/31/15.
- */
 public enum FavoriteType {
     WORKSPACE("workspace"),
     TEMPLATE("template"),

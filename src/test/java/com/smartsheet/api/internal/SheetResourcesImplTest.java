@@ -304,22 +304,22 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 
 	@Test
 	public void testShares() {
-		sheetResource.shares();
+		sheetResource.shareResources();
 	}
 
 	@Test
 	public void testRows() {
-		sheetResource.rows();
+		sheetResource.rowResources();
 	}
 
 	@Test
 	public void testColumns() {
-		sheetResource.columns();
+		sheetResource.columnResources();
 	}
 
 	@Test
 	public void testDiscussions() {
-		sheetResource.discussions();
+		sheetResource.discussionResources();
 	}
 
 	@Test

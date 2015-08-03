@@ -20,9 +20,7 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Represents the Attachment object.
@@ -323,8 +321,9 @@ public class Attachment extends NamedModel<Long> {
 		/**
 		 * Sets the URL.
 		 *
-		 * @param url
-		 *            the new url
+		 * @param url the new url
+		 * @return the builder object
+		 *
 		 */
 		public AddAttachmentBuilder setUrl(String url) {
 			this.url = url;
@@ -345,6 +344,7 @@ public class Attachment extends NamedModel<Long> {
 		 *
 		 * @param attachmentType
 		 *            the new attachment type
+		 * @return the builder object
 		 */
 		public AddAttachmentBuilder setAttachmentType(AttachmentType attachmentType) {
 			this.attachmentType = attachmentType;
@@ -365,6 +365,7 @@ public class Attachment extends NamedModel<Long> {
 		 *
 		 * @param attachmentSubType
 		 *            the new attachment sub type
+		 * @return the builder object
 		 */
 		public AddAttachmentBuilder setAttachmentSubType(AttachmentSubType attachmentSubType) {
 			this.attachmentSubType = attachmentSubType;
@@ -384,7 +385,7 @@ public class Attachment extends NamedModel<Long> {
 		 * Sets the attachment description.
 		 *
 		 * @param description the description
-		 *
+		 * @return the builder object
 		 */
 		public AddAttachmentBuilder setDescription(String description) {
 			this.description = description;

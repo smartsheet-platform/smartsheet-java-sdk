@@ -116,7 +116,7 @@ public class User extends UserModelWithName {
 
 	/**
 	 * Sets the resource manager flag.
-	 * @param resourceViewer
+	 * @param resourceViewer the flag
 	 */
 	public void setResourceViewer(Boolean resourceViewer) {
 		this.resourceViewer = resourceViewer;
@@ -208,6 +208,7 @@ public class User extends UserModelWithName {
 
 		/**
 		 * @param firstName the firstName to set
+		 * @return the builder
 		 */
 		public AddUserBuilder setFirstName(String firstName) {
 			this.firstName = firstName;
@@ -223,6 +224,7 @@ public class User extends UserModelWithName {
 
 		/**
 		 * @param lastName the lastName to set
+		 * @return the builder
 		 */
 		public AddUserBuilder setLastName(String lastName) {
 			this.lastName = lastName;
@@ -238,6 +240,7 @@ public class User extends UserModelWithName {
 
 		/**
 		 * @param groupAdmin the groupAdmin to set
+		 * @return the builder
 		 */
 		public AddUserBuilder setGroupAdmin(Boolean groupAdmin) {
 			this.groupAdmin = groupAdmin;
@@ -253,6 +256,7 @@ public class User extends UserModelWithName {
 
 		/**
 		 * @param resourceViewer the resourceViewer to set
+		 * @return the builder
 		 */
 		public AddUserBuilder setResourceViewer(Boolean resourceViewer) {
 			this.resourceViewer = resourceViewer;
@@ -342,6 +346,7 @@ public class User extends UserModelWithName {
 		
 		/**
 		 * @param firstName the firstName to set
+		 * @return the builder
 		 */
 		public UpdateUserBuilder setFirstName(String firstName) {
 			this.firstName = firstName;
@@ -357,6 +362,7 @@ public class User extends UserModelWithName {
 		
 		/**
 		 * @param lastName the lastName to set
+		 * @return the builder
 		 */
 		public UpdateUserBuilder setLastName(String lastName) {
 			this.lastName = lastName;
@@ -372,6 +378,7 @@ public class User extends UserModelWithName {
 
 		/**
 		 * @param groupAdmin the groupAdmin to set
+		 * @return the builder
 		 */
 		public UpdateUserBuilder setGroupAdmin(Boolean groupAdmin) {
 			this.groupAdmin = groupAdmin;
@@ -387,6 +394,7 @@ public class User extends UserModelWithName {
 
 		/**
 		 * @param resourceViewer the resourceViewer to set
+		 * @return the builder
 		 */
 		public UpdateUserBuilder setResourceViewer(Boolean resourceViewer) {
 			this.resourceViewer = resourceViewer;
@@ -417,22 +425,23 @@ public class User extends UserModelWithName {
 
 	}
 	/**
-	 * A convenience class for making a {@link User} object with the appropriate fields for adding to a {@link Group}. See {@link CreateGroupBuilder}
+	 * A convenience class for making a GroupMember object with the appropriate fields for adding to a {@link Group}.
 	 */
 	public static class NewGroupMemberBuilder {
 		private String email;
 
 		/**
 		 * Get the email of the user
-		 * @return
+		 * @return email the email
 		 */
 		public String getEmail() {
 			return email;
 		}
 
 		/**
-		 * Set the id of the user
-		 * @param id
+		 * Set the email id of the user
+		 * @param email the email
+		 * @return the builder
 		 */
 		public NewGroupMemberBuilder setEmail(String email) {
 			this.email = email;

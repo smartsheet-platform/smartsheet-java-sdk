@@ -74,7 +74,7 @@ public class HomeResourcesImplTest extends ResourcesImplBase {
 	public void testFolders() throws IOException, SmartsheetException {
 		server.setResponseBody(new File("src/test/resources/getHomeFolders.json"));
 		
-		HomeFolderResources folders = homeResources.folders();
+		HomeFolderResources folders = homeResources.folderResources();
 		PaginationParameters parameters = new PaginationParameters(true, 1,1);
 		assertNotNull(folders.listFolders(parameters));
 		assertTrue(folders.listFolders(parameters).getTotalPages() == 1);

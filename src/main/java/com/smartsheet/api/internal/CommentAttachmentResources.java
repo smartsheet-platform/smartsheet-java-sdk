@@ -1,10 +1,6 @@
 package com.smartsheet.api.internal;
 
-import java.util.List;
-
 import com.smartsheet.api.AssociatedAttachmentResources;
-import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.models.Attachment;
 
 /*
  * #[license]

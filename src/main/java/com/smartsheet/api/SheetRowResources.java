@@ -129,6 +129,7 @@ public interface SheetRowResources {
 	 *
 	 * @param sheetId the id of the sheet
 	 * @param rows the list of rows
+	 * @return a list of rows
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Row> updateRows(long sheetId, List<Row> rows) throws SmartsheetException;
@@ -181,23 +182,20 @@ public interface SheetRowResources {
 	 * <p>Creates an object of RowAttachmentResources.</p>
 	 *
 	 * @return the created RowAttachmentResources object
-	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public RowAttachmentResources attachments();
+	public RowAttachmentResources attachmentResources();
 
 	/**
 	 * <p>Creates an object of RowDiscussionResources.</p>
 	 *
 	 * @return the created RowDiscussionResources object
-	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public RowDiscussionResources discussions();
+	public RowDiscussionResources discussionResources();
 
 	/**
 	 * <p>Creates an object of RowColumnResources.</p>
 	 *
 	 * @return the created RowColumnResources object
-	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public RowColumnResources cells();
+	public RowColumnResources cellResources();
 }

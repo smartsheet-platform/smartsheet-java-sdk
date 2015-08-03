@@ -31,8 +31,8 @@ public interface SheetCommentResources {
     /**
      * <p>Get a comment.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:<br />
-     * GET /sheets/{sheetId}/comments/{commentId}</p>
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>GET /sheets/{sheetId}/comments/{commentId}</p>
      *
      * @param sheetId the ID of the sheet
      * @param commentId the ID of the comment
@@ -45,8 +45,8 @@ public interface SheetCommentResources {
     /**
      * <p>Delete a comment.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:<br />
-     * DELETE /sheets/{sheetId}/comments/{commentId}</p>
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>DELETE /sheets/{sheetId}/comments/{commentId}</p>
      *
      * @param sheetId the ID of the sheet
      * @param commentId the ID of the comment
@@ -60,5 +60,5 @@ public interface SheetCommentResources {
      * @return the created attachment
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public com.smartsheet.api.CommentAttachmentResources attachments() throws SmartsheetException;
+    public com.smartsheet.api.CommentAttachmentResources attachmentResources() throws SmartsheetException;
 }

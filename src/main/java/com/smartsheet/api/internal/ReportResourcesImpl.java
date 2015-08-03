@@ -76,7 +76,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * @param includes the optional objects to include in response
      * @param pageSize Number of rows per page
      * @param page page number to return
-     * @return the report (note that if there is no such resource, this method will throw ResourceNotFoundException
+     * @return  the report (note that if there is no such resource, this method will throw ResourceNotFoundException
      * rather than returning null)
      * @throws SmartsheetException the smartsheet exception
      */
@@ -159,7 +159,6 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * @param pageSize Number of rows per page
      * @param page page number to return
      * @param outputStream the OutputStream to which the Excel file will be written
-     * @return the sheet as csv
      * @throws SmartsheetException the smartsheet exception
      */
     public void getReportAsExcel(long id, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page, OutputStream outputStream) throws SmartsheetException {
@@ -199,7 +198,6 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * @param pageSize Number of rows per page
      * @param page page number to return
      * @param outputStream the OutputStream to which the Excel file will be written
-     * @return the sheet as csv
      * @throws SmartsheetException the smartsheet exception
      */
     public void getReportAsCsv(long id, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page, OutputStream outputStream) throws SmartsheetException {
@@ -223,9 +221,8 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * <p>Creates an object of ShareResources.</p>
      *
      * @return the created ShareResources object
-     * @throws SmartsheetException if there is any other error during the operation
      */
-    public ShareResources shares(){
+    public ShareResources shareResources(){
         return this.shares;
     }
 }

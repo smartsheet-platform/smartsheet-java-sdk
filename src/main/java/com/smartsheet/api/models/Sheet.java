@@ -20,9 +20,7 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-import java.util.Date;
 import java.util.List;
-import java.util.EnumSet;
 
 /**
  * Represents the Sheet object.
@@ -173,7 +171,7 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
 
 		/**
 		 * Get the id of the sheet
-		 * @return
+		 * @return the id
 		 */
 		public Long getId() {
 			return id;
@@ -181,7 +179,7 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
 
 		/**
 		 * Set the sheet id
-		 * @param id
+		 * @param id the sheet id
 		 * @return the updateSheetBuilder object
 		 */
 		public UpdateSheetBuilder setId(Long id) {

@@ -89,6 +89,7 @@ public class CopyOrMoveRowDirective {
          * Sets the IDs of the rows to move or copy from the source sheet.
          *
          * @param rowIds ID of the destination sheet
+         * @return the builder
          */
         public InsertCopyOrMoveRowDirectiveBuilder setRowIds(List<Long> rowIds) {
             this.rowIds = rowIds;
@@ -108,6 +109,7 @@ public class CopyOrMoveRowDirective {
          * Sets the CopyOrMoveRowDestination object that identifies the destination sheet.
          *
          * @param to CopyOrMoveRowDestination object
+         * @return the builder
          */
         public InsertCopyOrMoveRowDirectiveBuilder setTo(CopyOrMoveRowDestination to) {
             this.to = to;

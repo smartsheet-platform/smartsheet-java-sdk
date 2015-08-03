@@ -36,6 +36,7 @@ public interface WorkspaceResources {
 	 * 
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /workspaces</p>
 	 *
+	 * @param parameters the object containing the pagination parameters
 	 * @return the list of workspaces (note that an empty list will be returned if there are none)
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
@@ -52,6 +53,8 @@ public interface WorkspaceResources {
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /workspace/{id}</p>
 	 *
 	 * @param id the id
+	 * @param includes the include parameters
+	 * @param loadAll the loadAll boolean value
 	 * @return the workspace (note that if there is no such resource, this method will throw ResourceNotFoundException
 	 * rather than returning null)
 	 * @throws IllegalArgumentException if any argument is null or empty string
@@ -67,7 +70,6 @@ public interface WorkspaceResources {
 	 * <p>Create a workspace.</p>
 	 * 
 	 * <p>It mirrors to the following Smartsheet REST API method: POST /workspaces</p>
-	 * 
 	 *
 	 * @param workspace the workspace to create
 	 * @return the created workspace
@@ -118,7 +120,7 @@ public interface WorkspaceResources {
 	 *
 	 * @return the workspace folder resources
 	 */
-	public WorkspaceFolderResources folders();
+	public WorkspaceFolderResources folderResources();
 
 	/**
 	 * <p>Return the ShareResources object that provides access to Share resources associated with Workspace 
@@ -126,5 +128,5 @@ public interface WorkspaceResources {
 	 *
 	 * @return the share resources object
 	 */
-	public ShareResources shares();
+	public ShareResources shareResources();
 }

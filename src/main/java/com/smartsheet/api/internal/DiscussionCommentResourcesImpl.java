@@ -8,9 +8,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -47,8 +47,8 @@ public class DiscussionCommentResourcesImpl extends AbstractResources implements
     /**
      * <p>Add a comment to a discussion.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:<br />
-     * POST /discussion/{discussionId}/comments</p>
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>POST /discussion/{discussionId}/comments</p>
      *
      * @param sheetId the sheet id
      * @param discussionId the discussion id
@@ -68,12 +68,14 @@ public class DiscussionCommentResourcesImpl extends AbstractResources implements
     /**
      * <p>Add a comment to a discussion with an attachment.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:<br />
-     * POST /discussion/{discussionId}/comments</p>
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>POST /discussion/{discussionId}/comments</p>
      *
      * @param sheetId the sheet id
      * @param discussionId the dicussion id
      * @param comment the comment to add
+     * @param file the file to be attached
+     * @param contentType the type of file
      * @return the created comment
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
@@ -81,6 +83,7 @@ public class DiscussionCommentResourcesImpl extends AbstractResources implements
      * @throws ResourceNotFoundException if the resource cannot be found
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
+     * @throws IOException is there is any error with file
      */
     public Comment addCommentWithAttachment(long sheetId, long discussionId, Comment comment, File file, String contentType) throws SmartsheetException, IOException{
         String path = "sheets/" + sheetId + "/discussions/" + discussionId + "/comments";
@@ -92,4 +95,5 @@ public class DiscussionCommentResourcesImpl extends AbstractResources implements
     private Comment addCommentWithAttachment(String path, Comment comment, InputStream inputStream, String contentType, String attachmentName) throws SmartsheetException{
         return this.createResourceWithAttachment(path, Comment.class, comment, "comment", inputStream , contentType, attachmentName);
     }
+
 }

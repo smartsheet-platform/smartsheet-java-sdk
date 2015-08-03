@@ -208,6 +208,7 @@ public class Folder extends NamedModel<Long> {
 		 * Sets the folder id.
 		 * 
 		 * @param id the id of the folder.
+		 * @return the builder
 		 */
 		public UpdateFolderBuilder setId(Long id) {
 			this.id = id;

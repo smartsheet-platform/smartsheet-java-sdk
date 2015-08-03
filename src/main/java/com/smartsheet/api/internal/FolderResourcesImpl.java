@@ -62,6 +62,7 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 *   SmartsheetException : if there is any other error occurred during the operation
 	 *
 	 * @param folderId the folder id
+	 * @param includes the include parameters
 	 * @return the folder (note that if there is no such resource, this method will throw ResourceNotFoundException
 	 * rather than returning null)
 	 * @throws SmartsheetException the smartsheet exception
@@ -136,6 +137,7 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 *   SmartsheetException : if there is any other error occurred during the operation
 	 * 
 	 * @param parentFolderId the parent folder id
+	 * @param parameters the parameters for pagination
 	 * @return the child folders (note that empty list will be returned if no child folder found)
 	 * @throws SmartsheetException the smartsheet exception
 	 */

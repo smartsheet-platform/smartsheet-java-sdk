@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -47,7 +47,7 @@ public class ReportColumn extends Column {
     /**
      * Sets the sheet name for the column.
      *
-     * @param sheetNameColumn
+     * @param sheetNameColumn the sheetname for column
      */
     public void setSheetNameColumn(boolean sheetNameColumn) {
         this.sheetNameColumn = sheetNameColumn;
@@ -65,7 +65,7 @@ public class ReportColumn extends Column {
     /**
      * Sets the virtual id for the column.
      *
-     * @param virtualId
+     * @param virtualId the virtual id
      */
 
     public void setVirtualId(Long virtualId) {

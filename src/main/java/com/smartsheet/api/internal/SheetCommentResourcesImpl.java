@@ -91,7 +91,7 @@ public class SheetCommentResourcesImpl extends AbstractResources implements Shee
      * @return the created attachment
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public com.smartsheet.api.CommentAttachmentResources attachments() throws SmartsheetException{
+    public com.smartsheet.api.CommentAttachmentResources attachmentResources() throws SmartsheetException{
         return attachments;
     }
 }

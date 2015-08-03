@@ -9,9 +9,9 @@ package com.smartsheet.api;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,8 +40,8 @@ public interface RowAttachmentResources{
      * <p>The URL can be a normal URL (attachmentType "URL"), a Google Drive URL (attachmentType "GOOGLE_DRIVE") or a
      * Box.com URL (attachmentType "BOX_COM").</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:<br />
-     *   POST /sheets/{sheetId}/rows/{rowId}/attachments
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>POST /sheets/{sheetId}/rows/{rowId}/attachments
      *
      * @param sheetId the sheet id
      * @param rowId the row id
@@ -74,6 +74,7 @@ public interface RowAttachmentResources{
      *
      * @param sheetId the sheet id
      * @param rowId the row id
+     * @param parameters the pagination parameters
      * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
      * rather than returning null).
      * @throws SmartsheetException the smartsheet exception
@@ -83,8 +84,8 @@ public interface RowAttachmentResources{
     /**
      * <p>Attach a file to a row with simple upload.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:<br />
-     *   POST /sheets/{sheetId}/rows/{rowId}/attachments</p>
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>POST /sheets/{sheetId}/rows/{rowId}/attachments</p>
      *
      * @param sheetId the id of the sheet
      * @param rowId the id of the comment

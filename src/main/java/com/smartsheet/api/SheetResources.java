@@ -74,6 +74,12 @@ public interface SheetResources {
 	 *
 	 * @param id the id of the sheet
 	 * @param includes used to specify the optional objects to include.
+	 * @param columnIds the column ids
+	 * @param excludes the exclude parameters
+	 * @param page the page number
+	 * @param pageSize the page size
+	 * @param rowIds the row ids
+	 * @param rowNumbers the row numbers
 	 * @return the sheet resource (note that if there is no such resource, this method will throw 
 	 * ResourceNotFoundException rather than returning null).
 	 * @throws IllegalArgumentException if any argument is null or empty string
@@ -95,8 +101,8 @@ public interface SheetResources {
 	/**
 	 * <p>Get a sheet as an Excel file.</p>
 	 *
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * GET /sheet/{id} with "application/vnd.ms-excel" Accept HTTP header</p>
+	 * <p>It mirrors to the following Smartsheet REST API method:</p>
+	 * <p>GET /sheet/{id} with "application/vnd.ms-excel" Accept HTTP header</p>
 	 *
 	 * @param id the id of the sheet
 	 * @param outputStream the output stream to which the Excel file will be written.
@@ -112,8 +118,8 @@ public interface SheetResources {
 	/**
 	 * <p>Get a sheet as a PDF file.</p>
 	 *
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * GET /sheet/{id} with "application/pdf" Accept HTTP header</p>
+	 * <p>It mirrors to the following Smartsheet REST API method:</p>
+	 * <p>GET /sheet/{id} with "application/pdf" Accept HTTP header</p>
 	 *
 	 * @param id the id of the sheet
 	 * @param outputStream the output stream to which the PDF file will be written.
@@ -130,8 +136,8 @@ public interface SheetResources {
 	/**
 	 * <p>Create a sheet in default "Sheets" collection.</p>
 	 *
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 *  POST /sheets</p>
+	 * <p>It mirrors to the following Smartsheet REST API method:</p>
+	 *  <p>POST /sheets</p>
 	 *
 	 * @param sheet the sheet to created
 	 * @return the created sheet
@@ -185,7 +191,7 @@ public interface SheetResources {
 	 *
 	 * @param folderID the folder id
 	 * @param sheet the sheet to create
-	 * @param used to specify the optional objects to include.
+	 * @param includes  used to specify the optional objects to include.
 	 * @return the created sheet
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
@@ -305,21 +311,21 @@ public interface SheetResources {
 	 *
 	 * @return the share resources object
 	 */
-	public ShareResources shares();
+	public ShareResources shareResources();
 
 	/**
 	 * <p>Return the SheetRowResources object that provides access to Row resources associated with Sheet resources.</p>
 	 *
 	 * @return the sheet row resources
 	 */
-	public SheetRowResources rows();
+	public SheetRowResources rowResources();
 
 	/**
 	 * <p>Return the SheetColumnResources object that provides access to Column resources associated with Sheet resources.</p>
 	 *
 	 * @return the sheet column resources
 	 */
-	public SheetColumnResources columns();
+	public SheetColumnResources columnResources();
 
 	/**
 	 * <p>Return the AttachmentResources object that provides access to attachment resources associated with
@@ -327,7 +333,7 @@ public interface SheetResources {
 	 *
 	 * @return the associated attachment resources
 	 */
-	public SheetAttachmentResources attachments();
+	public SheetAttachmentResources attachmentResources();
 
 	/**
 	 * <p>Return the SheetDiscussionResources object that provides access to discussion resources associated with
@@ -335,7 +341,7 @@ public interface SheetResources {
 	 *
 	 * @return the associated discussion resources
 	 */
-	public SheetDiscussionResources discussions();
+	public SheetDiscussionResources discussionResources();
 
 
 	/**
@@ -344,7 +350,7 @@ public interface SheetResources {
 	 *
 	 * @return the associated comment resources
 	 */
-	public SheetCommentResources comments();
+	public SheetCommentResources commentResources();
 
 	/**
 	 * <p>Get the status of the Publish settings of the sheet, including the URLs of any enabled publishings.</p>

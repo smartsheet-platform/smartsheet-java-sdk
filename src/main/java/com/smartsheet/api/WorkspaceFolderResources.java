@@ -39,6 +39,7 @@ public interface WorkspaceFolderResources {
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /workspace/{id}/folders</p>
 	 *
 	 * @param workspaceId the workspace id
+	 * @param parameters the pagination parameters
 	 * @return the list of folders (note that an empty list will be returned if there are none)
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request

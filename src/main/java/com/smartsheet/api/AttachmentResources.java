@@ -38,8 +38,8 @@ public interface AttachmentResources {
 	
 	/**
 	 * <p>Attach a new version of an attachment.</p>
-	 * <p>It mirrors to the following Smartsheet REST API method:<br /> 
-	 *   POST /attachment/{id}/versions
+	 * <p>It mirrors to the following Smartsheet REST API method:</p> 
+	 * <p>POST /attachment/{id}/versions
 	 * 
 	 * @param attachmentId the id of the attachment to upload a new version.
 	 * @param file the file to attach
@@ -58,8 +58,8 @@ public interface AttachmentResources {
 	/**
 	 * <p>Attach a new version of an attachment.</p>
 	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br /> 
-	 *  POST /attachment/{id}/versions
+	 * <p>It mirrors to the following Smartsheet REST API method:</p> 
+	 *  <p>POST /attachment/{id}/versions
 	 * 
 	 * @param attachmentId the id of the object
 	 * @param inputStream the {@link InputStream} of the file to attach

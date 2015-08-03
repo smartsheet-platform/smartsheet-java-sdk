@@ -128,10 +128,10 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 	/**
 	 * <p>Update a share.</p>
 	 *
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * PUT /workspaces/{workspaceId}/shares/{shareId}<br />
-	 * PUT /sheets/{sheetId}/shares/{shareId}</p>
-	 * PUT /reports/{reportId}/shares/{shareId}</p>
+	 * <p>It mirrors to the following Smartsheet REST API method:</p>
+	 * <p>PUT /workspaces/{workspaceId}/shares/{shareId}</p>
+	 * <p>PUT /sheets/{sheetId}/shares/{shareId}</p>
+	 * <p>PUT /reports/{reportId}/shares/{shareId}</p>
 	 *
 	 * @param objectId the ID of the object to share
 	 * @param shareId the Id of the user to whom the object is shared

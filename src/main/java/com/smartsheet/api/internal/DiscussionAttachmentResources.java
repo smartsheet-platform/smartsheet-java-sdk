@@ -52,7 +52,7 @@ public class DiscussionAttachmentResources extends AssociatedAttachmentResources
 	 * Attach a file to the object.
 	 * 
 	 * It mirrors to the following Smartsheet REST API method: POST /sheet/{id}/attachments POST /row/{id}/attachments
-	 * POST /comment/{id}/attachments
+	 * <p>POST /comment/{id}/attachments
 	 * 
 	 * Returns: the created attachment
 	 * 

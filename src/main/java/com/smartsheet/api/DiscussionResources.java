@@ -36,8 +36,8 @@ public interface DiscussionResources {
 	/**
 	 * <p>Add a comment to a discussion.</p>
 	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * POST /discussion/{discussionId}/comments</p>
+	 * <p>It mirrors to the following Smartsheet REST API method:</p>
+	 * <p>POST /discussion/{discussionId}/comments</p>
 	 *
 	 * @param id the discussion id
 	 * @param comment the comment to add
@@ -60,9 +60,10 @@ public interface DiscussionResources {
 	public AssociatedAttachmentResources attachments();
 
 	/**
-	 * Represents the DiscussionCommentResources.
+	 * <p>Represents the DiscussionCommentResources.</p>
+	 * <p>It will be initialized in constructor and will not change afterwards.</p>
 	 *
-	 * It will be initialized in constructor and will not change afterwards.
+	 * @return comments object
 	 */
 	public DiscussionCommentResources comments();
 }

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.smartsheet.api.models.format.Format;
-import javafx.scene.control.Hyperlink;
 
 /*
  * #[license]
@@ -63,7 +62,7 @@ public class Cell {
 	/**
 	 * Represents the hyperlink to a URL, sheet, or report.
 	 */
-	private com.smartsheet.api.models.Hyperlink hyperlink;
+	private Hyperlink hyperlink;
 
 	/**
 	 * Represents an inbound link from a cell in another sheet.
@@ -256,9 +255,11 @@ public class Cell {
 		 * @param columnId the column id
 		 * @param value the value
 		 * @param strict the strict
+		 * @param hyperlink the hyperlink
+		 * @param linkInFromCell the link
 		 * @return the update row cells builder
 		 */
-		public UpdateRowCellsBuilder addCell(Long columnId, Object value, Boolean strict, com.smartsheet.api.models.Hyperlink hyperlink,  CellLink linkInFromCell) {
+		public UpdateRowCellsBuilder addCell(Long columnId, Object value, Boolean strict, Hyperlink hyperlink,  CellLink linkInFromCell) {
 			Cell cell = new Cell();
 			cell.setColumnId(columnId);
 			cell.setValue(value);
@@ -319,7 +320,7 @@ public class Cell {
 	/**
 	 * @param hyperlink hyperlink to a URL, sheet, or report to set
 	 */
-	public void setHyperlink(com.smartsheet.api.models.Hyperlink hyperlink) {
+	public void setHyperlink(Hyperlink hyperlink) {
 		this.hyperlink = hyperlink;
 	}
 

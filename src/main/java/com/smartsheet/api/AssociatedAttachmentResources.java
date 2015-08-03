@@ -21,14 +21,6 @@ package com.smartsheet.api;
  */
 
 
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.List;
-
-import com.smartsheet.api.models.Attachment;
-
 /**
  * <p>This interface provides methods to access Attachment resources that are associated to a resource object.</p>
  * 

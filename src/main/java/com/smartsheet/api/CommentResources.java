@@ -32,8 +32,8 @@ public interface CommentResources {
 	/**
 	 * <p>Get a comment.</p>
 	 *
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * GET /sheets/{sheetId}/comments/{commentId}</p>
+	 * <p>It mirrors to the following Smartsheet REST API method:</p>
+	 * <p>GET /sheets/{sheetId}/comments/{commentId}</p>
 	 *
 	 * @param sheetId the ID of the sheet
 	 * @param commentId the ID of the comment
@@ -46,8 +46,8 @@ public interface CommentResources {
 	/**
 	 * <p>Delete a comment.</p>
 	 *
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * DELETE /sheets/{sheetId}/comments/{commentId}</p>
+	 * <p>It mirrors to the following Smartsheet REST API method:</p>
+	 * <p>DELETE /sheets/{sheetId}/comments/{commentId}</p>
 	 *
 	 * @param sheetId the ID of the sheet
 	 * @param commentId the ID of the comment

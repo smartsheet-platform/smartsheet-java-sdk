@@ -113,9 +113,13 @@ public interface GroupResources {
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public void deleteGroup(long groupId) throws SmartsheetException;
-	
+
 	/**
-	 * <p>Get the {@link GroupMemberResources} object for operations such as adding new members and removing existing members. </p>
+	 * <p>Represents the GroupMemberResources.</p>
+	 * <p>It will be initialized in constructor and will not change afterwards.</p>
+	 *
+	 * @return members object
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public GroupMemberResources members() throws SmartsheetException;
 	

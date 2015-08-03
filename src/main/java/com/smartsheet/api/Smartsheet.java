@@ -20,15 +20,12 @@ package com.smartsheet.api;
  * %[license]
  */
 
-import com.smartsheet.api.internal.ServerInfoResourcesImpl;
-
 /**
  * <p>This interface is the entry point of the Smartsheet SDK, it provides convenient methods to get XXXResources instances
  * for accessing different types of resources.</p>
  * 
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
-//TODO: could put some example code in the documentation.
 public interface Smartsheet {
 	
 	/**
@@ -36,98 +33,77 @@ public interface Smartsheet {
 	 *
 	 * @return the home resources instance
 	 */
-	public HomeResources home();
+	public HomeResources homeResources();
 
 	/**
 	 * <p>Returns the WorkspaceResources instance that provides access to Workspace resources.</p>
 	 *
 	 * @return the workspace resources instance
 	 */
-	public WorkspaceResources workspaces();
+	public WorkspaceResources workspaceResources();
 
 	/**
 	 * <p>Returns the FolderResources instance that provides access to Folder resources.</p>
 	 *
 	 * @return the folder resources instance
 	 */
-	public FolderResources folders();
+	public FolderResources folderResources();
 
 	/**
 	 * <p>Returns the TemplateResources instance that provides access to Template resources.</p>
 	 *
 	 * @return the template resources instance
 	 */
-	public TemplateResources templates();
+	public TemplateResources templateResources();
 
 	/**
 	 * <p>Returns the SheetResources instance that provides access to Sheet resources.</p>
 	 *
 	 * @return the sheet resources instance
 	 */
-	public SheetResources sheets();
-
-	/**
-	 * <p>Returns the AttachmentResources instance that provides access to Attachment resources.</p>
-	 *
-	 * @return the attachment resources instance
-	 */
-	public AttachmentResources attachments();
+	public SheetResources sheetResources();
 
 	/**
 	 * <p>Returns the FavoriteResources instance that provides access to Favorite resources.</p>
 	 *
 	 * @return the favorite resources instance
 	 */
-	public FavoriteResources favorites();
-
-	/**
-	 * <p>Returns the DiscussionResources instance that provides access to Discussion resources.</p>
-	 *
-	 * @return the discussion resources instance
-	 */
-	public DiscussionResources discussions();
-
-	/**
-	 * <p>Returns the CommentResources instance that provides access to Comment resources.</p>
-	 *
-	 * @return the comment resources instance
-	 */
-	public CommentResources comments();
+	public FavoriteResources favoriteResources();
 
 	/**
 	 * <p>Returns the UserResources instance that provides access to User resources.</p>
 	 *
 	 * @return the user resources instance
 	 */
-	public UserResources users();
+	public UserResources userResources();
 
 	/**
 	 * <p>Returns the {@link GroupResources} instance that provides access to Group resources. </p>
 	 *
 	 * @return the group resources instance
 	 */
-	public GroupResources groups();
+	public GroupResources groupResources();
 
 	/**
 	 * <p>Returns the {@link ServerInfoResources} instance that provides access to Server Info resources. </p>
 	 *
 	 * @return the serverinfo resources instance
 	 */
-	public ServerInfoResources serverInfo();
+	public ServerInfoResources serverInfoResources();
 	
 	/**
 	 * <p>Returns the SearchResources instance that provides access to searching resources.</p>
 	 *
 	 * @return the search resources instance
 	 */
-	public SearchResources search();
+	public SearchResources searchResources();
 
 	/**
 	 * <p>Returns the ReportResources instance that provides access to report resources.</p>
 	 *
 	 * @return the report resources instance
 	 */
-	public ReportResources reports();
+	public ReportResources reportResources();
 
 	/**
 	 * <p>Set the email of the user to assume.</p>
