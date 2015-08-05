@@ -197,8 +197,8 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	}
 
 	@Override
-	public User updateUser(User user) throws SmartsheetException {
-		return this.updateResource("users/" + user.getId(), User.class, user);
+	public User updateUser(long userId, User user) throws SmartsheetException {
+		return this.updateResource("users/" + userId, User.class, user);
 	}
 
 	@Override

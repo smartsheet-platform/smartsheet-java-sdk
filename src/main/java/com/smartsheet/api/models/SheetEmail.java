@@ -21,11 +21,54 @@ package com.smartsheet.api.models;
  */
 
 
+import java.util.List;
 
 /**
  * Represents Sheet Email object used for sending a sheet by email.
  */
 public class SheetEmail extends Email {
+
+	Email email = new Email() {
+		@Override
+		public List<Recipient> getSendTo() {
+			return super.getSendTo();
+		}
+
+		@Override
+		public void setSendTo(List<Recipient> sendTo) {
+			super.setSendTo(sendTo);
+		}
+
+		@Override
+		public String getSubject() {
+			return super.getSubject();
+		}
+
+		@Override
+		public void setSubject(String subject) {
+			super.setSubject(subject);
+		}
+
+		@Override
+		public String getMessage() {
+			return super.getMessage();
+		}
+
+		@Override
+		public void setMessage(String message) {
+			super.setMessage(message);
+		}
+
+		@Override
+		public Boolean getCcMe() {
+			return super.getCcMe();
+		}
+
+		@Override
+		public void setCcMe(Boolean ccMe) {
+			super.setCcMe(ccMe);
+		}
+	};
 	/**
 	 * Represents the sheet email format (PDF or Excel).
 	 */
@@ -127,6 +170,96 @@ public class SheetEmail extends Email {
 		}
 
 		/**
+		 * Represents the list of recipients to send to
+		 */
+		private List<Recipient> sendTo;
+
+		/**
+		 * Represents the subject.
+		 */
+		private String subject;
+
+		/**
+		 * Represents the message.
+		 */
+		private String message;
+
+		/**
+		 * Represents the CC me flag.
+		 */
+		private Boolean ccMe;
+
+		/**
+		 * Gets the list of recipients to send to
+		 * @return the list of recipients
+		 */
+		public List<Recipient> getSendTo() { return sendTo; }
+
+		/**
+		 * Sets the list of recipients to send to
+		 * @param sendTo list of recipients
+		 */
+		public AddSheetEmailBuilder setSendTo(List<Recipient> sendTo) { this.sendTo = sendTo;
+		return  this;}
+
+		/**
+		 * Gets the subject.
+		 *
+		 * @return the subject
+		 */
+		public String getSubject() {
+			return subject;
+		}
+
+		/**
+		 * Sets the subject.
+		 *
+		 * @param subject the new subject
+		 */
+		public AddSheetEmailBuilder setSubject(String subject) {
+			this.subject = subject;
+			return this;
+		}
+
+		/**
+		 * Gets the message.
+		 *
+		 * @return the message
+		 */
+		public String getMessage() {
+			return message;
+		}
+
+		/**
+		 * Sets the message.
+		 *
+		 * @param message the new message
+		 */
+		public AddSheetEmailBuilder setMessage(String message) {
+			this.message = message;
+			return this;
+		}
+
+		/**
+		 * Gets the carbon copy me flag.
+		 *
+		 * @return the cc me
+		 */
+		public Boolean getCcMe() {
+			return ccMe;
+		}
+
+		/**
+		 * Sets the carbon copy me flag.
+		 *
+		 * @param ccMe the new cc me
+		 */
+		public AddSheetEmailBuilder setCcMe(Boolean ccMe) {
+			this.ccMe = ccMe;
+			return this;
+		}
+
+		/**
 		 * Builds the sheetEmail.
 		 *
 		 * @return the sheetEmail
@@ -135,6 +268,11 @@ public class SheetEmail extends Email {
 			SheetEmail sheetEmail = new SheetEmail();
 			sheetEmail.format = format;
 			sheetEmail.formatDetails = formatDetails;
+			sheetEmail.setSendTo(sendTo);
+			sheetEmail.setSubject(subject);
+			sheetEmail.setMessage(message);
+			sheetEmail.setCcMe(ccMe);
+
 			return sheetEmail;
 		}
 

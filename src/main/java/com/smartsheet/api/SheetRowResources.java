@@ -154,7 +154,7 @@ public interface SheetRowResources {
 	 * @return the result object
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public CopyOrMoveRowResult moveRow(Long sheetId,EnumSet<RowMoveInclusion> includes, Boolean ignoreRowsNotFound, CopyOrMoveRowDirective moveParameters) throws SmartsheetException;
+	public CopyOrMoveRowResult moveRows(Long sheetId, EnumSet<RowMoveInclusion> includes, Boolean ignoreRowsNotFound, CopyOrMoveRowDirective moveParameters) throws SmartsheetException;
 
 	/**
 	 * Copies Row(s) from the Sheet specified in the URL to (the bottom of) another sheet.
@@ -176,7 +176,7 @@ public interface SheetRowResources {
 	 * @return the result object
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public CopyOrMoveRowResult copyRow(Long sheetId,EnumSet<RowCopyInclusion> includes, Boolean ignoreRowsNotFound, CopyOrMoveRowDirective copyParameters) throws SmartsheetException;
+	public CopyOrMoveRowResult copyRows(Long sheetId, EnumSet<RowCopyInclusion> includes, Boolean ignoreRowsNotFound, CopyOrMoveRowDirective copyParameters) throws SmartsheetException;
 
 	/**
 	 * <p>Creates an object of RowAttachmentResources.</p>

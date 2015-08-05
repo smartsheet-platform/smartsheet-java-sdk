@@ -114,7 +114,7 @@ public class SheetColumnResourcesImplTest extends ResourcesImplBase {
 		col.setTitle("Favorite");
 		col.setType(ColumnType.CHECKBOX);
 
-		Column newCol = sheetColumnResourcesImpl.getColumn(123L, 456L);
+		Column newCol = sheetColumnResourcesImpl.getColumn(123L, 456L, EnumSet.of(ColumnInclusion.FILTERS));
 		assertNotNull(newCol);
 		assertEquals(col.getTitle(), newCol.getTitle());
 	}

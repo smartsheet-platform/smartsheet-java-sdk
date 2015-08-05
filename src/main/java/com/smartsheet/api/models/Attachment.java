@@ -287,7 +287,7 @@ public class Attachment extends NamedModel<Long> {
 	/**
 	 * A convenience class for quickly creating a List of cells to update.
 	 */
-	public static class AddAttachmentBuilder {
+	public static class CreateAttachmentBuilder {
 
 		/**
 		 * Represents the URL.
@@ -310,6 +310,32 @@ public class Attachment extends NamedModel<Long> {
 		private String description;
 
 		/**
+		 * Represents the attachment name
+		 */
+		private String name;
+
+		/**
+		 * Gets the name.
+		 *
+		 * @return The name.
+		 */
+		public String getName() {
+			return name;
+		}
+
+		/**
+		 * Sets the name.
+		 *
+		 * @param name the new name
+		 * @return the builder object
+		 *
+		 */
+		public CreateAttachmentBuilder setName(String name) {
+			this.name = name;
+			return this;
+		}
+
+		/**
 		 * Gets the URL.
 		 *
 		 * @return The url.
@@ -325,7 +351,7 @@ public class Attachment extends NamedModel<Long> {
 		 * @return the builder object
 		 *
 		 */
-		public AddAttachmentBuilder setUrl(String url) {
+		public CreateAttachmentBuilder setUrl(String url) {
 			this.url = url;
 			return this;
 		}
@@ -346,7 +372,7 @@ public class Attachment extends NamedModel<Long> {
 		 *            the new attachment type
 		 * @return the builder object
 		 */
-		public AddAttachmentBuilder setAttachmentType(AttachmentType attachmentType) {
+		public CreateAttachmentBuilder setAttachmentType(AttachmentType attachmentType) {
 			this.attachmentType = attachmentType;
 			return this;
 		}
@@ -367,7 +393,7 @@ public class Attachment extends NamedModel<Long> {
 		 *            the new attachment sub type
 		 * @return the builder object
 		 */
-		public AddAttachmentBuilder setAttachmentSubType(AttachmentSubType attachmentSubType) {
+		public CreateAttachmentBuilder setAttachmentSubType(AttachmentSubType attachmentSubType) {
 			this.attachmentSubType = attachmentSubType;
 			return this;
 		}
@@ -387,7 +413,7 @@ public class Attachment extends NamedModel<Long> {
 		 * @param description the description
 		 * @return the builder object
 		 */
-		public AddAttachmentBuilder setDescription(String description) {
+		public CreateAttachmentBuilder setDescription(String description) {
 			this.description = description;
 			return this;
 		}

@@ -87,8 +87,8 @@ public class GroupResourcesImplTest extends ResourcesImplBase {
 			assertNotNull(member.getId());
 			assertNotNull(member.getEmail());
 		}
-	
 	}
+
 	@Test
 	public void testCreateGroup() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/createGroup.json"));
@@ -130,7 +130,7 @@ public class GroupResourcesImplTest extends ResourcesImplBase {
 		builder.setName("My Test Group - renamed ")
 			.setDescription("My awesome group- redecribed");	
 		
-		Group group =  groupResources.updateGroup(builder.build());
+		Group group =  groupResources.updateGroup(123L, builder.build());
 		assertNotNull(group.getId());
 		assertNotNull(group.getName());
 		assertNotNull(group.getOwner());

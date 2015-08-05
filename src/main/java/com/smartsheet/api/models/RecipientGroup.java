@@ -42,4 +42,45 @@ public class RecipientGroup implements Recipient{
     public void setGroupId(Long groupId) {
         this.groupId = groupId;
     }
+
+    /**
+     * A convenience class to help create a RecipientGroup object with the appropriate fields.
+     */
+    public static class AddRecipientGroupBuilder {
+        /**
+         * The ID of a group recipient.
+         */
+        private Long groupId;
+
+        /**
+         * Get the group ID
+         * @return the group ID
+         */
+        public Long getGroupId() {
+            return groupId;
+        }
+
+        /**
+         * Set the group ID
+         * @param groupId the group ID
+         * @return  the builder
+         */
+        public AddRecipientGroupBuilder setGroupId(Long groupId) {
+            this.groupId = groupId;
+            return this;
+        }
+
+
+        /**
+         * Builds the RecipientGroup.
+         *
+         * @return the RecipientGroup
+         */
+        public RecipientGroup build() {
+            RecipientGroup recipientGroup = new RecipientGroup();
+            recipientGroup.groupId = groupId;
+            return recipientGroup;
+        }
+
+    }
 }

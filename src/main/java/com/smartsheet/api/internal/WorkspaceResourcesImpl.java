@@ -123,14 +123,16 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 	 * rather than returning null).
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Workspace getWorkspace(long id, boolean loadAll, EnumSet<SourceInclusion> includes) throws SmartsheetException {
+	public Workspace getWorkspace(long id, Boolean loadAll, EnumSet<SourceInclusion> includes) throws SmartsheetException {
 		String path = "workspaces/" + id;
 
 		// Add the parameters to a map and build the query string at the end
 		HashMap<String, Object> parameters = new HashMap<String, Object>();
 
 		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-		parameters.put("loadAll", Boolean.toString(loadAll));
+		if (loadAll != null) {
+			parameters.put("loadAll", Boolean.toString(loadAll));
+		}
 
 		path += QueryUtil.generateUrl(null, parameters);
 

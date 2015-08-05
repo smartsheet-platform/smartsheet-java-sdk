@@ -168,6 +168,25 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
 	public static class UpdateSheetBuilder {
 		private String sheetName;
 		private Long id;
+		private SheetUserSettings userSettings;
+
+		/**
+		 * Get the user settings
+		 * @return the user setting
+		 */
+		public SheetUserSettings getUserSettings() {
+			return userSettings;
+		}
+
+		/**
+		 * Set the user settings
+		 * @param userSettings the sheet user settings
+		 * @return the updateSheetBuilder object
+		 */
+		public UpdateSheetBuilder setUserSettings(SheetUserSettings userSettings) {
+			this.userSettings = userSettings;
+			return this;
+		}
 
 		/**
 		 * Get the id of the sheet
@@ -221,6 +240,7 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
 			Sheet sheet = new Sheet();
 			sheet.setName(sheetName);
 			sheet.setId(id);
+			sheet.setUserSettings(userSettings);
 			return sheet;
 		}
 	}

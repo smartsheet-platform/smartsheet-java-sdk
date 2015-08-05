@@ -593,9 +593,9 @@ public class Column extends IdentifiableModel<Long> {
 	}
 
 	/**
-	 * The Class ModifyColumnBuilder.
+	 * The Class UpdateColumnBuilder.
 	 */
-	public static class ModifyColumnBuilder {
+	public static class UpdateColumnBuilder {
 		/** The position of the column. */
 		private int index;
 		
@@ -632,7 +632,7 @@ public class Column extends IdentifiableModel<Long> {
 		 * @param index the position
 		 * @return the modify column builder
 		 */
-		public ModifyColumnBuilder setIndex(int index) {
+		public UpdateColumnBuilder setIndex(int index) {
 			this.index = index;
 			return this;
 		}
@@ -643,7 +643,7 @@ public class Column extends IdentifiableModel<Long> {
 		 * @param title the title
 		 * @return the modify column builder
 		 */
-		public ModifyColumnBuilder setTitle(String title) {
+		public UpdateColumnBuilder setTitle(String title) {
 			this.title = title;
 			return this;
 		}
@@ -654,7 +654,7 @@ public class Column extends IdentifiableModel<Long> {
 		 * @param type the type
 		 * @return the modify column builder
 		 */
-		public ModifyColumnBuilder setType(ColumnType type) {
+		public UpdateColumnBuilder setType(ColumnType type) {
 			this.type = type;
 			return this;
 		}
@@ -665,7 +665,7 @@ public class Column extends IdentifiableModel<Long> {
 		 * @param options the options
 		 * @return the modify column builder
 		 */
-		public ModifyColumnBuilder setOptions(List<String> options) {
+		public UpdateColumnBuilder setOptions(List<String> options) {
 			this.options = options;
 			return this;
 		}
@@ -676,7 +676,7 @@ public class Column extends IdentifiableModel<Long> {
 		 * @param symbol the symbol
 		 * @return the modify column builder
 		 */
-		public ModifyColumnBuilder setSymbol(Symbol symbol) {
+		public UpdateColumnBuilder setSymbol(Symbol symbol) {
 			this.symbol = symbol;
 			return this;
 		}
@@ -687,7 +687,7 @@ public class Column extends IdentifiableModel<Long> {
 		 * @param systemColumnType the system column type
 		 * @return the modify column builder
 		 */
-		public ModifyColumnBuilder setSystemColumnType(SystemColumnType systemColumnType) {
+		public UpdateColumnBuilder setSystemColumnType(SystemColumnType systemColumnType) {
 			this.systemColumnType = systemColumnType;
 			return this;
 		}
@@ -698,7 +698,7 @@ public class Column extends IdentifiableModel<Long> {
 		 * @param autoNumberFormat the auto number format
 		 * @return the modify column builder
 		 */
-		public ModifyColumnBuilder setAutoNumberFormat(AutoNumberFormat autoNumberFormat) {
+		public UpdateColumnBuilder setAutoNumberFormat(AutoNumberFormat autoNumberFormat) {
 			this.autoNumberFormat = autoNumberFormat;
 			return this;
 		}
@@ -709,7 +709,7 @@ public class Column extends IdentifiableModel<Long> {
 		 * @param sheetId the sheet id
 		 * @return the modify column builder
 		 */
-		public ModifyColumnBuilder setSheetId(Long sheetId) {
+		public UpdateColumnBuilder setSheetId(Long sheetId) {
 			this.sheetId = sheetId;
 			return this;
 		}
@@ -719,7 +719,7 @@ public class Column extends IdentifiableModel<Long> {
 		 * @param format the format
 		 * @return the modify column builder
 		 */
-		public ModifyColumnBuilder setFormat(Format format) {
+		public UpdateColumnBuilder setFormat(Format format) {
 			this.format = format;
 			return this;
 		}
@@ -729,7 +729,7 @@ public class Column extends IdentifiableModel<Long> {
 		 * @param width the width
 		 * @return the modify column builder
 		 */
-		public ModifyColumnBuilder setWidth(Integer width) {
+		public UpdateColumnBuilder setWidth(Integer width) {
 			this.width = width;
 			return this;
 		}
@@ -828,8 +828,8 @@ public class Column extends IdentifiableModel<Long> {
 		 * @return the column
 		 */
 		public Column build() {
-			if(title == null || sheetId == null) {
-				throw new InstantiationError("A title and sheetId are required");
+			if(title == null) {
+				throw new InstantiationError("A title is required");
 			}
 			
 			Column column = new Column();

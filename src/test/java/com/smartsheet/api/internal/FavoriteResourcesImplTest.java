@@ -28,7 +28,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -47,7 +46,7 @@ public class FavoriteResourcesImplTest extends ResourcesImplBase {
     @Test
     public void testAddFavorites() throws Exception {
         server.setResponseBody(new File("src/test/resources/addFavorites.json"));
-        List<Favorite> favoritesToAdd = new Favorite.AddFavoriteBuilder().addFavorite(8400677765441412L, "sheet").build();
+        List<Favorite> favoritesToAdd = new Favorite.AddFavoriteBuilder().addFavorite(8400677765441412L, FavoriteType.SHEET).build();
         List < Favorite > addedfavorites = favoriteResources.addFavorites(favoritesToAdd);
         assertEquals(1, addedfavorites.size());
     }
@@ -58,7 +57,6 @@ public class FavoriteResourcesImplTest extends ResourcesImplBase {
         PaginationParameters parameters = new PaginationParameters(false,1,1);
         PagedResult<Favorite> favorites = favoriteResources.listFavorites(parameters);
         assertNotNull(favorites.getData().get(0).getType());
-        assertEquals(favorites.getData().get(0).getType(), "sheet");
         //assertEquals(favorites.getData().get(1).getColumnType(), "folder");
     }
 

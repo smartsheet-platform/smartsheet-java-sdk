@@ -54,7 +54,7 @@ public class TemplateResourcesImplTest extends ResourcesImplBase {
 		server.setResponseBody(new File("src/test/resources/listTemplates.json"));
 
 		PaginationParameters parameters = new PaginationParameters(false, 1, 1);
-		PagedResult<Template> templates = templateResources.listTemplates(parameters);
+		PagedResult<Template> templates = templateResources.listUserCreatedTemplates(parameters);
 
 		assertNotNull(templates);
 		assertEquals("template 1", templates.getData().get(0).getName());

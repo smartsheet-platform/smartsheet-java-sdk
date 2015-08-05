@@ -105,13 +105,10 @@ public interface ReportResources {
      *   SmartsheetException : if there is any other error occurred during the operation
      *
      * @param id the id
-     * @param includes list of optional objects to include in the response
-     * @param pageSize page size parameter for pagination
-     * @param page page parameter for pagination
      * @param outputStream the OutputStream to which the Excel file will be written
      * @throws SmartsheetException the smartsheet exception
      * */
-    void getReportAsExcel(long id, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page, OutputStream outputStream) throws SmartsheetException;
+    void getReportAsExcel(long id, OutputStream outputStream) throws SmartsheetException;
 
     /**
      * Get a Report as an csv file.
@@ -129,13 +126,10 @@ public interface ReportResources {
      *   SmartsheetException : if there is any other error occurred during the operation
      *
      * @param id the id
-     * @param includes list of optional objects to include in the response
-     * @param pageSize page size parameter for pagination
-     * @param page page parameter for pagination
      * @param outputStream the OutputStream to which the Excel file will be written
      * @throws SmartsheetException the smartsheet exception
      * */
-    void getReportAsCsv(long id, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page, OutputStream outputStream) throws SmartsheetException;
+    void getReportAsCsv(long id, OutputStream outputStream) throws SmartsheetException;
 
     /**
      * <p>Creates an object of ShareResources.</p>

@@ -41,4 +41,45 @@ public class CopyOrMoveRowDestination {
     public void setSheetId(Long sheetId) {
         this.sheetId = sheetId;
     }
+
+    /**
+     * A convenience class for quickly creating a List of cells to update.
+     */
+    public static class InsertCopyOrMoveRowDestinationBuilder {
+
+        /** Represents the ID of the destination object. */
+        private Long sheetId;
+
+        /**
+         * Gets the ID of the destination object.
+         *
+         * @return ID of the destination object
+         */
+        public Long getSheetId() {
+            return sheetId;
+        }
+
+        /**
+         * Sets the ID of the destination object.
+         *
+         * @param sheetId ID of the destination object
+         * @return the builder
+         */
+        public InsertCopyOrMoveRowDestinationBuilder setSheetId(Long sheetId) {
+            this.sheetId = sheetId;
+            return  this;
+        }
+
+        /**
+         * Returns the CopyOrMoveRowDestination.
+         *
+         * @return the CopyOrMoveRowDestination
+         */
+        public CopyOrMoveRowDestination build() {
+            CopyOrMoveRowDestination copyOrMoveRowDestination = new CopyOrMoveRowDestination();
+            copyOrMoveRowDestination.sheetId = sheetId;
+            return copyOrMoveRowDestination;
+        }
+
+    }
 }

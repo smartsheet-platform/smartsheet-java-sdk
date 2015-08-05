@@ -49,7 +49,7 @@ public interface TemplateResources {
 	 * @return all templates (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public PagedResult<Template> listTemplates(PaginationParameters parameters) throws SmartsheetException;
+	public PagedResult<Template> listUserCreatedTemplates(PaginationParameters parameters) throws SmartsheetException;
 
 	/**
 	 * List public templates.

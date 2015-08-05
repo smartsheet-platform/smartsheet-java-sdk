@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,7 +28,7 @@ public class Favorite{
     /**
      * Represents type of favorite (workspace, folder, sheet, report, template).
      */
-    private String type;
+    private FavoriteType type;
 
     /**
      * Represents ID of the favorited item.
@@ -58,7 +58,7 @@ public class Favorite{
      *
      * @return the type
      */
-    public String getType() {
+    public FavoriteType getType() {
         return type;
     }
 
@@ -67,7 +67,7 @@ public class Favorite{
      *
      * @param type the new dependencies enabled
      */
-    public void setType(String type) {
+    public void setType(FavoriteType type) {
         this.type = type;
     }
 
@@ -78,7 +78,7 @@ public class Favorite{
 
         List<Favorite> favorites = new ArrayList<Favorite>();
 
-        public AddFavoriteBuilder addFavorite(long objectId, String type) {
+        public AddFavoriteBuilder addFavorite(long objectId, FavoriteType type) {
             Favorite favorite = new Favorite();
             favorite.setObjectId(objectId);
             favorite.setType(type);

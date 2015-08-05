@@ -9,9 +9,9 @@ package com.smartsheet.api.internal;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -101,7 +101,7 @@ public class ReportResourcesImplTest extends ResourcesImplBase {
         server.setContentType("application/vnd.ms-excel");
 
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        reportResources.getReportAsExcel(4583173393803140L, EnumSet.of(ReportInclusion.ATTACHMENTS, ReportInclusion.DISCUSSIONS),1,1, output);
+        reportResources.getReportAsExcel(4583173393803140L, output);
         assertNotNull(output);
 
         assertTrue(output.toByteArray().length > 0);
@@ -117,7 +117,7 @@ public class ReportResourcesImplTest extends ResourcesImplBase {
         server.setContentType("text/csv");
 
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        reportResources.getReportAsExcel(4583173393803140L, EnumSet.of(ReportInclusion.ATTACHMENTS, ReportInclusion.DISCUSSIONS),1,1, output);
+        reportResources.getReportAsExcel(4583173393803140L, output);
         assertNotNull(output);
 
         assertTrue(output.toByteArray().length > 0);

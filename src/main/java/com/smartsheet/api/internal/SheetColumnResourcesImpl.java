@@ -168,11 +168,12 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
 	 *   SmartsheetException : if there is any other error occurred during the operation
 	 *
 	 * @param sheetId the sheet id
-	 * @param columnId list of includes
+	 * @param columnId the column id
+	 * @param includes list of includes
 	 * @return the column (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Column getColumn(long sheetId, long columnId) throws SmartsheetException  {
+	public Column getColumn(long sheetId, long columnId, EnumSet<ColumnInclusion> includes) throws SmartsheetException  {
 		return this.getResource("sheets/" + sheetId + "/columns/" + columnId, Column.class);
 	}
 }

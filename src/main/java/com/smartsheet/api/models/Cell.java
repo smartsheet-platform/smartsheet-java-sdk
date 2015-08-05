@@ -366,5 +366,59 @@ public class Cell {
 		this.conditionalFormat = conditionalFormat;
 	}
 
+	/**
+	 * A convenience class for quickly creating a List of cells to add.
+	 */
+	public static class AddRowCellsBuilder {
+
+		/** The cells. */
+		List<Cell> cells = new ArrayList<Cell>();
+
+		/**
+		 * Adds the cell.
+		 *
+		 * @param columnId the column id
+		 * @param value the value
+		 * @param strict the strict
+		 * @param hyperlink the hyperlink
+		 * @param linkInFromCell the link
+		 * @return the update row cells builder
+		 */
+		public AddRowCellsBuilder addCell(Long columnId, Object value, Boolean strict, Hyperlink hyperlink,  CellLink linkInFromCell) {
+			Cell cell = new Cell();
+			cell.setColumnId(columnId);
+			cell.setValue(value);
+			cell.setStrict(strict);
+			cell.setHyperlink(hyperlink);
+			cell.setLinkInFromCell(linkInFromCell);
+			cells.add(cell);
+			return this;
+		}
+
+		public List<Cell> getCells(){
+			return cells;
+		}
+
+		/**
+		 * Adds the cell.
+		 *
+		 * @param columnId the column id
+		 * @param value the value
+		 * @return the builder
+		 */
+		public AddRowCellsBuilder addCell(Long columnId, Object value) {
+			addCell(columnId, value, true, null, null);
+			return this;
+		}
+
+		/**
+		 * Returns the list of cells.
+		 *
+		 * @return the list
+		 */
+		public List<Cell> build() {
+			return cells;
+		}
+	}
 
 }

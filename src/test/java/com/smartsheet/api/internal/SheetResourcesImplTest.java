@@ -53,7 +53,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 
 		server.setResponseBody(new File("src/test/resources/listSheets.json"));
 		PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(false).setPageSize(1).setPage(1).build();
-		PagedResult<Sheet> sheets = sheetResource.listSheets(parameters);
+		PagedResult<Sheet> sheets = sheetResource.listSheets(EnumSet.of(SourceInclusion.SOURCE), parameters);
 
 		assertTrue(sheets.getPageNumber() == 1);
 		assertTrue(sheets.getPageSize() == 100);
@@ -263,8 +263,8 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 	public void testUpdateSheet() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/updateSheet.json"));
 
-		Sheet sheet = new Sheet.UpdateSheetBuilder().setName("new name").setId(123L).build();
-		Sheet newSheet = sheetResource.updateSheet(sheet);
+		Sheet sheet = new Sheet.UpdateSheetBuilder().setName("new name").build();
+		Sheet newSheet = sheetResource.updateSheet(123L,sheet);
 
 		assertEquals("Sheet update (rename) failed.", sheet.getName(), newSheet.getName());
 	}

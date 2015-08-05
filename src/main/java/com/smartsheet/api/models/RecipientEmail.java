@@ -72,9 +72,9 @@ public class RecipientEmail implements Recipient {
         }
 
         /**
-         * Builds the column.
+         * Builds the RecipientEmail.
          *
-         * @return the column
+         * @return the RecipientEmail
          */
         public RecipientEmail build() {
             RecipientEmail recipientEmail = new RecipientEmail();

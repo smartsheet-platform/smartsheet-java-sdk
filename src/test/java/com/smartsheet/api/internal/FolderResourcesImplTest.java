@@ -66,7 +66,7 @@ public class FolderResourcesImplTest extends ResourcesImplBase {
 	public void testUpdateFolder() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/updateFolder.json"));
 
-		Folder newFolder = new Folder.UpdateFolderBuilder().setName("New Name").setId(1138268709382020L).build();
+		Folder newFolder = new Folder.UpdateFolderBuilder().setName("New Name").build();
 		Folder resultFolder = folderResource.updateFolder(newFolder);
 		
 		assertEquals(resultFolder.getName(), newFolder.getName());

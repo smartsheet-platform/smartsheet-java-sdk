@@ -88,6 +88,7 @@ public interface GroupResources {
 	 * <p>It mirrors to the following Smartsheet REST API method: PUT /group/{groupId}</p>
 	 *
 	 * @param group the {@link Group} to create. Use {@link Group.CreateGroupBuilder} to create this model.
+	 * @param groupId the group id
 	 * @return the newly created {@link Group}
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
@@ -96,7 +97,7 @@ public interface GroupResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Group updateGroup(Group group) throws SmartsheetException;
+	public Group updateGroup(long groupId, Group group) throws SmartsheetException;
 	
 	/**
 	 * <p>Delete a {@link Group}. </p>

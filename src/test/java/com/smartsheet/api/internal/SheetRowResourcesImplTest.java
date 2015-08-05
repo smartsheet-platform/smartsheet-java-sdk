@@ -155,7 +155,7 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
         List<Long> rowIds = new ArrayList<Long>();
         rowIds.add(145417762563972L);
         copyOrMoveRowDirective.setRowIds(rowIds);
-        sheetRowResource.moveRow(2258256056870788L, EnumSet.of(RowMoveInclusion.ATTACHMENTS), false, copyOrMoveRowDirective);
+        sheetRowResource.moveRows(2258256056870788L, EnumSet.of(RowMoveInclusion.ATTACHMENTS), false, copyOrMoveRowDirective);
     }
 
     @Test
@@ -169,6 +169,6 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
         List<Long> rowIds = new ArrayList<Long>();
         rowIds.add(145417762563972L);
         copyOrMoveRowDirective.setRowIds(rowIds);
-        sheetRowResource.copyRow(2258256056870788L, EnumSet.of(RowCopyInclusion.ATTACHMENTS), false, copyOrMoveRowDirective);
+        sheetRowResource.copyRows(2258256056870788L, EnumSet.of(RowCopyInclusion.ATTACHMENTS), false, copyOrMoveRowDirective);
     }
 }

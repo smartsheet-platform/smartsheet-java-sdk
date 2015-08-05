@@ -85,8 +85,13 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
         HashMap<String, Object> parameters = new HashMap<String, Object>();
 
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-        parameters.put("pageSize", pageSize.toString());
-        parameters.put("page", page.toString());
+        if (pageSize != null) {
+            parameters.put("pageSize", pageSize.toString());
+        }
+
+        if (page != null) {
+            parameters.put("page", page.toString());
+        }
 
         path += QueryUtil.generateUrl(null, parameters);
         return this.getResource(path, Report.class);
@@ -155,27 +160,11 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      *   SmartsheetException : if there is any other error occurred during the operation
      *
      * @param id the id
-     * @param includes the optional objects to include in response
-     * @param pageSize Number of rows per page
-     * @param page page number to return
      * @param outputStream the OutputStream to which the Excel file will be written
      * @throws SmartsheetException the smartsheet exception
      */
-    public void getReportAsExcel(long id, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page, OutputStream outputStream) throws SmartsheetException {
-        String path = "reports/" + id;
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
-        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-
-        if (pageSize != null){
-        parameters.put("pageSize", pageSize.toString());
-        }
-
-        if (pageSize != null) {
-            parameters.put("page", page.toString());
-        }
-
-        path += QueryUtil.generateUrl(null, parameters);
-        getResourceAsFile(path, "application/vnd.ms-excel",outputStream);
+    public void getReportAsExcel(long id, OutputStream outputStream) throws SmartsheetException {
+        getResourceAsFile("reports/" + id, "application/vnd.ms-excel",outputStream);
     }
 
     /**
@@ -194,27 +183,11 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      *   SmartsheetException : if there is any other error occurred during the operation
      *
      * @param id the id
-     * @param includes the optional objects to include in response
-     * @param pageSize Number of rows per page
-     * @param page page number to return
      * @param outputStream the OutputStream to which the Excel file will be written
      * @throws SmartsheetException the smartsheet exception
      */
-    public void getReportAsCsv(long id, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page, OutputStream outputStream) throws SmartsheetException {
-        String path = "reports/" + id;
-        HashMap<String, Object> parameters = new HashMap<String, Object>();
-
-        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-        if (pageSize != null){
-            parameters.put("pageSize", pageSize.toString());
-        }
-
-        if (pageSize != null) {
-            parameters.put("page", page.toString());
-        }
-
-        path += QueryUtil.generateUrl(null, parameters);
-        getResourceAsFile(path, "text/csv",outputStream);
+    public void getReportAsCsv(long id, OutputStream outputStream) throws SmartsheetException {
+        getResourceAsFile("reports/" + id, "text/csv",outputStream);
     }
 
     /**

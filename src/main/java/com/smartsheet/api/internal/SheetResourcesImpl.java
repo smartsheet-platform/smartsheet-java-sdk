@@ -100,26 +100,28 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	}
 
 	/**
-	 * List all sheets.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /sheets
-	 * 
-	 * Exceptions: 
-	 *   - InvalidRequestException : if there is any problem with the REST API request 
-	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token) 
-	 *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) 
-	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation 
-	 *   - SmartsheetException : if there is any other error occurred during the operation
+	 * <p>List all sheets.</p>
 	 *
-	 * @param parameters the object containing the pagination parameters
-	 * @return all sheets (note that empty list will be returned if there is none)
-	 * @throws SmartsheetException the smartsheet exception
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /sheets</p>
+	 *
+	 * @param includes the source inclusion
+	 * @param pagination the object containing the pagination parameters
+	 * @return A list of all sheets (note that an empty list will be returned if there are none).
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public PagedResult<Sheet> listSheets(PaginationParameters parameters) throws SmartsheetException {
+	public PagedResult<Sheet> listSheets(EnumSet<SourceInclusion> includes, PaginationParameters pagination) throws SmartsheetException {
 		String path = "sheets";
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+		path += QueryUtil.generateUrl(null, parameters);
 
-		if (parameters != null) {
-			path += parameters.toQueryString();
+		if (pagination != null) {
+			path += pagination.toQueryString();
 		}
 		return this.listResourcesWithWrapper(path, Sheet.class);
 	}
@@ -424,26 +426,22 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	}
 
 	/**
-	 * Update a sheet.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: PUT /sheet/{id}
-	 * 
-	 * Exceptions:
-	 *   IllegalArgumentException : if any argument is null
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ResourceNotFoundException : if the resource can not be found
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
+	 * <p>Update a sheet.</p>
 	 *
-	 * @param sheet the sheet to update limited to the following attribute: * name (string)
-	 * @return the updated sheet (note that if there is no such resource, this method will throw
-	 * ResourceNotFoundException rather than returning null).
-	 * @throws SmartsheetException the smartsheet exception
+	 * <p>It mirrors to the following Smartsheet REST API method: PUT /sheet/{id}</p>
+	 *
+	 * @param sheetId the sheet Id
+	 * @param sheet the sheet to update
+	 * @return the updated sheet
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Sheet updateSheet(Sheet sheet) throws SmartsheetException {
-		return this.updateResource("sheets/" + sheet.getId(), Sheet.class, sheet);
+	public Sheet updateSheet(long sheetId, Sheet sheet) throws SmartsheetException {
+		return this.updateResource("sheets/" + sheetId, Sheet.class, sheet);
 	}
 
 	/**
@@ -489,6 +487,24 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 		this.createResource("sheets/" + id + "/emails", SheetEmail.class, email);
 	}
 
+	/**
+	 * <p>Get a sheet as an Excel file.</p>
+	 *
+	 * <p>It mirrors to the following Smartsheet REST API method:</p>
+	 * <p>GET /sheet/{id} with "application/vnd.ms-excel" Accept HTTP header</p>
+	 *
+	 * @param id the id of the sheet
+	 * @param outputStream the output stream to which the Excel file will be written.
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	public void getSheetAsCSV(long id, OutputStream outputStream) throws SmartsheetException{
+		getSheetAsFile(id, null, outputStream, "text/csv");
+	}
 	/**
 	 * Return the ShareResources object that provides access to Share resources associated with Sheet resources.
 	 *
