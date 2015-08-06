@@ -106,6 +106,13 @@ public interface Smartsheet {
 	public ReportResources reportResources();
 
 	/**
+	 * <p>Returns the TokenResources instance that provides access to token resources.</p>
+	 *
+	 * @return the token resources instance
+	 */
+	public TokenResources tokenResources();
+
+	/**
 	 * <p>Set the email of the user to assume.</p>
 	 *
 	 * @param assumedUser the new assumed user

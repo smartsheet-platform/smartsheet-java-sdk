@@ -214,6 +214,16 @@ public class Row extends AbstractRow<Column, Cell> {
         private Boolean expanded;
         private List<Cell> cells;
         private Boolean locked;
+        private Long id;
+
+        public Long getRowId() {
+            return id;
+        }
+
+        public UpdateRowBuilder setRowId(Long id) {
+            this.id = id;
+            return this;
+        }
 
         /**
          * Gets the to top.
@@ -373,6 +383,7 @@ public class Row extends AbstractRow<Column, Cell> {
             row.setExpanded(expanded);
             row.setCells(cells);
             row.setLocked(locked);
+            row.setId(id);
             return row;
         }
     }

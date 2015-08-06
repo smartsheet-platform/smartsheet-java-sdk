@@ -438,7 +438,7 @@ public class OAuthFlowImpl implements OAuthFlow {
 	 *   - UnsupportedOAuthGrantTypeException : if the grant type is invalid
 	 *   - OAuthTokenException : if any other error occurred during the operation
 	 *
-	 * @param accessToken the access token to revoke access from
+	 * @param token the access token to revoke access from
 	 * @throws OAuthTokenException the o auth token exception
 	 * @throws JSONSerializerException the JSON serializer exception
 	 * @throws HttpClientException the http client exception

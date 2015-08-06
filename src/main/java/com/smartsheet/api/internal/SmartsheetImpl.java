@@ -57,7 +57,7 @@ public class SmartsheetImpl implements Smartsheet {
 
 	/**
 	 * Represents the base URI of the Smartsheet REST API.
-	 * 
+	 *
 	 * It will be initialized in constructor and will not change afterwards.
 	 */
 	private URI baseURI;
@@ -179,6 +179,14 @@ public class SmartsheetImpl implements Smartsheet {
 	 */
 	private final AtomicReference<FavoriteResources> favorites;
 
+	/**
+	 * Represents the AtomicReference for TokenResources.
+	 *
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+	 * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
+	 * SmartsheetImpl in thread safe manner.
+	 */
+	private final AtomicReference<TokenResources> tokens;
 
 	/**
 	 * Create an instance with given server URI, HttpClient (optional) and JsonSerializer (optional)
@@ -210,6 +218,7 @@ public class SmartsheetImpl implements Smartsheet {
 		this.accessToken = new AtomicReference<String>(accessToken);
 		this.reports = new AtomicReference<ReportResources>();
 		this.serverInfo = new AtomicReference<ServerInfoResources>();
+		this.tokens = new AtomicReference<TokenResources>();
 	}
 
 	/**
@@ -376,6 +385,16 @@ public class SmartsheetImpl implements Smartsheet {
 	public ServerInfoResources serverInfoResources() {
 		serverInfo.compareAndSet(null, new ServerInfoResourcesImpl(this));
 		return serverInfo.get();
+	}
+
+	/**
+	 * Returns the TokenResources instance that provides access to token resources.
+	 *
+	 * @return the token resources
+	 */
+	public TokenResources tokenResources() {
+		tokens.compareAndSet(null, new TokenResourcesImpl(this));
+		return tokens.get();
 	}
 
 	/**
