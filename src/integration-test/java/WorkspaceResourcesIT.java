@@ -74,7 +74,7 @@ public class WorkspaceResourcesIT extends ITResourcesImpl{
 
     public void testGetWorkspace() throws IOException, SmartsheetException {
         Workspace workspace = smartsheet.workspaceResources().getWorkspace(workspaceId, null, null);
-        //TO DO: Create Sheet and add to workspace
+        assertNotNull(workspace.getId());
     }
 
     public void testListWorkspaces() throws SmartsheetException, IOException {
@@ -84,8 +84,7 @@ public class WorkspaceResourcesIT extends ITResourcesImpl{
     }
 
     public void testUpdateWorkspace() throws IOException, SmartsheetException {
-        workspace.setName("New Name By Aditi");
-        workspace.setId(workspaceId);
+        Workspace workspace = new Workspace.UpdateWorkspaceBuilder().setName("Updated workspace").setId(workspaceId).build();
         Workspace newWorkspace = smartsheet.workspaceResources().updateWorkspace(workspace);
         assertEquals(workspaceId, newWorkspace.getId().longValue());
     }

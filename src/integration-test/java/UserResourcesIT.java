@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.util.*;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class UserResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
@@ -54,35 +55,40 @@ public class UserResourcesIT extends ITResourcesImpl{
     public void testListUsers() throws SmartsheetException, IOException {
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
 
-        PagedResult<User> userWrapper = smartsheet.userResources().listUsers(new HashSet(Arrays.asList("xyz", "abc")), parameters);
+        PagedResult<User> userWrapper = smartsheet.userResources().listUsers(new HashSet(Arrays.asList("aditi.nioding@gmail.com")), parameters);
         List<User> users = userWrapper.getData();
 
-        assertNotNull(users);
+        assertTrue(users.size() > 0);
     }
 
     @Test
-    public void testAddUserUser() throws IOException, SmartsheetException {
-//        User user = new User.AddUserBuilder().setAdmin(true).setEmail("anioding@uw.edu").setFirstName("Aditi").setLastName("N").setLicensedSheetCreator(true).build();
-//        User newUser = smartsheet.userResources().addUser(user);
-//
-//        assertEquals("Aditi", newUser.getFirstName());
+    public void testAddUser() throws IOException, SmartsheetException {
+        User user = new User.AddUserBuilder().setAdmin(false).setEmail("aditi.nioding@gmail.com").setFirstName("Aditi").setLastName("N").setLicensedSheetCreator(true).build();
+        User newUser = smartsheet.userResources().addUser(user);
+        String name = newUser.getFirstName();
+        assertTrue(name.equals("Aditi"));
+        testUpdateUser(newUser.getId());
     }
 
-    @Test
-    public void testUpdateUser() throws SmartsheetException, IOException {
-//        User user = new User.UpdateUserBuilder().setAdmin(false).setLicensedSheetCreator(true).build();
-//        User updatedUser = smartsheet.userResources().updateUser(123L, user);
-//        assertNotNull(updatedUser);
+    public void testUpdateUser(long userId) throws SmartsheetException, IOException {
+        User user = new User.UpdateUserBuilder().setAdmin(true).setUserId(userId).setFirstName("Adi").setLicensedSheetCreator(true).build();
+        User updatedUser = smartsheet.userResources().updateUser(user);
+        assertNotNull(updatedUser);
     }
 
     @Test
     public void testListOrgSheets() throws SmartsheetException, IOException {
-        //PagedResult<Sheet> sheets = smartsheet.userResources().listOrgSheets();
+        PagedResult<Sheet> sheets = smartsheet.userResources().listOrgSheets();
+        assertNotNull(sheets);
     }
 
     @Test
     public void testDeleteUser() throws IOException, SmartsheetException {
-//        DeleteUserParameters parameters = new DeleteUserParameters(12345L, true, true);
-//        smartsheet.userResources().deleteUser(1234L, parameters);
+        User user = new User.AddUserBuilder().setAdmin(false).setEmail("test@test.com").setFirstName("Aditi").setLastName("N").setLicensedSheetCreator(true).build();
+        User newUser = smartsheet.userResources().addUser(user);
+        Long toId = newUser.getId();
+
+        DeleteUserParameters parameters = new DeleteUserParameters(toId, true, true);
+        //smartsheet.userResources().deleteUser(userId, parameters);
     }
 }

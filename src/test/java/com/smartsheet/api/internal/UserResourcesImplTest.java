@@ -155,7 +155,7 @@ public class UserResourcesImplTest extends ResourcesImplBase {
 		user.setId(1234L);
 		user.setAdmin(true);
 		user.setLicensedSheetCreator(true);
-		User updatedUser = userResources.updateUser(123L, user);
+		User updatedUser = userResources.updateUser(user);
 		assertEquals("email@email.com", updatedUser.getEmail());
 		assertEquals(false, updatedUser.getAdmin());
 		assertEquals(true, updatedUser.getLicensedSheetCreator());

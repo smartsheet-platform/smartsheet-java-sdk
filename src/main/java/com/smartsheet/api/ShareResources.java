@@ -108,7 +108,6 @@ public interface ShareResources {
 	 * <p>PUT /reports/{reportId}/shares/{shareId}</p>
 	 *
 	 * @param objectId the ID of the object to share
-	 * @param shareId the Id of the user to whom the object is shared
 	 * @param share the share
 	 * @return the updated share (note that if there is no such resource, this method will throw
 	 *  ResourceNotFoundException rather than returning null).
@@ -119,7 +118,7 @@ public interface ShareResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Share updateShare(long objectId, String shareId, Share share) throws SmartsheetException;
+	public Share updateShare(long objectId, Share share) throws SmartsheetException;
 
 	/**
 	 * Delete a share.

@@ -38,13 +38,12 @@ import static org.junit.Assert.assertTrue;
 public class GroupResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
     Long groupId;
-    Group group;
     long groupMemberId;
+    PagedResult<Group> groups;
 
     @Before
     public void setUp() throws Exception {
         smartsheet = createAuthentication();
-        //group = new Group();
     }
 
     @Test
@@ -52,13 +51,17 @@ public class GroupResourcesIT extends ITResourcesImpl{
         testCreateGroup();
         testListGroups();
         testGetGroupById();
+        testUpdateGroup();
+        testAddMembersToGroup();
+        testRemoveMemberFromGroup();
+        testDeleteGroup();
     }
 
     public void testCreateGroup() throws SmartsheetException, IOException {
 
         GroupMember member = new GroupMember.AddGroupMemberBuilder().setEmail("aditi.nioding@gmail.com").build();
 
-        Group group = new Group.CreateGroupBuilder().setName("Test Group").setDescription("My awesome group").setMembers(Arrays.asList(member)).build();
+        Group group = new Group.CreateGroupBuilder().setName("Test Group").setDescription("Test group").setMembers(Arrays.asList(member)).build();
 
         try {
             group =  smartsheet.groupResources().createGroup(group);
@@ -72,7 +75,7 @@ public class GroupResourcesIT extends ITResourcesImpl{
     public void testListGroups() throws SmartsheetException, IOException {
 
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
-        PagedResult<Group> groups =  smartsheet.groupResources().listGroups(parameters);
+        groups =  smartsheet.groupResources().listGroups(parameters);
 
         assertNotNull(groups);
         groupId = groups.getData().get(0).getId();
@@ -86,9 +89,9 @@ public class GroupResourcesIT extends ITResourcesImpl{
 
     //not executed in test due to permission issue
     public void testUpdateGroup() throws SmartsheetException, IOException {
-        Group newGroup = new Group.UpdateGroupBuilder().setName("Renamed Group").setDescription("Some description").build();
+        Group groupUpdated = new Group.UpdateGroupBuilder().setName("Renamed Group").setId(groupId).setDescription("Some description").build();
 
-        assertNotNull(smartsheet.groupResources().updateGroup(groupId, group));
+        assertNotNull(smartsheet.groupResources().updateGroup(groupUpdated));
     }
 
     //not executed in test due to permission issue
@@ -108,5 +111,6 @@ public class GroupResourcesIT extends ITResourcesImpl{
     //not executed in test due to permission issue
     public void testRemoveMemberFromGroup() throws SmartsheetException, IOException {
         smartsheet.groupResources().members().deleteGroupMember(groupId, groupMemberId);
+        //smartsheet.groupResources().deleteGroup(groupId);
     }
 }

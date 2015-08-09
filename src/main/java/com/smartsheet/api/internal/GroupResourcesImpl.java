@@ -66,9 +66,9 @@ public class GroupResourcesImpl extends AbstractResources implements GroupResour
 	}
 
 	@Override
-	public Group updateGroup(long groupId, Group group) throws SmartsheetException {
+	public Group updateGroup(Group group) throws SmartsheetException {
 		Util.throwIfNull(group);
-		return this.updateResource("groups/"+ groupId, Group.class, group);
+		return this.updateResource("groups/"+ group.getId(), Group.class, group);
 	}
 
 	@Override

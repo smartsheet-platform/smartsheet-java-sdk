@@ -66,7 +66,6 @@ public class RowResourcesIT extends ITResourcesImpl{
         Column addedColumn1 = wrapper.getData().get(0);
         Column addedColumn2 = wrapper.getData().get(1);
 
-
         // Specify cell values for first row.
         List<Cell> cellsA = new Cell.AddRowCellsBuilder().addCell(addedColumn1.getId(), true).addCell(addedColumn2.getId(), "New status").build();
 
@@ -85,14 +84,12 @@ public class RowResourcesIT extends ITResourcesImpl{
         addedColumn = columns.get(1);
     }
 
-
     public void testGetRow() throws SmartsheetException, IOException {
         smartsheet.sheetResources().rowResources().getRow(sheet.getId(), newRows.get(0).getId(), null, null);
         row = smartsheet.sheetResources().rowResources().getRow(sheet.getId(), newRows.get(0).getId(), EnumSet.of(RowInclusion.COLUMNS, RowInclusion.COLUMN_TYPE), EnumSet.of(ObjectExclusion.NONEXISTENT_CELLS));
        assertNotNull(row);
     }
 
-    //TO DO: add ID to JSON to correct
     @Test
     public void testUpdateRows() throws SmartsheetException, IOException {
          //create sheet
@@ -111,7 +108,7 @@ public class RowResourcesIT extends ITResourcesImpl{
         List<Row> newRows = smartsheet.sheetResources().rowResources().addRows(sheet.getId(), Arrays.asList(row));
 
         //Updated cells //correct
-        List<Cell> cellsB = new Cell.UpdateRowCellsBuilder().addCell(addedColumn2.getId(), "Updtaed status").build();
+        List<Cell> cellsB = new Cell.UpdateRowCellsBuilder().addCell(addedColumn1.getId(), true).addCell(addedColumn2.getId(), "Updtaed status").build();
 
         Row rowB = new Row.UpdateRowBuilder().setCells(cellsB).setRowId(newRows.get(0).getId()).build();
 

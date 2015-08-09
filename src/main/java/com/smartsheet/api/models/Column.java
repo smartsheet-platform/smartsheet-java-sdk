@@ -626,6 +626,29 @@ public class Column extends IdentifiableModel<Long> {
 		/** The format */
 		private Format format;
 
+		/** The column id */
+		private Long id;
+
+		/**
+		 * Gets the column id.
+		 *
+		 * @return the column id
+		 */
+		public Long getColumnId() {
+			return id;
+		}
+
+		/**
+		 * Sets the position for the column.
+		 *
+		 * @param columnId the columnId
+		 * @return the modify column builder
+		 */
+		public UpdateColumnBuilder setColumnId(Long columnId) {
+			this.id = columnId;
+			return this;
+		}
+
 		/**
 		 * Sets the position for the column.
 		 *
@@ -828,8 +851,8 @@ public class Column extends IdentifiableModel<Long> {
 		 * @return the column
 		 */
 		public Column build() {
-			if(title == null) {
-				throw new InstantiationError("A title is required");
+			if(title == null || id == null) {
+				throw new InstantiationError("A title and a column id are required");
 			}
 			
 			Column column = new Column();
@@ -842,6 +865,7 @@ public class Column extends IdentifiableModel<Long> {
 			column.autoNumberFormat = autoNumberFormat;
 			column.width = width;
 			column.format = format;
+			column.setId(id);
 			return column;
 		}
 	}

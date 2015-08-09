@@ -280,7 +280,6 @@ public interface SheetResources {
 	 *
 	 * <p>It mirrors to the following Smartsheet REST API method: PUT /sheet/{id}</p>
 	 *
-	 * @param sheetId the sheet Id
 	 * @param sheet the sheet to update
 	 * @return the updated sheet
 	 * @throws IllegalArgumentException if any argument is null or empty string
@@ -290,7 +289,7 @@ public interface SheetResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Sheet updateSheet(long sheetId, Sheet sheet) throws SmartsheetException;
+	public Sheet updateSheet(Sheet sheet) throws SmartsheetException;
 
 	/**
 	 * <p>Get a sheet version.</p>

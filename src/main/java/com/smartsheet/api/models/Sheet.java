@@ -192,17 +192,17 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
 		 * Get the id of the sheet
 		 * @return the id
 		 */
-		public Long getId() {
+		public Long getSheetId() {
 			return id;
 		}
 
 		/**
 		 * Set the sheet id
-		 * @param id the sheet id
+		 * @param sheetId the sheet id
 		 * @return the updateSheetBuilder object
 		 */
-		public UpdateSheetBuilder setId(Long id) {
-			this.id = id;
+		public UpdateSheetBuilder setSheetId(Long sheetId) {
+			this.id = sheetId;
 			return this;
 		}
 

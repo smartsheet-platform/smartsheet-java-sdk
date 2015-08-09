@@ -310,7 +310,21 @@ public class Share extends NamedModel<String> {
 	 */
 	public static class UpdateShareBuilder {
 		private AccessLevel accessLevel;
+		private String id;
 
+		/**
+		 * Access level for this specific share.
+		 *
+		 * @return the builder
+		 */
+		public String getShareId() {
+			return id;
+		}
+
+		public UpdateShareBuilder setShareId(String shareId) {
+			this.id = shareId;
+			return this;
+		}
 		/**
 		 * Access level for the share.
 		 *
@@ -337,12 +351,13 @@ public class Share extends NamedModel<String> {
 		 * @return the share
 		 */
 		public Share build() {
-			if(accessLevel == null){
-				throw new InstantiationError("The access level must be specified.");
+			if(accessLevel == null || id == null){
+				throw new InstantiationError("The access level and share id must be specified.");
 			}
 			
 			Share share = new Share();
 			share.accessLevel = accessLevel;
+			share.setId(id);
 			return share;
 		}
 	}

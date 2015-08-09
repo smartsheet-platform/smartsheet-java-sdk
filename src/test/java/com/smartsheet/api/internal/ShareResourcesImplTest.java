@@ -77,7 +77,7 @@ public class ShareResourcesImplTest extends ResourcesImplBase {
 		server.setResponseBody(new File("src/test/resources/updateShare.json"));
 		Share share = new Share();
 		share.setAccessLevel(AccessLevel.ADMIN);
-		Share newShare = shareResourcesImpl.updateShare(1234L, "daffda", share);
+		Share newShare = shareResourcesImpl.updateShare(123L, share);
 		assertEquals(share.getAccessLevel(), newShare.getAccessLevel());
 	}
 

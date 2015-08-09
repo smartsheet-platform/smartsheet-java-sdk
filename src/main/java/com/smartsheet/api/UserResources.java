@@ -134,7 +134,6 @@ public interface UserResources {
 	 * 
 	 * <p>It mirrors to the following Smartsheet REST API method: PUT /user/{id}</p>
 	 *
-	 * @param userId the userid
 	 * @param user the user to update
 	 * @return the updated user
 	 * @throws IllegalArgumentException if any argument is null or empty string
@@ -144,7 +143,7 @@ public interface UserResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public User updateUser(long userId, User user) throws SmartsheetException;
+	public User updateUser(User user) throws SmartsheetException;
 	
 	/**
 	 * <p>Delete a user in the organization.</p>

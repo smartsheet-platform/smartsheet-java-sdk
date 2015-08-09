@@ -41,18 +41,15 @@ public class TokenResourcesIT extends ITResourcesImpl{
         //TODO
         OAuthFlow oAuthFlow = new OAuthFlowBuilder().setClientId("skth38gccnv3og69uo").setRedirectURL("https://www.google.com").setClientSecret("vnzw980ehmap1o3cqd").build();
 
-//        String url = oAuthFlow.newAuthorizationURL(EnumSet.allOf(AccessScope.class), "test");
-//
-//        String redirectURI = "https%3A%2F%2Fwww.google.com/?code=abcdefghikjlmn&expires_in=1234567&state=test&client_id=skth38gccnv3og69uo";
-//
-//        AuthorizationResult authorizationResult = oAuthFlow.extractAuthorizationResult(redirectURI);
+        //String url = oAuthFlow.newAuthorizationURL(EnumSet.allOf(AccessScope.class), "key=IntegrationTest");
 
-        //Token token = oAuthFlow.obtainNewToken(authorizationResult);
-        //Token refreshToken = oAuthFlow.refreshToken(token);
+        String redirectURI = "https://www.google.com/?code=116f3n7c3k1gqixe&expires_in=599237&state=key%3DIntegrationTest";
 
-        //oAuthFlow.revokeAccessToken(token);
+        AuthorizationResult authorizationResult = oAuthFlow.extractAuthorizationResult(redirectURI);
 
-        //smartsheet.tokenResources().revokeAccessToken();
+        Token token = oAuthFlow.obtainNewToken(authorizationResult);
+        Token refreshToken = oAuthFlow.refreshToken(token);
+        oAuthFlow.revokeAccessToken(token);
 
     }
 }

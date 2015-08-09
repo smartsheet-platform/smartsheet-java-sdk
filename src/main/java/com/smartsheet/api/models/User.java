@@ -296,6 +296,25 @@ public class User extends UserModelWithName {
 		private Boolean resourceViewer;
 		private String firstName;
 		private String lastName;
+		private Long id;
+
+		/**
+		 * Get the id of the user
+		 * @return the id
+		 */
+		public Long getUserId() {
+			return id;
+		}
+
+		/**
+		 * Set the user id
+		 * @param userId the user id
+		 * @return the updateSheetBuilder object
+		 */
+		public UpdateUserBuilder setUserId(Long userId) {
+			this.id = userId;
+			return this;
+		}
 
 		/**
 		 * Sets the admin flag which allows managing users and accounts.
@@ -407,8 +426,8 @@ public class User extends UserModelWithName {
 		 * @return the user
 		 */
 		public User build() {
-			if(admin == null || licensedSheetCreator == null){
-				throw new InstantiationError("An admin and licensed sheet creator must be set");
+			if(admin == null || licensedSheetCreator == null || id == null){
+				throw new InstantiationError("An admin, licensed sheet creator and user Id must be set");
 			}
 			
 			User user = new User();
@@ -418,6 +437,7 @@ public class User extends UserModelWithName {
 			user.licensedSheetCreator = licensedSheetCreator;
 			user.groupAdmin = groupAdmin;
 			user.resourceViewer = resourceViewer;
+			user.setId(id);
 			return user;
 		}
 

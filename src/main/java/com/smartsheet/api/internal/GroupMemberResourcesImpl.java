@@ -58,7 +58,7 @@ public class GroupMemberResourcesImpl extends AbstractAssociatedResources implem
 
 	@Override
 	public void deleteGroupMember(long groupId, long userId) throws SmartsheetException {
-		this.deleteResource("groups/" + "/" + groupId + "/member/" + userId, User.class);
+		this.deleteResource("groups/" + groupId + "/members/" + userId, User.class);
 	}
 
 }

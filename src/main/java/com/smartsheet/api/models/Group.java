@@ -278,11 +278,12 @@ public class Group extends NamedModel<Long> {
 		public Group build() {
 			Group group = new Group();
 
-			if (name == null) {
+			if (name == null || id == null) {
 				throw new InstantiationError();
 			}
 			group.setDescription(description);
 			group.setName(name);
+			group.setId(id);
 			return group;
 		}
 

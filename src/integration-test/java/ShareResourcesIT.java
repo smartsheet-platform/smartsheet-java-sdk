@@ -87,8 +87,7 @@ public class ShareResourcesIT extends ITResourcesImpl{
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
         sheetId = sheet.getId();
 
-        sheetShares.add(new Share.CreateUserShareBuilder().setEmailAddress("anioding@smartsheet.com").setAccessLevel(AccessLevel.VIEWER).build());
-        sheetShares.add(new Share.CreateUserShareBuilder().setEmailAddress("jane.doe@smartsheet.com").setAccessLevel(AccessLevel.VIEWER).build());
+        sheetShares = Arrays.asList(new Share.CreateUserShareBuilder().setEmailAddress("anioding@smartsheet.com").setAccessLevel(AccessLevel.VIEWER).build(), new Share.CreateUserShareBuilder().setEmailAddress("jane.doe@smartsheet.com").setAccessLevel(AccessLevel.VIEWER).build());
 
         sheetShares = smartsheet.sheetResources().shareResources().shareTo(sheet.getId(), sheetShares, true);
         assertNotNull(sheetShares);
@@ -128,7 +127,7 @@ public class ShareResourcesIT extends ITResourcesImpl{
     public void testListShares() throws SmartsheetException, IOException {
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
 
-        PagedResult<Share> reportShares = smartsheet.reportResources().shareResources().listShares(8623082916079492L, parameters);
+        //PagedResult<Share> reportShares = smartsheet.reportResources().shareResources().listShares(8623082916079492L, parameters);
         PagedResult<Share> sheetShares = smartsheet.sheetResources().shareResources().listShares(sheetId, parameters);
         PagedResult<Share> workspaceShares = smartsheet.workspaceResources().shareResources().listShares(workspaceId, parameters);
         assertNotNull(sheetShares);
@@ -136,14 +135,17 @@ public class ShareResourcesIT extends ITResourcesImpl{
     }
 
     public void testUpdateShare() throws SmartsheetException, IOException {
-        Share share =new Share.UpdateShareBuilder().setAccessLevel(AccessLevel.EDITOR).build();
+        //Share sheet
+        Share shareSheet =new Share.UpdateShareBuilder().setAccessLevel(AccessLevel.EDITOR).setShareId(sheetShares.get(1).getId()).build();
 
-        Share newShare = smartsheet.sheetResources().shareResources().updateShare(sheetId, sheetShares.get(1).getId(), share);
-        assertEquals(share.getAccessLevel(), newShare.getAccessLevel());
+        Share newShareSheet = smartsheet.sheetResources().shareResources().updateShare(sheetId, shareSheet);
+        assertEquals(shareSheet.getAccessLevel(), newShareSheet.getAccessLevel());
 
-        newShare = smartsheet.workspaceResources().shareResources().updateShare(workspaceId, workspaceShares.get(1).getId(), share);
+        //Share workspace
+        Share shareWorkspace =new Share.UpdateShareBuilder().setAccessLevel(AccessLevel.EDITOR).setShareId(workspaceShares.get(1).getId()).build();
+        Share newShareWorkspace = smartsheet.workspaceResources().shareResources().updateShare(workspaceId, shareWorkspace);
 
-        assertEquals(share.getAccessLevel(), newShare.getAccessLevel());
+        assertEquals(shareWorkspace.getAccessLevel(), newShareWorkspace.getAccessLevel());
     }
 
     public void testDeleteShare() throws SmartsheetException, IOException {

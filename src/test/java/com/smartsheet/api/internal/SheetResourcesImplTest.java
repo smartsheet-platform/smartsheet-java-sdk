@@ -264,7 +264,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		server.setResponseBody(new File("src/test/resources/updateSheet.json"));
 
 		Sheet sheet = new Sheet.UpdateSheetBuilder().setName("new name").build();
-		Sheet newSheet = sheetResource.updateSheet(123L,sheet);
+		Sheet newSheet = sheetResource.updateSheet(sheet);
 
 		assertEquals("Sheet update (rename) failed.", sheet.getName(), newSheet.getName());
 	}

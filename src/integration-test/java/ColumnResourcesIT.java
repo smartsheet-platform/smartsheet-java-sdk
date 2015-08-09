@@ -85,8 +85,7 @@ public class ColumnResourcesIT extends ITResourcesImpl{
     }
 
     public void testUpdateColumn() throws SmartsheetException, IOException {
-        Column column1 = new Column.UpdateColumnBuilder().setTitle("First Column").setIndex(0).setType(ColumnType.PICKLIST).setOptions(Arrays.asList("One", "Two")).build();
-        column1.setId(addedColumn.getId());
+        Column column1 = new Column.UpdateColumnBuilder().setColumnId(addedColumn.getId()).setTitle("First Column").setIndex(0).setType(ColumnType.PICKLIST).setOptions(Arrays.asList("One", "Two")).build();
         Column updatedColumn = smartsheet.sheetResources().columnResources().updateColumn(newSheet.getId(), column1);
 
         assertNotNull(updatedColumn);

@@ -220,8 +220,8 @@ public class Row extends AbstractRow<Column, Cell> {
             return id;
         }
 
-        public UpdateRowBuilder setRowId(Long id) {
-            this.id = id;
+        public UpdateRowBuilder setRowId(Long rowId) {
+            this.id = rowId;
             return this;
         }
 
@@ -383,7 +383,7 @@ public class Row extends AbstractRow<Column, Cell> {
             row.setExpanded(expanded);
             row.setCells(cells);
             row.setLocked(locked);
-            row.setId(id);
+            row.setId(getRowId());
             return row;
         }
     }

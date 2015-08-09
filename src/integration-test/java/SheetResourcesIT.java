@@ -159,8 +159,8 @@ public class SheetResourcesIT extends ITResourcesImpl{
     }
 
     public void testUpdateSheet() throws SmartsheetException, IOException {
-        Sheet sheet = new Sheet.UpdateSheetBuilder().setName("Updated Name by Aditi").build();
-        Sheet newSheet = smartsheet.sheetResources().updateSheet(newSheetHome.getId(), sheet);
+        Sheet sheet = new Sheet.UpdateSheetBuilder().setSheetId(newSheetHome.getId()).setName("Updated Name by Aditi").build();
+        Sheet newSheet = smartsheet.sheetResources().updateSheet(sheet);
 
         assertEquals(sheet.getName(), newSheet.getName());
     }
