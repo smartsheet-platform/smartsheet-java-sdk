@@ -39,16 +39,26 @@ public class TokenResourcesIT extends ITResourcesImpl{
     @Test
     public void tokenResources() throws Exception{
         //TODO
-        OAuthFlow oAuthFlow = new OAuthFlowBuilder().setClientId("skth38gccnv3og69uo").setRedirectURL("https://www.google.com").setClientSecret("vnzw980ehmap1o3cqd").build();
+        OAuthFlow oAuthFlow = new OAuthFlowBuilder().setClientId("YOUR_CLIENT_ID").setRedirectURL("https://www.google.com").setClientSecret("YOUR_CLIENT_SECRET").build();
 
         //String url = oAuthFlow.newAuthorizationURL(EnumSet.allOf(AccessScope.class), "key=IntegrationTest");
 
+        // Take the user to the following URL
+        //System.out.println(url);
+
+        // After the user accepts or declines the authorization they are taken to the redirect URL. The URL of the page
+        // the user is taken to can be used to generate an authorization Result object.
         //String redirectURI = "https://www.google.com/?code=116f3n7c3k1gqixe&expires_in=599237&state=key%3DIntegrationTest";
 
         //AuthorizationResult authorizationResult = oAuthFlow.extractAuthorizationResult(redirectURI);
 
+        // Get the token from the authorization result
         //Token token = oAuthFlow.obtainNewToken(authorizationResult);
+
+        // Refresh token
         //Token refreshToken = oAuthFlow.refreshToken(token);
+
+        //Revoke access token
         //oAuthFlow.revokeAccessToken(token);
 
     }

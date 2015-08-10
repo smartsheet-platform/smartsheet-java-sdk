@@ -20,9 +20,16 @@
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetBuilder;
 import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.internal.oauth.OAuthFlowImpl;
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.oauth.AuthorizationResult;
+import com.smartsheet.api.oauth.OAuthFlow;
+import com.smartsheet.api.oauth.OAuthFlowBuilder;
 import com.smartsheet.api.oauth.Token;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
@@ -72,5 +79,37 @@ public class Sample {
         Sheet sheet = new Sheet.CreateSheetBuilder().setName("New Sheet").setColumns(Arrays.asList(checkboxColumn, textColumn)).build();
         // Send the request to create the sheet @ Smartsheet
         sheet = smartsheet.sheetResources().createSheet(sheet);
+    }
+
+    /**
+     * This provides an example of how to use OAuth to generate a Token from a third party application. It handles
+     * requesting the authorization code, sending the user to a specific website to request access and then getting
+     * the access token to use for all future requests.
+     */
+    public static void OAuthExample() throws SmartsheetException, UnsupportedEncodingException, URISyntaxException,
+            NoSuchAlgorithmException {
+
+        // Setup the information that is necessary to request an authorization code
+        OAuthFlow oauth = new OAuthFlowBuilder().setClientId("YOUR_CLIENT_ID").setClientSecret("YOUR_CLIENT_SECRET").
+                setRedirectURL("https://YOUR_DOMAIN.com/").build();
+
+        // Create the URL that the user will go to grant authorization to the application
+        String url = oauth.newAuthorizationURL(EnumSet.of(com.smartsheet.api.oauth.AccessScope.CREATE_SHEETS,
+                com.smartsheet.api.oauth.AccessScope.WRITE_SHEETS), "key=YOUR_VALUE");
+
+        // Take the user to the following URL
+        System.out.println(url);
+
+        // After the user accepts or declines the authorization they are taken to the redirect URL. The URL of the page
+        // the user is taken to can be used to generate an authorization Result object.
+        String authorizationResponseURL = "https://yourDomain.com/?code=l4csislal82qi5h&expires_in=239550&state=key%3D12344";
+
+        // On this page pass in the full URL of the page to create an authorizationResult object
+        AuthorizationResult authResult = oauth.extractAuthorizationResult(authorizationResponseURL);
+
+        // Get the token from the authorization result
+        Token token = oauth.obtainNewToken(authResult);
+
+        // Save the token or use it.
     }
 }

@@ -46,6 +46,7 @@ The documentation can also be downloaded as a jar file [here](http://oss.sonatyp
 ##Example Usage
 
 ```java
+public static void Sample() throws SmartsheetException{
 // Set the Access Token
 Token token = new Token();
 token.setAccessToken("INSERT_YOUR_TOKEN_HERE");
@@ -82,6 +83,35 @@ Column textColumn = new Column.AddColumnToSheetBuilder().setPrimary(true).setTit
 Sheet sheet = new Sheet.CreateSheetBuilder().setName("New Sheet").setColumns(Arrays.asList(checkboxColumn, textColumn)).build();
 // Send the request to create the sheet @ Smartsheet
 sheet = smartsheet.sheetResources().createSheet(sheet);
+}
+
+
+public static void OAuthExample() throws SmartsheetException, UnsupportedEncodingException, URISyntaxException,
+NoSuchAlgorithmException {
+
+// Setup the information that is necessary to request an authorization code
+OAuthFlow oauth = new OAuthFlowBuilder().setClientId("YOUR_CLIENT_ID").setClientSecret("YOUR_CLIENT_SECRET").
+setRedirectURL("https://YOUR_DOMAIN.com/").build();
+
+// Create the URL that the user will go to grant authorization to the application
+String url = oauth.newAuthorizationURL(EnumSet.of(com.smartsheet.api.oauth.AccessScope.CREATE_SHEETS,
+com.smartsheet.api.oauth.AccessScope.WRITE_SHEETS), "key=YOUR_VALUE");
+
+// Take the user to the following URL
+System.out.println(url);
+
+// After the user accepts or declines the authorization they are taken to the redirect URL. The URL of the page
+// the user is taken to can be used to generate an authorization Result object.
+String authorizationResponseURL = "https://yourDomain.com/?code=l4csislal82qi5h&expires_in=239550&state=key%3D12344";
+
+// On this page pass in the full URL of the page to create an authorizationResult object
+AuthorizationResult authResult = oauth.extractAuthorizationResult(authorizationResponseURL);
+
+// Get the token from the authorization result
+Token token = oauth.obtainNewToken(authResult);
+
+// Save the token or use it.
+    }
 ```
 
 More Java examples available [here](http://smartsheet-platform.github.io/api-docs/#java-sample-code).
@@ -95,6 +125,17 @@ If you have any questions or issues with this SDK please post on [StackOverflow 
 ##Release Notes
 
 Each specific release is available for download via [Github](https://github.com/smartsheet-platform/smartsheet-java-sdk/tags) or the [Maven repository](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.smartsheet%22%20AND%20a%3A%22smartsheet-sdk-java%22).
+
+**2.0 (Aug 10, 2015)**
+* New base URL - https://api.smartsheet.com/2.0
+* New endpoints - new operations for Columns, Reports, Rows, Templates, and Access Tokens
+* Changed endpoints - several changes to existing endpoints, including:
+* Changed numerous endpoints from singular to plural 
+* Changed endpoints for all Sharing-related operations
+* Changed endpoint for Update Row(s) operation
+* New support for multipart upload requests
+* New support for pagination of results
+* New support for bulk-insert and bulk-update
 
 **1.1.0**
 * Added support for group administration and sharing (note there are some backwards incompatible changes to sharing)
@@ -126,20 +167,6 @@ Each specific release is available for download via [Github](https://github.com/
 
 **1.0.0 (Feb 19, 2014)**
 * Initial Release of the Smartsheet Java SDK
-
-**2.0 (Aug 10, 2015)**
-* New base URL - https://api.smartsheet.com/2.0
-* New endpoints - new operations for Columns, Reports, Rows, Templates, and Access Tokens
-* Changed endpoints - several changes to existing endpoints, including:
-* Changed numerous endpoints from singular to plural - For example:
-* v1.1:  GET /sheet/{sheetId}/columns
-* v2.0:  GET /sheets/{sheetId}/columns
-* Changed endpoints for all Sharing-related operations
-* Changed endpoint for Update Row(s) operation
-* New support for multipart upload requests
-* New support for pagination of results
-* New support for bulk-insert and bulk-update
-* Other miscellaneous changes  
 
 
 [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/4b2c0d7b11c532fb1693dec0e5f300d5 "githalytics.com")](http://githalytics.com/smartsheet-platform/smartsheet-java-sdk)
