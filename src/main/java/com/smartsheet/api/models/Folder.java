@@ -197,7 +197,7 @@ public class Folder extends NamedModel<Long> {
 
 		/**
 		 * Gets the folder id.
-		 * 
+		 *
 		 * @return the folder id.
 		 */
 		public Long getId() {
@@ -206,7 +206,7 @@ public class Folder extends NamedModel<Long> {
 
 		/**
 		 * Sets the folder id.
-		 * 
+		 *
 		 * @param id the id of the folder.
 		 * @return the builder
 		 */
