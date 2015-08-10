@@ -129,80 +129,93 @@ public interface Smartsheet {
 	public void setAccessToken(String accessToken);
 
 	/**
-	 * @Deprecated As of release 2.0, replaced by {@link #homeResources()}
+	 * @deprecated As of release 2.0, replaced by {@link #homeResources()}
+	 * @return the associates resource
 	 */
 	@Deprecated
 	public HomeResources home();
 
 	/**
-	 * @Deprecated As of release 2.0, replaced by {@link #workspaceResources()}
+	 * @deprecated As of release 2.0, replaced by {@link #workspaceResources()}
+	 * @return the associates resource
 	 */
 	@Deprecated
 	public WorkspaceResources workspaces();
 
 	/**
-	 * @Deprecated As of release 2.0, replaced by {@link #folderResources()}
+	 * @deprecated As of release 2.0, replaced by {@link #folderResources()}
+	 * @return the associates resource
 	 */
 	@Deprecated
 	public FolderResources folders();
 
 	/**
-	 * @Deprecated As of release 2.0, replaced by {@link #templateResources()}
+	 * @deprecated As of release 2.0, replaced by {@link #templateResources()}
+	 * @return the associates resource
 	 */
 	@Deprecated
 	public TemplateResources templates();
 
 	/**
-	 * @Deprecated As of release 2.0, replaced by {@link #sheetResources()}
+	 * @deprecated As of release 2.0, replaced by {@link #sheetResources()}
+	 * @return the associates resource
 	 */
 	@Deprecated
 	public SheetResources sheets();
 
 	/**
-	 * @Deprecated As of release 2.0, use sheetResources().columnResources()
+	 * @deprecated As of release 2.0, use sheetResources().columnResources()
+	 * @return the associates resource
 	 */
 	@Deprecated
 	public ColumnResources columns();
 
 	/**
-	 * @Deprecated As of release 2.0, use sheetResources().rowResources()
+	 * @deprecated As of release 2.0, use sheetResources().rowResources()
+	 * @return the associates resource
 	 */
 	@Deprecated
 	public RowResources rows();
 
 	/**
-	 * @Deprecated As of release 2.0; example: use sheetResources().attachmentResources() for sheet-level attachments
+	 * @deprecated As of release 2.0; example: use sheetResources().attachmentResources() for sheet-level attachments
+	 * @return the associates resource
 	 */
 	@Deprecated
 	public AttachmentResources attachments();
 
 	/**
-	 * @Deprecated As of release 2.0; example: use sheetResources().discussionResources() for sheet-level discussions
+	 * @deprecated As of release 2.0; example: use sheetResources().discussionResources() for sheet-level discussions
+	 * @return the associates resource
 	 */
 	@Deprecated
 	public DiscussionResources discussions();
 
 	/**
-	 * @Deprecated As of release 2.0; example: use sheetResources().discussionResources().commentResources() for discussion-level comments
+	 * @deprecated As of release 2.0; example: use sheetResources().discussionResources().commentResources() for discussion-level comments
+	 * @return the associates resource
 	 */
 	@Deprecated
 	public CommentResources comments();
 
 	/**
-	 * @Deprecated As of release 2.0, replaced by {@link #userResources()}
+	 * @deprecated As of release 2.0, replaced by {@link #userResources()}
+	 * @return the associates resource
 	 */
 	@Deprecated
 	public UserResources users();
 
 	/**
-	 * @Deprecated As of release 2.0, replaced by {@link #groupResources()}
+	 * @deprecated As of release 2.0, replaced by {@link #groupResources()}
+	 * @return the associates resource
 	 */
 	@Deprecated
 	public GroupResources groups();
 
 
 	/**
-	 * @Deprecated As of release 2.0, replaced by {@link #searchResources()}
+	 * @deprecated As of release 2.0, replaced by {@link #searchResources()}
+	 * @return the associates resource
 	 */
 	@Deprecated
 	public SearchResources search();

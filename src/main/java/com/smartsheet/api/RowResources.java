@@ -42,8 +42,8 @@ public interface RowResources {
     /**
      * <p>Get a row.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:<br />
-     * GET /row/{id}</p>
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>GET /row/{id}</p>
      *
      * @param id the id
      * @param includes used to specify the optional objects to include.
@@ -61,8 +61,8 @@ public interface RowResources {
     /**
      * <p>Move a row.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:<br />
-     *  PUT /row/{id}</p>
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>PUT /row/{id}</p>
      *
      * @param id the id of the row to move
      * @param rowWrapper the row wrapper that specifies where to move the row.
@@ -79,8 +79,8 @@ public interface RowResources {
     /**
      * <p>Delete a row.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:<br />
-     * DELETE /row{id}</p>
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>DELETE /row{id}</p>
      *
      * @param id the id of the row
      * @throws IllegalArgumentException if any argument is null or empty string
@@ -95,8 +95,8 @@ public interface RowResources {
     /**
      * <p>Send a row via email to the designated recipients.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:<br />
-     *  POST /row/{id}/emails</p>
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>POST /row/{id}/emails</p>
      *
      * @param id the id
      * @param email the email
@@ -129,8 +129,8 @@ public interface RowResources {
     /**
      * <p>Get the cell modification history.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:<br />
-     * GET /row/{rowId}/column/{columnId}/history</p>
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>GET /row/{rowId}/column/{columnId}/history</p>
      *
      * @param rowId the row id
      * @param columnId the column id

@@ -198,6 +198,7 @@ public class SheetEmail extends Email {
 		/**
 		 * Sets the list of recipients to send to
 		 * @param sendTo list of recipients
+		 * @return the associated builder
 		 */
 		public AddSheetEmailBuilder setSendTo(List<Recipient> sendTo) { this.sendTo = sendTo;
 		return  this;}
@@ -215,6 +216,7 @@ public class SheetEmail extends Email {
 		 * Sets the subject.
 		 *
 		 * @param subject the new subject
+		 * @return the associated builder
 		 */
 		public AddSheetEmailBuilder setSubject(String subject) {
 			this.subject = subject;
@@ -234,6 +236,7 @@ public class SheetEmail extends Email {
 		 * Sets the message.
 		 *
 		 * @param message the new message
+		 * @return the associated builder
 		 */
 		public AddSheetEmailBuilder setMessage(String message) {
 			this.message = message;
@@ -253,6 +256,7 @@ public class SheetEmail extends Email {
 		 * Sets the carbon copy me flag.
 		 *
 		 * @param ccMe the new cc me
+		 * @return the associated builder
 		 */
 		public AddSheetEmailBuilder setCcMe(Boolean ccMe) {
 			this.ccMe = ccMe;

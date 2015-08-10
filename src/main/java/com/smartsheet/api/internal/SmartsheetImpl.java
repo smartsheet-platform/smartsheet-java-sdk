@@ -422,7 +422,7 @@ public class SmartsheetImpl implements Smartsheet {
 	}
 
 	/**
-	 * @Deprecated As of release 2.0, use sheetResources().columnResources()
+	 * @deprecated As of release 2.0, use sheetResources().columnResources()
 	 */
 	@Deprecated
 	public ColumnResources columns() {
@@ -430,7 +430,7 @@ public class SmartsheetImpl implements Smartsheet {
 	}
 
 	/**
-	 * @Deprecated As of release 2.0, use sheetResources().rowResources()
+	 * @deprecated As of release 2.0, use sheetResources().rowResources()
 	 */
 	@Deprecated
 	public RowResources rows() {
@@ -438,7 +438,7 @@ public class SmartsheetImpl implements Smartsheet {
 	}
 
 	/**
-	 * @Deprecated As of release 2.0; example: use sheetResources().attachmentResources() for sheet-level attachments
+	 * @deprecated As of release 2.0; example: use sheetResources().attachmentResources() for sheet-level attachments
 	 */
 	@Deprecated
 	public AttachmentResources attachments() {
@@ -446,7 +446,7 @@ public class SmartsheetImpl implements Smartsheet {
 	}
 
 	/**
-	 * @Deprecated As of release 2.0; example: use sheetResources().discussionResources() for sheet-level discussions
+	 * @deprecated As of release 2.0; example: use sheetResources().discussionResources() for sheet-level discussions
 	 */
 	@Deprecated
 	public DiscussionResources discussions() {
@@ -454,7 +454,7 @@ public class SmartsheetImpl implements Smartsheet {
 	}
 
 	/**
-	 * @Deprecated As of release 2.0; example: use sheetResources().discussionResources().commentResources() for discussion-level comments
+	 * @deprecated As of release 2.0; example: use sheetResources().discussionResources().commentResources() for discussion-level comments
 	 */
 	@Deprecated
 	public CommentResources comments() {
@@ -462,7 +462,7 @@ public class SmartsheetImpl implements Smartsheet {
 	}
 
 	/**
-	 * @Deprecated As of release 2.0, replaced by {@link #userResources()}
+	 * @deprecated As of release 2.0, replaced by {@link #userResources()}
 	 */
 	@Deprecated
 	public UserResources users() {
@@ -470,7 +470,7 @@ public class SmartsheetImpl implements Smartsheet {
 	}
 
 	/**
-	 * @Deprecated As of release 2.0, replaced by {@link #groupResources()}
+	 * @deprecated As of release 2.0, replaced by {@link #groupResources()}
 	 */
 	@Deprecated
 	public GroupResources groups() {
@@ -478,7 +478,7 @@ public class SmartsheetImpl implements Smartsheet {
 	}
 
 	/**
-	 * @Deprecated As of release 2.0, replaced by {@link #searchResources()}
+	 * @deprecated As of release 2.0, replaced by {@link #searchResources()}
 	 */
 	@Deprecated
 	public SearchResources search() {
@@ -486,7 +486,7 @@ public class SmartsheetImpl implements Smartsheet {
 	}
 
 	/**
-	 * @Deprecated As of release 2.0, replaced by {@link #homeResources()}
+	 * @deprecated As of release 2.0, replaced by {@link #homeResources()}
 	 */
 	@Deprecated
 	public HomeResources home(){
@@ -494,7 +494,7 @@ public class SmartsheetImpl implements Smartsheet {
 	}
 
 	/**
-	 * @Deprecated As of release 2.0, replaced by {@link #workspaceResources()}
+	 * @deprecated As of release 2.0, replaced by {@link #workspaceResources()}
 	 */
 	@Deprecated
 	public WorkspaceResources workspaces(){
@@ -502,7 +502,7 @@ public class SmartsheetImpl implements Smartsheet {
 	}
 
 	/**
-	 * @Deprecated As of release 2.0, replaced by {@link #folderResources()}
+	 * @deprecated As of release 2.0, replaced by {@link #folderResources()}
 	 */
 	@Deprecated
 	public FolderResources folders(){
@@ -510,7 +510,7 @@ public class SmartsheetImpl implements Smartsheet {
 	}
 
 	/**
-	 * @Deprecated As of release 2.0, replaced by {@link #templateResources()}
+	 * @deprecated As of release 2.0, replaced by {@link #templateResources()}
 	 */
 	@Deprecated
 	public TemplateResources templates(){
@@ -518,7 +518,7 @@ public class SmartsheetImpl implements Smartsheet {
 	}
 
 	/**
-	 * @Deprecated As of release 2.0, replaced by {@link #sheetResources()}
+	 * @deprecated As of release 2.0, replaced by {@link #sheetResources()}
 	 */
 	@Deprecated
 	public SheetResources sheets(){

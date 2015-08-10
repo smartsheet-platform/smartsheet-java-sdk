@@ -34,8 +34,8 @@ public interface ColumnResources {
     /**
      * <p>Update a column.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:<br />
-     * PUT /column/{id}</p>
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>PUT /column/{id}</p>
      *
      * @param column the column to update
      * @return the updated Column (note that if there is no such resource, this method will throw
@@ -53,8 +53,8 @@ public interface ColumnResources {
     /**
      * <p>Delete a column.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:<br />
-     * DELETE /coluimn{id}</p>
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>DELETE /coluimn{id}</p>
      *
      * @param id id of the column
      * @param sheetId the sheet id

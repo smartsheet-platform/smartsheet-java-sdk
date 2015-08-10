@@ -216,6 +216,7 @@ public class RowEmail extends Email {
 		 * Sets the subject.
 		 *
 		 * @param subject the new subject
+		 * @return the associated builder
 		 */
 		public AddRowEmailBuilder setSubject(String subject) {
 			this.subject = subject;
