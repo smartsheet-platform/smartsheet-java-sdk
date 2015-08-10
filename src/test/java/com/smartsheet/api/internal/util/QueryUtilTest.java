@@ -76,7 +76,7 @@ public class QueryUtilTest {
 		map.put("param1", 1);
 		map.put("param2", null);
 		map.put("param3", 3);
-		assertEquals("?param1=1&param3=3", QueryUtil.generateUrl(null, map));
+		assertEquals("?param3=3&param1=1", QueryUtil.generateUrl(null, map));
 		map.clear();
 
 		map.put("param1", 1);

@@ -43,13 +43,13 @@ public class TokenResourcesIT extends ITResourcesImpl{
 
         //String url = oAuthFlow.newAuthorizationURL(EnumSet.allOf(AccessScope.class), "key=IntegrationTest");
 
-        String redirectURI = "https://www.google.com/?code=116f3n7c3k1gqixe&expires_in=599237&state=key%3DIntegrationTest";
+        //String redirectURI = "https://www.google.com/?code=116f3n7c3k1gqixe&expires_in=599237&state=key%3DIntegrationTest";
 
-        AuthorizationResult authorizationResult = oAuthFlow.extractAuthorizationResult(redirectURI);
+        //AuthorizationResult authorizationResult = oAuthFlow.extractAuthorizationResult(redirectURI);
 
-        Token token = oAuthFlow.obtainNewToken(authorizationResult);
-        Token refreshToken = oAuthFlow.refreshToken(token);
-        oAuthFlow.revokeAccessToken(token);
+        //Token token = oAuthFlow.obtainNewToken(authorizationResult);
+        //Token refreshToken = oAuthFlow.refreshToken(token);
+        //oAuthFlow.revokeAccessToken(token);
 
     }
 }

@@ -33,6 +33,7 @@ import com.smartsheet.api.internal.http.HttpClient;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.internal.util.Util;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * This is the implementation of Smartsheet interface.
@@ -142,6 +143,7 @@ public class SmartsheetImpl implements Smartsheet {
 	 * effectively the underlying value is lazily created in a thread safe manner.
 	 */
 	private AtomicReference<ReportResources> reports;
+
 	/**
 	 * Represents the AtomicReference for assumed user email.
 	 * 
@@ -168,7 +170,6 @@ public class SmartsheetImpl implements Smartsheet {
 	 * SmartsheetImpl in thread safe manner.
 	 */
 	private final AtomicReference<ServerInfoResources> serverInfo;
-
 
 	/**
 	 * Represents the AtomicReference for FavoriteResources.
@@ -419,4 +420,109 @@ public class SmartsheetImpl implements Smartsheet {
 	public void setAccessToken(String accessToken) {
 		this.accessToken.set(accessToken);
 	}
+
+	/**
+	 * @Deprecated As of release 2.0, use sheetResources().columnResources()
+	 */
+	@Deprecated
+	public ColumnResources columns() {
+		throw new NotImplementedException();
+	}
+
+	/**
+	 * @Deprecated As of release 2.0, use sheetResources().rowResources()
+	 */
+	@Deprecated
+	public RowResources rows() {
+		throw new NotImplementedException();
+	}
+
+	/**
+	 * @Deprecated As of release 2.0; example: use sheetResources().attachmentResources() for sheet-level attachments
+	 */
+	@Deprecated
+	public AttachmentResources attachments() {
+		throw new NotImplementedException();
+	}
+
+	/**
+	 * @Deprecated As of release 2.0; example: use sheetResources().discussionResources() for sheet-level discussions
+	 */
+	@Deprecated
+	public DiscussionResources discussions() {
+		throw new NotImplementedException();
+	}
+
+	/**
+	 * @Deprecated As of release 2.0; example: use sheetResources().discussionResources().commentResources() for discussion-level comments
+	 */
+	@Deprecated
+	public CommentResources comments() {
+		throw new NotImplementedException();
+	}
+
+	/**
+	 * @Deprecated As of release 2.0, replaced by {@link #userResources()}
+	 */
+	@Deprecated
+	public UserResources users() {
+		throw new NotImplementedException();
+	}
+
+	/**
+	 * @Deprecated As of release 2.0, replaced by {@link #groupResources()}
+	 */
+	@Deprecated
+	public GroupResources groups() {
+		throw new NotImplementedException();
+	}
+
+	/**
+	 * @Deprecated As of release 2.0, replaced by {@link #searchResources()}
+	 */
+	@Deprecated
+	public SearchResources search() {
+		throw new NotImplementedException();
+	}
+
+	/**
+	 * @Deprecated As of release 2.0, replaced by {@link #homeResources()}
+	 */
+	@Deprecated
+	public HomeResources home(){
+		throw new NotImplementedException();
+	}
+
+	/**
+	 * @Deprecated As of release 2.0, replaced by {@link #workspaceResources()}
+	 */
+	@Deprecated
+	public WorkspaceResources workspaces(){
+		throw new NotImplementedException();
+	}
+
+	/**
+	 * @Deprecated As of release 2.0, replaced by {@link #folderResources()}
+	 */
+	@Deprecated
+	public FolderResources folders(){
+		throw new NotImplementedException();
+	}
+
+	/**
+	 * @Deprecated As of release 2.0, replaced by {@link #templateResources()}
+	 */
+	@Deprecated
+	public TemplateResources templates(){
+		throw new NotImplementedException();
+	}
+
+	/**
+	 * @Deprecated As of release 2.0, replaced by {@link #sheetResources()}
+	 */
+	@Deprecated
+	public SheetResources sheets(){
+		throw new NotImplementedException();
+	}
+
 }

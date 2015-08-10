@@ -115,6 +115,7 @@ public class RowResourcesIT extends ITResourcesImpl{
         List<Row> updatedRows = smartsheet.sheetResources().rowResources().updateRows(sheet.getId(), Arrays.asList(rowB));
 
         assertNotNull(updatedRows);
+        deleteSheet(sheet.getId());
     }
 
     public void testCopyRow() throws SmartsheetException, IOException {

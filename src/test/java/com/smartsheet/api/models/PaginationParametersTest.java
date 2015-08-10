@@ -48,7 +48,7 @@ public class PaginationParametersTest {
 		assertEquals("?includeAll=true", parameters2.toQueryString());
 
 		PaginationParameters parameters3 = new PaginationParameters(false, 1, 1);
-		assertEquals("?page=1&pageSize=1&includeAll=false", parameters3.toQueryString());
+		assertEquals("?pageSize=1&includeAll=false&page=1", parameters3.toQueryString());
 	}
 
 	@Test public void testToHashMap() {

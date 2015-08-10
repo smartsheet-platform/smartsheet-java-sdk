@@ -127,4 +127,83 @@ public interface Smartsheet {
 	 * @throws IllegalArgumentException if any argument is null/empty string
 	 */
 	public void setAccessToken(String accessToken);
+
+	/**
+	 * @Deprecated As of release 2.0, replaced by {@link #homeResources()}
+	 */
+	@Deprecated
+	public HomeResources home();
+
+	/**
+	 * @Deprecated As of release 2.0, replaced by {@link #workspaceResources()}
+	 */
+	@Deprecated
+	public WorkspaceResources workspaces();
+
+	/**
+	 * @Deprecated As of release 2.0, replaced by {@link #folderResources()}
+	 */
+	@Deprecated
+	public FolderResources folders();
+
+	/**
+	 * @Deprecated As of release 2.0, replaced by {@link #templateResources()}
+	 */
+	@Deprecated
+	public TemplateResources templates();
+
+	/**
+	 * @Deprecated As of release 2.0, replaced by {@link #sheetResources()}
+	 */
+	@Deprecated
+	public SheetResources sheets();
+
+	/**
+	 * @Deprecated As of release 2.0, use sheetResources().columnResources()
+	 */
+	@Deprecated
+	public ColumnResources columns();
+
+	/**
+	 * @Deprecated As of release 2.0, use sheetResources().rowResources()
+	 */
+	@Deprecated
+	public RowResources rows();
+
+	/**
+	 * @Deprecated As of release 2.0; example: use sheetResources().attachmentResources() for sheet-level attachments
+	 */
+	@Deprecated
+	public AttachmentResources attachments();
+
+	/**
+	 * @Deprecated As of release 2.0; example: use sheetResources().discussionResources() for sheet-level discussions
+	 */
+	@Deprecated
+	public DiscussionResources discussions();
+
+	/**
+	 * @Deprecated As of release 2.0; example: use sheetResources().discussionResources().commentResources() for discussion-level comments
+	 */
+	@Deprecated
+	public CommentResources comments();
+
+	/**
+	 * @Deprecated As of release 2.0, replaced by {@link #userResources()}
+	 */
+	@Deprecated
+	public UserResources users();
+
+	/**
+	 * @Deprecated As of release 2.0, replaced by {@link #groupResources()}
+	 */
+	@Deprecated
+	public GroupResources groups();
+
+
+	/**
+	 * @Deprecated As of release 2.0, replaced by {@link #searchResources()}
+	 */
+	@Deprecated
+	public SearchResources search();
 }

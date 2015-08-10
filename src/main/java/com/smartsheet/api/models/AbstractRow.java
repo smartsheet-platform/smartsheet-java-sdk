@@ -20,12 +20,25 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.smartsheet.api.models.format.Format;
 
 import java.util.Date;
 import java.util.List;
 
 public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  IdentifiableModel<Long>{
+
+    @Override
+    @JsonIgnore(false)
+    public Long getId() {
+        return super.getId();
+    }
+
+    @Override
+    @JsonIgnore(false)
+    public void setId(Long id) {
+        super.setId(id);
+    }
 
     /** Represents the Sheet ID. */
     private Long sheetId;
