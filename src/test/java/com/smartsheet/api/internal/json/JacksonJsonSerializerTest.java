@@ -22,6 +22,7 @@ package com.smartsheet.api.internal.json;
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 import java.io.ByteArrayInputStream;
@@ -42,6 +43,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.smartsheet.api.models.Folder;
 import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.User;
+
+import javax.print.DocFlavor;
 
 public class JacksonJsonSerializerTest {
 	JacksonJsonSerializer jjs;
@@ -83,6 +86,8 @@ public class JacksonJsonSerializerTest {
 			}catch(IllegalArgumentException ex){
 				//Expected
 			}
+
+
 		}catch(JSONSerializerException ex){
 			fail("Shouldn't have thrown this exception: "+ex);
 		}
@@ -101,6 +106,16 @@ public class JacksonJsonSerializerTest {
 		try {
 			jjs.serialize(user, new ByteArrayOutputStream());
 		} catch (JSONSerializerException e) {
+			fail("Shouldn't throw an exception");
+		}
+
+		// Test id field is ignored.
+		User user1 = new User();
+		user1.setId(123L);
+		user1.setEmail("test@test.com");
+		try{
+			assertFalse("The id field should not be serialized. Instead the id is used in the url and not sent as part of the body.", jjs.serialize(user1).contains("id"));
+		}catch(JSONSerializerException e){
 			fail("Shouldn't throw an exception");
 		}
 		
@@ -158,11 +173,14 @@ public class JacksonJsonSerializerTest {
 		ByteArrayOutputStream b = new ByteArrayOutputStream();
 		User originalUser = new User();
 		originalUser.setFirstName("Test");
+		originalUser.setId(123L);
 		jjs.serialize(originalUser,b);
 
 		// Deserialize User from a byte array
 		User user = jjs.deserialize(User.class, new ByteArrayInputStream(b.toByteArray()));
+
 		assertEquals(originalUser.getFirstName(),user.getFirstName());
+		assertEquals("The id was not deserialized into the User object.", originalUser.getId(), user.getId());
 	}
 	
 	@Test
