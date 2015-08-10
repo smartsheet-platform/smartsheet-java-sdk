@@ -128,7 +128,8 @@ public class GroupResourcesImplTest extends ResourcesImplBase {
 		
 		UpdateGroupBuilder builder = new UpdateGroupBuilder();
 		builder.setName("My Test Group - renamed ")
-			.setDescription("My awesome group- redecribed");	
+			.setDescription("My awesome group- redecribed")
+			.setId(123L);
 		
 		Group group =  groupResources.updateGroup(builder.build());
 		assertNotNull(group.getId());
