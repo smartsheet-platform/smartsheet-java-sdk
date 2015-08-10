@@ -21,10 +21,6 @@ package com.smartsheet.api.internal.json;
  */
 
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -45,6 +41,8 @@ import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.User;
 
 import javax.print.DocFlavor;
+
+import static org.junit.Assert.*;
 
 public class JacksonJsonSerializerTest {
 	JacksonJsonSerializer jjs;
@@ -180,7 +178,11 @@ public class JacksonJsonSerializerTest {
 		User user = jjs.deserialize(User.class, new ByteArrayInputStream(b.toByteArray()));
 
 		assertEquals(originalUser.getFirstName(),user.getFirstName());
-		assertEquals("The id was not deserialized into the User object.", originalUser.getId(), user.getId());
+		assertNotEquals("The id was not deserialized into the User object.", (Long)originalUser.getId(), (Long)user.getId());
+
+
+
+
 	}
 	
 	@Test
