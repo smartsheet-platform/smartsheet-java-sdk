@@ -60,7 +60,7 @@ public class DiscussionResourcesIT extends ITResourcesImpl{
         //create comment to add to discussion
         Comment comment = new Comment.AddCommentBuilder().setText("This is a test comment").build();
 
-        File file = new File("/Users/anioding/smartsheet-sdk-integrationTest/small-text.txt");
+        File file = new File("src/integration-test/resources/small-text.txt");
 
         Discussion discussion = new Discussion.CreateDiscussionBuilder().setTitle("New Discussion").setComment(comment).build();
         newDiscussionSheet = smartsheet.sheetResources().discussionResources().createDiscussion(sheet.getId(), discussion);

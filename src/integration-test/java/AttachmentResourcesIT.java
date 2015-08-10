@@ -48,7 +48,7 @@ public class AttachmentResourcesIT extends ITResourcesImpl{
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
         sheetId = sheet.getId();
 
-        file = new File("/Users/anioding/smartsheet-sdk-integrationTest/small-text.txt");
+        file = new File("src/integration-test/resources/small-text.txt");
 
         testattachFileSheet();
         testattachFileRow();
@@ -105,7 +105,7 @@ public class AttachmentResourcesIT extends ITResourcesImpl{
         commentId = comment.getId();
         discussionId = discussion.getId();
 
-        File file1 = new File("/Users/anioding/smartsheet-sdk-integrationTest/small-text.txt");
+        File file1 = new File("src/integration-test/resources/small-text.txt");
         //attach file to comment
         Attachment attachment = smartsheet.sheetResources().commentResources().attachmentResources().attachFile(sheetId, commentId, file1,
                 "text/plain");

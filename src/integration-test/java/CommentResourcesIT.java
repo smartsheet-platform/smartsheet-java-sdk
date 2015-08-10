@@ -66,7 +66,7 @@ public class CommentResourcesIT extends ITResourcesImpl{
     public void testAddCommentWithAttachment() throws SmartsheetException, IOException {
         //create comment to add to discussion
         Comment comment = new Comment.AddCommentBuilder().setText("This is a test comment").build();
-        File file = new File("/Users/anioding/smartsheet-sdk-integrationTest/large_sheet.pdf");
+        File file = new File("src/integration-test/resources/small-text.txt");
 
         Comment comment1=  smartsheet.sheetResources().discussionResources().commentResources().addCommentWithAttachment(newSheet.getId(), newDiscussion.getId(), comment, file, "application/pdf");
         assertNotNull(comment1);

@@ -194,7 +194,7 @@ public class SheetResourcesIT extends ITResourcesImpl{
 
     public void testattachFile() throws SmartsheetException, IOException {
 
-//        File file = new File("/Users/anioding/smartsheet-sdk-integrationTest/large_sheet.pdf");
+//        File file = new File("src/integration-test/resources/small-text.txt");
 //        Attachment attachment = smartsheet.sheetResources().attachmentResources().attachFile(1234L, 345L, file,
 //                "application/pdf");
 //        assertTrue(attachment.getId() == 7265404226692996L);
