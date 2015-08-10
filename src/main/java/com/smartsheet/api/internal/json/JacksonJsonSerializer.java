@@ -22,6 +22,7 @@ package com.smartsheet.api.internal.json;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +49,7 @@ import com.smartsheet.api.models.format.Format;
  * Thread Safety: This class is thread safe because it is immutable and the underlying Jackson ObjectMapper is thread
  * safe as long as it is not re-configured.
  */
-public class JacksonJsonSerializer implements JsonSerializer {
+public class JacksonJsonSerializer implements JsonSerializer{
 	/**
 	 * Represents the ObjectMapper used to serialize/de-serialize JSON.
 	 * 
@@ -66,21 +67,18 @@ public class JacksonJsonSerializer implements JsonSerializer {
 		// Allow deserialization if there are properties that can't be deserialized
 		OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		OBJECT_MAPPER.configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true);
-		
+
+
 		// Only include non-null properties in when serializing java beans
 		OBJECT_MAPPER.setSerializationInclusion(Include.NON_NULL);
-		
-		// Excludes "id" field from being serialized to JSON for any IdentifiableModel class
-		OBJECT_MAPPER.addMixInAnnotations(IdentifiableModel.class, IdFieldExclusionMixin.class);
 
 		// Use toString() method on enums to serialize and deserialize
 		OBJECT_MAPPER.enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);
 		OBJECT_MAPPER.enable(DeserializationFeature.READ_ENUMS_USING_TO_STRING);
-		
 		//Add a custom deserializer that will convert a string to a Format object.
 		SimpleModule module = new SimpleModule("FormatDeserializerModule", Version.unknownVersion());
 		module.addDeserializer(Format.class, new FormatDeserializer());
-
+		//module.setMixInAnnotation(IdentifiableModel.class, IdFieldExclusionMixin.class);
 		OBJECT_MAPPER.registerModule(module);
 	}
 
@@ -93,6 +91,9 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	public static void setFailOnUnknownProperties(boolean value) {
 		OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, value);
 	}
+
+
+
 
 	/**
 	 * Constructor.

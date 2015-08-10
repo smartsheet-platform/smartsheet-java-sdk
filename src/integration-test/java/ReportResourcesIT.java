@@ -92,8 +92,8 @@ public class ReportResourcesIT extends ITResourcesImpl{
 
         SheetEmail email = new SheetEmail.AddSheetEmailBuilder().setFormat(SheetEmailFormat.PDF).setFormatDetails(formatDetails).setSubject("Check this report out!").setMessage("something").setCcMe(false).setSendTo(recipients).setFormatDetails(formatDetails).build();
 
-        //smartsheet.reportResources().sendReport(reportsWrapper.getData().get(0).getId(), email);
-        smartsheet.reportResources().sendReport(8623082916079492L, email);
+        smartsheet.reportResources().sendReport(reportsWrapper.getData().get(0).getId(), email);
+        //smartsheet.reportResources().sendReport(8623082916079492L, email);
     }
 
 }

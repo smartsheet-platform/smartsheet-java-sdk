@@ -20,6 +20,8 @@ package com.smartsheet.api.models;
  */
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Represents an object with an ID.
@@ -33,6 +35,7 @@ public abstract class IdentifiableModel<T> {
 	 *
 	 * @return the id
 	 */
+	@JsonIgnore
 	public T getId() {
 		return id;
 	}
@@ -42,6 +45,7 @@ public abstract class IdentifiableModel<T> {
 	 *
 	 * @param id the new id
 	 */
+	@JsonProperty
 	public void setId(T id) {
 		this.id = id;
 	}
