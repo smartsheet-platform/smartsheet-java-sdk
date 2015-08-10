@@ -54,7 +54,7 @@ token.setAccessToken("INSERT_YOUR_TOKEN_HERE");
 Smartsheet smartsheet = new SmartsheetBuilder().setAccessToken(token.getAccessToken()).build();
 
 // Get home
-Home home = smartsheet.home().getHome(EnumSet.of(ObjectInclusion.TEMPLATES));
+Home home = smartsheet.homeResources().getHome(EnumSet.of(SourceInclusion.SOURCE));
 
 // List home folders
 List<Folder> homeFolders = home.getFolders();
@@ -62,17 +62,17 @@ for(Folder folder : homeFolders){
     System.out.println("folder:"+folder.getName());
 }
 
-// List Sheets
-List<Sheet> homeSheets = smartsheet.sheets().listSheets();
-for(Sheet sheet : homeSheets){
-    System.out.println("sheet:"+sheet.getName());
+//List Sheets with Source Inclusion parameters and null Pagination parameters
+PagedResult<Sheet> homeSheets = smartsheet.sheetResources().listSheets(EnumSet.of(SourceInclusion.SOURCE), null);
+for(Sheet sheet : homeSheets.getData()){
+    System.out.println("sheet: " + sheet.getName());
 }
 
 // Create folder in home
-Folder folder = new Folder();
-folder.setName("New Folder");
-folder = smartsheet.home().folders().createFolder(folder);
-System.out.println("Folder ID:"+folder.getId()+", Folder Name:"+folder.getName());
+Folder folder = new Folder.CreateFolderBuilder().setName("New Folder").build();
+folder = smartsheet.homeResources().folderResources().createFolder(folder);
+System.out.println("Folder ID: " + folder.getId() + ", Folder Name: " + folder.getName());
+
 
 // Setup checkbox Column Object
 Column checkboxColumn = new Column.AddColumnToSheetBuilder().setType(ColumnType.CHECKBOX).setTitle("Finished").build();
@@ -81,10 +81,10 @@ Column textColumn = new Column.AddColumnToSheetBuilder().setPrimary(true).setTit
 // Add the 2 Columns (flag & text) to a new Sheet Object
 Sheet sheet = new Sheet.CreateSheetBuilder().setName("New Sheet").setColumns(Arrays.asList(checkboxColumn, textColumn)).build();
 // Send the request to create the sheet @ Smartsheet
-sheet = smartsheet.sheets().createSheet(sheet);
+sheet = smartsheet.sheetResources().createSheet(sheet);
 ```
 
-More Java examples available [here](https://github.com/smartsheet-platform/samples/blob/master/java-sdk/JavaSDKSample.java).
+More Java examples available [here](http://smartsheet-platform.github.io/api-docs/#java-sample-code).
 
 ## Contributing
 If you would like to contribute a change to the SDK, please fork a branch and then submit a pull request. [More info here](https://help.github.com/articles/using-pull-requests).
@@ -127,9 +127,19 @@ Each specific release is available for download via [Github](https://github.com/
 **1.0.0 (Feb 19, 2014)**
 * Initial Release of the Smartsheet Java SDK
 
-
-
-
+**2.0 (Aug 10, 2015)**
+* New base URL - https://api.smartsheet.com/2.0
+* New endpoints - new operations for Columns, Reports, Rows, Templates, and Access Tokens
+* Changed endpoints - several changes to existing endpoints, including:
+* Changed numerous endpoints from singular to plural - For example:
+* v1.1:  GET /sheet/{sheetId}/columns
+* v2.0:  GET /sheets/{sheetId}/columns
+* Changed endpoints for all Sharing-related operations
+* Changed endpoint for Update Row(s) operation
+* New support for multipart upload requests
+* New support for pagination of results
+* New support for bulk-insert and bulk-update
+* Other miscellaneous changes  
 
 
 [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/4b2c0d7b11c532fb1693dec0e5f300d5 "githalytics.com")](http://githalytics.com/smartsheet-platform/smartsheet-java-sdk)
