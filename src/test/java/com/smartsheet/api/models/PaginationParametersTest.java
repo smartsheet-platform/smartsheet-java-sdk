@@ -49,7 +49,7 @@ public class PaginationParametersTest {
 		assertEquals("?includeAll=true", parameters2.toQueryString());
 
 		PaginationParameters parameters3 = new PaginationParameters(false, 1, 1);
-		String[] matches1 = new String[] {"param3=3", "param1=1"};
+		String[] matches1 = new String[] {"pageSize=1", "includeAll=false", "page=1"};
 		for (String s : matches1)
 		{
 			assertTrue(parameters3.toQueryString().contains(s));
