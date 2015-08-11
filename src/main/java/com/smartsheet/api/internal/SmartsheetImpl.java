@@ -33,7 +33,6 @@ import com.smartsheet.api.internal.http.HttpClient;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.internal.util.Util;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * This is the implementation of Smartsheet interface.
@@ -426,15 +425,15 @@ public class SmartsheetImpl implements Smartsheet {
 	 */
 	@Deprecated
 	public ColumnResources columns() {
-		throw new NotImplementedException();
+		throw new UnsupportedOperationException();
 	}
 
 	/**
 	 * @deprecated As of release 2.0, use sheetResources().rowResources()
 	 */
 	@Deprecated
-	public RowResources rows() {
-		throw new NotImplementedException();
+	public void rows() {
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -442,15 +441,15 @@ public class SmartsheetImpl implements Smartsheet {
 	 */
 	@Deprecated
 	public AttachmentResources attachments() {
-		throw new NotImplementedException();
+		throw new UnsupportedOperationException();
 	}
 
 	/**
 	 * @deprecated As of release 2.0; example: use sheetResources().discussionResources() for sheet-level discussions
 	 */
 	@Deprecated
-	public DiscussionResources discussions() {
-		throw new NotImplementedException();
+	public void discussions() {
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -458,71 +457,69 @@ public class SmartsheetImpl implements Smartsheet {
 	 */
 	@Deprecated
 	public CommentResources comments() {
-		throw new NotImplementedException();
+		throw new UnsupportedOperationException();
 	}
 
 	/**
 	 * @deprecated As of release 2.0, replaced by {@link #userResources()}
 	 */
 	@Deprecated
-	public UserResources users() {
-		throw new NotImplementedException();
+	public void users() {
+		throw new UnsupportedOperationException();
 	}
 
 	/**
 	 * @deprecated As of release 2.0, replaced by {@link #groupResources()}
 	 */
 	@Deprecated
-	public GroupResources groups() {
-		throw new NotImplementedException();
+	public void groups() {
+		throw new UnsupportedOperationException();
 	}
 
 	/**
 	 * @deprecated As of release 2.0, replaced by {@link #searchResources()}
 	 */
 	@Deprecated
-	public SearchResources search() {
-		throw new NotImplementedException();
+	public void search() {
+		throw new UnsupportedOperationException();
 	}
 
 	/**
 	 * @deprecated As of release 2.0, replaced by {@link #homeResources()}
 	 */
 	@Deprecated
-	public HomeResources home(){
-		throw new NotImplementedException();
+	public void home(){
+		throw new UnsupportedOperationException();
 	}
 
 	/**
 	 * @deprecated As of release 2.0, replaced by {@link #workspaceResources()}
 	 */
 	@Deprecated
-	public WorkspaceResources workspaces(){
-		throw new NotImplementedException();
+	public void workspaces(){
+		throw new UnsupportedOperationException();
 	}
 
 	/**
 	 * @deprecated As of release 2.0, replaced by {@link #folderResources()}
 	 */
 	@Deprecated
-	public FolderResources folders(){
-		throw new NotImplementedException();
+	public void folders(){
+		throw new UnsupportedOperationException();
 	}
 
 	/**
 	 * @deprecated As of release 2.0, replaced by {@link #templateResources()}
 	 */
 	@Deprecated
-	public TemplateResources templates(){
-		throw new NotImplementedException();
+	public void templates(){
+		throw new UnsupportedOperationException();
 	}
 
 	/**
 	 * @deprecated As of release 2.0, replaced by {@link #sheetResources()}
 	 */
 	@Deprecated
-	public SheetResources sheets(){
-		throw new NotImplementedException();
-	}
+	public void sheets(){throw new UnsupportedOperationException();}
 
 }

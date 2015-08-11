@@ -21,11 +21,54 @@ package com.smartsheet.api;
  */
 
 
+import com.smartsheet.api.models.Attachment;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.List;
+
 /**
- * <p>This interface provides methods to access Attachment resources that are associated to a resource object.</p>
- * 
- * <p>Various Smartsheet resources support attachments. Currently attachments can be added or retrieved
- * from sheets, rows and comments.</p>
+ * @deprecated As of release 2.0
  */
+@Deprecated
 public interface AssociatedAttachmentResources {
+    /**
+     * @deprecated As of release 2.0
+     * @param objectId the ID of the object to which the attachments are associated
+     * @return the attachments (note that empty list will be returned if there is none)
+     */
+    @Deprecated
+    public List<Attachment> listAttachments(long objectId);
+
+    /**
+     * @deprecated As of release 2.0
+     * @param objectId the id of the object
+     * @param file the file to attach
+     * @param contentType the content type of the file
+     * @return the created attachment
+     */
+    @Deprecated
+    public Attachment attachFile(long objectId, File file, String contentType);
+
+    /**
+     * @deprecated As of release 2.0
+     * @param objectId the id of the object
+     * @param inputStream the file to attach
+     * @param contentType the content type of the file
+     * @param contentLength the size of the file in bytes.
+     * @param attachmentName the name of the file.
+     * @return the created attachment
+     */
+    @Deprecated
+    public Attachment attachFile(long objectId, InputStream inputStream, String contentType, long contentLength, String attachmentName);
+
+    /**
+     * @deprecated As of release 2.0
+     * @param objectId the object id
+     * @param attachment the attachment object
+     * @return the created attachment
+     */
+    @Deprecated
+    public Attachment attachURL(long objectId, Attachment attachment);
 }

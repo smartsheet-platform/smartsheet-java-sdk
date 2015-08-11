@@ -19,7 +19,6 @@ package com.smartsheet.api;
  * %[license]
  */
 import com.smartsheet.api.models.Attachment;
-import com.smartsheet.api.models.Comment;
 
 import java.io.File;
 import java.io.FileNotFoundException;

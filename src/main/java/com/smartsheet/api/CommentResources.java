@@ -24,41 +24,32 @@ package com.smartsheet.api;
 import com.smartsheet.api.models.Comment;
 
 /**
- * <p>This interface provides methods to access Comment resources.</p>
- * 
- * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
+ * @deprecated As of release 2.0
  */
+@Deprecated
 public interface CommentResources {
 	/**
-	 * <p>Get a comment.</p>
-	 *
-	 * <p>It mirrors to the following Smartsheet REST API method:</p>
-	 * <p>GET /sheets/{sheetId}/comments/{commentId}</p>
-	 *
-	 * @param sheetId the ID of the sheet
-	 * @param commentId the ID of the comment
+	 * @deprecated As of release 2.0
+	 * @param sheetId the id
+	 * @param commentId the commentid
 	 * @return the comment (note that if there is no such resource, this method will throw ResourceNotFoundException
 	 * rather than returning null).
-	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Comment getComment(long sheetId, long commentId) throws SmartsheetException;
+	@Deprecated
+	public Comment getComment(long sheetId, long commentId) ;
 
 	/**
-	 * <p>Delete a comment.</p>
-	 *
-	 * <p>It mirrors to the following Smartsheet REST API method:</p>
-	 * <p>DELETE /sheets/{sheetId}/comments/{commentId}</p>
-	 *
-	 * @param sheetId the ID of the sheet
-	 * @param commentId the ID of the comment
-	 * @throws SmartsheetException if there is any other error during the operation
+	 * @deprecated As of release 2.0
+	 * @param sheetId the id
+	 * @param commentId the commentid
 	 */
-	public void deleteComment(long sheetId, long commentId) throws SmartsheetException;
+	@Deprecated
+	public void deleteComment(long sheetId, long commentId);
+
 	/**
-	 * <p>Return the AssociatedAttachmentResources object that provides access to attachment resources associated with
-	 * Comment resources.</p>
-	 *
-	 * @return the associated attachment resources
+	 * @deprecated As of release 2.0
+	 * @return associated resources
 	 */
+	@Deprecated
 	public AssociatedAttachmentResources attachments();
 }

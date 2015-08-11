@@ -1,7 +1,5 @@
 package com.smartsheet.api.internal;
 
-import com.smartsheet.api.AssociatedAttachmentResources;
-
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -23,28 +21,39 @@ import com.smartsheet.api.AssociatedAttachmentResources;
  */
 
 
+import com.smartsheet.api.ColumnResources;
+import com.smartsheet.api.models.Column;
 
 /**
- * This is the implementation of the AssociatedAttachmentResources for comments.
- * 
- * It extends AssociatedAttachmentResourcesImpl and overrides listAttachments method by throwing
- * UnsupportedOperationException (since it's not supported for comments).
- * 
+ * @deprecated As of release 2.0
+ * This is the implementation of the ColumnResources.
+ *
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
-public class CommentAttachmentResources extends AssociatedAttachmentResourcesImpl implements AssociatedAttachmentResources  {
-	
-	/**
-	 * Constructor.
-	 * 
-	 * Parameters: - smartsheet : the SmartsheetImpl
-	 * 
-	 * Exceptions:
-	 *   IllegalArgumentException : if any argument is null or empty string
-	 *
-	 * @param smartsheet the smartsheet
-	 */
-	public CommentAttachmentResources(SmartsheetImpl smartsheet) {
-		super(smartsheet, "comments");
-	}
+@Deprecated
+public class ColumnResourcesImpl implements ColumnResources {
+
+    /**
+     * @deprecated As of release 2.0
+     */
+    @Deprecated
+    public ColumnResourcesImpl() {
+
+    }
+
+    /**
+     * @deprecated As of release 2.0
+     */
+    @Deprecated
+    public Column updateColumn(Column column) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * @deprecated As of release 2.0
+     */
+    @Deprecated
+    public void deleteColumn(long id, long sheetId) {
+        throw new UnsupportedOperationException();
+    }
 }

@@ -23,20 +23,18 @@ package com.smartsheet.api.internal;
 
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import com.smartsheet.api.AttachmentResources;
-import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Attachment;
 
 /**
+ * @deprecated As of release 2.0
  * This is the implementation of the AttachmentResources.
  * 
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
+@Deprecated
 public class AttachmentResourcesImpl extends AbstractResources implements AttachmentResources {
 	
 	/**
@@ -50,17 +48,22 @@ public class AttachmentResourcesImpl extends AbstractResources implements Attach
 		super(smartsheet);
 	}
 
-	@Override
-	public Attachment attachNewVersion(long attachmentId, File file, String contentType) throws FileNotFoundException, SmartsheetException {
-		Util.throwIfNull(attachmentId, file, contentType);
-		Util.throwIfEmpty(contentType);
-		
-		return attachNewVersion(attachmentId, new FileInputStream(file), contentType, file.length(), file.getName());
+	/**
+	 * @deprecated As of release 2.0
+	 * @return the attachment
+	 */
+	@Deprecated
+	public Attachment attachNewVersion(long attachmentId, File file, String contentType){
+		throw new UnsupportedOperationException();
 	}
 
-	@Override
+	/**
+	 * @deprecated As of release 2.0
+	 * @return the attachment
+	 */
+	@Deprecated
 	public Attachment attachNewVersion (long attachmentId, InputStream inputStream, String contentType, long contentLength, String attachmentName)
-			throws SmartsheetException {
-		return super.attachFile("attachment/"+ attachmentId +"/versions", inputStream, contentType, contentLength, attachmentName);
+	{
+		throw new UnsupportedOperationException();
 	}
 }

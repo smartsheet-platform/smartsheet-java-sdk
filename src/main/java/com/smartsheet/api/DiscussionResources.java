@@ -24,8 +24,6 @@ package com.smartsheet.api;
 
 import com.smartsheet.api.models.*;
 
-import java.util.EnumSet;
-
 /**
  * <p>This interface provides methods to access Discussion resources.</p>
  * 
@@ -52,11 +50,10 @@ public interface DiscussionResources {
 	public Comment addDiscussionComment(long id, Comment comment) throws SmartsheetException;
 
 	/**
-	 * <p>Return the AssociatedAttachmentResources object that provides access to attachment resources associated with
-	 * Discussion resources.</p>
-	 *
-	 * @return the associated attachment resources
+	 * @deprecated As of release 2.0
+	 * @return associated resources
 	 */
+	@Deprecated
 	public AssociatedAttachmentResources attachments();
 
 	/**

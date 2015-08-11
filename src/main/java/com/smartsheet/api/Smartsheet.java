@@ -130,38 +130,33 @@ public interface Smartsheet {
 
 	/**
 	 * @deprecated As of release 2.0, replaced by {@link #homeResources()}
-	 * @return the associates resource
 	 */
 	@Deprecated
-	public HomeResources home();
+	public void home();
 
 	/**
 	 * @deprecated As of release 2.0, replaced by {@link #workspaceResources()}
-	 * @return the associates resource
 	 */
 	@Deprecated
-	public WorkspaceResources workspaces();
+	public void workspaces();
 
 	/**
 	 * @deprecated As of release 2.0, replaced by {@link #folderResources()}
-	 * @return the associates resource
 	 */
 	@Deprecated
-	public FolderResources folders();
+	public void folders();
 
 	/**
 	 * @deprecated As of release 2.0, replaced by {@link #templateResources()}
-	 * @return the associates resource
 	 */
 	@Deprecated
-	public TemplateResources templates();
+	public void templates();
 
 	/**
 	 * @deprecated As of release 2.0, replaced by {@link #sheetResources()}
-	 * @return the associates resource
 	 */
 	@Deprecated
-	public SheetResources sheets();
+	public void sheets();
 
 	/**
 	 * @deprecated As of release 2.0, use sheetResources().columnResources()
@@ -172,10 +167,9 @@ public interface Smartsheet {
 
 	/**
 	 * @deprecated As of release 2.0, use sheetResources().rowResources()
-	 * @return the associates resource
 	 */
 	@Deprecated
-	public RowResources rows();
+	public void rows();
 
 	/**
 	 * @deprecated As of release 2.0; example: use sheetResources().attachmentResources() for sheet-level attachments
@@ -186,10 +180,9 @@ public interface Smartsheet {
 
 	/**
 	 * @deprecated As of release 2.0; example: use sheetResources().discussionResources() for sheet-level discussions
-	 * @return the associates resource
 	 */
 	@Deprecated
-	public DiscussionResources discussions();
+	public void discussions();
 
 	/**
 	 * @deprecated As of release 2.0; example: use sheetResources().discussionResources().commentResources() for discussion-level comments
@@ -200,23 +193,19 @@ public interface Smartsheet {
 
 	/**
 	 * @deprecated As of release 2.0, replaced by {@link #userResources()}
-	 * @return the associates resource
 	 */
 	@Deprecated
-	public UserResources users();
+	public void users();
 
 	/**
 	 * @deprecated As of release 2.0, replaced by {@link #groupResources()}
-	 * @return the associates resource
 	 */
 	@Deprecated
-	public GroupResources groups();
-
+	public void groups();
 
 	/**
 	 * @deprecated As of release 2.0, replaced by {@link #searchResources()}
-	 * @return the associates resource
 	 */
 	@Deprecated
-	public SearchResources search();
+	public void search();
 }

@@ -27,36 +27,38 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Comment;
 
 /**
- * This is the implementation of the CommentResources.
- * 
- * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
+ * @deprecated As of release 2.0
  */
+@Deprecated
 public class CommentResourcesImpl extends AbstractResources implements CommentResources {
 	/**
-	 * Constructor.
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null
-	 *
-	 * @param smartsheet the smartsheet
+	 * @deprecated As of release 2.0
 	 */
+	@Deprecated
 	public CommentResourcesImpl(SmartsheetImpl smartsheet) {
 		super(smartsheet);
 	}
 
 	/**
-	 * Return the AssociatedAttachmentResources object that provides access to attachment resources associated with
-	 * Comment resources.
-	 *
-	 * @return the associated attachment resources
+	 * @deprecated As of release 2.0
 	 */
+	@Deprecated
 	public AssociatedAttachmentResources attachments() {
 		throw new UnsupportedOperationException("Method moved to SheetCommentResources.");
 	}
 
+	/**
+	 * @deprecated As of release 2.0
+	 */
+	@Deprecated
 	public Comment getComment(long sheetId, long commentId) {
 		throw new UnsupportedOperationException("Method moved to SheetCommentResources.");
 	}
 
+	/**
+	 * @deprecated As of release 2.0
+	 */
+	@Deprecated
 	public void deleteComment(long sheetId, long commentId) {
 		throw new UnsupportedOperationException("Method moved to SheetCommentResources.");
 	}

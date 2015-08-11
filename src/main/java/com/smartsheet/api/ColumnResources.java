@@ -25,46 +25,28 @@ package com.smartsheet.api;
 import com.smartsheet.api.models.Column;
 
 /**
+ * @deprecated As of release 2.0
  * <p>This interface provides methods to access Column resources.</p>
  *
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
+@Deprecated
 public interface ColumnResources {
 
     /**
-     * <p>Update a column.</p>
-     *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>PUT /column/{id}</p>
-     *
+     * @deprecated As of release 2.0
      * @param column the column to update
      * @return the updated Column (note that if there is no such resource, this method will throw
      * ResourceNotFoundException rather than returning null).
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
-     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
      */
     @Deprecated
-    public Column updateColumn(Column column) throws SmartsheetException;
+    public Column updateColumn(Column column) ;
 
     /**
-     * <p>Delete a column.</p>
-     *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>DELETE /coluimn{id}</p>
-     *
+     * @deprecated As of release 2.0
      * @param id id of the column
      * @param sheetId the sheet id
-     * @throws IllegalArgumentException if any argument is null or empty string
-     * @throws InvalidRequestException if there is any problem with the REST API request
-     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-     * @throws ResourceNotFoundException if the resource cannot be found
-     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-     * @throws SmartsheetException if there is any other error during the operation
      */
     @Deprecated
-    public void deleteColumn(long id, long sheetId) throws SmartsheetException;
+    public void deleteColumn(long id, long sheetId);
 }

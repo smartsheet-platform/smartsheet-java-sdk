@@ -21,25 +21,61 @@ package com.smartsheet.api.internal;
  */
 
 import com.smartsheet.api.AssociatedAttachmentResources;
+import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.models.Attachment;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.List;
 
 /**
- * This is the implementation of the AssociatedAttachmentResources.
- * 
- * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
+ * @deprecated As of release 2.0
  */
+@Deprecated
 public class AssociatedAttachmentResourcesImpl extends AbstractAssociatedResources 
 	implements AssociatedAttachmentResources {
-	
+
 	/**
-	 * Constructor.
-	 * 
-	 * Exceptions:
-	 *   IllegalArgumentException : if any argument is null or empty string
-	 *
-	 * @param smartsheet the smartsheet
-	 * @param masterResourceType the master resource type (e.g. "sheet", "workspace")
+	 * @deprecated As of release 2.0
 	 */
+	@Deprecated
 	public AssociatedAttachmentResourcesImpl(SmartsheetImpl smartsheet, String masterResourceType) {
 		super(smartsheet, masterResourceType);
 	}
+
+	/**
+	 * @deprecated As of release 2.0
+	 */
+	@Deprecated
+	public List<Attachment> listAttachments(long objectId){
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * @deprecated As of release 2.0
+	 */
+	@Deprecated
+	public Attachment attachFile(long objectId, File file, String contentType){
+		throw new UnsupportedOperationException();
+	}
+
+
+	/**
+	 * @deprecated As of release 2.0
+	 */
+	@Deprecated
+	public Attachment attachFile(long objectId, InputStream inputStream, String contentType, long contentLength, String attachmentName){
+		throw new UnsupportedOperationException();
+	}
+
+
+	/**
+	 * @deprecated As of release 2.0
+	 */
+	@Deprecated
+	public Attachment attachURL(long objectId, Attachment attachment){
+		throw new UnsupportedOperationException();
+	}
+
 }
