@@ -197,12 +197,6 @@ public class SheetResourcesIT extends ITResourcesImpl{
 //        File file = new File("src/integration-test/resources/small-text.txt");
 //        Attachment attachment = smartsheet.sheetResources().attachmentResources().attachFile(1234L, 345L, file,
 //                "application/pdf");
-//        assertTrue(attachment.getId() == 7265404226692996L);
-//        assertEquals("Testing.PDF", attachment.getName());
-//        assertEquals(AttachmentType.FILE, attachment.getAttachmentType());
-//        assertEquals("application/pdf", attachment.getMimeType());
-//        assertTrue(1831L == attachment.getSizeInKb());
-//        assertEquals(AttachmentParentType.SHEET, attachment.getParentType());
     }
 
     public void testDeleteSheet() throws SmartsheetException, IOException {
