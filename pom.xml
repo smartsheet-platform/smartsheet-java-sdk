@@ -20,8 +20,6 @@
 		</license>
 	</licenses>
 
-
-
 	<scm>
 		<url>git@github.com:smartsheet-platform/java-sdk.git</url>
 		<connection>scm:git:git@github.com:smartsheet-platform/java-sdk.git</connection>

@@ -84,7 +84,7 @@ public class GroupResourcesImpl extends AbstractResources implements GroupResour
 	 * @return members object
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public GroupMemberResources members() throws SmartsheetException {
+	public GroupMemberResources memberResources() throws SmartsheetException {
 		return groupMemberResources;
 	}
 }
