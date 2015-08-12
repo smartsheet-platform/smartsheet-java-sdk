@@ -121,6 +121,6 @@ public interface GroupResources {
 	 * @return members object
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public GroupMemberResources members() throws SmartsheetException;
+	public GroupMemberResources memberResources() throws SmartsheetException;
 	
 }
