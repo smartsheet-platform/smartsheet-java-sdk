@@ -23,23 +23,18 @@ package com.smartsheet.api.internal;
 import static org.junit.Assert.*;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
 import com.smartsheet.api.models.*;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.format.Color;
-import com.smartsheet.api.models.format.FontSize;
 import com.smartsheet.api.models.format.VerticalAlignment;
 
 
@@ -57,8 +52,8 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 	public void testListSheets() throws SmartsheetException, IOException {
 
 		server.setResponseBody(new File("src/test/resources/listSheets.json"));
-		PaginationParameters parameters = new PaginationParameters(false, 1, 1);
-		DataWrapper<Sheet> sheets = sheetResource.listSheets(parameters);
+		PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(false).setPageSize(1).setPage(1).build();
+		PagedResult<Sheet> sheets = sheetResource.listSheets(EnumSet.of(SourceInclusion.SOURCE), parameters);
 
 		assertTrue(sheets.getPageNumber() == 1);
 		assertTrue(sheets.getPageSize() == 100);
@@ -73,11 +68,8 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 	public void testListOrganizationSheets() throws SmartsheetException, IOException {
 
 		server.setResponseBody(new File("src/test/resources/listSheets.json"));
-		PaginationParameters parameters = new PaginationParameters();
-		parameters.setIncludeAll(true);
-		parameters.setPageSize(null);
-		parameters.setPage(null);
-		DataWrapper<Sheet> sheets = sheetResource.listOrganizationSheets(parameters);
+		PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+		PagedResult<Sheet> sheets = sheetResource.listOrganizationSheets(parameters);
 		assertEquals(2, sheets.getData().size());
 	}
 
@@ -101,6 +93,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		assertEquals(9,sheet.getColumns().size());
 		assertEquals(0,sheet.getRows().size());
 	}
+
 	@Test
 	public void testGetSheetWithFormat() throws SmartsheetException, IOException {
 		
@@ -109,12 +102,6 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		
 		assertNotNull(sheet.getColumnByIndex(0).getFormat());
 		assertEquals(VerticalAlignment.TOP, sheet.getColumnByIndex(0).getFormat().getVerticalAlignment());
-		
-		assertNotNull(sheet.getRowByRowNumber(1).getFormat());
-		assertEquals(FontSize.PT_12, sheet.getRowByRowNumber(1).getFormat().getFontSize());
-
-		assertNotNull(sheet.getRowByRowNumber(1).getCells().get(0).getFormat());
-		assertEquals(Color.YELLOW_3, sheet.getRowByRowNumber(1).getCells().get(0).getFormat().getBackgroundColor());
 	}
 
 	@Test
@@ -164,20 +151,14 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 	public void testCreateSheet() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/createSheet.json"));
 
-		Sheet sheet = new Sheet();
-		sheet.setName("NEW TEST SHEET");
 		ArrayList<Column> list = new ArrayList<Column>();
-		Column col = new Column();
-		col.setPrimary(true);
-		col.setTitle("column1");
-		col.setType(ColumnType.TEXT_NUMBER);
-		list.add(col);
-		col = new Column();
-		col.setTitle("column2");
-		col.setType(ColumnType.TEXT_NUMBER);
-		list.add(col);
+		Column col1 = new Column.AddColumnToSheetBuilder().setTitle("Test Column 1").setType(ColumnType.TEXT_NUMBER).setPrimary(true).build();
+		list.add(col1);
+		Column col2 = new Column.AddColumnToSheetBuilder().setTitle("Test Column 2").setType(ColumnType.TEXT_NUMBER).setPrimary(false).build();
+		col2.setPrimary(false);
+		list.add(col2);
 
-		sheet.setColumns(list);
+		Sheet sheet = new Sheet.CreateSheetBuilder().setName("New Test Sheet").setColumns(list).build();
 		Sheet newSheet = sheetResource.createSheet(sheet);
 
 		if (newSheet.getColumns().size() != 2) {
@@ -186,22 +167,16 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 	}
 
 	@Test
-	public void testCreateSheetFromExisting() throws SmartsheetException, IOException {
+	public void testCreateSheetFromTemplate() throws SmartsheetException, IOException {
 
 		server.setResponseBody(new File("src/test/resources/createSheetFromExisting.json"));
 
-		Sheet sheet = new Sheet();
-		sheet.setFromId(2906571706525572L);
-		Sheet newSheet = sheetResource.createSheetFromExisting(sheet, EnumSet.allOf(ObjectInclusion.class));
+		Sheet sheet = new Sheet.CreateFromTemplateOrSheetBuilder().setFromId(7960873114331012L).setName("New test sheet from template").build();
+		Sheet newSheet = sheetResource.createSheetFromTemplate(sheet, EnumSet.allOf(SheetTemplateInclusion.class));
 
-		assertEquals(466343087630212L, newSheet.getId().longValue());
+		assertEquals(7960873114331012L, newSheet.getId().longValue());
 		assertEquals(AccessLevel.OWNER, newSheet.getAccessLevel());
-		assertEquals("https://app.smartsheet.com/b/home?lx=asdf",newSheet.getPermalink());
-
-		newSheet = sheetResource.createSheetFromExisting(sheet, null);
-		assertEquals(466343087630212L, newSheet.getId().longValue());
-		assertEquals(AccessLevel.OWNER, newSheet.getAccessLevel());
-		assertEquals("https://app.smartsheet.com/b/home?lx=asdf",newSheet.getPermalink());
+		assertEquals("https://app.smartsheet.com/b/home?lx=lbKEF1UakfTNJTZ5XkpxWg",newSheet.getPermalink());
 
 	}
 
@@ -209,21 +184,14 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 	public void testCreateSheetInFolder() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/createSheet.json"));
 
-		Sheet sheet = new Sheet();
-		sheet.setName("NEW TEST SHEET");
 		ArrayList<Column> list = new ArrayList<Column>();
-		Column col = new Column();
-		col.setPrimary(true);
-		col.setTitle("column1");
-		col.setType(ColumnType.TEXT_NUMBER);
+		Column col = new Column.AddColumnToSheetBuilder().setTitle("column1").setType(ColumnType.TEXT_NUMBER).setPrimary(true).build();
 		list.add(col);
-		col = new Column();
-		col.setTitle("column2");
-		col.setType(ColumnType.TEXT_NUMBER);
+		col = new Column.AddColumnToSheetBuilder().setTitle("column2").setType(ColumnType.TEXT_NUMBER).setPrimary(false).build();
 		col.setId(4049365800118148L);
 		list.add(col);
 
-		sheet.setColumns(list);
+		Sheet sheet = new Sheet.CreateSheetBuilder().setName("NEW TEST SHEET").setColumns(list).build();
 		Sheet newSheet = sheetResource.createSheetInFolder(12345L, sheet);
 
 		assertEquals(2, newSheet.getColumns().size());
@@ -242,35 +210,29 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 
 		Sheet sheet = new Sheet();
 		sheet.setFromId(2906571706525572L);
-		Sheet newSheet = sheetResource.createSheetInFolderFromExisting(1234L, sheet,
-				EnumSet.allOf(ObjectInclusion.class));
+		Sheet newSheet = sheetResource.createSheetInFolderFromTemplate(1234L, sheet,
+				EnumSet.allOf(SheetTemplateInclusion.class));
 
 		if (newSheet.getId().toString().isEmpty() || newSheet.getAccessLevel() != AccessLevel.OWNER
 				|| newSheet.getPermalink().toString().isEmpty()) {
 			fail("Sheet not correctly copied");
 		}
 
-		newSheet = sheetResource.createSheetInFolderFromExisting(1234L, sheet, null);
+		newSheet = sheetResource.createSheetInFolderFromTemplate(1234L, sheet, null);
 	}
 
 	@Test
 	public void testCreateSheetInWorkspace() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/createSheet.json"));
 
-		Sheet sheet = new Sheet();
-		sheet.setName("NEW TEST SHEET");
 		ArrayList<Column> list = new ArrayList<Column>();
-		Column col = new Column();
-		col.setPrimary(true);
-		col.setTitle("column1");
-		col.setType(ColumnType.TEXT_NUMBER);
+		Column col = new Column.AddColumnToSheetBuilder().setTitle("column1").setType(ColumnType.TEXT_NUMBER).setPrimary(true).build();
 		list.add(col);
-		col = new Column();
-		col.setTitle("column2");
-		col.setType(ColumnType.TEXT_NUMBER);
+		col = new Column.AddColumnToSheetBuilder().setTitle("column2").setType(ColumnType.TEXT_NUMBER).setPrimary(false).build();
+		col.setId(4049365800118148L);
 		list.add(col);
 
-		sheet.setColumns(list);
+		Sheet sheet = new Sheet.CreateSheetBuilder().setName("NEW TEST SHEET").setColumns(list).build();
 		Sheet newSheet = sheetResource.createSheetInWorkspace(1234L, sheet);
 		assertEquals(2, newSheet.getColumns().size());
 	}
@@ -281,14 +243,14 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 
 		Sheet sheet = new Sheet();
 		sheet.setFromId(2906571706525572L);
-		Sheet newSheet = sheetResource.createSheetInWorkspaceFromExisting(1234L, sheet,
-				EnumSet.allOf(ObjectInclusion.class));
+		Sheet newSheet = sheetResource.createSheetInWorkspaceFromTemplate(1234L, sheet,
+				EnumSet.allOf(SheetTemplateInclusion.class));
 
-		assertEquals(466343087630212L, newSheet.getId().longValue());
+		assertEquals(7960873114331012L, newSheet.getId().longValue());
 		assertEquals(AccessLevel.OWNER, newSheet.getAccessLevel());
-		assertEquals("https://app.smartsheet.com/b/home?lx=asdf",newSheet.getPermalink());
+		assertEquals("https://app.smartsheet.com/b/home?lx=lbKEF1UakfTNJTZ5XkpxWg",newSheet.getPermalink());
 
-		newSheet = sheetResource.createSheetInWorkspaceFromExisting(1234L, sheet, null);
+		newSheet = sheetResource.createSheetInWorkspaceFromTemplate(1234L, sheet, null);
 	}
 
 	@Test
@@ -301,12 +263,10 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 	public void testUpdateSheet() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/updateSheet.json"));
 
-		Sheet sheet = new Sheet();
-		sheet.setName("new name");
-		sheet.setId(1234L);
+		Sheet sheet = new Sheet.UpdateSheetBuilder().setName("new name").build();
 		Sheet newSheet = sheetResource.updateSheet(sheet);
 
-		assertEquals("Sheet update (rename) failed.", "new name", newSheet.getName());
+		assertEquals("Sheet update (rename) failed.", sheet.getName(), newSheet.getName());
 	}
 
 	@Test
@@ -344,27 +304,22 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 
 	@Test
 	public void testShares() {
-		sheetResource.shares();
+		sheetResource.shareResources();
 	}
 
 	@Test
 	public void testRows() {
-		sheetResource.rows();
+		sheetResource.rowResources();
 	}
 
 	@Test
 	public void testColumns() {
-		sheetResource.columns();
-	}
-
-	@Test
-	public void testAttachments() {
-		sheetResource.attachments();
+		sheetResource.columnResources();
 	}
 
 	@Test
 	public void testDiscussions() {
-		sheetResource.discussions();
+		sheetResource.discussionResources();
 	}
 
 	@Test

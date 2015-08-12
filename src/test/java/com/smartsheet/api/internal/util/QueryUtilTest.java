@@ -29,6 +29,7 @@ import java.util.HashSet;
 import java.util.EnumSet;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class QueryUtilTest {
 
@@ -76,7 +77,11 @@ public class QueryUtilTest {
 		map.put("param1", 1);
 		map.put("param2", null);
 		map.put("param3", 3);
-		assertEquals("?param1=1&param3=3", QueryUtil.generateUrl(null, map));
+		String[] matches1 = new String[] {"param3=3", "param1=1"};
+		for (String s : matches1)
+		{
+			assertTrue(QueryUtil.generateUrl(null, map).contains(s));
+		}
 		map.clear();
 
 		map.put("param1", 1);

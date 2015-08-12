@@ -60,7 +60,7 @@ public class Group extends NamedModel<Long> {
 	/**
 	 * The list of members in the group.
 	 */
-	private List<User> members;
+	private List<GroupMember> members;
 
 	/**
 	 * @return the description of the group
@@ -145,7 +145,7 @@ public class Group extends NamedModel<Long> {
 	/**
 	 * @return the {@link List} of {@link Group}s
 	 */
-	public List<User> getMembers() {
+	public List<GroupMember> getMembers() {
 		return members;
 	}
 
@@ -153,7 +153,7 @@ public class Group extends NamedModel<Long> {
 	/**
 	 * @param members the {@link List} of {@link User}s to set
 	 */
-	public void setMembers(List<User> members) {
+	public void setMembers(List<GroupMember> members) {
 		this.members = members;
 	}
 		
@@ -162,7 +162,7 @@ public class Group extends NamedModel<Long> {
 	 * to smartsheet.
 	 */
 	public static class CreateGroupBuilder {
-		private List<User> members;
+		private List<GroupMember> members;
 		private String name;
 		private String description;
 
@@ -172,7 +172,7 @@ public class Group extends NamedModel<Long> {
 		 * @param members The {@link List} of {@link Group}s to add as members of this group.
 		 * @return the creates the builder
 		 */
-		public CreateGroupBuilder setMembers (List<User> members) {
+		public CreateGroupBuilder setMembers (List<GroupMember> members) {
 			this.members = members;
 			return this;
 		}
@@ -193,7 +193,7 @@ public class Group extends NamedModel<Long> {
 		 *
 		 * @return the columns
 		 */
-		public List<User> getMembers() {
+		public List<GroupMember> getMembers() {
 			return members;
 		}
 
@@ -214,7 +214,7 @@ public class Group extends NamedModel<Long> {
 		public Group build() {
 			Group group = new Group();
 
-			if (members == null || name == null) {
+			if ( name == null ) {
 				throw new InstantiationError();
 			}
 			group.setName(name);
@@ -232,6 +232,7 @@ public class Group extends NamedModel<Long> {
 
 		/**
 		 * @param description the description to set
+		 * @return the builder
 		 */
 		public CreateGroupBuilder setDescription(String description) {
 			this.description = description;
@@ -277,11 +278,12 @@ public class Group extends NamedModel<Long> {
 		public Group build() {
 			Group group = new Group();
 
-			if (name == null) {
+			if (name == null || id == null) {
 				throw new InstantiationError();
 			}
 			group.setDescription(description);
 			group.setName(name);
+			group.setId(id);
 			return group;
 		}
 
@@ -294,6 +296,7 @@ public class Group extends NamedModel<Long> {
 
 		/**
 		 * @param description the description to set
+		 * @return the builder
 		 */
 		public UpdateGroupBuilder setDescription(String description) {
 			this.description = description;
@@ -309,6 +312,7 @@ public class Group extends NamedModel<Long> {
 
 		/**
 		 * @param id the id to set
+		 * @return the builder
 		 */
 		public UpdateGroupBuilder setId(Long id) {
 			this.id = id;

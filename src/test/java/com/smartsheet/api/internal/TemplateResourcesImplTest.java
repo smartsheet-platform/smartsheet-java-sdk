@@ -25,8 +25,9 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -51,13 +52,28 @@ public class TemplateResourcesImplTest extends ResourcesImplBase {
 	@Test
 	public void testListTemplates() throws IOException, SmartsheetException {
 		server.setResponseBody(new File("src/test/resources/listTemplates.json"));
-		
-		List<Template> templates = templateResources.listTemplates();
+
+		PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+		PagedResult<Template> templates = templateResources.listUserCreatedTemplates(parameters);
+
 		assertNotNull(templates);
-		assertEquals(11,templates.size());
-		assertEquals(AccessLevel.ADMIN, templates.get(0).getAccessLevel());
-		assertEquals(4705477956265860L, templates.get(0).getId().longValue());
-		assertEquals("testing1234", templates.get(0).getDescription());
-		assertEquals("<feature> -  Issues Template", templates.get(0).getName());
+		assertEquals("template 1", templates.getData().get(0).getName());
+		assertEquals(AccessLevel.OWNER, templates.getData().get(0).getAccessLevel());
+		assertEquals(3457273486960516L, templates.getData().get(0).getId().longValue());
+		assertEquals("This is template 1", templates.getData().get(0).getDescription());
+	}
+
+	@Test
+	public void testListPublicTemplates() throws IOException, SmartsheetException {
+		server.setResponseBody(new File("src/test/resources/listTemplates.json"));
+
+		PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+		PagedResult<Template> templates = templateResources.listPublicTemplates(parameters);
+
+		assertNotNull(templates);
+		assertEquals("template 1", templates.getData().get(0).getName());
+		assertEquals(AccessLevel.OWNER, templates.getData().get(0).getAccessLevel());
+		assertEquals(3457273486960516L, templates.getData().get(0).getId().longValue());
+		assertEquals("This is template 1", templates.getData().get(0).getDescription());
 	}
 }

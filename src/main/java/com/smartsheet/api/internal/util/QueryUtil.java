@@ -22,6 +22,7 @@ package com.smartsheet.api.internal.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -36,6 +37,26 @@ public class QueryUtil {
      * @return comma separated string
      */
     public static <T> String generateCommaSeparatedList(Set<T> list) {
+
+        StringBuilder result = new StringBuilder();
+
+        if (list == null) {
+            return result.toString();
+        } else {
+            int index = 0;
+            for (Object obj : list) {
+                result.append(obj.toString());
+
+                if (index != list.size() - 1) {
+                    result.append(",");
+                }
+                index++;
+            }
+            return result.toString();
+        }
+    }
+
+    public static <T> String generateCommaSeparatedListFavorites(List<T> list) {
 
         StringBuilder result = new StringBuilder();
 

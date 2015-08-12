@@ -34,8 +34,7 @@ public class Share extends NamedModel<String> {
 	 * Represents the email for this specific share.
 	 */
 	private String email;
-	
-	
+
 	/**
 	 * Represents the userId if the share is of type {@link ShareType#USER}
 	 */
@@ -46,12 +45,80 @@ public class Share extends NamedModel<String> {
 	 */
 	private Long groupId;
 
-	
 	/**
 	 * Indicates what type of share this is.
 	 */
 	private ShareType type;
-	
+
+	/**
+	 * Represents the subject of the email that will optionally be sent to notify the recipient.
+	 */
+	private String subject;
+
+	/**
+	 * Represents the message to be included in the body of the email.
+	 */
+	private String message;
+
+	/**
+	 * Represents the flag to indicate whether or not to send a copy of the email to the sharer of the sheet.
+	 */
+	private Boolean ccMe;
+
+	/**
+	 * Gets the subject of the email that will optionally be sent to notify the recipient.
+	 *
+	 * @return the subject
+	 */
+	public String getSubject() {
+		return subject;
+	}
+
+	/**
+	 * Sets the subject of the email that will optionally be sent to notify the recipient.
+	 *
+	 * @param subject the subject of the email
+	 */
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	/**
+	 * Gets the message to be included in the body of the email.
+	 *
+	 * @return the message
+	 */
+	public String getMessage() {
+		return message;
+	}
+
+	/**
+	 * Sets the message to be included in the body of the email.
+	 *
+	 * @param message the message
+	 */
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	/**
+	 * Gets the flag to indicate whether or not to send a copy of the email to the sharer
+	 *
+	 * @return the flag for CC
+	 */
+	public Boolean isCcMe() {
+		return ccMe;
+	}
+
+	/**
+	 * Sets the flag to indicate whether or not to send a copy of the email to the sharer.
+	 *
+	 * @param ccMe the flag for CC
+	 */
+	public void setCcMe(Boolean ccMe) {
+		this.ccMe = ccMe;
+	}
+
 	/**
 	 * Gets the access level for this specific share.
 	 *
@@ -196,7 +263,7 @@ public class Share extends NamedModel<String> {
 		/**
 		 * Group Id for this share.
 		 *
-		 * @param userId the User Id.
+		 * @param groupId the group Id.
 		 * @return the share to one builder
 		 */
 		public ShareToOneGroupBuilder setUserId(Long groupId) {
@@ -243,7 +310,21 @@ public class Share extends NamedModel<String> {
 	 */
 	public static class UpdateShareBuilder {
 		private AccessLevel accessLevel;
+		private String id;
 
+		/**
+		 * Access level for this specific share.
+		 *
+		 * @return the builder
+		 */
+		public String getShareId() {
+			return id;
+		}
+
+		public UpdateShareBuilder setShareId(String shareId) {
+			this.id = shareId;
+			return this;
+		}
 		/**
 		 * Access level for the share.
 		 *
@@ -270,12 +351,13 @@ public class Share extends NamedModel<String> {
 		 * @return the share
 		 */
 		public Share build() {
-			if(accessLevel == null){
-				throw new InstantiationError("The access level must be specified.");
+			if(accessLevel == null || id == null){
+				throw new InstantiationError("The access level and share id must be specified.");
 			}
 			
 			Share share = new Share();
 			share.accessLevel = accessLevel;
+			share.setId(id);
 			return share;
 		}
 	}
@@ -287,11 +369,12 @@ public class Share extends NamedModel<String> {
 	public static class CreateUserShareBuilder {
 		private String email;
 		private Long userId;
+		private AccessLevel accessLevel;
 		
 		/**
 		 * Email address for the {@link ShareType#USER} share.
 		 *
-		 * @param emailAddress
+		 * @param emailAddress the email address
 		 * @return the {@link CreateUserShareBuilder}
 		 */
 		public CreateUserShareBuilder setEmailAddress(String emailAddress) {
@@ -310,7 +393,7 @@ public class Share extends NamedModel<String> {
 		/**
 		 * User ID for the {@link ShareType#USER} share.
 		 *
-		 * @param userId
+		 * @param userId user id
 		 * @return the update share builder
 		 */
 		public CreateUserShareBuilder setUserId(Long userId) {
@@ -327,6 +410,15 @@ public class Share extends NamedModel<String> {
 			return userId;
 		}
 
+		public AccessLevel getAccessLevel() {
+			return accessLevel;
+		}
+
+		public CreateUserShareBuilder setAccessLevel(AccessLevel accessLevel) {
+			this.accessLevel = accessLevel;
+			return this;
+		}
+
 		/**
 		 * Builds the {@link Share} object.
 		 *
@@ -337,11 +429,15 @@ public class Share extends NamedModel<String> {
 			   email != null && userId != null){
 				throw new InstantiationError("You must provide one and only one of emailAddress and userId");
 			}
+
+//			if (accessLevel == null){
+//				throw new InstantiationError("You must provide share access level.");
+//			}
 			
 			Share share = new Share();
 			share.userId  = userId;
 			share.email = email;
-			share.type = ShareType.USER;
+			share.accessLevel = accessLevel;
 			return share;
 		}
 	}
@@ -356,7 +452,7 @@ public class Share extends NamedModel<String> {
 		/**
 		 * Group ID for the {@link ShareType#GROUP} share.
 		 *
-		 * @param groupId
+		 * @param groupId the group id
 		 * @return the update share builder
 		 */
 		public CreateGroupShareBuilder setGroupId(Long groupId) {

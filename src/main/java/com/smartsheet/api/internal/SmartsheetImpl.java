@@ -25,8 +25,9 @@ package com.smartsheet.api.internal;
 import java.io.IOException;
 import java.net.URI;
 import java.util.concurrent.atomic.AtomicReference;
-
 import com.smartsheet.api.*;
+import com.smartsheet.api.CommentAttachmentResources;
+import com.smartsheet.api.DiscussionAttachmentResources;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.http.HttpClient;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
@@ -56,7 +57,7 @@ public class SmartsheetImpl implements Smartsheet {
 
 	/**
 	 * Represents the base URI of the Smartsheet REST API.
-	 * 
+	 *
 	 * It will be initialized in constructor and will not change afterwards.
 	 */
 	private URI baseURI;
@@ -107,33 +108,6 @@ public class SmartsheetImpl implements Smartsheet {
 	private AtomicReference<SheetResources> sheets;
 
 	/**
-	 * Represents the AtomicReference to AttachmentResources.
-	 * 
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-	 * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
-	 * effectively the underlying value is lazily created in a thread safe manner.
-	 */
-	private AtomicReference<AttachmentResources> attachments;
-
-	/**
-	 * Represents the AtomicReference to DiscussionResources.
-	 * 
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-	 * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
-	 * effectively the underlying value is lazily created in a thread safe manner.
-	 */
-	private AtomicReference<DiscussionResources> discussions;
-
-	/**
-	 * Represents the AtomicReference to CommentResources.
-	 * 
-	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-	 * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
-	 * effectively the underlying value is lazily created in a thread safe manner.
-	 */
-	private AtomicReference<CommentResources> comments;
-
-	/**
 	 * Represents the AtomicReference to UserResources.
 	 * 
 	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
@@ -168,6 +142,7 @@ public class SmartsheetImpl implements Smartsheet {
 	 * effectively the underlying value is lazily created in a thread safe manner.
 	 */
 	private AtomicReference<ReportResources> reports;
+
 	/**
 	 * Represents the AtomicReference for assumed user email.
 	 * 
@@ -185,6 +160,33 @@ public class SmartsheetImpl implements Smartsheet {
 	 * SmartsheetImpl in thread safe manner.
 	 */
 	private final AtomicReference<String> accessToken;
+
+	/**
+	 * Represents the AtomicReference for ServerInfoResources.
+	 *
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+	 * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
+	 * SmartsheetImpl in thread safe manner.
+	 */
+	private final AtomicReference<ServerInfoResources> serverInfo;
+
+	/**
+	 * Represents the AtomicReference for FavoriteResources.
+	 *
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+	 * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
+	 * SmartsheetImpl in thread safe manner.
+	 */
+	private final AtomicReference<FavoriteResources> favorites;
+
+	/**
+	 * Represents the AtomicReference for TokenResources.
+	 *
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+	 * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
+	 * SmartsheetImpl in thread safe manner.
+	 */
+	private final AtomicReference<TokenResources> tokens;
 
 	/**
 	 * Create an instance with given server URI, HttpClient (optional) and JsonSerializer (optional)
@@ -208,15 +210,15 @@ public class SmartsheetImpl implements Smartsheet {
 		this.folders = new AtomicReference<FolderResources>();
 		this.templates = new AtomicReference<TemplateResources>();
 		this.sheets = new AtomicReference<SheetResources>();
-		this.attachments = new AtomicReference<AttachmentResources>();
-		this.discussions = new AtomicReference<DiscussionResources>();
-		this.comments = new AtomicReference<CommentResources>();
+		this.favorites = new AtomicReference<FavoriteResources>();
 		this.users = new AtomicReference<UserResources>();
 		this.groups = new AtomicReference<GroupResources>();
 		this.search = new AtomicReference<SearchResources>();
 		this.assumedUser = new AtomicReference<String>();
 		this.accessToken = new AtomicReference<String>(accessToken);
 		this.reports = new AtomicReference<ReportResources>();
+		this.serverInfo = new AtomicReference<ServerInfoResources>();
+		this.tokens = new AtomicReference<TokenResources>();
 	}
 
 	/**
@@ -280,7 +282,7 @@ public class SmartsheetImpl implements Smartsheet {
 	 * 
 	 * @return the home resources
 	 */
-	public HomeResources home() {
+	public HomeResources homeResources() {
 		home.compareAndSet(null, new HomeResourcesImpl(this));
 		return home.get();
 	}
@@ -290,7 +292,7 @@ public class SmartsheetImpl implements Smartsheet {
 	 * 
 	 * @return the workspace resources
 	 */
-	public WorkspaceResources workspaces() {
+	public WorkspaceResources workspaceResources() {
 		workspaces.compareAndSet(null, new WorkspaceResourcesImpl(this));
 		return workspaces.get();
 	}
@@ -300,7 +302,7 @@ public class SmartsheetImpl implements Smartsheet {
 	 * 
 	 * @return the folder resources
 	 */
-	public FolderResources folders() {
+	public FolderResources folderResources() {
 		folders.compareAndSet(null, new FolderResourcesImpl(this));
 		return folders.get();
 	}
@@ -310,7 +312,7 @@ public class SmartsheetImpl implements Smartsheet {
 	 * 
 	 * @return the template resources
 	 */
-	public TemplateResources templates() {
+	public TemplateResources templateResources() {
 		templates.compareAndSet(null, new TemplateResourcesImpl(this));
 		return templates.get();
 	}
@@ -320,39 +322,19 @@ public class SmartsheetImpl implements Smartsheet {
 	 * 
 	 * @return the sheet resources
 	 */
-	public SheetResources sheets() {
+	public SheetResources sheetResources() {
 		sheets.compareAndSet(null, new SheetResourcesImpl(this));
 		return sheets.get();
 	}
 
 	/**
-	 * Returns the AttachmentResources instance that provides access to Attachment resources.
-	 * 
-	 * @return the attachment resources
+	 * Returns the FavoriteResources instance that provides access to Favorite resources.
+	 *
+	 * @return the favorite resources
 	 */
-	public AttachmentResources attachments() {
-		attachments.compareAndSet(null, new AttachmentResourcesImpl(this));
-		return attachments.get();
-	}
-
-	/**
-	 * Returns the DiscussionResources instance that provides access to Discussion resources.
-	 * 
-	 * @return the discussion resources
-	 */
-	public DiscussionResources discussions() {
-		discussions.compareAndSet(null, new DiscussionResourcesImpl(this));
-		return discussions.get();
-	}
-
-	/**
-	 * Returns the CommentResources instance that provides access to Comment resources.
-	 * 
-	 * @return the comment resources
-	 */
-	public CommentResources comments() {
-		comments.compareAndSet(null, new CommentResourcesImpl(this));
-		return comments.get();
+	public FavoriteResources favoriteResources() {
+		favorites.compareAndSet(null, new FavoriteResourcesImpl(this));
+		return favorites.get();
 	}
 
 	/**
@@ -360,7 +342,7 @@ public class SmartsheetImpl implements Smartsheet {
 	 * 
 	 * @return the user resources
 	 */
-	public UserResources users() {
+	public UserResources userResources() {
 		users.compareAndSet(null, new UserResourcesImpl(this));
 		return users.get();
 	}
@@ -370,7 +352,7 @@ public class SmartsheetImpl implements Smartsheet {
 	 * 
 	 * @return the user resources
 	 */
-	public GroupResources groups() {
+	public GroupResources groupResources() {
 		groups.compareAndSet(null, new GroupResourcesImpl(this));
 		return groups.get();
 	}
@@ -380,7 +362,7 @@ public class SmartsheetImpl implements Smartsheet {
 	 * 
 	 * @return the search resources
 	 */
-	public SearchResources search() {
+	public SearchResources searchResources() {
 		search.compareAndSet(null, new SearchResourcesImpl(this));
 		return search.get();
 	}
@@ -390,10 +372,31 @@ public class SmartsheetImpl implements Smartsheet {
 	 *
 	 * @return the report resources
 	 */
-	public ReportResources reports() {
+	public ReportResources reportResources() {
 		reports.compareAndSet(null, new ReportResourcesImpl(this));
 		return reports.get();
 	}
+
+	/**
+	 * Returns the {@link ServerInfoResources} instance that provides access to ServerInfo resources.
+	 *
+	 * @return the ServerInfo resources
+	 */
+	public ServerInfoResources serverInfoResources() {
+		serverInfo.compareAndSet(null, new ServerInfoResourcesImpl(this));
+		return serverInfo.get();
+	}
+
+	/**
+	 * Returns the TokenResources instance that provides access to token resources.
+	 *
+	 * @return the token resources
+	 */
+	public TokenResources tokenResources() {
+		tokens.compareAndSet(null, new TokenResourcesImpl(this));
+		return tokens.get();
+	}
+
 	/**
 	 * Set the email of the user to assume. Null/empty string indicates no user is assumed.
 	 * 
@@ -416,4 +419,107 @@ public class SmartsheetImpl implements Smartsheet {
 	public void setAccessToken(String accessToken) {
 		this.accessToken.set(accessToken);
 	}
+
+	/**
+	 * @deprecated As of release 2.0, use sheetResources().columnResources()
+	 */
+	@Deprecated
+	public ColumnResources columns() {
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * @deprecated As of release 2.0, use sheetResources().rowResources()
+	 */
+	@Deprecated
+	public void rows() {
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * @deprecated As of release 2.0; example: use sheetResources().attachmentResources() for sheet-level attachments
+	 */
+	@Deprecated
+	public AttachmentResources attachments() {
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * @deprecated As of release 2.0; example: use sheetResources().discussionResources() for sheet-level discussions
+	 */
+	@Deprecated
+	public void discussions() {
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * @deprecated As of release 2.0; example: use sheetResources().discussionResources().commentResources() for discussion-level comments
+	 */
+	@Deprecated
+	public CommentResources comments() {
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * @deprecated As of release 2.0, replaced by {@link #userResources()}
+	 */
+	@Deprecated
+	public void users() {
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * @deprecated As of release 2.0, replaced by {@link #groupResources()}
+	 */
+	@Deprecated
+	public void groups() {
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * @deprecated As of release 2.0, replaced by {@link #searchResources()}
+	 */
+	@Deprecated
+	public void search() {
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * @deprecated As of release 2.0, replaced by {@link #homeResources()}
+	 */
+	@Deprecated
+	public void home(){
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * @deprecated As of release 2.0, replaced by {@link #workspaceResources()}
+	 */
+	@Deprecated
+	public void workspaces(){
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * @deprecated As of release 2.0, replaced by {@link #folderResources()}
+	 */
+	@Deprecated
+	public void folders(){
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * @deprecated As of release 2.0, replaced by {@link #templateResources()}
+	 */
+	@Deprecated
+	public void templates(){
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * @deprecated As of release 2.0, replaced by {@link #sheetResources()}
+	 */
+	@Deprecated
+	public void sheets(){throw new UnsupportedOperationException();}
+
 }

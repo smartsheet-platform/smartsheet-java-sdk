@@ -43,4 +43,41 @@ public class SheetUserSettings {
     public void setCriticalPathEnabled(Boolean criticalPathEnabled) {
         this.criticalPathEnabled = criticalPathEnabled;
     }
+
+    /**
+     * The Class AddUserSettingsBuilder.
+     */
+    public static class AddUserSettingsBuilder {
+        /**
+         * Identifies if the user has critical path enabled.
+         */
+        private Boolean criticalPathEnabled;
+
+        /**
+         * True if the user has critical path enabled.
+         *
+         * @return criticalPathEnabled
+         */
+        public Boolean isCriticalPathEnabled() {
+            return criticalPathEnabled;
+        }
+
+        /**
+         * Sets the value for critical path enabled.
+         *
+         * @param criticalPathEnabled if the user has critical path enabled
+         * @return the builder
+         */
+        public AddUserSettingsBuilder setCriticalPathEnabled(Boolean criticalPathEnabled) {
+            this.criticalPathEnabled = criticalPathEnabled;
+            return this;
+        }
+
+        public SheetUserSettings build() {
+            SheetUserSettings sheetUserSettings = new SheetUserSettings();
+            sheetUserSettings.criticalPathEnabled = criticalPathEnabled;
+            return sheetUserSettings;
+        }
+
+    }
 }

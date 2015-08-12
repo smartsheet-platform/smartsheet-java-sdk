@@ -22,11 +22,12 @@ package com.smartsheet.api.internal;
 
 
 
-import com.smartsheet.api.AssociatedAttachmentResources;
-import com.smartsheet.api.DiscussionResources;
-import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.models.Comment;
-import com.smartsheet.api.models.Discussion;
+import com.smartsheet.api.*;
+import com.smartsheet.api.internal.util.QueryUtil;
+import com.smartsheet.api.models.*;
+
+import java.util.EnumSet;
+import java.util.HashMap;
 
 /**
  * This is the implementation of the DiscussionResources.
@@ -40,6 +41,13 @@ public class DiscussionResourcesImpl extends AbstractResources implements Discus
 	 * It will be initialized in constructor and will not change afterwards.
 	 */
 	private AssociatedAttachmentResources attachments;
+	
+	/**
+	 * Represents the DiscussionCommentResources.
+	 *
+	 * It will be initialized in constructor and will not change afterwards.
+	 */
+	private DiscussionCommentResources comments;
 
 	/**
 	 * Constructor.
@@ -51,33 +59,7 @@ public class DiscussionResourcesImpl extends AbstractResources implements Discus
 	public DiscussionResourcesImpl(SmartsheetImpl smartsheet) {
 		super(smartsheet);
 	}
-
-	/**
-	 * Get a discussion.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /discussion/{id}
-	 * 
-	 * Parameters: - id : the ID
-	 * 
-	 * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-	 * rather than returning null).
-	 * 
-	 * Exceptions:
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ResourceNotFoundException : if the resource can not be found
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param id the id
-	 * @return the discussion
-	 * @throws SmartsheetException the smartsheet exception
-	 */
-	public Discussion getDiscussion(long id) throws SmartsheetException {
-		return this.getResource("discussion/" + id, Discussion.class);
-	}
-
+	
 	/**
 	 * Add a comment to a discussion.
 	 * 
@@ -108,5 +90,15 @@ public class DiscussionResourcesImpl extends AbstractResources implements Discus
 	 */
 	public AssociatedAttachmentResources attachments() {
 		return this.attachments;
+	}
+
+	/**
+	 * Return the DiscussionCommentResources object that provides access to attachment resources associated with
+	 * Discussion resources.
+	 *
+	 * @return the associated attachment resources
+	 */
+	public DiscussionCommentResources comments() {
+		return this.comments;
 	}
 }

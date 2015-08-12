@@ -22,9 +22,7 @@ package com.smartsheet.api;
 
 
 
-import java.util.List;
-
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Folder;
 import com.smartsheet.api.models.PaginationParameters;
 
@@ -38,9 +36,10 @@ public interface HomeFolderResources {
 	/**
 	 * <p>List folders under home.</p>
 	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * GET /home/folders</p>
-	 * 
+	 * <p>It mirrors to the following Smartsheet REST API method:</p>
+	 * <p>GET /home/folders</p>
+	 *
+	 * @param parameters the pagination parameters
 	 * @return the list of folders (note that an empty list will be returned if there is none)
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
@@ -49,13 +48,13 @@ public interface HomeFolderResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<Folder> listFolders(PaginationParameters parameters) throws SmartsheetException;
+	public PagedResult<Folder> listFolders(PaginationParameters parameters) throws SmartsheetException;
 
 	/**
 	 * <p>Create a folder in home.</p>
 	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * POST /home/folders</p>
+	 * <p>It mirrors to the following Smartsheet REST API method:</p>
+	 * <p>POST /home/folders</p>
 	 *
 	 * @param folder the folder to create
 	 * @return the folder

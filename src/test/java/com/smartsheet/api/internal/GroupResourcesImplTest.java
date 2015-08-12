@@ -27,15 +27,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.smartsheet.api.models.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.Group;
 import com.smartsheet.api.models.Group.CreateGroupBuilder;
 import com.smartsheet.api.models.Group.UpdateGroupBuilder;
-import com.smartsheet.api.models.User;
 
 public class GroupResourcesImplTest extends ResourcesImplBase {
 
@@ -53,18 +52,19 @@ public class GroupResourcesImplTest extends ResourcesImplBase {
 	@Test
 	public void testGetGroups() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/listGroups.json"));
-		
-		List<Group> groups =  groupResources.listGroups();
-		for(Group group: groups){
-			assertNotNull(group.getId());
-			assertNotNull(group.getName());
-			assertNotNull(group.getOwner());
-			assertNotNull(group.getOwnerId());
-			assertNotNull(group.getCreatedAt());
-			assertNotNull(group.getModifiedAt());
-			assertNotNull(group.getDescription());
-			assertNotNull(group.getId());
-		}
+
+		PaginationParameters parameters = new PaginationParameters(false,1,1);
+		PagedResult<Group> groups =  groupResources.listGroups(parameters);
+
+			assertNotNull(groups.getData().get(0).getId());
+			assertNotNull(groups.getData().get(0).getName());
+			assertNotNull(groups.getData().get(0).getOwner());
+			assertNotNull(groups.getData().get(0).getOwnerId());
+			assertNotNull(groups.getData().get(0).getCreatedAt());
+			assertNotNull(groups.getData().get(0).getModifiedAt());
+			assertNotNull(groups.getData().get(0).getDescription());
+			//assertNotNull(groups.getData().get(1).getId());
+
 	}
 	
 	@Test
@@ -81,14 +81,14 @@ public class GroupResourcesImplTest extends ResourcesImplBase {
 		assertNotNull(group.getDescription());
 		assertNotNull(group.getId());
 		
-		for (User member : group.getMembers()) {
+		for (GroupMember member : group.getMembers()) {
 			assertNotNull(member.getFirstName());
 			assertNotNull(member.getLastName());
 			assertNotNull(member.getId());
 			assertNotNull(member.getEmail());
 		}
-	
 	}
+
 	@Test
 	public void testCreateGroup() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/createGroup.json"));
@@ -96,11 +96,11 @@ public class GroupResourcesImplTest extends ResourcesImplBase {
 		CreateGroupBuilder builder = new CreateGroupBuilder();
 		builder.setName("My Test Group")
 			.setDescription("My awesome group")	
-			.setMembers(new ArrayList<User>());
+			.setMembers(new ArrayList<GroupMember>());
 		
-		builder.getMembers().add(new User.NewGroupMemberBuilder().setEmail("test@test.com").build());
-		builder.getMembers().add(new User.NewGroupMemberBuilder().setEmail("test2@test.com").build());
-		builder.getMembers().add(new User.NewGroupMemberBuilder().setEmail("test3@test.com").build());
+		builder.getMembers().add(new GroupMember.AddGroupMemberBuilder().setEmail("test@test.com").build());
+		builder.getMembers().add(new GroupMember.AddGroupMemberBuilder().setEmail("test2@test.com").build());
+		builder.getMembers().add(new GroupMember.AddGroupMemberBuilder().setEmail("test3@test.com").build());
 		
 		
 		Group group =  groupResources.createGroup(builder.build());
@@ -113,7 +113,7 @@ public class GroupResourcesImplTest extends ResourcesImplBase {
 		assertNotNull(group.getDescription());
 		assertNotNull(group.getId());
 		
-		for (User member : group.getMembers()) {
+		for (GroupMember member : group.getMembers()) {
 			assertNotNull(member.getFirstName());
 			assertNotNull(member.getLastName());
 			assertNotNull(member.getId());
@@ -128,7 +128,8 @@ public class GroupResourcesImplTest extends ResourcesImplBase {
 		
 		UpdateGroupBuilder builder = new UpdateGroupBuilder();
 		builder.setName("My Test Group - renamed ")
-			.setDescription("My awesome group- redecribed");	
+			.setDescription("My awesome group- redecribed")
+			.setId(123L);
 		
 		Group group =  groupResources.updateGroup(builder.build());
 		assertNotNull(group.getId());
@@ -151,13 +152,13 @@ public class GroupResourcesImplTest extends ResourcesImplBase {
 	@Test
 	public void testAddMembersToGroup() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/addGroupMembers.json"));
-		List<User> newMembers = new ArrayList<User>();
-		newMembers.add(new User.NewGroupMemberBuilder().setEmail("test3@test.com").build());
-		newMembers.add(new User.NewGroupMemberBuilder().setEmail("test4@test.com").build());
-		List<User> addedMembers = groupResources.members().addMembers(1234l, newMembers);
+		List<GroupMember> newMembers = new ArrayList<GroupMember>();
+		newMembers.add(new GroupMember.AddGroupMemberBuilder().setEmail("test3@test.com").build());
+		newMembers.add(new GroupMember.AddGroupMemberBuilder().setEmail("test4@test.com").build());
+		List<GroupMember> addedMembers = groupResources.members().addGroupMembers(1234l, newMembers);
 		assertTrue(addedMembers.size() > 0);
 		
-		for(User member : addedMembers) {
+		for(GroupMember member : addedMembers) {
 			assertNotNull(member.getEmail());
 			assertNotNull(member.getId());
 		}
@@ -165,6 +166,6 @@ public class GroupResourcesImplTest extends ResourcesImplBase {
 	@Test
 	public void testRemoveMemberFromGroup() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/deleteMemberFromGroup.json"));
-		groupResources.members().deleteMember(1234l, 1234l);
+		groupResources.members().deleteGroupMember(1234l, 1234l);
 	}
 }

@@ -26,7 +26,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -61,10 +60,10 @@ public class UserResourcesImplTest extends ResourcesImplBase {
 		pagination.setPageSize(1);
 		pagination.setPage(1);
 
-		DataWrapper<User> userWrapper1 = userResources.listUsers();
+		PagedResult<User> userWrapper1 = userResources.listUsers();
 		assertTrue(userWrapper1.getData().size() == 2);
 
-		DataWrapper<User> userWrapper = userResources.listUsers(email, pagination);
+		PagedResult<User> userWrapper = userResources.listUsers(email, pagination);
 		assertTrue(userWrapper.getPageNumber() == 1);
 		assertTrue(userWrapper.getPageSize() == 100);
 		assertTrue(userWrapper.getTotalCount() == 418);
@@ -169,5 +168,11 @@ public class UserResourcesImplTest extends ResourcesImplBase {
 		server.setResponseBody(new File("src/test/resources/deleteUser.json"));
 		DeleteUserParameters parameters = new DeleteUserParameters(12345L, true, true);
 		userResources.deleteUser(1234L, parameters);
+	}
+
+	@Test
+	public void testListOrgSheets() throws SmartsheetException, IOException {
+		server.setResponseBody(new File("src/test/resources/listOrgSheets.json"));
+		PagedResult<Sheet> sheets = userResources.listOrgSheets();
 	}
 }

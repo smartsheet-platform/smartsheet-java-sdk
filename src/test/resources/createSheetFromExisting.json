@@ -1,1 +1,10 @@
-{"resultCode":0,"result":{"id":466343087630212,"name":"copy of a sheet","accessLevel":"OWNER","permalink":"https://app.smartsheet.com/b/home?lx=asdf"},"message":"SUCCESS"}
+{
+  "message": "SUCCESS",
+  "result": {
+    "accessLevel": "OWNER",
+    "id": 7960873114331012,
+    "name": "newsheet",
+    "permalink": "https://app.smartsheet.com/b/home?lx=lbKEF1UakfTNJTZ5XkpxWg"
+  },
+  "resultCode": 0
+}

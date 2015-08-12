@@ -28,104 +28,37 @@ import java.io.InputStream;
 import java.util.List;
 
 import com.smartsheet.api.models.Attachment;
+import org.apache.http.MethodNotSupportedException;
 
 /**
+ * @deprecated As of release 2.0
  * <p>This interface provides methods to access Attachment resources by their id.</p>
  * 
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
+@Deprecated
 public interface AttachmentResources {
-	
-	/**
-	 * <p>Get an attachment.</p>
-	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * GET /attachment/{id}</p>
-	 *
-	 * @param id the id
-	 * @return the attachment (note that if there is no such resource, this method will throw ResourceNotFoundException 
-	 * rather than returning null).
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
-	 */
-	public Attachment getAttachment(long id) throws SmartsheetException;
 
 	/**
-	 * <p>Deletes an attachment, including all of its versions.</p>
-	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * DELETE /attachment/{id}/versions</p>
-	 *
-	 * @param id the id
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
-	 */
-	public void deleteAllAttachmentVersions(long id) throws SmartsheetException;
-	
-	/**
-	 * <p>Get all versions of an attachment.</p>
-	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * GET /attachment/{id}/versions</p>
-	 *
-	 * @param id the id
-	 * @return the attachment (note that if there is no such resource, this method will throw ResourceNotFoundException 
+	 * @deprecated As of release 2.0
+	 * @param attachmentId the id
+	 * @param file the file
+	 * @param contentType the content type
+	 * @return the attachment (note that if there is no such resource, this method will throw ResourceNotFoundException
 	 * rather than returning null).
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public List<Attachment> listAttachmentVersions(long id) throws SmartsheetException;
-	
-	
+	@Deprecated
+	public Attachment attachNewVersion(long attachmentId, File file, String contentType);
+
 	/**
-	 * <p>Attach a new version of an attachment.</p>
-	 * <p>It mirrors to the following Smartsheet REST API method:<br /> 
-	 *   POST /attachment/{id}/versions
-	 * 
+	 * @deprecated As of release 2.0
 	 * @param attachmentId the id of the attachment to upload a new version.
-	 * @param file the file to attach
+	 * @param inputStream the file to attach
 	 * @param contentType the content type of the file
+	 * @param attachmentName attachment name
+	 * @param contentLength content length
 	 * @return the created attachment
-	 * @throws FileNotFoundException the file not found exception
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Attachment attachNewVersion(long attachmentId, File file, String contentType) throws FileNotFoundException, SmartsheetException;
-	
-	/**
-	 * <p>Attach a new version of an attachment.</p>
-	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br /> 
-	 *  POST /attachment/{id}/versions
-	 * 
-	 * @param attachmentId the id of the object
-	 * @param inputStream the {@link InputStream} of the file to attach
-	 * @param contentType the content type of the file
-	 * @param contentLength the size of the file in bytes.
-	 * @param attachmentName the name of the file.
-	 * @return the created attachment
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
-	 */
-	public Attachment attachNewVersion(long attachmentId, InputStream inputStream, String contentType, long contentLength, String attachmentName) throws SmartsheetException;
+	@Deprecated
+	public Attachment attachNewVersion (long attachmentId, InputStream inputStream, String contentType, long contentLength, String attachmentName);
 }

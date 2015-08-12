@@ -48,7 +48,7 @@ public class OAuthFlowBuilder {
 	 * 
 	 * <p>It is a constant with value "https://api.smartsheet.com/1.1/token".</p>
 	 */
-	public static final String DEFAULT_TOKEN_URL = "https://api.smartsheet.com/1.1/token";
+	public static final String DEFAULT_TOKEN_URL = "https://api.smartsheet.com/2.0/token";
 
 	/**
 	 * <p>Represents the HttpClient.</p>

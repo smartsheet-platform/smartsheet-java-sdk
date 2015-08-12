@@ -20,7 +20,6 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-import java.util.Date;
 import java.util.List;
 
 import com.smartsheet.api.models.format.Format;
@@ -34,7 +33,7 @@ public class Row extends AbstractRow<Column, Cell> {
      * A convenience class for creating a {@link RowWrapper} with the necessary fields for inserting a {@link Row} or
      * set of rows.
      */
-    public static class InsertRowBuilder {
+    public static class AddRowBuilder {
         private Boolean toTop;
         private Boolean toBottom;
         private Long parentId;
@@ -59,7 +58,7 @@ public class Row extends AbstractRow<Column, Cell> {
          * @param toTop the to top flag
          * @return the insert rows builder
          */
-        public InsertRowBuilder setToTop(Boolean toTop) {
+        public AddRowBuilder setToTop(Boolean toTop) {
             this.toTop = toTop;
             return this;
         }
@@ -79,7 +78,7 @@ public class Row extends AbstractRow<Column, Cell> {
          * @param toBottom the to bottom
          * @return the insert rows builder
          */
-        public InsertRowBuilder setToBottom(Boolean toBottom) {
+        public AddRowBuilder setToBottom(Boolean toBottom) {
             this.toBottom = toBottom;
             return this;
         }
@@ -99,7 +98,7 @@ public class Row extends AbstractRow<Column, Cell> {
          * @param parentId the parent id
          * @return the insert rows builder
          */
-        public InsertRowBuilder setParentId(Long parentId) {
+        public AddRowBuilder setParentId(Long parentId) {
             this.parentId = parentId;
             return this;
         }
@@ -119,7 +118,7 @@ public class Row extends AbstractRow<Column, Cell> {
          * @param siblingId the sibling id
          * @return the insert rows builder
          */
-        public InsertRowBuilder setSiblingId(Long siblingId) {
+        public AddRowBuilder setSiblingId(Long siblingId) {
             this.siblingId = siblingId;
             return this;
         }
@@ -135,7 +134,7 @@ public class Row extends AbstractRow<Column, Cell> {
          * @param above the above flag
          * @return the insert rows builder
          */
-        public InsertRowBuilder setAbove(Boolean above) {
+        public AddRowBuilder setAbove(Boolean above) {
             this.above = above;
             return this;
         }
@@ -151,7 +150,7 @@ public class Row extends AbstractRow<Column, Cell> {
          * @param format the format
          * @return the insert rows builder
          */
-        public InsertRowBuilder setFormat(Format format) {
+        public AddRowBuilder setFormat(Format format) {
             this.format = format;
             return this;
         }
@@ -167,7 +166,7 @@ public class Row extends AbstractRow<Column, Cell> {
          * @param expanded the expanded flag
          * @return the insert rows builder
          */
-        public InsertRowBuilder setExpanded(Boolean expanded) {
+        public AddRowBuilder setExpanded(Boolean expanded) {
             this.expanded = expanded;
             return this;
         }
@@ -183,7 +182,7 @@ public class Row extends AbstractRow<Column, Cell> {
          * @param cells the list of cells
          * @return the insert rows builder
          */
-        public InsertRowBuilder setCells(List<Cell> cells) {
+        public AddRowBuilder setCells(List<Cell> cells) {
             this.cells = cells;
             return this;
         }
@@ -215,6 +214,16 @@ public class Row extends AbstractRow<Column, Cell> {
         private Boolean expanded;
         private List<Cell> cells;
         private Boolean locked;
+        private Long id;
+
+        public Long getRowId() {
+            return id;
+        }
+
+        public UpdateRowBuilder setRowId(Long rowId) {
+            this.id = rowId;
+            return this;
+        }
 
         /**
          * Gets the to top.
@@ -374,6 +383,7 @@ public class Row extends AbstractRow<Column, Cell> {
             row.setExpanded(expanded);
             row.setCells(cells);
             row.setLocked(locked);
+            row.setId(getRowId());
             return row;
         }
     }

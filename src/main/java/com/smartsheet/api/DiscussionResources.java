@@ -22,8 +22,7 @@ package com.smartsheet.api;
 
 
 
-import com.smartsheet.api.models.Comment;
-import com.smartsheet.api.models.Discussion;
+import com.smartsheet.api.models.*;
 
 /**
  * <p>This interface provides methods to access Discussion resources.</p>
@@ -31,30 +30,12 @@ import com.smartsheet.api.models.Discussion;
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface DiscussionResources {
-	
-	/**
-	 * <p>Get a discussion.</p>
-	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * GET /discussion/{id}</p>
-	 *
-	 * @param id the id
-	 * @return the discussion (note that if there is no such resource, this method will throw ResourceNotFoundException
-	 * rather than returning null).
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
-	 */
-	public Discussion getDiscussion(long id) throws SmartsheetException;
 
 	/**
 	 * <p>Add a comment to a discussion.</p>
 	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * POST /discussion/{discussionId}/comments</p>
+	 * <p>It mirrors to the following Smartsheet REST API method:</p>
+	 * <p>POST /discussion/{discussionId}/comments</p>
 	 *
 	 * @param id the discussion id
 	 * @param comment the comment to add
@@ -69,10 +50,17 @@ public interface DiscussionResources {
 	public Comment addDiscussionComment(long id, Comment comment) throws SmartsheetException;
 
 	/**
-	 * <p>Return the AssociatedAttachmentResources object that provides access to attachment resources associated with
-	 * Discussion resources.</p>
-	 *
-	 * @return the associated attachment resources
+	 * @deprecated As of release 2.0
+	 * @return associated resources
 	 */
+	@Deprecated
 	public AssociatedAttachmentResources attachments();
+
+	/**
+	 * <p>Represents the DiscussionCommentResources.</p>
+	 * <p>It will be initialized in constructor and will not change afterwards.</p>
+	 *
+	 * @return comments object
+	 */
+	public DiscussionCommentResources comments();
 }

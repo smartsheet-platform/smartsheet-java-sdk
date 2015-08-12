@@ -24,7 +24,6 @@ package com.smartsheet.api;
 
 import com.smartsheet.api.models.*;
 
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -47,7 +46,7 @@ public interface UserResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<User> listUsers() throws SmartsheetException;
+	public PagedResult<User> listUsers() throws SmartsheetException;
 
 	/**
 	 * <p>List all users.</p>
@@ -64,7 +63,7 @@ public interface UserResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<User> listUsers(Set<String> email, PaginationParameters pagination) throws SmartsheetException;
+	public PagedResult<User> listUsers(Set<String> email, PaginationParameters pagination) throws SmartsheetException;
 
 	/**
 	 * <p>Add a user to the organization, without sending email.</p>
@@ -161,4 +160,19 @@ public interface UserResources {
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public void deleteUser(long id, DeleteUserParameters parameters) throws SmartsheetException;
+
+	/**
+	 * <p>List all organisation sheets.</p>
+	 *
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /users/sheets</p>
+	 *
+	 * @return the list of all organisation sheets
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	public PagedResult<Sheet> listOrgSheets() throws SmartsheetException;
 }

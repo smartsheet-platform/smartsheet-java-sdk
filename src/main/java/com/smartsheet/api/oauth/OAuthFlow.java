@@ -21,10 +21,7 @@ package com.smartsheet.api.oauth;
  */
 
 
-
-import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
-import java.security.NoSuchAlgorithmException;
 import java.util.EnumSet;
 
 import com.smartsheet.api.InvalidRequestException;
@@ -45,7 +42,6 @@ public interface OAuthFlow {
 	 * @param state an arbitrary string that will be returned to your app; intended to be used by you to ensure that 
 	 * this redirect is indeed from an OAuth flow that you initiated.
 	 * @return the authorization URL
-	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 * @throws IllegalArgumentException if scopes is null or empty
 	 */
 	public String newAuthorizationURL(EnumSet<AccessScope> scopes, String state);
@@ -72,8 +68,6 @@ public interface OAuthFlow {
 	 *
 	 * @param authorizationResult the authorization result
 	 * @return the token
-	 * @throws NoSuchAlgorithmException the no such algorithm exception
-	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 * @throws OAuthTokenException the o auth token exception
 	 * @throws JSONSerializerException the JSON serializer exception
 	 * @throws HttpClientException the http client exception
@@ -88,8 +82,6 @@ public interface OAuthFlow {
 	 *
 	 * @param token the token to refresh
 	 * @return the refreshed token
-	 * @throws NoSuchAlgorithmException the no such algorithm exception
-	 * @throws UnsupportedEncodingException the unsupported encoding exception
 	 * @throws OAuthTokenException the o auth token exception
 	 * @throws JSONSerializerException the JSON serializer exception
 	 * @throws HttpClientException the http client exception
@@ -98,4 +90,26 @@ public interface OAuthFlow {
 	 * @throws IllegalArgumentException if any other error occurred during the operation
 	 */
 	public Token refreshToken(Token token) throws OAuthTokenException, JSONSerializerException, HttpClientException, URISyntaxException, InvalidRequestException;
+
+	/**
+	 * Revoke access token.
+	 *
+	 * Exceptions:
+	 *   - IllegalArgumentException : if url is null or empty
+	 *   - InvalidTokenRequestException : if the token request is invalid
+	 *   - InvalidOAuthClientException : if the client information is invalid
+	 *   - InvalidOAuthGrantException : if the authorization code or refresh token is invalid or
+	 *   expired, the redirect_uri does not match, or the hash value does not match the client secret and/or code
+	 *   - UnsupportedOAuthGrantTypeException : if the grant type is invalid
+	 *   - OAuthTokenException : if any other error occurred during the operation
+	 *
+	 * @param token the access token to revoke access from
+	 * @throws OAuthTokenException the o auth token exception
+	 * @throws JSONSerializerException the JSON serializer exception
+	 * @throws HttpClientException the http client exception
+	 * @throws URISyntaxException the URI syntax exception
+	 * @throws InvalidRequestException the invalid request exception
+	 */
+	public void revokeAccessToken(Token token) throws OAuthTokenException, JSONSerializerException, HttpClientException,
+			URISyntaxException, InvalidRequestException;
 }

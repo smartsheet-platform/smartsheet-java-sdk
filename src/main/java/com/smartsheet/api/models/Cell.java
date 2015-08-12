@@ -31,10 +31,14 @@ import com.smartsheet.api.models.format.Format;
 public class Cell {
 
 	/**
-	 * Represents the column type.
+	 * Represents the column columnType.
+	 */
+	private ColumnType columnType;
+
+	/**
+	 * Represents the column columnType.
 	 */
 	private ColumnType type;
-
 	/**
 	 * Represents the value.
 	 */
@@ -56,9 +60,24 @@ public class Cell {
 	private Long rowId;
 
 	/**
-	 * Represents the optional link that a cell might have.
+	 * Represents the hyperlink to a URL, sheet, or report.
 	 */
-	private Link link;
+	private Hyperlink hyperlink;
+
+	/**
+	 * Represents an inbound link from a cell in another sheet.
+	 */
+	private CellLink linkInFromCell;
+
+	/**
+	 * Represents an array of CellLink objects.
+	 */
+	private List<CellLink> linksOutToCells;
+
+	/**
+	 * Represents the format descriptor describing this cell’s conditional format.
+	 */
+	private String conditionalFormat;
 
 	/**
 	 * The formula for the cell.
@@ -69,32 +88,50 @@ public class Cell {
 	 * Represents the strict flag.
 	 */
 	private Boolean strict;
-	
+
 	/**
 	 * Represents the {@link Format} for this cell.
 	 */
 	private Format format;
 
 	/**
-	 * Gets the column type.
+	 * Gets the column columnType.
 	 *
-	 * @return the type
+	 * @return the columnType
+	 */
+	public ColumnType getColumnType() {
+		return type;
+	}
+
+	/**
+	 * Sets the column columnType.
+	 *
+	 * @param columnType the new columnType
+	 */
+	public void setColumnType(ColumnType columnType) {
+		this.type = columnType;
+	}
+
+	/**
+	 * Gets the column columnType.
+	 *
+	 * @return the columnType
 	 */
 	public ColumnType getType() {
 		return type;
 	}
 
 	/**
-	 * Sets the column type.
+	 * Sets the column columnType.
 	 *
-	 * @param type the new type
+	 * @param type the new columnType
 	 */
 	public void setType(ColumnType type) {
 		this.type = type;
 	}
 
 	/**
-	 * Gets the value. Can be one of type {@link String}, {@link Number}, or {@link Boolean}
+	 * Gets the value. Can be one of columnType {@link String}, {@link Number}, or {@link Boolean}
 	 *
 	 * @return the value
 	 */
@@ -103,7 +140,7 @@ public class Cell {
 	}
 
 	/**
-	 * Sets the value. Can be one of type {@link String}, {@link Number}, or {@link Boolean}
+	 * Sets the value. Can be one of columnType {@link String}, {@link Number}, or {@link Boolean}
 	 *
 	 * @param value the new value
 	 */
@@ -166,24 +203,6 @@ public class Cell {
 	}
 
 	/**
-	 * Gets the link for this cell.
-	 *
-	 * @return the link
-	 */
-	public Link getLink() {
-		return link;
-	}
-
-	/**
-	 * Sets the optional link for this cell.
-	 *
-	 * @param link the new link
-	 */
-	public void setLink(Link link) {
-		this.link = link;
-	}
-
-	/**
 	 * Gets the formula for this cell.
 	 *
 	 * @return the formula
@@ -225,33 +244,36 @@ public class Cell {
 	/**
 	 * A convenience class for quickly creating a List of cells to update.
 	 */
-	// TODO: check if default values can be used for any of the builders.
 	public static class UpdateRowCellsBuilder {
-		
+
 		/** The cells. */
 		List<Cell> cells = new ArrayList<Cell>();
-		
+
 		/**
 		 * Adds the cell.
 		 *
 		 * @param columnId the column id
 		 * @param value the value
 		 * @param strict the strict
+		 * @param hyperlink the hyperlink
+		 * @param linkInFromCell the link
 		 * @return the update row cells builder
 		 */
-		public UpdateRowCellsBuilder addCell(Long columnId, Object value, Boolean strict) {
+		public UpdateRowCellsBuilder addCell(Long columnId, Object value, Boolean strict, Hyperlink hyperlink,  CellLink linkInFromCell) {
 			Cell cell = new Cell();
 			cell.setColumnId(columnId);
 			cell.setValue(value);
 			cell.setStrict(strict);
+			cell.setHyperlink(hyperlink);
+			cell.setLinkInFromCell(linkInFromCell);
 			cells.add(cell);
 			return this;
 		}
-		
+
 		public List<Cell> getCells(){
 			return cells;
 		}
-		
+
 		/**
 		 * Adds the cell.
 		 *
@@ -260,10 +282,10 @@ public class Cell {
 		 * @return the update row cells builder
 		 */
 		public UpdateRowCellsBuilder addCell(Long columnId, Object value) {
-			addCell(columnId, value, true);
+			addCell(columnId, value, true, null, null);
 			return this;
 		}
-		
+
 		/**
 		 * Returns the list of cells.
 		 *
@@ -287,4 +309,116 @@ public class Cell {
 	public void setFormat(Format format) {
 		this.format = format;
 	}
+
+	/**
+	 * @return hyperlink to a URL, sheet, or report
+	 */
+	public com.smartsheet.api.models.Hyperlink getHyperlink() {
+		return hyperlink;
+	}
+
+	/**
+	 * @param hyperlink hyperlink to a URL, sheet, or report to set
+	 */
+	public void setHyperlink(Hyperlink hyperlink) {
+		this.hyperlink = hyperlink;
+	}
+
+	/**
+	 * @return inbound link from a cell in another sheet
+	 */
+	public CellLink getLinkInFromCell() {
+		return linkInFromCell;
+	}
+
+	/**
+	 * @param linkInFromCell inbound link from a cell in another sheet to set
+	 */
+	public void setLinkInFromCell(CellLink linkInFromCell) {
+		this.linkInFromCell = linkInFromCell;
+	}
+
+	/**
+	 * @return array of CellLink objects
+	 */
+	public List<CellLink> getLinksOutToCells() {
+		return linksOutToCells;
+	}
+
+	/**
+	 * @param linksOutToCells array of CellLink objects
+	 */
+	public void setLinksOutToCells(List<CellLink> linksOutToCells) {
+		this.linksOutToCells = linksOutToCells;
+	}
+
+	/**
+	 * @return the format descriptor describing this cell’s conditional format
+	 */
+	public String getConditionalFormat() {
+		return conditionalFormat;
+	}
+
+	/**
+	 * @param conditionalFormat the format descriptor describing this cell’s conditional format to set
+	 */
+	public void setConditionalFormat(String conditionalFormat) {
+		this.conditionalFormat = conditionalFormat;
+	}
+
+	/**
+	 * A convenience class for quickly creating a List of cells to add.
+	 */
+	public static class AddRowCellsBuilder {
+
+		/** The cells. */
+		List<Cell> cells = new ArrayList<Cell>();
+
+		/**
+		 * Adds the cell.
+		 *
+		 * @param columnId the column id
+		 * @param value the value
+		 * @param strict the strict
+		 * @param hyperlink the hyperlink
+		 * @param linkInFromCell the link
+		 * @return the update row cells builder
+		 */
+		public AddRowCellsBuilder addCell(Long columnId, Object value, Boolean strict, Hyperlink hyperlink,  CellLink linkInFromCell) {
+			Cell cell = new Cell();
+			cell.setColumnId(columnId);
+			cell.setValue(value);
+			cell.setStrict(strict);
+			cell.setHyperlink(hyperlink);
+			cell.setLinkInFromCell(linkInFromCell);
+			cells.add(cell);
+			return this;
+		}
+
+		public List<Cell> getCells(){
+			return cells;
+		}
+
+		/**
+		 * Adds the cell.
+		 *
+		 * @param columnId the column id
+		 * @param value the value
+		 * @return the builder
+		 */
+		public AddRowCellsBuilder addCell(Long columnId, Object value) {
+			addCell(columnId, value, true, null, null);
+			return this;
+		}
+
+		/**
+		 * Returns the list of cells.
+		 *
+		 * @return the list
+		 */
+		public List<Cell> build() {
+			return cells;
+		}
+	}
+
 }

@@ -20,6 +20,7 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import com.smartsheet.api.internal.util.QueryUtil;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -48,7 +49,11 @@ public class PaginationParametersTest {
 		assertEquals("?includeAll=true", parameters2.toQueryString());
 
 		PaginationParameters parameters3 = new PaginationParameters(false, 1, 1);
-		assertEquals("?page=1&pageSize=1&includeAll=false", parameters3.toQueryString());
+		String[] matches1 = new String[] {"pageSize=1", "includeAll=false", "page=1"};
+		for (String s : matches1)
+		{
+			assertTrue(parameters3.toQueryString().contains(s));
+		}
 	}
 
 	@Test public void testToHashMap() {

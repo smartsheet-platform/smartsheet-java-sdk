@@ -197,7 +197,7 @@ public class Folder extends NamedModel<Long> {
 
 		/**
 		 * Gets the folder id.
-		 * 
+		 *
 		 * @return the folder id.
 		 */
 		public Long getId() {
@@ -206,8 +206,9 @@ public class Folder extends NamedModel<Long> {
 
 		/**
 		 * Sets the folder id.
-		 * 
+		 *
 		 * @param id the id of the folder.
+		 * @return the builder
 		 */
 		public UpdateFolderBuilder setId(Long id) {
 			this.id = id;
@@ -230,5 +231,46 @@ public class Folder extends NamedModel<Long> {
 			return folder;
 		}
 	}
-	
+
+	/**
+	 * A convenience class for setting up a folder with the appropriate fields for updating the folder.
+	 */
+	public static class CreateFolderBuilder {
+		private String folderName;
+
+		/**
+		 * Name.
+		 *
+		 * @param name the name
+		 * @return the create folder builder
+		 */
+		public CreateFolderBuilder setName(String name) {
+			this.folderName = name;
+			return this;
+		}
+
+		/**
+		 * Gets the name.
+		 *
+		 * @return the name
+		 */
+		public String getName(){
+			return folderName;
+		}
+
+		/**
+		 * Builds the folder.
+		 *
+		 * @return the folder
+		 */
+		public Folder build() {
+			if(folderName == null){
+				throw new IllegalStateException("A folder name is required.");
+			}
+
+			Folder folder = new Folder();
+			folder.setName(folderName);
+			return folder;
+		}
+	}
 }

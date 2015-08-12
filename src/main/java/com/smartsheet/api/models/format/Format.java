@@ -40,12 +40,11 @@ public class Format {
 	
 	/**
 	 * Constructs a {@link Format} object using the format string provided by the Smartsheet API.
-	 * <br/>
-	 * <br/>
+	 *
 	 *  The format of the string is a comma separated list. See 
 	 *  <a href="http://www.smartsheet.com/developers/api-documentation#h.mf6r2e3k3ftb">http://www.smartsheet.com/developers/api-documentation#h.mf6r2e3k3ftb</a>
 	 *  for details
-	 * @param original
+	 * @param original the original
 	 */
 	public Format(String original) {
 		formatArray = new int[DEFAULT_FORMAT.length];

@@ -26,11 +26,7 @@ package com.smartsheet.api.models;
  * Managing Users</a>
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/520100-user-types">User Types Help</a>
  */
-public class User extends AbstractUser {
-	/**
-	 * Represents the name
-	 */
-	private String name;
+public class User extends UserModelWithName {
 
 	/**
 	 * Represents the admin flag which allows managing users and accounts.
@@ -56,22 +52,6 @@ public class User extends AbstractUser {
 	 * Represents the user status (active, pending, declined).
 	 */
 	private UserStatus status;
-
-	/**
-	 * Gets the name
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * Sets the name
-	 * @param name the name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	/**
 	 * Gets the admin flag which allows managing users and accounts.
@@ -136,7 +116,7 @@ public class User extends AbstractUser {
 
 	/**
 	 * Sets the resource manager flag.
-	 * @param resourceViewer
+	 * @param resourceViewer the flag
 	 */
 	public void setResourceViewer(Boolean resourceViewer) {
 		this.resourceViewer = resourceViewer;
@@ -228,6 +208,7 @@ public class User extends AbstractUser {
 
 		/**
 		 * @param firstName the firstName to set
+		 * @return the builder
 		 */
 		public AddUserBuilder setFirstName(String firstName) {
 			this.firstName = firstName;
@@ -243,6 +224,7 @@ public class User extends AbstractUser {
 
 		/**
 		 * @param lastName the lastName to set
+		 * @return the builder
 		 */
 		public AddUserBuilder setLastName(String lastName) {
 			this.lastName = lastName;
@@ -258,6 +240,7 @@ public class User extends AbstractUser {
 
 		/**
 		 * @param groupAdmin the groupAdmin to set
+		 * @return the builder
 		 */
 		public AddUserBuilder setGroupAdmin(Boolean groupAdmin) {
 			this.groupAdmin = groupAdmin;
@@ -273,6 +256,7 @@ public class User extends AbstractUser {
 
 		/**
 		 * @param resourceViewer the resourceViewer to set
+		 * @return the builder
 		 */
 		public AddUserBuilder setResourceViewer(Boolean resourceViewer) {
 			this.resourceViewer = resourceViewer;
@@ -312,6 +296,25 @@ public class User extends AbstractUser {
 		private Boolean resourceViewer;
 		private String firstName;
 		private String lastName;
+		private Long id;
+
+		/**
+		 * Get the id of the user
+		 * @return the id
+		 */
+		public Long getUserId() {
+			return id;
+		}
+
+		/**
+		 * Set the user id
+		 * @param userId the user id
+		 * @return the updateSheetBuilder object
+		 */
+		public UpdateUserBuilder setUserId(Long userId) {
+			this.id = userId;
+			return this;
+		}
 
 		/**
 		 * Sets the admin flag which allows managing users and accounts.
@@ -362,6 +365,7 @@ public class User extends AbstractUser {
 		
 		/**
 		 * @param firstName the firstName to set
+		 * @return the builder
 		 */
 		public UpdateUserBuilder setFirstName(String firstName) {
 			this.firstName = firstName;
@@ -377,6 +381,7 @@ public class User extends AbstractUser {
 		
 		/**
 		 * @param lastName the lastName to set
+		 * @return the builder
 		 */
 		public UpdateUserBuilder setLastName(String lastName) {
 			this.lastName = lastName;
@@ -392,6 +397,7 @@ public class User extends AbstractUser {
 
 		/**
 		 * @param groupAdmin the groupAdmin to set
+		 * @return the builder
 		 */
 		public UpdateUserBuilder setGroupAdmin(Boolean groupAdmin) {
 			this.groupAdmin = groupAdmin;
@@ -407,6 +413,7 @@ public class User extends AbstractUser {
 
 		/**
 		 * @param resourceViewer the resourceViewer to set
+		 * @return the builder
 		 */
 		public UpdateUserBuilder setResourceViewer(Boolean resourceViewer) {
 			this.resourceViewer = resourceViewer;
@@ -419,8 +426,8 @@ public class User extends AbstractUser {
 		 * @return the user
 		 */
 		public User build() {
-			if(admin == null || licensedSheetCreator == null){
-				throw new InstantiationError("An admin and licensed sheet creator must be set");
+			if(admin == null || licensedSheetCreator == null || id == null){
+				throw new InstantiationError("An admin, licensed sheet creator and user Id must be set");
 			}
 			
 			User user = new User();
@@ -430,6 +437,7 @@ public class User extends AbstractUser {
 			user.licensedSheetCreator = licensedSheetCreator;
 			user.groupAdmin = groupAdmin;
 			user.resourceViewer = resourceViewer;
+			user.setId(id);
 			return user;
 		}
 
@@ -437,22 +445,23 @@ public class User extends AbstractUser {
 
 	}
 	/**
-	 * A convenience class for making a {@link User} object with the appropriate fields for adding to a {@link Group}. See {@link CreateGroupBuilder}
+	 * A convenience class for making a GroupMember object with the appropriate fields for adding to a {@link Group}.
 	 */
 	public static class NewGroupMemberBuilder {
 		private String email;
 
 		/**
 		 * Get the email of the user
-		 * @return
+		 * @return email the email
 		 */
 		public String getEmail() {
 			return email;
 		}
 
 		/**
-		 * Set the id of the user
-		 * @param id
+		 * Set the email id of the user
+		 * @param email the email
+		 * @return the builder
 		 */
 		public NewGroupMemberBuilder setEmail(String email) {
 			this.email = email;

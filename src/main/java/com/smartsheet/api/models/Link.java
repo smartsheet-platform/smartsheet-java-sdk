@@ -20,12 +20,8 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-
-
 /**
  * Represents the Link object.
- * @see <a href="http://help.smartsheet.com/customer/portal/articles/518326-creating-hyperlinks-to-sheets-websites">
- * Help Creating Hyperlinks to Sheets & Websites</a>
  */
 public class Link {
 	/**

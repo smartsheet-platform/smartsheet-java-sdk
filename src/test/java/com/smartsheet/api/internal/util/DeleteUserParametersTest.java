@@ -55,10 +55,18 @@ public class DeleteUserParametersTest {
 	@Test
 	public void testToQueryString() {
 		DeleteUserParameters parameters = new DeleteUserParameters(12345L, true, true);
-		assertEquals("?removeFromSharing=true&transferSheets=true&transferTo=12345", parameters.toQueryString());
+		String[] matches1 = new String[] {"transferSheets=true", "removeFromSharing=true", "transferTo=12345"};
+		for (String s : matches1)
+		{
+			assertTrue(parameters.toQueryString().contains(s));
+		}
 
 		DeleteUserParameters parameters2 = new DeleteUserParameters(null, true, true);
-		assertEquals("?removeFromSharing=true&transferSheets=true", parameters2.toQueryString());
+		String[] matches2 = new String[] {"transferSheets=true", "removeFromSharing=true"};
+		for (String s : matches2)
+		{
+			assertTrue(parameters2.toQueryString().contains(s));
+		}
 
 		DeleteUserParameters parameters3 = new DeleteUserParameters(null, null, true);
 		assertEquals("?removeFromSharing=true", parameters3.toQueryString());

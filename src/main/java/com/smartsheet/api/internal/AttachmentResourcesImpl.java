@@ -23,21 +23,18 @@ package com.smartsheet.api.internal;
 
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.List;
 
 import com.smartsheet.api.AttachmentResources;
-import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Attachment;
 
 /**
+ * @deprecated As of release 2.0
  * This is the implementation of the AttachmentResources.
  * 
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
+@Deprecated
 public class AttachmentResourcesImpl extends AbstractResources implements AttachmentResources {
 	
 	/**
@@ -52,72 +49,21 @@ public class AttachmentResourcesImpl extends AbstractResources implements Attach
 	}
 
 	/**
-	 * Get an attachment.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /attachment/{id}
-	 * 
-	 * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-	 * rather than returning null).
-	 * 
-	 * Exceptions:
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ResourceNotFoundException : if the resource can not be found
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param id the id
-	 * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException 
-	 * rather than returning null).
-	 * @throws SmartsheetException the smartsheet exception
+	 * @deprecated As of release 2.0
+	 * @return the attachment
 	 */
-	public Attachment getAttachment(long id) throws SmartsheetException {
-		return this.getResource("attachment/" + id, Attachment.class);
+	@Deprecated
+	public Attachment attachNewVersion(long attachmentId, File file, String contentType){
+		throw new UnsupportedOperationException();
 	}
 
 	/**
-	 * Delete an attachment.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: DELETE /attachment{id}
-	 * 
-	 * Exceptions:
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ResourceNotFoundException : if the resource can not be found
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param id the ID of the attachment
-	 * @throws SmartsheetException the smartsheet exception
+	 * @deprecated As of release 2.0
+	 * @return the attachment
 	 */
-	public void deleteAttachment(long id) throws SmartsheetException {
-		this.deleteResource("attachment/" + id, Attachment.class);
-	}
-
-	
-	@Override
-	public void deleteAllAttachmentVersions(long id) throws SmartsheetException {
-		this.deleteResource("attachment/"+ id + "/versions", Attachment.class);
-	}
-
-	@Override
-	public List<Attachment> listAttachmentVersions(long id) throws SmartsheetException {
-		return this.listResources("attachment/" + id + "/versions", Attachment.class);
-	}
-
-	@Override
-	public Attachment attachNewVersion(long attachmentId, File file, String contentType) throws FileNotFoundException, SmartsheetException {
-		Util.throwIfNull(attachmentId, file, contentType);
-		Util.throwIfEmpty(contentType);
-		
-		return attachNewVersion(attachmentId, new FileInputStream(file), contentType, file.length(), file.getName());
-	}
-
-	@Override
+	@Deprecated
 	public Attachment attachNewVersion (long attachmentId, InputStream inputStream, String contentType, long contentLength, String attachmentName)
-			throws SmartsheetException {
-		return super.attachFile("attachment/"+ attachmentId +"/versions", inputStream, contentType, contentLength, attachmentName);
+	{
+		throw new UnsupportedOperationException();
 	}
 }

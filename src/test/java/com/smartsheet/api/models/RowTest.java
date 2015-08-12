@@ -64,7 +64,7 @@ public class RowTest {
 	public void testInsertRowBuilder() {
 		Format format = new Format("new format");
 		List<Cell> cells = new ArrayList<Cell>();
-		Row row = new Row.InsertRowBuilder().setToTop(true).setExpanded(false).setFormat(format).setCells(cells).build();
+		Row row = new Row.AddRowBuilder().setToTop(true).setExpanded(false).setFormat(format).setCells(cells).build();
 
 		assertTrue(row.getToTop());
 		assertFalse(row.isExpanded());

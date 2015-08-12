@@ -108,6 +108,7 @@ public class Workspace extends Folder {
 		/**
 		 * Set the workspace id
 		 * @param id the workspace id
+		 * @return the builder
 		 */
 		public UpdateWorkspaceBuilder setId(Long id) {
 			this.id = id;

@@ -23,11 +23,9 @@ package com.smartsheet.api.internal;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
-import com.smartsheet.api.SheetColumnResources;
 import com.smartsheet.api.models.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -56,7 +54,7 @@ public class SheetColumnResourcesImplTest extends ResourcesImplBase {
 
 		server.setResponseBody(new File("src/test/resources/listColumns.json"));
 		PaginationParameters paginationParameters = new PaginationParameters(true, 1, 1);
-		DataWrapper<Column> wrapper = sheetColumnResourcesImpl.listColumns(1234L, EnumSet.allOf(ColumnInclusion.class), paginationParameters);
+		PagedResult<Column> wrapper = sheetColumnResourcesImpl.listColumns(1234L, EnumSet.allOf(ColumnInclusion.class), paginationParameters);
 		List<Column> columns = wrapper.getData();
 		assertEquals(3, columns.size());
 		assertEquals("CHECKBOX", columns.get(0).getType().toString());
@@ -106,5 +104,18 @@ public class SheetColumnResourcesImplTest extends ResourcesImplBase {
 	public void testDeleteColumn() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/deleteColumn.json"));
 		sheetColumnResourcesImpl.deleteColumn(123456789L, 987654321L);
+	}
+
+	@Test
+	public void testGetColumn() throws SmartsheetException, IOException {
+		server.setResponseBody(new File("src/test/resources/getColumn.json"));
+		Column col = new Column();
+		col.setIndex(2);
+		col.setTitle("Favorite");
+		col.setType(ColumnType.CHECKBOX);
+
+		Column newCol = sheetColumnResourcesImpl.getColumn(123L, 456L, EnumSet.of(ColumnInclusion.FILTERS));
+		assertNotNull(newCol);
+		assertEquals(col.getTitle(), newCol.getTitle());
 	}
 }

@@ -89,11 +89,11 @@ public class HomeResourcesImpl extends AbstractResources implements HomeResource
 	}
 
 	/**
-	 * Return the WorkspaceFolderResources object that provides access to Folder resources under home.
+	 * Return the HomeFolderResources object that provides access to Folder resources under home.
 	 *
 	 * @return the home folder resources
 	 */
-	public HomeFolderResources folders() {
+	public HomeFolderResources folderResources() {
 		return this.folders;
 	}
 }

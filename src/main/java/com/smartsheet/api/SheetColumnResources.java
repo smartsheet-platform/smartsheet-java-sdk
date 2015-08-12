@@ -27,7 +27,7 @@ import java.util.List;
 
 import com.smartsheet.api.models.Column;
 import com.smartsheet.api.models.ColumnInclusion;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 
 /**
@@ -53,7 +53,7 @@ public interface SheetColumnResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, PaginationParameters pagination) throws SmartsheetException;
+	public PagedResult<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, PaginationParameters pagination) throws SmartsheetException;
 
 	/**
 	 * <p>Add column to a sheet.</p>
@@ -111,4 +111,25 @@ public interface SheetColumnResources {
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Column updateColumn(long sheetId, Column column) throws SmartsheetException;
+
+	/**
+	 * Gets the Column specified in the URL.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/columns/{columnId}
+	 *
+	 * Exceptions:
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param sheetId the sheet id
+	 * @param columnId the column id
+	 * @param includes list of includes
+	 * @return the column (note that empty list will be returned if there is none)
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public Column getColumn(long sheetId, long columnId, EnumSet<ColumnInclusion> includes) throws SmartsheetException;
 }

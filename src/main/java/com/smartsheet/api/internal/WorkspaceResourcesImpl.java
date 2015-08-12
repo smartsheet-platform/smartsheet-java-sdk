@@ -63,7 +63,7 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 	 */
 	public WorkspaceResourcesImpl(SmartsheetImpl smartsheet) {
 		super(smartsheet);
-		this.shares = new ShareResourcesImpl(smartsheet, "workspace");
+		this.shares = new ShareResourcesImpl(smartsheet, "workspaces");
 		this.folders = new WorkspaceFolderResourcesImpl(smartsheet);
 	}
 
@@ -88,7 +88,7 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 	 * @return all workspaces (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Workspace> listWorkspaces(PaginationParameters parameters) throws SmartsheetException {
+	public PagedResult<Workspace> listWorkspaces(PaginationParameters parameters) throws SmartsheetException {
 		String path = "workspaces";
 
 		if (parameters != null) {
@@ -123,14 +123,16 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 	 * rather than returning null).
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Workspace getWorkspace(long id, boolean loadAll, EnumSet<SourceInclusion> includes) throws SmartsheetException {
+	public Workspace getWorkspace(long id, Boolean loadAll, EnumSet<SourceInclusion> includes) throws SmartsheetException {
 		String path = "workspaces/" + id;
 
 		// Add the parameters to a map and build the query string at the end
 		HashMap<String, Object> parameters = new HashMap<String, Object>();
 
 		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-		parameters.put("loadAll", Boolean.toString(loadAll));
+		if (loadAll != null) {
+			parameters.put("loadAll", Boolean.toString(loadAll));
+		}
 
 		path += QueryUtil.generateUrl(null, parameters);
 
@@ -220,7 +222,7 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 	 *
 	 * @return the workspace folder resources
 	 */
-	public WorkspaceFolderResources folders() {
+	public WorkspaceFolderResources folderResources() {
 		return this.folders;
 	}
 
@@ -229,7 +231,7 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 	 *
 	 * @return the share resources
 	 */
-	public ShareResources shares() {
+	public ShareResources shareResources() {
 		return this.shares;
 	}
 }

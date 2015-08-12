@@ -20,9 +20,7 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-import java.util.Date;
 import java.util.List;
-import java.util.EnumSet;
 
 /**
  * Represents the Sheet object.
@@ -170,22 +168,41 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
 	public static class UpdateSheetBuilder {
 		private String sheetName;
 		private Long id;
+		private SheetUserSettings userSettings;
+
+		/**
+		 * Get the user settings
+		 * @return the user setting
+		 */
+		public SheetUserSettings getUserSettings() {
+			return userSettings;
+		}
+
+		/**
+		 * Set the user settings
+		 * @param userSettings the sheet user settings
+		 * @return the updateSheetBuilder object
+		 */
+		public UpdateSheetBuilder setUserSettings(SheetUserSettings userSettings) {
+			this.userSettings = userSettings;
+			return this;
+		}
 
 		/**
 		 * Get the id of the sheet
-		 * @return
+		 * @return the id
 		 */
-		public Long getId() {
+		public Long getSheetId() {
 			return id;
 		}
 
 		/**
 		 * Set the sheet id
-		 * @param id
+		 * @param sheetId the sheet id
 		 * @return the updateSheetBuilder object
 		 */
-		public UpdateSheetBuilder setId(Long id) {
-			this.id = id;
+		public UpdateSheetBuilder setSheetId(Long sheetId) {
+			this.id = sheetId;
 			return this;
 		}
 
@@ -223,6 +240,7 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
 			Sheet sheet = new Sheet();
 			sheet.setName(sheetName);
 			sheet.setId(id);
+			sheet.setUserSettings(userSettings);
 			return sheet;
 		}
 	}

@@ -24,9 +24,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,7 +52,7 @@ public class WorkspaceFolderResourcesImplTest extends ResourcesImplBase {
 		server.setResponseBody(new File("src/test/resources/listWorkspaceFolders.json"));
 
 		PaginationParameters parameters = new PaginationParameters(true,null,null);
-		DataWrapper<Folder> foldersWrapper = workspaceFolderResources.listFolders(1234L, parameters);
+		PagedResult<Folder> foldersWrapper = workspaceFolderResources.listFolders(1234L, parameters);
 		assertEquals(2, foldersWrapper.getData().size());
 		assertEquals(7116448184199044L, foldersWrapper.getData().get(0).getId().longValue());
 		assertEquals(7116448184188022L, foldersWrapper.getData().get(1).getId().longValue());
@@ -67,8 +66,7 @@ public class WorkspaceFolderResourcesImplTest extends ResourcesImplBase {
 	public void testCreateFolder() throws IOException, SmartsheetException {
 		server.setResponseBody(new File("src/test/resources/newWorkspaceFolder.json"));
 		
-		Folder folder = new Folder();
-		folder.setName("New Folder");
+		Folder folder = new Folder.CreateFolderBuilder().setName("New Folder").build();
 		Folder newFolder = workspaceFolderResources.createFolder(1234L, folder);
 		assertEquals(8121709439018884L, newFolder.getId().longValue());
 		assertEquals("New Folder", newFolder.getName());

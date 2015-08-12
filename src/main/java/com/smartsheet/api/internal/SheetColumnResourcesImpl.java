@@ -29,7 +29,7 @@ import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Column;
 import com.smartsheet.api.models.ColumnInclusion;
-import com.smartsheet.api.models.DataWrapper;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 
 /**
@@ -69,7 +69,7 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
 	 * @return the columns (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public DataWrapper<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, PaginationParameters pagination) throws SmartsheetException  {
+	public PagedResult<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, PaginationParameters pagination) throws SmartsheetException  {
 		String path = "sheets/" + sheetId + "/columns";
 
 		HashMap<String, Object> parameters = new HashMap<String, Object>();
@@ -152,5 +152,28 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
 	public Column updateColumn(long sheetId, Column column) throws SmartsheetException {
 		Util.throwIfNull(column);
 		return this.updateResource("sheets/" + sheetId + "/columns/" + column.getId(), Column.class, column);
+	}
+
+	/**
+	 * Gets the Column specified in the URL.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/columns/{columnId}
+	 *
+	 * Exceptions:
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param sheetId the sheet id
+	 * @param columnId the column id
+	 * @param includes list of includes
+	 * @return the column (note that empty list will be returned if there is none)
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public Column getColumn(long sheetId, long columnId, EnumSet<ColumnInclusion> includes) throws SmartsheetException  {
+		return this.getResource("sheets/" + sheetId + "/columns/" + columnId, Column.class);
 	}
 }

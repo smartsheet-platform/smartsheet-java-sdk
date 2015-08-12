@@ -60,7 +60,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public DataWrapper<User> listUsers() throws SmartsheetException {
+	public PagedResult<User> listUsers() throws SmartsheetException {
 		return this.listResourcesWithWrapper("users", User.class);
 	}
 
@@ -82,7 +82,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 
-	public DataWrapper<User> listUsers(Set<String> email, PaginationParameters pagination) throws SmartsheetException {
+	public PagedResult<User> listUsers(Set<String> email, PaginationParameters pagination) throws SmartsheetException {
 		String path = "users";
 		HashMap<String, Object> parameters = new HashMap<String, Object>();
 
@@ -179,6 +179,22 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 		return this.getResource("users/me", UserProfile.class);
 	}
 
+	/**
+	 * <p>List all organisation sheets.</p>
+	 *
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /users/sheets</p>
+	 *
+	 * @return the list of all organisation sheets
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	public PagedResult<Sheet> listOrgSheets() throws SmartsheetException {
+		return this.listResourcesWithWrapper("users/sheets", Sheet.class);
+	}
 
 	@Override
 	public User updateUser(User user) throws SmartsheetException {
