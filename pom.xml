@@ -3,7 +3,7 @@
 	<groupId>com.smartsheet</groupId>
 	<artifactId>smartsheet-sdk-java</artifactId>
 	<packaging>jar</packaging>
-	<version>1.1.1-SNAPSHOT</version>
+	<version>2.0.0-snapshot</version>
 	<name>Smartsheet Java SDK</name>
 	<description>Library for connecting to Smartsheet Services</description>
 	<url>http://smartsheet.com</url>
@@ -20,11 +20,14 @@
 		</license>
 	</licenses>
 
+
+
 	<scm>
 		<url>git@github.com:smartsheet-platform/java-sdk.git</url>
 		<connection>scm:git:git@github.com:smartsheet-platform/java-sdk.git</connection>
 		<developerConnection>scm:git:git@github.com:smartsheet-platform/java-sdk.git</developerConnection>
-	</scm>
+    	<tag>smartsheet-sdk-java-2.0.0</tag>
+  </scm>
 
 	<developers>
 		<developer>
@@ -95,8 +98,30 @@
 		</dependency>
 	</dependencies>
 
+	<distributionManagement>
+		<snapshotRepository>
+			<id>deployment</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>deployment</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+
 	<build>
 		<plugins>
+				<plugin>
+					<groupId>org.sonatype.plugins</groupId>
+					<artifactId>nexus-staging-maven-plugin</artifactId>
+					<version>1.6.3</version>
+					<extensions>true</extensions>
+					<configuration>
+						<serverId>ossrh</serverId>
+						<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+						<autoReleaseAfterClose>true</autoReleaseAfterClose>
+					</configuration>
+				</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
@@ -249,9 +274,9 @@
 				<version>2.18.1</version>
 				<executions>
 					<!--
-                        Invokes both the integration-test and the verify goals of the
-                        Failsafe Maven plugin
-                    -->
+						Invokes both the integration-test and the verify goals of the
+						Failsafe Maven plugin
+					-->
 					<execution>
 						<id>integration-tests</id>
 						<goals>
@@ -310,21 +335,15 @@
 		</pluginManagement>
 		<resources>
 			<!--
-                Placeholders that are found from the files located in the configured resource
-                directories are replaced with the property values found from the profile
-                specific configuration file.
-            -->
+				Placeholders that are found from the files located in the configured resource
+				directories are replaced with the property values found from the profile
+				specific configuration file.
+			-->
 			<resource>
 				<filtering>true</filtering>
 				<directory>src/integration-test/resources</directory>
 			</resource>
 		</resources>
 	</build>
-
-	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>7</version>
-	</parent>
 
 </project>
