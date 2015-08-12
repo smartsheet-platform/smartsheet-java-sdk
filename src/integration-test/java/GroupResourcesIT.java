@@ -103,13 +103,13 @@ public class GroupResourcesIT extends ITResourcesImpl{
     public void testAddMembersToGroup() throws SmartsheetException, IOException {
         GroupMember member = new GroupMember.AddGroupMemberBuilder().setEmail("jane.doe@smartsheet.com").build();
 
-        List<GroupMember> addedMembers = smartsheet.groupResources().members().addGroupMembers(groupId, Arrays.asList(member));
+        List<GroupMember> addedMembers = smartsheet.groupResources().memberResources().addGroupMembers(groupId, Arrays.asList(member));
         assertTrue(addedMembers.size() > 0);
         groupMemberId = addedMembers.get(0).getId();
     }
 
     //not executed in test due to permission issue
     public void testRemoveMemberFromGroup() throws SmartsheetException, IOException {
-        smartsheet.groupResources().members().deleteGroupMember(groupId, groupMemberId);
+        smartsheet.groupResources().memberResources().deleteGroupMember(groupId, groupMemberId);
     }
 }
