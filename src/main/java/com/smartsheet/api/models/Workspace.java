@@ -34,6 +34,11 @@ public class Workspace extends Folder {
 	private String permalink;
 
 	/**
+	 *  Represents if the workspace is marked as favorite
+	 */
+	private Boolean favorite;
+
+	/**
 	 * Gets the user's permissions on a workspace.
 	 *
 	 * @return the access level
@@ -70,6 +75,22 @@ public class Workspace extends Folder {
 	}
 
 	/**
+	 * Gets the favorite
+	 * @return the favorite
+	 */
+	public Boolean getFavorite() {
+		return favorite;
+	}
+
+	/**
+	 * Sets the favorite
+	 * @param favorite the favorite
+	 */
+	public void setFavorite(Boolean favorite) {
+		this.favorite = favorite;
+	}
+
+	/**
 	 * A convenience class for creating a {@link Workspace} object with the appropriate fields for updating a workspace.
 	 */
 	public static class UpdateWorkspaceBuilder {
@@ -87,6 +108,7 @@ public class Workspace extends Folder {
 		/**
 		 * Set the workspace id
 		 * @param id the workspace id
+		 * @return the builder
 		 */
 		public UpdateWorkspaceBuilder setId(Long id) {
 			this.id = id;

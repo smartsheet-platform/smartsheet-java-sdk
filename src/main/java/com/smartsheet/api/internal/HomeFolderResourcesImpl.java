@@ -22,11 +22,11 @@ package com.smartsheet.api.internal;
 
 
 
-import java.util.List;
-
 import com.smartsheet.api.HomeFolderResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Folder;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
 
 /**
  * This is the implementation of the HomeFolderResources.
@@ -50,7 +50,7 @@ public class HomeFolderResourcesImpl extends AbstractResources implements HomeFo
 	 * List folders under home.
 	 * 
 	 * It mirrors to the following Smartsheet REST API method: GET /home/folders
-	 * 
+	 *
 	 * Exceptions:
 	 *   InvalidRequestException : if there is any problem with the REST API request
 	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
@@ -59,11 +59,18 @@ public class HomeFolderResourcesImpl extends AbstractResources implements HomeFo
 	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
 	 *   SmartsheetException : if there is any other error occurred during the operation
 	 *
+	 * @param parameters the pagination parameters
 	 * @return the folders (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public List<Folder> listFolders() throws SmartsheetException {
-		return this.listResources("home/folders", Folder.class);
+	public PagedResult<Folder> listFolders(PaginationParameters parameters) throws SmartsheetException {
+
+		String path = "home/folders";
+
+		if (parameters != null) {
+			path += parameters.toQueryString();
+		}
+		return this.listResourcesWithWrapper(path, Folder.class);
 	}
 
 	/**

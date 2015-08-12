@@ -22,6 +22,7 @@ package com.smartsheet.api.internal.json;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,9 +34,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.smartsheet.api.internal.util.Util;
+import com.smartsheet.api.models.CopyOrMoveRowResult;
 import com.smartsheet.api.models.IdentifiableModel;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.format.Format;
 
@@ -45,7 +49,7 @@ import com.smartsheet.api.models.format.Format;
  * Thread Safety: This class is thread safe because it is immutable and the underlying Jackson ObjectMapper is thread
  * safe as long as it is not re-configured.
  */
-public class JacksonJsonSerializer implements JsonSerializer {
+public class JacksonJsonSerializer implements JsonSerializer{
 	/**
 	 * Represents the ObjectMapper used to serialize/de-serialize JSON.
 	 * 
@@ -63,17 +67,18 @@ public class JacksonJsonSerializer implements JsonSerializer {
 		// Allow deserialization if there are properties that can't be deserialized
 		OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		OBJECT_MAPPER.configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true);
-		
+
+
 		// Only include non-null properties in when serializing java beans
 		OBJECT_MAPPER.setSerializationInclusion(Include.NON_NULL);
-		
-		// Excludes "id" field from being serialized to JSON for any IdentifiableModel class
-		OBJECT_MAPPER.addMixInAnnotations(IdentifiableModel.class, IdFieldExclusionMixin.class);
-		
+
+		// Use toString() method on enums to serialize and deserialize
+		OBJECT_MAPPER.enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);
+		OBJECT_MAPPER.enable(DeserializationFeature.READ_ENUMS_USING_TO_STRING);
 		//Add a custom deserializer that will convert a string to a Format object.
 		SimpleModule module = new SimpleModule("FormatDeserializerModule", Version.unknownVersion());
 		module.addDeserializer(Format.class, new FormatDeserializer());
-
+		//module.setMixInAnnotation(IdentifiableModel.class, IdFieldExclusionMixin.class);
 		OBJECT_MAPPER.registerModule(module);
 	}
 
@@ -86,6 +91,9 @@ public class JacksonJsonSerializer implements JsonSerializer {
 	public static void setFailOnUnknownProperties(boolean value) {
 		OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, value);
 	}
+
+
+
 
 	/**
 	 * Constructor.
@@ -129,6 +137,40 @@ public class JacksonJsonSerializer implements JsonSerializer {
 		} catch (IOException e) {
 			throw new JSONSerializerException(e);
 		}
+	}
+
+	/**
+	 * Serialize an object to JSON.
+	 *
+	 * Parameters:
+	 *   object : the object to serialize
+	 *   outputStream : the output stream to which the JSON will be written
+	 *
+	 * Returns: None
+	 *
+	 * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
+	 * other error occurred during the operation
+	 *
+	 * @param object
+	 * @throws JSONSerializerException
+	 * @throws IOException
+	 * @throws JsonMappingException
+	 * @throws JsonGenerationException
+	 */
+	public <T> String serialize(T object) throws JSONSerializerException {
+		Util.throwIfNull(object);
+		String value;
+
+		try {
+			value= OBJECT_MAPPER.writeValueAsString(object);
+		} catch (JsonGenerationException e) {
+			throw new JSONSerializerException(e);
+		} catch (JsonMappingException e) {
+			throw new JSONSerializerException(e);
+		} catch (IOException e) {
+			throw new JSONSerializerException(e);
+		}
+		return value;
 	}
 
 	/**
@@ -190,6 +232,36 @@ public class JacksonJsonSerializer implements JsonSerializer {
 		}
 
 		return list;
+	}
+
+	/**
+	 * De-serialize to a PagedResult (holds pagination info) from JSON
+	 * @param objectClass
+	 * @param inputStream
+	 * @param <T>
+	 * @return
+	 * @throws JSONSerializerException
+	 */
+	@Override
+	public <T> PagedResult<T> deserializeDataWrapper(Class<T> objectClass, java.io.InputStream inputStream) throws JSONSerializerException{
+		Util.throwIfNull(objectClass, inputStream);
+
+		PagedResult<T> rw = null;
+
+		try {
+			// Read the json input stream into a List.
+			rw = OBJECT_MAPPER.readValue(inputStream,
+					OBJECT_MAPPER.getTypeFactory().constructParametricType(PagedResult.class, objectClass));
+			// list = OBJECT_MAPPER.readValue(inputStream, new TypeReference<List<T>>() {});
+		} catch (JsonParseException e) {
+			throw new JSONSerializerException(e);
+		} catch (JsonMappingException e) {
+			throw new JSONSerializerException(e);
+		} catch (IOException e) {
+			throw new JSONSerializerException(e);
+		}
+
+		return rw;
 	}
 
 	/**
@@ -293,5 +365,32 @@ public class JacksonJsonSerializer implements JsonSerializer {
 			throw new JSONSerializerException(e);
 		}
 		return result;
+	}
+
+	/**
+	 * De-serialize to a CopyOrMoveRowResult object from JSON
+	 * @param inputStream
+	 * @return
+	 * @throws JSONSerializerException
+	 */
+	@Override
+	public CopyOrMoveRowResult deserializeCopyOrMoveRow(java.io.InputStream inputStream) throws JSONSerializerException{
+		Util.throwIfNull(inputStream);
+
+		CopyOrMoveRowResult rw = null;
+
+		try {
+			// Read the json input stream into a List.
+			rw = OBJECT_MAPPER.readValue(inputStream, CopyOrMoveRowResult.class);
+			// list = OBJECT_MAPPER.readValue(inputStream, new TypeReference<List<T>>() {});
+		} catch (JsonParseException e) {
+			throw new JSONSerializerException(e);
+		} catch (JsonMappingException e) {
+			throw new JSONSerializerException(e);
+		} catch (IOException e) {
+			throw new JSONSerializerException(e);
+		}
+
+		return rw;
 	}
 }

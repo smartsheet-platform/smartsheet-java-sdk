@@ -79,31 +79,29 @@ public class Column extends IdentifiableModel<Long> {
 	private List<ColumnTag> tags;
 
 	/**
-	 * Represents the sheet ID.
-	 */
-	private Long sheetId;
-	
-	/** 
-	 * Indicates if the column is locked. Defaults to false 
+	 * Represents if the column is locked
 	 */
 	private Boolean locked;
-	
-	/** 
-	 * Indicates if the column is locked for the current user. Defaults to false. 
+
+	/**
+	 * Represents if the column is locked for the user
 	 */
 	private Boolean lockedForUser;
-	
-	
+
 	/**
 	 * The width of the cell.
 	 * */
 	private Integer width;
-	
 
 	/**
 	 * Represents the {@link Format} for this column.
 	 */
 	private Format format;
+
+	/**
+	 * Represents the filter applied to the column
+	 */
+	private Filter filter;
 
 	/**
 	 * Gets the position of the column.
@@ -286,50 +284,83 @@ public class Column extends IdentifiableModel<Long> {
 	}
 
 	/**
-	 * Gets the sheet id.
-	 *
-	 * @return the sheet id
-	 */
-	public Long getSheetId() {
-		return sheetId;
-	}
-
-	/**
-	 * Sets the sheet id.
-	 *
-	 * @param sheetId the new sheet id
-	 */
-	public void setSheetId(Long sheetId) {
-		this.sheetId = sheetId;
-	}
-
-	/**
-	 * Indicates whether a column is locked or not. 
-	 * 
-	 * @return the locked status.
+	 * Gets the locked flag
+	 * @return the locked flag
 	 */
 	public Boolean isLocked() {
 		return locked;
 	}
 
 	/**
-	 * @param locked
+	 * Sets the locked flag
+	 * @param locked the locked flag
 	 */
 	public void setLocked(Boolean locked) {
 		this.locked = locked;
 	}
 
 	/**
-	 * Indicates whether a column is locked for the user. Users cannot modify columns that are locked for them.
-	 * @return the locked status for the user
+	 * Gets the locked for user flag
+	 * @return the locked for user flag
 	 */
 	public Boolean isLockedForUser() {
 		return lockedForUser;
 	}
 
+	/**
+	 * Sets the locked for user flag
+	 * @param lockedForUser the locked for user flag
+	 */
 	public void setLockedForUser(Boolean lockedForUser) {
 		this.lockedForUser = lockedForUser;
 	}
+
+	/**
+	 * Gets the width
+	 * @return the width
+	 */
+	public Integer getWidth() {
+		return width;
+	}
+
+	/**
+	 * Sets the width
+	 * @param width the width
+	 */
+	public void setWidth(Integer width) {
+		this.width = width;
+	}
+
+	/**
+	 * @return the {@link Format}
+	 */
+	public Format getFormat() {
+		return format;
+	}
+
+	/**
+	 * @param format the {@link Format} to set
+	 */
+	public void setFormat(Format format) {
+		this.format = format;
+	}
+
+	/**
+	 * Gets the filter
+	 * @return the filter
+	 */
+	public Filter getFilter() {
+		return filter;
+	}
+
+	/**
+	 * Sets the filter
+	 * @param filter the filter
+	 */
+	public void setFilter(Filter filter) {
+		this.filter = filter;
+	}
+
 	/**
 	 * A convenience class to help create a column object with the appropriate fields for adding to a sheet.
 	 */
@@ -354,22 +385,47 @@ public class Column extends IdentifiableModel<Long> {
 		
 		/** The auto number format. */
 		private AutoNumberFormat autoNumberFormat;
-		
+
+		/** The column width. */
+		private Integer width;
+
+		/**Represents the primary flag.*/
 		private Boolean primary;
 		
 		/**
-		 * Gets the primary flag for the column.
+		 * Gets the width for the column.
 		 *
-		 * @return the primary flag
+		 * @return the width
+		 */
+		public Integer getWidth() {
+			return width;
+		}
+
+		/**
+		 * Sets the width for the column.
+		 * 
+		 * @param width the width
+		 * @return the column to sheet builder
+		 */
+		public AddColumnToSheetBuilder setWidth(Integer width) {
+			this.width = width;
+			return this;
+		}
+
+		/**
+		 * Gets the primary status for the column.
+		 *
+		 * @return the boolean primary
 		 */
 		public Boolean getPrimary() {
 			return primary;
 		}
 
 		/**
-		 * Sets the primary flag for the column.
-		 * 
-		 * @param primary the new primary flag
+		 * Sets the primary status for the column.
+		 *
+		 * @param primary the boolean primary
+		 * @return the column to sheet builder
 		 */
 		public AddColumnToSheetBuilder setPrimary(Boolean primary) {
 			this.primary = primary;
@@ -380,7 +436,7 @@ public class Column extends IdentifiableModel<Long> {
 		 * Sets the title for the column.
 		 *
 		 * @param title the title
-		 * @return the adds the column to sheet builder
+		 * @return the add the column to sheet builder
 		 */
 		public AddColumnToSheetBuilder setTitle(String title) {
 			this.title = title;
@@ -503,8 +559,8 @@ public class Column extends IdentifiableModel<Long> {
 		 * Sets the index for the column. Set this to any value greater than the index of
 		 * the last column to add it as the last column.
 		 * 
-		 * @param index
-		 * @return
+		 * @param index the index
+		 * @return the index
 		 */
 		public AddColumnToSheetBuilder setIndex(Integer index) {
 			this.index = index;
@@ -526,18 +582,20 @@ public class Column extends IdentifiableModel<Long> {
 			column.type = type;
 			column.options = options;
 			column.symbol = symbol;
-			column.primary = primary;
+			column.index = index;
+			column.width = width;
 			column.systemColumnType = systemColumnType;
 			column.autoNumberFormat = autoNumberFormat;
+			column.primary = primary;
 			return column;
 		}
 
 	}
 
 	/**
-	 * The Class ModifyColumnBuilder.
+	 * The Class UpdateColumnBuilder.
 	 */
-	public static class ModifyColumnBuilder {
+	public static class UpdateColumnBuilder {
 		/** The position of the column. */
 		private int index;
 		
@@ -562,13 +620,42 @@ public class Column extends IdentifiableModel<Long> {
 		/** The sheet id. */
 		private Long sheetId;
 
+		/** The width */
+		private Integer width;
+
+		/** The format */
+		private Format format;
+
+		/** The column id */
+		private Long id;
+
+		/**
+		 * Gets the column id.
+		 *
+		 * @return the column id
+		 */
+		public Long getColumnId() {
+			return id;
+		}
+
+		/**
+		 * Sets the position for the column.
+		 *
+		 * @param columnId the columnId
+		 * @return the modify column builder
+		 */
+		public UpdateColumnBuilder setColumnId(Long columnId) {
+			this.id = columnId;
+			return this;
+		}
+
 		/**
 		 * Sets the position for the column.
 		 *
 		 * @param index the position
 		 * @return the modify column builder
 		 */
-		public ModifyColumnBuilder setIndex(int index) {
+		public UpdateColumnBuilder setIndex(int index) {
 			this.index = index;
 			return this;
 		}
@@ -579,7 +666,7 @@ public class Column extends IdentifiableModel<Long> {
 		 * @param title the title
 		 * @return the modify column builder
 		 */
-		public ModifyColumnBuilder setTitle(String title) {
+		public UpdateColumnBuilder setTitle(String title) {
 			this.title = title;
 			return this;
 		}
@@ -590,7 +677,7 @@ public class Column extends IdentifiableModel<Long> {
 		 * @param type the type
 		 * @return the modify column builder
 		 */
-		public ModifyColumnBuilder setType(ColumnType type) {
+		public UpdateColumnBuilder setType(ColumnType type) {
 			this.type = type;
 			return this;
 		}
@@ -601,7 +688,7 @@ public class Column extends IdentifiableModel<Long> {
 		 * @param options the options
 		 * @return the modify column builder
 		 */
-		public ModifyColumnBuilder setOptions(List<String> options) {
+		public UpdateColumnBuilder setOptions(List<String> options) {
 			this.options = options;
 			return this;
 		}
@@ -612,7 +699,7 @@ public class Column extends IdentifiableModel<Long> {
 		 * @param symbol the symbol
 		 * @return the modify column builder
 		 */
-		public ModifyColumnBuilder setSymbol(Symbol symbol) {
+		public UpdateColumnBuilder setSymbol(Symbol symbol) {
 			this.symbol = symbol;
 			return this;
 		}
@@ -623,7 +710,7 @@ public class Column extends IdentifiableModel<Long> {
 		 * @param systemColumnType the system column type
 		 * @return the modify column builder
 		 */
-		public ModifyColumnBuilder setSystemColumnType(SystemColumnType systemColumnType) {
+		public UpdateColumnBuilder setSystemColumnType(SystemColumnType systemColumnType) {
 			this.systemColumnType = systemColumnType;
 			return this;
 		}
@@ -634,7 +721,7 @@ public class Column extends IdentifiableModel<Long> {
 		 * @param autoNumberFormat the auto number format
 		 * @return the modify column builder
 		 */
-		public ModifyColumnBuilder setAutoNumberFormat(AutoNumberFormat autoNumberFormat) {
+		public UpdateColumnBuilder setAutoNumberFormat(AutoNumberFormat autoNumberFormat) {
 			this.autoNumberFormat = autoNumberFormat;
 			return this;
 		}
@@ -645,8 +732,28 @@ public class Column extends IdentifiableModel<Long> {
 		 * @param sheetId the sheet id
 		 * @return the modify column builder
 		 */
-		public ModifyColumnBuilder setSheetId(Long sheetId) {
+		public UpdateColumnBuilder setSheetId(Long sheetId) {
 			this.sheetId = sheetId;
+			return this;
+		}
+
+		/**
+		 * Sets the format
+		 * @param format the format
+		 * @return the modify column builder
+		 */
+		public UpdateColumnBuilder setFormat(Format format) {
+			this.format = format;
+			return this;
+		}
+
+		/**
+		 * Sets the width
+		 * @param width the width
+		 * @return the modify column builder
+		 */
+		public UpdateColumnBuilder setWidth(Integer width) {
+			this.width = width;
 			return this;
 		}
 		
@@ -723,13 +830,29 @@ public class Column extends IdentifiableModel<Long> {
 		}
 
 		/**
+		 * Gets the width
+		 * @return the width
+		 */
+		public Integer getWidth() {
+			return width;
+		}
+
+		/**
+		 * Gets the format
+		 * @return the format
+		 */
+		public Format getFormat() {
+			return format;
+		}
+
+		/**
 		 * Builds the column.
 		 *
 		 * @return the column
 		 */
 		public Column build() {
-			if(title == null || sheetId == null) {
-				throw new InstantiationError("A title and sheetId are required");
+			if(title == null || id == null) {
+				throw new InstantiationError("A title and a column id are required");
 			}
 			
 			Column column = new Column();
@@ -740,30 +863,10 @@ public class Column extends IdentifiableModel<Long> {
 			column.symbol = symbol;
 			column.systemColumnType = systemColumnType;
 			column.autoNumberFormat = autoNumberFormat;
-			column.sheetId = sheetId;
+			column.width = width;
+			column.format = format;
+			column.setId(id);
 			return column;
 		}
-	}
-
-	public Integer getWidth() {
-		return width;
-	}
-
-	public void setWidth(Integer width) {
-		this.width = width;
-	}
-
-	/**
-	 * @return the {@link Format}
-	 */
-	public Format getFormat() {
-		return format;
-	}
-
-	/**
-	 * @param format the {@link Format} to set
-	 */
-	public void setFormat(Format format) {
-		this.format = format;
 	}
 }

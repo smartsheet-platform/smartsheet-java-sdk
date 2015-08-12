@@ -74,64 +74,48 @@ public class SmartsheetImplTest extends ResourcesImplBase {
 
 	@Test
 	public void testHome() {
-		assertNotNull(smartsheet.home());
+		assertNotNull(smartsheet.homeResources());
 	}
 
 	@Test
 	public void testWorkspaces() {
-		assertNotNull(smartsheet.workspaces());
+		assertNotNull(smartsheet.workspaceResources());
 	}
 
 	@Test
 	public void testFolders() {
-		assertNotNull(smartsheet.folders());
+		assertNotNull(smartsheet.folderResources());
 	}
 
 	@Test
 	public void testTemplates() {
-		assertNotNull(smartsheet.templates());
+		assertNotNull(smartsheet.templateResources());
 	}
 
 	@Test
 	public void testSheets() {
-		assertNotNull(smartsheet.sheets());
+		assertNotNull(smartsheet.sheetResources());
 	}
 
 	@Test
-	public void testColumns() {
-		assertNotNull(smartsheet.columns());
-	}
-
-	@Test
-	public void testRows() {
-		assertNotNull(smartsheet.rows());
-	}
-
-	@Test
-	public void testAttachments() {
-		assertNotNull(smartsheet.attachments());
-	}
-
-	@Test
-	public void testDiscussions() {
-		assertNotNull(smartsheet.discussions());
-	}
-
-	@Test
-	public void testComments() {
-		assertNotNull(smartsheet.comments());
+	public void testfavorites() {
+		assertNotNull(smartsheet.favoriteResources());
 	}
 
 	@Test
 	public void testUsers() {
-		assertNotNull(smartsheet.users());
+		assertNotNull(smartsheet.userResources());
 	}
 
 	@Test
-	public void testSearch() {
-		assertNotNull(smartsheet.search());
+	 public void testSearch() {
+		assertNotNull(smartsheet.searchResources());
 	}
 
+	@Test
+	public void testReports() {
+		assertNotNull(smartsheet.reportResources());
+	}
 	@Test
 	public void testSetAssumedUser() {
 		smartsheet.setAssumedUser("user");

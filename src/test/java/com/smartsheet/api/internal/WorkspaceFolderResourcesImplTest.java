@@ -24,8 +24,9 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -49,20 +50,23 @@ public class WorkspaceFolderResourcesImplTest extends ResourcesImplBase {
 	@Test
 	public void testListFolders() throws IOException, SmartsheetException {
 		server.setResponseBody(new File("src/test/resources/listWorkspaceFolders.json"));
-		
-		List<Folder> folders = workspaceFolderResources.listFolders(1234L);
-		assertEquals(1,folders.size());
-		assertEquals(4298196408133508L, folders.get(0).getId().longValue());
-		assertEquals("Human Resources", folders.get(0).getName());
-		
+
+		PaginationParameters parameters = new PaginationParameters(true,null,null);
+		PagedResult<Folder> foldersWrapper = workspaceFolderResources.listFolders(1234L, parameters);
+		assertEquals(2, foldersWrapper.getData().size());
+		assertEquals(7116448184199044L, foldersWrapper.getData().get(0).getId().longValue());
+		assertEquals(7116448184188022L, foldersWrapper.getData().get(1).getId().longValue());
+		assertEquals("Folder 1", foldersWrapper.getData().get(0).getName());
+		assertEquals("Folder 2", foldersWrapper.getData().get(1).getName());
+		assertEquals("https://app.smartsheet.com/b/home?lx=9sljohj8jEXqvJIbTrK2Hb", foldersWrapper.getData().get(0).getPermalink());
+		assertEquals("https://app.smartsheet.com/b/home?lx=xgDVrNNbi-O9XwINEpT5Er", foldersWrapper.getData().get(1).getPermalink());
 	}
 
 	@Test
 	public void testCreateFolder() throws IOException, SmartsheetException {
 		server.setResponseBody(new File("src/test/resources/newWorkspaceFolder.json"));
 		
-		Folder folder = new Folder();
-		folder.setName("New Folder");
+		Folder folder = new Folder.CreateFolderBuilder().setName("New Folder").build();
 		Folder newFolder = workspaceFolderResources.createFolder(1234L, folder);
 		assertEquals(8121709439018884L, newFolder.getId().longValue());
 		assertEquals("New Folder", newFolder.getName());

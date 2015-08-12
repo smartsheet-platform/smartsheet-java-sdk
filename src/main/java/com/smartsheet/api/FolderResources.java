@@ -22,9 +22,9 @@ package com.smartsheet.api;
 
 
 
-import java.util.List;
+import java.util.EnumSet;
 
-import com.smartsheet.api.models.Folder;
+import com.smartsheet.api.models.*;
 
 /**
  * <p>This interface provides methods to access Folder resources.</p>
@@ -39,6 +39,7 @@ public interface FolderResources {
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /folder/{id}</p>
 	 *
 	 * @param folderId the folder id
+	 * @param includes the include parameters
 	 * @return the folder (note that if there is no such resource, this method will throw ResourceNotFoundException 
 	 * rather than returning null)
 	 * @throws IllegalArgumentException if any argument is null or empty string
@@ -48,7 +49,7 @@ public interface FolderResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Folder getFolder(long folderId) throws SmartsheetException;
+	public Folder getFolder(long folderId, EnumSet<SourceInclusion> includes) throws SmartsheetException;
 
 	/**
 	 * <p>Update a folder.</p>
@@ -68,8 +69,8 @@ public interface FolderResources {
 	/**
 	 * <p>Delete a folder.</p>
 	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * DELETE /folder{id}</p>
+	 * <p>It mirrors to the following Smartsheet REST API method:</p>
+	 * <p>DELETE /folder{id}</p>
 	 *
 	 * @param folderId the folder id
 	 * @throws IllegalArgumentException if any argument is null or empty string
@@ -84,9 +85,10 @@ public interface FolderResources {
 	/**
 	 * <p>List child folders of a given folder.</p>
 	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br /> GET /folder/{id}/folders</p>
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /folder/{id}/folders</p>
 	 *
 	 * @param parentFolderId the parent folder id
+	 * @param parameters the parameters for pagination
 	 * @return the child folders (note that an empty list will be returned if no child folder is found).
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
@@ -95,13 +97,13 @@ public interface FolderResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public List<Folder> listFolders(long parentFolderId) throws SmartsheetException;
+	public PagedResult<Folder> listFolders(long parentFolderId, PaginationParameters parameters) throws SmartsheetException;
 
 	/**
 	 * <p>Create a folder.</p>
 	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * POST /folder/{id}/folders</p>
+	 * <p>It mirrors to the following Smartsheet REST API method:</p>
+	 * <p>POST /folder/{id}/folders</p>
 	 *
 	 * @param parentFolderId the parent folder id
 	 * @param folder the folder to create

@@ -25,7 +25,7 @@ package com.smartsheet.api;
 import java.util.EnumSet;
 
 import com.smartsheet.api.models.Home;
-import com.smartsheet.api.models.ObjectInclusion;
+import com.smartsheet.api.models.SourceInclusion;
 
 /**
  * <p>This interface provides methods to access Home resources.</p>
@@ -38,8 +38,8 @@ public interface HomeResources {
 	 * <p>Get a nested list of all Home objects, including sheets, workspaces and folders, and optionally reports and/or
 	 * templates, as shown on the Home tab.</p>
 	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br />
-	 * GET /home</p>
+	 * <p>It mirrors to the following Smartsheet REST API method:</p>
+	 * <p>GET /home</p>
 	 *
 	 * @param includes used to specify the optional objects to include.
 	 * @return the home resource (note that if there is no such resource, this method will throw 
@@ -51,12 +51,12 @@ public interface HomeResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Home getHome(EnumSet<ObjectInclusion> includes) throws SmartsheetException;
+	public Home getHome(EnumSet<SourceInclusion> includes) throws SmartsheetException;
 
 	/**
 	 * <p>Return the HomeFolderResources object that provides access to Folder resources under home.</p>
 	 *
 	 * @return the home folder resources
 	 */
-	public HomeFolderResources folders();
+	public HomeFolderResources folderResources();
 }

@@ -1,1 +1,7 @@
-{"readOnlyLiteEnabled":false,"readOnlyFullEnabled":false,"readWriteEnabled":false,"icalEnabled":false}
+{
+  "readOnlyLiteEnabled": true,
+  "readOnlyFullEnabled": true,
+  "readWriteEnabled": true,
+  "icalEnabled": true,
+  "readOnlyLiteUrl": "https://publish.smartsheet.com/6d35fa6c99334d4892f9591cf6065"
+}

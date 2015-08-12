@@ -42,14 +42,60 @@ public class Folder extends NamedModel<Long> {
 	/**
 	 * Represents the reports.
 	 */
-	//TODO: implement reports
-	// private List<Report> reports;
+	 private List<Report> reports;
 
 	/**
 	 * Represents the templates contained in the folder.
 	 */
 	private List<Template> templates;
-	
+
+
+	/**
+	 * Returns if the user has marked the Folder as a Favorite in their Home tab.
+	 */
+	private Boolean favorite;
+
+	/**
+	 * Represents the Direct URL to Folder.
+	 */
+	private String permalink;
+
+	/**
+	 * Gets the Direct URL to Folder.
+	 *
+	 * @return the sheets
+	 */
+	public String getPermalink() {
+		return permalink;
+	}
+
+	/**
+	 * Sets the Direct URL to Folder.
+	 *
+	 * @param permalink the new sheets
+	 */
+	public void setPermalink(String permalink) {
+		this.permalink = permalink;
+	}
+
+	/**
+	 * Gets the favorite boolean value of folder in Home.
+	 *
+	 * @return the sheets
+	 */
+	public Boolean getFavorite() {
+		return favorite;
+	}
+
+	/**
+	 * Sets the favorite boolean value of folder in Home.
+	 *
+	 * @param favorite the new sheets
+	 */
+	public void setFavorite(Boolean favorite) {
+		this.favorite = favorite;
+	}
+
 	/**
 	 * Gets the sheets in the folder.
 	 *
@@ -84,6 +130,24 @@ public class Folder extends NamedModel<Long> {
 	 */
 	public void setFolders(List<Folder> folders) {
 		this.folders = folders;
+	}
+
+	/**
+	 * Gets the reports.
+	 *
+	 * @return the reports
+	 */
+	public List<Report> getReports() {
+		return reports;
+	}
+
+	/**
+	 * Sets the reports.
+	 *
+	 * @param reports the new reports
+	 */
+	public void setReports(List<Report> reports) {
+		this.reports = reports;
 	}
 
 	/**
@@ -133,7 +197,7 @@ public class Folder extends NamedModel<Long> {
 
 		/**
 		 * Gets the folder id.
-		 * 
+		 *
 		 * @return the folder id.
 		 */
 		public Long getId() {
@@ -142,8 +206,9 @@ public class Folder extends NamedModel<Long> {
 
 		/**
 		 * Sets the folder id.
-		 * 
+		 *
 		 * @param id the id of the folder.
+		 * @return the builder
 		 */
 		public UpdateFolderBuilder setId(Long id) {
 			this.id = id;
@@ -166,5 +231,46 @@ public class Folder extends NamedModel<Long> {
 			return folder;
 		}
 	}
-	
+
+	/**
+	 * A convenience class for setting up a folder with the appropriate fields for updating the folder.
+	 */
+	public static class CreateFolderBuilder {
+		private String folderName;
+
+		/**
+		 * Name.
+		 *
+		 * @param name the name
+		 * @return the create folder builder
+		 */
+		public CreateFolderBuilder setName(String name) {
+			this.folderName = name;
+			return this;
+		}
+
+		/**
+		 * Gets the name.
+		 *
+		 * @return the name
+		 */
+		public String getName(){
+			return folderName;
+		}
+
+		/**
+		 * Builds the folder.
+		 *
+		 * @return the folder
+		 */
+		public Folder build() {
+			if(folderName == null){
+				throw new IllegalStateException("A folder name is required.");
+			}
+
+			Folder folder = new Folder();
+			folder.setName(folderName);
+			return folder;
+		}
+	}
 }

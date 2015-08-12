@@ -25,29 +25,17 @@ package com.smartsheet.api;
 import com.smartsheet.api.models.Discussion;
 
 /**
- * <p>This interface provides methods to access Discussion resources that are associated to a resource object. Currently 
- * discussions can be added to sheets or rows.</p>
- * 
- * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
+ * @deprecated As of release 2.0
  */
+@Deprecated
 public interface AssociatedDiscussionResources {
-	
 	/**
-	 * <p>Create a discussion.</p>
-	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:<br /> 
-	 * POST /sheet/{id}/discussions <br />
-	 * POST /row/{id}/discussions</p>
-	 *
+	 * @deprecated As of release 2.0
 	 * @param objectId the object id (sheet id or row id)
 	 * @param discussion the discussion object
 	 * @return the created discussion
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
+	@Deprecated
 	public Discussion createDiscussion(long objectId, Discussion discussion) throws SmartsheetException;
 }

@@ -20,7 +20,6 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-import java.util.Date;
 import java.util.List;
 
 import com.smartsheet.api.models.format.Format;
@@ -28,352 +27,365 @@ import com.smartsheet.api.models.format.Format;
 /**
  * Represents the Row object.
  */
-public class Row extends IdentifiableModel<Long> {
-	/** Represents the Sheet ID. */
-	private Long sheetId;
+public class Row extends AbstractRow<Column, Cell> {
 
-	/** Represents the row number. */
-	private Integer rowNumber;
+    /**
+     * A convenience class for creating a {@link RowWrapper} with the necessary fields for inserting a {@link Row} or
+     * set of rows.
+     */
+    public static class AddRowBuilder {
+        private Boolean toTop;
+        private Boolean toBottom;
+        private Long parentId;
+        private Long siblingId;
+        private Boolean above;
+        private Format format;
+        private Boolean expanded;
+        private List<Cell> cells;
 
-	/** Represents the parent row number. */
-	private Integer parentRowNumber;
+        /**
+         * Gets the to top.
+         *
+         * @return the to top
+         */
+        public Boolean getToTop() {
+            return toTop;
+        }
 
-	/** Represents the cells for this row. */
-	private List<Cell> cells;
+        /**
+         * Sets the to top flag that puts the row at the top of the sheet.
+         *
+         * @param toTop the to top flag
+         * @return the insert rows builder
+         */
+        public AddRowBuilder setToTop(Boolean toTop) {
+            this.toTop = toTop;
+            return this;
+        }
 
-	/** Represents the discussions for this row. */
-	private List<Discussion> discussions;
+        /**
+         * Gets the to bottom.
+         *
+         * @return the to bottom
+         */
+        public Boolean getToBottom() {
+            return toBottom;
+        }
 
-	/** Represents the attachments for this row. */
-	private List<Attachment> attachments;
+        /**
+         * Sets the to bottom flag that puts the row at the bottom of the sheet.
+         *
+         * @param toBottom the to bottom
+         * @return the insert rows builder
+         */
+        public AddRowBuilder setToBottom(Boolean toBottom) {
+            this.toBottom = toBottom;
+            return this;
+        }
 
-	/** Represents the columns for this row. */
-	private List<Column> columns;
+        /**
+         * Gets the parent id.
+         *
+         * @return the parent id
+         */
+        public Long getParentId() {
+            return parentId;
+        }
 
-	/** Represents the date and time the row was created. */
-	private Date createdAt;
+        /**
+         * Sets the parent id that puts the row as the first child of the specified id.
+         *
+         * @param parentId the parent id
+         * @return the insert rows builder
+         */
+        public AddRowBuilder setParentId(Long parentId) {
+            this.parentId = parentId;
+            return this;
+        }
 
-	/** Represents the date and time the row was modified. */
-	private Date modifiedAt;
+        /**
+         * Gets the sibling id.
+         *
+         * @return the sibling id
+         */
+        public Long getSiblingId() {
+            return siblingId;
+        }
 
-	/** A read-only flag to indicate if the row is expanded or collapsed. */
-	private Boolean expanded;
+        /**
+         * Sets the sibling id that puts the row as the next row at the same hierarchical level of this row.
+         *
+         * @param siblingId the sibling id
+         * @return the insert rows builder
+         */
+        public AddRowBuilder setSiblingId(Long siblingId) {
+            this.siblingId = siblingId;
+            return this;
+        }
 
-	/** The version number that is incremented every time a sheet is modified. */
-	private Integer version;
+        /**
+         * Gets the above flag
+         * @return the above flag
+         */
+        public Boolean getAbove() { return above; }
 
-	/** The user's permissions on the sheet. */
-	private AccessLevel accessLevel;
+        /**
+         * Sets the above flag
+         * @param above the above flag
+         * @return the insert rows builder
+         */
+        public AddRowBuilder setAbove(Boolean above) {
+            this.above = above;
+            return this;
+        }
 
-	/** Indicates if the row is locked. Defaults to false **/
-	private Boolean locked;
-	
-	/** Indicates if the row is locked for the current user. Defaults to false. **/
-	private Boolean lockedForUser;
+        /**
+         * Gets the format
+         * @return the format
+         */
+        public Format getFormat() { return format; }
 
-	/** Represents the {@link Format} for this cell.*/
-	private Format format;
-	
-	
-	/**
-	 * Gets the user's permissions on the sheet.
-	 *
-	 * @return the access level
-	 */
-	public AccessLevel getAccessLevel() {
-		return accessLevel;
-	}
+        /**
+         * Sets the format
+         * @param format the format
+         * @return the insert rows builder
+         */
+        public AddRowBuilder setFormat(Format format) {
+            this.format = format;
+            return this;
+        }
 
-	/**
-	 * Sets the user's permissions on the sheet.
-	 *
-	 * @param accessLevel the new access level
-	 */
-	public void setAccessLevel(AccessLevel accessLevel) {
-		this.accessLevel = accessLevel;
-	}
+        /**
+         * Gets the expanded flag
+         * @return the expanded flag
+         */
+        public Boolean getExpanded() { return expanded; }
 
-	/**
-	 * Gets the version number that is incremented every time a sheet is modified.
-	 *
-	 * @return the version
-	 */
-	public Integer getVersion() {
-		return version;
-	}
+        /**
+         * Sets the expanded flag
+         * @param expanded the expanded flag
+         * @return the insert rows builder
+         */
+        public AddRowBuilder setExpanded(Boolean expanded) {
+            this.expanded = expanded;
+            return this;
+        }
 
-	/**
-	 * Sets the version number that is incremented every time a sheet is modified..
-	 *
-	 * @param version the new version
-	 */
-	public void setVersion(Integer version) {
-		this.version = version;
-	}
+        /**
+         * Gets the list of cells
+         * @return the list of cells
+         */
+        public List<Cell> getCells() { return cells; }
 
-	/**
-	 * Checks if the row is expanded.
-	 *
-	 * @return true, if is expanded
-	 */
-	public Boolean isExpanded() {
-		return expanded;
-	}
+        /**
+         * Sets the list of cells
+         * @param cells the list of cells
+         * @return the insert rows builder
+         */
+        public AddRowBuilder setCells(List<Cell> cells) {
+            this.cells = cells;
+            return this;
+        }
 
-	/**
-	 * Sets the row to be expanded.
-	 *
-	 * @param expanded the new expanded
-	 */
-	public void setExpanded(Boolean expanded) {
-		this.expanded = expanded;
-	}
+        /**
+         * Builds the row object
+         * @return the row object
+         */
+        public Row build() {
+            Row row = new Row();
+            row.setToTop(toTop);
+            row.setToBottom(toBottom);
+            row.setParentId(parentId);
+            row.setSiblingId(siblingId);
+            row.setAbove(above);
+            row.setFormat(format);
+            row.setExpanded(expanded);
+            row.setCells(cells);
+            return row;
+        }
+    }
 
-	/**
-	 * Get a column by it's index.
-	 *
-	 * @param index the column index
-	 * @return the column by index
-	 */
-	public Column getColumnByIndex(int index) {
-		if (columns == null) {
-			return null;
-		}
+    public static class UpdateRowBuilder {
+        private Boolean toTop;
+        private Boolean toBottom;
+        private Long parentId;
+        private Long siblingId;
+        private Format format;
+        private Boolean expanded;
+        private List<Cell> cells;
+        private Boolean locked;
+        private Long id;
 
-		Column result = null;
-		for (Column column : columns) {
-			if (column.getIndex() == index) {
-				result = column;
-				break;
-			}
-		}
+        public Long getRowId() {
+            return id;
+        }
 
-		return result;
-	}
+        public UpdateRowBuilder setRowId(Long rowId) {
+            this.id = rowId;
+            return this;
+        }
 
-	/**
-	 * Get a column by it's ID.
-	 *
-	 * @param columnId the column id
-	 * @return the column by id
-	 */
-	public Column getColumnById(long columnId) {
-		if (columns == null) {
-			return null;
-		}
+        /**
+         * Gets the to top.
+         *
+         * @return the to top
+         */
+        public Boolean getToTop() {
+            return toTop;
+        }
 
-		Column result = null;
-		for (Column column : columns) {
-			if (column.getId() == columnId) {
-				result = column;
-				break;
-			}
-		}
+        /**
+         * Sets the to top flag that puts the row at the top of the sheet.
+         *
+         * @param toTop the to top flag
+         * @return the update rows builder
+         */
+        public UpdateRowBuilder setToTop(Boolean toTop) {
+            this.toTop = toTop;
+            return this;
+        }
 
-		return result;
-	}
+        /**
+         * Gets the to bottom.
+         *
+         * @return the to bottom
+         */
+        public Boolean getToBottom() {
+            return toBottom;
+        }
 
-	/**
-	 * Gets the id of the sheet.
-	 *
-	 * @return the sheet id
-	 */
-	public Long getSheetId() {
-		return sheetId;
-	}
+        /**
+         * Sets the to bottom flag that puts the row at the bottom of the sheet.
+         *
+         * @param toBottom the to bottom
+         * @return the update rows builder
+         */
+        public UpdateRowBuilder setToBottom(Boolean toBottom) {
+            this.toBottom = toBottom;
+            return this;
+        }
 
-	/**
-	 * Sets the sheet id.
-	 *
-	 * @param sheetId the new sheet id
-	 */
-	public void setSheetId(Long sheetId) {
-		this.sheetId = sheetId;
-	}
+        /**
+         * Gets the parent id.
+         *
+         * @return the parent id
+         */
+        public Long getParentId() {
+            return parentId;
+        }
 
-	/**
-	 * Gets the row number.
-	 *
-	 * @return the row number
-	 */
-	public Integer getRowNumber() {
-		return rowNumber;
-	}
+        /**
+         * Sets the parent id that puts the row as the first child of the specified id.
+         *
+         * @param parentId the parent id
+         * @return the update rows builder
+         */
+        public UpdateRowBuilder setParentId(Long parentId) {
+            this.parentId = parentId;
+            return this;
+        }
 
-	/**
-	 * Sets the row number.
-	 *
-	 * @param rowNumber the new row number
-	 */
-	public void setRowNumber(Integer rowNumber) {
-		this.rowNumber = rowNumber;
-	}
+        /**
+         * Gets the sibling id.
+         *
+         * @return the sibling id
+         */
+        public Long getSiblingId() {
+            return siblingId;
+        }
 
-	/**
-	 * Gets the parent row number.
-	 *
-	 * @return the parent row number
-	 */
-	public Integer getParentRowNumber() {
-		return parentRowNumber;
-	}
+        /**
+         * Sets the sibling id that puts the row as the next row at the same hierarchical level of this row.
+         *
+         * @param siblingId the sibling id
+         * @return the update rows builder
+         */
+        public UpdateRowBuilder setSiblingId(Long siblingId) {
+            this.siblingId = siblingId;
+            return this;
+        }
 
-	/**
-	 * Sets the parent row number.
-	 *
-	 * @param parentRowNumber the new parent row number
-	 */
-	public void setParentRowNumber(Integer parentRowNumber) {
-		this.parentRowNumber = parentRowNumber;
-	}
+        /**
+         * Gets the format
+         * @return the format
+         */
+        public Format getFormat() { return format; }
 
-	/**
-	 * Gets the cells.
-	 *
-	 * @return the cells
-	 */
-	public List<Cell> getCells() {
-		return cells;
-	}
+        /**
+         * Sets the format
+         * @param format the format
+         * @return the update rows builder
+         */
+        public UpdateRowBuilder setFormat(Format format) {
+            this.format = format;
+            return this;
+        }
 
-	/**
-	 * Sets the cells.
-	 *
-	 * @param cells the new cells
-	 */
-	public void setCells(List<Cell> cells) {
-		this.cells = cells;
-	}
+        /**
+         * Gets the expanded flag
+         * @return the expanded flag
+         */
+        public Boolean getExpanded() { return expanded; }
 
-	/**
-	 * Gets the discussions.
-	 *
-	 * @return the discussions
-	 */
-	public List<Discussion> getDiscussions() {
-		return discussions;
-	}
+        /**
+         * Sets the expanded flag
+         * @param expanded the expanded flag
+         * @return the update rows builder
+         */
+        public UpdateRowBuilder setExpanded(Boolean expanded) {
+            this.expanded = expanded;
+            return this;
+        }
 
-	/**
-	 * Sets the discussions.
-	 *
-	 * @param discussions the new discussions
-	 */
-	public void setDiscussions(List<Discussion> discussions) {
-		this.discussions = discussions;
-	}
+        /**
+         * Gets the list of cells
+         * @return the list of cells
+         */
+        public List<Cell> getCells() { return cells; }
 
-	/**
-	 * Gets the attachments.
-	 *
-	 * @return the attachments
-	 */
-	public List<Attachment> getAttachments() {
-		return attachments;
-	}
+        /**
+         * Sets the list of cells
+         * @param cells the list of cells
+         * @return the update rows builder
+         */
+        public UpdateRowBuilder setCells(List<Cell> cells) {
+            this.cells = cells;
+            return this;
+        }
 
-	/**
-	 * Sets the attachments.
-	 *
-	 * @param attachments the new attachments
-	 */
-	public void setAttachments(List<Attachment> attachments) {
-		this.attachments = attachments;
-	}
+        /**
+         * Gets the locked flag
+         * @return the locked flag
+         */
+        public Boolean getLocked() {return locked; }
 
-	/**
-	 * Gets the columns.
-	 *
-	 * @return the columns
-	 */
-	public List<Column> getColumns() {
-		return columns;
-	}
+        /**
+         * Sets the locked flag
+         * @param locked the locked flag
+         * @return the update rows builder
+         */
+        public UpdateRowBuilder setLocked(Boolean locked) {
+            this.locked = locked;
+            return this;
+        }
 
-	/**
-	 * Sets the columns.
-	 *
-	 * @param columns the new columns
-	 */
-	public void setColumns(List<Column> columns) {
-		this.columns = columns;
-	}
+        /**
+         * Builds the row object
+         * @return the row object
+         */
+        public Row build() {
+            Row row = new Row();
+            row.setToTop(toTop);
+            row.setToBottom(toBottom);
+            row.setParentId(parentId);
+            row.setSiblingId(siblingId);
+            row.setFormat(format);
+            row.setExpanded(expanded);
+            row.setCells(cells);
+            row.setLocked(locked);
+            row.setId(getRowId());
+            return row;
+        }
+    }
 
-	/**
-	 * Gets the date and time a row was created.
-	 *
-	 * @return the created at
-	 */
-	public Date getCreatedAt() {
-		return createdAt;
-	}
-
-	/**
-	 * Sets the date and time a row was created.
-	 *
-	 * @param createdAt the new created at
-	 */
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	/**
-	 * Gets the date and time a row was modified.
-	 *
-	 * @return the modified at
-	 */
-	public Date getModifiedAt() {
-		return modifiedAt;
-	}
-
-	/**
-	 * Sets the date and time a row was modified.
-	 *
-	 * @param modifiedAt the new modified at
-	 */
-	public void setModifiedAt(Date modifiedAt) {
-		this.modifiedAt = modifiedAt;
-	}
-
-	/**
-	 * Indicates whether a row is locked or not. 
-	 * 
-	 * @return the locked status
-	 */
-	public Boolean isLocked() {
-		return locked;
-	}
-
-	/**
-	 * @param locked
-	 */
-	public void setLocked(Boolean locked) {
-		this.locked = locked;
-	}
-
-	/**
-	 * Indicates whether a row is locked for the user. Users cannot modify rows that are locked for them.
-	 * @return the lock status for the user
-	 */
-	public Boolean isLockedForUser() {
-		return lockedForUser;
-	}
-
-	public void setLockedForUser(Boolean lockedForUser) {
-		this.lockedForUser = lockedForUser;
-	}
-
-	/**
-	 * @return the {@link Format}
-	 */
-	public Format getFormat() {
-		return format;
-	}
-
-	/**
-	 * @param format the {@link Format} to set
-	 */
-	public void setFormat(Format format) {
-		this.format = format;
-	}
 }

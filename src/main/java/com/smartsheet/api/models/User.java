@@ -26,7 +26,8 @@ package com.smartsheet.api.models;
  * Managing Users</a>
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/520100-user-types">User Types Help</a>
  */
-public class User extends UserProfile {
+public class User extends UserModelWithName {
+
 	/**
 	 * Represents the admin flag which allows managing users and accounts.
 	 */
@@ -40,14 +41,12 @@ public class User extends UserProfile {
 	/**
 	 * Represents the resource manager flag which allows the user access to the Resource Manager functionality.
 	 */
-	private Boolean resourceManager;
+	private Boolean resourceViewer;
 	
 	/**
 	 * Represents the group admin flag which allows users to create and modify groups.
 	 */
 	private Boolean groupAdmin;
-
-	
 	
 	/**
 	 * Represents the user status (active, pending, declined).
@@ -111,16 +110,16 @@ public class User extends UserProfile {
 	/**
 	 * @return the flag indicating if someone is a resource manager
 	 */
-	public Boolean getResourceManager() {
-		return resourceManager;
+	public Boolean getResourceViewer() {
+		return resourceViewer;
 	}
 
 	/**
 	 * Sets the resource manager flag.
-	 * @param resourceManager 
+	 * @param resourceViewer the flag
 	 */
-	public void setResourceManager(Boolean resourceManager) {
-		this.resourceManager = resourceManager;
+	public void setResourceViewer(Boolean resourceViewer) {
+		this.resourceViewer = resourceViewer;
 	}
 
 	/**
@@ -145,7 +144,7 @@ public class User extends UserProfile {
 		private String emailAddress;
 		private Boolean licensedSheetCreator;
 		private Boolean groupAdmin;
-		private Boolean resourceManager;
+		private Boolean resourceViewer;
 		private String firstName;
 		private String lastName;
 
@@ -209,6 +208,7 @@ public class User extends UserProfile {
 
 		/**
 		 * @param firstName the firstName to set
+		 * @return the builder
 		 */
 		public AddUserBuilder setFirstName(String firstName) {
 			this.firstName = firstName;
@@ -224,6 +224,7 @@ public class User extends UserProfile {
 
 		/**
 		 * @param lastName the lastName to set
+		 * @return the builder
 		 */
 		public AddUserBuilder setLastName(String lastName) {
 			this.lastName = lastName;
@@ -239,6 +240,7 @@ public class User extends UserProfile {
 
 		/**
 		 * @param groupAdmin the groupAdmin to set
+		 * @return the builder
 		 */
 		public AddUserBuilder setGroupAdmin(Boolean groupAdmin) {
 			this.groupAdmin = groupAdmin;
@@ -246,17 +248,18 @@ public class User extends UserProfile {
 		}
 
 		/**
-		 * @return the resourceManager
+		 * @return the resourceViewer
 		 */
-		public Boolean getResourceManager() {
-			return resourceManager;
+		public Boolean getResourceViewer() {
+			return resourceViewer;
 		}
 
 		/**
-		 * @param resourceManager the resourceManager to set
+		 * @param resourceViewer the resourceViewer to set
+		 * @return the builder
 		 */
-		public AddUserBuilder setResourceManager(Boolean resourceManager) {
-			this.resourceManager = resourceManager;
+		public AddUserBuilder setResourceViewer(Boolean resourceViewer) {
+			this.resourceViewer = resourceViewer;
 			return this;
 		}
 		/**
@@ -273,7 +276,7 @@ public class User extends UserProfile {
 			user.admin = admin;
 			user.licensedSheetCreator = licensedSheetCreator;
 			user.groupAdmin = groupAdmin;
-			user.resourceManager = resourceManager;
+			user.resourceViewer = resourceViewer;
 			user.setFirstName(firstName);
 			user.setLastName(lastName);
 			user.setEmail(emailAddress);
@@ -290,25 +293,26 @@ public class User extends UserProfile {
 		private Boolean admin;
 		private Boolean licensedSheetCreator;
 		private Boolean groupAdmin;
-		private Boolean resourceManager;
-		private Long id;
+		private Boolean resourceViewer;
 		private String firstName;
 		private String lastName;
+		private Long id;
 
 		/**
 		 * Get the id of the user
-		 * @return
+		 * @return the id
 		 */
-		public Long getId() {
+		public Long getUserId() {
 			return id;
 		}
 
 		/**
-		 * Set the id of the user
-		 * @param id
+		 * Set the user id
+		 * @param userId the user id
+		 * @return the updateSheetBuilder object
 		 */
-		public UpdateUserBuilder setId(Long id) {
-			this.id = id;
+		public UpdateUserBuilder setUserId(Long userId) {
+			this.id = userId;
 			return this;
 		}
 
@@ -361,6 +365,7 @@ public class User extends UserProfile {
 		
 		/**
 		 * @param firstName the firstName to set
+		 * @return the builder
 		 */
 		public UpdateUserBuilder setFirstName(String firstName) {
 			this.firstName = firstName;
@@ -376,6 +381,7 @@ public class User extends UserProfile {
 		
 		/**
 		 * @param lastName the lastName to set
+		 * @return the builder
 		 */
 		public UpdateUserBuilder setLastName(String lastName) {
 			this.lastName = lastName;
@@ -391,6 +397,7 @@ public class User extends UserProfile {
 
 		/**
 		 * @param groupAdmin the groupAdmin to set
+		 * @return the builder
 		 */
 		public UpdateUserBuilder setGroupAdmin(Boolean groupAdmin) {
 			this.groupAdmin = groupAdmin;
@@ -398,17 +405,18 @@ public class User extends UserProfile {
 		}
 
 		/**
-		 * @return the resourceManager
+		 * @return the resourceViewer
 		 */
-		public Boolean getResourceManager() {
-			return resourceManager;
+		public Boolean getResourceViewer() {
+			return resourceViewer;
 		}
 
 		/**
-		 * @param resourceManager the resourceManager to set
+		 * @param resourceViewer the resourceViewer to set
+		 * @return the builder
 		 */
-		public UpdateUserBuilder setResourceManager(Boolean resourceManager) {
-			this.resourceManager = resourceManager;
+		public UpdateUserBuilder setResourceViewer(Boolean resourceViewer) {
+			this.resourceViewer = resourceViewer;
 			return this;
 		}
 		
@@ -418,18 +426,18 @@ public class User extends UserProfile {
 		 * @return the user
 		 */
 		public User build() {
-			if(admin == null || licensedSheetCreator == null){
-				throw new InstantiationError("An admin and licensed sheet creator must be set");
+			if(admin == null || licensedSheetCreator == null || id == null){
+				throw new InstantiationError("An admin, licensed sheet creator and user Id must be set");
 			}
 			
 			User user = new User();
-			user.setId(id);
 			user.setFirstName(firstName);
 			user.setLastName(lastName);
 			user.admin = admin;
 			user.licensedSheetCreator = licensedSheetCreator;
 			user.groupAdmin = groupAdmin;
-			user.resourceManager = resourceManager;
+			user.resourceViewer = resourceViewer;
+			user.setId(id);
 			return user;
 		}
 
@@ -437,22 +445,23 @@ public class User extends UserProfile {
 
 	}
 	/**
-	 * A convenience class for making a {@link User} object with the appropriate fields for adding to a {@link Group}. See {@link CreateGroupBuilder}
+	 * A convenience class for making a GroupMember object with the appropriate fields for adding to a {@link Group}.
 	 */
 	public static class NewGroupMemberBuilder {
 		private String email;
 
 		/**
 		 * Get the email of the user
-		 * @return
+		 * @return email the email
 		 */
 		public String getEmail() {
 			return email;
 		}
 
 		/**
-		 * Set the id of the user
-		 * @param id
+		 * Set the email id of the user
+		 * @param email the email
+		 * @return the builder
 		 */
 		public NewGroupMemberBuilder setEmail(String email) {
 			this.email = email;

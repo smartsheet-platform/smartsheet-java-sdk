@@ -20,14 +20,14 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import com.smartsheet.api.models.format.Format;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class RowTest {
 
@@ -44,7 +44,7 @@ public class RowTest {
 		List<Column> columns = new ArrayList<Column>();
 		columns.add(col);
 		row.setColumns(columns);
-		row.setParentRowNumber(1);
+		//row.setParentRowNumber(1);
 		row.setDiscussions(new ArrayList<Discussion>());
 		row.setAttachments(new ArrayList<Attachment>());
 		
@@ -58,7 +58,39 @@ public class RowTest {
 		row1.setColumns(new ArrayList<Column>());
 		assertNull(row1.getColumnById(1L));
 		assertNull(row1.getColumnByIndex(1));
-		
+	}
+
+	@Test
+	public void testInsertRowBuilder() {
+		Format format = new Format("new format");
+		List<Cell> cells = new ArrayList<Cell>();
+		Row row = new Row.AddRowBuilder().setToTop(true).setExpanded(false).setFormat(format).setCells(cells).build();
+
+		assertTrue(row.getToTop());
+		assertFalse(row.isExpanded());
+		assertNotNull(row.getFormat());
+		assertNotNull(row.getCells());
+		assertNull(row.getToBottom());
+		assertNull(row.getParentId());
+		assertNull(row.getSiblingId());
+		assertNull(row.getAbove());
+	}
+
+	@Test
+	public void testUpdateRowBuilder() {
+		Format format = new Format("new format");
+		List<Cell> cells = new ArrayList<Cell>();
+		Row row = new Row.UpdateRowBuilder().setToTop(true).setExpanded(false).setFormat(format).setCells(cells).setLocked(true).build();
+
+		assertTrue(row.getToTop());
+		assertTrue(row.isLocked());
+		assertFalse(row.isExpanded());
+		assertNotNull(row.getFormat());
+		assertNotNull(row.getCells());
+		assertNull(row.getToBottom());
+		assertNull(row.getParentId());
+		assertNull(row.getSiblingId());
+		assertNull(row.getAbove());
 	}
 
 }

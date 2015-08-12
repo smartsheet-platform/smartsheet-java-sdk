@@ -22,10 +22,10 @@ package com.smartsheet.api.internal;
 
 
 
-import java.util.List;
-
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.TemplateResources;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Template;
 
 /**
@@ -47,10 +47,11 @@ public class TemplateResourcesImpl extends AbstractResources implements Template
 	}
 
 	/**
-	 * List all templates.
+	 * List user-created templates.
 	 * 
 	 * It mirrors to the following Smartsheet REST API method: GET /templates
-	 * 
+	 *
+	 * @param parameters the pagination parameters
 	 * Exceptions: 
 	 *   - InvalidRequestException : if there is any problem with the REST API request 
 	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token) 
@@ -61,7 +62,39 @@ public class TemplateResourcesImpl extends AbstractResources implements Template
 	 * @return all templates (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public List<Template> listTemplates() throws SmartsheetException {
-		return this.listResources("templates", Template.class);
+	public PagedResult<Template> listUserCreatedTemplates(PaginationParameters parameters) throws SmartsheetException {
+		String path = "templates";
+
+		if (parameters != null) {
+			path += parameters.toQueryString();
+		}
+
+		return this.listResourcesWithWrapper(path, Template.class);
+	}
+
+	/**
+	 * List public templates.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: GET /templates/public
+	 *
+	 * @param parameters the pagination parameters
+	 * Exceptions:
+	 *   - InvalidRequestException : if there is any problem with the REST API request
+	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   - SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @return all templates (note that empty list will be returned if there is none)
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public PagedResult<Template> listPublicTemplates(PaginationParameters parameters) throws SmartsheetException {
+		String path = "templates/public";
+
+		if (parameters != null) {
+			path += parameters.toQueryString();
+		}
+
+		return this.listResourcesWithWrapper(path, Template.class);
 	}
 }

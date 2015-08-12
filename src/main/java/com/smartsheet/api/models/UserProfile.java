@@ -20,78 +20,70 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-
-
 /**
  * A profile object that contains the basic fields that most profiles will contain.
  */
-public class UserProfile extends NamedModel<Long> {
+public class UserProfile extends UserModel {
 	/**
-	 * Represents the email address.
+	 * Represents the user's time zone
 	 */
-	private String email;
+	private String timeZone;
 
 	/**
-	 * Represents the first name.
+	 * Represents the user's locale
 	 */
-	private String firstName;
+	private String locale;
 
 	/**
-	 * Represents the last name.
+	 * Represents the user's customer account
 	 */
-	private String lastName;
+	private Account account;
 
 	/**
-	 * Gets the email address.
-	 *
-	 * @return the email address
+	 * Gets the time zone
+	 * @return the time zone
 	 */
-	public String getEmail() {
-		return email;
+	public String getTimeZone() {
+		return timeZone;
 	}
 
 	/**
-	 * Sets the email address.
-	 *
-	 * @param email the new email address
+	 * Sets the time zone
+	 * @param timeZone the time zone
 	 */
-	public void setEmail(String email) {
-		this.email = email;
+	public void setTimeZone(String timeZone) {
+		this.timeZone = timeZone;
 	}
 
 	/**
-	 * Gets the first name.
-	 *
-	 * @return the first name
+	 * Gets the locale
+	 * @return the locale
 	 */
-	public String getFirstName() {
-		return firstName;
+	public String getLocale() {
+		return locale;
 	}
 
 	/**
-	 * Sets the first name.
-	 *
-	 * @param firstName the new first name
+	 * Sets the locale
+	 * @param locale the locale
 	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setLocale(String locale) {
+		this.locale = locale;
 	}
 
 	/**
-	 * Gets the last name.
-	 *
-	 * @return the last name
+	 * Gets the account
+	 * @return the account
 	 */
-	public String getLastName() {
-		return lastName;
+	public Account getAccount() {
+		return account;
 	}
 
 	/**
-	 * Sets the last name.
-	 *
-	 * @param lastName the new last name
+	 * Sets the account
+	 * @param account the account
 	 */
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 }

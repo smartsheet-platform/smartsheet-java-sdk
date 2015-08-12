@@ -24,23 +24,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.EnumSet;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Set;
 
-import com.smartsheet.api.AssociatedAttachmentResources;
-import com.smartsheet.api.AssociatedDiscussionResources;
-import com.smartsheet.api.ShareResources;
-import com.smartsheet.api.SheetColumnResources;
-import com.smartsheet.api.SheetResources;
-import com.smartsheet.api.SheetRowResources;
-import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.*;
 import com.smartsheet.api.internal.http.HttpMethod;
 import com.smartsheet.api.internal.http.HttpRequest;
 import com.smartsheet.api.internal.util.Util;
-import com.smartsheet.api.models.ObjectInclusion;
-import com.smartsheet.api.models.PaperSize;
-import com.smartsheet.api.models.Sheet;
-import com.smartsheet.api.models.SheetEmail;
-import com.smartsheet.api.models.SheetPublish;
+import com.smartsheet.api.internal.util.QueryUtil;
+import com.smartsheet.api.models.*;
 
 /**
  * This is the implementation of the SheetResources.
@@ -75,13 +67,20 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * 
 	 * It will be initialized in constructor and will not change afterwards.
 	 */
-	private AssociatedAttachmentResources attachments;
+	private SheetAttachmentResources attachments;
 	/**
 	 * Represents the AssociatedDiscussionResources.
 	 * 
 	 * It will be initialized in constructor and will not change afterwards.
 	 */
-	private AssociatedDiscussionResources discussions;
+	private SheetDiscussionResources discussions;
+
+	/**
+	 * Represents the SheetCommentResources.
+	 *
+	 * It will be initialized in constructor and will not change afterwards
+	 */
+	private SheetCommentResources comments;
 
 	/**
 	 * Constructor.
@@ -92,30 +91,39 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 */
 	public SheetResourcesImpl(SmartsheetImpl smartsheet) {
 		super(smartsheet);
-		this.shares = new ShareResourcesImpl(smartsheet, "sheet");
+		this.shares = new ShareResourcesImpl(smartsheet, "sheets");
 		this.rows = new SheetRowResourcesImpl(smartsheet);
 		this.columns = new SheetColumnResourcesImpl(smartsheet);
-		this.attachments = new AssociatedAttachmentResourcesImpl(smartsheet, "sheet");
-		this.discussions = new AssociatedDiscussionResourcesImpl(smartsheet, "sheet");
+		this.attachments = new SheetAttachmentResourcesImpl(smartsheet);
+		this.discussions = new SheetDiscussionResourcesImpl(smartsheet);
+		this.comments = new SheetCommentResourcesImpl(smartsheet);
 	}
 
 	/**
-	 * List all sheets.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /sheets
-	 * 
-	 * Exceptions: 
-	 *   - InvalidRequestException : if there is any problem with the REST API request 
-	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token) 
-	 *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) 
-	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation 
-	 *   - SmartsheetException : if there is any other error occurred during the operation
+	 * <p>List all sheets.</p>
 	 *
-	 * @return all sheets (note that empty list will be returned if there is none)
-	 * @throws SmartsheetException the smartsheet exception
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /sheets</p>
+	 *
+	 * @param includes the source inclusion
+	 * @param pagination the object containing the pagination parameters
+	 * @return A list of all sheets (note that an empty list will be returned if there are none).
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public List<Sheet> listSheets() throws SmartsheetException {
-		return this.listResources("sheets", Sheet.class);
+	public PagedResult<Sheet> listSheets(EnumSet<SourceInclusion> includes, PaginationParameters pagination) throws SmartsheetException {
+		String path = "sheets";
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+		path += QueryUtil.generateUrl(null, parameters);
+
+		if (pagination != null) {
+			path += pagination.toQueryString();
+		}
+		return this.listResourcesWithWrapper(path, Sheet.class);
 	}
 
 	/**
@@ -129,12 +137,18 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) 
 	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation 
 	 *   - SmartsheetException : if there is any other error occurred during the operation
-	 *   
+	 *
+	 * @param parameters the object containing the pagination parameters
 	 * @return all sheets (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public List<Sheet> listOrganizationSheets() throws SmartsheetException {
-		return this.listResources("users/sheets", Sheet.class);
+	public PagedResult<Sheet> listOrganizationSheets(PaginationParameters parameters) throws SmartsheetException {
+		String path = "users/sheets";
+
+		if (parameters != null) {
+			path += parameters.toQueryString();
+		}
+		return this.listResourcesWithWrapper(path, Sheet.class);
 	}
 
 	/**
@@ -153,18 +167,32 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @param id the id
 	 * @param includes used to specify the optional objects to include, currently DISCUSSIONS and
 	 * ATTACHMENTS are supported.
+	 * @param columnIds the column ids
+	 * @param excludes the exclude parameters
+	 * @param page the page number
+	 * @param pageSize the page size
+	 * @param rowIds the row ids
+	 * @param rowNumbers the row numbers
 	 * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
 	 * rather than returning null).
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Sheet getSheet(long id, EnumSet<ObjectInclusion> includes) throws SmartsheetException {
-		String path = "sheet/" + id;
-		if (includes != null) {
-			path += "?include=";
-			for (ObjectInclusion oi : includes) {
-				path += oi.name().toLowerCase() + ",";
-			}
-		}
+	public Sheet getSheet(long id, EnumSet<SheetInclusion> includes, EnumSet<ObjectExclusion> excludes, Set<Long> rowIds, Set<Integer> rowNumbers, Set<Long> columnIds, Integer pageSize, Integer page) throws SmartsheetException {
+		String path = "sheets/" + id;
+
+		// Add the parameters to a map and build the query string at the end
+		HashMap<String, Object>	parameters = new HashMap<String, Object>();
+
+		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+		parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
+		parameters.put("rowIds", QueryUtil.generateCommaSeparatedList(rowIds));
+		parameters.put("rowNumbers", QueryUtil.generateCommaSeparatedList(rowNumbers));
+		parameters.put("columnIds", QueryUtil.generateCommaSeparatedList(columnIds));
+		parameters.put("pageSize", pageSize);
+		parameters.put("page", page);
+
+		// Iterate through the map of parameters and generate the query string
+		path += QueryUtil.generateUrl(null, parameters);
 
 		return this.getResource(path, Sheet.class);
 	}
@@ -261,21 +289,18 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @return the sheet
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Sheet createSheetFromExisting(Sheet sheet, EnumSet<ObjectInclusion> includes) throws SmartsheetException {
-		String path = "sheets";
-		if (includes != null) {
-			path += "?include=";
-			for (ObjectInclusion oi : includes) {
-				path += oi.name().toLowerCase() + ",";
-			}
-		}
+	public Sheet createSheetFromTemplate(Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException {
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+		String path = QueryUtil.generateUrl("sheets", parameters);
+
 		return this.createResource(path, Sheet.class, sheet);
 	}
 
 	/**
 	 * Create a sheet in given folder.
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /folder/{folderId}/sheets
+	 * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/sheets
 	 * 
 	 * Exceptions:
 	 *   IllegalArgumentException : if any argument is null
@@ -294,7 +319,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 */
 	public Sheet createSheetInFolder(long folderId, Sheet sheet) throws SmartsheetException {
 		
-		return this.createResource("folder/" + folderId + "/sheets", Sheet.class, sheet);
+		return this.createResource("folders/" + folderId + "/sheets", Sheet.class, sheet);
 	}
 
 	/**
@@ -318,14 +343,10 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * primary - type - symbol - options
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Sheet createSheetInFolderFromExisting(long folderId, Sheet sheet, EnumSet<ObjectInclusion> includes) throws SmartsheetException {
-		String path = "folder/" + folderId + "/sheets";
-		if (includes != null) {
-			path += "?include=";
-			for (ObjectInclusion oi : includes) {
-				path += oi.name().toLowerCase() + ",";
-			}
-		}
+	public Sheet createSheetInFolderFromTemplate(long folderId, Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException {
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+		String path = QueryUtil.generateUrl("folders/" + folderId + "/sheets", parameters);
 
 		return this.createResource(path, Sheet.class, sheet);
 	}
@@ -350,7 +371,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Sheet createSheetInWorkspace(long workspaceId, Sheet sheet) throws SmartsheetException {
-		return this.createResource("workspace/" + workspaceId + "/sheets", Sheet.class, sheet);
+		return this.createResource("workspaces/" + workspaceId + "/sheets", Sheet.class, sheet);
 	}
 
 	/**
@@ -375,15 +396,11 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @return the created sheet
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Sheet createSheetInWorkspaceFromExisting(long workspaceId, Sheet sheet, EnumSet<ObjectInclusion> includes)
+	public Sheet createSheetInWorkspaceFromTemplate(long workspaceId, Sheet sheet, EnumSet<SheetTemplateInclusion> includes)
 			throws SmartsheetException {
-		String path = "workspace/" + workspaceId + "/sheets";
-		if (includes != null) {
-			path += "?include=";
-			for (ObjectInclusion oi : includes) {
-				path += oi.name().toLowerCase() + ",";
-			}
-		}
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+		String path = QueryUtil.generateUrl("workspaces/" + workspaceId + "/sheets", parameters);
 
 		return this.createResource(path, Sheet.class, sheet);
 	}
@@ -405,30 +422,25 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public void deleteSheet(long id) throws SmartsheetException {
-		this.deleteResource("sheet/" + id, Sheet.class);
+		this.deleteResource("sheets/" + id, Sheet.class);
 	}
 
 	/**
-	 * Update a sheet.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: PUT /sheet/{id}
-	 * 
-	 * Exceptions:
-	 *   IllegalArgumentException : if any argument is null
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ResourceNotFoundException : if the resource can not be found
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
+	 * <p>Update a sheet.</p>
 	 *
-	 * @param sheet the sheet to update limited to the following attribute: * name (string)
-	 * @return the updated sheet (note that if there is no such resource, this method will throw
-	 * ResourceNotFoundException rather than returning null).
-	 * @throws SmartsheetException the smartsheet exception
+	 * <p>It mirrors to the following Smartsheet REST API method: PUT /sheet/{id}</p>
+	 *
+	 * @param sheet the sheet to update
+	 * @return the updated sheet
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Sheet updateSheet(Sheet sheet) throws SmartsheetException {
-		return this.updateResource("sheet/" + sheet.getId(), Sheet.class, sheet);
+		return this.updateResource("sheets/" + sheet.getId(), Sheet.class, sheet);
 	}
 
 	/**
@@ -450,7 +462,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public int getSheetVersion(long id) throws SmartsheetException {
-		return this.getResource("sheet/" + id + "/version", Sheet.class).getVersion();
+		return this.getResource("sheets/" + id + "/version", Sheet.class).getVersion();
 	}
 
 	/**
@@ -471,15 +483,33 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public void sendSheet(long id, SheetEmail email) throws SmartsheetException {
-		this.createResource("sheet/" + id + "/emails", SheetEmail.class, email);
+		this.createResource("sheets/" + id + "/emails", SheetEmail.class, email);
 	}
 
+	/**
+	 * <p>Get a sheet as an Excel file.</p>
+	 *
+	 * <p>It mirrors to the following Smartsheet REST API method:</p>
+	 * <p>GET /sheet/{id} with "application/vnd.ms-excel" Accept HTTP header</p>
+	 *
+	 * @param id the id of the sheet
+	 * @param outputStream the output stream to which the Excel file will be written.
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	public void getSheetAsCSV(long id, OutputStream outputStream) throws SmartsheetException{
+		getSheetAsFile(id, null, outputStream, "text/csv");
+	}
 	/**
 	 * Return the ShareResources object that provides access to Share resources associated with Sheet resources.
 	 *
 	 * @return the ShareResources object
 	 */
-	public ShareResources shares() {
+	public ShareResources shareResources() {
 		return this.shares;
 	}
 
@@ -488,7 +518,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 *
 	 * @return the sheet row resources
 	 */
-	public SheetRowResources rows() {
+	public SheetRowResources rowResources() {
 		return this.rows;
 	}
 
@@ -497,7 +527,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 *
 	 * @return the sheet column resources
 	 */
-	public SheetColumnResources columns() {
+	public SheetColumnResources columnResources() {
 		return this.columns;
 	}
 
@@ -507,7 +537,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 *
 	 * @return the associated attachment resources
 	 */
-	public AssociatedAttachmentResources attachments() {
+	public SheetAttachmentResources attachmentResources() {
 		return this.attachments;
 	}
 
@@ -517,8 +547,18 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 *
 	 * @return the associated discussion resources
 	 */
-	public AssociatedDiscussionResources discussions() {
+	public SheetDiscussionResources discussionResources() {
 		return this.discussions;
+	}
+
+	/**
+	 * <p>Return the SheetCommentResources object that provides access to discussion resources associated with
+	 * Sheet resources.</p>
+	 *
+	 * @return the associated comment resources
+	 */
+	public SheetCommentResources commentResources(){
+		return this.comments;
 	}
 
 	/**
@@ -542,7 +582,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public SheetPublish getPublishStatus(long id) throws SmartsheetException {
-		return this.getResource("sheet/" + id + "/publish", SheetPublish.class);
+		return this.getResource("sheets/" + id + "/publish", SheetPublish.class);
 	}
 
 	/**
@@ -567,7 +607,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public SheetPublish updatePublishStatus(long id, SheetPublish publish) throws SmartsheetException{
-		return this.updateResource("sheet/" + id + "/publish", SheetPublish.class, publish);
+		return this.updateResource("sheets/" + id + "/publish", SheetPublish.class, publish);
 	}
 
 	/**
@@ -592,7 +632,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 			throws SmartsheetException {
 		Util.throwIfNull(outputStream, contentType);
 		
-		String path = "sheet/" + id;
+		String path = "sheets/" + id;
 		if (paperSize != null) {
 			path += "?paperSize=" + paperSize;
 		}
@@ -634,7 +674,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @param output the output
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	private static void copyStream(InputStream input, OutputStream output) throws IOException {
+	public static void copyStream(InputStream input, OutputStream output) throws IOException {
 		byte[] buffer = new byte[BUFFER_SIZE];
 		int len;
 		while ((len = input.read(buffer)) != -1) {

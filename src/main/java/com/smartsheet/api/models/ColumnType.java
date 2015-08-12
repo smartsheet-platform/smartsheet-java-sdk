@@ -29,18 +29,27 @@ public enum ColumnType {
 	/** Represents the TEXT_NUMBER column type. */
 	TEXT_NUMBER,
 
-	/** Represents the PICKLIST column type. */
-	PICKLIST,
-
-	/** Represents the DATE column type. */
-	DATE,
-	
-	/** Represents the DATETIME (auto number) column type */
-	DATETIME,
-	
 	/** Represents the CONTACT_LIST column type. */
 	CONTACT_LIST,
 
+	/** Represents the DATE column type. */
+	DATE,
+
+	/** Represents the DATETIME column type. */
+	DATETIME,
+
+	/** Represents the PICKLIST column type. */
+	PICKLIST,
+
 	/** Represents the CHECKBOX column type. */
-	CHECKBOX;
+	CHECKBOX,
+
+	/** Represents the DURATION column type. */
+	DURATION,
+
+	/** Represents the PREDECESSOR column type. */
+	PREDECESSOR,
+	
+	/** Represents the ABSTRACT_DATETIME (auto number) column type */
+	ABSTRACT_DATETIME,
 }

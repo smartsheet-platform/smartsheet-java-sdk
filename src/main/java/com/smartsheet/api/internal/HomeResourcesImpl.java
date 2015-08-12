@@ -23,12 +23,16 @@ package com.smartsheet.api.internal;
 
 
 import java.util.EnumSet;
+import java.util.HashMap;
 
 import com.smartsheet.api.HomeFolderResources;
 import com.smartsheet.api.HomeResources;
 import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.Home;
-import com.smartsheet.api.models.ObjectInclusion;
+import com.smartsheet.api.models.SourceInclusion;
+
+import javax.management.Query;
 
 /**
  * This is the implementation of the HomeResources.
@@ -74,25 +78,22 @@ public class HomeResourcesImpl extends AbstractResources implements HomeResource
 	 * rather than returning null).
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Home getHome(EnumSet<ObjectInclusion> includes) throws SmartsheetException {
-		String path = "home";
-		
-		if (includes != null) {
-			path += "?include=";
-			for (ObjectInclusion oi : includes) {
-				path += oi.name().toLowerCase() + ",";
-			}
-		}
+	public Home getHome(EnumSet<SourceInclusion> includes) throws SmartsheetException {
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+
+		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+
+		String path = QueryUtil.generateUrl("home", parameters);
 		
 		return this.getResource(path, Home.class);
 	}
 
 	/**
-	 * Return the WorkspaceFolderResources object that provides access to Folder resources under home.
+	 * Return the HomeFolderResources object that provides access to Folder resources under home.
 	 *
 	 * @return the home folder resources
 	 */
-	public HomeFolderResources folders() {
+	public HomeFolderResources folderResources() {
 		return this.folders;
 	}
 }

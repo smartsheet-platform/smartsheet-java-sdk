@@ -1,23 +1,49 @@
 {
-   "resultCode":0,
-   "result":[
+   "message": "SUCCESS",
+   "result": [
       {
-         "id":263016097834884,
-         "sheetId":2906571706525572,
-         "rowNumber":1,
-         "cells":[
+         "id": 7670198317672324,
+         "sheetId": 2331373580117892,
+         "rowNumber": 1,
+         "expanded": true,
+         "createdAt": "2013-02-28T17:45:13-08:00",
+         "modifiedAt": "2013-02-28T17:45:13-08:00",
+         "cells": [
             {
-               "columnId":8764071660021636,
-               "type":"TEXT_NUMBER",
-               "value":"New Data",
-               "displayValue":"New Data"
+               "columnId": 7960873114331012,
+               "columnType": "CHECKBOX",
+               "value": true
+            },
+            {
+               "columnId": 642523719853956,
+               "displayValue": "New status",
+               "columnType": "TEXT_NUMBER",
+               "value": "New status"
             }
-         ],
-         "expanded":true,
-         "createdAt":"2014-01-28T14:23:34-08:00",
-         "modifiedAt":"2014-01-28T14:23:34-08:00"
+         ]
+      },
+      {
+         "id": 2040698783459204,
+         "sheetId": 2331373580117892,
+         "rowNumber": 2,
+         "expanded": true,
+         "createdAt": "2013-02-28T17:45:13-08:00",
+         "modifiedAt": "2013-02-28T17:45:13-08:00",
+         "cells": [
+            {
+               "columnId": 7960873114331012,
+               "columnType": "CHECKBOX",
+               "value": true
+            },
+            {
+               "columnId": 642523719853956,
+               "displayValue": "New status",
+               "columnType": "TEXT_NUMBER",
+               "value": "New status"
+            }
+         ]
       }
    ],
-   "version":4,
-   "message":"SUCCESS"
+   "version": 14,
+   "resultCode": 0
 }

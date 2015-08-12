@@ -22,12 +22,12 @@ package com.smartsheet.api.internal;
 
 
 
-import java.util.List;
+import com.smartsheet.api.*;
+import com.smartsheet.api.internal.util.QueryUtil;
+import com.smartsheet.api.models.*;
 
-import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.UserResources;
-import com.smartsheet.api.models.User;
-import com.smartsheet.api.models.UserProfile;
+import java.util.HashMap;
+import java.util.Set;
 
 /**
  * This is the implementation of the UserResources.
@@ -35,7 +35,7 @@ import com.smartsheet.api.models.UserProfile;
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class UserResourcesImpl extends AbstractResources implements UserResources {
-	
+
 	/**
 	 * Constructor.
 	 * 
@@ -45,6 +45,23 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	 */
 	public UserResourcesImpl(SmartsheetImpl smartsheet) {
 		super(smartsheet);
+	}
+
+	/**
+	 * <p>List all users.</p>
+	 *
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /users</p>
+	 *
+	 * @return the list of all users
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	public PagedResult<User> listUsers() throws SmartsheetException {
+		return this.listResourcesWithWrapper("users", User.class);
 	}
 
 	/**
@@ -59,11 +76,23 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation 
 	 *   - SmartsheetException : if there is any other error occurred during the operation
 	 *
+	 * @param email the list of email addresses
+	 * @param pagination the object containing the pagination query parameters
 	 * @return all users (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public List<User> listUsers() throws SmartsheetException {
-		return this.listResources("users", User.class);
+
+	public PagedResult<User> listUsers(Set<String> email, PaginationParameters pagination) throws SmartsheetException {
+		String path = "users";
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+
+		if (pagination != null){
+			parameters = pagination.toHashMap();
+		}
+		parameters.put("email", QueryUtil.generateCommaSeparatedList(email));
+
+		path += QueryUtil.generateUrl(null, parameters);
+		return this.listResourcesWithWrapper(path, User.class);
 	}
 
 	/**
@@ -112,9 +141,27 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	}
 
 	/**
+	 * <p>Get the current user.</p>
+	 *
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /users/{userId}</p>
+	 *
+	 * @param userId the user id
+	 * @return the user
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	public UserProfile getUser(long userId) throws SmartsheetException {
+		return this.getResource("users/" + userId, UserProfile.class);
+	}
+
+	/**
 	 * Get the current user.
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /user/me 
+	 * It mirrors to the following Smartsheet REST API method: GET /users/me
 	 * 
 	 * Exceptions: 
 	 *   - InvalidRequestException : if there is any problem with the REST API request 
@@ -129,22 +176,39 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public UserProfile getCurrentUser() throws SmartsheetException {
-		return this.getResource("user/me", UserProfile.class);
+		return this.getResource("users/me", UserProfile.class);
 	}
 
+	/**
+	 * <p>List all organisation sheets.</p>
+	 *
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /users/sheets</p>
+	 *
+	 * @return the list of all organisation sheets
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	public PagedResult<Sheet> listOrgSheets() throws SmartsheetException {
+		return this.listResourcesWithWrapper("users/sheets", Sheet.class);
+	}
 
 	@Override
 	public User updateUser(User user) throws SmartsheetException {
-		return this.updateResource("user/" + user.getId(), User.class, user);
+		return this.updateResource("users/" + user.getId(), User.class, user);
 	}
 
 	@Override
-	public void deleteUser(long id) throws SmartsheetException {
-		this.deleteResource("user/" + id, User.class);
-	}
+	public void deleteUser(long userId, DeleteUserParameters parameters) throws SmartsheetException {
+		String path = "users/" + userId;
 
-	@Override
-	public void deleteUser(long id, long transferToId, boolean removeFromSharing) throws SmartsheetException {
-		this.deleteResource("user/" + id + "?transferTo=" + transferToId + "&removeFromSharing="+removeFromSharing, User.class);
+		if (parameters != null) {
+			path += parameters.toQueryString();
+		}
+
+		this.deleteResource(path, User.class);
 	}
 }

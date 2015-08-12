@@ -22,9 +22,9 @@ package com.smartsheet.api;
 
 
 
-import java.util.List;
-
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Folder;
+import com.smartsheet.api.models.PaginationParameters;
 
 /**
  * T<p>his interface provides methods to access Folder resources that are associated to a workspace object.</p>
@@ -39,6 +39,7 @@ public interface WorkspaceFolderResources {
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /workspace/{id}/folders</p>
 	 *
 	 * @param workspaceId the workspace id
+	 * @param parameters the pagination parameters
 	 * @return the list of folders (note that an empty list will be returned if there are none)
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
@@ -47,7 +48,7 @@ public interface WorkspaceFolderResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public List<Folder> listFolders(long workspaceId) throws SmartsheetException;
+	public PagedResult<Folder> listFolders(long workspaceId, PaginationParameters parameters) throws SmartsheetException;
 
 	/**
 	 * <p>Create a folder in the workspace.</p>
