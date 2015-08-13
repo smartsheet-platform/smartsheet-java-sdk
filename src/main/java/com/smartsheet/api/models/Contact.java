@@ -23,24 +23,14 @@ package com.smartsheet.api.models;
 /**
  * Represents the Contact object.
  */
-public class Contact{
-    /* Represents the contact id*/
-    private String id;
+public class Contact extends NamedModel<String>{
 
     /** Represents the conatct name. */
     private String name;
 
     /** Represents the contact email. */
     private String email;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
+    
     /**
      * Gets the full name for the contact.
      *
