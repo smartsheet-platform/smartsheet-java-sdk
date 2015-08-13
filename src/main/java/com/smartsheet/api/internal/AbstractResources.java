@@ -241,7 +241,7 @@ public abstract class AbstractResources {
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	protected <T> T createResource(String path, Class<T> objectClass, T object) throws SmartsheetException {
-		Util.throwIfNull(path, object);
+		//Util.throwIfNull(path, object);
 		Util.throwIfEmpty(path);
 		
 		HttpRequest request;

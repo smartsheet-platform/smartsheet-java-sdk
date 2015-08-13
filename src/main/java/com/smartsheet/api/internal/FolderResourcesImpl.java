@@ -173,4 +173,63 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 
 		return this.createResource("folders/" + parentFolderId + "/folders", Folder.class, folder);
 	}
+
+	/**
+	 * Creates a copy of the specified Folder.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/copy
+	 *
+	 * Exceptions:
+	 *   IllegalArgumentException : if folder is null
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param folderId the folder id
+	 * @param containerDestination describes the destination container
+     * @param includes optional parameters to include
+     * @param skipRemap optional parameters to exclude
+	 * @return the folder
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+    //TO DO: RETURN A FOLDER OBJECT
+	public ContainerDestination copyFolder(long folderId, ContainerDestination containerDestination, EnumSet<FolderCopyInclusion> includes, EnumSet<FolderSkipRemapExclusion> skipRemap) throws SmartsheetException {
+
+        String path = "folders/" + folderId + "/copy";
+        HashMap<String, Object> parameters = new HashMap<String, Object>();
+
+        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+        parameters.put("skipRemap", QueryUtil.generateCommaSeparatedList(skipRemap));
+
+        path += QueryUtil.generateUrl(null, parameters);
+
+		return this.createResource(path, ContainerDestination.class, containerDestination);
+	}
+
+    /**
+     * Moves the specified Folder to another location.
+     *
+     * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/move
+     *
+     * Exceptions:
+     *   IllegalArgumentException : if folder is null
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param folderId the folder id
+     * @param containerDestination describes the destination container
+     * @return the folder
+     * @throws SmartsheetException the smartsheet exception
+     */
+    //TO DO: RETURN A FOLDER OBJECT
+    public ContainerDestination moveFolder(long folderId, ContainerDestination containerDestination) throws SmartsheetException {
+
+        String path = "folders/" + folderId + "/copy";
+        return this.createResource(path, ContainerDestination.class, containerDestination);
+    }
 }

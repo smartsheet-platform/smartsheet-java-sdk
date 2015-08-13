@@ -45,6 +45,8 @@ public class AttachmentResourcesIT extends ITResourcesImpl{
 
     @Test
     public void testAttachmentMethods() throws SmartsheetException, IOException {
+        //smartsheet.setAssumedUser("ericyan99@gmail.com");
+        //UserProfile user= smartsheet.userResources().getCurrentUser();
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
         sheetId = sheet.getId();
 

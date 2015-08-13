@@ -25,12 +25,12 @@ package com.smartsheet.api.models;
  */
 public class Contact extends NamedModel<String>{
 
-    /** Represents the conatct name. */
+    /** Represents the contact name. */
     private String name;
 
     /** Represents the contact email. */
     private String email;
-    
+
     /**
      * Gets the full name for the contact.
      *
@@ -42,7 +42,7 @@ public class Contact extends NamedModel<String>{
 
     /**
      * Sets the name for the contact
-     * @param name
+     * @param name the name
      */
     public void setName(String name) {
         this.name = name;
@@ -59,7 +59,7 @@ public class Contact extends NamedModel<String>{
 
     /**
      * Sets the email for the contact
-     * @param email
+     * @param email the email
      */
     public void setEmail(String email) {
         this.email = email;
