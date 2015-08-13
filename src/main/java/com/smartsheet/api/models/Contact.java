@@ -23,7 +23,7 @@ package com.smartsheet.api.models;
 /**
  * Represents the Contact object.
  */
-public class Contact extends IdentifiableModel<Long>{
+public class Contact{
     /* Represents the contact id*/
     private String id;
 
@@ -33,12 +33,12 @@ public class Contact extends IdentifiableModel<Long>{
     /** Represents the contact email. */
     private String email;
 
-    public String getContactId() {
+    public String getId() {
         return id;
     }
 
-    public void setContactId(String contactId) {
-        this.id = contactId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**

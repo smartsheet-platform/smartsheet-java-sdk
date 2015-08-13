@@ -189,6 +189,15 @@ public class SmartsheetImpl implements Smartsheet {
 	private final AtomicReference<TokenResources> tokens;
 
 	/**
+	 * Represents the AtomicReference for ContactResources.
+	 *
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+	 * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
+	 * SmartsheetImpl in thread safe manner.
+	 */
+	private final AtomicReference<ContactResources> contacts;
+
+	/**
 	 * Create an instance with given server URI, HttpClient (optional) and JsonSerializer (optional)
 	 * 
 	 * Exceptions: - IllegalArgumentException : if serverURI/version/accessToken is null/empty
@@ -219,6 +228,7 @@ public class SmartsheetImpl implements Smartsheet {
 		this.reports = new AtomicReference<ReportResources>();
 		this.serverInfo = new AtomicReference<ServerInfoResources>();
 		this.tokens = new AtomicReference<TokenResources>();
+		this.contacts = new AtomicReference<ContactResources>();
 	}
 
 	/**
@@ -395,6 +405,16 @@ public class SmartsheetImpl implements Smartsheet {
 	public TokenResources tokenResources() {
 		tokens.compareAndSet(null, new TokenResourcesImpl(this));
 		return tokens.get();
+	}
+
+	/**
+	 * Returns the ContactResources instance that provides access to contact resources.
+	 *
+	 * @return the contact resources
+	 */
+	public ContactResources contactResources() {
+		contacts.compareAndSet(null, new ContactResourcesImpl(this));
+		return contacts.get();
 	}
 
 	/**
