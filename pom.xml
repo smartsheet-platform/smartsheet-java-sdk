@@ -25,12 +25,11 @@
 	</prerequisites>
 
 
-	<!--<scm>
+	<scm>
 		<url>git@github.com:smartsheet-platform/java-sdk.git</url>
 		<connection>scm:git:git@github.com:smartsheet-platform/java-sdk.git</connection>
 		<developerConnection>scm:git:git@github.com:smartsheet-platform/java-sdk.git</developerConnection>
-    	<tag>smartsheet-sdk-java-2.0.0</tag>
-  </scm>-->
+	</scm>
 
 	<developers>
 		<developer>
