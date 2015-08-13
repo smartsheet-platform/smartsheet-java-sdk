@@ -3,7 +3,7 @@
 	<groupId>com.smartsheet</groupId>
 	<artifactId>smartsheet-sdk-java</artifactId>
 	<packaging>jar</packaging>
-	<version>2.0.1</version>
+	<version>2.0.0</version>
 	<name>Smartsheet Java SDK</name>
 	<description>Library for connecting to Smartsheet Services</description>
 	<url>http://smartsheet.com</url>
@@ -20,12 +20,17 @@
 		</license>
 	</licenses>
 
-	<scm>
+	<prerequisites>
+		<maven>3.0.4</maven>
+	</prerequisites>
+
+
+	<!--<scm>
 		<url>git@github.com:smartsheet-platform/java-sdk.git</url>
 		<connection>scm:git:git@github.com:smartsheet-platform/java-sdk.git</connection>
 		<developerConnection>scm:git:git@github.com:smartsheet-platform/java-sdk.git</developerConnection>
     	<tag>smartsheet-sdk-java-2.0.0</tag>
-  </scm>
+  </scm>-->
 
 	<developers>
 		<developer>
@@ -61,13 +66,13 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
-			<version>2.6.0</version>
+			<version>2.6.1</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.6.0</version>
+			<version>2.6.1</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -103,17 +108,67 @@
 		</snapshotRepository>
 		<repository>
 			<id>deployment</id>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+			<url>https://oss.sonatype.org/nexus/content/repositories/releases/</url>
 		</repository>
 	</distributionManagement>
 
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+				<version>2.8.2</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>2.5.2</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.7</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.4</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.6.1</version>
+			</plugin>
+			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
 				<artifactId>nexus-staging-maven-plugin</artifactId>
 				<version>1.6.3</version>
-				<extensions>true</extensions>
+				<executions>
+				<execution>
+					<id>default-deploy</id>
+					<phase>deploy</phase>
+					<goals>
+						<goal>deploy</goal>
+					</goals>
+				</execution>
+				</executions>
 				<configuration>
 					<serverId>deployment</serverId>
 					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
@@ -189,7 +244,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
+				<version>3.3</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
@@ -285,52 +340,6 @@
 				</executions>
 			</plugin>
 		</plugins>
-		<pluginManagement>
-			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings 
-					only. It has no influence on the Maven build itself. -->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.codehaus.mojo</groupId>
-										<artifactId>license-maven-plugin</artifactId>
-										<versionRange>[1.5,)</versionRange>
-										<goals>
-											<goal>update-file-header</goal>
-											<goal>update-project-license</goal>
-										</goals>
-									</pluginExecutionFilter>
-									
-									<action>
-										<ignore />
-									</action>
-								</pluginExecution>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.apache.maven.plugins</groupId>
-										<artifactId>maven-enforcer-plugin</artifactId>
-										<versionRange>[1.0.0,)</versionRange>
-										<goals>
-											<goal>enforce</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore />
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-				
-			</plugins>
-		</pluginManagement>
 		<resources>
 			<!--
 				Placeholders that are found from the files located in the configured resource
