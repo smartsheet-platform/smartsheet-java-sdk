@@ -16,7 +16,7 @@ Add the SDK as a dependency in your project.
 <dependency>
   <groupId>com.smartsheet</groupId>
   <artifactId>smartsheet-sdk-java</artifactId>
-  <version>2.0.1</version>
+  <version>2.0.0</version>
 </dependency>
 ```
 
@@ -126,8 +126,6 @@ If you have any questions or issues with this SDK please post on [StackOverflow 
 
 Each specific release is available for download via [Github](https://github.com/smartsheet-platform/smartsheet-java-sdk/tags) or the [Maven repository](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.smartsheet%22%20AND%20a%3A%22smartsheet-sdk-java%22).
 
-**2.0.1**
-* Renamed Members to MemberResoures in the GroupResources class
 
 **2.0.0**
 * Migrated to latest API version 2.0.0
