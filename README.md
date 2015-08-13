@@ -16,7 +16,7 @@ Add the SDK as a dependency in your project.
 <dependency>
   <groupId>com.smartsheet</groupId>
   <artifactId>smartsheet-sdk-java</artifactId>
-  <version>1.1.0</version>
+  <version>2.0.0</version>
 </dependency>
 ```
 
@@ -126,22 +126,14 @@ If you have any questions or issues with this SDK please post on [StackOverflow 
 
 Each specific release is available for download via [Github](https://github.com/smartsheet-platform/smartsheet-java-sdk/tags) or the [Maven repository](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.smartsheet%22%20AND%20a%3A%22smartsheet-sdk-java%22).
 
-**2.0 (Aug 10, 2015)**
-* New base URL - https://api.smartsheet.com/2.0
-* New endpoints - new operations for Columns, Reports, Rows, Templates, and Access Tokens
-* Changed endpoints - several changes to existing endpoints, including:
-* Changed numerous endpoints from singular to plural 
-* Changed endpoints for all Sharing-related operations
-* Changed endpoint for Update Row(s) operation
-* New support for multipart upload requests
-* New support for pagination of results
-* New support for bulk-insert and bulk-update
+**2.0.0**
+* Migrated to latest API version 2.0.0
+* Added support for new and modified operations
 
 **1.1.0**
 * Added support for group administration and sharing (note there are some backwards incompatible changes to sharing)
 * Added support for attachment versioning
 * Added support for Formats on cells, rows, and columns
-
 
 **1.0.6**
 * Improved attachments allowing for the use of InputStreams
@@ -163,7 +155,6 @@ Each specific release is available for download via [Github](https://github.com/
 
 **1.0.1 (Feb 19, 2014)**
 * Synchronized the versions on github, javadoc, pom/maven repository and the readme.md
-
 
 **1.0.0 (Feb 19, 2014)**
 * Initial Release of the Smartsheet Java SDK
