@@ -126,6 +126,7 @@ If you have any questions or issues with this SDK please post on [StackOverflow 
 
 Each specific release is available for download via [Github](https://github.com/smartsheet-platform/smartsheet-java-sdk/tags) or the [Maven repository](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.smartsheet%22%20AND%20a%3A%22smartsheet-sdk-java%22).
 
+
 **2.0.0**
 * Migrated to latest API version 2.0.0
 * Added support for new and modified operations
