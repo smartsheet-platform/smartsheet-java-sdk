@@ -32,6 +32,7 @@ import com.smartsheet.api.WorkspaceFolderResources;
 import com.smartsheet.api.WorkspaceResources;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.*;
 
 /**
  * This is the implementation of the WorkspaceResources.
@@ -216,6 +217,38 @@ public class WorkspaceResourcesImpl extends AbstractResources implements Workspa
 		this.deleteResource("workspaces/" + id, Workspace.class);
 	}
 
+	/**
+	 * Creates a copy of the specified workspace.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: POST /workspaces/{workspaceId}/copy
+	 *
+	 * Exceptions:
+	 *   IllegalArgumentException : if folder is null
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param workspaceId the folder id
+	 * @param containerDestination describes the destination container
+	 * @param includes optional parameters to include
+	 * @param skipRemap optional parameters to exclude
+	 * @return the folder
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public Workspace copyWorkspace(long workspaceId, ContainerDestination containerDestination, EnumSet<WorkspaceCopyInclusion> includes, EnumSet<WorkspaceRemapExclusion> skipRemap) throws SmartsheetException {
+
+		String path = "workspaces/" + workspaceId + "/copy";
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+
+		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+		parameters.put("skipRemap", QueryUtil.generateCommaSeparatedList(skipRemap));
+
+		path += QueryUtil.generateUrl(null, parameters);
+
+		return this.createResource(path, Workspace.class, containerDestination);
+	}
 	/**
 	 * Return the WorkspaceFolderResources object that provides access to Folder resources associated with Workspace
 	 * resources.

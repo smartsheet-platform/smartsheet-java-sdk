@@ -28,6 +28,9 @@ import java.io.IOException;
 import java.util.EnumSet;
 
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.AccessLevel;
+import com.smartsheet.api.models.enums.DestinationType;
+import com.smartsheet.api.models.enums.SourceInclusion;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -117,4 +120,13 @@ public class WorkspaceResourcesImplTest extends ResourcesImplBase {
 		workspaceResources.deleteWorkspace(1234L);
 	}
 
+	@Test
+	public void testCopyWorkspace() throws IOException, SmartsheetException {
+		server.setResponseBody(new File("src/test/resources/copyWorkspace.json"));
+		ContainerDestination containerDestination = new ContainerDestination();
+		containerDestination.setDestinationType(DestinationType.WORKSPACE);
+
+		Folder folder = workspaceResources.copyWorkspace(123L, containerDestination, null, null);
+		assertEquals(folder.getPermalink(), "https://{url}?lx=VL4YlIUnyYgASeX02grbLQ");
+	}
 }

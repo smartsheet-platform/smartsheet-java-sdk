@@ -23,6 +23,9 @@ package com.smartsheet.api;
 import java.util.EnumSet;
 
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.SourceInclusion;
+import com.smartsheet.api.models.enums.WorkspaceCopyInclusion;
+import com.smartsheet.api.models.enums.WorkspaceRemapExclusion;
 
 /**
  * <p>This interface provides methods to access Workspace resources.</p>
@@ -113,6 +116,28 @@ public interface WorkspaceResources {
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public void deleteWorkspace(long id) throws SmartsheetException;
+
+	/**
+	 * Creates a copy of the specified workspace.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: POST /workspaces/{workspaceId}/copy
+	 *
+	 * Exceptions:
+	 *   IllegalArgumentException : if folder is null
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param workspaceId the folder id
+	 * @param containerDestination describes the destination container
+	 * @param includes optional parameters to include
+	 * @param skipRemap optional parameters to exclude
+	 * @return the folder
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public Workspace copyWorkspace(long workspaceId, ContainerDestination containerDestination, EnumSet<WorkspaceCopyInclusion> includes, EnumSet<WorkspaceRemapExclusion> skipRemap) throws SmartsheetException;
 
 	/**
 	 * <p>Return the WorkspaceFolderResources object that provides access to Folder resources associated with Workspace
