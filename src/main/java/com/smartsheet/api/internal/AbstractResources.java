@@ -233,20 +233,21 @@ public abstract class AbstractResources {
 	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
 	 *   SmartsheetException : if there is any other error occurred during the operation
 	 *
-	 * @param <T> the generic type
+	 * @param <T> the generic type of object to return/deserialize
+	 * @param <S> the generic type of object to serialize
 	 * @param path the relative path of the resource collections
 	 * @param objectClass the resource object class
 	 * @param object the object to create
 	 * @return the created resource
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	protected <T> T createResource(String path, Class<T> objectClass, T object) throws SmartsheetException {
-		//Util.throwIfNull(path, object);
+	protected <T, S> T createResource(String path, Class<T> objectClass, S object) throws SmartsheetException {
+		Util.throwIfNull(path, object);
 		Util.throwIfEmpty(path);
-		
+
 		HttpRequest request;
 		request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
-		
+
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		this.smartsheet.getJsonSerializer().serialize(object, baos);
 		HttpEntity entity = new HttpEntity();
@@ -256,19 +257,19 @@ public abstract class AbstractResources {
 		request.setEntity(entity);
 
 		HttpResponse response = this.smartsheet.getHttpClient().request(request);
-		
+
 		T obj = null;
-		switch (response.getStatusCode()) { 
+		switch (response.getStatusCode()) {
 			case 200:
-				obj = this.smartsheet.getJsonSerializer().deserializeResult(objectClass, 
+				obj = this.smartsheet.getJsonSerializer().deserializeResult(objectClass,
 						response.getEntity().getContent()).getResult();
 				break;
 			default:
 				handleError(response);
 		}
-		
+
 		smartsheet.getHttpClient().releaseConnection();
-		
+
 		return obj;
 	}
 
@@ -549,8 +550,6 @@ public abstract class AbstractResources {
 		
 		return obj;
 	}
-
-
 
 	/**
 	 * Post an object to Smartsheet REST API and receive a CopyOrMoveRowResult object from response.

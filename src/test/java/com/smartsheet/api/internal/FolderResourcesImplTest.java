@@ -103,22 +103,20 @@ public class FolderResourcesImplTest extends ResourcesImplBase {
 	}
 
 	@Test
-	//TO DO: IMPLEMENT
 	public void testCopyFolder() throws Exception {
-//		server.setResponseBody(new File("src/test/resources/copyFolder.json"));
-//		ContainerDestination containerDestination = new ContainerDestination();
-//		containerDestination.setDestinationType(DestinationType.FOLDER);
-//
-//		folderResource.copyFolder(123L, containerDestination, null, null);
+		server.setResponseBody(new File("src/test/resources/copyFolder.json"));
+		ContainerDestination containerDestination = new ContainerDestination();
+		containerDestination.setDestinationType(DestinationType.FOLDER);
+
+		folderResource.copyFolder(123L, containerDestination, null, null);
 	}
 
 	@Test
-	//TO DO: IMPLEMENT
 	public void testMoveFolder() throws Exception {
-//		server.setResponseBody(new File("src/test/resources/moveFolder.json"));
-//		ContainerDestination containerDestination = new ContainerDestination();
-//		containerDestination.setDestinationType(DestinationType.FOLDER);
-//
-//		folderResource.moveFolder(123L, containerDestination);
+		server.setResponseBody(new File("src/test/resources/moveFolder.json"));
+		ContainerDestination containerDestination = new ContainerDestination();
+		containerDestination.setDestinationType(DestinationType.FOLDER);
+
+		folderResource.moveFolder(123L, containerDestination);
 	}
 }

@@ -194,8 +194,7 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 * @return the folder
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-    //TO DO: RETURN A FOLDER OBJECT
-	public ContainerDestination copyFolder(long folderId, ContainerDestination containerDestination, EnumSet<FolderCopyInclusion> includes, EnumSet<FolderSkipRemapExclusion> skipRemap) throws SmartsheetException {
+	public Folder copyFolder(long folderId, ContainerDestination containerDestination, EnumSet<FolderCopyInclusion> includes, EnumSet<FolderSkipRemapExclusion> skipRemap) throws SmartsheetException {
 
         String path = "folders/" + folderId + "/copy";
         HashMap<String, Object> parameters = new HashMap<String, Object>();
@@ -205,7 +204,7 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 
         path += QueryUtil.generateUrl(null, parameters);
 
-		return this.createResource(path, ContainerDestination.class, containerDestination);
+		return this.createResource(path, Folder.class, containerDestination);
 	}
 
     /**
@@ -226,10 +225,9 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
      * @return the folder
      * @throws SmartsheetException the smartsheet exception
      */
-    //TO DO: RETURN A FOLDER OBJECT
-    public ContainerDestination moveFolder(long folderId, ContainerDestination containerDestination) throws SmartsheetException {
+    public Folder moveFolder(long folderId, ContainerDestination containerDestination) throws SmartsheetException {
 
         String path = "folders/" + folderId + "/copy";
-        return this.createResource(path, ContainerDestination.class, containerDestination);
+        return this.createResource(path, Folder.class, containerDestination);
     }
 }
