@@ -33,6 +33,7 @@ import com.smartsheet.api.internal.http.HttpRequest;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.*;
 
 /**
  * This is the implementation of the SheetResources.
@@ -656,6 +657,61 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 		}
 		
 		getSmartsheet().getHttpClient().releaseConnection();
+	}
+
+	/**
+	 * Creates a copy of the specified sheet.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/copy
+	 *
+	 * Exceptions:
+	 *   IllegalArgumentException : if folder is null
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param sheetId the sheet id
+	 * @param containerDestination describes the destination container
+	 * @param includes optional parameters to include
+	 * @return the sheet
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public Sheet copySheet(long sheetId, ContainerDestination containerDestination, EnumSet<SheetCopyInclusion> includes) throws SmartsheetException {
+
+		String path = "sheets/" + sheetId + "/copy";
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+
+		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+
+		path += QueryUtil.generateUrl(null, parameters);
+
+		return this.createResource(path, Sheet.class, containerDestination);
+	}
+
+	/**
+	 * Moves the specified Sheet to another location.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/move
+	 *
+	 * Exceptions:
+	 *   IllegalArgumentException : if folder is null
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param sheetId the folder id
+	 * @param containerDestination describes the destination container
+	 * @return the sheet
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public Sheet moveSheet(long sheetId, ContainerDestination containerDestination) throws SmartsheetException {
+
+		String path = "sheets/" + sheetId + "/move";
+		return this.createResource(path, Sheet.class, containerDestination);
 	}
 
 	/*

@@ -28,6 +28,8 @@ import java.io.IOException;
 import java.util.EnumSet;
 
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.DestinationType;
+import com.smartsheet.api.models.enums.SourceInclusion;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -99,7 +101,6 @@ public class FolderResourcesImplTest extends ResourcesImplBase {
 		Folder createdFolder = folderResource.createFolder(123L, newFolder);
 
 		assertEquals(createdFolder.getName(), newFolder.getName());
-
 	}
 
 	@Test
@@ -108,7 +109,8 @@ public class FolderResourcesImplTest extends ResourcesImplBase {
 		ContainerDestination containerDestination = new ContainerDestination();
 		containerDestination.setDestinationType(DestinationType.FOLDER);
 
-		folderResource.copyFolder(123L, containerDestination, null, null);
+		Folder folder = folderResource.copyFolder(123L, containerDestination, null, null);
+		assertEquals(folder.getPermalink(), "https://{base_url}?lx=lB0JaOh6AX1wGwqxsQIMaA");
 	}
 
 	@Test
@@ -117,6 +119,7 @@ public class FolderResourcesImplTest extends ResourcesImplBase {
 		ContainerDestination containerDestination = new ContainerDestination();
 		containerDestination.setDestinationType(DestinationType.FOLDER);
 
-		folderResource.moveFolder(123L, containerDestination);
+		Folder folder = folderResource.moveFolder(123L, containerDestination);
+		assertTrue(folder.getId() == 4509918431602564L);
 	}
 }

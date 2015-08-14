@@ -27,6 +27,9 @@ import com.smartsheet.api.FolderResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
 import com.smartsheet.api.internal.util.QueryUtil;
+import com.smartsheet.api.models.enums.FolderCopyInclusion;
+import com.smartsheet.api.models.enums.FolderSkipRemapExclusion;
+import com.smartsheet.api.models.enums.SourceInclusion;
 
 /**
  * This is the implementation of the FolderResources.
@@ -227,7 +230,7 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
      */
     public Folder moveFolder(long folderId, ContainerDestination containerDestination) throws SmartsheetException {
 
-        String path = "folders/" + folderId + "/copy";
+        String path = "folders/" + folderId + "/move";
         return this.createResource(path, Folder.class, containerDestination);
     }
 }

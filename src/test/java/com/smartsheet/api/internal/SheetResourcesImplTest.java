@@ -29,6 +29,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.*;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.junit.Before;
 import org.junit.Test;
@@ -355,5 +356,24 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		assertTrue(newPublish.getReadWriteEnabled());
 		assertEquals("http://somedomain.com", newPublish.getReadOnlyLiteUrl());
 		
+	}
+
+	@Test
+	public void testCopySheet() throws SmartsheetException, IOException {
+		server.setResponseBody(new File("src/test/resources/copySheet.json"));
+		ContainerDestination containerDestination = new ContainerDestination();
+		containerDestination.setDestinationType(DestinationType.FOLDER);
+
+		Sheet sheet = sheetResource.copySheet(123L, containerDestination, null);
+		assertEquals(sheet.getName(), "newSheetName");
+	}
+
+	@Test
+	public void testMoveSheet() throws SmartsheetException, IOException {
+		server.setResponseBody(new File("src/test/resources/moveSheet.json"));
+		ContainerDestination containerDestination = new ContainerDestination();
+		containerDestination.setDestinationType(DestinationType.FOLDER);
+
+		Sheet sheet = sheetResource.moveSheet(123L, containerDestination);
 	}
 }

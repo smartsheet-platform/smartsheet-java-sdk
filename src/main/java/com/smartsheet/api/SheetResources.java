@@ -27,6 +27,7 @@ import java.util.EnumSet;
 import java.util.Set;
 
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.*;
 
 /**
  * <p>This interface provides methods to access Sheet resources.</p>
@@ -403,4 +404,45 @@ public interface SheetResources {
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public SheetPublish updatePublishStatus(long id, SheetPublish publish) throws SmartsheetException;
+
+	/**
+	 * Creates a copy of the specified sheet.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/copy
+	 *
+	 * Exceptions:
+	 *   IllegalArgumentException : if folder is null
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param sheetId the sheet id
+	 * @param containerDestination describes the destination container
+	 * @param includes optional parameters to include
+	 * @return the sheet
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public Sheet copySheet(long sheetId, ContainerDestination containerDestination, EnumSet<SheetCopyInclusion> includes) throws SmartsheetException;
+
+	/**
+	 * Moves the specified Sheet to another location.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/move
+	 *
+	 * Exceptions:
+	 *   IllegalArgumentException : if folder is null
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param sheetId the folder id
+	 * @param containerDestination describes the destination container
+	 * @return the sheet
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public Sheet moveSheet(long sheetId, ContainerDestination containerDestination) throws SmartsheetException;
 }
