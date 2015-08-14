@@ -4,6 +4,7 @@ import com.smartsheet.api.InvalidRequestException;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.DiscussionInclusion;
 import org.junit.Before;
 import org.junit.Test;
 

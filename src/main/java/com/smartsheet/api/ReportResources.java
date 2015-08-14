@@ -22,6 +22,7 @@ package com.smartsheet.api;
  */
 
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.ReportInclusion;
 
 import java.io.OutputStream;
 import java.util.EnumSet;

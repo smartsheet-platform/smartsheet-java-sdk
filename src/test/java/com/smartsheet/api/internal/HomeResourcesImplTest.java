@@ -31,6 +31,7 @@ import java.util.EnumSet;
 import java.util.List;
 
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.SourceInclusion;
 import org.junit.Before;
 import org.junit.Test;
 

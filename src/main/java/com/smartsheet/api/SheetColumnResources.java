@@ -26,7 +26,7 @@ import java.util.EnumSet;
 import java.util.List;
 
 import com.smartsheet.api.models.Column;
-import com.smartsheet.api.models.ColumnInclusion;
+import com.smartsheet.api.models.enums.ColumnInclusion;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 

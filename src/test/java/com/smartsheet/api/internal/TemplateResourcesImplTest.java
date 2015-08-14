@@ -33,7 +33,7 @@ import org.junit.Test;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.AccessLevel;
+import com.smartsheet.api.models.enums.AccessLevel;
 import com.smartsheet.api.models.Template;
 
 public class TemplateResourcesImplTest extends ResourcesImplBase {

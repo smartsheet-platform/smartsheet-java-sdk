@@ -21,6 +21,8 @@ package com.smartsheet.api.internal;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.AttachmentParentType;
+import com.smartsheet.api.models.enums.AttachmentType;
 import org.junit.Before;
 import org.junit.Test;
 

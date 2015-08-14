@@ -20,8 +20,9 @@
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetBuilder;
 import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.internal.oauth.OAuthFlowImpl;
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.ColumnType;
+import com.smartsheet.api.models.enums.SourceInclusion;
 import com.smartsheet.api.oauth.AuthorizationResult;
 import com.smartsheet.api.oauth.OAuthFlow;
 import com.smartsheet.api.oauth.OAuthFlowBuilder;

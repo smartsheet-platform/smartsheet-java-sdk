@@ -1,5 +1,7 @@
 package com.smartsheet.api.models;
 
+import com.smartsheet.api.models.enums.DestinationType;
+
 public class ContainerDestination extends NamedModel<Long>{
 
     /** Represents the destination type when a Sheet or Folder is moved, or when a Sheet, Folder, or Workspace is copied.. */

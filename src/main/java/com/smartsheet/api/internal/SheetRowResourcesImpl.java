@@ -27,6 +27,10 @@ import java.util.HashMap;
 import com.smartsheet.api.*;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.ObjectExclusion;
+import com.smartsheet.api.models.enums.RowCopyInclusion;
+import com.smartsheet.api.models.enums.RowInclusion;
+import com.smartsheet.api.models.enums.RowMoveInclusion;
 
 /**
  * This is the implementation of the SheetRowResources.

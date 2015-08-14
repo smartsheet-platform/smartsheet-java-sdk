@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.UserStatus;
 import org.junit.Before;
 import org.junit.Test;
 

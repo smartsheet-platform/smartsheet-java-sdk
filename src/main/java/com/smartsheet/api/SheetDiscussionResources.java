@@ -2,7 +2,7 @@ package com.smartsheet.api;
 
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Discussion;
-import com.smartsheet.api.models.DiscussionInclusion;
+import com.smartsheet.api.models.enums.DiscussionInclusion;
 import com.smartsheet.api.models.PaginationParameters;
 
 import java.io.File;

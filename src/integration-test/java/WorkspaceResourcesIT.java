@@ -18,16 +18,14 @@
  * %[license]
  */
 import com.smartsheet.api.Smartsheet;
-import com.smartsheet.api.SmartsheetBuilder;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
-import com.smartsheet.api.oauth.Token;
+import com.smartsheet.api.models.enums.AccessLevel;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.List;
 
 import static org.junit.Assert.*;

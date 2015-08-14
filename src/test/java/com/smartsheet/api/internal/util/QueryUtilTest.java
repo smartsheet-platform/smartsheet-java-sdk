@@ -20,7 +20,7 @@ package com.smartsheet.api.internal.util;
  * %[license]
  */
 
-import com.smartsheet.api.models.ObjectInclusion;
+import com.smartsheet.api.models.enums.ObjectInclusion;
 import org.junit.Test;
 
 import java.util.HashMap;

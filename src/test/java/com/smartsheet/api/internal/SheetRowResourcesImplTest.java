@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.EnumSet;
 
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.*;
 import org.junit.Before;
 import org.junit.Test;
 

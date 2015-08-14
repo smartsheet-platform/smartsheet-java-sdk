@@ -20,6 +20,8 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import com.smartsheet.api.models.enums.AccessLevel;
+
 /**
  * Represents the Workspace object which is an area in which sheets, reports, templates and sub-folders can be 
  * organized, similar to a folder.

@@ -25,6 +25,7 @@ package com.smartsheet.api;
 import java.util.EnumSet;
 
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.SourceInclusion;
 
 /**
  * <p>This interface provides methods to access Folder resources.</p>

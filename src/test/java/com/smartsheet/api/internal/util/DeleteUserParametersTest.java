@@ -21,13 +21,7 @@ package com.smartsheet.api.internal.util;
  */
 
 import com.smartsheet.api.models.DeleteUserParameters;
-import com.smartsheet.api.models.ObjectInclusion;
 import org.junit.Test;
-
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

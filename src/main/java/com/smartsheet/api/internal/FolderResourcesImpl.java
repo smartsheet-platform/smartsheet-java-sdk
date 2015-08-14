@@ -28,7 +28,7 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.enums.FolderCopyInclusion;
-import com.smartsheet.api.models.enums.FolderSkipRemapExclusion;
+import com.smartsheet.api.models.enums.FolderRemapExclusion;
 import com.smartsheet.api.models.enums.SourceInclusion;
 
 /**
@@ -197,7 +197,7 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 	 * @return the folder
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public Folder copyFolder(long folderId, ContainerDestination containerDestination, EnumSet<FolderCopyInclusion> includes, EnumSet<FolderSkipRemapExclusion> skipRemap) throws SmartsheetException {
+	public Folder copyFolder(long folderId, ContainerDestination containerDestination, EnumSet<FolderCopyInclusion> includes, EnumSet<FolderRemapExclusion> skipRemap) throws SmartsheetException {
 
         String path = "folders/" + folderId + "/copy";
         HashMap<String, Object> parameters = new HashMap<String, Object>();

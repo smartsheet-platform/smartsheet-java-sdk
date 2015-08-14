@@ -23,6 +23,7 @@ package com.smartsheet.api.models;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import com.smartsheet.api.models.enums.ColumnTag;
 import org.junit.Before;
 import org.junit.Test;
 

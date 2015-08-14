@@ -24,8 +24,8 @@ import com.smartsheet.api.FavoriteResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.FavoriteType;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;

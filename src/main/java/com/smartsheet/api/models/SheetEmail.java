@@ -21,6 +21,8 @@ package com.smartsheet.api.models;
  */
 
 
+import com.smartsheet.api.models.enums.SheetEmailFormat;
+
 import java.util.List;
 
 /**

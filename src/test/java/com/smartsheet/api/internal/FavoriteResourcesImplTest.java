@@ -20,7 +20,7 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.FavoriteType;
+import com.smartsheet.api.models.enums.FavoriteType;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Favorite;
 import com.smartsheet.api.models.PaginationParameters;

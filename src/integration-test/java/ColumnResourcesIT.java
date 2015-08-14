@@ -20,6 +20,8 @@
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.ColumnInclusion;
+import com.smartsheet.api.models.enums.ColumnType;
 import org.junit.Before;
 import org.junit.Test;
 

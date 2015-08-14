@@ -28,7 +28,7 @@ import com.smartsheet.api.*;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Column;
-import com.smartsheet.api.models.ColumnInclusion;
+import com.smartsheet.api.models.enums.ColumnInclusion;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 

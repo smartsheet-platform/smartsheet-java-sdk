@@ -21,6 +21,9 @@ import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetBuilder;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.ColumnInclusion;
+import com.smartsheet.api.models.enums.ColumnType;
+import com.smartsheet.api.models.enums.Symbol;
 import com.smartsheet.api.oauth.Token;
 
 import java.io.IOException;

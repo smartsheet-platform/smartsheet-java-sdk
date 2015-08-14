@@ -27,6 +27,8 @@ import java.util.EnumSet;
 import java.util.List;
 
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.ColumnInclusion;
+import com.smartsheet.api.models.enums.ColumnType;
 import org.junit.Before;
 import org.junit.Test;
 

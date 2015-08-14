@@ -20,7 +20,7 @@
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Home;
-import com.smartsheet.api.models.SourceInclusion;
+import com.smartsheet.api.models.enums.SourceInclusion;
 import org.junit.Before;
 import org.junit.Test;
 

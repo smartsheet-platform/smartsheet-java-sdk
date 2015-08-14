@@ -26,6 +26,8 @@ import com.smartsheet.api.ShareResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.ReportInclusion;
+
 import java.io.OutputStream;
 import java.util.EnumSet;
 import java.util.HashMap;

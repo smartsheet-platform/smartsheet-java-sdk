@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.AccessLevel;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -30,9 +30,7 @@ import com.smartsheet.api.HomeResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.Home;
-import com.smartsheet.api.models.SourceInclusion;
-
-import javax.management.Query;
+import com.smartsheet.api.models.enums.SourceInclusion;
 
 /**
  * This is the implementation of the HomeResources.

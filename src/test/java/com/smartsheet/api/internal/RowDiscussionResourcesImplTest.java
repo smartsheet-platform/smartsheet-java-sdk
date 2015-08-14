@@ -4,7 +4,7 @@ import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Discussion;
-import com.smartsheet.api.models.DiscussionInclusion;
+import com.smartsheet.api.models.enums.DiscussionInclusion;
 import com.smartsheet.api.models.PaginationParameters;
 import org.junit.Before;
 import org.junit.Test;

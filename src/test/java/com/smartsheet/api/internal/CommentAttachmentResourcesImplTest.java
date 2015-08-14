@@ -1,12 +1,11 @@
 package com.smartsheet.api.internal;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.models.*;
-import junit.framework.TestCase;
+import com.smartsheet.api.models.enums.AttachmentParentType;
+import com.smartsheet.api.models.enums.AttachmentSubType;
+import com.smartsheet.api.models.enums.AttachmentType;
 import org.junit.Before;
 import org.junit.Test;
 
