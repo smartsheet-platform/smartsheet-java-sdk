@@ -135,7 +135,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 */
 	@Deprecated
 	public void deleteRow(long sheetId, long rowId) throws SmartsheetException {
-		this.deleteResource("sheets/" + sheetId + "/rows/" + rowId, Row.class);
+		throw new UnsupportedOperationException("Replaced by deleteRows()");
 	}
 
 	/**
@@ -172,6 +172,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	}
 
 	/**
+	 * @deprecated as of API V2.0.2, replaced by {@link #sendRows(long, MultiRowEmail)}
 	 * Send a row via email to the designated recipients.
 	 *
 	 * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/emails
@@ -189,8 +190,30 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 * @param email the row email
 	 * @throws SmartsheetException the smartsheet exception
 	 */
+	@Deprecated
 	public void sendRow(long sheetId, long rowId, RowEmail email) throws SmartsheetException {
-		this.createResource("sheets/" + sheetId + "/rows/" + rowId + "/emails", RowEmail.class, email);
+		throw new UnsupportedOperationException("Replaced by sendRows()");
+	}
+
+	/**
+	 * Send a row via email to the designated recipients.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/emails
+	 *
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param sheetId the id of the sheet
+	 * @param email the multi row email
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public void sendRows(long sheetId, MultiRowEmail email) throws SmartsheetException {
+		this.createResource("sheets/" + sheetId + "/rows/emails", MultiRowEmail.class, email);
 	}
 
 	/**

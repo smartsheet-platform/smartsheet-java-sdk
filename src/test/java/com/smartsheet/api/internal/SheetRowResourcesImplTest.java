@@ -100,13 +100,13 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
 	}
 
     @Test
-    public void testSendRow() throws SmartsheetException, IOException {
+    public void testSendRows() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/sendRow.json"));
 
         RecipientEmail recipient = new RecipientEmail();
         recipient.setEmail("johndoe@smartsheet.com");
 
-        RowEmail email = new RowEmail();
+        MultiRowEmail email = new MultiRowEmail();
 
         List<Recipient> to = new ArrayList<Recipient>();
         to.add(recipient);
@@ -118,7 +118,7 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
         email.setIncludeDiscussions(true);
         email.setCcMe(true);
 
-        sheetRowResource.sendRow(1234L, 5678L, email);
+        sheetRowResource.sendRows(1234L, email);
     }
 
     @Test
