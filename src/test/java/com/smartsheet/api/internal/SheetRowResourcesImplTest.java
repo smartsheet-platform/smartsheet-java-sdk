@@ -22,12 +22,11 @@ package com.smartsheet.api.internal;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.EnumSet;
+import java.util.*;
 
 import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.*;
+import org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -101,12 +100,6 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
 	}
 
     @Test
-    public void testDeleteRow() throws SmartsheetException, IOException {
-        server.setResponseBody(new File("src/test/resources/deleteRow.json"));
-        sheetRowResource.deleteRow(1234L, 6789L);
-    }
-
-    @Test
     public void testSendRow() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/sendRow.json"));
 
@@ -146,7 +139,7 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testMoveRow() throws SmartsheetException, IOException {
+    public void testMoveRows() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/moveRow.json"));
         CopyOrMoveRowDirective copyOrMoveRowDirective = new CopyOrMoveRowDirective();
         CopyOrMoveRowDestination copyOrMoveRowDestination = new CopyOrMoveRowDestination();
@@ -160,7 +153,7 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testCopyRow() throws SmartsheetException, IOException {
+    public void testCopyRows() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/moveRow.json"));
         CopyOrMoveRowDirective copyOrMoveRowDirective = new CopyOrMoveRowDirective();
         CopyOrMoveRowDestination copyOrMoveRowDestination = new CopyOrMoveRowDestination();
@@ -171,5 +164,16 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
         rowIds.add(145417762563972L);
         copyOrMoveRowDirective.setRowIds(rowIds);
         sheetRowResource.copyRows(2258256056870788L, EnumSet.of(RowCopyInclusion.ATTACHMENTS), false, copyOrMoveRowDirective);
+    }
+
+    @Test
+    public void testDeleteRows() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/deleteRow.json"));
+
+        Set<Long> rowIds = new HashSet<Long>();
+        rowIds.add(123456789L);
+        rowIds.add(987654321L);
+
+        List<Long> ids = sheetRowResource.deleteRows(123L, rowIds, true);
     }
 }

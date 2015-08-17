@@ -407,7 +407,7 @@ public abstract class AbstractResources {
 		List<T> obj = null;
 		switch (response.getStatusCode()) { 
 			case 200: 
-				obj = this.smartsheet.getJsonSerializer().deserializeList(objectClass, 
+				obj = this.smartsheet.getJsonSerializer().deserializeList(objectClass,
 						response.getEntity().getContent());
 				break;
 			default:
@@ -461,7 +461,7 @@ public abstract class AbstractResources {
 
 	/**
 	 * Delete a resource from Smartsheet REST API.
-	 * 
+	 *
 	 * Exceptions:
 	 *   IllegalArgumentException : if any argument is null, or path is empty string
 	 *   InvalidRequestException : if there is any problem with the REST API request
@@ -479,21 +479,61 @@ public abstract class AbstractResources {
 	protected <T> void deleteResource(String path, Class<T> objectClass) throws SmartsheetException {
 		Util.throwIfNull(path, objectClass);
 		Util.throwIfEmpty(path);
-		
+
 		HttpRequest request;
 		request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.DELETE);
 		HttpResponse response = this.smartsheet.getHttpClient().request(request);
 
 		switch (response.getStatusCode()) {
 			case 200:
-				this.smartsheet.getJsonSerializer().deserializeResult(objectClass, 
+				this.smartsheet.getJsonSerializer().deserializeResult(objectClass,
 						response.getEntity().getContent());
 				break;
-			default: 
-				handleError(response); 
+			default:
+				handleError(response);
 		}
-		
+
 		smartsheet.getHttpClient().releaseConnection();
+	}
+
+	/**
+	 * Delete resources and return a list from Smartsheet REST API.
+	 *
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null, or path is empty string
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param <T> the generic type
+	 * @param path the relative path of the resource
+	 * @param objectClass the resource object class
+	 * @return List of ids deleted
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	protected <T> List<T> deleteListResources(String path, Class<T> objectClass) throws SmartsheetException {
+		Util.throwIfNull(path, objectClass);
+		Util.throwIfEmpty(path);
+
+		Result<List<T>> obj = null;
+		HttpRequest request;
+		request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.DELETE);
+		HttpResponse response = this.smartsheet.getHttpClient().request(request);
+
+		switch (response.getStatusCode()) {
+			case 200:
+				obj = this.smartsheet.getJsonSerializer().deserializeListResult(objectClass,
+						response.getEntity().getContent());
+				break;
+			default:
+				handleError(response);
+		}
+
+		smartsheet.getHttpClient().releaseConnection();
+		return obj.getResult();
 	}
 
 	/**

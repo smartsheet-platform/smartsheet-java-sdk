@@ -20,12 +20,11 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import java.util.List;
-import java.util.EnumSet;
-import java.util.HashMap;
+import java.util.*;
 
 import com.smartsheet.api.*;
 import com.smartsheet.api.internal.util.QueryUtil;
+import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.ObjectExclusion;
 import com.smartsheet.api.models.enums.RowCopyInclusion;
@@ -114,6 +113,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	}
 
 	/**
+	 * @deprecated as of API 2.0.2 release, replaced by {@link #deleteRows(long, Set, boolean)}
 	 * Delete a row.
 	 *
 	 * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/rows/{rowId}
@@ -133,8 +133,42 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 * @param rowId the row id
 	 * @throws SmartsheetException the smartsheet exception
 	 */
+	@Deprecated
 	public void deleteRow(long sheetId, long rowId) throws SmartsheetException {
 		this.deleteResource("sheets/" + sheetId + "/rows/" + rowId, Row.class);
+	}
+
+	/**
+	 * Deletes one or more row(s) from the Sheet specified in the URL.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/rows/{rowId}
+	 * Parameters: - id : the ID of the row
+	 *
+	 * Returns: None
+	 *
+	 * Exceptions:
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param sheetId the sheet id
+	 * @param rowIds the row ids
+	 * @param ignoreRowsNotFound boolean for ignoring row ids not found
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public List<Long> deleteRows(long sheetId, Set<Long> rowIds, boolean ignoreRowsNotFound) throws SmartsheetException {
+		Util.throwIfNull(rowIds);
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+		String path = "sheets/" + sheetId + "/rows/";
+		parameters.put("ids", QueryUtil.generateCommaSeparatedList(rowIds));
+		parameters.put("ignoreRowsNotFound", ignoreRowsNotFound);
+
+		path += QueryUtil.generateUrl(null, parameters);
+
+		return this.deleteListResources(path, Long.class);
 	}
 
 	/**

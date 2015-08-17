@@ -24,6 +24,7 @@ package com.smartsheet.api;
 
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 
 import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.ObjectExclusion;
@@ -117,6 +118,29 @@ public interface SheetRowResources {
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public void sendRow(long sheetId, long rowId, RowEmail email) throws SmartsheetException;
+
+	/**
+	 * Deletes one or more row(s) from the Sheet specified in the URL.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/rows/{rowId}
+	 * Parameters: - id : the ID of the row
+	 *
+	 * Returns: None
+	 *
+	 * Exceptions:
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param sheetId the sheet id
+	 * @param rowIds the row ids
+	 * @param ignoreRowsNotFound boolean for ignoring row ids not found
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public List<Long> deleteRows(long sheetId, Set<Long> rowIds, boolean ignoreRowsNotFound) throws SmartsheetException;
 
 	/**
 	 * Update rows.
