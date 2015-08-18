@@ -20,12 +20,13 @@
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
-import com.smartsheet.api.models.enums.AccessLevel;
+import com.smartsheet.api.models.enums.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -44,6 +45,7 @@ public class WorkspaceResourcesIT extends ITResourcesImpl{
     @Test
     public void testWorkspaceMethods() throws IOException, SmartsheetException {
         testCreateWorkspace();
+        testCopyWorkspace();
         testShareWorkspace();
         testGetWorkspace();
         testListWorkspaces();
@@ -58,6 +60,15 @@ public class WorkspaceResourcesIT extends ITResourcesImpl{
         workspaceId = newWorkspace.getId();
         assertEquals("New Test Workspace", newWorkspace.getName());
         assertEquals(AccessLevel.OWNER, newWorkspace.getAccessLevel());
+    }
+
+    public void testCopyWorkspace() throws SmartsheetException, IOException {
+
+        ContainerDestination destination = new ContainerDestination.AddContainerDestinationBuilder().setNewName("New Copied workspace").build();
+
+        Workspace workspace = smartsheet.workspaceResources().copyWorkspace(workspaceId, destination, EnumSet.of(WorkspaceCopyInclusion.ALL), EnumSet.of(WorkspaceRemapExclusion.CELLLINKS));
+        assertEquals(workspace.getName(), "New Copied workspace");
+        deleteWorkspace(workspace.getId());
     }
 
     public void testShareWorkspace() throws IOException, SmartsheetException {

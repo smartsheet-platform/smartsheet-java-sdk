@@ -25,10 +25,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -50,10 +47,10 @@ public class RowResourcesIT extends ITResourcesImpl{
         testAddRows();
         testGetRow();
         testCopyRow();
-        testSendRow();
+        testSendRows();
         testUpdateRows();
         testMoveRow();
-        testDeleteRow();
+        testDeleteRows();
     }
 
     public void testAddRows() throws SmartsheetException, IOException {
@@ -142,26 +139,32 @@ public class RowResourcesIT extends ITResourcesImpl{
         smartsheet.sheetResources().rowResources().moveRows(sheet.getId(), EnumSet.of(RowMoveInclusion.ATTACHMENTS, RowMoveInclusion.DISCUSSIONS), false, directive);
     }
 
-    public void testSendRow() throws SmartsheetException, IOException {
+    public void testSendRows() throws SmartsheetException, IOException {
+        // Specify individual recipient.
+        RecipientEmail recipientEmail = new RecipientEmail.AddRecipientEmailBuilder().setEmail("john.doe@smartsheet.com").build();
+
+
         List<Recipient> recipients = new ArrayList<Recipient>();
-        RecipientEmail recipientEmail = new RecipientEmail.AddRecipientEmailBuilder().setEmail("jane.doe@smartsheet.com").build();
-        //RecipientGroup recipientGroup = new RecipientGroup.AddRecipientGroupBuilder().setGroupId(1234L).build();
-
-        //List<Recipient> recipients = Arrays.asList(recipientEmail, recipientGroup);
-
         recipients.add(recipientEmail);
-        FormatDetails formatDetails = new FormatDetails();
-        formatDetails.setPaperSize(PaperSize.A0);
 
-        RowEmail email = new RowEmail.AddRowEmailBuilder().setSendTo(recipients).setSubject("Check these rows out!").setMessage("Here are the rows I mentioned in our meeting").setCcMe(false).setIncludeAttachments(true).setIncludeDiscussions(true).build();
+        MultiRowEmail multiRowEmail = new MultiRowEmail.AddMultiRowEmailBuilder()
+                                        .setSendTo(recipients)
+                                        .setSubject("some subject")
+                                        .setMessage("some message")
+                                        .setCcMe(false)
+                                        .setRowIds(Arrays.asList(newRows.get(0).getId()))
+                                        .setColumnIds(Arrays.asList(addedColumn.getId()))
+                                        .setIncludeAttachments(false)
+                                        .setIncludeDiscussions(false)
+                                        .build();
 
-        //smartsheet.reportResources().sendReport(reportsWrapper.getData().get(0).getId(), email);
-        smartsheet.sheetResources().rowResources().sendRow(sheet.getId(), newRows.get(0).getId(), email);
+
+        smartsheet.sheetResources().rowResources().sendRows(sheet.getId(),multiRowEmail);
     }
 
-    public void testDeleteRow() throws SmartsheetException, IOException {
-        //testAddRows();
-        //smartsheet.sheetResources().rowResources().deleteRow(sheet.getId(), newRows.get(0).getId());
+    public void testDeleteRows() throws SmartsheetException, IOException {
+        testAddRows();
+        smartsheet.sheetResources().rowResources().deleteRows(sheet.getId(), new HashSet(Arrays.asList(newRows.get(0).getId())), true);
 
         //clean up
         deleteSheet(sheet.getId());

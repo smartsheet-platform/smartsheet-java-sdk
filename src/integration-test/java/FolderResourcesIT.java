@@ -20,6 +20,9 @@
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.DestinationType;
+import com.smartsheet.api.models.enums.FolderCopyInclusion;
+import com.smartsheet.api.models.enums.FolderRemapExclusion;
 import com.smartsheet.api.models.enums.SourceInclusion;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,6 +57,8 @@ public class FolderResourcesIT extends ITResourcesImpl {
         testListFoldersInWorkspace();
         testUpdateFolder();
         testGetFolder();
+        testCopyFolder();
+        testMoveFolder();
         testDeleteFolder();
     }
 
@@ -119,8 +124,22 @@ public class FolderResourcesIT extends ITResourcesImpl {
         assertEquals("New Folder in Folder By Aditi", folder.getName());
     }
 
+    public void testCopyFolder() throws SmartsheetException, IOException {
+        ContainerDestination destination = new ContainerDestination.AddContainerDestinationBuilder().setDestinationType(DestinationType.FOLDER).setDestinationId(newFolderWorkspace.getId()).setNewName("New Copied folder").build();
+        Folder folder1 = smartsheet.folderResources().copyFolder(newFolderHome.getId(), destination, null, null);
+        Folder folder2 = smartsheet.folderResources().copyFolder(newFolderHome.getId(), destination, EnumSet.of(FolderCopyInclusion.ALL), EnumSet.of(FolderRemapExclusion.CELLLINKS));
+        smartsheet.folderResources().deleteFolder(folder1.getId());
+        smartsheet.folderResources().deleteFolder(folder2.getId());
+    }
+
+    public void testMoveFolder() throws SmartsheetException, IOException {
+        ContainerDestination destination = new ContainerDestination.AddContainerDestinationBuilder().setDestinationType(DestinationType.FOLDER).setDestinationId(newFolderWorkspace.getId()).build();
+        Folder folder1 = smartsheet.folderResources().moveFolder(newFolderHome.getId(), destination);
+        smartsheet.folderResources().deleteFolder(folder1.getId());
+    }
+
     public void testDeleteFolder() throws SmartsheetException, IOException {
-        smartsheet.folderResources().deleteFolder(newFolderHome.getId());
+        //smartsheet.folderResources().deleteFolder(newFolderHome.getId());
         deleteWorkspace(workspace.getId());
     }
 }

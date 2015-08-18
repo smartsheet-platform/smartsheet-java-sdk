@@ -77,10 +77,10 @@ public interface SheetRowResources {
 	public Row getRow(long sheetId, long rowId, EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException;
 
 	/**
+	 * @deprecated as of API 2.0.2 release, replaced by {@link #deleteRows(long, Set, boolean)}
 	 * Delete a row.
 	 *
 	 * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/rows/{rowId}
-	 *
 	 * Parameters: - id : the ID of the row
 	 *
 	 * Returns: None
@@ -97,6 +97,7 @@ public interface SheetRowResources {
 	 * @param rowId the row id
 	 * @throws SmartsheetException the smartsheet exception
 	 */
+	@Deprecated
 	public void deleteRow(long sheetId, long rowId) throws SmartsheetException;
 
 	/**
@@ -159,6 +160,7 @@ public interface SheetRowResources {
 	 * @param sheetId the sheet id
 	 * @param rowIds the row ids
 	 * @param ignoreRowsNotFound boolean for ignoring row ids not found
+	 * @return a list of deleted rows
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Long> deleteRows(long sheetId, Set<Long> rowIds, boolean ignoreRowsNotFound) throws SmartsheetException;

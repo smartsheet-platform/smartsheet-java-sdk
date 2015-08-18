@@ -28,7 +28,7 @@ public class ContainerDestination extends NamedModel<Long>{
     private DestinationType destinationType;
 
     /** Represents the destination id when a Sheet or Folder is moved, or when a Sheet, Folder, or Workspace is copied.. */
-    long destinationId;
+    Long destinationId;
 
     /** Represents the new name when a Sheet or Folder is moved, or when a Sheet, Folder, or Workspace is copied.. */
     String newName;
@@ -44,7 +44,7 @@ public class ContainerDestination extends NamedModel<Long>{
 
     /**
      * Sets the type for the folder
-     * @param destinationType
+     * @param destinationType the destination type
      */
     public void setDestinationType(DestinationType destinationType) {
         this.destinationType = destinationType;
@@ -55,15 +55,15 @@ public class ContainerDestination extends NamedModel<Long>{
      *
      * @return the destination id
      */
-    public long getDestinationId() {
+    public Long getDestinationId() {
         return destinationId;
     }
 
     /**
      * Sets the id for the folder
-     * @param destinationId
+     * @param destinationId the destination id
      */
-    public void setDestinationId(long destinationId) {
+    public void setDestinationId(Long destinationId) {
         this.destinationId = destinationId;
     }
 
@@ -77,10 +77,97 @@ public class ContainerDestination extends NamedModel<Long>{
     }
 
     /**
-     * Sets the name for the folder
-     * @param newName
+     * Sets the name for the destination
+     * @param newName the new name
      */
     public void setNewName(String newName) {
         this.newName = newName;
+    }
+
+    /**
+     * A convenience class to generate a comment with the appropriate fields for adding it to a sheet.
+     */
+    public static class AddContainerDestinationBuilder {
+
+        /** Represents the destination type when a Sheet or Folder is moved, or when a Sheet, Folder, or Workspace is copied.. */
+        private DestinationType destinationType;
+
+        /** Represents the destination id when a Sheet or Folder is moved, or when a Sheet, Folder, or Workspace is copied.. */
+        Long destinationId;
+
+        /** Represents the new name when a Sheet or Folder is moved, or when a Sheet, Folder, or Workspace is copied.. */
+        String newName;
+
+        /**
+         * Gets the destination type when copying or moving a Sheet or a Folder.
+         *
+         * @return the destination type
+         */
+        public DestinationType getDestinationType() {
+            return destinationType;
+        }
+
+        /**
+         * Sets the type for the folder
+         * @param destinationType the destination type
+         * @return the builder
+         */
+        public AddContainerDestinationBuilder setDestinationType(DestinationType destinationType) {
+            this.destinationType = destinationType;
+            return this;
+        }
+
+        /**
+         * Gets the destination id when copying or moving a Sheet or a Folder.
+         *
+         * @return the destination id
+         */
+        public Long getDestinationId() {
+            return destinationId;
+        }
+
+        /**
+         * Sets the id for the folder
+         * @param destinationId the destination id
+         * @return the builder
+         */
+        public AddContainerDestinationBuilder setDestinationId(Long destinationId) {
+            this.destinationId = destinationId;
+            return this;
+        }
+
+        /**
+         * Gets the destination name when copying or moving a Sheet or a Folder.
+         *
+         * @return the new name
+         */
+        public String getNewName() {
+            return newName;
+        }
+
+        /**
+         * Sets the name for the folder
+         * @param newName the new name for destination
+         * @return the builder
+         */
+        public AddContainerDestinationBuilder setNewName(String newName) {
+            this.newName = newName;
+            return this;
+        }
+
+        /**
+         * Builds the comment.
+         *
+         * @return the comment
+         */
+        public ContainerDestination build() {
+
+            ContainerDestination destination = new ContainerDestination();
+            destination.destinationId = destinationId;
+            destination.destinationType = destinationType;
+            destination.newName = newName;
+
+            return destination;
+        }
     }
 }

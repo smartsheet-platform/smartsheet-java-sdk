@@ -96,6 +96,7 @@ public interface RowDiscussionResources {
      * @param contentType the type of file
      * @return the created discussion
      * @throws SmartsheetException the smartsheet exception
+     * @throws IOException is there is an I/O exception
      */
     public Discussion createDiscussionWithAttachment(long sheetId, long rowId, Discussion discussion, File file, String contentType) throws SmartsheetException, IOException;
 }

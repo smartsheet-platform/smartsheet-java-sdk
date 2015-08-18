@@ -50,6 +50,7 @@ public class DiscussionResourcesIT extends ITResourcesImpl{
         testGetAllDiscussions();
         testGetDiscussion();
         testDeleteDiscussion();
+        testCreateDiscussionWithAttachmentOnRow();
     }
 
     public void testCreateDiscussionOnSheet() throws SmartsheetException, IOException {
@@ -78,7 +79,25 @@ public class DiscussionResourcesIT extends ITResourcesImpl{
         Comment comment = new Comment.AddCommentBuilder().setText("This is a test comment").build();
 
         Discussion discussion = new Discussion.CreateDiscussionBuilder().setTitle("New Discussion").setComment(comment).build();
-        newDiscussionRow = smartsheet.sheetResources().rowResources().discussionResources().createDiscussion(sheet.getId(), row.getId(), discussion);
+        Discussion newDiscussionWithAttachment = smartsheet.sheetResources().rowResources().discussionResources().createDiscussion(sheet.getId(), row.getId(), discussion);
+
+        assertNotNull(newDiscussionWithAttachment);
+    }
+
+    public void testCreateDiscussionWithAttachmentOnRow() throws SmartsheetException, IOException {
+
+        //create sheet
+        Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
+
+        //add rows
+        row = addRows(sheet.getId());
+
+        //create comment to add to discussion
+        Comment comment = new Comment.AddCommentBuilder().setText("This is a test comment").build();
+
+        Discussion discussion = new Discussion.CreateDiscussionBuilder().setTitle("New Discussion").setComment(comment).build();
+        File file = new File("src/integration-test/resources/small-text.txt");
+        newDiscussionRow = smartsheet.sheetResources().rowResources().discussionResources().createDiscussionWithAttachment(sheet.getId(), row.getId(), discussion, file, "text/plain");
 
         assertNotNull(newDiscussionRow);
     }

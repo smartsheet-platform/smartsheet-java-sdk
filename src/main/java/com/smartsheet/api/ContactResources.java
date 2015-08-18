@@ -44,7 +44,7 @@ public interface ContactResources {
      *
      * @param parameters the pagination parameters
      * @return the contacts as a paged list
-     * @throws SmartsheetException
+     * @throws SmartsheetException if there is any other error during the operation
      */
     public PagedResult<Contact> listContacts(PaginationParameters parameters) throws SmartsheetException;
 }

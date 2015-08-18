@@ -30,6 +30,7 @@ import static org.junit.Assert.assertTrue;
 
 public class ContactResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
+    String contactId;
 
     @Before
     public void setUp() throws Exception {
@@ -37,15 +38,20 @@ public class ContactResourcesIT extends ITResourcesImpl{
     }
 
     @Test
-    public void testGetContact() throws SmartsheetException, IOException {
-//        Contact contact = smartsheet.contactResources().getContact("Aditi Nioding");
-//        assertEquals(contact.getName(), "Aditi Nioding");
+    public void testContactMethods() throws SmartsheetException, IOException {
+        testListContacts();
+        testGetContact();
     }
 
-    @Test
+    public void testGetContact() throws SmartsheetException, IOException {
+        Contact contact = smartsheet.contactResources().getContact(contactId);
+        assertTrue(contact.getName().length() > 0);
+    }
+
     public void testListContacts() throws SmartsheetException, IOException {
-//        PagedResult<Contact> contacts = smartsheet.contactResources().listContacts(new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build());
-//        assertEquals(contacts.getData().get(0).getName(), "David Davidson");
-//        assertTrue(contacts.getTotalCount() == 2);
+        PagedResult<Contact> contacts = smartsheet.contactResources().listContacts(new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build());
+        //assertEquals(contacts.getData().get(0).getName(), "David Davidson");
+        assertTrue(contacts.getTotalCount() > 0);
+        contactId = contacts.getData().get(0).getId();
     }
 }

@@ -157,6 +157,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 * @param sheetId the sheet id
 	 * @param rowIds the row ids
 	 * @param ignoreRowsNotFound boolean for ignoring row ids not found
+	 * @return a list of deleted rows
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public List<Long> deleteRows(long sheetId, Set<Long> rowIds, boolean ignoreRowsNotFound) throws SmartsheetException {

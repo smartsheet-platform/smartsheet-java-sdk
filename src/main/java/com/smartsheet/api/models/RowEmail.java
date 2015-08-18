@@ -27,7 +27,6 @@ import java.util.List;
  */
 public class RowEmail extends Email {
 
-	Email email = new Email() {
 		@Override
 		public List<Recipient> getSendTo() {
 			return super.getSendTo();
@@ -67,7 +66,6 @@ public class RowEmail extends Email {
 		public void setCcMe(Boolean ccMe) {
 			super.setCcMe(ccMe);
 		}
-	};
 
 	/**
 	 * A flag to indicate if attachments should be included in the email.
