@@ -21,11 +21,10 @@ package com.smartsheet.api;
  */
 
 
-
-import java.util.EnumSet;
-
 import com.smartsheet.api.models.Home;
 import com.smartsheet.api.models.enums.SourceInclusion;
+
+import java.util.EnumSet;
 
 /**
  * <p>This interface provides methods to access Home resources.</p>

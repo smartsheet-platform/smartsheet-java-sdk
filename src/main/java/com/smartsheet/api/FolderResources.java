@@ -21,13 +21,15 @@ package com.smartsheet.api;
  */
 
 
-
-import java.util.EnumSet;
-
-import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.ContainerDestination;
+import com.smartsheet.api.models.Folder;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.enums.FolderCopyInclusion;
 import com.smartsheet.api.models.enums.FolderRemapExclusion;
 import com.smartsheet.api.models.enums.SourceInclusion;
+
+import java.util.EnumSet;
 
 /**
  * <p>This interface provides methods to access Folder resources.</p>

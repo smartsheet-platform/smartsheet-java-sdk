@@ -20,16 +20,19 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import java.util.EnumSet;
-import java.util.HashMap;
-
 import com.smartsheet.api.FolderResources;
 import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.models.*;
 import com.smartsheet.api.internal.util.QueryUtil;
+import com.smartsheet.api.models.ContainerDestination;
+import com.smartsheet.api.models.Folder;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.enums.FolderCopyInclusion;
 import com.smartsheet.api.models.enums.FolderRemapExclusion;
 import com.smartsheet.api.models.enums.SourceInclusion;
+
+import java.util.EnumSet;
+import java.util.HashMap;
 
 /**
  * This is the implementation of the FolderResources.

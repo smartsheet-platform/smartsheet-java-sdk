@@ -20,18 +20,16 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
-
+import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.*;
-import org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.internal.http.DefaultHttpClient;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 import static org.junit.Assert.*;
 

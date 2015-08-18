@@ -21,13 +21,11 @@ package com.smartsheet.api.internal;
  */
 
 
-
-import com.smartsheet.api.*;
-import com.smartsheet.api.internal.util.QueryUtil;
-import com.smartsheet.api.models.*;
-
-import java.util.EnumSet;
-import java.util.HashMap;
+import com.smartsheet.api.AssociatedAttachmentResources;
+import com.smartsheet.api.DiscussionCommentResources;
+import com.smartsheet.api.DiscussionResources;
+import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.models.Comment;
 
 /**
  * This is the implementation of the DiscussionResources.

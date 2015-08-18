@@ -20,8 +20,14 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertNotNull;
+import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.internal.http.DefaultHttpClient;
+import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.*;
+import com.smartsheet.api.models.format.VerticalAlignment;
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,17 +35,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-import com.smartsheet.api.SheetResources;
-import com.smartsheet.api.models.*;
-import com.smartsheet.api.models.enums.*;
-import org.apache.commons.io.output.ByteArrayOutputStream;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
-import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.format.VerticalAlignment;
+import static org.junit.Assert.*;
 
 
 public class SheetResourcesImplTest extends ResourcesImplBase {

@@ -20,13 +20,13 @@ package com.smartsheet.api.internal.json;
  * %[license]
  */
 
-import java.io.IOException;
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.smartsheet.api.models.format.Format;
+
+import java.io.IOException;
 
 public class FormatDeserializer extends JsonDeserializer<Format> {
 

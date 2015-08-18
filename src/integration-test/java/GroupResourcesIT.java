@@ -17,6 +17,7 @@
  * limitations under the License.
  * %[license]
  */
+
 import com.smartsheet.api.AuthorizationException;
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
@@ -28,7 +29,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

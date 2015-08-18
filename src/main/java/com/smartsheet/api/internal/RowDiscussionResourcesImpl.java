@@ -4,11 +4,10 @@ import com.smartsheet.api.RowDiscussionResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
-import com.smartsheet.api.models.Comment;
-import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Discussion;
-import com.smartsheet.api.models.enums.DiscussionInclusion;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.enums.DiscussionInclusion;
 
 import java.io.File;
 import java.io.FileInputStream;

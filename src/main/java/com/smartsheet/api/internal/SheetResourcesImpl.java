@@ -20,20 +20,20 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
+import com.smartsheet.api.*;
+import com.smartsheet.api.internal.http.HttpMethod;
+import com.smartsheet.api.internal.http.HttpRequest;
+import com.smartsheet.api.internal.util.QueryUtil;
+import com.smartsheet.api.internal.util.Util;
+import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.*;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Set;
-
-import com.smartsheet.api.*;
-import com.smartsheet.api.internal.http.HttpMethod;
-import com.smartsheet.api.internal.http.HttpRequest;
-import com.smartsheet.api.internal.util.Util;
-import com.smartsheet.api.internal.util.QueryUtil;
-import com.smartsheet.api.models.*;
-import com.smartsheet.api.models.enums.*;
 
 /**
  * This is the implementation of the SheetResources.

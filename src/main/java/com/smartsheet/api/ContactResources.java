@@ -20,7 +20,9 @@ package com.smartsheet.api;
  * %[license]
  */
 
-import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.Contact;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
 
 public interface ContactResources {
 

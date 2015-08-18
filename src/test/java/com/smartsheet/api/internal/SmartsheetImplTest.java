@@ -20,12 +20,11 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import static org.junit.Assert.assertNotNull;
-
+import com.smartsheet.api.internal.http.DefaultHttpClient;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.smartsheet.api.internal.http.DefaultHttpClient;
+import static org.junit.Assert.assertNotNull;
 
 public class SmartsheetImplTest extends ResourcesImplBase {
 

@@ -22,17 +22,21 @@ package com.smartsheet.api.internal;
  */
 
 
-
-import java.util.EnumSet;
-import java.util.HashMap;
-
 import com.smartsheet.api.ShareResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WorkspaceFolderResources;
 import com.smartsheet.api.WorkspaceResources;
 import com.smartsheet.api.internal.util.QueryUtil;
-import com.smartsheet.api.models.*;
-import com.smartsheet.api.models.enums.*;
+import com.smartsheet.api.models.ContainerDestination;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.Workspace;
+import com.smartsheet.api.models.enums.SourceInclusion;
+import com.smartsheet.api.models.enums.WorkspaceCopyInclusion;
+import com.smartsheet.api.models.enums.WorkspaceRemapExclusion;
+
+import java.util.EnumSet;
+import java.util.HashMap;
 
 /**
  * This is the implementation of the WorkspaceResources.

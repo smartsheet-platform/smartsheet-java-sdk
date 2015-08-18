@@ -21,12 +21,11 @@ package com.smartsheet.api.internal;
  */
 
 
+import com.smartsheet.api.AttachmentResources;
+import com.smartsheet.api.models.Attachment;
 
 import java.io.File;
 import java.io.InputStream;
-
-import com.smartsheet.api.AttachmentResources;
-import com.smartsheet.api.models.Attachment;
 
 /**
  * @deprecated As of release 2.0

@@ -21,11 +21,10 @@ package com.smartsheet.api.internal;
  */
 
 
-
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.WorkspaceFolderResources;
-import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Folder;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 
 /**

@@ -2,7 +2,9 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.Attachment;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.enums.AttachmentParentType;
 import com.smartsheet.api.models.enums.AttachmentSubType;
 import com.smartsheet.api.models.enums.AttachmentType;
@@ -12,9 +14,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /*
  * #[license]

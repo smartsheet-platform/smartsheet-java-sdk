@@ -21,7 +21,10 @@ package com.smartsheet.api;
  * %[license]
  */
 
-import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.Report;
+import com.smartsheet.api.models.SheetEmail;
 import com.smartsheet.api.models.enums.ReportInclusion;
 
 import java.io.OutputStream;

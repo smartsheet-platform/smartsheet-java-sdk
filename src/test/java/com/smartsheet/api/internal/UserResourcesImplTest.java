@@ -20,9 +20,12 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.internal.http.DefaultHttpClient;
+import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.UserStatus;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,13 +33,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.smartsheet.api.models.*;
-import com.smartsheet.api.models.enums.UserStatus;
-import org.junit.Before;
-import org.junit.Test;
-
-import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.internal.http.DefaultHttpClient;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class UserResourcesImplTest extends ResourcesImplBase {
 

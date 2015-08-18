@@ -22,7 +22,9 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.ContactResources;
 import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.Contact;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
 
 /**
  * This is the implementation of the ContactResources.

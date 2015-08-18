@@ -21,12 +21,12 @@ package com.smartsheet.api.oauth;
  */
 
 
-import java.net.URISyntaxException;
-import java.util.EnumSet;
-
 import com.smartsheet.api.InvalidRequestException;
 import com.smartsheet.api.internal.http.HttpClientException;
 import com.smartsheet.api.internal.json.JSONSerializerException;
+
+import java.net.URISyntaxException;
+import java.util.EnumSet;
 
 /**
  * <p>OAuthFlow interface provides methods to do the OAuth2 authorization.</p>

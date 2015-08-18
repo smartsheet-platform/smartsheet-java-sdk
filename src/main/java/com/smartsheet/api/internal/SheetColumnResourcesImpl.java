@@ -20,17 +20,17 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.EnumSet;
-
 import com.smartsheet.api.*;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Column;
-import com.smartsheet.api.models.enums.ColumnInclusion;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.enums.ColumnInclusion;
+
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * This is the implementation of the SheetColumnResources.

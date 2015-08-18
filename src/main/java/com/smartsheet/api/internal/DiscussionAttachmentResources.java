@@ -21,11 +21,10 @@ package com.smartsheet.api.internal;
  */
 
 
+import com.smartsheet.api.models.Attachment;
 
 import java.io.File;
 import java.io.InputStream;
-
-import com.smartsheet.api.models.Attachment;
 
 /**
  * This is the implementation of the AssociatedAttachmentResources for discussions.

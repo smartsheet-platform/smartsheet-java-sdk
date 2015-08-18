@@ -21,16 +21,15 @@ package com.smartsheet.api;
  */
 
 
-
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Set;
-
 import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.ObjectExclusion;
 import com.smartsheet.api.models.enums.RowCopyInclusion;
 import com.smartsheet.api.models.enums.RowInclusion;
 import com.smartsheet.api.models.enums.RowMoveInclusion;
+
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * This interface provides methods to access row resources that are associated to a sheet object.

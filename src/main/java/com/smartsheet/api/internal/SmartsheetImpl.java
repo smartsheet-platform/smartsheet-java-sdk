@@ -21,18 +21,16 @@ package com.smartsheet.api.internal;
  */
 
 
-
-import java.io.IOException;
-import java.net.URI;
-import java.util.concurrent.atomic.AtomicReference;
 import com.smartsheet.api.*;
-import com.smartsheet.api.CommentAttachmentResources;
-import com.smartsheet.api.DiscussionAttachmentResources;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.http.HttpClient;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.internal.util.Util;
+
+import java.io.IOException;
+import java.net.URI;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * This is the implementation of Smartsheet interface.

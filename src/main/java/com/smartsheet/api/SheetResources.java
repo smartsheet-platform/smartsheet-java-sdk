@@ -21,13 +21,12 @@ package com.smartsheet.api;
  */
 
 
+import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.*;
 
 import java.io.OutputStream;
 import java.util.EnumSet;
 import java.util.Set;
-
-import com.smartsheet.api.models.*;
-import com.smartsheet.api.models.enums.*;
 
 /**
  * <p>This interface provides methods to access Sheet resources.</p>

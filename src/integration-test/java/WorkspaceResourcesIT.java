@@ -17,10 +17,13 @@
  * limitations under the License.
  * %[license]
  */
+
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
-import com.smartsheet.api.models.enums.*;
+import com.smartsheet.api.models.enums.AccessLevel;
+import com.smartsheet.api.models.enums.WorkspaceCopyInclusion;
+import com.smartsheet.api.models.enums.WorkspaceRemapExclusion;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -21,9 +21,8 @@ package com.smartsheet.api;
  */
 
 
-
-import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Group;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 
 /**

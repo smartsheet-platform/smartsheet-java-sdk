@@ -21,22 +21,9 @@ package com.smartsheet.api.internal;
  */
 
 
-
-import java.io.*;
-import java.lang.reflect.InvocationTargetException;
-import java.net.URI;
-import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.List;
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.smartsheet.api.AuthorizationException;
-import com.smartsheet.api.InvalidRequestException;
-import com.smartsheet.api.ResourceNotFoundException;
-import com.smartsheet.api.ServiceUnavailableException;
-import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.SmartsheetRestException;
+import com.smartsheet.api.*;
 import com.smartsheet.api.internal.http.HttpEntity;
 import com.smartsheet.api.internal.http.HttpMethod;
 import com.smartsheet.api.internal.http.HttpRequest;
@@ -49,8 +36,13 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import com.smartsheet.api.models.Attachment;
-import com.smartsheet.api.models.PagedResult;
+
+import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * This is the base class of the Smartsheet REST API resources.

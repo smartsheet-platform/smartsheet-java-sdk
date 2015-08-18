@@ -20,8 +20,6 @@ package com.smartsheet.api;
  * %[license]
  */
 
-import com.smartsheet.api.models.Contact;
-
 /**
  * <p>This interface is the entry point of the Smartsheet SDK, it provides convenient methods to get XXXResources instances
  * for accessing different types of resources.</p>

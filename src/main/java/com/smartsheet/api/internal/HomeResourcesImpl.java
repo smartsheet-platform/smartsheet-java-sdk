@@ -21,16 +21,15 @@ package com.smartsheet.api.internal;
  */
 
 
-
-import java.util.EnumSet;
-import java.util.HashMap;
-
 import com.smartsheet.api.HomeFolderResources;
 import com.smartsheet.api.HomeResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.Home;
 import com.smartsheet.api.models.enums.SourceInclusion;
+
+import java.util.EnumSet;
+import java.util.HashMap;
 
 /**
  * This is the implementation of the HomeResources.
