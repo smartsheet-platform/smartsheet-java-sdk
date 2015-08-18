@@ -23,6 +23,8 @@ import com.smartsheet.api.models.Discussion;
 import com.smartsheet.api.models.enums.DiscussionInclusion;
 import com.smartsheet.api.models.PaginationParameters;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.EnumSet;
 /**
  * <p>This interface provides methods to access Row Discussion resources.</p>
@@ -73,4 +75,27 @@ public interface RowDiscussionResources {
      * @throws SmartsheetException the smartsheet exception
      */
     public PagedResult<Discussion> listDiscussions(long sheetId, long rowId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException;
+
+    /**
+     * Create discussion on a row.
+     *
+     * It mirrors to the following Smartsheet REST API method: /sheets/{sheetId}/rows/{rowId}/discussions
+     *
+     * Exceptions:
+     *   IllegalArgumentException : if any argument is null
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param sheetId the sheet ID
+     * @param rowId the row ID
+     * @param discussion the comment to add, limited to the following required attributes: text
+     * @param file the file to be attached
+     * @param contentType the type of file
+     * @return the created discussion
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Discussion createDiscussionWithAttachment(long sheetId, long rowId, Discussion discussion, File file, String contentType) throws SmartsheetException, IOException;
 }

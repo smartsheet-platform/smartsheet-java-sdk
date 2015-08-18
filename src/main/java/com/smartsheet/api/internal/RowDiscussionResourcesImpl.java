@@ -3,11 +3,16 @@ package com.smartsheet.api.internal;
 import com.smartsheet.api.RowDiscussionResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
+import com.smartsheet.api.internal.util.Util;
+import com.smartsheet.api.models.Comment;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Discussion;
 import com.smartsheet.api.models.enums.DiscussionInclusion;
 import com.smartsheet.api.models.PaginationParameters;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.EnumSet;
 import java.util.HashMap;
 
@@ -60,6 +65,33 @@ public class RowDiscussionResourcesImpl extends AbstractResources implements Row
         return this.createResource("sheets/" + sheetId + "/rows/" + rowId + "/discussions", Discussion.class, discussion);
     }
 
+    /**
+     * Create discussion on a row.
+     *
+     * It mirrors to the following Smartsheet REST API method: /sheets/{sheetId}/rows/{rowId}/discussions
+     *
+     * Exceptions:
+     *   IllegalArgumentException : if any argument is null
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param sheetId the sheet ID
+     * @param rowId the row ID
+     * @param discussion the comment to add, limited to the following required attributes: text
+     * @param file the file to be attached
+     * @param contentType the type of file
+     * @return the created discussion
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Discussion createDiscussionWithAttachment(long sheetId, long rowId, Discussion discussion, File file, String contentType) throws SmartsheetException, IOException{
+        String path = "sheets/" + sheetId + "/rows/" + rowId + "/discussions";
+        Util.throwIfNull(sheetId, discussion, file, contentType);
+
+        return this.createResourceWithAttachment(path, Discussion.class, discussion, "discussion", new FileInputStream(file), contentType, file.getName());
+    }
     /**
      * Gets a list of all Discussions associated with the specified Row.
      *
