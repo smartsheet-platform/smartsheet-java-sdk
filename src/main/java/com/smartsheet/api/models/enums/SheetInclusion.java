@@ -31,6 +31,7 @@ public enum SheetInclusion{
 	FILTERS			("filters"),
 	COLUMN_TYPE		("columnType"),
 	SOURCE			("source"),
+	ROW_PERMALINK	("rowPermalink"),
 	;
 
 	String inclusion;

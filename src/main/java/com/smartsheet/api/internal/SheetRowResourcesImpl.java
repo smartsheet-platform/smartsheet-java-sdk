@@ -135,7 +135,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 */
 	@Deprecated
 	public void deleteRow(long sheetId, long rowId) throws SmartsheetException {
-		throw new UnsupportedOperationException("Replaced by deleteRows()");
+		this.deleteResource("sheets/" + sheetId + "/rows/" + rowId, Row.class);
 	}
 
 	/**
@@ -192,7 +192,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 */
 	@Deprecated
 	public void sendRow(long sheetId, long rowId, RowEmail email) throws SmartsheetException {
-		throw new UnsupportedOperationException("Replaced by sendRows()");
+		this.createResource("sheets/" + sheetId + "/rows/" + rowId + "/emails", RowEmail.class, email);
 	}
 
 	/**
@@ -307,6 +307,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 
 
 	/**
+	 * @deprecated replaced by {@link #updateRows(long, List)}
 	 * Update the values of the Cells in a Row.
 	 *
 	 * It mirrors to the following Smartsheet REST API method: PUT /row/{id}/cells
@@ -327,6 +328,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 * ResourceNotFoundException rather than returning null).
 	 * @throws SmartsheetException the smartsheet exception
 	 */
+	@Deprecated
 	public List<Cell> updateCells(long rowId, List<Cell> cells) throws SmartsheetException {
 		return this.putAndReceiveList("row/" + rowId + "/cells", cells, Cell.class);
 	}

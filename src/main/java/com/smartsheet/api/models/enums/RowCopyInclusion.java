@@ -30,6 +30,7 @@ public enum RowCopyInclusion {
     DISCUSSIONS         ("discussions"),
     ATTACHMENTS         ("attachments"),
     CHILDREN            ("children"),
+    ALL                 ("all"),
     ;
 
     String inclusion;

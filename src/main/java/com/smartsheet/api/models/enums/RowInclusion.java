@@ -30,6 +30,7 @@ public enum RowInclusion {
 	FILTERS			("filters"),
 	COLUMN_TYPE		("columnType"),
 	COLUMNS			("columns"),
+	ROW_PERMALINK	("rowPermalink"),
 	;
 
 	String inclusion;
