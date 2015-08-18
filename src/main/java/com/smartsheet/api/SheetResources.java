@@ -445,4 +445,24 @@ public interface SheetResources {
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Sheet moveSheet(long sheetId, ContainerDestination containerDestination) throws SmartsheetException;
+
+	/**
+	 * Creates an Update Request for the specified Row(s) within the Sheet.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/updaterequests
+	 *
+	 * Exceptions:
+	 *   - IllegalArgumentException : if any argument is null
+	 *   - InvalidRequestException : if there is any problem with the REST API request
+	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   - SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param sheetId the sheet id
+	 * @param email the email
+	 * @return the update request object
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public UpdateRequest createUpdateRequest(long sheetId, MultiRowEmail email) throws SmartsheetException;
 }

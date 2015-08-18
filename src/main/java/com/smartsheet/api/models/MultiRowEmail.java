@@ -21,7 +21,10 @@ package com.smartsheet.api.models;
  */
 
 import java.util.List;
-
+/**
+ * Represents the multi row email object.
+ * @see <a href="http://help.smartsheet.com/customer/portal/articles/504773-sending-Sheets-Rows-via-Email">Sending Sheets & Rows via Email Help</a>
+ */
 public class MultiRowEmail extends RowEmail {
 
     /**
