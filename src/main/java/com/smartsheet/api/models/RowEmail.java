@@ -80,6 +80,29 @@ public class RowEmail extends Email {
 	private Boolean includeDiscussions;
 
 	/**
+	 * Represents IDs of the columns to be included.
+	 */
+	private List<Long> columnIds;
+
+	/**
+	 * Gets the IDs of the columns to be included.
+	 *
+	 * @return the colmn ids
+	 */
+	public List<Long> getColumnIds() {
+		return columnIds;
+	}
+
+	/**
+	 * Sets the IDs of the columns to be included.
+	 *
+	 * @param columnIds the column ids
+	 */
+	public void setColumnIds(List<Long> columnIds) {
+		this.columnIds = columnIds;
+	}
+
+	/**
 	 * Gets the flag that indicates if attachments should be included in the email.
 	 *
 	 * @return the include attachments

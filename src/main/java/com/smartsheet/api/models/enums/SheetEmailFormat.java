@@ -34,5 +34,10 @@ public enum SheetEmailFormat {
 	/**
 	 * Represents EXCEL format.
 	 */
-	EXCEL;
+	EXCEL,
+
+	/**
+	 * Represents PDF Gantt format.
+	 */
+	PDF_GANTT;
 }
