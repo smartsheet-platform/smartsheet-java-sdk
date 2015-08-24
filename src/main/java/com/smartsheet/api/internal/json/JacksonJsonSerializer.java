@@ -249,7 +249,7 @@ public class JacksonJsonSerializer implements JsonSerializer{
 		try {
 			// Read the json input stream into a List.
 			rw = OBJECT_MAPPER.readValue(inputStream,
-					OBJECT_MAPPER.getTypeFactory().constructParametricType(PagedResult.class, objectClass));
+					OBJECT_MAPPER.getTypeFactory().constructParametrizedType(PagedResult.class, PagedResult.class, objectClass));
 			// list = OBJECT_MAPPER.readValue(inputStream, new TypeReference<List<T>>() {});
 		} catch (JsonParseException e) {
 			throw new JSONSerializerException(e);
@@ -313,7 +313,7 @@ public class JacksonJsonSerializer implements JsonSerializer{
 
 		try {
 			result = OBJECT_MAPPER.readValue(inputStream,
-					OBJECT_MAPPER.getTypeFactory().constructParametricType(Result.class, objectClass));
+					OBJECT_MAPPER.getTypeFactory().constructParametrizedType(Result.class, Result.class, objectClass));
 		} catch (JsonParseException e) {
 			throw new JSONSerializerException(e);
 		} catch (JsonMappingException e) {
@@ -351,8 +351,9 @@ public class JacksonJsonSerializer implements JsonSerializer{
 		try {
 			result = OBJECT_MAPPER.readValue(
 					inputStream,
-					OBJECT_MAPPER.getTypeFactory().constructParametricType(Result.class,
-							OBJECT_MAPPER.getTypeFactory().constructParametricType(List.class, objectClass)));
+					OBJECT_MAPPER.getTypeFactory().constructParametrizedType(Result.class, Result.class,
+							OBJECT_MAPPER.getTypeFactory().constructParametrizedType(List.class, List.class, objectClass)));;
+
 
 			// result = OBJECT_MAPPER.readValue(inputStream, new TypeReference<Result<List<T>>>() {});
 		} catch (JsonParseException e) {
