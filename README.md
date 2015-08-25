@@ -46,6 +46,12 @@ The documentation can also be downloaded as a jar file [here](http://oss.sonatyp
 ##Example Usage
 
 ```java
+import com.smartsheet.api.*;
+import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.ColumnType;
+import com.smartsheet.api.models.enums.SourceInclusion;
+import com.smartsheet.api.oauth.*;
+
 public static void Sample() throws SmartsheetException{
     // Set the Access Token
     Token token = new Token();
@@ -126,6 +132,15 @@ If you have any questions or issues with this SDK please post on [StackOverflow 
 
 Each specific release is available for download via [Github](https://github.com/smartsheet-platform/smartsheet-java-sdk/tags) or the [Maven repository](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.smartsheet%22%20AND%20a%3A%22smartsheet-sdk-java%22).
 
+**2.0.1**
+
+Added ability to retrieve Contacts.
+Added ability to copy folder/sheet/workspace.
+Added ability to move folder/sheet.
+Added ability to delete multiple rows at once.
+Added ability to send multiple rows at once.
+Added abilty to create update request.
+Added ability to create discussion on row and include file attachment (in a single request).
 
 **2.0.0**
 * Migrated to latest API version 2.0.0
