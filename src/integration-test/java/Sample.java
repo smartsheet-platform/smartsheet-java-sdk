@@ -17,16 +17,10 @@
  * limitations under the License.
  * %[license]
  */
-import com.smartsheet.api.Smartsheet;
-import com.smartsheet.api.SmartsheetBuilder;
-import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.*;
 import com.smartsheet.api.models.*;
-import com.smartsheet.api.models.enums.ColumnType;
-import com.smartsheet.api.models.enums.SourceInclusion;
-import com.smartsheet.api.oauth.AuthorizationResult;
-import com.smartsheet.api.oauth.OAuthFlow;
-import com.smartsheet.api.oauth.OAuthFlowBuilder;
-import com.smartsheet.api.oauth.Token;
+import com.smartsheet.api.models.enums.*;
+import com.smartsheet.api.oauth.*;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
@@ -37,14 +31,13 @@ import java.util.List;
 
 public class Sample {
 
-    public Sample() {
+    public static void main(String[] args) throws SmartsheetException,UnsupportedEncodingException,
+                                                  URISyntaxException, NoSuchAlgorithmException{
+        Sample();
+        OAuthExample();
     }
 
-    public static void main(String[] args) throws SmartsheetException{
-        SampleProgram();
-    }
-
-    public static void SampleProgram() throws SmartsheetException{
+    public static void Sample() throws SmartsheetException{
         // Set the Access Token
         Token token = new Token();
         token.setAccessToken("INSERT_YOUR_TOKEN_HERE");
