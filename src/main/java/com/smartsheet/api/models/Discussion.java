@@ -20,6 +20,8 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import com.smartsheet.api.models.enums.ParentType;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

@@ -20,11 +20,12 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
+import com.smartsheet.api.models.enums.AttachmentType;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class AttachmentTypeTest {
 
@@ -39,8 +40,8 @@ public class AttachmentTypeTest {
 		assertNotNull(AttachmentType.valueOf("LINK"));
 		assertNotNull(AttachmentType.valueOf("BOX_COM"));
 		assertNotNull(AttachmentType.valueOf("DROPBOX"));
-		
-		assertEquals(5,AttachmentType.values().length);
+		assertNotNull(AttachmentType.valueOf("EGNYTE"));
+		assertEquals(6,AttachmentType.values().length);
 	}
 
 }

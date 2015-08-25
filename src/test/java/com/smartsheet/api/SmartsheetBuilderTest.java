@@ -20,14 +20,13 @@ package com.smartsheet.api;
  * %[license]
  */
 
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.smartsheet.api.internal.SmartsheetImpl;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 public class SmartsheetBuilderTest {
 

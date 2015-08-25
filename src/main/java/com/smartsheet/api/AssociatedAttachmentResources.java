@@ -24,7 +24,6 @@ package com.smartsheet.api;
 import com.smartsheet.api.models.Attachment;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
 

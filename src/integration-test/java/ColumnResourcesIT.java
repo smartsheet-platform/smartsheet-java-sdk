@@ -17,9 +17,15 @@
  * limitations under the License.
  * %[license]
  */
+
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.Column;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.Sheet;
+import com.smartsheet.api.models.enums.ColumnInclusion;
+import com.smartsheet.api.models.enums.ColumnType;
 import org.junit.Before;
 import org.junit.Test;
 

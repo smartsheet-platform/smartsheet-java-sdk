@@ -1,16 +1,15 @@
 package com.smartsheet.api.internal;
 
-import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.Comment;
 import com.smartsheet.api.models.Discussion;
-import com.smartsheet.api.models.DiscussionInclusion;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.enums.DiscussionInclusion;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.EnumSet;
 
 import static org.junit.Assert.assertEquals;
@@ -45,7 +44,7 @@ public class RowDiscussionResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testCreateDiscussionOnRow() throws SmartsheetException, IOException {
+    public void testCreateDiscussion() throws Exception {
         server.setResponseBody(new File("src/test/resources/createDiscussionOnRow.json"));
 
         Discussion discussion = new Discussion();
@@ -56,7 +55,18 @@ public class RowDiscussionResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testGetRowDiscussions() throws SmartsheetException, IOException {
+    public void testCreateDiscussionWithAttachment() throws Exception {
+        server.setResponseBody(new File("src/test/resources/createDiscussionOnRow.json"));
+        File file = new File("src/test/resources/large_sheet.pdf");
+        Comment comment = new Comment.AddCommentBuilder().setText("New comment").build();
+        Discussion discussion = new Discussion.CreateDiscussionBuilder().setComment(comment).setTitle("Some title").build();
+
+        Discussion newDiscussion = discussionRowResources.createDiscussionWithAttachment(123L, 456L, discussion, file, "application/pdf");
+        assertEquals(newDiscussion.getTitle(), "This is a new discussion");
+    }
+
+    @Test
+    public void testListDiscussions() throws Exception {
         server.setResponseBody(new File("src/test/resources/getRowDiscussions.json"));
 
         Discussion discussion = new Discussion();
@@ -65,6 +75,5 @@ public class RowDiscussionResourcesImplTest extends ResourcesImplBase {
         PagedResult<Discussion> newDiscussion = discussionRowResources.listDiscussions(1234L, 5678L, parameters, EnumSet.of(DiscussionInclusion.COMMENTS));
         assertEquals("Lincoln", newDiscussion.getData().get(0).getTitle());
         assertTrue(newDiscussion.getData().get(0).getId() == 3138415114905476L);
-
     }
 }

@@ -21,10 +21,15 @@ package com.smartsheet.api;
  */
 
 
+import com.smartsheet.api.models.ContainerDestination;
+import com.smartsheet.api.models.Folder;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.enums.FolderCopyInclusion;
+import com.smartsheet.api.models.enums.FolderRemapExclusion;
+import com.smartsheet.api.models.enums.SourceInclusion;
 
 import java.util.EnumSet;
-
-import com.smartsheet.api.models.*;
 
 /**
  * <p>This interface provides methods to access Folder resources.</p>
@@ -116,4 +121,46 @@ public interface FolderResources {
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Folder createFolder(long parentFolderId, Folder folder) throws SmartsheetException;
+
+	/**
+	 * Creates a copy of the specified Folder.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/copy
+	 *
+	 * Exceptions:
+	 *   IllegalArgumentException : if folder is null
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param folderId the folder id
+	 * @param containerDestination describes the destination container
+	 * @param includes optional parameters to include
+	 * @param skipRemap optional parameters to exclude
+	 * @return the folder
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public Folder copyFolder(long folderId, ContainerDestination containerDestination, EnumSet<FolderCopyInclusion> includes, EnumSet<FolderRemapExclusion> skipRemap) throws SmartsheetException;
+
+	/**
+	 * Moves the specified Folder to another location.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/move
+	 *
+	 * Exceptions:
+	 *   IllegalArgumentException : if folder is null
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param folderId the folder id
+	 * @param containerDestination describes the destination container
+	 * @return the folder
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public Folder moveFolder(long folderId, ContainerDestination containerDestination) throws SmartsheetException;
 }

@@ -20,21 +20,24 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import static org.junit.Assert.*;
+import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.internal.http.DefaultHttpClient;
+import com.smartsheet.api.models.Group;
+import com.smartsheet.api.models.Group.CreateGroupBuilder;
+import com.smartsheet.api.models.Group.UpdateGroupBuilder;
+import com.smartsheet.api.models.GroupMember;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.smartsheet.api.models.*;
-import org.junit.Before;
-import org.junit.Test;
-
-import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.Group.CreateGroupBuilder;
-import com.smartsheet.api.models.Group.UpdateGroupBuilder;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class GroupResourcesImplTest extends ResourcesImplBase {
 

@@ -20,6 +20,8 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import com.smartsheet.api.models.enums.FavoriteType;
+
 import java.util.ArrayList;
 import java.util.List;
 

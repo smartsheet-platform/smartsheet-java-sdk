@@ -20,12 +20,12 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.smartsheet.api.models.format.Format;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 

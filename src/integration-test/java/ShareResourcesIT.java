@@ -20,6 +20,8 @@
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.AccessLevel;
+import com.smartsheet.api.models.enums.ReportInclusion;
 import org.junit.Before;
 import org.junit.Test;
 

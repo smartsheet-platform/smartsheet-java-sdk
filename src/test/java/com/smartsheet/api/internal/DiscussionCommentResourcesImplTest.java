@@ -3,7 +3,6 @@ package com.smartsheet.api.internal;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.Comment;
-import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 

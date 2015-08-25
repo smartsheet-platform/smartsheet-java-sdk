@@ -20,8 +20,11 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import com.smartsheet.api.models.enums.UserStatus;
+
 /**
  * A profile object that contains the basic fields that most profiles will contain.
+ * @see <a href="http://help.smartsheet.com/customer/portal/articles/520100-user-types">User Types Help</a>
  */
 public class UserProfile extends UserModel {
 	/**
@@ -47,6 +50,114 @@ public class UserProfile extends UserModel {
 		return timeZone;
 	}
 
+	/**
+	 * Represents the admin flag which allows managing users and accounts.
+	 */
+	private Boolean admin;
+
+	/**
+	 * Represents the licensed sheet creator flag which allows creating and owning sheets.
+	 */
+	private Boolean licensedSheetCreator;
+
+	/**
+	 * Represents the resource manager flag which allows the user access to the Resource Manager functionality.
+	 */
+	private Boolean resourceViewer;
+
+	/**
+	 * Represents the group admin flag which allows users to create and modify groups.
+	 */
+	private Boolean groupAdmin;
+
+	/**
+	 * Represents the user status (active, pending, declined).
+	 */
+	private UserStatus status;
+
+	/**
+	 * Gets the admin flag which allows managing users and accounts.
+	 *
+	 * @return the admin
+	 */
+	public Boolean getAdmin() {
+		return admin;
+	}
+
+	/**
+	 * Sets the admin flag which allows managing users and accounts.
+	 *
+	 * @param admin the new admin
+	 */
+	public void setAdmin(Boolean admin) {
+		this.admin = admin;
+	}
+
+	/**
+	 * Gets the licensed sheet creator flag that allows creating and owning sheets.
+	 *
+	 * @return the licensed sheet creator
+	 */
+	public Boolean getLicensedSheetCreator() {
+		return licensedSheetCreator;
+	}
+
+	/**
+	 * Sets the licensed sheet creator flag that allows creating and owning sheets.
+	 *
+	 * @param licensedSheetCreator the new licensed sheet creator
+	 */
+	public void setLicensedSheetCreator(Boolean licensedSheetCreator) {
+		this.licensedSheetCreator = licensedSheetCreator;
+	}
+
+	/**
+	 * Gets the status of the user (active, pending, declined).
+	 *
+	 * @return the status
+	 */
+	public UserStatus getStatus() {
+		return status;
+	}
+
+	/**
+	 * Sets the status of the user.
+	 *
+	 * @param status the new status
+	 */
+	public void setStatus(UserStatus status) {
+		this.status = status;
+	}
+
+	/**
+	 * @return the flag indicating if someone is a resource manager
+	 */
+	public Boolean getResourceViewer() {
+		return resourceViewer;
+	}
+
+	/**
+	 * Sets the resource manager flag.
+	 * @param resourceViewer the flag
+	 */
+	public void setResourceViewer(Boolean resourceViewer) {
+		this.resourceViewer = resourceViewer;
+	}
+
+	/**
+	 *
+	 * @return the flag indicating if the user is able to administer group.
+	 */
+	public Boolean getGroupAdmin() {
+		return groupAdmin;
+	}
+
+	/**
+	 * @param groupAdmin sets the flag that indicates if someone is a groupAdmin
+	 */
+	public void setGroupAdmin(Boolean groupAdmin) {
+		this.groupAdmin = groupAdmin;
+	}
 	/**
 	 * Sets the time zone
 	 * @param timeZone the time zone

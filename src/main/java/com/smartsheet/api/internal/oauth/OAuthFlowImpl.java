@@ -21,41 +21,23 @@ package com.smartsheet.api.internal.oauth;
  */
 
 
+import com.smartsheet.api.InvalidRequestException;
+import com.smartsheet.api.internal.http.*;
+import com.smartsheet.api.internal.json.JSONSerializerException;
+import com.smartsheet.api.internal.json.JsonSerializer;
+import com.smartsheet.api.internal.util.QueryUtil;
+import com.smartsheet.api.internal.util.Util;
+import com.smartsheet.api.oauth.*;
 
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.smartsheet.api.InvalidRequestException;
-import com.smartsheet.api.internal.http.HttpClient;
-import com.smartsheet.api.internal.http.HttpClientException;
-import com.smartsheet.api.internal.http.HttpMethod;
-import com.smartsheet.api.internal.http.HttpRequest;
-import com.smartsheet.api.internal.http.HttpResponse;
-import com.smartsheet.api.internal.json.JSONSerializerException;
-import com.smartsheet.api.internal.json.JsonSerializer;
-import com.smartsheet.api.internal.util.QueryUtil;
-import com.smartsheet.api.internal.util.Util;
-import com.smartsheet.api.oauth.AccessDeniedException;
-import com.smartsheet.api.oauth.AccessScope;
-import com.smartsheet.api.oauth.AuthorizationResult;
-import com.smartsheet.api.oauth.InvalidOAuthClientException;
-import com.smartsheet.api.oauth.InvalidOAuthGrantException;
-import com.smartsheet.api.oauth.InvalidScopeException;
-import com.smartsheet.api.oauth.InvalidTokenRequestException;
-import com.smartsheet.api.oauth.OAuthAuthorizationCodeException;
-import com.smartsheet.api.oauth.OAuthFlow;
-import com.smartsheet.api.oauth.OAuthTokenException;
-import com.smartsheet.api.oauth.Token;
-import com.smartsheet.api.oauth.UnsupportedOAuthGrantTypeException;
-import com.smartsheet.api.oauth.UnsupportedResponseTypeException;
 
 /**
  * Default implementation of OAuthFlow.

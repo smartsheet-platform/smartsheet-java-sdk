@@ -20,13 +20,13 @@ package com.smartsheet.api.internal.util;
  * %[license]
  */
 
-import com.smartsheet.api.models.ObjectInclusion;
+import com.smartsheet.api.models.enums.ObjectInclusion;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Set;
-import java.util.HashSet;
 import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

@@ -20,11 +20,12 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
+import com.smartsheet.api.models.enums.SheetEmailFormat;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class SheetEmailFormatTest {
 
@@ -36,7 +37,7 @@ public class SheetEmailFormatTest {
 	public void test() {
 		assertNotNull(SheetEmailFormat.valueOf("PDF"));
 		assertNotNull(SheetEmailFormat.valueOf("EXCEL"));
-		assertEquals(2,SheetEmailFormat.values().length);
+		assertEquals(3,SheetEmailFormat.values().length);
 	}
 
 }

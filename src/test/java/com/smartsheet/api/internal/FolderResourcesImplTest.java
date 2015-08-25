@@ -20,19 +20,23 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.internal.http.DefaultHttpClient;
+import com.smartsheet.api.models.ContainerDestination;
+import com.smartsheet.api.models.Folder;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.enums.DestinationType;
+import com.smartsheet.api.models.enums.SourceInclusion;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.EnumSet;
 
-import com.smartsheet.api.models.*;
-import org.junit.Before;
-import org.junit.Test;
-
-import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.internal.http.DefaultHttpClient;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class FolderResourcesImplTest extends ResourcesImplBase {
 
@@ -99,7 +103,25 @@ public class FolderResourcesImplTest extends ResourcesImplBase {
 		Folder createdFolder = folderResource.createFolder(123L, newFolder);
 
 		assertEquals(createdFolder.getName(), newFolder.getName());
-
 	}
 
+	@Test
+	public void testCopyFolder() throws Exception {
+		server.setResponseBody(new File("src/test/resources/copyFolder.json"));
+		ContainerDestination containerDestination = new ContainerDestination();
+		containerDestination.setDestinationType(DestinationType.FOLDER);
+
+		Folder folder = folderResource.copyFolder(123L, containerDestination, null, null);
+		assertEquals(folder.getPermalink(), "https://{base_url}?lx=lB0JaOh6AX1wGwqxsQIMaA");
+	}
+
+	@Test
+	public void testMoveFolder() throws Exception {
+		server.setResponseBody(new File("src/test/resources/moveFolder.json"));
+		ContainerDestination containerDestination = new ContainerDestination();
+		containerDestination.setDestinationType(DestinationType.FOLDER);
+
+		Folder folder = folderResource.moveFolder(123L, containerDestination);
+		assertTrue(folder.getId() == 4509918431602564L);
+	}
 }

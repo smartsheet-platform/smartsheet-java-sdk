@@ -21,22 +21,9 @@ package com.smartsheet.api.internal;
  */
 
 
-
-import java.io.*;
-import java.lang.reflect.InvocationTargetException;
-import java.net.URI;
-import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.List;
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.smartsheet.api.AuthorizationException;
-import com.smartsheet.api.InvalidRequestException;
-import com.smartsheet.api.ResourceNotFoundException;
-import com.smartsheet.api.ServiceUnavailableException;
-import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.SmartsheetRestException;
+import com.smartsheet.api.*;
 import com.smartsheet.api.internal.http.HttpEntity;
 import com.smartsheet.api.internal.http.HttpMethod;
 import com.smartsheet.api.internal.http.HttpRequest;
@@ -49,8 +36,13 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import com.smartsheet.api.models.Attachment;
-import com.smartsheet.api.models.PagedResult;
+
+import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * This is the base class of the Smartsheet REST API resources.
@@ -233,20 +225,21 @@ public abstract class AbstractResources {
 	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
 	 *   SmartsheetException : if there is any other error occurred during the operation
 	 *
-	 * @param <T> the generic type
+	 * @param <T> the generic type of object to return/deserialize
+	 * @param <S> the generic type of object to serialize
 	 * @param path the relative path of the resource collections
 	 * @param objectClass the resource object class
 	 * @param object the object to create
 	 * @return the created resource
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	protected <T> T createResource(String path, Class<T> objectClass, T object) throws SmartsheetException {
+	protected <T, S> T createResource(String path, Class<T> objectClass, S object) throws SmartsheetException {
 		Util.throwIfNull(path, object);
 		Util.throwIfEmpty(path);
-		
+
 		HttpRequest request;
 		request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
-		
+
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		this.smartsheet.getJsonSerializer().serialize(object, baos);
 		HttpEntity entity = new HttpEntity();
@@ -256,19 +249,19 @@ public abstract class AbstractResources {
 		request.setEntity(entity);
 
 		HttpResponse response = this.smartsheet.getHttpClient().request(request);
-		
+
 		T obj = null;
-		switch (response.getStatusCode()) { 
+		switch (response.getStatusCode()) {
 			case 200:
-				obj = this.smartsheet.getJsonSerializer().deserializeResult(objectClass, 
+				obj = this.smartsheet.getJsonSerializer().deserializeResult(objectClass,
 						response.getEntity().getContent()).getResult();
 				break;
 			default:
 				handleError(response);
 		}
-		
+
 		smartsheet.getHttpClient().releaseConnection();
-		
+
 		return obj;
 	}
 
@@ -406,7 +399,7 @@ public abstract class AbstractResources {
 		List<T> obj = null;
 		switch (response.getStatusCode()) { 
 			case 200: 
-				obj = this.smartsheet.getJsonSerializer().deserializeList(objectClass, 
+				obj = this.smartsheet.getJsonSerializer().deserializeList(objectClass,
 						response.getEntity().getContent());
 				break;
 			default:
@@ -460,7 +453,7 @@ public abstract class AbstractResources {
 
 	/**
 	 * Delete a resource from Smartsheet REST API.
-	 * 
+	 *
 	 * Exceptions:
 	 *   IllegalArgumentException : if any argument is null, or path is empty string
 	 *   InvalidRequestException : if there is any problem with the REST API request
@@ -478,21 +471,61 @@ public abstract class AbstractResources {
 	protected <T> void deleteResource(String path, Class<T> objectClass) throws SmartsheetException {
 		Util.throwIfNull(path, objectClass);
 		Util.throwIfEmpty(path);
-		
+
 		HttpRequest request;
 		request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.DELETE);
 		HttpResponse response = this.smartsheet.getHttpClient().request(request);
 
 		switch (response.getStatusCode()) {
 			case 200:
-				this.smartsheet.getJsonSerializer().deserializeResult(objectClass, 
+				this.smartsheet.getJsonSerializer().deserializeResult(objectClass,
 						response.getEntity().getContent());
 				break;
-			default: 
-				handleError(response); 
+			default:
+				handleError(response);
 		}
-		
+
 		smartsheet.getHttpClient().releaseConnection();
+	}
+
+	/**
+	 * Delete resources and return a list from Smartsheet REST API.
+	 *
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null, or path is empty string
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param <T> the generic type
+	 * @param path the relative path of the resource
+	 * @param objectClass the resource object class
+	 * @return List of ids deleted
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	protected <T> List<T> deleteListResources(String path, Class<T> objectClass) throws SmartsheetException {
+		Util.throwIfNull(path, objectClass);
+		Util.throwIfEmpty(path);
+
+		Result<List<T>> obj = null;
+		HttpRequest request;
+		request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.DELETE);
+		HttpResponse response = this.smartsheet.getHttpClient().request(request);
+
+		switch (response.getStatusCode()) {
+			case 200:
+				obj = this.smartsheet.getJsonSerializer().deserializeListResult(objectClass,
+						response.getEntity().getContent());
+				break;
+			default:
+				handleError(response);
+		}
+
+		smartsheet.getHttpClient().releaseConnection();
+		return obj.getResult();
 	}
 
 	/**
@@ -549,8 +582,6 @@ public abstract class AbstractResources {
 		
 		return obj;
 	}
-
-
 
 	/**
 	 * Post an object to Smartsheet REST API and receive a CopyOrMoveRowResult object from response.

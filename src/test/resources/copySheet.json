@@ -1,0 +1,10 @@
+{
+  "resultCode": 0,
+  "result": {
+    "id": 4583173393803140,
+    "name": "newSheetName",
+    "accessLevel": "OWNER",
+    "permalink": "https://{base_url}?lx=lB0JaOh6AX1wGwqxsQIMaA"
+  },
+  "message": "SUCCESS"
+}

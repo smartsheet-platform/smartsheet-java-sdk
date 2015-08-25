@@ -19,8 +19,8 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import com.smartsheet.api.*;
 import com.smartsheet.api.DiscussionAttachmentResources;
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Attachment;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;

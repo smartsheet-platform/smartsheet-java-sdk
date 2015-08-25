@@ -20,18 +20,21 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
+import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.internal.http.DefaultHttpClient;
+import com.smartsheet.api.models.Column;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.enums.ColumnInclusion;
+import com.smartsheet.api.models.enums.ColumnType;
+import org.junit.Before;
+import org.junit.Test;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
-
-import com.smartsheet.api.models.*;
-import org.junit.Before;
-import org.junit.Test;
-
-import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.internal.http.DefaultHttpClient;
 
 import static org.junit.Assert.*;
 

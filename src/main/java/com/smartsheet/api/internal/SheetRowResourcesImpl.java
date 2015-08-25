@@ -20,13 +20,19 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import java.util.List;
-import java.util.EnumSet;
-import java.util.HashMap;
-
 import com.smartsheet.api.*;
 import com.smartsheet.api.internal.util.QueryUtil;
+import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.ObjectExclusion;
+import com.smartsheet.api.models.enums.RowCopyInclusion;
+import com.smartsheet.api.models.enums.RowInclusion;
+import com.smartsheet.api.models.enums.RowMoveInclusion;
+
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 /**
  * This is the implementation of the SheetRowResources.
@@ -110,6 +116,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	}
 
 	/**
+	 * @deprecated as of API 2.0.2 release, replaced by {@link #deleteRows(long, Set, boolean)}
 	 * Delete a row.
 	 *
 	 * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/rows/{rowId}
@@ -129,11 +136,47 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 * @param rowId the row id
 	 * @throws SmartsheetException the smartsheet exception
 	 */
+	@Deprecated
 	public void deleteRow(long sheetId, long rowId) throws SmartsheetException {
 		this.deleteResource("sheets/" + sheetId + "/rows/" + rowId, Row.class);
 	}
 
 	/**
+	 * Deletes one or more row(s) from the Sheet specified in the URL.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/rows/{rowId}
+	 * Parameters: - id : the ID of the row
+	 *
+	 * Returns: None
+	 *
+	 * Exceptions:
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param sheetId the sheet id
+	 * @param rowIds the row ids
+	 * @param ignoreRowsNotFound boolean for ignoring row ids not found
+	 * @return a list of deleted rows
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public List<Long> deleteRows(long sheetId, Set<Long> rowIds, boolean ignoreRowsNotFound) throws SmartsheetException {
+		Util.throwIfNull(rowIds);
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+		String path = "sheets/" + sheetId + "/rows/";
+		parameters.put("ids", QueryUtil.generateCommaSeparatedList(rowIds));
+		parameters.put("ignoreRowsNotFound", ignoreRowsNotFound);
+
+		path += QueryUtil.generateUrl(null, parameters);
+
+		return this.deleteListResources(path, Long.class);
+	}
+
+	/**
+	 * @deprecated as of API V2.0.2, replaced by {@link #sendRows(long, MultiRowEmail)}
 	 * Send a row via email to the designated recipients.
 	 *
 	 * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/emails
@@ -151,8 +194,30 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 * @param email the row email
 	 * @throws SmartsheetException the smartsheet exception
 	 */
+	@Deprecated
 	public void sendRow(long sheetId, long rowId, RowEmail email) throws SmartsheetException {
 		this.createResource("sheets/" + sheetId + "/rows/" + rowId + "/emails", RowEmail.class, email);
+	}
+
+	/**
+	 * Send a row via email to the designated recipients.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/emails
+	 *
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param sheetId the id of the sheet
+	 * @param email the multi row email
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public void sendRows(long sheetId, MultiRowEmail email) throws SmartsheetException {
+		this.createResource("sheets/" + sheetId + "/rows/emails", MultiRowEmail.class, email);
 	}
 
 	/**
@@ -246,6 +311,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 
 
 	/**
+	 * @deprecated replaced by {@link #updateRows(long, List)}
 	 * Update the values of the Cells in a Row.
 	 *
 	 * It mirrors to the following Smartsheet REST API method: PUT /row/{id}/cells
@@ -266,6 +332,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 * ResourceNotFoundException rather than returning null).
 	 * @throws SmartsheetException the smartsheet exception
 	 */
+	@Deprecated
 	public List<Cell> updateCells(long rowId, List<Cell> cells) throws SmartsheetException {
 		return this.putAndReceiveList("row/" + rowId + "/cells", cells, Cell.class);
 	}

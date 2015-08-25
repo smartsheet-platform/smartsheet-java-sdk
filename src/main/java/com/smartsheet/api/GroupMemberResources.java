@@ -21,10 +21,9 @@ package com.smartsheet.api;
  */
 
 
+import com.smartsheet.api.models.GroupMember;
 
 import java.util.List;
-
-import com.smartsheet.api.models.GroupMember;
 
 /**
  * <p>This interface provides methods to access Share resources.</p>

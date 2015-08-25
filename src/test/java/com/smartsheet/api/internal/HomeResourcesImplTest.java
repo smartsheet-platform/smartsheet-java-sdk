@@ -20,9 +20,15 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import com.smartsheet.api.HomeFolderResources;
+import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.internal.http.DefaultHttpClient;
+import com.smartsheet.api.models.Home;
+import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.Template;
+import com.smartsheet.api.models.enums.SourceInclusion;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,13 +36,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-import com.smartsheet.api.models.*;
-import org.junit.Before;
-import org.junit.Test;
-
-import com.smartsheet.api.HomeFolderResources;
-import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.internal.http.DefaultHttpClient;
+import static org.junit.Assert.*;
 
 public class HomeResourcesImplTest extends ResourcesImplBase {
 
