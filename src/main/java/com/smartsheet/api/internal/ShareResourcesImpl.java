@@ -20,12 +20,12 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import java.util.List;
-
 import com.smartsheet.api.*;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Share;
+
+import java.util.List;
 
 /**
  * This is the implementation of the ShareResources.

@@ -21,8 +21,7 @@ package com.smartsheet.api;
  */
 
 
-
-import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.Comment;
 
 /**
  * <p>This interface provides methods to access Discussion resources.</p>

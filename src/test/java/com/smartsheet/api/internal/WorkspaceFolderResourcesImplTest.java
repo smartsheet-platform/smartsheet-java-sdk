@@ -20,19 +20,18 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.File;
-import java.io.IOException;
-
+import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.internal.http.DefaultHttpClient;
+import com.smartsheet.api.models.Folder;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.Folder;
+import java.io.File;
+import java.io.IOException;
+
+import static org.junit.Assert.assertEquals;
 
 public class WorkspaceFolderResourcesImplTest extends ResourcesImplBase {
 

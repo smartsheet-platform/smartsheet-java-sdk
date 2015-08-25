@@ -20,16 +20,14 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import static org.junit.Assert.fail;
+import com.smartsheet.api.internal.http.DefaultHttpClient;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.Attachment;
+import static org.junit.Assert.fail;
 
 public class DiscussionAttachmentResourcesTest extends ResourcesImplBase  {
 

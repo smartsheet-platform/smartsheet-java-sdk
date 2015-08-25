@@ -20,11 +20,10 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import org.junit.After;
-import org.junit.Before;
-
 import com.smartsheet.api.HttpTestServer;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
+import org.junit.After;
+import org.junit.Before;
 
 public class ResourcesImplBase {
 

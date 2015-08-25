@@ -21,6 +21,9 @@ import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetBuilder;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.ColumnInclusion;
+import com.smartsheet.api.models.enums.ColumnType;
+import com.smartsheet.api.models.enums.Symbol;
 import com.smartsheet.api.oauth.Token;
 
 import java.io.IOException;
@@ -48,6 +51,11 @@ public class ITResourcesImpl {
         //requires changes for config file
         token.setAccessToken(accessToken);
         smartsheet = new SmartsheetBuilder().setAccessToken(token.getAccessToken()).build();
+
+        //Assume user
+        //Smartsheet smartsheet = new SmartsheetBuilder().setAccessToken(token.getAccessToken()).setAssumedUser("ericyan99@gmail.com").build();
+        //UserProfile user= smartsheet.userResources().getCurrentUser();
+
         return smartsheet;
     }
 

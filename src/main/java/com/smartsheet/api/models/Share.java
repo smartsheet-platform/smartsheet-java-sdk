@@ -20,6 +20,9 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import com.smartsheet.api.models.enums.AccessLevel;
+import com.smartsheet.api.models.enums.ShareType;
+
 /**
  * Represents a Share Object.
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/520104-sharing-sheets">Sharing Sheets</a>

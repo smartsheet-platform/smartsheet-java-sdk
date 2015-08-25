@@ -19,11 +19,12 @@ package com.smartsheet.api.internal;
  * limitations under the License.
  * %[license]
  */
+
 import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.FavoriteType;
-import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Favorite;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.enums.FavoriteType;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,7 +33,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class FavoriteResourcesImplTest extends ResourcesImplBase {
     private FavoriteResourcesImpl favoriteResources;

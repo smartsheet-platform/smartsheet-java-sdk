@@ -21,6 +21,7 @@ package com.smartsheet.api.models;
  */
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.smartsheet.api.models.enums.AccessLevel;
 import com.smartsheet.api.models.format.Format;
 
 import java.util.Date;

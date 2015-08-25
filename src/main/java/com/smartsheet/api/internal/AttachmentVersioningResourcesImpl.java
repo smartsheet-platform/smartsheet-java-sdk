@@ -18,11 +18,13 @@ package com.smartsheet.api.internal;
  * limitations under the License.
  * %[license]
  */
+
 import com.smartsheet.api.*;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Attachment;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

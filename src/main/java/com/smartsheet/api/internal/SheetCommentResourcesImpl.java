@@ -19,7 +19,8 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import com.smartsheet.api.*;
+import com.smartsheet.api.SheetCommentResources;
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Comment;
 /**
  * This is the implementation of the SheetCommentResources.

@@ -21,10 +21,10 @@ package com.smartsheet.api;
  * %[license]
  */
 
-import com.smartsheet.api.models.FavoriteType;
-import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Favorite;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.enums.FavoriteType;
 
 import java.util.List;
 import java.util.Set;

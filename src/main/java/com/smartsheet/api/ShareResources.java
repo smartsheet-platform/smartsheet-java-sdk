@@ -21,12 +21,11 @@ package com.smartsheet.api;
  */
 
 
-
-import java.util.List;
-
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Share;
+
+import java.util.List;
 
 /**
  * <p>This interface provides methods to access Share resources.</p>

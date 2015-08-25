@@ -20,20 +20,6 @@ package com.smartsheet.api.internal.oauth;
  * %[license]
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
-import java.security.NoSuchAlgorithmException;
-import java.util.EnumSet;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
 import com.smartsheet.api.HttpTestServer;
 import com.smartsheet.api.InvalidRequestException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
@@ -42,14 +28,20 @@ import com.smartsheet.api.internal.http.HttpClientException;
 import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
-import com.smartsheet.api.oauth.AccessDeniedException;
-import com.smartsheet.api.oauth.AccessScope;
-import com.smartsheet.api.oauth.InvalidOAuthClientException;
-import com.smartsheet.api.oauth.InvalidScopeException;
-import com.smartsheet.api.oauth.OAuthAuthorizationCodeException;
-import com.smartsheet.api.oauth.OAuthTokenException;
-import com.smartsheet.api.oauth.Token;
-import com.smartsheet.api.oauth.UnsupportedResponseTypeException;
+import com.smartsheet.api.oauth.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
+import java.security.NoSuchAlgorithmException;
+import java.util.EnumSet;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class OAuthFlowImplTest {
 

@@ -17,15 +17,10 @@
  * limitations under the License.
  * %[license]
  */
-import com.smartsheet.api.Smartsheet;
-import com.smartsheet.api.SmartsheetBuilder;
-import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.internal.oauth.OAuthFlowImpl;
+import com.smartsheet.api.*;
 import com.smartsheet.api.models.*;
-import com.smartsheet.api.oauth.AuthorizationResult;
-import com.smartsheet.api.oauth.OAuthFlow;
-import com.smartsheet.api.oauth.OAuthFlowBuilder;
-import com.smartsheet.api.oauth.Token;
+import com.smartsheet.api.models.enums.*;
+import com.smartsheet.api.oauth.*;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
@@ -36,11 +31,10 @@ import java.util.List;
 
 public class Sample {
 
-    public Sample() {
-    }
-
-    public static void main(String[] args) throws SmartsheetException{
+    public static void main(String[] args) throws SmartsheetException,UnsupportedEncodingException,
+                                                  URISyntaxException, NoSuchAlgorithmException{
         SampleProgram();
+        OAuthExample();
     }
 
     public static void SampleProgram() throws SmartsheetException{
@@ -72,11 +66,23 @@ public class Sample {
         System.out.println("Folder ID: " + folder.getId() + ", Folder Name: " + folder.getName());
 
         // Setup checkbox Column Object
-        Column checkboxColumn = new Column.AddColumnToSheetBuilder().setType(ColumnType.CHECKBOX).setTitle("Finished").build();
+        Column checkboxColumn = new Column.AddColumnToSheetBuilder()
+                                        .setType(ColumnType.CHECKBOX)
+                                        .setTitle("Finished")
+                                        .build();
         // Setup text Column Object
-        Column textColumn = new Column.AddColumnToSheetBuilder().setPrimary(true).setTitle("To Do List").setType(ColumnType.TEXT_NUMBER).build();
+        Column textColumn = new Column.AddColumnToSheetBuilder()
+                                        .setPrimary(true)
+                                        .setTitle("To Do List")
+                                        .setType(ColumnType.TEXT_NUMBER)
+                                        .build();
+
         // Add the 2 Columns (flag & text) to a new Sheet Object
-        Sheet sheet = new Sheet.CreateSheetBuilder().setName("New Sheet").setColumns(Arrays.asList(checkboxColumn, textColumn)).build();
+        Sheet sheet = new Sheet.CreateSheetBuilder()
+                                .setName("New Sheet")
+                                .setColumns(Arrays.asList(checkboxColumn, textColumn))
+                                .build();
+
         // Send the request to create the sheet @ Smartsheet
         sheet = smartsheet.sheetResources().createSheet(sheet);
     }
@@ -90,8 +96,10 @@ public class Sample {
             NoSuchAlgorithmException {
 
         // Setup the information that is necessary to request an authorization code
-        OAuthFlow oauth = new OAuthFlowBuilder().setClientId("YOUR_CLIENT_ID").setClientSecret("YOUR_CLIENT_SECRET").
-                setRedirectURL("https://YOUR_DOMAIN.com/").build();
+        OAuthFlow oauth = new OAuthFlowBuilder()
+                                .setClientId("YOUR_CLIENT_ID")
+                                .setClientSecret("YOUR_CLIENT_SECRET")
+                                .setRedirectURL("https://YOUR_DOMAIN.com/").build();
 
         // Create the URL that the user will go to grant authorization to the application
         String url = oauth.newAuthorizationURL(EnumSet.of(com.smartsheet.api.oauth.AccessScope.CREATE_SHEETS,

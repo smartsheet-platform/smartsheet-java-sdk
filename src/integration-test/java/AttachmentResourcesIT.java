@@ -20,6 +20,7 @@
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.AttachmentType;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -45,6 +46,8 @@ public class AttachmentResourcesIT extends ITResourcesImpl{
 
     @Test
     public void testAttachmentMethods() throws SmartsheetException, IOException {
+        //smartsheet.setAssumedUser("ericyan99@gmail.com");
+        //UserProfile user= smartsheet.userResources().getCurrentUser();
         Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
         sheetId = sheet.getId();
 

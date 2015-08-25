@@ -21,13 +21,12 @@ package com.smartsheet.api.internal;
  */
 
 
-
-import com.smartsheet.api.GroupResources;
 import com.smartsheet.api.GroupMemberResources;
+import com.smartsheet.api.GroupResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.Util;
-import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Group;
+import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 
 /**

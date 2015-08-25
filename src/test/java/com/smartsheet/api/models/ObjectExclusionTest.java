@@ -20,6 +20,7 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import com.smartsheet.api.models.enums.ObjectExclusion;
 import org.junit.Before;
 import org.junit.Test;
 

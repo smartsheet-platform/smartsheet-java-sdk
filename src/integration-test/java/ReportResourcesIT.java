@@ -20,13 +20,15 @@
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.PaperSize;
+import com.smartsheet.api.models.enums.ReportInclusion;
+import com.smartsheet.api.models.enums.SheetEmailFormat;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -51,7 +53,7 @@ public class ReportResourcesIT extends ITResourcesImpl{
     }
 
     public void testGetReport() throws SmartsheetException, IOException {
-        if (reportsWrapper != null) {
+        if (reportsWrapper.getData().size() > 0) {
             Report report = smartsheet.reportResources().getReport(reportsWrapper.getData().get(0).getId(), EnumSet.of(ReportInclusion.ATTACHMENTS, ReportInclusion.DISCUSSIONS), 1, 1);
             smartsheet.reportResources().getReport(reportsWrapper.getData().get(0).getId(), null, null, null);
             assertNotNull(report);
@@ -65,14 +67,14 @@ public class ReportResourcesIT extends ITResourcesImpl{
     }
 
     public void testGetReportAsExcel() throws SmartsheetException, IOException{
-        if (reportsWrapper != null) {
+        if (reportsWrapper.getData().size() > 0) {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         smartsheet.reportResources().getReportAsExcel(reportsWrapper.getData().get(0).getId(), output);
        assertNotNull(output);}
     }
 
     public void testGetReportAsCsv() throws SmartsheetException, IOException{
-        if (reportsWrapper != null) {
+        if (reportsWrapper.getData().size() > 0) {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         smartsheet.reportResources().getReportAsCsv(reportsWrapper.getData().get(0).getId(), output);
         assertNotNull(output);}
@@ -92,8 +94,10 @@ public class ReportResourcesIT extends ITResourcesImpl{
 
         SheetEmail email = new SheetEmail.AddSheetEmailBuilder().setFormat(SheetEmailFormat.PDF).setFormatDetails(formatDetails).setSubject("Check this report out!").setMessage("something").setCcMe(false).setSendTo(recipients).setFormatDetails(formatDetails).build();
 
-        smartsheet.reportResources().sendReport(reportsWrapper.getData().get(0).getId(), email);
-        //smartsheet.reportResources().sendReport(8623082916079492L, email);
+        if (reportsWrapper.getData().size() > 0) {
+            smartsheet.reportResources().sendReport(reportsWrapper.getData().get(0).getId(), email);
+            //smartsheet.reportResources().sendReport(8623082916079492L, email);
+        }
     }
 
 }

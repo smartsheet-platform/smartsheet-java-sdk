@@ -21,16 +21,11 @@ package com.smartsheet.api;
  */
 
 
+import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.ObjectInclusion;
 
 import java.util.EnumSet;
 import java.util.List;
-
-import com.smartsheet.api.models.Cell;
-import com.smartsheet.api.models.CellHistory;
-import com.smartsheet.api.models.ObjectInclusion;
-import com.smartsheet.api.models.Row;
-import com.smartsheet.api.models.RowEmail;
-import com.smartsheet.api.models.RowWrapper;
 
 /**
  * <p>This interface provides methods to access Row resources.</p>

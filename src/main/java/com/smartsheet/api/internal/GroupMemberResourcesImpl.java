@@ -20,13 +20,13 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import java.util.List;
-
 import com.smartsheet.api.GroupMemberResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.GroupMember;
 import com.smartsheet.api.models.User;
+
+import java.util.List;
 
 /**
  * This is the implementation of the ShareResources.

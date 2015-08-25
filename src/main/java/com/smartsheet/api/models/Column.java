@@ -20,9 +20,13 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-import java.util.List;
-
+import com.smartsheet.api.models.enums.ColumnTag;
+import com.smartsheet.api.models.enums.ColumnType;
+import com.smartsheet.api.models.enums.Symbol;
+import com.smartsheet.api.models.enums.SystemColumnType;
 import com.smartsheet.api.models.format.Format;
+
+import java.util.List;
 
 /**
  * Represents the Column object.

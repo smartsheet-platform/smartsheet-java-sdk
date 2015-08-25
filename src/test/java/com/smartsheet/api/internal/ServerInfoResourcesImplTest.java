@@ -19,10 +19,10 @@ package com.smartsheet.api.internal;
  * limitations under the License.
  * %[license]
  */
+
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.models.ServerInfo;
-import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 

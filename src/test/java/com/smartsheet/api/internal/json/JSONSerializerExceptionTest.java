@@ -20,12 +20,12 @@ package com.smartsheet.api.internal.json;
  * %[license]
  */
 
-import static org.hamcrest.CoreMatchers.is;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import static org.hamcrest.CoreMatchers.is;
 
 public class JSONSerializerExceptionTest {
 

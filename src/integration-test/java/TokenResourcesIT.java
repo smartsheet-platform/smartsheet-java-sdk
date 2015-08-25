@@ -17,16 +17,12 @@
  * limitations under the License.
  * %[license]
  */
+
 import com.smartsheet.api.Smartsheet;
-import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.internal.http.HttpClient;
-import com.smartsheet.api.internal.oauth.OAuthFlowImpl;
-import com.smartsheet.api.oauth.*;
+import com.smartsheet.api.oauth.OAuthFlow;
+import com.smartsheet.api.oauth.OAuthFlowBuilder;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.EnumSet;
-import java.util.List;
 
 public class TokenResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;

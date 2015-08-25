@@ -21,11 +21,9 @@ package com.smartsheet.api.internal;
  */
 
 import com.smartsheet.api.AssociatedAttachmentResources;
-import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Attachment;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
 
