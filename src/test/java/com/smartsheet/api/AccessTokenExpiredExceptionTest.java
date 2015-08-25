@@ -20,12 +20,11 @@ package com.smartsheet.api;
  * %[license]
  */
 
-import static org.junit.Assert.assertEquals;
-
+import com.smartsheet.api.models.Error;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.smartsheet.api.models.Error;
+import static org.junit.Assert.assertEquals;
 
 public class AccessTokenExpiredExceptionTest {
 

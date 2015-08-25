@@ -20,7 +20,14 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import static org.junit.Assert.*;
+import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.internal.http.DefaultHttpClient;
+import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.*;
+import com.smartsheet.api.models.format.VerticalAlignment;
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,14 +35,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-import com.smartsheet.api.models.*;
-import org.apache.commons.io.output.ByteArrayOutputStream;
-import org.junit.Before;
-import org.junit.Test;
-
-import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.models.format.VerticalAlignment;
+import static org.junit.Assert.*;
 
 
 public class SheetResourcesImplTest extends ResourcesImplBase {
@@ -90,7 +90,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		rowIds.add(987654321L);
 
 		sheet = sheetResource.getSheet(123123L, EnumSet.allOf(SheetInclusion.class), EnumSet.allOf(ObjectExclusion.class), rowIds, null, null, 1, 1);
-		assertEquals(9,sheet.getColumns().size());
+		assertEquals(9, sheet.getColumns().size());
 		assertEquals(0,sheet.getRows().size());
 	}
 
@@ -142,7 +142,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		server.setContentType("application/pdf");
 		output = new ByteArrayOutputStream();
 		sheetResource.getSheetAsPDF(1234L, output, PaperSize.LEGAL);
-		assertNotNull("Downloaded PDF is null.",output);
+		assertNotNull("Downloaded PDF is null.", output);
 		assertTrue("Downloaded PDF is empty.", output.toByteArray().length > 0);
 		assertEquals("Downloaded PDF does not match the original size.",936995,output.toByteArray().length);
 	}
@@ -176,7 +176,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 
 		assertEquals(7960873114331012L, newSheet.getId().longValue());
 		assertEquals(AccessLevel.OWNER, newSheet.getAccessLevel());
-		assertEquals("https://app.smartsheet.com/b/home?lx=lbKEF1UakfTNJTZ5XkpxWg",newSheet.getPermalink());
+		assertEquals("https://app.smartsheet.com/b/home?lx=lbKEF1UakfTNJTZ5XkpxWg", newSheet.getPermalink());
 
 	}
 
@@ -198,13 +198,13 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		assertEquals(col,newSheet.getColumnByIndex(1));
 		assertNotEquals(col, newSheet.getColumnByIndex(0));
 		assertNull((new Sheet()).getColumnByIndex(100));
-		assertEquals(col,newSheet.getColumnById(4049365800118148L));
+		assertEquals(col, newSheet.getColumnById(4049365800118148L));
 		assertNotEquals(col,newSheet.getColumnById(4032471613368196L));
 		assertNull((new Sheet()).getColumnById(100));
 	}
 
 	@Test
-	public void testCreateSheetInFolderFromExisting() throws SmartsheetException, IOException {
+	public void testCreateSheetInFolderFromTemplate() throws SmartsheetException, IOException {
 
 		server.setResponseBody(new File("src/test/resources/createSheetFromExisting.json"));
 
@@ -238,7 +238,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 	}
 
 	@Test
-	public void testCreateSheetInWorkspaceFromExisting() throws SmartsheetException, IOException {
+	public void testCreateSheetInWorkspaceFromTemplate() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/createSheetFromExisting.json"));
 
 		Sheet sheet = new Sheet();
@@ -248,7 +248,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 
 		assertEquals(7960873114331012L, newSheet.getId().longValue());
 		assertEquals(AccessLevel.OWNER, newSheet.getAccessLevel());
-		assertEquals("https://app.smartsheet.com/b/home?lx=lbKEF1UakfTNJTZ5XkpxWg",newSheet.getPermalink());
+		assertEquals("https://app.smartsheet.com/b/home?lx=lbKEF1UakfTNJTZ5XkpxWg", newSheet.getPermalink());
 
 		newSheet = sheetResource.createSheetInWorkspaceFromTemplate(1234L, sheet, null);
 	}
@@ -355,5 +355,85 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 		assertTrue(newPublish.getReadWriteEnabled());
 		assertEquals("http://somedomain.com", newPublish.getReadOnlyLiteUrl());
 		
+	}
+
+	@Test
+	public void testCopySheet() throws SmartsheetException, IOException {
+		server.setResponseBody(new File("src/test/resources/copySheet.json"));
+		ContainerDestination containerDestination = new ContainerDestination();
+		containerDestination.setDestinationType(DestinationType.FOLDER);
+
+		Sheet sheet = sheetResource.copySheet(123L, containerDestination, null);
+		assertEquals(sheet.getName(), "newSheetName");
+	}
+
+	@Test
+	public void testMoveSheet() throws SmartsheetException, IOException {
+		server.setResponseBody(new File("src/test/resources/moveSheet.json"));
+		ContainerDestination containerDestination = new ContainerDestination();
+		containerDestination.setDestinationType(DestinationType.FOLDER);
+
+		Sheet sheet = sheetResource.moveSheet(123L, containerDestination);
+	}
+
+	@Test
+	public void testGetSheetAsCSV() throws SmartsheetException, IOException {
+		File file = new File("src/test/resources/getCsv.csv");
+		server.setResponseBody(file);
+		server.setContentType("text/csv");
+
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
+		sheetResource.getSheetAsExcel(1234L, output);
+
+		assertNotNull(output);
+		assertTrue(output.toByteArray().length > 0);
+
+		byte[] data = Files.readAllBytes(Paths.get(file.getPath()));
+		assertEquals(data.length, output.toByteArray().length);
+	}
+
+	@Test
+	public void testShareResources() throws Exception {
+
+	}
+
+	@Test
+	public void testRowResources() throws Exception {
+
+	}
+
+	@Test
+	public void testColumnResources() throws Exception {
+
+	}
+
+	@Test
+	public void testAttachmentResources() throws Exception {
+
+	}
+
+	@Test
+	public void testDiscussionResources() throws Exception {
+
+	}
+
+	@Test
+	public void testCommentResources() throws Exception {
+	}
+
+	@Test
+	public void testCreateUpdateRequest() throws Exception {
+		server.setResponseBody(new File("src/test/resources/createUpdateRequest.json"));
+
+		List<Recipient> recipients = new ArrayList<Recipient>();
+		MultiRowEmail multiRowEmail = new MultiRowEmail();
+		multiRowEmail.setSendTo(recipients);
+
+		UpdateRequest updateRequest = sheetResource.createUpdateRequest(123L, multiRowEmail);
+	}
+
+	@Test
+	public void testCopyStream() throws Exception {
+
 	}
 }

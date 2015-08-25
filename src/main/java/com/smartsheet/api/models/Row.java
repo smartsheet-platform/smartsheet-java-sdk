@@ -20,9 +20,9 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-import java.util.List;
-
 import com.smartsheet.api.models.format.Format;
+
+import java.util.List;
 
 /**
  * Represents the Row object.

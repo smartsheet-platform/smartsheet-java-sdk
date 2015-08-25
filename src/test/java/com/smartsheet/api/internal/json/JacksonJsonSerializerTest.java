@@ -21,26 +21,17 @@ package com.smartsheet.api.internal.json;
  */
 
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.smartsheet.api.models.Folder;
 import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.User;
+import org.junit.Before;
+import org.junit.Test;
 
-import javax.print.DocFlavor;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 

@@ -22,8 +22,6 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.AssociatedAttachmentResources;
 import com.smartsheet.api.CommentResources;
-import com.smartsheet.api.ResourceNotFoundException;
-import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Comment;
 
 /**

@@ -113,6 +113,13 @@ public interface Smartsheet {
 	public TokenResources tokenResources();
 
 	/**
+	 * <p>Returns the ContactResources instance that provides access to contact resources.</p>
+	 *
+	 * @return the contact resources instance
+	 */
+	public ContactResources contactResources();
+
+	/**
 	 * <p>Set the email of the user to assume.</p>
 	 *
 	 * @param assumedUser the new assumed user

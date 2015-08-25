@@ -20,6 +20,8 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import com.smartsheet.api.models.enums.LinkType;
+
 /**
  * Represents the Link object.
  */

@@ -22,7 +22,7 @@ package com.smartsheet.api.models;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 public class RecipientEmailTest {
 

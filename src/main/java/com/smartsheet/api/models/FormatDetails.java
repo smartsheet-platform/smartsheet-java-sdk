@@ -21,6 +21,7 @@ package com.smartsheet.api.models;
  */
 
 
+import com.smartsheet.api.models.enums.PaperSize;
 
 /**
  * Represents the format details when generating a digital copy (PDF/EXCEL) of a sheet.

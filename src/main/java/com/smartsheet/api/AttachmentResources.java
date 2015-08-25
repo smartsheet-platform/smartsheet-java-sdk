@@ -21,14 +21,10 @@ package com.smartsheet.api;
  */
 
 
+import com.smartsheet.api.models.Attachment;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.List;
-
-import com.smartsheet.api.models.Attachment;
-import org.apache.http.MethodNotSupportedException;
 
 /**
  * @deprecated As of release 2.0

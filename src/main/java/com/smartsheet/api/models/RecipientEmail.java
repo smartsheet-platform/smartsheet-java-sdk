@@ -20,8 +20,6 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-import java.util.List;
-
 public class RecipientEmail implements Recipient {
     /**
      * The email address of an individual recipient.

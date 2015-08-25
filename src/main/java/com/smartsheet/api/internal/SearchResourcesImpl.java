@@ -21,13 +21,12 @@ package com.smartsheet.api.internal;
  */
 
 
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 import com.smartsheet.api.SearchResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.SearchResult;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 /**
  * This is the implementation of the SearchResources.

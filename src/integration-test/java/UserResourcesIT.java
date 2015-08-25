@@ -17,6 +17,7 @@
  * limitations under the License.
  * %[license]
  */
+
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
@@ -24,10 +25,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 public class UserResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;

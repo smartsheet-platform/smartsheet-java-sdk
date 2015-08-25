@@ -20,12 +20,14 @@
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.*;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -48,6 +50,8 @@ public class SheetResourcesIT extends ITResourcesImpl{
     @Test
     public void testSheetMethods() throws SmartsheetException, IOException {
         testCreateSheetHome();
+        testCopySheet();
+        testMoveSheet();
         testCreateSheetHomeFromTemplate();
         testCreateSheetInFolder();
         testCreateSheetInFolderFromTemplate();
@@ -63,7 +67,8 @@ public class SheetResourcesIT extends ITResourcesImpl{
         testListSheets();
         testListOrganizationSheets();
         testSendSheet();
-        testDeleteSheet();;
+        testCreateUpdateRequest();
+        testDeleteSheet();
     }
 
     public void testCreateSheetHome() throws SmartsheetException, IOException {
@@ -76,6 +81,88 @@ public class SheetResourcesIT extends ITResourcesImpl{
         if (newSheetHome.getColumns().size() != 3) {
             fail("Issue creating a sheet");
         }
+    }
+
+    public void testCopySheet() throws SmartsheetException, IOException {
+        Folder folder = createFolder();
+
+        //ContainerDestination destination = new ContainerDestination.AddContainerDestinationBuilder().setDestinationType(DestinationType.HOME).setDestinationId(null).setNewName("New Copied sheet").build();
+        ContainerDestination destination = new ContainerDestination.AddContainerDestinationBuilder()
+                .setDestinationType(DestinationType.FOLDER)
+                .setDestinationId(folder.getId())
+                .setNewName("New Copied sheet")
+                .build();
+
+        Sheet sheet = smartsheet.sheetResources().copySheet(newSheetHome.getId(), destination, EnumSet.of(SheetCopyInclusion.ALL));
+        assertEquals(sheet.getName(), "New Copied sheet");
+        deleteFolder(folder.getId());
+    }
+
+    public void testMoveSheet() throws SmartsheetException, IOException {
+        Folder folder = createFolder();
+        Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
+
+        //ContainerDestination destination = new ContainerDestination.AddContainerDestinationBuilder().setDestinationType(DestinationType.HOME).setDestinationId(null).setNewName("New Copied sheet").build();
+        ContainerDestination destination = new ContainerDestination.AddContainerDestinationBuilder().setDestinationType(DestinationType.FOLDER).setDestinationId(folder.getId()).build();
+
+        Sheet movedSheet = smartsheet.sheetResources().moveSheet(sheet.getId(), destination);
+        assertNotNull(movedSheet);
+        deleteSheet(movedSheet.getId());
+        deleteFolder(folder.getId());
+    }
+
+    public void testCreateUpdateRequest() throws SmartsheetException, IOException {
+        //
+        //create sheet
+        Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
+
+        //get column
+        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PagedResult<Column> wrapper = smartsheet.sheetResources().columnResources().listColumns(sheet.getId(), EnumSet.allOf(ColumnInclusion.class), parameters);
+
+        Column addedColumn1 = wrapper.getData().get(0);
+        Column addedColumn2 = wrapper.getData().get(1);
+
+        // Specify cell values for first row.
+        List<Cell> cellsA = new Cell.AddRowCellsBuilder().addCell(addedColumn1.getId(), true).addCell(addedColumn2.getId(), "New status").build();
+
+        // Specify contents of first row.
+        Row row = new Row.AddRowBuilder().setCells(cellsA).setToBottom(true).build();
+
+        // Specify cell values for second row.
+        List<Cell> cellsB = new Cell.AddRowCellsBuilder().addCell(addedColumn1.getId(), true).addCell(addedColumn2.getId(), "New status").build();
+
+        // Specify contents of first row.
+        Row rowA = new Row.AddRowBuilder().setCells(cellsB).setToBottom(true).build();
+
+        List<Row> newRows = smartsheet.sheetResources().rowResources().addRows(sheet.getId(), Arrays.asList(row, rowA));
+
+        List<Column> columns = wrapper.getData();
+        Column addedColumn = columns.get(1);
+        //
+
+        RecipientEmail recipientEmail = new RecipientEmail.AddRecipientEmailBuilder()
+                .setEmail("aditi.nioding@smartsheet.com")
+                .setEmail("john.doe@smartsheet.com")
+                .build();
+
+        List<Recipient> recipients = new ArrayList<Recipient>();
+        recipients.add(recipientEmail);
+
+        MultiRowEmail multiRowEmail = new MultiRowEmail.AddMultiRowEmailBuilder()
+                .setSendTo(recipients)
+                .setSubject("some subject")
+                .setMessage("some message")
+                .setCcMe(false)
+                .setRowIds(Arrays.asList(newRows.get(0).getId()))
+                .setColumnIds(Arrays.asList(addedColumn.getId()))
+                .setIncludeAttachments(false)
+                .setIncludeDiscussions(false)
+                .build();
+
+        smartsheet.sheetResources().createUpdateRequest(sheet.getId(), multiRowEmail);
+
+        deleteSheet(sheet.getId());
     }
 
     public void testCreateSheetHomeFromTemplate() throws SmartsheetException, IOException {

@@ -21,6 +21,7 @@ package com.smartsheet.api.models;
  */
 
 
+import com.smartsheet.api.models.enums.AccessLevel;
 
 /**
  * A template object that is a default layout for future sheets.

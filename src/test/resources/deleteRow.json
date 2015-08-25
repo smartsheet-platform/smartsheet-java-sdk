@@ -1,1 +1,10 @@
-{"resultCode":0,"message":"SUCCESS"}
+{
+  "resultCode": 0,
+  "result": [
+    145417762563972,
+    4508365800925060,
+    8026717110462340,
+    2256565987239812
+  ],
+  "message": "SUCCESS"
+}

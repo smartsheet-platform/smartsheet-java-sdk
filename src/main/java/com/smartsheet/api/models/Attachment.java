@@ -20,6 +20,10 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import com.smartsheet.api.models.enums.AttachmentParentType;
+import com.smartsheet.api.models.enums.AttachmentSubType;
+import com.smartsheet.api.models.enums.AttachmentType;
+
 import java.util.Date;
 
 /**
