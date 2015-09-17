@@ -32,6 +32,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.CopyOrMoveRowResult;
+import com.smartsheet.api.models.IdentifiableModel;
+import com.smartsheet.api.models.IdentifiableModelMixin;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.format.Format;
@@ -78,6 +80,9 @@ public class JacksonJsonSerializer implements JsonSerializer{
 		module.addDeserializer(Format.class, new FormatDeserializer());
 		//module.setMixInAnnotation(IdentifiableModel.class, IdFieldExclusionMixin.class);
 		OBJECT_MAPPER.registerModule(module);
+
+		// Ignore getId() for the IdentifiableModel class
+		OBJECT_MAPPER.addMixIn(IdentifiableModel.class, IdentifiableModelMixin.class);
 	}
 
 	/**
