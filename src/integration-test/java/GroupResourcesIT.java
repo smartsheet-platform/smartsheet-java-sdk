@@ -19,12 +19,10 @@
  */
 
 import com.smartsheet.api.AuthorizationException;
+import com.smartsheet.api.ResourceNotFoundException;
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.models.Group;
-import com.smartsheet.api.models.GroupMember;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,6 +32,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class GroupResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
@@ -58,17 +57,19 @@ public class GroupResourcesIT extends ITResourcesImpl{
     }
 
     public void testCreateGroup() throws SmartsheetException, IOException {
+        UserProfile user = smartsheet.userResources().getCurrentUser();
 
-        GroupMember member = new GroupMember.AddGroupMemberBuilder().setEmail("aditi.nioding@gmail.com").build();
+        if (user.getGroupAdmin()) {
+            GroupMember member = new GroupMember.AddGroupMemberBuilder().setEmail("aditi.nioding@gmail.com").build();
 
-        Group group = new Group.CreateGroupBuilder().setName("Test Group").setDescription("Test group").setMembers(Arrays.asList(member)).build();
+            Group group = new Group.CreateGroupBuilder().setName("Test Group").setDescription("Test group").setMembers(Arrays.asList(member)).build();
 
-        try {
-            group =  smartsheet.groupResources().createGroup(group);
-            assertNotNull(group.getId());
-        } catch (AuthorizationException e)
-        {
-        System.out.println("Not authorized.");
+            try {
+                group =  smartsheet.groupResources().createGroup(group);
+                assertNotNull(group.getId());
+            } catch (AuthorizationException e) {
+                fail("Not authorized.");
+            }
         }
     }
 
@@ -89,48 +90,60 @@ public class GroupResourcesIT extends ITResourcesImpl{
 
     //not executed in test due to permission issue
     public void testUpdateGroup() throws SmartsheetException, IOException {
-        try {
-            Group groupUpdated = new Group.UpdateGroupBuilder().setName("Renamed Group").setId(groupId).setDescription("Some description").build();
-            assertNotNull(smartsheet.groupResources().updateGroup(groupUpdated));
-        } catch (AuthorizationException e)
-        {
-            System.out.println("Not authorized.");
+        UserProfile user = smartsheet.userResources().getCurrentUser();
+
+        if (user.getGroupAdmin()) {
+            try {
+                Group groupUpdated = new Group.UpdateGroupBuilder().setName("Renamed Group").setId(groupId).setDescription("Some description").build();
+                assertNotNull(smartsheet.groupResources().updateGroup(groupUpdated));
+            } catch (AuthorizationException e) {
+                fail("Not authorized.");
+            }
         }
     }
 
     //not executed in test due to permission issue
     public void testDeleteGroup() throws SmartsheetException, IOException {
-        try {
-            smartsheet.groupResources().deleteGroup(groupId);
-        } catch (AuthorizationException e)
-        {
-            System.out.println("Not authorized.");
+        UserProfile user = smartsheet.userResources().getCurrentUser();
+
+        if (user.getGroupAdmin()) {
+            try {
+                smartsheet.groupResources().deleteGroup(groupId);
+            } catch (AuthorizationException e) {
+                fail("Not authorized.");
+            }
         }
     }
 
     //not executed in test due to permission issue
     public void testAddMembersToGroup() throws SmartsheetException, IOException {
-        try {
-            GroupMember member = new GroupMember.AddGroupMemberBuilder().setEmail("jane.doe@smartsheet.com").build();
+        UserProfile user = smartsheet.userResources().getCurrentUser();
 
-            List<GroupMember> addedMembers = smartsheet.groupResources().memberResources().addGroupMembers(groupId, Arrays.asList(member));
-            assertTrue(addedMembers.size() > 0);
-            groupMemberId = addedMembers.get(0).getId();
-        } catch (AuthorizationException e)
-        {
-            System.out.println("Not authorized.");
+        if (user.getGroupAdmin()) {
+            try {
+                GroupMember member = new GroupMember.AddGroupMemberBuilder().setEmail("jane.doe@smartsheet.com").build();
+
+                List<GroupMember> addedMembers = smartsheet.groupResources().memberResources().addGroupMembers(groupId, Arrays.asList(member));
+                assertTrue(addedMembers.size() > 0);
+                groupMemberId = addedMembers.get(0).getId();
+            } catch (AuthorizationException e) {
+                fail("Not authorized.");
+            }
         }
-
     }
 
     //not executed in test due to permission issue
     public void testRemoveMemberFromGroup() throws SmartsheetException, IOException {
+        UserProfile user = smartsheet.userResources().getCurrentUser();
 
-        try {
-            smartsheet.groupResources().memberResources().deleteGroupMember(groupId, groupMemberId);
-        } catch (AuthorizationException e)
-        {
-            System.out.println("Not authorized.");
+        if (user.getGroupAdmin()) {
+            try {
+                smartsheet.groupResources().memberResources().deleteGroupMember(groupId, groupMemberId);
+            } catch (AuthorizationException e) {
+                fail("Not authorized.");
+            } catch (ResourceNotFoundException e) {
+                fail("Resource not found.");
+            }
         }
     }
 }

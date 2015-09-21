@@ -32,6 +32,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.CopyOrMoveRowResult;
+import com.smartsheet.api.models.IdentifiableModel;
+import com.smartsheet.api.models.IdentifiableModelMixin;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Result;
 import com.smartsheet.api.models.format.Format;
@@ -76,8 +78,12 @@ public class JacksonJsonSerializer implements JsonSerializer{
 		//Add a custom deserializer that will convert a string to a Format object.
 		SimpleModule module = new SimpleModule("FormatDeserializerModule", Version.unknownVersion());
 		module.addDeserializer(Format.class, new FormatDeserializer());
-		//module.setMixInAnnotation(IdentifiableModel.class, IdFieldExclusionMixin.class);
+		// Add custom mixin to ignore getId() for the IdentifiableModel class
+		module.setMixInAnnotation(IdentifiableModel.class, IdentifiableModelMixin.class);
 		OBJECT_MAPPER.registerModule(module);
+
+		// Ignore getId() for the IdentifiableModel class
+		//OBJECT_MAPPER.addMixIn(IdentifiableModel.class, IdentifiableModelMixin.class);
 	}
 
 	/**
@@ -249,7 +255,7 @@ public class JacksonJsonSerializer implements JsonSerializer{
 		try {
 			// Read the json input stream into a List.
 			rw = OBJECT_MAPPER.readValue(inputStream,
-					OBJECT_MAPPER.getTypeFactory().constructParametrizedType(PagedResult.class, PagedResult.class, objectClass));
+					OBJECT_MAPPER.getTypeFactory().constructParametricType(PagedResult.class, objectClass));
 			// list = OBJECT_MAPPER.readValue(inputStream, new TypeReference<List<T>>() {});
 		} catch (JsonParseException e) {
 			throw new JSONSerializerException(e);
@@ -313,7 +319,7 @@ public class JacksonJsonSerializer implements JsonSerializer{
 
 		try {
 			result = OBJECT_MAPPER.readValue(inputStream,
-					OBJECT_MAPPER.getTypeFactory().constructParametrizedType(Result.class, Result.class, objectClass));
+					OBJECT_MAPPER.getTypeFactory().constructParametricType(Result.class, objectClass));
 		} catch (JsonParseException e) {
 			throw new JSONSerializerException(e);
 		} catch (JsonMappingException e) {
@@ -351,8 +357,8 @@ public class JacksonJsonSerializer implements JsonSerializer{
 		try {
 			result = OBJECT_MAPPER.readValue(
 					inputStream,
-					OBJECT_MAPPER.getTypeFactory().constructParametrizedType(Result.class, Result.class,
-							OBJECT_MAPPER.getTypeFactory().constructParametrizedType(List.class, List.class, objectClass)));;
+					OBJECT_MAPPER.getTypeFactory().constructParametricType(Result.class,
+							OBJECT_MAPPER.getTypeFactory().constructParametricType(List.class, objectClass)));
 
 
 			// result = OBJECT_MAPPER.readValue(inputStream, new TypeReference<Result<List<T>>>() {});

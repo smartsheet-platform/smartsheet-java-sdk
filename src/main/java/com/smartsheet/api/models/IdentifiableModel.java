@@ -35,7 +35,6 @@ public abstract class IdentifiableModel<T> {
 	 *
 	 * @return the id
 	 */
-	@JsonIgnore
 	public T getId() {
 		return id;
 	}
@@ -45,7 +44,6 @@ public abstract class IdentifiableModel<T> {
 	 *
 	 * @param id the new id
 	 */
-	@JsonProperty
 	public void setId(T id) {
 		this.id = id;
 	}
