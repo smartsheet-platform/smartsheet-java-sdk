@@ -19,6 +19,7 @@
  */
 
 import com.smartsheet.api.AuthorizationException;
+import com.smartsheet.api.ResourceNotFoundException;
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.Group;
@@ -128,9 +129,10 @@ public class GroupResourcesIT extends ITResourcesImpl{
 
         try {
             smartsheet.groupResources().memberResources().deleteGroupMember(groupId, groupMemberId);
-        } catch (AuthorizationException e)
-        {
+        } catch (AuthorizationException e) {
             System.out.println("Not authorized.");
+        } catch (ResourceNotFoundException e) {
+            System.out.println("Resource not found.");
         }
     }
 }
