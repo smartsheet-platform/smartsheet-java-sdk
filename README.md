@@ -26,8 +26,8 @@ Add the SDK as a dependency in your project.
 
 	Apache HttpComponents 4.5
 	Simple Logging Facade for Java 1.7.12
-	Jackson FasterXML 2.6.1
-	Jackson Core 2.6.1
+	Jackson FasterXML 2.6.2
+	Jackson Core 2.6.2
 
 ###3. Compile from source
 The source code for the jar can be downloaded from Github and then compiled. This can be accomplished using [git](http://git-scm.com/) and [maven](http://maven.apache.org/) with the following 3 steps.
@@ -155,6 +155,7 @@ Each specific release is available for download via [Github](https://github.com/
 **2.0.2**
 
 * Added custom mixin to our JSON serializer, allowing Id's to be serialized when model classes are used outside of the SDK.
+* Upgraded Jackson to version 2.6.2
 
 **2.0.1**
 
