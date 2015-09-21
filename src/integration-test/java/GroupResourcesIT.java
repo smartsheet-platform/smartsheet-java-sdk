@@ -70,10 +70,7 @@ public class GroupResourcesIT extends ITResourcesImpl{
             } catch (AuthorizationException e) {
                 fail("Not authorized.");
             }
-        } else {
-            assertTrue("User does not have rights to create a group", true);
         }
-
     }
 
     public void testListGroups() throws SmartsheetException, IOException {
@@ -102,8 +99,6 @@ public class GroupResourcesIT extends ITResourcesImpl{
             } catch (AuthorizationException e) {
                 fail("Not authorized.");
             }
-        } else {
-            assertTrue("User does not have rights to update a group", true);
         }
     }
 
@@ -117,8 +112,6 @@ public class GroupResourcesIT extends ITResourcesImpl{
             } catch (AuthorizationException e) {
                 fail("Not authorized.");
             }
-        } else {
-            assertTrue("User does not have rights to delete a group", true);
         }
     }
 
@@ -136,8 +129,6 @@ public class GroupResourcesIT extends ITResourcesImpl{
             } catch (AuthorizationException e) {
                 fail("Not authorized.");
             }
-        } else {
-            assertTrue("User does not have rights to add members to a group.", true);
         }
     }
 
@@ -153,8 +144,6 @@ public class GroupResourcesIT extends ITResourcesImpl{
             } catch (ResourceNotFoundException e) {
                 fail("Resource not found.");
             }
-        } else {
-            assertTrue("User does not have rights to remove members from a group.", true);
         }
     }
 }
