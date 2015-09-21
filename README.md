@@ -154,7 +154,7 @@ Each specific release is available for download via [Github](https://github.com/
 
 **2.0.2**
 
-* Added custom mixin to our JSON serializer.
+* Added custom mixin to our JSON serializer, allowing Id's to be serialized when model classes are used outside of the SDK.
 
 **2.0.1**
 
