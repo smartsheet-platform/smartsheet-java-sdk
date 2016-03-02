@@ -27,6 +27,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.*;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class RowResourcesIT extends ITResourcesImpl{
@@ -49,6 +50,7 @@ public class RowResourcesIT extends ITResourcesImpl{
         testCopyRow();
         testSendRows();
         testUpdateRows();
+//        testPartialUpdateRows(); covered by @Test annotation.
         testMoveRow();
         testDeleteRows();
     }
@@ -160,6 +162,45 @@ public class RowResourcesIT extends ITResourcesImpl{
 
 
         smartsheet.sheetResources().rowResources().sendRows(sheet.getId(),multiRowEmail);
+    }
+
+    @Test
+    public void testPartialUpdateRows() throws SmartsheetException, IOException {
+        Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObjectWithAutoNumberColumn());
+
+        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PagedResult<Column> wrapper = smartsheet.sheetResources().columnResources().listColumns(sheet.getId(), EnumSet.allOf(ColumnInclusion.class), parameters);
+
+        Column addedColumn1 = wrapper.getData().get(0); //checkbox
+        Column textNumberColumn = wrapper.getData().get(1);//Text number
+        Column autoNumberColumn = wrapper.getData().get(3);//AutoNumber column
+
+        // Specify cell values for first row.
+        List<Cell> cellsCreate = new Cell.AddRowCellsBuilder()
+                .addCell(addedColumn1.getId(), true)
+                .addCell(textNumberColumn.getId(), "New status").build();
+
+        // Specify contents of first row.
+        Row row = new Row.AddRowBuilder().setCells(cellsCreate).setToBottom(true).build();
+        Row row2 = new Row.AddRowBuilder().setCells(cellsCreate).setToBottom(true).build();
+        List<Row> newRows = smartsheet.sheetResources().rowResources().addRows(sheet.getId(), Arrays.asList(row, row2));
+
+        //Updated cells
+        List<Cell> cellUpdateSucceed = new Cell.UpdateRowCellsBuilder().addCell(textNumberColumn.getId(), "Updated status").build();
+        List<Cell> cellUpdateFail = new Cell.UpdateRowCellsBuilder().addCell(autoNumberColumn.getId(), "Updated status").build();
+
+        Row rowSucceeds = new Row.UpdateRowBuilder().setCells(cellUpdateSucceed).setRowId(newRows.get(0).getId()).build();
+        Row rowFails = new Row.UpdateRowBuilder().setCells(cellUpdateFail).setRowId(newRows.get(1).getId()).build();
+
+        PartialRowUpdateResult result = smartsheet.sheetResources().rowResources().updateRowsAllowPartialSuccess(sheet.getId(), Arrays.asList(rowSucceeds, rowFails));
+
+        assertEquals(result.getMessage(), "PARTIAL_SUCCESS");
+        assertNotNull(result.getResult());
+        assertEquals(result.getResult().size(), 1);
+        assertNotNull(result.getFailedItems());
+        assertEquals(result.getFailedItems().length, 1);
+        deleteSheet(sheet.getId());
+
     }
 
     public void testDeleteRows() throws SmartsheetException, IOException {

@@ -24,6 +24,7 @@ import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.ColumnInclusion;
 import com.smartsheet.api.models.enums.ColumnType;
 import com.smartsheet.api.models.enums.Symbol;
+import com.smartsheet.api.models.enums.SystemColumnType;
 import com.smartsheet.api.oauth.Token;
 
 import java.io.IOException;
@@ -72,6 +73,16 @@ public class ITResourcesImpl {
         Column columnC = new Column.AddColumnToSheetBuilder().setTitle("col 3").setType(ColumnType.PICKLIST).setOptions(Arrays.asList("Not Started", "Started", "Completed")).setPrimary(false).build();
 
         Sheet sheet = new Sheet.CreateSheetBuilder().setName("New Test Sheet").setColumns(Arrays.asList(columnA, columnB, columnC)).build();
+        return sheet;
+    }
+    public Sheet createSheetObjectWithAutoNumberColumn(){
+        //set the sheet parameters
+        Column columnA = new Column.AddColumnToSheetBuilder().setTitle("Favorite").setType(ColumnType.CHECKBOX).setSymbol(Symbol.STAR).build();
+        Column columnB = new Column.AddColumnToSheetBuilder().setTitle("Primary Column").setType(ColumnType.TEXT_NUMBER).setPrimary(true).build();
+        Column columnC = new Column.AddColumnToSheetBuilder().setTitle("col 3").setType(ColumnType.PICKLIST).setOptions(Arrays.asList("Not Started", "Started", "Completed")).setPrimary(false).build();
+        Column columnD = new Column.AddColumnToSheetBuilder().setTitle("AutoNumber").setType(ColumnType.TEXT_NUMBER).setSystemColumnType(SystemColumnType.AUTO_NUMBER).setPrimary(false).build();
+
+        Sheet sheet = new Sheet.CreateSheetBuilder().setName("New Test Sheet").setColumns(Arrays.asList(columnA, columnB, columnC, columnD)).build();
         return sheet;
     }
 

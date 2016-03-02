@@ -25,6 +25,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.smartsheet.api.models.CopyOrMoveRowResult;
 import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PartialRowUpdateResult;
 import com.smartsheet.api.models.Result;
 
 import java.io.IOException;
@@ -174,6 +175,23 @@ public interface JsonSerializer {
 	 * @throws JSONSerializerException the JSON serializer exception
 	 */
 	public <T> Result<List<T>> deserializeListResult(Class<T> objectClass, java.io.InputStream inputStream)
+			throws JSONSerializerException;
+	/**
+	 * De-serialize a PartialRowUpdateResult object from JSON.
+	 *
+	 * Parameters:
+	 * - inputStream : the input stream from which the JSON will be read
+	 *
+	 * Returns: the de-serialized result
+	 *
+	 * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
+	 * other error occurred during the operation
+	 *
+	 * @param inputStream the input stream
+	 * @return the result
+	 * @throws JSONSerializerException the JSON serializer exception
+	 */
+	public PartialRowUpdateResult deserializePartialRowUpdateResult(java.io.InputStream inputStream)
 			throws JSONSerializerException;
 
 	/**

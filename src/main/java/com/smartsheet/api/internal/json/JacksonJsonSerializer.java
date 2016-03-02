@@ -31,11 +31,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.smartsheet.api.internal.util.Util;
-import com.smartsheet.api.models.CopyOrMoveRowResult;
-import com.smartsheet.api.models.IdentifiableModel;
-import com.smartsheet.api.models.IdentifiableModelMixin;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.Result;
+import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.format.Format;
 
 import java.io.IOException;
@@ -270,8 +266,7 @@ public class JacksonJsonSerializer implements JsonSerializer{
 
 	/**
 	 * De-serialize to a map from JSON.
-	 * 
-	 * @param objectClass
+	 *
 	 * @param inputStream
 	 * @return
 	 * @throws JSONSerializerException
@@ -362,6 +357,23 @@ public class JacksonJsonSerializer implements JsonSerializer{
 
 
 			// result = OBJECT_MAPPER.readValue(inputStream, new TypeReference<Result<List<T>>>() {});
+		} catch (JsonParseException e) {
+			throw new JSONSerializerException(e);
+		} catch (JsonMappingException e) {
+			throw new JSONSerializerException(e);
+		} catch (IOException e) {
+			throw new JSONSerializerException(e);
+		}
+		return result;
+	}
+
+	@Override
+	public PartialRowUpdateResult deserializePartialRowUpdateResult(InputStream inputStream) throws JSONSerializerException {
+		PartialRowUpdateResult result = null;
+		try {
+			result = OBJECT_MAPPER.readValue(
+					inputStream,
+					PartialRowUpdateResult.class);
 		} catch (JsonParseException e) {
 			throw new JSONSerializerException(e);
 		} catch (JsonMappingException e) {

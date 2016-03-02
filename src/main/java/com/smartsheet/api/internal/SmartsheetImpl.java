@@ -160,6 +160,14 @@ public class SmartsheetImpl implements Smartsheet {
 	private final AtomicReference<String> accessToken;
 
 	/**
+	 * Represents the AtomicReference for change agent
+	 *
+	 * It will be initialized in constructor and will not change afterwards.
+	 *
+	 */
+	private final AtomicReference<String> changeAgent;
+
+	/**
 	 * Represents the AtomicReference for ServerInfoResources.
 	 *
 	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
@@ -206,6 +214,19 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @param jsonSerializer the json serializer (optional)
 	 */
 	public SmartsheetImpl(String baseURI, String accessToken, HttpClient httpClient, JsonSerializer jsonSerializer) {
+		this(baseURI, accessToken, httpClient, jsonSerializer, null);
+	}
+	/**
+	 * Create an instance with given server URI, HttpClient (optional) and JsonSerializer (optional)
+	 *
+	 * Exceptions: - IllegalArgumentException : if serverURI/version/accessToken is null/empty
+	 *
+	 * @param baseURI the server uri
+	 * @param accessToken the access token
+	 * @param httpClient the http client (optional)
+	 * @param jsonSerializer the json serializer (optional)
+	 */
+	public SmartsheetImpl(String baseURI, String accessToken, HttpClient httpClient, JsonSerializer jsonSerializer, String changeAgent) {
 		Util.throwIfNull(baseURI);
 		Util.throwIfEmpty(baseURI);
 		
@@ -223,6 +244,7 @@ public class SmartsheetImpl implements Smartsheet {
 		this.search = new AtomicReference<SearchResources>();
 		this.assumedUser = new AtomicReference<String>();
 		this.accessToken = new AtomicReference<String>(accessToken);
+		this.changeAgent = new AtomicReference<String>(changeAgent);
 		this.reports = new AtomicReference<ReportResources>();
 		this.serverInfo = new AtomicReference<ServerInfoResources>();
 		this.tokens = new AtomicReference<TokenResources>();
@@ -283,6 +305,15 @@ public class SmartsheetImpl implements Smartsheet {
 	 */
 	String getAccessToken() {
 		return accessToken.get();
+	}
+
+	/**
+	 * Return the change agent identifier.
+	 *
+	 * @return the access token
+	 */
+	String getChangeAgent() {
+		return changeAgent.get();
 	}
 
 	/**

@@ -185,6 +185,27 @@ public interface SheetRowResources {
 	public List<Row> updateRows(long sheetId, List<Row> rows) throws SmartsheetException;
 
 	/**
+	 * Update rows, but allow partial success. The PartialRowUpdateResult will contain the successful
+	 * rows and those that failed, with specific messages for each.
+	 *
+	 * It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/rows
+	 *
+	 * Exceptions:
+	 *   IllegalArgumentException : if any argument is null
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param sheetId the id of the sheet
+	 * @param rows the list of rows
+	 * @return a list of rows
+	 * @throws SmartsheetException the smartsheet exception
+	 */
+	public PartialRowUpdateResult updateRowsAllowPartialSuccess(long sheetId, List<Row> rows) throws SmartsheetException;
+
+	/**
 	 * Moves Row(s) from the Sheet specified in the URL to (the bottom of) another sheet.
 	 *
 	 * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/move

@@ -21,6 +21,10 @@ package com.smartsheet.api.internal;
  */
 
 import com.smartsheet.api.*;
+import com.smartsheet.api.internal.http.HttpEntity;
+import com.smartsheet.api.internal.http.HttpMethod;
+import com.smartsheet.api.internal.http.HttpRequest;
+import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.*;
@@ -29,6 +33,8 @@ import com.smartsheet.api.models.enums.RowCopyInclusion;
 import com.smartsheet.api.models.enums.RowInclusion;
 import com.smartsheet.api.models.enums.RowMoveInclusion;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
@@ -240,6 +246,44 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 */
 	public List<Row> updateRows(long sheetId, List<Row> rows) throws SmartsheetException {
 		return this.putAndReceiveList("sheets/" + sheetId + "/rows", rows, Row.class);
+	}
+
+
+	@Override
+	public PartialRowUpdateResult updateRowsAllowPartialSuccess(long sheetId, List<Row> rows) throws SmartsheetException {
+		String path = "sheets/" + sheetId + "/rows";
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("allowPartialSuccess", "true");
+
+		path = QueryUtil.generateUrl(path, parameters);
+
+		HttpRequest request;
+		request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.PUT);
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+		this.smartsheet.getJsonSerializer().serialize(rows, baos);
+
+		HttpEntity entity = new HttpEntity();
+		entity.setContentType("application/json");
+		entity.setContent(new ByteArrayInputStream(baos.toByteArray()));
+		entity.setContentLength(baos.size());
+		request.setEntity(entity);
+
+		HttpResponse response = this.smartsheet.getHttpClient().request(request);
+
+		PartialRowUpdateResult result = null;
+		switch (response.getStatusCode()) {
+			case 200:
+				result = this.smartsheet.getJsonSerializer().deserializePartialRowUpdateResult(response.getEntity().getContent());
+				break;
+			default:
+				handleError(response);
+		}
+
+		smartsheet.getHttpClient().releaseConnection();
+
+		return result;
 	}
 
 	/**

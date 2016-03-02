@@ -71,6 +71,13 @@ public class SmartsheetBuilder {
 	private String assumedUser;
 
 	/**
+	 * <p>Represents the change agent.</p>
+	 *
+	 * <p>It can be set using corresponding setter.</p>
+	 */
+	private String changeAgent;
+
+	/**
 	 * <p>Represents the default base URI of the Smartsheet REST API.</p>
 	 * 
 	 * <p>It is a constant with value "https://api.smartsheet.com/1.1".</p>
@@ -137,6 +144,19 @@ public class SmartsheetBuilder {
 		this.assumedUser = assumedUser;
 		return this;
 	}
+	/**
+	 * <p>Set the assumed user.</p>
+	 *
+	 * @param changeAgent the identifier to include in the webhooks that result from the changes
+	 *                    made using the API
+	 *
+	 * @return the smartsheet builder
+	 */
+	public SmartsheetBuilder setChangeAgent(String changeAgent) {
+		this.changeAgent = changeAgent;
+		return this;
+	}
+
 
 	/**
 	 * <p>Gets the http client.</p>
@@ -192,6 +212,9 @@ public class SmartsheetBuilder {
 		return DEFAULT_BASE_URI;
 	}
 
+	public String getChangeAgent() {
+		return changeAgent;
+	}
 	/**
 	 * <p>Build the Smartsheet instance.</p>
 	 *
@@ -211,7 +234,7 @@ public class SmartsheetBuilder {
 			baseURI = DEFAULT_BASE_URI;
 		}
 		
-		SmartsheetImpl smartsheet = new SmartsheetImpl(baseURI, accessToken, httpClient, jsonSerializer);
+		SmartsheetImpl smartsheet = new SmartsheetImpl(baseURI, accessToken, httpClient, jsonSerializer, changeAgent);
 		
 		if (assumedUser != null) { smartsheet.setAssumedUser(assumedUser); }
 		
