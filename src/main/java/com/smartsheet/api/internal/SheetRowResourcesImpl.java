@@ -21,10 +21,8 @@ package com.smartsheet.api.internal;
  */
 
 import com.smartsheet.api.*;
-import com.smartsheet.api.internal.http.HttpEntity;
-import com.smartsheet.api.internal.http.HttpMethod;
-import com.smartsheet.api.internal.http.HttpRequest;
-import com.smartsheet.api.internal.http.HttpResponse;
+import com.smartsheet.api.internal.http.*;
+import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.*;
@@ -86,6 +84,12 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 	 */
 	public List<Row> addRows(long sheetId, List<Row> rows) throws SmartsheetException {
 		return this.postAndReceiveList("sheets/" + sheetId + "/rows", rows, Row.class);
+	}
+
+
+	@Override
+	public PartialRowUpdateResult addRowsAllowPartialSuccess(long sheetId, List<Row> rows) throws SmartsheetException {
+		return doPartialRowOperation(sheetId, rows, HttpMethod.POST);
 	}
 
 	/**
@@ -251,6 +255,15 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 
 	@Override
 	public PartialRowUpdateResult updateRowsAllowPartialSuccess(long sheetId, List<Row> rows) throws SmartsheetException {
+		return doPartialRowOperation(sheetId, rows, HttpMethod.PUT);
+	}
+
+	private PartialRowUpdateResult doPartialRowOperation(long sheetId, List<Row> rows, HttpMethod method) throws SmartsheetException {
+		Util.throwIfNull(rows, method);
+		if (method != HttpMethod.POST && method != HttpMethod.PUT) {
+			throw new IllegalArgumentException();
+		}
+
 		String path = "sheets/" + sheetId + "/rows";
 		HashMap<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("allowPartialSuccess", "true");
@@ -258,7 +271,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 		path = QueryUtil.generateUrl(path, parameters);
 
 		HttpRequest request;
-		request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.PUT);
+		request = createHttpRequest(smartsheet.getBaseURI().resolve(path), method);
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
@@ -284,6 +297,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 		smartsheet.getHttpClient().releaseConnection();
 
 		return result;
+
 	}
 
 	/**

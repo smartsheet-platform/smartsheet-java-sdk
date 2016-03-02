@@ -56,6 +56,23 @@ public interface SheetRowResources {
 	public List<Row> addRows(long sheetId, List<Row> rows) throws SmartsheetException;
 
 	/**
+	 * <p>Insert rows to a sheet, allowing partial success. If a row cannot be inserted, it will fail, while the others may succeed..</p>
+	 *
+	 * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{id}/rows</p>
+	 *
+	 * @param sheetId the sheet id
+	 * @param rows the list of rows to create
+	 * @return the list of created rows
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	public PartialRowUpdateResult addRowsAllowPartialSuccess(long sheetId, List<Row> rows) throws SmartsheetException;
+
+	/**
 	 * Get a row.
 	 * 
 	 * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/rows/{rowId}

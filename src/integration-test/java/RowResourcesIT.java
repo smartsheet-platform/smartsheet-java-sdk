@@ -50,6 +50,7 @@ public class RowResourcesIT extends ITResourcesImpl{
         testCopyRow();
         testSendRows();
         testUpdateRows();
+//        testPartialInsertRows(); covered by @Test annotation.
 //        testPartialUpdateRows(); covered by @Test annotation.
         testMoveRow();
         testDeleteRows();
@@ -162,6 +163,35 @@ public class RowResourcesIT extends ITResourcesImpl{
 
 
         smartsheet.sheetResources().rowResources().sendRows(sheet.getId(),multiRowEmail);
+    }
+
+
+    @Test
+    public void testPartialInsertRows() throws SmartsheetException, IOException {
+        Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObjectWithAutoNumberColumn());
+
+        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+        PagedResult<Column> wrapper = smartsheet.sheetResources().columnResources().listColumns(sheet.getId(), EnumSet.allOf(ColumnInclusion.class), parameters);
+
+        Column addedColumn1 = wrapper.getData().get(0); //checkbox
+        Column textNumberColumn = wrapper.getData().get(1);//Text number
+        Column autoNumberColumn = wrapper.getData().get(3);//AutoNumber column
+
+        List<Cell> cellsSucceed = new Cell.UpdateRowCellsBuilder().addCell(textNumberColumn.getId(), "Updated status").build();
+        List<Cell> cellsFail = new Cell.UpdateRowCellsBuilder().addCell(autoNumberColumn.getId(), "Updated status").build();
+
+        Row row = new Row.AddRowBuilder().setCells(cellsSucceed).setToBottom(true).build();
+        Row row2 = new Row.AddRowBuilder().setCells(cellsFail).setToBottom(true).build();
+
+        PartialRowUpdateResult result = smartsheet.sheetResources().rowResources().addRowsAllowPartialSuccess(sheet.getId(), Arrays.asList(row, row2));
+
+        assertEquals(result.getMessage(), "PARTIAL_SUCCESS");
+        assertNotNull(result.getResult());
+        assertEquals(result.getResult().size(), 1);
+        assertNotNull(result.getFailedItems());
+        assertEquals(result.getFailedItems().length, 1);
+        deleteSheet(sheet.getId());
+
     }
 
     @Test
