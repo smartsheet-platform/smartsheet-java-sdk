@@ -23,7 +23,7 @@ package com.smartsheet.api.models;
 /**
  * Created by kskeem on 3/1/16.
  */
-public class BulkRowFailedItems {
+public class BulkRowFailedItem {
     private int index;
     private Error error;
     private Long rowId;

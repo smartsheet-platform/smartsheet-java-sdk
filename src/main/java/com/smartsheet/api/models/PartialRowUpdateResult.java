@@ -27,13 +27,13 @@ import java.util.List;
  */
 public class PartialRowUpdateResult extends Result<List<Row>> {
 
-    private BulkRowFailedItems[] failedItems;
+    private List<BulkRowFailedItem> failedItems;
 
-    public BulkRowFailedItems[] getFailedItems() {
+    public List<BulkRowFailedItem> getFailedItems() {
         return failedItems;
     }
 
-    public void setFailedItems(BulkRowFailedItems[] failedItems) {
+    public void setFailedItems(List<BulkRowFailedItem> failedItems) {
         this.failedItems = failedItems;
     }
 }

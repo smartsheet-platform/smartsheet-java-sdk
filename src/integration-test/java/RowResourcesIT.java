@@ -189,7 +189,7 @@ public class RowResourcesIT extends ITResourcesImpl{
         assertNotNull(result.getResult());
         assertEquals(result.getResult().size(), 1);
         assertNotNull(result.getFailedItems());
-        assertEquals(result.getFailedItems().length, 1);
+        assertEquals(result.getFailedItems().size(), 1);
         deleteSheet(sheet.getId());
 
     }
@@ -228,7 +228,7 @@ public class RowResourcesIT extends ITResourcesImpl{
         assertNotNull(result.getResult());
         assertEquals(result.getResult().size(), 1);
         assertNotNull(result.getFailedItems());
-        assertEquals(result.getFailedItems().length, 1);
+        assertEquals(result.getFailedItems().size(), 1);
         deleteSheet(sheet.getId());
 
     }
