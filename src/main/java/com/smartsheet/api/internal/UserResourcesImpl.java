@@ -24,9 +24,11 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.*;
 import com.smartsheet.api.internal.util.QueryUtil;
+import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -202,19 +204,108 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 		return this.listResourcesWithWrapper(path, Sheet.class);
 	}
 
+	/**
+	 * <p>List all user alternate emails.</p>
+	 *
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /users/{userId}/alternateemails</p>
+	 *
+	 * @param the id of the user 
+	 * @param pagination the object containing the pagination query parameters
+	 * @return the list of all user alternate emails
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	public PagedResult<AlternateEmail> listAlternateEmails(long userId, PaginationParameters pagination) throws SmartsheetException	{
+		String path = "users/" + userId + "/alternateemails";
+		
+		if (pagination != null) {
+			path += pagination.toQueryString();
+		}
+		return this.listResourcesWithWrapper(path, AlternateEmail.class);
+	}
+
+	/**
+	 * <p>Get alternate email.</p>
+	 * 
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /users/{userId}/alternateemails/{alternateEmailId}</p>
+	 * 
+	 * @param the id of the user 
+	 * @param the alternate email id for the alternate email to retrieve.
+	 * @return the resource (note that if there is no such resource, this method will throw 
+	 *     ResourceNotFoundException rather than returning null).
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */	
+	public AlternateEmail getAlternateEmail(long userId, long altEmailId) throws SmartsheetException {
+		return this.getResource("users/" + userId + "/alternateemails/" + altEmailId, AlternateEmail.class);
+	}
+
+	/**
+	 * <p>Add an alternate email.</p>
+	 * 
+	 * <p>It mirrors to the following Smartsheet REST API method: POST /users/{userId}/alternateemails</p>
+	 * 
+	 * @param the id of the user 
+	 * @param AlternateEmail alternate email address to add.
+	 * @return the resource (note that if there is no such resource, this method will throw 
+	 *     ResourceNotFoundException rather than returning null).
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */		
+	public List<AlternateEmail> addAlternateEmail(long userId, List<AlternateEmail> altEmails) throws SmartsheetException {
+		Util.throwIfNull(altEmails);
+		if (altEmails.size() == 0) {
+			return altEmails;
+		}
+		return this.postAndReceiveList("users/" + userId + "/alternateemails", altEmails, AlternateEmail.class);		
+	}
+	
+	/**
+	 * <p>Delete an alternate email.</p>
+	 * 
+	 * <p>It mirrors to the following Smartsheet REST API method: DELETE /users/{userId}/alternateemails/{alternateEmailId}</p>
+	 * 
+	 * @param the id of the user 
+	 * @param the alternate email id for the alternate email to retrieve.
+	 * @return the resource (note that if there is no such resource, this method will throw 
+	 *     ResourceNotFoundException rather than returning null).
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */	
+	public void deleteAlternateEmail(long userId, long altEmailId) throws SmartsheetException {
+		this.deleteResource("users/" + userId + "/alternateemails/" + altEmailId, AlternateEmail.class);
+	}
+	
+	
 	@Override
 	public User updateUser(User user) throws SmartsheetException {
 		return this.updateResource("users/" + user.getId(), User.class, user);
 	}
-
+	
 	@Override
 	public void deleteUser(long userId, DeleteUserParameters parameters) throws SmartsheetException {
 		String path = "users/" + userId;
-
+	
 		if (parameters != null) {
 			path += parameters.toQueryString();
 		}
-
+	
 		this.deleteResource(path, User.class);
 	}
 }
