@@ -81,11 +81,7 @@ public class QueryUtil {
             baseUrl = "";
         }
 
-        StringBuilder result = new StringBuilder();
-        result.append(baseUrl);
-        result.append(generateQueryString(parameters));
-        
-        return result.toString();
+        return new StringBuilder().append(baseUrl).append(generateQueryString(parameters)).toString();
     }
 
     /**
