@@ -172,6 +172,12 @@ public class UserResourcesImplTest extends ResourcesImplBase {
 	@Test
 	public void testListOrgSheets() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/listOrgSheets.json"));
-		PagedResult<Sheet> sheets = userResources.listOrgSheets();
+
+		PaginationParameters pagination = new PaginationParameters();
+		pagination.setIncludeAll(true);
+		pagination.setPageSize(1);
+		pagination.setPage(1);		
+		
+		PagedResult<Sheet> sheets = userResources.listOrgSheets(pagination);
 	}
 }

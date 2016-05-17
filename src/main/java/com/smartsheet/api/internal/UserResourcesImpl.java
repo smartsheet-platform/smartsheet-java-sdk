@@ -184,6 +184,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	 *
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /users/sheets</p>
 	 *
+	 * @param pagination the object containing the pagination query parameters
 	 * @return the list of all organisation sheets
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
@@ -192,8 +193,13 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public PagedResult<Sheet> listOrgSheets() throws SmartsheetException {
-		return this.listResourcesWithWrapper("users/sheets", Sheet.class);
+	public PagedResult<Sheet> listOrgSheets(PaginationParameters pagination) throws SmartsheetException {
+		String path = "users/sheets";
+		
+		if (pagination != null) {
+			path += pagination.toQueryString();
+		}
+		return this.listResourcesWithWrapper(path, Sheet.class);
 	}
 
 	@Override
