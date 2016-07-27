@@ -24,6 +24,7 @@ package com.smartsheet.api;
 
 import com.smartsheet.api.models.*;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -176,4 +177,72 @@ public interface UserResources {
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public PagedResult<Sheet> listOrgSheets(PaginationParameters pagination) throws SmartsheetException;
+	
+	/**
+	 * <p>List all user alternate email(s).</p>
+	 *
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /users/{userId}/alternateemails</p>
+	 *
+	 * @return the list of all user alternate email(s)
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	public PagedResult<AlternateEmail> listAlternateEmails(long userId, PaginationParameters pagination) throws SmartsheetException;
+	
+	/**
+	 * <p>Get alternate email.</p>
+	 * 
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /users/{userId}/alternateemails/{alternateEmailId}</p>
+	 * 
+	 * @param the id of the user 
+	 * @param the alternate email id for the alternate email to retrieve.
+	 * @return the resource (note that if there is no such resource, this method will throw 
+	 *     ResourceNotFoundException rather than returning null).
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */	
+	public AlternateEmail getAlternateEmail(long userId, long altEmailId) throws SmartsheetException;
+
+	/**
+	 * <p>Add an alternate email.</p>
+	 * 
+	 * <p>It mirrors to the following Smartsheet REST API method: POST /users/{userId}/alternateemails</p>
+	 * 
+	 * @param the id of the user 
+	 * @param List of alternate email address to add.
+	 * @return List of added alternate email(s).
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */		
+	public List<AlternateEmail> addAlternateEmail(long userId, List<AlternateEmail> altEmails) throws SmartsheetException;
+	
+	/**
+	 * <p>Delete an alternate email.</p>
+	 * 
+	 * <p>It mirrors to the following Smartsheet REST API method: DELETE /users/{userId}/alternateemails/{alternateEmailId}</p>
+	 * 
+	 * @param the id of the user 
+	 * @param the alternate email id for the alternate email to retrieve.
+	 * @return the resource (note that if there is no such resource, this method will throw 
+	 *     ResourceNotFoundException rather than returning null).
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */	
+	public void deleteAlternateEmail(long userId, long altEmailId) throws SmartsheetException;
 }

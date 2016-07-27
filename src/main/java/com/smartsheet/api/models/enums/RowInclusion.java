@@ -31,6 +31,7 @@ public enum RowInclusion {
 	COLUMN_TYPE		("columnType"),
 	COLUMNS			("columns"),
 	ROW_PERMALINK	("rowPermalink"),
+	ROW_WRITER_INFO	("rowWriterInfo"),
 	;
 
 	String inclusion;

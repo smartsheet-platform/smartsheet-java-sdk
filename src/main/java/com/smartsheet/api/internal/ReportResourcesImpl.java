@@ -21,14 +21,21 @@ package com.smartsheet.api.internal;
  */
 
 
+import com.smartsheet.api.AuthorizationException;
+import com.smartsheet.api.InvalidRequestException;
 import com.smartsheet.api.ReportResources;
+import com.smartsheet.api.ResourceNotFoundException;
+import com.smartsheet.api.ServiceUnavailableException;
 import com.smartsheet.api.ShareResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
+import com.smartsheet.api.models.Folder;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Report;
+import com.smartsheet.api.models.ReportPublish;
 import com.smartsheet.api.models.SheetEmail;
+import com.smartsheet.api.models.SheetPublish;
 import com.smartsheet.api.models.enums.ReportInclusion;
 
 import java.io.OutputStream;
@@ -195,7 +202,63 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
         getResourceAsFile("reports/" + id, "text/csv",outputStream);
     }
 
-    /**
+	/**
+	 * Get the publish status of a report.
+	 * 
+	 * It mirrors to the following Smartsheet REST API method: GET /reports/{id}/publish
+	 * 
+	 * Exceptions:
+	 *   InvalidRequestException : if there is any problem with the REST API request
+	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+	 *   ResourceNotFoundException : if the resource can not be found
+	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+	 *   SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param id the ID of the report 
+	 * @return the report publish status (note that if there is no such resource, this method will 
+	 *     throw ResourceNotFoundException rather than returning null).
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */    
+    public ReportPublish getPublishStatus(long id) throws SmartsheetException {
+		return this.getResource("reports/" + id + "/publish", ReportPublish.class);
+    }
+
+	/**
+	 * Sets the publish status of a report and returns the new status, including the URLs of any 
+	 * enabled publishing.
+	 * 
+	 * It mirrors to the following Smartsheet REST API method: PUT /reports/{id}/publish
+	 * 
+	 * Exceptions: 
+	 *   - InvalidRequestException : if there is any problem with the REST API request 
+	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token) 
+	 *   - ResourceNotFoundException : if the resource can not be found 
+	 *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) 
+	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation 
+	 *   - SmartsheetException : if there is any other error occurred during the operation
+	 *
+	 * @param id the ID of the report
+	 * @param publish the ReportPublish object
+	 * @return the updated ReportPublish (note that if there is no such resource, this method will 
+	 *     throw ResourceNotFoundException rather than returning null)
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	public ReportPublish updatePublishStatus(long id, ReportPublish reportPublish) throws SmartsheetException{
+		return this.updateResource("reports/" + id + "/publish", ReportPublish.class, reportPublish);
+	}
+
+        /**
      * <p>Creates an object of ShareResources.</p>
      *
      * @return the created ShareResources object

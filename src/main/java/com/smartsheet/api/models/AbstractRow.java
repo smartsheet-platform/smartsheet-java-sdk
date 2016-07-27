@@ -112,6 +112,12 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
 
     /** Indicates if the row should be put above the specified sibling row*/
     private Boolean above;
+    
+    /** User object containing name and email of the creator of this row */
+    private User createdBy;
+    
+    /** User object containing name and email of the last person to modify this row */
+    private User modifiedBy;
 
     /**
      * Gets the user's permissions on the sheet.
@@ -573,5 +579,23 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
      */
     public void setAbove(Boolean above) {
         this.above = above;
+    }
+    
+    /**
+     * Gets the User object containing name and email of the creator of this row.
+     *
+     * @return User object
+     */    
+    public User getCreatedBy() {
+    	return createdBy;
+    }
+    
+    /**
+     * Gets the User object containing name and email of the last person to modify this row.
+     *
+     * @return User object
+     */     
+    public User getModifiedBy() {
+    	return modifiedBy;
     }
 }

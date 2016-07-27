@@ -29,9 +29,11 @@ public enum SheetInclusion{
 	ATTACHMENTS		("attachments"),
 	FORMAT			("format"),
 	FILTERS			("filters"),
+	OWNER_INFO		("ownerInfo"),
 	COLUMN_TYPE		("columnType"),
 	SOURCE			("source"),
 	ROW_PERMALINK	("rowPermalink"),
+	ROW_WRITER_INFO	("rowWriterInfo"),
 	;
 
 	String inclusion;
