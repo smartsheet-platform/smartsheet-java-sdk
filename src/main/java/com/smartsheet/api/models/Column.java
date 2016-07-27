@@ -395,7 +395,10 @@ public class Column extends IdentifiableModel<Long> {
 
 		/**Represents the primary flag.*/
 		private Boolean primary;
-		
+
+		/** The column format */
+		private Format format;
+
 		/**
 		 * Gets the width for the column.
 		 *
@@ -572,6 +575,22 @@ public class Column extends IdentifiableModel<Long> {
 		}
 
 		/**
+		 * Gets the format for a column.
+		 * @return the format for a column
+		 */
+		public Format getFormat() {
+			return format;
+		}
+
+		/**
+		 * Sets the format for a column.
+		 */
+		public AddColumnToSheetBuilder setFormat(Format format) {
+			this.format = format;
+			return this;
+		}
+
+		/**
 		 * Builds the column.
 		 *
 		 * @return the column
@@ -591,6 +610,7 @@ public class Column extends IdentifiableModel<Long> {
 			column.systemColumnType = systemColumnType;
 			column.autoNumberFormat = autoNumberFormat;
 			column.primary = primary;
+			column.format = format;
 			return column;
 		}
 

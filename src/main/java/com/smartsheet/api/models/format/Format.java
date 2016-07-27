@@ -21,6 +21,12 @@ package com.smartsheet.api.models.format;
  */
 
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import java.io.IOException;
 import java.util.Arrays;
 
 
@@ -31,6 +37,7 @@ import java.util.Arrays;
  * @author kskeem
  *
  */
+@JsonSerialize(using=Format.FormatSerializer.class)
 public class Format {
 
 	//The default format.
@@ -280,6 +287,24 @@ public class Format {
 			}
 			pos--;
 			return value;
+		}
+	}
+
+	public static class FormatSerializer extends JsonSerializer<Format> {
+		@Override
+		public void serialize(Format format, JsonGenerator generator, SerializerProvider provider) throws IOException {
+			StringBuilder stringBuilder = new StringBuilder(30);
+			String separator = "";
+			for (int formatValue : format.formatArray) {
+				stringBuilder.append(separator);
+				separator = ",";
+
+				if (formatValue != UNSET) {
+					stringBuilder.append(formatValue);
+				}
+			}
+
+			generator.writeString(stringBuilder.toString());
 		}
 	}
 }

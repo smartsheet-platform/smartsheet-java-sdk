@@ -123,7 +123,7 @@ public class AttachmentResourcesIT extends ITResourcesImpl{
 
     public void testattachUrl() throws SmartsheetException, IOException {
 
-        Attachment attachment = new Attachment.CreateAttachmentBuilder().setUrl("www.xyz.com").setAttachmentType(AttachmentType.LINK).setName("New Name").build();
+        Attachment attachment = new Attachment.CreateAttachmentBuilder().setUrl("https://www.smartsheet.com").setAttachmentType(AttachmentType.LINK).setName("New Name").build();
 
         //attach file to sheet
         Attachment attachedUrl = smartsheet.sheetResources().attachmentResources().attachUrl(sheetId, attachment);
