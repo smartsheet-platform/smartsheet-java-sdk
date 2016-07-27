@@ -26,10 +26,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -78,7 +76,7 @@ public class SheetResourcesIT extends ITResourcesImpl{
 
         //create sheet
         newSheetHome = smartsheet.sheetResources().createSheet(sheetHome);
-        if (newSheetHome.getColumns().size() != 3) {
+        if (newSheetHome.getColumns().size() != sheetHome.getColumns().size()) {
             fail("Issue creating a sheet");
         }
     }
@@ -179,7 +177,7 @@ public class SheetResourcesIT extends ITResourcesImpl{
 
         Sheet newSheetFolder = smartsheet.sheetResources().createSheetInFolder(folder.getId(), sheetHome);
 
-        if (newSheetFolder.getColumns().size() != 3) {
+        if (newSheetFolder.getColumns().size() != sheetHome.getColumns().size()) {
             fail("Issue creating a sheet");
         }
     }
@@ -200,7 +198,7 @@ public class SheetResourcesIT extends ITResourcesImpl{
         workspace = createWorkspace("New Test Workspace");
 
         Sheet newSheet = smartsheet.sheetResources().createSheetInWorkspace(workspace.getId(), sheetHome);
-        assertEquals(3, newSheet.getColumns().size());
+        assertEquals(sheetHome.getColumns().size(), newSheet.getColumns().size());
 
         //delete temporary workspace
         //testDeleteWorkspace(workspace.getId());
@@ -253,7 +251,29 @@ public class SheetResourcesIT extends ITResourcesImpl{
     }
 
     public void testUpdatePublishStatus() throws SmartsheetException, IOException {
-        SheetPublish sheetPublish = new SheetPublish.PublishStatusBuilder().setIcalEnabled(true).setReadOnlyFullEnabled(true).setReadWriteEnabled(true).setReadOnlyLiteEnabled(true).build();
+        // In order to publish an icalendar, we have to have at least one row of data
+        PagedResult<Column> columns = smartsheet.sheetResources().columnResources().listColumns(newSheetHome.getId(), null, null);
+        Column dateColumn;
+        for (Column column : columns.getData()) {
+            if (column.getType() == ColumnType.DATE) {
+                dateColumn = column;
+                smartsheet.sheetResources().rowResources().addRows(newSheetHome.getId(), Collections.singletonList(
+                        new Row.AddRowBuilder()
+                                .setCells(new Cell.AddRowCellsBuilder()
+                                        .addCell(dateColumn.getId(), new SimpleDateFormat("yyyy-MM-dd").format(new Date()))
+                                        .build())
+                                .setToBottom(true)
+                                .build()));
+                break;
+            }
+        }
+
+        SheetPublish sheetPublish = new SheetPublish.PublishStatusBuilder()
+                .setIcalEnabled(true)
+                .setReadOnlyFullEnabled(true)
+                .setReadWriteEnabled(true)
+                .setReadOnlyLiteEnabled(true)
+                .build();
         SheetPublish newSheetPublish = smartsheet.sheetResources().updatePublishStatus(newSheetHome.getId(), sheetPublish);
 
         assertTrue(newSheetPublish.getReadOnlyFullEnabled());

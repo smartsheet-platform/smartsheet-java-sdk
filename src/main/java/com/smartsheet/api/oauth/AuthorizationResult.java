@@ -94,14 +94,12 @@ public class AuthorizationResult {
 	 */
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("AuthorizationResult [code=");
-		builder.append(code);
-		builder.append(", expiresInSeconds=");
-		builder.append(expiresInSeconds);
-		builder.append(", state=");
-		builder.append(state);
-		builder.append("]");
-		return builder.toString();
+		return new StringBuilder().append("AuthorizationResult [code=")
+				.append(code)
+				.append(", expiresInSeconds=")
+				.append(expiresInSeconds)
+				.append(", state=")
+				.append(state)
+				.append("]").toString();
 	}
 }
