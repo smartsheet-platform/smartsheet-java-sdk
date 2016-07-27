@@ -20,13 +20,27 @@ package com.smartsheet.api.models.format;
  * %[license]
  */
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.SerializerProvider;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+@RunWith(MockitoJUnitRunner.class)
 public class FormatTest {
+
+	@Mock
+	JsonGenerator generator;
+	@Mock
+	SerializerProvider provider;
 	
 	@Before
 	public void setup() {
@@ -84,9 +98,20 @@ public class FormatTest {
 	}
 	
 	public void runTestCases(FormatTestCase<?>[] testCases) {
+		Format.FormatSerializer formatSerializer = new Format.FormatSerializer();
+
 		for (FormatTestCase<?> test : testCases) {
 			Format format = new Format(test.getFormat());
 			assertEquals ("Test case " + test, test.getExpected(), test.getResult(format));
+
+			try {
+				formatSerializer.serialize(format, generator, provider);
+				Mockito.verify(generator).writeString(test.getFormat());
+				Mockito.verifyZeroInteractions(provider);
+				Mockito.reset(generator, provider);
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
 		}
 	}
 	
@@ -249,11 +274,11 @@ public class FormatTest {
 	}
 	
 	enum HAlignTest implements FormatTestCase<HorizontalAlignment>  {
-		DEFAULT 		(",,,,,,0,,,,,,,,,,", HorizontalAlignment.DEFAULT_ALIGNMENT),
-		LEFT			(",,,,,,1,,,,,,,,,,", HorizontalAlignment.LEFT),
-		CENTER			(",,,,,,2,,,,,,,,,,", HorizontalAlignment.CENTER),
-		RIGHT 			(",,,,,,3,,,,,,,,,,", HorizontalAlignment.RIGHT),
-		SOMETHING_NEW	(",,,,,,4,,,,,,,,,,", HorizontalAlignment.DEFAULT_ALIGNMENT),
+		DEFAULT 		(",,,,,,0,,,,,,,,,", HorizontalAlignment.DEFAULT_ALIGNMENT),
+		LEFT			(",,,,,,1,,,,,,,,,", HorizontalAlignment.LEFT),
+		CENTER			(",,,,,,2,,,,,,,,,", HorizontalAlignment.CENTER),
+		RIGHT 			(",,,,,,3,,,,,,,,,", HorizontalAlignment.RIGHT),
+		SOMETHING_NEW	(",,,,,,4,,,,,,,,,", HorizontalAlignment.DEFAULT_ALIGNMENT),
 		;
 		final String format;
 		HorizontalAlignment expected;
@@ -274,11 +299,11 @@ public class FormatTest {
 	}
 	
 	enum VAlignTest implements FormatTestCase<VerticalAlignment>  {
-		DEFAULT 		(",,,,,,,0,,,,,,,,,", VerticalAlignment.DEFAULT_ALIGNMENT),
-		LEFT			(",,,,,,,1,,,,,,,,,", VerticalAlignment.TOP),
-		CENTER			(",,,,,,,2,,,,,,,,,", VerticalAlignment.MIDDLE),
-		RIGHT 			(",,,,,,,3,,,,,,,,,", VerticalAlignment.BOTTOM),
-		SOMETHING_NEW	(",,,,,,,4,,,,,,,,,", VerticalAlignment.DEFAULT_ALIGNMENT),
+		DEFAULT 		(",,,,,,,0,,,,,,,,", VerticalAlignment.DEFAULT_ALIGNMENT),
+		LEFT			(",,,,,,,1,,,,,,,,", VerticalAlignment.TOP),
+		CENTER			(",,,,,,,2,,,,,,,,", VerticalAlignment.MIDDLE),
+		RIGHT 			(",,,,,,,3,,,,,,,,", VerticalAlignment.BOTTOM),
+		SOMETHING_NEW	(",,,,,,,4,,,,,,,,", VerticalAlignment.DEFAULT_ALIGNMENT),
 		;
 		final String format;
 		VerticalAlignment expected;
@@ -299,54 +324,54 @@ public class FormatTest {
 	}
 	
 	enum TextColorTest implements FormatTestCase<Color>  {
-		NONE 			(",,,,,,,,0,,,,,,,,", Color.NONE),
-		BLACK			(",,,,,,,,1,,,,,,,,", Color.BLACK),
-		WHITE			(",,,,,,,,2,,,,,,,,", Color.WHITE),
-		TRANSPARENT 	(",,,,,,,,3,,,,,,,,", Color.TRANSPARENT),
+		NONE 			(",,,,,,,,0,,,,,,,", Color.NONE),
+		BLACK			(",,,,,,,,1,,,,,,,", Color.BLACK),
+		WHITE			(",,,,,,,,2,,,,,,,", Color.WHITE),
+		TRANSPARENT 	(",,,,,,,,3,,,,,,,", Color.TRANSPARENT),
 		
-		RED_0			(",,,,,,,,4,,,,,,,,", Color.RED_0),
-		ORANGE_0		(",,,,,,,,5,,,,,,,,", Color.ORANGE_0),
-		YELLOW_0		(",,,,,,,,6,,,,,,,,", Color.YELLOW_0),
-		GREEN_0			(",,,,,,,,7,,,,,,,,", Color.GREEN_0),
-		BLUE_0			(",,,,,,,,8,,,,,,,,", Color.BLUE_0),
-		PURPLE_0		(",,,,,,,,9,,,,,,,,", Color.PURPLE_0),
-		BROWN_0			(",,,,,,,,10,,,,,,,,", Color.BROWN_0),
+		RED_0			(",,,,,,,,4,,,,,,,", Color.RED_0),
+		ORANGE_0		(",,,,,,,,5,,,,,,,", Color.ORANGE_0),
+		YELLOW_0		(",,,,,,,,6,,,,,,,", Color.YELLOW_0),
+		GREEN_0			(",,,,,,,,7,,,,,,,", Color.GREEN_0),
+		BLUE_0			(",,,,,,,,8,,,,,,,", Color.BLUE_0),
+		PURPLE_0		(",,,,,,,,9,,,,,,,", Color.PURPLE_0),
+		BROWN_0			(",,,,,,,,10,,,,,,,", Color.BROWN_0),
 
-		RED_1			(",,,,,,,,11,,,,,,,,", Color.RED_1),
-		ORANGE_1		(",,,,,,,,12,,,,,,,,", Color.ORANGE_1),
-		YELLOW_1		(",,,,,,,,13,,,,,,,,", Color.YELLOW_1),
-		GREEN_1			(",,,,,,,,14,,,,,,,,", Color.GREEN_1),
-		BLUE_1			(",,,,,,,,15,,,,,,,,", Color.BLUE_1),
-		PURPLE_1		(",,,,,,,,16,,,,,,,,", Color.PURPLE_1),
-		BROWN_1			(",,,,,,,,17,,,,,,,,", Color.BROWN_1),
-		GREY_1			(",,,,,,,,18,,,,,,,,", Color.GREY_1),
+		RED_1			(",,,,,,,,11,,,,,,,", Color.RED_1),
+		ORANGE_1		(",,,,,,,,12,,,,,,,", Color.ORANGE_1),
+		YELLOW_1		(",,,,,,,,13,,,,,,,", Color.YELLOW_1),
+		GREEN_1			(",,,,,,,,14,,,,,,,", Color.GREEN_1),
+		BLUE_1			(",,,,,,,,15,,,,,,,", Color.BLUE_1),
+		PURPLE_1		(",,,,,,,,16,,,,,,,", Color.PURPLE_1),
+		BROWN_1			(",,,,,,,,17,,,,,,,", Color.BROWN_1),
+		GREY_1			(",,,,,,,,18,,,,,,,", Color.GREY_1),
 		
-		RED_2			(",,,,,,,,19,,,,,,,,", Color.RED_2),
-		ORANGE_2		(",,,,,,,,20,,,,,,,,", Color.ORANGE_2),
-		YELLOW_2		(",,,,,,,,21,,,,,,,,", Color.YELLOW_2),
-		GREEN_2			(",,,,,,,,22,,,,,,,,", Color.GREEN_2),
-		BLUE_2			(",,,,,,,,23,,,,,,,,", Color.BLUE_2),
-		PURPLE_2		(",,,,,,,,24,,,,,,,,", Color.PURPLE_2),
-		BROWN_2			(",,,,,,,,25,,,,,,,,", Color.BROWN_2),
-		GREY_2			(",,,,,,,,26,,,,,,,,", Color.GREY_2),
+		RED_2			(",,,,,,,,19,,,,,,,", Color.RED_2),
+		ORANGE_2		(",,,,,,,,20,,,,,,,", Color.ORANGE_2),
+		YELLOW_2		(",,,,,,,,21,,,,,,,", Color.YELLOW_2),
+		GREEN_2			(",,,,,,,,22,,,,,,,", Color.GREEN_2),
+		BLUE_2			(",,,,,,,,23,,,,,,,", Color.BLUE_2),
+		PURPLE_2		(",,,,,,,,24,,,,,,,", Color.PURPLE_2),
+		BROWN_2			(",,,,,,,,25,,,,,,,", Color.BROWN_2),
+		GREY_2			(",,,,,,,,26,,,,,,,", Color.GREY_2),
 		
-		RED_3			(",,,,,,,,27,,,,,,,,", Color.RED_3),
-		ORANGE_3		(",,,,,,,,28,,,,,,,,", Color.ORANGE_3),
-		YELLOW_3		(",,,,,,,,29,,,,,,,,", Color.YELLOW_3),
-		GREEN_3			(",,,,,,,,30,,,,,,,,", Color.GREEN_3),
-		BLUE_3			(",,,,,,,,31,,,,,,,,", Color.BLUE_3),
-		PURPLE_3		(",,,,,,,,32,,,,,,,,", Color.PURPLE_3),
-		BROWN_3			(",,,,,,,,33,,,,,,,,", Color.BROWN_3),
-		GREY_3			(",,,,,,,,34,,,,,,,,", Color.GREY_3),
+		RED_3			(",,,,,,,,27,,,,,,,", Color.RED_3),
+		ORANGE_3		(",,,,,,,,28,,,,,,,", Color.ORANGE_3),
+		YELLOW_3		(",,,,,,,,29,,,,,,,", Color.YELLOW_3),
+		GREEN_3			(",,,,,,,,30,,,,,,,", Color.GREEN_3),
+		BLUE_3			(",,,,,,,,31,,,,,,,", Color.BLUE_3),
+		PURPLE_3		(",,,,,,,,32,,,,,,,", Color.PURPLE_3),
+		BROWN_3			(",,,,,,,,33,,,,,,,", Color.BROWN_3),
+		GREY_3			(",,,,,,,,34,,,,,,,", Color.GREY_3),
 
-		RED_4			(",,,,,,,,35,,,,,,,,", Color.RED_4),
-		ORANGE_4		(",,,,,,,,36,,,,,,,,", Color.ORANGE_4),
-		YELLOW_4		(",,,,,,,,37,,,,,,,,", Color.YELLOW_4),
-		GREEN_4			(",,,,,,,,38,,,,,,,,", Color.GREEN_4),
-		BLUE_4			(",,,,,,,,39,,,,,,,,", Color.BLUE_4),
-		PURPLE_4		(",,,,,,,,40,,,,,,,,", Color.PURPLE_4),
-		BROWN_4			(",,,,,,,,41,,,,,,,,", Color.BROWN_4),
-		SOMETHING_NEW	(",,,,,,,,42,,,,,,,,", Color.NONE),
+		RED_4			(",,,,,,,,35,,,,,,,", Color.RED_4),
+		ORANGE_4		(",,,,,,,,36,,,,,,,", Color.ORANGE_4),
+		YELLOW_4		(",,,,,,,,37,,,,,,,", Color.YELLOW_4),
+		GREEN_4			(",,,,,,,,38,,,,,,,", Color.GREEN_4),
+		BLUE_4			(",,,,,,,,39,,,,,,,", Color.BLUE_4),
+		PURPLE_4		(",,,,,,,,40,,,,,,,", Color.PURPLE_4),
+		BROWN_4			(",,,,,,,,41,,,,,,,", Color.BROWN_4),
+		SOMETHING_NEW	(",,,,,,,,42,,,,,,,", Color.NONE),
 		
 		;
 		final String format;
@@ -369,54 +394,54 @@ public class FormatTest {
 	
 	
 	enum BackgroundColorTest implements FormatTestCase<Color>  {
-		NONE 			(",,,,,,,,,0,,,,,,,", Color.NONE),
-		BLACK			(",,,,,,,,,1,,,,,,,", Color.BLACK),
-		WHITE			(",,,,,,,,,2,,,,,,,", Color.WHITE),
-		TRANSPARENT 	(",,,,,,,,,3,,,,,,,", Color.TRANSPARENT),
+		NONE 			(",,,,,,,,,0,,,,,,", Color.NONE),
+		BLACK			(",,,,,,,,,1,,,,,,", Color.BLACK),
+		WHITE			(",,,,,,,,,2,,,,,,", Color.WHITE),
+		TRANSPARENT 	(",,,,,,,,,3,,,,,,", Color.TRANSPARENT),
 		
-		RED_0			(",,,,,,,,,4,,,,,,,", Color.RED_0),
-		ORANGE_0		(",,,,,,,,,5,,,,,,,", Color.ORANGE_0),
-		YELLOW_0		(",,,,,,,,,6,,,,,,,", Color.YELLOW_0),
-		GREEN_0			(",,,,,,,,,7,,,,,,,", Color.GREEN_0),
-		BLUE_0			(",,,,,,,,,8,,,,,,,", Color.BLUE_0),
-		PURPLE_0		(",,,,,,,,,9,,,,,,,", Color.PURPLE_0),
-		BROWN_0			(",,,,,,,,,10,,,,,,,", Color.BROWN_0),
+		RED_0			(",,,,,,,,,4,,,,,,", Color.RED_0),
+		ORANGE_0		(",,,,,,,,,5,,,,,,", Color.ORANGE_0),
+		YELLOW_0		(",,,,,,,,,6,,,,,,", Color.YELLOW_0),
+		GREEN_0			(",,,,,,,,,7,,,,,,", Color.GREEN_0),
+		BLUE_0			(",,,,,,,,,8,,,,,,", Color.BLUE_0),
+		PURPLE_0		(",,,,,,,,,9,,,,,,", Color.PURPLE_0),
+		BROWN_0			(",,,,,,,,,10,,,,,,", Color.BROWN_0),
 
-		RED_1			(",,,,,,,,,11,,,,,,,", Color.RED_1),
-		ORANGE_1		(",,,,,,,,,12,,,,,,,", Color.ORANGE_1),
-		YELLOW_1		(",,,,,,,,,13,,,,,,,", Color.YELLOW_1),
-		GREEN_1			(",,,,,,,,,14,,,,,,,", Color.GREEN_1),
-		BLUE_1			(",,,,,,,,,15,,,,,,,", Color.BLUE_1),
-		PURPLE_1		(",,,,,,,,,16,,,,,,,", Color.PURPLE_1),
-		BROWN_1			(",,,,,,,,,17,,,,,,,", Color.BROWN_1),
-		GREY_1			(",,,,,,,,,18,,,,,,,", Color.GREY_1),
+		RED_1			(",,,,,,,,,11,,,,,,", Color.RED_1),
+		ORANGE_1		(",,,,,,,,,12,,,,,,", Color.ORANGE_1),
+		YELLOW_1		(",,,,,,,,,13,,,,,,", Color.YELLOW_1),
+		GREEN_1			(",,,,,,,,,14,,,,,,", Color.GREEN_1),
+		BLUE_1			(",,,,,,,,,15,,,,,,", Color.BLUE_1),
+		PURPLE_1		(",,,,,,,,,16,,,,,,", Color.PURPLE_1),
+		BROWN_1			(",,,,,,,,,17,,,,,,", Color.BROWN_1),
+		GREY_1			(",,,,,,,,,18,,,,,,", Color.GREY_1),
 		
-		RED_2			(",,,,,,,,,19,,,,,,,", Color.RED_2),
-		ORANGE_2		(",,,,,,,,,20,,,,,,,", Color.ORANGE_2),
-		YELLOW_2		(",,,,,,,,,21,,,,,,,", Color.YELLOW_2),
-		GREEN_2			(",,,,,,,,,22,,,,,,,", Color.GREEN_2),
-		BLUE_2			(",,,,,,,,,23,,,,,,,", Color.BLUE_2),
-		PURPLE_2		(",,,,,,,,,24,,,,,,,", Color.PURPLE_2),
-		BROWN_2			(",,,,,,,,,25,,,,,,,", Color.BROWN_2),
-		GREY_2			(",,,,,,,,,26,,,,,,,", Color.GREY_2),
+		RED_2			(",,,,,,,,,19,,,,,,", Color.RED_2),
+		ORANGE_2		(",,,,,,,,,20,,,,,,", Color.ORANGE_2),
+		YELLOW_2		(",,,,,,,,,21,,,,,,", Color.YELLOW_2),
+		GREEN_2			(",,,,,,,,,22,,,,,,", Color.GREEN_2),
+		BLUE_2			(",,,,,,,,,23,,,,,,", Color.BLUE_2),
+		PURPLE_2		(",,,,,,,,,24,,,,,,", Color.PURPLE_2),
+		BROWN_2			(",,,,,,,,,25,,,,,,", Color.BROWN_2),
+		GREY_2			(",,,,,,,,,26,,,,,,", Color.GREY_2),
 		
-		RED_3			(",,,,,,,,,27,,,,,,,", Color.RED_3),
-		ORANGE_3		(",,,,,,,,,28,,,,,,,", Color.ORANGE_3),
-		YELLOW_3		(",,,,,,,,,29,,,,,,,", Color.YELLOW_3),
-		GREEN_3			(",,,,,,,,,30,,,,,,,", Color.GREEN_3),
-		BLUE_3			(",,,,,,,,,31,,,,,,,", Color.BLUE_3),
-		PURPLE_3		(",,,,,,,,,32,,,,,,,", Color.PURPLE_3),
-		BROWN_3			(",,,,,,,,,33,,,,,,,", Color.BROWN_3),
-		GREY_3			(",,,,,,,,,34,,,,,,,", Color.GREY_3),
+		RED_3			(",,,,,,,,,27,,,,,,", Color.RED_3),
+		ORANGE_3		(",,,,,,,,,28,,,,,,", Color.ORANGE_3),
+		YELLOW_3		(",,,,,,,,,29,,,,,,", Color.YELLOW_3),
+		GREEN_3			(",,,,,,,,,30,,,,,,", Color.GREEN_3),
+		BLUE_3			(",,,,,,,,,31,,,,,,", Color.BLUE_3),
+		PURPLE_3		(",,,,,,,,,32,,,,,,", Color.PURPLE_3),
+		BROWN_3			(",,,,,,,,,33,,,,,,", Color.BROWN_3),
+		GREY_3			(",,,,,,,,,34,,,,,,", Color.GREY_3),
 
-		RED_4			(",,,,,,,,,35,,,,,,,", Color.RED_4),
-		ORANGE_4		(",,,,,,,,,36,,,,,,,", Color.ORANGE_4),
-		YELLOW_4		(",,,,,,,,,37,,,,,,,", Color.YELLOW_4),
-		GREEN_4			(",,,,,,,,,38,,,,,,,", Color.GREEN_4),
-		BLUE_4			(",,,,,,,,,39,,,,,,,", Color.BLUE_4),
-		PURPLE_4		(",,,,,,,,,40,,,,,,,", Color.PURPLE_4),
-		BROWN_4			(",,,,,,,,,41,,,,,,,", Color.BROWN_4),
-		SOMETHING_NEW	(",,,,,,,,,42,,,,,,,", Color.NONE),
+		RED_4			(",,,,,,,,,35,,,,,,", Color.RED_4),
+		ORANGE_4		(",,,,,,,,,36,,,,,,", Color.ORANGE_4),
+		YELLOW_4		(",,,,,,,,,37,,,,,,", Color.YELLOW_4),
+		GREEN_4			(",,,,,,,,,38,,,,,,", Color.GREEN_4),
+		BLUE_4			(",,,,,,,,,39,,,,,,", Color.BLUE_4),
+		PURPLE_4		(",,,,,,,,,40,,,,,,", Color.PURPLE_4),
+		BROWN_4			(",,,,,,,,,41,,,,,,", Color.BROWN_4),
+		SOMETHING_NEW	(",,,,,,,,,42,,,,,,", Color.NONE),
 		
 		;
 		final String format;
@@ -438,54 +463,54 @@ public class FormatTest {
 	}
 	
 	enum TaskbarColorTest implements FormatTestCase<Color>  {
-		NONE 			(",,,,,,,,,,0,,,,,,,", Color.NONE),
-		BLACK			(",,,,,,,,,,1,,,,,,,", Color.BLACK),
-		WHITE			(",,,,,,,,,,2,,,,,,,", Color.WHITE),
-		TRANSPARENT 	(",,,,,,,,,,3,,,,,,,", Color.TRANSPARENT),
+		NONE 			(",,,,,,,,,,0,,,,,", Color.NONE),
+		BLACK			(",,,,,,,,,,1,,,,,", Color.BLACK),
+		WHITE			(",,,,,,,,,,2,,,,,", Color.WHITE),
+		TRANSPARENT 	(",,,,,,,,,,3,,,,,", Color.TRANSPARENT),
 		
-		RED_0			(",,,,,,,,,,4,,,,,,,", Color.RED_0),
-		ORANGE_0		(",,,,,,,,,,5,,,,,,,", Color.ORANGE_0),
-		YELLOW_0		(",,,,,,,,,,6,,,,,,,", Color.YELLOW_0),
-		GREEN_0			(",,,,,,,,,,7,,,,,,,", Color.GREEN_0),
-		BLUE_0			(",,,,,,,,,,8,,,,,,,", Color.BLUE_0),
-		PURPLE_0		(",,,,,,,,,,9,,,,,,,", Color.PURPLE_0),
-		BROWN_0			(",,,,,,,,,,10,,,,,,,", Color.BROWN_0),
+		RED_0			(",,,,,,,,,,4,,,,,", Color.RED_0),
+		ORANGE_0		(",,,,,,,,,,5,,,,,", Color.ORANGE_0),
+		YELLOW_0		(",,,,,,,,,,6,,,,,", Color.YELLOW_0),
+		GREEN_0			(",,,,,,,,,,7,,,,,", Color.GREEN_0),
+		BLUE_0			(",,,,,,,,,,8,,,,,", Color.BLUE_0),
+		PURPLE_0		(",,,,,,,,,,9,,,,,", Color.PURPLE_0),
+		BROWN_0			(",,,,,,,,,,10,,,,,", Color.BROWN_0),
 
-		RED_1			(",,,,,,,,,,11,,,,,,,", Color.RED_1),
-		ORANGE_1		(",,,,,,,,,,12,,,,,,,", Color.ORANGE_1),
-		YELLOW_1		(",,,,,,,,,,13,,,,,,,", Color.YELLOW_1),
-		GREEN_1			(",,,,,,,,,,14,,,,,,,", Color.GREEN_1),
-		BLUE_1			(",,,,,,,,,,15,,,,,,,", Color.BLUE_1),
-		PURPLE_1		(",,,,,,,,,,16,,,,,,,", Color.PURPLE_1),
-		BROWN_1			(",,,,,,,,,,17,,,,,,,", Color.BROWN_1),
-		GREY_1			(",,,,,,,,,,18,,,,,,,", Color.GREY_1),
+		RED_1			(",,,,,,,,,,11,,,,,", Color.RED_1),
+		ORANGE_1		(",,,,,,,,,,12,,,,,", Color.ORANGE_1),
+		YELLOW_1		(",,,,,,,,,,13,,,,,", Color.YELLOW_1),
+		GREEN_1			(",,,,,,,,,,14,,,,,", Color.GREEN_1),
+		BLUE_1			(",,,,,,,,,,15,,,,,", Color.BLUE_1),
+		PURPLE_1		(",,,,,,,,,,16,,,,,", Color.PURPLE_1),
+		BROWN_1			(",,,,,,,,,,17,,,,,", Color.BROWN_1),
+		GREY_1			(",,,,,,,,,,18,,,,,", Color.GREY_1),
 		
-		RED_2			(",,,,,,,,,,19,,,,,,,", Color.RED_2),
-		ORANGE_2		(",,,,,,,,,,20,,,,,,,", Color.ORANGE_2),
-		YELLOW_2		(",,,,,,,,,,21,,,,,,,", Color.YELLOW_2),
-		GREEN_2			(",,,,,,,,,,22,,,,,,,", Color.GREEN_2),
-		BLUE_2			(",,,,,,,,,,23,,,,,,,", Color.BLUE_2),
-		PURPLE_2		(",,,,,,,,,,24,,,,,,,", Color.PURPLE_2),
-		BROWN_2			(",,,,,,,,,,25,,,,,,,", Color.BROWN_2),
-		GREY_2			(",,,,,,,,,,26,,,,,,,", Color.GREY_2),
+		RED_2			(",,,,,,,,,,19,,,,,", Color.RED_2),
+		ORANGE_2		(",,,,,,,,,,20,,,,,", Color.ORANGE_2),
+		YELLOW_2		(",,,,,,,,,,21,,,,,", Color.YELLOW_2),
+		GREEN_2			(",,,,,,,,,,22,,,,,", Color.GREEN_2),
+		BLUE_2			(",,,,,,,,,,23,,,,,", Color.BLUE_2),
+		PURPLE_2		(",,,,,,,,,,24,,,,,", Color.PURPLE_2),
+		BROWN_2			(",,,,,,,,,,25,,,,,", Color.BROWN_2),
+		GREY_2			(",,,,,,,,,,26,,,,,", Color.GREY_2),
 		
-		RED_3			(",,,,,,,,,,27,,,,,,,", Color.RED_3),
-		ORANGE_3		(",,,,,,,,,,28,,,,,,,", Color.ORANGE_3),
-		YELLOW_3		(",,,,,,,,,,29,,,,,,,", Color.YELLOW_3),
-		GREEN_3			(",,,,,,,,,,30,,,,,,,", Color.GREEN_3),
-		BLUE_3			(",,,,,,,,,,31,,,,,,,", Color.BLUE_3),
-		PURPLE_3		(",,,,,,,,,,32,,,,,,,", Color.PURPLE_3),
-		BROWN_3			(",,,,,,,,,,33,,,,,,,", Color.BROWN_3),
-		GREY_3			(",,,,,,,,,,34,,,,,,,", Color.GREY_3),
+		RED_3			(",,,,,,,,,,27,,,,,", Color.RED_3),
+		ORANGE_3		(",,,,,,,,,,28,,,,,", Color.ORANGE_3),
+		YELLOW_3		(",,,,,,,,,,29,,,,,", Color.YELLOW_3),
+		GREEN_3			(",,,,,,,,,,30,,,,,", Color.GREEN_3),
+		BLUE_3			(",,,,,,,,,,31,,,,,", Color.BLUE_3),
+		PURPLE_3		(",,,,,,,,,,32,,,,,", Color.PURPLE_3),
+		BROWN_3			(",,,,,,,,,,33,,,,,", Color.BROWN_3),
+		GREY_3			(",,,,,,,,,,34,,,,,", Color.GREY_3),
 
-		RED_4			(",,,,,,,,,,35,,,,,,,", Color.RED_4),
-		ORANGE_4		(",,,,,,,,,,36,,,,,,,", Color.ORANGE_4),
-		YELLOW_4		(",,,,,,,,,,37,,,,,,,", Color.YELLOW_4),
-		GREEN_4			(",,,,,,,,,,38,,,,,,,", Color.GREEN_4),
-		BLUE_4			(",,,,,,,,,,39,,,,,,,", Color.BLUE_4),
-		PURPLE_4		(",,,,,,,,,,40,,,,,,,", Color.PURPLE_4),
-		BROWN_4			(",,,,,,,,,,41,,,,,,,", Color.BROWN_4),
-		SOMETHING_NEW	(",,,,,,,,,,42,,,,,,,", Color.NONE),
+		RED_4			(",,,,,,,,,,35,,,,,", Color.RED_4),
+		ORANGE_4		(",,,,,,,,,,36,,,,,", Color.ORANGE_4),
+		YELLOW_4		(",,,,,,,,,,37,,,,,", Color.YELLOW_4),
+		GREEN_4			(",,,,,,,,,,38,,,,,", Color.GREEN_4),
+		BLUE_4			(",,,,,,,,,,39,,,,,", Color.BLUE_4),
+		PURPLE_4		(",,,,,,,,,,40,,,,,", Color.PURPLE_4),
+		BROWN_4			(",,,,,,,,,,41,,,,,", Color.BROWN_4),
+		SOMETHING_NEW	(",,,,,,,,,,42,,,,,", Color.NONE),
 		
 		;
 		final String format;
