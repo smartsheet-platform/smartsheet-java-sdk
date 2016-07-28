@@ -37,6 +37,6 @@ public enum SheetCopyInclusion {
 
     @Override
     public String toString() {
-        return super.toString();
+        return inclusion;
     }
 }
