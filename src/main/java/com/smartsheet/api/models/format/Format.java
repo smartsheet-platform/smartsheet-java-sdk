@@ -290,6 +290,225 @@ public class Format {
 		}
 	}
 
+
+	/**
+	 * Builder class for a Format object
+     */
+	public static class FormatBuilder {
+		int[] formatArray = new int[] {
+			UNSET, UNSET, UNSET, UNSET,
+			UNSET, UNSET, UNSET, UNSET,
+			UNSET, UNSET, UNSET, UNSET,
+			UNSET, UNSET, UNSET, UNSET
+		};
+
+		public Format build() {
+			String delimiter = "";
+			StringBuilder formatStringBuilder = new StringBuilder(30);
+			for (Integer value : formatArray) {
+				formatStringBuilder.append(delimiter);
+				delimiter = ",";
+
+				if (value != UNSET) {
+					formatStringBuilder.append(value);
+				}
+			}
+
+			return new Format(formatStringBuilder.toString());
+		}
+
+		/**
+		 * Sets all properties based upon the supplied format
+		 *
+		 * @param value the value
+		 * @return the format builder
+		 */
+		public FormatBuilder withFormat(Format value) {
+			System.arraycopy(value.formatArray, 0, formatArray, 0, formatArray.length);
+			return this;
+		}
+
+		/**
+		 * Sets the font family of the format
+		 *
+		 * @param value the value
+		 * @return the format builder
+		 */
+		public FormatBuilder withFontFamily(FontFamily value) {
+			formatArray[0] = getOrdinal(value);
+			return this;
+		}
+
+		/**
+		 * Sets the font size of the format
+		 *
+		 * @param value the value
+		 * @return the format builder
+		 */
+		public FormatBuilder withFontSize(FontSize value) {
+			formatArray[1] = getOrdinal(value);
+			return this;
+		}
+
+		/**
+		 * Sets the bold property of the format
+		 *
+		 * @param value the value
+		 * @return the format builder
+		 */
+		public FormatBuilder withBold(Bold value) {
+			formatArray[2] = getOrdinal(value);
+			return this;
+		}
+
+		/**
+		 * Sets the italics property of the format
+		 *
+		 * @param value the value
+		 * @return the format builder
+		 */
+		public FormatBuilder withItalic(Italic value) {
+			formatArray[3] = getOrdinal(value);
+			return this;
+		}
+
+		/**
+		 * Sets the underline property of the format
+		 *
+		 * @param value the value
+		 * @return the format builder
+		 */
+		public FormatBuilder withUnderline(Underline value) {
+			formatArray[4] = getOrdinal(value);
+			return this;
+		}
+
+		/**
+		 * Sets the strike through property of the format
+		 *
+		 * @param value the value
+		 * @return the format builder
+		 */
+		public FormatBuilder withStrikethrough(Strikethrough value) {
+			formatArray[5] = getOrdinal(value);
+			return this;
+		}
+
+		/**
+		 * Sets the horizontal alignment property of the format
+		 *
+		 * @param value the value
+		 * @return the format builder
+		 */
+		public FormatBuilder withHorizontalAlignment(HorizontalAlignment value) {
+			formatArray[6] = getOrdinal(value);
+			return this;
+		}
+
+		/**
+		 * Sets the vertical alignment property of the format
+		 *
+		 * @param value the value
+		 * @return the format builder
+		 */
+		public FormatBuilder withVerticalAlignment(VerticalAlignment value) {
+			formatArray[7] = getOrdinal(value);
+			return this;
+		}
+
+		/**
+		 * Sets the text color property of the format
+		 *
+		 * @param value the value
+		 * @return the format builder
+		 */
+		public FormatBuilder withTextColor(Color value) {
+			formatArray[8] = getOrdinal(value);
+			return this;
+		}
+
+		/**
+		 * Sets the background color property of the format
+		 *
+		 * @param value the value
+		 * @return the format builder
+		 */
+		public FormatBuilder withBackgroundColor(Color value) {
+			formatArray[9] = getOrdinal(value);
+			return this;
+		}
+
+		/**
+		 * Sets the taskbar color property of the format
+		 *
+		 * @param value the value
+		 * @return the format builder
+		 */
+		public FormatBuilder withTaskbarColor(Color value) {
+			formatArray[10] = getOrdinal(value);
+			return this;
+		}
+
+		/**
+		 * Sets the currency of the format
+		 *
+		 * @param value the value
+		 * @return the format builder
+		 */
+		public FormatBuilder withCurrency(Currency value) {
+			formatArray[11] = getOrdinal(value);
+			return this;
+		}
+
+		/**
+		 * Sets the decimal count of the format
+		 *
+		 * @param value the value
+		 * @return the format builder
+		 */
+		public FormatBuilder withDecimalCount(DecimalCount value) {
+			formatArray[12] = getOrdinal(value);
+			return this;
+		}
+
+		/**
+		 * Sets the thousands separator property of the format
+		 *
+		 * @param value the value
+		 * @return the format builder
+		 */
+		public FormatBuilder withThousandsSeparator(ThousandsSeparator value) {
+			formatArray[13] = getOrdinal(value);
+			return this;
+		}
+
+		/**
+		 * Sets the number format property of the format
+		 *
+		 * @param value the value
+		 * @return the format builder
+		 */
+		public FormatBuilder withNumberFormat(NumberFormat value) {
+			formatArray[14] = getOrdinal(value);
+			return this;
+		}
+
+		/**
+		 * Sets the text wrap property of the format
+		 *
+		 * @param value the value
+		 * @return the format builder
+		 */
+		public FormatBuilder withTextWrap(TextWrap value) {
+			formatArray[15] = getOrdinal(value);
+			return this;
+		}
+
+		private int getOrdinal(Enum<?> enumValue) {
+			return (enumValue != null) ? enumValue.ordinal() : UNSET;
+		}
+	}
+
 	public static class FormatSerializer extends JsonSerializer<Format> {
 		@Override
 		public void serialize(Format format, JsonGenerator generator, SerializerProvider provider) throws IOException {
