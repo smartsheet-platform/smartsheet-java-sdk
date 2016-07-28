@@ -117,13 +117,14 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 */
 	public PagedResult<Sheet> listSheets(EnumSet<SourceInclusion> includes, PaginationParameters pagination) throws SmartsheetException {
 		String path = "sheets";
+		
 		HashMap<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-		path += QueryUtil.generateUrl(null, parameters);
-
 		if (pagination != null) {
-			path += pagination.toQueryString();
+			parameters = pagination.toHashMap();
 		}
+		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+		
+		path += QueryUtil.generateUrl(null, parameters);
 		return this.listResourcesWithWrapper(path, Sheet.class);
 	}
 
