@@ -583,7 +583,9 @@ public class Column extends IdentifiableModel<Long> {
 		}
 
 		/**
+		 * @param format the format.
 		 * Sets the format for a column.
+		 * @return the AddColumnToSheetBuilder.
 		 */
 		public AddColumnToSheetBuilder setFormat(Format format) {
 			this.format = format;

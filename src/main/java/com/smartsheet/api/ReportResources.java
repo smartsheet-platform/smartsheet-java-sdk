@@ -161,7 +161,7 @@ public interface ReportResources {
 	 * <p>It mirrors to the following Smartsheet REST API method: PUT /reports/{id}/publish</p>
 	 *
 	 * @param id the ID of the report
-	 * @param publish the ReportPublish object
+	 * @param reportPublish the ReportPublish object
 	 * @return the updated ReportPublish (note that if there is no such resource, this method will 
 	 *     throw ResourceNotFoundException rather than returning null)
 	 * @throws IllegalArgumentException if any argument is null or empty string
