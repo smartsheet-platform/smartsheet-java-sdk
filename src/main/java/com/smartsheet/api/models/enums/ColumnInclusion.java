@@ -24,7 +24,8 @@ package com.smartsheet.api.models.enums;
  * Represents specific objects that can be included in some responses.
  */
 public enum ColumnInclusion {
-	FILTERS("filters")
+	FILTERS("filters"),
+	FORMAT("format")
 	;
 
 	String inclusion;
