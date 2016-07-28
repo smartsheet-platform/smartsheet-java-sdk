@@ -174,15 +174,15 @@ public class SheetDiscussionResourcesImpl extends  AbstractResources implements 
      */
     public PagedResult<Discussion> listDiscussions(long sheetId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException{
         String path = "sheets/" + sheetId + "/discussions";
+        
         HashMap<String, Object> parameters = new HashMap<String, Object>();
-
-        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-        path += QueryUtil.generateUrl(null, parameters);
-
         if (pagination != null) {
-            path += pagination.toQueryString();
+            parameters = pagination.toHashMap();
         }
 
+        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+        
+	path += QueryUtil.generateUrl(null, parameters);
         return this.listResourcesWithWrapper(path, Discussion.class);
     }
 
