@@ -74,14 +74,14 @@ public class ColumnResourcesIT extends ITResourcesImpl{
     }
 
     public void testGetColumn() throws SmartsheetException, IOException {
-        Column newColumn = smartsheet.sheetResources().columnResources().getColumn(newSheet.getId(), addedColumn.getId(), EnumSet.of(ColumnInclusion.FILTERS));
+        Column newColumn = smartsheet.sheetResources().columnResources().getColumn(newSheet.getId(), addedColumn.getId(), EnumSet.allOf(ColumnInclusion.class));
         Column newColumn1 = smartsheet.sheetResources().columnResources().getColumn(newSheet.getId(), addedColumn.getId(), null);
         assertNotNull(newColumn);
     }
 
     public void testListColumns() throws SmartsheetException, IOException {
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
-        PagedResult<Column> wrapper = smartsheet.sheetResources().columnResources().listColumns(newSheet.getId(), EnumSet.of(ColumnInclusion.FILTERS), parameters);
+        PagedResult<Column> wrapper = smartsheet.sheetResources().columnResources().listColumns(newSheet.getId(), EnumSet.allOf(ColumnInclusion.class), parameters);
 
         PagedResult<Column> wrapper1= smartsheet.sheetResources().columnResources().listColumns(newSheet.getId(), null, null);
 
