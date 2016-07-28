@@ -176,12 +176,11 @@ public class SheetDiscussionResourcesImpl extends  AbstractResources implements 
         String path = "sheets/" + sheetId + "/discussions";
         HashMap<String, Object> parameters = new HashMap<String, Object>();
 
+        if (pagination != null) {
+            parameters = pagination.toHashMap();
+        }
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         path += QueryUtil.generateUrl(null, parameters);
-
-        if (pagination != null) {
-            path += pagination.toQueryString();
-        }
 
         return this.listResourcesWithWrapper(path, Discussion.class);
     }
