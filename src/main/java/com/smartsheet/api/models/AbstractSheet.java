@@ -103,6 +103,11 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
     private Long fromId;
 
     /**
+     * The workspace the sheet belongs to.
+     */
+    private Workspace workspace;
+
+    /**
      * Represents the total number of rows in the sheet.
      */
     private Integer totalRowCount;
@@ -473,6 +478,22 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      */
     public void setFromId(Long fromId) {
         this.fromId = fromId;
+    }
+
+    /**
+     * Returns the owning {@link Workspace}. Only present when the whole sheet is fetched.
+     * @return The workspace
+     */
+    public Workspace getWorkspace() {
+        return workspace;
+    }
+
+    /**
+     * Sets the workspace.
+     * @param workspace
+     */
+    public void setWorkspace(Workspace workspace) {
+        this.workspace = workspace;
     }
 
     /**
