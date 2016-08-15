@@ -24,6 +24,8 @@ import com.smartsheet.api.models.PaginationParameters;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 
 public interface SheetAttachmentResources {
 
@@ -138,4 +140,16 @@ public interface SheetAttachmentResources {
      * @throws SmartsheetException if there is any other error during the operation
      */
     public AttachmentVersioningResources versioningResources() throws SmartsheetException;
+
+    /**
+     * Attach file for simple upload.
+     *
+     * @param sheetId the sheet id
+     * @param contentType the content type
+     * @param contentLength the content length
+     * @param attachmentName the name of the attachment
+     * @return the attachment
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Attachment attachFileWithSimpleUpload(long sheetId, InputStream inputStream, String contentType, long contentLength, String attachmentName) throws SmartsheetException;
 }

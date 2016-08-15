@@ -88,7 +88,7 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
 	public void testGetRow() throws SmartsheetException, IOException {
 		server.setResponseBody(new File("src/test/resources/getRow.json"));
 		
-		Row row = sheetRowResource.getRow(1234L, 5678L, EnumSet.of(RowInclusion.COLUMNS, RowInclusion.FORMAT), EnumSet.of(ObjectExclusion.NONEXISTENT_CELLS));
+		Row row = sheetRowResource.getRow(1234L, 5678L, null, EnumSet.of(ObjectExclusion.NONEXISTENT_CELLS));
 
         assertNotNull(row);
         assertEquals(2361756178769796L, row.getId().longValue());
