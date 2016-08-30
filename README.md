@@ -154,6 +154,8 @@ Each specific release is available for download via [Github](https://github.com/
 
 **2.0.5**
 * Fixed issue with supporting formats.
+* Added column format information
+* Other various fixes.
 
 **2.0.4**
 

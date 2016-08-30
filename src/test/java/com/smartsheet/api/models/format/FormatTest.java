@@ -77,9 +77,30 @@ public class FormatTest {
 			assertTrue("Did not parse the correct amount: " + i, i >= ParserTests.EXPECTED_COUNT);
 		}
 	}
-	
+
 	@Test
-	public void testAllFormats() {
+	public void testFormatBuilderAllDefaults() throws IOException {
+		Format actual = new Format.FormatBuilder()
+				.build();
+
+		verifySerializedFormat(",,,,,,,,,,,,,,,", actual);
+	}
+
+	@Test
+	public void testFormatBuilderVariousSettings() throws IOException {
+		Format actual = new Format.FormatBuilder()
+				.withBackgroundColor(Color.ORANGE_4)
+				.withCurrency(Currency.BRAZIL_REAIS)
+				.withHorizontalAlignment(HorizontalAlignment.CENTER)
+				.withNumberFormat(NumberFormat.PERCENT)
+				.build();
+
+		verifySerializedFormat(",,,,,,"+ HorizontalAlignment.CENTER.ordinal() +",,,"+ Color.ORANGE_4.ordinal() +",,"+ Currency.BRAZIL_REAIS.ordinal() +",,,"+ NumberFormat.PERCENT.ordinal() +",",
+				actual);
+	}
+
+	@Test
+	public void testAllFormats() throws IOException {
 		runTestCases(FontFamilyTest.values());
 		runTestCases(FontSizeTest.values());
 		runTestCases(BoldTest.values());
@@ -96,29 +117,72 @@ public class FormatTest {
 		runTestCases(TextWrapTest.values());
 		
 	}
-	
-	public void runTestCases(FormatTestCase<?>[] testCases) {
-		Format.FormatSerializer formatSerializer = new Format.FormatSerializer();
+	public void runTestCases(FormatTestCase<?>[] testCases) throws IOException {
+		testFormatStringParsing(testCases);
+		testFormatSerialization(testCases);
+		testFormatBuilderSetFunction(testCases);
+		testFormatBuilderCloneFormat(testCases);
+	}
 
-		for (FormatTestCase<?> test : testCases) {
+	public void testFormatStringParsing(FormatTestCase<?>[] testCases) throws IOException {
+		for (FormatTestCase test : testCases) {
 			Format format = new Format(test.getFormat());
 			assertEquals ("Test case " + test, test.getExpected(), test.getResult(format));
-
-			try {
-				formatSerializer.serialize(format, generator, provider);
-				Mockito.verify(generator).writeString(test.getFormat());
-				Mockito.verifyZeroInteractions(provider);
-				Mockito.reset(generator, provider);
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
 		}
 	}
-	
-	interface FormatTestCase <T> {
+
+	public void testFormatSerialization(FormatTestCase<?>[] testCases) throws IOException {
+		for (FormatTestCase test : testCases) {
+			Format format = new Format(test.getFormat());
+
+			// Serialize the format out and make sure it matches the original value
+			verifySerializedFormat(test.getFormat(), format);
+		}
+	}
+
+	public void testFormatBuilderSetFunction(FormatTestCase<?>[] testCases) throws IOException {
+		int testCaseIndex = 0;
+		for (FormatTestCase test : testCases) {
+			// Use the format builder to build the format and then test to see if it was built properly
+			if (testCaseIndex == test.getExpected().ordinal()) {
+				Format.FormatBuilder formatBuilder = new Format.FormatBuilder();
+				test.applyToFormatBuilder(test.getExpected(), formatBuilder);
+				Format builtFormat = formatBuilder.build();
+
+				verifySerializedFormat(test.getFormat(), builtFormat);
+			}
+
+			testCaseIndex++;
+		}
+	}
+
+	public void testFormatBuilderCloneFormat(FormatTestCase<?>[] testCases) throws IOException {
+		for (FormatTestCase test : testCases) {
+			Format format = new Format(test.getFormat());
+
+			Format clonedFormat = new Format.FormatBuilder()
+					.withFormat(format)
+					.build();
+			verifySerializedFormat(test.getFormat(), clonedFormat);
+		}
+	}
+
+	/**
+	 * Serializes out a format and compares it to the expected value. Fails the test if it does not match.
+     */
+	private void verifySerializedFormat(String expected, Format format) throws IOException {
+		Format.FormatSerializer formatSerializer = new Format.FormatSerializer();
+		formatSerializer.serialize(format, generator, provider);
+		Mockito.verify(generator).writeString(expected);
+		Mockito.verifyZeroInteractions(provider);
+		Mockito.reset(generator, provider);
+	}
+
+	interface FormatTestCase <T extends Enum> {
 		String getFormat();
 		T getExpected();
 		T getResult(Format result);
+		void applyToFormatBuilder(T value, Format.FormatBuilder formatBuilder);
 	}
 	
 	enum FontFamilyTest implements FormatTestCase<FontFamily> {
@@ -144,7 +208,10 @@ public class FormatTest {
 		public FontFamily getResult(Format result) {
 			return result.getFontFamily();
 		}
-		
+
+		public void applyToFormatBuilder(FontFamily value, Format.FormatBuilder formatBuilder) {
+			formatBuilder.withFontFamily(value);
+		}
 	}
 	
 	enum FontSizeTest implements FormatTestCase <FontSize> {
@@ -178,7 +245,9 @@ public class FormatTest {
 		public FontSize getResult(Format result) {
 			return result.getFontSize();
 		}
-		
+		public void applyToFormatBuilder(FontSize value, Format.FormatBuilder formatBuilder) {
+			formatBuilder.withFontSize(value);
+		}
 	}
 	
 	enum BoldTest implements FormatTestCase<Bold>  {
@@ -201,7 +270,9 @@ public class FormatTest {
 		public Bold getResult(Format result) {
 			return result.getBold();
 		}
-		
+		public void applyToFormatBuilder(Bold value, Format.FormatBuilder formatBuilder) {
+			formatBuilder.withBold(value);
+		}
 	}
 	
 	enum ItalicTest implements FormatTestCase<Italic>  {
@@ -224,7 +295,9 @@ public class FormatTest {
 		public Italic getResult(Format result) {
 			return result.getItalic();
 		}
-		
+		public void applyToFormatBuilder(Italic value, Format.FormatBuilder formatBuilder) {
+			formatBuilder.withItalic(value);
+		}
 	}
 	
 	enum UnderlineTest implements FormatTestCase<Underline>  {
@@ -247,7 +320,9 @@ public class FormatTest {
 		public Underline getResult(Format result) {
 			return result.getUnderline();
 		}
-		
+		public void applyToFormatBuilder(Underline value, Format.FormatBuilder formatBuilder) {
+			formatBuilder.withUnderline(value);
+		}
 	}
 	
 	enum StrikethroughTest implements FormatTestCase<Strikethrough>  {
@@ -270,7 +345,9 @@ public class FormatTest {
 		public Strikethrough getResult(Format result) {
 			return result.getStrikethrough();
 		}
-		
+		public void applyToFormatBuilder(Strikethrough value, Format.FormatBuilder formatBuilder) {
+			formatBuilder.withStrikethrough(value);
+		}
 	}
 	
 	enum HAlignTest implements FormatTestCase<HorizontalAlignment>  {
@@ -295,7 +372,9 @@ public class FormatTest {
 		public HorizontalAlignment getResult(Format result) {
 			return result.getHorizontalAlignment();
 		}
-		
+		public void applyToFormatBuilder(HorizontalAlignment value, Format.FormatBuilder formatBuilder) {
+			formatBuilder.withHorizontalAlignment(value);
+		}
 	}
 	
 	enum VAlignTest implements FormatTestCase<VerticalAlignment>  {
@@ -320,7 +399,9 @@ public class FormatTest {
 		public VerticalAlignment getResult(Format result) {
 			return result.getVerticalAlignment();
 		}
-		
+		public void applyToFormatBuilder(VerticalAlignment value, Format.FormatBuilder formatBuilder) {
+			formatBuilder.withVerticalAlignment(value);
+		}
 	}
 	
 	enum TextColorTest implements FormatTestCase<Color>  {
@@ -389,7 +470,9 @@ public class FormatTest {
 		public Color getResult(Format result) {
 			return result.getTextColor();
 		}
-		
+		public void applyToFormatBuilder(Color value, Format.FormatBuilder formatBuilder) {
+			formatBuilder.withTextColor(value);
+		}
 	}
 	
 	
@@ -459,7 +542,9 @@ public class FormatTest {
 		public Color getResult(Format result) {
 			return result.getBackgroundColor();
 		}
-		
+		public void applyToFormatBuilder(Color value, Format.FormatBuilder formatBuilder) {
+			formatBuilder.withBackgroundColor(value);
+		}
 	}
 	
 	enum TaskbarColorTest implements FormatTestCase<Color>  {
@@ -528,7 +613,9 @@ public class FormatTest {
 		public Color getResult(Format result) {
 			return result.getTaskbarColor();
 		}
-		
+		public void applyToFormatBuilder(Color value, Format.FormatBuilder formatBuilder) {
+			formatBuilder.withTaskbarColor(value);
+		}
 	}
 	enum CurrencyTest implements FormatTestCase<Currency>  {
 		
@@ -574,7 +661,9 @@ public class FormatTest {
 		public Currency getResult(Format result) {
 			return result.getCurrency();
 		}
-		
+		public void applyToFormatBuilder(Currency value, Format.FormatBuilder formatBuilder) {
+			formatBuilder.withCurrency(value);
+		}
 	}
 	
 	enum DecimalCountTest implements FormatTestCase<DecimalCount>  {
@@ -603,7 +692,9 @@ public class FormatTest {
 		public DecimalCount getResult(Format result) {
 			return result.getDecimalCount();
 		}
-		
+		public void applyToFormatBuilder(DecimalCount value, Format.FormatBuilder formatBuilder) {
+			formatBuilder.withDecimalCount(value);
+		}
 	}
 	
 	enum ThousandsSeparatorTest implements FormatTestCase<ThousandsSeparator>  {
@@ -627,7 +718,9 @@ public class FormatTest {
 		public ThousandsSeparator getResult(Format result) {
 			return result.getThousandsSeparator();
 		}
-		
+		public void applyToFormatBuilder(ThousandsSeparator value, Format.FormatBuilder formatBuilder) {
+			formatBuilder.withThousandsSeparator(value);
+		}
 	}
 	enum NumberFormatTest implements FormatTestCase<NumberFormat>  {
 		
@@ -653,7 +746,9 @@ public class FormatTest {
 		public NumberFormat getResult(Format result) {
 			return result.getNumberFormat();
 		}
-		
+		public void applyToFormatBuilder(NumberFormat value, Format.FormatBuilder formatBuilder) {
+			formatBuilder.withNumberFormat(value);
+		}
 	}
 	enum TextWrapTest implements FormatTestCase<TextWrap>  {
 		
@@ -677,6 +772,8 @@ public class FormatTest {
 		public TextWrap getResult(Format result) {
 			return result.getTextWrap();
 		}
-		
+		public void applyToFormatBuilder(TextWrap value, Format.FormatBuilder formatBuilder) {
+			formatBuilder.withTextWrap(value);
+		}
 	}
 }

@@ -179,6 +179,8 @@ public interface UserResources {
 	public PagedResult<Sheet> listOrgSheets(PaginationParameters pagination) throws SmartsheetException;
 	
 	/**
+	 * @param userId the userID
+	 * @param pagination the pagination parameters
 	 * <p>List all user alternate email(s).</p>
 	 *
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /users/{userId}/alternateemails</p>
@@ -198,10 +200,9 @@ public interface UserResources {
 	 * 
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /users/{userId}/alternateemails/{alternateEmailId}</p>
 	 * 
-	 * @param the id of the user 
-	 * @param the alternate email id for the alternate email to retrieve.
-	 * @return the resource (note that if there is no such resource, this method will throw 
-	 *     ResourceNotFoundException rather than returning null).
+	 * @param userId the id of the user
+	 * @param altEmailId the alternate email id for the alternate email to retrieve.
+	 * @return the resource. Note that if there is no such resource, this method will throw ResourceNotFoundException rather than returning null.
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
 	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
@@ -216,8 +217,8 @@ public interface UserResources {
 	 * 
 	 * <p>It mirrors to the following Smartsheet REST API method: POST /users/{userId}/alternateemails</p>
 	 * 
-	 * @param the id of the user 
-	 * @param List of alternate email address to add.
+	 * @param userId the id of the user
+	 * @param altEmails List of alternate email address to add.
 	 * @return List of added alternate email(s).
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
@@ -233,10 +234,8 @@ public interface UserResources {
 	 * 
 	 * <p>It mirrors to the following Smartsheet REST API method: DELETE /users/{userId}/alternateemails/{alternateEmailId}</p>
 	 * 
-	 * @param the id of the user 
-	 * @param the alternate email id for the alternate email to retrieve.
-	 * @return the resource (note that if there is no such resource, this method will throw 
-	 *     ResourceNotFoundException rather than returning null).
+	 * @param userId the id of the user
+	 * @param altEmailId the alternate email id for the alternate email to retrieve.
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
 	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)

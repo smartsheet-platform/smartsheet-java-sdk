@@ -56,6 +56,7 @@ public class AlternateEmail {
 	}
 	
 	/**
+	 * @param email the  email
 	 * Set the user's alternate email address.
 	 */
 	public void setEmail(String email) {
