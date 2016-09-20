@@ -27,6 +27,11 @@ public class SheetUserSettings {
     private Boolean criticalPathEnabled;
 
     /**
+     * Identifies if the user has display summary tasks enabled.
+     */
+    private Boolean displaySummaryTasks;
+    
+    /**
      * True if the user has critical path enabled.
      *
      * @return criticalPathEnabled
@@ -45,6 +50,24 @@ public class SheetUserSettings {
     }
 
     /**
+     * True if the user has display summary tasks enabled
+     * 
+     * @return displaySummaryTasks
+     */
+    public Boolean isDisplaySummaryTasksEnabled() {
+    	return displaySummaryTasks;
+    }
+    
+    /**
+     * Sets the value for display summary tasks.
+     * 
+     * @param displaySummaryTasks
+     */
+    public void setDisplaySummaryTasks(Boolean displaySummaryTasks) {
+    	this.displaySummaryTasks = displaySummaryTasks;
+    }
+    
+    /**
      * The Class AddUserSettingsBuilder.
      */
     public static class AddUserSettingsBuilder {
@@ -52,6 +75,11 @@ public class SheetUserSettings {
          * Identifies if the user has critical path enabled.
          */
         private Boolean criticalPathEnabled;
+        
+        /**
+         * Identifies if the user has display summary tasks enabled.
+         */
+        private Boolean displaySummaryTasks;
 
         /**
          * True if the user has critical path enabled.
@@ -63,6 +91,15 @@ public class SheetUserSettings {
         }
 
         /**
+         * True if the user has display summary tasks enabled
+         * 
+         * @return displaySummaryTasks;
+         */
+        public Boolean isDisplaySummaryTasksEnabled() {
+        	return displaySummaryTasks;
+        }
+        
+        /**
          * Sets the value for critical path enabled.
          *
          * @param criticalPathEnabled if the user has critical path enabled
@@ -73,11 +110,22 @@ public class SheetUserSettings {
             return this;
         }
 
+        /**
+         * Sets the value for display summary tasks.
+         * 
+         * @param displaySummaryTasks
+         * @return the builder
+         */
+        public AddUserSettingsBuilder setDisplaySummaryTasks(Boolean displaySummaryTasks) {
+        	this.displaySummaryTasks = displaySummaryTasks;
+        	return this;
+        }
+        
         public SheetUserSettings build() {
             SheetUserSettings sheetUserSettings = new SheetUserSettings();
             sheetUserSettings.criticalPathEnabled = criticalPathEnabled;
+            sheetUserSettings.displaySummaryTasks = displaySummaryTasks;
             return sheetUserSettings;
         }
-
     }
 }

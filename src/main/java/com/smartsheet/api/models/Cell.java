@@ -81,6 +81,11 @@ public class Cell {
 	private String conditionalFormat;
 
 	/**
+	 * the image that the cell contains. Only returned if the cell contains an image.
+	 */
+	private Image image;
+	
+	/**
 	 * The formula for the cell.
 	 */
 	private String formula;
@@ -367,6 +372,24 @@ public class Cell {
 		this.conditionalFormat = conditionalFormat;
 	}
 
+	/**
+	 * Gets the image for this cell.
+	 * 
+	 * @return image
+	 */
+	public Image getImage() {
+		return image;
+	}
+	
+	/**
+	 * Sets the image for this cell.
+	 * 
+	 * @param image
+	 */
+	public void setImage(Image image) {
+		this.image = image;
+	}
+	
 	/**
 	 * A convenience class for quickly creating a List of cells to add.
 	 */

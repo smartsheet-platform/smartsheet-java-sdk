@@ -202,6 +202,15 @@ public class SmartsheetImpl implements Smartsheet {
 	 * SmartsheetImpl in thread safe manner.
 	 */
 	private final AtomicReference<ContactResources> contacts;
+	
+	/**
+	 * Represents the AtomicReference for ImageUrlResources.
+	 * 
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+	 * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
+	 * SmartsheetImpl in thread safe manner.
+	 */
+	private final AtomicReference<ImageUrlResources> imageUrls;
 
 	/**
 	 * Create an instance with given server URI, HttpClient (optional) and JsonSerializer (optional)
@@ -249,6 +258,7 @@ public class SmartsheetImpl implements Smartsheet {
 		this.serverInfo = new AtomicReference<ServerInfoResources>();
 		this.tokens = new AtomicReference<TokenResources>();
 		this.contacts = new AtomicReference<ContactResources>();
+		this.imageUrls = new AtomicReference<ImageUrlResources>();
 	}
 
 	/**
@@ -425,7 +435,7 @@ public class SmartsheetImpl implements Smartsheet {
 		serverInfo.compareAndSet(null, new ServerInfoResourcesImpl(this));
 		return serverInfo.get();
 	}
-
+	
 	/**
 	 * Returns the TokenResources instance that provides access to token resources.
 	 *
@@ -446,6 +456,15 @@ public class SmartsheetImpl implements Smartsheet {
 		return contacts.get();
 	}
 
+	/**
+	 * Returns the ImageUrlResources instance that provides access to image url resources.
+	 * 
+	 * @return the image url resources
+	 */
+	public ImageUrlResources imageUrlResources() {
+		imageUrls.compareAndSet(null, new ImageUrlResourcesImpl(this));
+		return imageUrls.get();
+	}
 	/**
 	 * Set the email of the user to assume. Null/empty string indicates no user is assumed.
 	 * 

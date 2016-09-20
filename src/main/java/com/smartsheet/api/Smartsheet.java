@@ -120,6 +120,13 @@ public interface Smartsheet {
 	public ContactResources contactResources();
 
 	/**
+	 * Returns the ImageUrlResources instance that provides access to image Url resources
+	 * 
+	 * @return the image Url resources instance
+	 */
+	public ImageUrlResources imageUrlResources();
+
+	/**
 	 * <p>Set the email of the user to assume.</p>
 	 *
 	 * @param assumedUser the new assumed user
