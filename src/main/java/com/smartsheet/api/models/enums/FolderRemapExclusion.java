@@ -27,6 +27,7 @@ public enum FolderRemapExclusion {
     CELLLINKS   	("cellLinks"),
     REPORTS     	("reports"),
     SHEETHYPERLINKS	("sheetHyperlinks"),
+    SIGHTS			("sights"),
     ;
 
     String inclusion;

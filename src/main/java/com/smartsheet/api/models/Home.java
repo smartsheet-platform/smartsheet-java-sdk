@@ -55,6 +55,11 @@ public class Home {
 	private List<Workspace> workspaces;
 
 	/**
+	 * Represents the sights in the home location.
+	 */
+	private List<Sight> sights;
+	
+	/**
 	 * Gets the sheets in the home location.
 	 *
 	 * @return the sheets
@@ -142,5 +147,23 @@ public class Home {
 	 */
 	public void setWorkspaces(List<Workspace> workspaces) {
 		this.workspaces = workspaces;
+	}
+	
+	/** 
+	 * Gets the sights in the home location.
+	 * 
+	 * @return array of sights
+	 */
+	public List<Sight> getSights() {
+		return sights;
+	}
+	
+	/**
+	 * Sets the sights in the home location.
+	 * 
+	 * @param sights
+	 */
+	public void setSights(List<Sight> sights) {
+		this.sights = sights;
 	}
 }

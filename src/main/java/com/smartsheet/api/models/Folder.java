@@ -49,7 +49,11 @@ public class Folder extends NamedModel<Long> {
 	 */
 	private List<Template> templates;
 
-
+	/** 
+	 * Represents the Sights contained in the folder.
+	 */
+	private List<Sight> sights;
+	
 	/**
 	 * Returns if the user has marked the Folder as a Favorite in their Home tab.
 	 */
@@ -168,6 +172,24 @@ public class Folder extends NamedModel<Long> {
 		this.templates = templates;
 	}
 
+	/**
+	 * Get the sights contained in this folder
+	 * 
+	 * @return the sights
+	 */
+	public List<Sight> getSights() {
+		return sights;
+	}
+	
+	/**
+	 * Sets the sights contained in this folder.
+	 * 
+	 * @param sights
+	 */
+	public void setSights(List<Sight> sights) {
+		this.sights = sights;
+	}
+	
 	/**
 	 * A convenience class for setting up a folder with the appropriate fields for updating the folder.
 	 */

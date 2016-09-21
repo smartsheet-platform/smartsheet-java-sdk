@@ -64,6 +64,13 @@ public interface Smartsheet {
 	public SheetResources sheetResources();
 
 	/**
+	 * <p>Returns the SightResources instance that provides access to Sight resources.</p>
+	 *
+	 * @return the sight resources instance
+	 */	
+	public SightResources sightResources();
+	
+	/**
 	 * <p>Returns the FavoriteResources instance that provides access to Favorite resources.</p>
 	 *
 	 * @return the favorite resources instance
