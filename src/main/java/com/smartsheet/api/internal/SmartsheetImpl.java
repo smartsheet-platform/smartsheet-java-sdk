@@ -106,6 +106,15 @@ public class SmartsheetImpl implements Smartsheet {
 	private AtomicReference<SheetResources> sheets;
 
 	/**
+	 * Represents the AtomicReference to SightResources
+	 *
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+	 * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
+	 * effectively the underlying value is lazily created in a thread safe manner.
+	 */
+	private AtomicReference<SightResources> sights;
+	
+	/**
 	 * Represents the AtomicReference to UserResources.
 	 * 
 	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
@@ -247,6 +256,7 @@ public class SmartsheetImpl implements Smartsheet {
 		this.folders = new AtomicReference<FolderResources>();
 		this.templates = new AtomicReference<TemplateResources>();
 		this.sheets = new AtomicReference<SheetResources>();
+		this.sights = new AtomicReference<SightResources>();
 		this.favorites = new AtomicReference<FavoriteResources>();
 		this.users = new AtomicReference<UserResources>();
 		this.groups = new AtomicReference<GroupResources>();
@@ -376,6 +386,15 @@ public class SmartsheetImpl implements Smartsheet {
 		return sheets.get();
 	}
 
+	/**
+	 * Returns the SightResources instance that provides access to Sight resources.
+	 * 
+	 * @return the sight resources
+	 */	
+	public SightResources sightResources() {
+		sights.compareAndSet(null,  new SightResourcesImpl(this));
+		return sights.get();
+	}
 	/**
 	 * Returns the FavoriteResources instance that provides access to Favorite resources.
 	 *

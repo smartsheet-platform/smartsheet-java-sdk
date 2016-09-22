@@ -35,7 +35,7 @@ import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Sight;
 
-public class SightResourceImpl extends AbstractResources implements SightResources {
+public class SightResourcesImpl extends AbstractResources implements SightResources {
 	
 	private ShareResources shares;
 	
@@ -46,7 +46,7 @@ public class SightResourceImpl extends AbstractResources implements SightResourc
 	 *
 	 * @param smartsheet the smartsheet
 	 */
-	public SightResourceImpl(SmartsheetImpl smartsheet) {
+	public SightResourcesImpl(SmartsheetImpl smartsheet) {
 		super(smartsheet);
 		this.shares = new ShareResourcesImpl(smartsheet, "sights");
 	}
