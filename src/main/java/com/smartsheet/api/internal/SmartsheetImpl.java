@@ -222,6 +222,15 @@ public class SmartsheetImpl implements Smartsheet {
 	private final AtomicReference<ImageUrlResources> imageUrls;
 
 	/**
+	 * Represents the AtomicReference for WebhookResources.
+	 * 
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+	 * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
+	 * SmartsheetImpl in thread safe manner.
+	 */
+	private final AtomicReference<WebhookResources> webhooks;
+	
+	/**
 	 * Create an instance with given server URI, HttpClient (optional) and JsonSerializer (optional)
 	 * 
 	 * Exceptions: - IllegalArgumentException : if serverURI/version/accessToken is null/empty
@@ -269,6 +278,7 @@ public class SmartsheetImpl implements Smartsheet {
 		this.tokens = new AtomicReference<TokenResources>();
 		this.contacts = new AtomicReference<ContactResources>();
 		this.imageUrls = new AtomicReference<ImageUrlResources>();
+		this.webhooks = new AtomicReference<WebhookResources>();
 	}
 
 	/**
@@ -484,6 +494,17 @@ public class SmartsheetImpl implements Smartsheet {
 		imageUrls.compareAndSet(null, new ImageUrlResourcesImpl(this));
 		return imageUrls.get();
 	}
+
+	/**
+	 * Returns the WebhookResources instance that provides access to webhook resources.
+	 * 
+	 * @return the webhook resources
+	 */
+	public WebhookResources webhookResources() {
+		webhooks.compareAndSet(null, new WebhookResourcesImpl(this));
+		return webhooks.get();
+	}
+	
 	/**
 	 * Set the email of the user to assume. Null/empty string indicates no user is assumed.
 	 * 

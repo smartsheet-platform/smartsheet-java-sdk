@@ -134,6 +134,13 @@ public interface Smartsheet {
 	public ImageUrlResources imageUrlResources();
 
 	/**
+	 * Returns the WebhookResources instance that provides access to webhook resources
+	 * 
+	 * @return the webhook resources instance
+	 */
+	public WebhookResources webhookResources();
+	
+	/**
 	 * <p>Set the email of the user to assume.</p>
 	 *
 	 * @param assumedUser the new assumed user
