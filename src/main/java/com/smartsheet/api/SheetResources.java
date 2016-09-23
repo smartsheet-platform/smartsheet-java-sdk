@@ -25,6 +25,7 @@ import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.*;
 
 import java.io.OutputStream;
+import java.util.Date;
 import java.util.EnumSet;
 import java.util.Set;
 
@@ -50,7 +51,7 @@ public interface SheetResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public PagedResult<Sheet> listSheets(EnumSet<SourceInclusion> includes, PaginationParameters pagination) throws SmartsheetException;
+	public PagedResult<Sheet> listSheets(EnumSet<SourceInclusion> includes, PaginationParameters pagination, Date modifiedSince) throws SmartsheetException;
 
 	/**
 	 * <p>List all sheets in the organization.</p>
@@ -372,6 +373,14 @@ public interface SheetResources {
 	public SheetCommentResources commentResources();
 
 	/**
+	 * <p>Return the SheetUpdateRequestResources object that provides access to update request resources 
+	 * associated with Sheet resources.</p>
+	 *
+	 * @return the associated update request resources
+	 */
+	public SheetUpdateRequestResources updateRequestResources();
+	
+	/**
 	 * <p>Get the status of the Publish settings of the sheet, including the URLs of any enabled publishings.</p>
 	 *
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /sheet/{sheetId}/publish</p>
@@ -464,5 +473,6 @@ public interface SheetResources {
 	 * @return the update request object
 	 * @throws SmartsheetException the smartsheet exception
 	 */
+	@Deprecated
 	public UpdateRequest createUpdateRequest(long sheetId, MultiRowEmail email) throws SmartsheetException;
 }

@@ -178,6 +178,6 @@ public class UserResourcesImplTest extends ResourcesImplBase {
 		pagination.setPageSize(1);
 		pagination.setPage(1);		
 		
-		PagedResult<Sheet> sheets = userResources.listOrgSheets(pagination);
+		PagedResult<Sheet> sheets = userResources.listOrgSheets(pagination, null);
 	}
 }

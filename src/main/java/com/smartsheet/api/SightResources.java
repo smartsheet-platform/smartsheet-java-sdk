@@ -20,6 +20,8 @@
 
 package com.smartsheet.api;
 
+import java.util.Date;
+
 import com.smartsheet.api.models.ContainerDestination;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
@@ -33,6 +35,7 @@ public interface SightResources {
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /sights</p>
 	 *
 	 * @param parameters the pagination parameters
+	 * @param modifiedSince
 	 * @return IndexResult object containing an array of Sight objects limited to the following attributes:
 	 * 	id, name, accessLevel, permalink, createdAt, modifiedAt.
 	 * @throws IllegalArgumentException if any argument is null or empty string
@@ -42,7 +45,7 @@ public interface SightResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public PagedResult<Sight> listSights(PaginationParameters paging) throws SmartsheetException;
+	public PagedResult<Sight> listSights(PaginationParameters paging, Date modifiedSince) throws SmartsheetException;
 
 	/**
 	 * <p>Get a specified Sight.</p>

@@ -53,7 +53,7 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
 
 		server.setResponseBody(new File("src/test/resources/listSheets.json"));
 		PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(false).setPageSize(1).setPage(1).build();
-		PagedResult<Sheet> sheets = sheetResource.listSheets(EnumSet.of(SourceInclusion.SOURCE), parameters);
+		PagedResult<Sheet> sheets = sheetResource.listSheets(EnumSet.of(SourceInclusion.SOURCE), parameters, null);
 
 		assertTrue(sheets.getPageNumber() == 1);
 		assertTrue(sheets.getPageSize() == 100);

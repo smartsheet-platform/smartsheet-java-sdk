@@ -20,6 +20,8 @@
 
 package com.smartsheet.api.internal;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 import com.smartsheet.api.AuthorizationException;
@@ -56,6 +58,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /sights</p>
 	 *
 	 * @param parameters the pagination parameters
+	 * @param modifiedSince
 	 * @return IndexResult object containing an array of Sight objects limited to the following attributes:
 	 * 	id, name, accessLevel, permalink, createdAt, modifiedAt.
 	 * @throws IllegalArgumentException if any argument is null or empty string
@@ -65,14 +68,17 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public PagedResult<Sight> listSights(PaginationParameters paging) throws SmartsheetException {
+	public PagedResult<Sight> listSights(PaginationParameters paging, Date modifiedSince) throws SmartsheetException {
 		String path = "sights";
 		
 		HashMap<String, Object> parameters = new HashMap<String, Object>();
 		if (paging != null) {
 			parameters = paging.toHashMap();
 		}
-		
+		if (modifiedSince != null) {
+			String isoDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(modifiedSince);
+			parameters.put("modifiedSince", isoDate);
+		}
 		path += QueryUtil.generateUrl(null, parameters);
 		return this.listResourcesWithWrapper(path, Sight.class);
 	}

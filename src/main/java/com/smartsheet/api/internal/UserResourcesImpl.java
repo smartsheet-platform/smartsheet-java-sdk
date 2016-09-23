@@ -27,6 +27,8 @@ import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -187,6 +189,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /users/sheets</p>
 	 *
 	 * @param pagination the object containing the pagination query parameters
+	 * @param modifiedSince
 	 * @return the list of all organisation sheets
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
@@ -195,12 +198,18 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public PagedResult<Sheet> listOrgSheets(PaginationParameters pagination) throws SmartsheetException {
+	public PagedResult<Sheet> listOrgSheets(PaginationParameters pagination, Date modifiedSince) throws SmartsheetException {
 		String path = "users/sheets";
-		
+
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
 		if (pagination != null) {
-			path += pagination.toQueryString();
+			parameters = pagination.toHashMap();
 		}
+		if (modifiedSince != null) {
+			String isoDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(modifiedSince);
+			parameters.put("modifiedSince", isoDate);
+		}
+		path += QueryUtil.generateUrl(null, parameters);
 		return this.listResourcesWithWrapper(path, Sheet.class);
 	}
 

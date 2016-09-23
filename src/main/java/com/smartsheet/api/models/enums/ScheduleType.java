@@ -1,5 +1,4 @@
 package com.smartsheet.api.models.enums;
-
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -20,31 +19,25 @@ package com.smartsheet.api.models.enums;
  * %[license]
  */
 
-
-/**
- * Represents specific objects that can be included in some responses.
- */
-public enum SheetInclusion{
-	DISCUSSIONS		("discussions"),
-	ATTACHMENTS		("attachments"),
-	FORMAT			("format"),
-	FILTERS			("filters"),
-	OWNER_INFO		("ownerInfo"),
-	COLUMN_TYPE		("columnType"),
-	SOURCE			("source"),
-	ROW_PERMALINK	("rowPermalink"),
-	ROW_WRITER_INFO	("rowWriterInfo"),
-	OBJECT_VALUE	("objectValue"),
-	;
-
-	String inclusion;
-
-	SheetInclusion(String inclusion) {
-		this.inclusion = inclusion;
-	}
-
-	@Override
-	public String toString() {
-		return inclusion;
-	}
+public enum ScheduleType {
+	/**
+	 * Represents ONCE schedule type.
+	 */
+	ONCE,
+	/**
+	 * Represents DAILY schedule type.
+	 */
+	DAILY,
+	/**
+	 * Represents WEEKLY schedule type.
+	 */
+	WEEKLY,
+	/**
+	 * Represents MONTHLY schedule type.
+	 */
+	MONTHLY,
+	/**
+	 * Represents YEARLY schedule type.
+	 */
+	YEARLY
 }

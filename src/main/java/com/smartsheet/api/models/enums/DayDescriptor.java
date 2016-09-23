@@ -1,5 +1,4 @@
 package com.smartsheet.api.models.enums;
-
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -20,31 +19,45 @@ package com.smartsheet.api.models.enums;
  * %[license]
  */
 
-
-/**
- * Represents specific objects that can be included in some responses.
- */
-public enum SheetInclusion{
-	DISCUSSIONS		("discussions"),
-	ATTACHMENTS		("attachments"),
-	FORMAT			("format"),
-	FILTERS			("filters"),
-	OWNER_INFO		("ownerInfo"),
-	COLUMN_TYPE		("columnType"),
-	SOURCE			("source"),
-	ROW_PERMALINK	("rowPermalink"),
-	ROW_WRITER_INFO	("rowWriterInfo"),
-	OBJECT_VALUE	("objectValue"),
-	;
-
-	String inclusion;
-
-	SheetInclusion(String inclusion) {
-		this.inclusion = inclusion;
-	}
-
-	@Override
-	public String toString() {
-		return inclusion;
-	}
+public enum DayDescriptor {
+	/**
+	 * Represents DAY descriptor type.
+	 */
+	DAY,
+	/**
+	 * Represents WEEKDAY descriptor type.
+	 */
+	WEEKDAY,
+	/**
+	 * Represents WEEKEND descriptor type.
+	 */
+	WEEKEND,
+	/**
+	 * Represents SUNDAY descriptor type.
+	 */
+	SUNDAY,
+	/**
+	 * Represents MONDAY descriptor type.
+	 */
+	MONDAY,
+	/**
+	 * Represents TUESDAY descriptor type.
+	 */
+	TUESDAY,
+	/**
+	 * Represents WEDNESDAY descriptor type.
+	 */
+	WEDNESDAY,
+	/**
+	 * Represents THURSDAY descriptor type.
+	 */
+	THURSDAY,
+	/**
+	 * Represents FRIDAY descriptor type.
+	 */
+	FRIDAY,
+	/**
+	 * Represents SATURDAY descriptor type.
+	 */
+	SATURDAY
 }

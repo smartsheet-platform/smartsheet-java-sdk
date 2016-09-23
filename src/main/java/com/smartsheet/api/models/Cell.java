@@ -1,11 +1,5 @@
 package com.smartsheet.api.models;
 
-import com.smartsheet.api.models.enums.ColumnType;
-import com.smartsheet.api.models.format.Format;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -26,6 +20,12 @@ import java.util.List;
  * %[license]
  */
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.smartsheet.api.models.enums.ColumnType;
+import com.smartsheet.api.models.format.Format;
+
 /**
  * Represents the Cell object that holds data in a sheet.
  */
@@ -40,11 +40,17 @@ public class Cell {
 	 * Represents the column columnType.
 	 */
 	private ColumnType type;
+	
 	/**
 	 * Represents the value.
 	 */
 	private Object value;
 
+	/**
+	 * is an object representation of the cell's value and is currently used for adding or updating predecessor cell values
+	 */
+	private ObjectValue objectValue;
+	
 	/**
 	 * Represents the display value.
 	 */
@@ -154,6 +160,24 @@ public class Cell {
 		this.value = value;
 	}
 
+	/**
+	 * Get object representation of the cell's value
+	 * 
+	 * @return objectValue
+	 */
+	public ObjectValue getObjectValue() {
+		return objectValue;
+	}
+	
+	/**
+	 * Set object representation of the cell's value
+	 * 
+	 * @param objectValue
+	 */
+	public void setObjectValue(ObjectValue objectValue) {
+		this.objectValue = objectValue;
+	}
+	
 	/**
 	 * Gets the display value used on special columns such as "Contact List".
 	 *

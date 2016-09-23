@@ -31,6 +31,8 @@ import com.smartsheet.api.models.enums.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Set;
@@ -82,6 +84,13 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * It will be initialized in constructor and will not change afterwards
 	 */
 	private SheetCommentResources comments;
+	
+	/**
+	 * Represents the SheetUpdateRequestResources.
+	 *
+	 * It will be initialized in constructor and will not change afterwards
+	 */
+	private SheetUpdateRequestResources updateRequests;
 
 	/**
 	 * Constructor.
@@ -98,6 +107,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 		this.attachments = new SheetAttachmentResourcesImpl(smartsheet);
 		this.discussions = new SheetDiscussionResourcesImpl(smartsheet);
 		this.comments = new SheetCommentResourcesImpl(smartsheet);
+		this.updateRequests = new SheetUpdateRequestResourcesImpl(smartsheet);
 	}
 
 	/**
@@ -115,12 +125,16 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public PagedResult<Sheet> listSheets(EnumSet<SourceInclusion> includes, PaginationParameters pagination) throws SmartsheetException {
+	public PagedResult<Sheet> listSheets(EnumSet<SourceInclusion> includes, PaginationParameters pagination, Date modifiedSince) throws SmartsheetException {
 		String path = "sheets";
 		
 		HashMap<String, Object> parameters = new HashMap<String, Object>();
 		if (pagination != null) {
 			parameters = pagination.toHashMap();
+		}
+		if (modifiedSince != null) {
+			String isoDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(modifiedSince);
+			parameters.put("modifiedSince", isoDate);
 		}
 		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 		
@@ -144,6 +158,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @return all sheets (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
+	@Deprecated
 	public PagedResult<Sheet> listOrganizationSheets(PaginationParameters parameters) throws SmartsheetException {
 		String path = "users/sheets";
 
@@ -561,6 +576,16 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 */
 	public SheetCommentResources commentResources(){
 		return this.comments;
+	}
+	
+	/**
+	 * <p>Return the SheetUpdateRequestResources object that provides access to update request resources 
+	 * associated with Sheet resources.</p>
+	 *
+	 * @return the associated update request resources
+	 */
+	public SheetUpdateRequestResources updateRequestResources() {
+		return this.updateRequests;
 	}
 
 	/**
