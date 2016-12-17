@@ -125,6 +125,9 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
+	public PagedResult<Sheet> listSheets(EnumSet<SourceInclusion> includes, PaginationParameters pagination) throws SmartsheetException {
+		return this.listSheets(includes, pagination, null);
+	}
 	public PagedResult<Sheet> listSheets(EnumSet<SourceInclusion> includes, PaginationParameters pagination, Date modifiedSince) throws SmartsheetException {
 		String path = "sheets";
 		

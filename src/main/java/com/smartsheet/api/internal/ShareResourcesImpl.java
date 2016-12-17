@@ -71,6 +71,9 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 	 * @return the shares (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
+	public PagedResult<Share> listShares(long objectId, PaginationParameters pagination) throws SmartsheetException {
+		return this.listShares(objectId, pagination, false);
+	}
 	public PagedResult<Share> listShares(long objectId, PaginationParameters pagination, Boolean includeWorkspaceShares) throws SmartsheetException {
 		String path = getMasterResourceType() + "/" + objectId + "/shares";
 		

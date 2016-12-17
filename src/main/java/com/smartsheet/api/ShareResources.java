@@ -52,6 +52,8 @@ public interface ShareResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
+	@Deprecated
+	public PagedResult<Share> listShares(long objectId, PaginationParameters parameters) throws SmartsheetException;
 	public PagedResult<Share> listShares(long objectId, PaginationParameters parameters, Boolean includeWorkspaceShares) throws SmartsheetException;
 
 	/**

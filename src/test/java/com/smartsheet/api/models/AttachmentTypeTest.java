@@ -41,7 +41,8 @@ public class AttachmentTypeTest {
 		assertNotNull(AttachmentType.valueOf("BOX_COM"));
 		assertNotNull(AttachmentType.valueOf("DROPBOX"));
 		assertNotNull(AttachmentType.valueOf("EGNYTE"));
-		assertEquals(6,AttachmentType.values().length);
+		assertNotNull(AttachmentType.valueOf("ONEDRIVE"));
+		assertEquals(7,AttachmentType.values().length);
 	}
 
 }

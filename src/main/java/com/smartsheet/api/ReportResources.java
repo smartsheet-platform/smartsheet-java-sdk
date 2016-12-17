@@ -94,6 +94,8 @@ public interface ReportResources {
      * @return all sheets (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
+     @Deprecated
+     PagedResult<Report> listReports(PaginationParameters parameters) throws SmartsheetException;
      PagedResult<Report> listReports(PaginationParameters parameters, Date modifiedSince) throws SmartsheetException;
 
     /**

@@ -150,6 +150,9 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * @return all sheets (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
+    public PagedResult<Report> listReports(PaginationParameters pagination) throws SmartsheetException {
+        return this.listReports(pagination, null);
+    }
     public PagedResult<Report> listReports(PaginationParameters pagination, Date modifiedSince) throws SmartsheetException {
         String path= "reports";
 		
