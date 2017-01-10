@@ -39,6 +39,11 @@ public class Hyperlink {
     private Long reportId;
 
     /**
+     * If true, update will serialize a null to reset the hyperlink
+     */
+    private boolean isNull = true;
+    
+    /**
      * Gets the url
      *
      * @return the url
@@ -53,6 +58,7 @@ public class Hyperlink {
      * @param url the urk
      */
     public void setUrl(String url) {
+        this.isNull = false;
         this.url = url;
     }
 
@@ -71,6 +77,7 @@ public class Hyperlink {
      * @param sheetId the sheet Id
      */
     public void setSheetId(Long sheetId) {
+        this.isNull = false;
         this.sheetId = sheetId;
     }
 
@@ -89,6 +96,16 @@ public class Hyperlink {
      * @param reportId the report Id
      */
     public void setReportId(Long reportId) {
+        this.isNull = false;
         this.reportId = reportId;
+    }
+    
+    /**
+     * Get the value of the isNull flag
+     * 
+     * @return value of isNull flag
+     */
+    public boolean isNull() {
+		return this.isNull;
     }
 }

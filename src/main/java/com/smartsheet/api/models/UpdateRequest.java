@@ -1,5 +1,7 @@
 package com.smartsheet.api.models;
 
+import java.util.Date;
+
 /*
  * #[license]
  * Smartsheet Java SDK
@@ -24,18 +26,120 @@ package com.smartsheet.api.models;
  * Represents the UpdateRequest object.
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/504779-using-update-requests">Using Update Request Help</a>
  */
-public class UpdateRequest extends IdentifiableModel<Long>{
+public class UpdateRequest extends MultiRowEmail{
 
     /**
      * Represents the ID of the update request.
      */
-    @Override
+	private Long id;
+
+	/**
+	 * User object containing name and email of the sender.
+	 */
+	private User sentBy;
+	
+	/**
+	 * The schedule for which update requests will be sent out.
+	 */
+	private Schedule schedule;
+	
+	/**
+	 * The date and time for when this request was originally created.
+	 */
+	private Date createdAt;
+	
+	/**
+	 * The date and time for when the last change was made to this request.
+	 */
+	private Date modifiedAt;
+
+	/**
+	 * Get the Id of the update request.
+	 * 
+	 * @return id
+	 */
     public Long getId() {
-        return super.getId();
+        return id;
     }
 
-    @Override
+    /**
+     * Set the Id of the update request.
+     * 
+     * @param id
+     */
     public void setId(Long id) {
-        super.setId(id);
+        this.id = id;
+    }
+    
+    /**
+     * Gets the User object containing the name and email of the sender
+     * 
+     * @return sentBy
+     */
+    public User getSentBy() {
+    	return sentBy;
+    }
+    
+    /**
+     * Sets the User object containing the name and email of the sender
+     * 
+     * @param sentBy
+     */
+    public void setSentBy(User sentBy) {
+    	this.sentBy = sentBy;
+    }
+    
+    /**
+     * Gets the schedule for which update requests will be sent out.
+     * 
+     * @return schedule
+     */
+    public Schedule getSchedule() {
+    	return schedule;
+    }
+    
+    /**
+     * Sets the schedule for which update requests will be sent out.
+     * 
+     * @param schedule
+     */
+    public void setSchedule(Schedule schedule) {
+    	this.schedule = schedule;
+    }
+    
+    /**
+     * Gets the date and time for when this request was originally created.
+     * 
+     * @return createdAt
+     */
+    public Date getCreatedAt() {
+    	return createdAt;
+    }
+    
+    /** 
+     * Sets the date and time for when this request was originally created.
+     *  
+     * @param createdAt
+     */
+    public void setCreatedAt(Date createdAt) {
+    	this.createdAt = createdAt;
+    }
+    
+    /**
+     * Get the date and time for when the last change was made to this request.
+     *  
+     * @return modifiedAt
+     */
+    public Date getModifiedAt() {
+    	return modifiedAt;
+    }
+    
+    /**
+     * Set the date and time for when the last change was made to this request.
+     * 
+     * @param modifiedAt
+     */
+    public void setModifiedAt(Date modifiedAt) {
+    	this.modifiedAt = modifiedAt;
     }
 }

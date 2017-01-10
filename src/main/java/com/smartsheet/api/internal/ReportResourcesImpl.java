@@ -39,6 +39,8 @@ import com.smartsheet.api.models.SheetPublish;
 import com.smartsheet.api.models.enums.ReportInclusion;
 
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.EnumSet;
 import java.util.HashMap;
 
@@ -148,11 +150,22 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * @return all sheets (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
-    public PagedResult<Report> listReports(PaginationParameters parameters) throws SmartsheetException {
+    public PagedResult<Report> listReports(PaginationParameters pagination) throws SmartsheetException {
+        return this.listReports(pagination, null);
+    }
+    public PagedResult<Report> listReports(PaginationParameters pagination, Date modifiedSince) throws SmartsheetException {
         String path= "reports";
-        if (parameters != null) {
-            path += parameters.toQueryString();
-            }
+		
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+		if (pagination != null) {
+			parameters = pagination.toHashMap();
+		}
+		if (modifiedSince != null) {
+			String isoDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(modifiedSince);
+			parameters.put("modifiedSince", isoDate);
+		}
+		
+		path += QueryUtil.generateUrl(null, parameters);
         return this.listResourcesWithWrapper(path, Report.class);
     }
 

@@ -21,10 +21,12 @@ package com.smartsheet.api.internal;
  */
 
 import com.smartsheet.api.*;
+import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Share;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -49,7 +51,11 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 	/**
 	 * List shares of a given object.
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /workspace/{id}/sharesWithGroups GET /sheet/{id}/sharesWithGroups
+	 * It mirrors to the following Smartsheet REST API method: 
+	 * 		GET /workspace/{id}/shares 
+	 * 		GET /sheet/{id}/shares
+	 * 		GET /sights/{id}/shares
+	 * 		GET /reports/{id}/shares
 	 * 
 	 * Exceptions:
 	 *   InvalidRequestException : if there is any problem with the REST API request
@@ -61,22 +67,36 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 	 *
 	 * @param objectId the id of the object to share.
 	 * @param parameters the pagination parameters
+	 * @param includeWorkspaceShares include workspace shares in enumeration
 	 * @return the shares (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
 	 */
-	public PagedResult<Share> listShares(long objectId, PaginationParameters parameters) throws SmartsheetException {
+	public PagedResult<Share> listShares(long objectId, PaginationParameters pagination) throws SmartsheetException {
+		return this.listShares(objectId, pagination, false);
+	}
+	public PagedResult<Share> listShares(long objectId, PaginationParameters pagination, Boolean includeWorkspaceShares) throws SmartsheetException {
 		String path = getMasterResourceType() + "/" + objectId + "/shares";
-		if (parameters != null) {
-			path += parameters.toQueryString();
+		
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+		if (pagination != null) {
+			parameters = pagination.toHashMap();
 		}
+		if (includeWorkspaceShares == true) {
+			parameters.put("include", "workspaceShares");
+		}
+		path += QueryUtil.generateUrl(null, parameters);
+		
 		return this.listResourcesWithWrapper(path, Share.class);
 	}
 
 	/**
 	 * Get a Share.
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /workspaces/{workspaceId}/shares/{shareId} GET
-	 * /sheets/{sheetId}/shares/{shareId} GET /reports/{reportId}/shares
+	 * It mirrors to the following Smartsheet REST API method: 
+	 * 		GET /workspaces/{workspaceId}/shares/{shareId} 
+	 * 		GET /sheets/{sheetId}/shares/{shareId}
+	 * 		GET /sights/{sightId}/shares 
+	 * 		GET /reports/{reportId}/shares
 	 * 
 	 * Exceptions:
 	 *   InvalidRequestException : if there is any problem with the REST API request
@@ -99,8 +119,11 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 	/**
 	 * Shares the object with the specified Users and Groups.
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /workspaces/{id}/shares POST
-	 * /sheets/{id}/shares POST /reports/{reportId}/shares
+	 * It mirrors to the following Smartsheet REST API method: 
+	 * 	POST /workspaces/{id}/shares 
+	 * 	POST /sheets/{id}/shares 
+	 * 	POST /sights/{id}/shares 
+	 * 	POST /reports/{reportId}/shares
 	 * 
 	 * Exceptions:
 	 *   IllegalArgumentException : if multiShare is null
@@ -131,6 +154,7 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 	 * <p>It mirrors to the following Smartsheet REST API method:</p>
 	 * <p>PUT /workspaces/{workspaceId}/shares/{shareId}</p>
 	 * <p>PUT /sheets/{sheetId}/shares/{shareId}</p>
+	 * <p>PUT /sights/{sheetId}/shares/{shareId}</p>
 	 * <p>PUT /reports/{reportId}/shares/{shareId}</p>
 	 *
 	 * @param objectId the ID of the object to share
@@ -151,8 +175,11 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 	/**
 	 * Delete a share.
 	 * 
-	 * It mirrors to the following Smartsheet REST API method: DELETE /workspaces/{workspaceId}/shares/{shareId} DELETE
-	 * /sheets/{sheetId}/shares/{shareId} DELETE /reports/{reportId}/shares/{shareId}
+	 * It mirrors to the following Smartsheet REST API method: 
+	 * 	DELETE /workspaces/{workspaceId}/shares/{shareId} 
+	 * 	DELETE /sheets/{sheetId}/shares/{shareId} 
+	 * 	DELETE /sights/{sheetId}/shares/{shareId} 
+	 * 	DELETE /reports/{reportId}/shares/{shareId}
 	 * 
 	 * Exceptions:
 	 *   InvalidRequestException : if there is any problem with the REST API request

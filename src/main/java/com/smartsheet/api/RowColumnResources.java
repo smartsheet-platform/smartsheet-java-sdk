@@ -1,5 +1,7 @@
 package com.smartsheet.api;
 
+import java.io.FileNotFoundException;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -51,4 +53,26 @@ public interface RowColumnResources {
      * @throws SmartsheetException the smartsheet exception
      */
     public PagedResult<CellHistory> getCellHistory(long sheetId, long rowId, long columnId, PaginationParameters parameters) throws SmartsheetException;
+    
+    /**
+     * Uploads an image to the specified cell within a sheet.
+     * 
+     * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/columns/{columnId}/cellimages
+     *
+     * Exceptions:
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ResourceNotFoundException : if the resource can not be found
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param sheetId the sheet Id
+     * @param rowId the row id
+     * @param columnId the column id
+     * @param file the file path
+     * ResourceNotFoundException rather than returning null).
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public void addImageToCell(Long sheetId, Long rowId, Long columnId, String file, String fileType) throws FileNotFoundException, SmartsheetException;
 }

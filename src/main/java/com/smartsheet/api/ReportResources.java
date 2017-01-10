@@ -30,6 +30,7 @@ import com.smartsheet.api.models.SheetPublish;
 import com.smartsheet.api.models.enums.ReportInclusion;
 
 import java.io.OutputStream;
+import java.util.Date;
 import java.util.EnumSet;
 
 /**
@@ -93,7 +94,9 @@ public interface ReportResources {
      * @return all sheets (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
+     @Deprecated
      PagedResult<Report> listReports(PaginationParameters parameters) throws SmartsheetException;
+     PagedResult<Report> listReports(PaginationParameters parameters, Date modifiedSince) throws SmartsheetException;
 
     /**
      * Get a Report as an excel file.

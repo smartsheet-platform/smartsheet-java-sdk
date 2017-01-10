@@ -42,6 +42,11 @@ public class Link {
 	private Long sheetId;
 
 	/**
+	 * Represents the sight ID.
+	 */
+	private Long sightId;
+	
+	/**
 	 * Represents the column ID.
 	 */
 	private Long columnId;
@@ -106,6 +111,24 @@ public class Link {
 	}
 
 	/**
+	 * Gets the sight id.
+	 * 
+	 * @return sightId
+	 */
+	public Long getSightId() {
+		return sightId;
+	}
+	
+	/**
+	 * Set the sight id.
+	 * 
+	 * @param sightId
+	 */
+	public void setSightId(Long sightId) {
+		this.sightId = sightId;
+	}
+	
+	/**
 	 * Gets the column id.
 	 *
 	 * @return the column id
@@ -140,6 +163,4 @@ public class Link {
 	public void setRowId(Long rowId) {
 		this.rowId = rowId;
 	}
-	
-	
 }

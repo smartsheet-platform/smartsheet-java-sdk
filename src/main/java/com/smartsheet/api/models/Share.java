@@ -1,5 +1,7 @@
 package com.smartsheet.api.models;
 
+import java.util.Date;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -21,6 +23,7 @@ package com.smartsheet.api.models;
  */
 
 import com.smartsheet.api.models.enums.AccessLevel;
+import com.smartsheet.api.models.enums.ShareScope;
 import com.smartsheet.api.models.enums.ShareType;
 
 /**
@@ -53,6 +56,23 @@ public class Share extends NamedModel<String> {
 	 */
 	private ShareType type;
 
+	/**
+	 * The scope of this share. One of the following values:
+	 *	ITEM: an item-level share (i.e., the specific object to which the Share applies is shared with the user or group)
+	 * 	WORKSPACE: a workspace-level share (i.e., the workspace that contains the object to which the Share applies is shared with the user or group)
+	 */
+	private ShareScope scope;
+	
+	/**
+	 * Time that the share was created.
+	 */
+	private Date createdAt;
+	
+	/**
+	 * Time that the share was modified.
+	 */
+	private Date modifiedAt;
+	
 	/**
 	 * Represents the subject of the email that will optionally be sent to notify the recipient.
 	 */
@@ -158,6 +178,60 @@ public class Share extends NamedModel<String> {
 		this.email = email;
 	}
 
+	/**
+	 * Get the scope of this share. One of ITEM or WORKSPACE
+	 * 
+	 * @return scope
+	 */
+	public ShareScope getScope() {
+		return scope;
+	}
+	
+	/**
+	 * Set the scope of this share. One of ITEM or WORKSPACE
+	 * 
+	 * @param scope
+	 */
+	public void setScope(ShareScope scope) {
+		this.scope = scope;
+	}
+	
+	/**
+	 * Gets the time that the share was created
+	 * 
+	 * @return createdAt
+	 */
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+	
+	/**
+	 * Sets the time that the share was created
+	 * 
+	 * @param createdAt
+	 */
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+	
+	/**
+	 * Gets the time that the share was last modified
+	 * 
+	 * @return modifiedAt
+	 */
+	public Date getModifiedAt() {
+		return modifiedAt;
+	}
+	
+	/**
+	 * Sets the time that the share was last modified
+	 * 
+	 * @param modifiedAt
+	 */
+	public void setModifiedAt(Date modifiedAt) {
+		this.modifiedAt = modifiedAt;
+	}
+	
 	/**
 	 * A convenience class for creating a {@link Share} with the necessary fields for sharing the sheet to one user.
 	 */

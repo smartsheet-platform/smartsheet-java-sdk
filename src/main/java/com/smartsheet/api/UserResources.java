@@ -24,6 +24,7 @@ package com.smartsheet.api;
 
 import com.smartsheet.api.models.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -168,6 +169,7 @@ public interface UserResources {
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /users/sheets</p>
 	 *
 	 * @param pagination the object containing the pagination query parameters
+	 * @param modifiedSince 
 	 * @return the list of all organisation sheets
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
@@ -176,7 +178,7 @@ public interface UserResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public PagedResult<Sheet> listOrgSheets(PaginationParameters pagination) throws SmartsheetException;
+	public PagedResult<Sheet> listOrgSheets(PaginationParameters pagination, Date modifiedSince) throws SmartsheetException;
 	
 	/**
 	 * @param userId the userID

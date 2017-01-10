@@ -28,7 +28,7 @@ import java.util.List;
 public class Favorite{
 
     /**
-     * Represents type of favorite (workspace, folder, sheet, report, template).
+     * Represents type of favorite (workspace, folder, sheet, report, template, sight).
      */
     private FavoriteType type;
 

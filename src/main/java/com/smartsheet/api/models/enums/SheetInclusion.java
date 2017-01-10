@@ -34,6 +34,7 @@ public enum SheetInclusion{
 	SOURCE			("source"),
 	ROW_PERMALINK	("rowPermalink"),
 	ROW_WRITER_INFO	("rowWriterInfo"),
+	OBJECT_VALUE	("objectValue"),
 	;
 
 	String inclusion;

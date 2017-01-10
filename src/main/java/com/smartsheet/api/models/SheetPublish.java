@@ -47,6 +47,20 @@ public class SheetPublish {
 	private Boolean icalEnabled;
 
 	/**
+	 * Flag to indicate who can access the 'Read-Only Full' view of the published sheet:
+	 *	If "ALL", it is available to anyone who has the link.
+	 *	If "ORG", it is available only to members of the sheet owner's Smartsheet organization.
+	 */
+	private String readOnlyFullAccessibleBy;
+	
+	/**
+	 * Flag to indicate who can access the 'Edit by Anyone' view of the published sheet:
+	 *	If "ALL", it is available to anyone who has the link.
+	 *	If "ORG", it is available only to members of the sheet owner's Smartsheet organization.
+	 */	
+	private String readWriteAccessibleBy;
+	
+	/**
 	 * Represents the read-only lite (static HTML UI) URL.
 	 */
 	private String readOnlyLiteUrl;
@@ -138,6 +152,42 @@ public class SheetPublish {
 		this.icalEnabled = icalEnabled;
 	}
 
+	/**
+	 * Get string indicating who can access the "Read-Only Full" view of the published sheet.
+	 * 
+	 * @return readOnlyFullAccessibleBy
+	 */
+	public String getReadOnlyFullAccessibleBy() {
+		return readOnlyFullAccessibleBy;
+	}
+	
+	/**
+	 * Set string indicating who can access the "Read-Only Full" view of the published sheet.
+	 * 
+	 * @param readOnlyFullAccessibleBy
+	 */
+	public void setReadOnlyFullAccessibleBy(String readOnlyFullAccessibleBy) {
+		this.readOnlyFullAccessibleBy = readOnlyFullAccessibleBy;
+	}
+	
+	/**
+	 * Get string indicating who can access the "Edit by Anyone" view of the published sheet.
+	 * 
+	 * @return readWriteAccessibleBy
+	 */
+	public String getReadWriteAccessibleBy() {
+		return readWriteAccessibleBy;
+	}
+	
+	/**
+	 * Set string indicating who can access the "Edit by Anyone" view of the published sheet.
+	 * 
+	 * @param readWriteAccessibleBy
+	 */
+	public void setReadWriteAccessibleBy(String readWriteAccessibleBy) {
+		this.readWriteAccessibleBy = readWriteAccessibleBy;
+	}
+	
 	/**
 	 * Gets the read only lite url flag.
 	 *

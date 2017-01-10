@@ -1,5 +1,7 @@
 package com.smartsheet.api.models;
 
+import java.util.List;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -22,6 +24,7 @@ package com.smartsheet.api.models;
 
 
 import com.smartsheet.api.models.enums.AccessLevel;
+import com.smartsheet.api.models.enums.GlobalTemplate;
 
 /**
  * A template object that is a default layout for future sheets.
@@ -38,7 +41,46 @@ public class Template extends NamedModel<Long> {
 	 */
 	private AccessLevel accessLevel;
 
-
+	/**
+	 * URL to the small preview image for this template
+	 */
+	private String image;
+	
+	/**
+	 * URL to the large preview image for this template
+	 */
+	private String largeImage;
+	
+	/**
+	 * Locale of the template
+	 */
+	private String locale;
+	
+	/**
+	 * Type of the template. One of "sheet" or "report"
+	 */
+	private String type;
+	
+	/**
+	 * List of search tags for this template
+	 */
+	private List<String> tags;
+	
+	/**
+	 * List of categories this template belongs to
+	 */
+	private List<String> categories;
+	
+	/**
+	 * Flag indicating whether the template is blank
+	 */
+	private Boolean blank;
+	
+	/**
+	 * Type of global template. One of "BLANK_SHEET", "TASK_LIST", or "PROJECT_SHEET"
+	 */
+	private GlobalTemplate globalTemplate;
+	
 	/**
 	 * Gets the description of the template.
 	 *
@@ -73,5 +115,149 @@ public class Template extends NamedModel<Long> {
 	 */
 	public void setAccessLevel(AccessLevel accessLevel) {
 		this.accessLevel = accessLevel;
+	}
+	
+	/**
+	 * Gets the URL to the small preview image for this template.
+	 * 
+	 * @return the URL
+	 */
+	public String getImage() {
+		return image;
+	}
+	
+	/**
+	 * Sets the URL to the small preview image for this template.
+	 * 
+	 * @param image
+	 */
+	public void setImage(String image) {
+		this.image = image;
+	}
+	
+	/**
+	 * Gets the URL to the large preview image for this template.
+	 * 
+	 * @return the URL
+	 */
+	public String getLargeImage() {
+		return largeImage;
+	}
+	
+	/**
+	 * Sets the URL to the large preview image for this template.
+	 * 
+	 * @param largeImage
+	 */
+	public void setLargeImage(String largeImage) {
+		this.largeImage = largeImage;
+	}
+	
+	/** 
+	 * Gets the locate of the template.
+	 * 
+	 * @return locale
+	 */
+	public String getLocale() {
+		return locale;
+	}
+	
+	/**
+	 * Sets the locate of the template.
+	 * 
+	 * @param locale
+	 */
+	public void setLocale(String locale) {
+		this.locale = locale;
+	}
+	
+	/**
+	 * Gets the type of the template. One of "sheet" or "report"
+	 * 
+	 * @return type
+	 */
+	public String getType() {
+		return type;
+	}
+	
+	/**
+	 * Sets the type of the template. One of "sheet" or "report"
+	 * 
+	 * @param type
+	 */
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	/**
+	 * Gets the list of search tags for this template.
+	 * 
+	 * @return array of search tags
+	 */
+	public List<String> getTags() {
+		return tags;
+	}
+	
+	/**
+	 * Sets the array of search tags for this template.
+	 * 
+	 * @param tags
+	 */
+	public void setTags(List<String> tags) {
+		this.tags = tags;
+	}
+	
+	/**
+	 * Gets the list of categories this template belongs to
+	 * 
+	 * @return array of categories
+	 */
+	public List<String> getCategories() {
+		return categories;
+	}
+	
+	/**
+	 * Sets the array of categories this template belongs to
+	 * 
+	 * @param categories
+	 */
+	public void setCategories(List<String> categories) {
+		this.categories = categories;
+	}
+	
+	/**
+	 * Returns true if this template is blank
+	 * 
+	 * @return flag indicating whether template is blank
+	 */
+	public Boolean isBlank() {
+		return blank;
+	}
+	
+	/**
+	 * Sets the flag indicating whether this template is blank.
+	 * 
+	 * @param blank
+	 */
+	public void setBlank(Boolean blank) {
+		this.blank = blank;
+	}
+	
+	/**
+	 * Gets the type of global template
+	 * 
+	 * @return template type
+	 */
+	public GlobalTemplate getGlobalTemplate() {
+		return globalTemplate;
+	}
+	
+	/**
+	 * Sets the type of global template
+	 * 
+	 * @param globalTemplate
+	 */
+	public void setGlobalTemplate(GlobalTemplate globalTemplate) {
+		this.globalTemplate = globalTemplate;
 	}
 }

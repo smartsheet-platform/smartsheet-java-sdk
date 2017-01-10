@@ -106,6 +106,15 @@ public class SmartsheetImpl implements Smartsheet {
 	private AtomicReference<SheetResources> sheets;
 
 	/**
+	 * Represents the AtomicReference to SightResources
+	 *
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+	 * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
+	 * effectively the underlying value is lazily created in a thread safe manner.
+	 */
+	private AtomicReference<SightResources> sights;
+	
+	/**
 	 * Represents the AtomicReference to UserResources.
 	 * 
 	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
@@ -202,7 +211,25 @@ public class SmartsheetImpl implements Smartsheet {
 	 * SmartsheetImpl in thread safe manner.
 	 */
 	private final AtomicReference<ContactResources> contacts;
+	
+	/**
+	 * Represents the AtomicReference for ImageUrlResources.
+	 * 
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+	 * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
+	 * SmartsheetImpl in thread safe manner.
+	 */
+	private final AtomicReference<ImageUrlResources> imageUrls;
 
+	/**
+	 * Represents the AtomicReference for WebhookResources.
+	 * 
+	 * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+	 * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
+	 * SmartsheetImpl in thread safe manner.
+	 */
+	private final AtomicReference<WebhookResources> webhooks;
+	
 	/**
 	 * Create an instance with given server URI, HttpClient (optional) and JsonSerializer (optional)
 	 * 
@@ -238,6 +265,7 @@ public class SmartsheetImpl implements Smartsheet {
 		this.folders = new AtomicReference<FolderResources>();
 		this.templates = new AtomicReference<TemplateResources>();
 		this.sheets = new AtomicReference<SheetResources>();
+		this.sights = new AtomicReference<SightResources>();
 		this.favorites = new AtomicReference<FavoriteResources>();
 		this.users = new AtomicReference<UserResources>();
 		this.groups = new AtomicReference<GroupResources>();
@@ -249,6 +277,8 @@ public class SmartsheetImpl implements Smartsheet {
 		this.serverInfo = new AtomicReference<ServerInfoResources>();
 		this.tokens = new AtomicReference<TokenResources>();
 		this.contacts = new AtomicReference<ContactResources>();
+		this.imageUrls = new AtomicReference<ImageUrlResources>();
+		this.webhooks = new AtomicReference<WebhookResources>();
 	}
 
 	/**
@@ -367,6 +397,15 @@ public class SmartsheetImpl implements Smartsheet {
 	}
 
 	/**
+	 * Returns the SightResources instance that provides access to Sight resources.
+	 * 
+	 * @return the sight resources
+	 */	
+	public SightResources sightResources() {
+		sights.compareAndSet(null,  new SightResourcesImpl(this));
+		return sights.get();
+	}
+	/**
 	 * Returns the FavoriteResources instance that provides access to Favorite resources.
 	 *
 	 * @return the favorite resources
@@ -425,7 +464,7 @@ public class SmartsheetImpl implements Smartsheet {
 		serverInfo.compareAndSet(null, new ServerInfoResourcesImpl(this));
 		return serverInfo.get();
 	}
-
+	
 	/**
 	 * Returns the TokenResources instance that provides access to token resources.
 	 *
@@ -446,6 +485,26 @@ public class SmartsheetImpl implements Smartsheet {
 		return contacts.get();
 	}
 
+	/**
+	 * Returns the ImageUrlResources instance that provides access to image url resources.
+	 * 
+	 * @return the image url resources
+	 */
+	public ImageUrlResources imageUrlResources() {
+		imageUrls.compareAndSet(null, new ImageUrlResourcesImpl(this));
+		return imageUrls.get();
+	}
+
+	/**
+	 * Returns the WebhookResources instance that provides access to webhook resources.
+	 * 
+	 * @return the webhook resources
+	 */
+	public WebhookResources webhookResources() {
+		webhooks.compareAndSet(null, new WebhookResourcesImpl(this));
+		return webhooks.get();
+	}
+	
 	/**
 	 * Set the email of the user to assume. Null/empty string indicates no user is assumed.
 	 * 

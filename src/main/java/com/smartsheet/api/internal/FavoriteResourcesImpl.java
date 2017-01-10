@@ -51,7 +51,7 @@ public class FavoriteResourcesImpl extends AbstractResources implements Favorite
     }
 
     /**
-     * Adds one or more items to the user’s list of Favorite items.
+     * Adds one or more items to the user's list of Favorite items.
      *
      * It mirrors to the following Smartsheet REST API method: POST /favorites
      *
@@ -74,7 +74,7 @@ public class FavoriteResourcesImpl extends AbstractResources implements Favorite
     }
 
     /**
-     * Gets a list of all of the user’s Favorite items.
+     * Gets a list of all of the user's Favorite items.
      *
      * It mirrors to the following Smartsheet REST API method: GET /favorites
      *
@@ -96,9 +96,9 @@ public class FavoriteResourcesImpl extends AbstractResources implements Favorite
     }
 
     /**
-     * Gets a list of all of the user’s Favorite items.
+     * Gets a list of all of the user's Favorite items.
      *
-     * It mirrors to the following Smartsheet REST API method: GET /favorites
+     * It mirrors to the following Smartsheet REST API method: DELETE /favorites
      *
      * Exceptions:
      *   IllegalArgumentException : if any argument is null

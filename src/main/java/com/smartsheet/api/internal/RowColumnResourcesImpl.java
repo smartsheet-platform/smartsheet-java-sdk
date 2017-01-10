@@ -1,5 +1,16 @@
 package com.smartsheet.api.internal;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URLEncoder;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -21,7 +32,14 @@ package com.smartsheet.api.internal;
  */
 import com.smartsheet.api.RowColumnResources;
 import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.internal.http.HttpClientException;
+import com.smartsheet.api.internal.http.HttpEntity;
+import com.smartsheet.api.internal.http.HttpMethod;
+import com.smartsheet.api.internal.http.HttpRequest;
+import com.smartsheet.api.internal.http.HttpResponse;
+import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.CellHistory;
+import com.smartsheet.api.models.ImageUrlMap;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 
@@ -74,5 +92,45 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
         }
 
         return this.listResourcesWithWrapper(path, CellHistory.class);
+    }
+    
+    public void addImageToCell(Long sheetId, Long rowId, Long columnId, String file, String fileType) throws FileNotFoundException, SmartsheetException
+    {
+    	addImage("sheets/" + sheetId + "/rows/" + rowId + "/columns/" + columnId + "/cellimages", file, fileType);
+    }
+    
+    private void addImage(String path, String file, String contentType) throws SmartsheetException, FileNotFoundException
+    {
+    	Util.throwIfNull(file);
+    	
+    	if(contentType == null)
+    	{
+    		contentType = "application/octet-stream";
+    	}
+    	
+    	HttpRequest request = createHttpRequest(this.smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
+		try {
+			request.getHeaders().put("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(file, "UTF-8") + "\"");
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
+		
+    	File f = new File(file);
+    	InputStream is = new FileInputStream(f);
+		
+    	HttpEntity entity = new HttpEntity();
+    	entity.setContentType(contentType);
+    	entity.setContent(is);
+    	entity.setContentLength(f.length());
+    	request.setEntity(entity);
+    	
+		HttpResponse response = this.smartsheet.getHttpClient().request(request);
+		switch (response.getStatusCode()) {
+		case 200:
+			break;
+		default:
+			handleError(response);
+		}
+		smartsheet.getHttpClient().releaseConnection();
     }
 }

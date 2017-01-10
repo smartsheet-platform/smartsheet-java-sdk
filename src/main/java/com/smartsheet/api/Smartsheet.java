@@ -64,6 +64,13 @@ public interface Smartsheet {
 	public SheetResources sheetResources();
 
 	/**
+	 * <p>Returns the SightResources instance that provides access to Sight resources.</p>
+	 *
+	 * @return the sight resources instance
+	 */	
+	public SightResources sightResources();
+	
+	/**
 	 * <p>Returns the FavoriteResources instance that provides access to Favorite resources.</p>
 	 *
 	 * @return the favorite resources instance
@@ -119,6 +126,20 @@ public interface Smartsheet {
 	 */
 	public ContactResources contactResources();
 
+	/**
+	 * Returns the ImageUrlResources instance that provides access to image Url resources
+	 * 
+	 * @return the image Url resources instance
+	 */
+	public ImageUrlResources imageUrlResources();
+
+	/**
+	 * Returns the WebhookResources instance that provides access to webhook resources
+	 * 
+	 * @return the webhook resources instance
+	 */
+	public WebhookResources webhookResources();
+	
 	/**
 	 * <p>Set the email of the user to assume.</p>
 	 *
