@@ -169,7 +169,7 @@ public interface UserResources {
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /users/sheets</p>
 	 *
 	 * @param pagination the object containing the pagination query parameters
-	 * @param modifiedSince 
+	 * @param modifiedSince restrict to sheets modified on or after this date
 	 * @return the list of all organisation sheets
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
@@ -179,6 +179,24 @@ public interface UserResources {
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public PagedResult<Sheet> listOrgSheets(PaginationParameters pagination, Date modifiedSince) throws SmartsheetException;
+	
+	/**
+	 * <p>List all organisation sheets.</p>
+	 *
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /users/sheets</p>
+	 *
+	 * @param pagination the object containing the pagination query parameters
+	 * @param modifiedSince 
+	 * @return the list of all organisation sheets
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	@Deprecated
+	public PagedResult<Sheet> listOrgSheets(PaginationParameters pagination) throws SmartsheetException;
 	
 	/**
 	 * @param userId the userID

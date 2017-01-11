@@ -212,6 +212,9 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 		path += QueryUtil.generateUrl(null, parameters);
 		return this.listResourcesWithWrapper(path, Sheet.class);
 	}
+    public PagedResult<Sheet> listOrgSheets(PaginationParameters pagination) throws SmartsheetException {
+		return this.listOrgSheets(pagination, null);
+	}
 
 	/**
 	 * <p>List all user alternate emails.</p>
