@@ -97,11 +97,9 @@ public class CommentAttachmentResourcesImpl extends AbstractResources implements
      * @param contentLength the content length
      * @param attachmentName the name of the attachment
      * @return the attachment
-     * @throws FileNotFoundException the file not found exception
      * @throws SmartsheetException the smartsheet exception
-     * @throws UnsupportedEncodingException the unsupported encoding exception
      */
-    private Attachment attachFileWithSimpleUpload(long sheetId, long commentId, InputStream inputStream, String contentType, long contentLength, String attachmentName)
+    public Attachment attachFileWithSimpleUpload(long sheetId, long commentId, InputStream inputStream, String contentType, long contentLength, String attachmentName)
             throws SmartsheetException {
         Util.throwIfNull(inputStream, contentType);
         return super.attachFile("sheets/" + sheetId + "/comments/" + commentId + "/attachments", inputStream, contentType, contentLength, attachmentName);
