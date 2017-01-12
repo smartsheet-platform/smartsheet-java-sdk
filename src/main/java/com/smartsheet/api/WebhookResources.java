@@ -32,7 +32,7 @@ public interface WebhookResources {
 	 *
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /webhooks</p>
 	 *
- 	 * @param pagination the object containing the pagination parameters
+ 	 * @param paging the object containing the pagination parameters
 	 * @return IndexResult object containing an array of Webhook objects.
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request

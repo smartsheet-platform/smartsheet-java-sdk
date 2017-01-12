@@ -23,7 +23,6 @@ package com.smartsheet.api;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.SentUpdateRequest;
-import com.smartsheet.api.models.Sheet;
 import com.smartsheet.api.models.UpdateRequest;
 public interface SheetUpdateRequestResources {
 
@@ -32,7 +31,7 @@ public interface SheetUpdateRequestResources {
 	 *
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/updaterequests</p>
 	 *
-	 * @param includes the source inclusion
+	 * @param sheetId the Id of the sheet
 	 * @param paging the object containing the pagination parameters
 	 * @return A list of all UpdateRequests (note that an empty list will be returned if there are none).
 	 * @throws IllegalArgumentException if any argument is null or empty string
