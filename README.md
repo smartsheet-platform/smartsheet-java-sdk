@@ -16,7 +16,7 @@ Add the SDK as a dependency in your project.
 <dependency>
   <groupId>com.smartsheet</groupId>
   <artifactId>smartsheet-sdk-java</artifactId>
-  <version>2.0.4</version>
+  <version>2.1.0</version>
 </dependency>
 ```
 
