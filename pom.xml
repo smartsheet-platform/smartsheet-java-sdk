@@ -47,6 +47,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<file.encoding>UTF-8</file.encoding>
 		<license.licenseName>apache_v2</license.licenseName>
+		<additionalparam>-Xdoclint:-missing</additionalparam>
 	</properties>
 
 	<dependencies>
