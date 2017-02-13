@@ -37,6 +37,6 @@ public enum FolderCopyInclusion {
 
     @Override
     public String toString() {
-        return super.toString();
+        return inclusion;
     }
 }
