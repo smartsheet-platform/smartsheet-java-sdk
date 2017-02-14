@@ -87,7 +87,7 @@ public class Image {
 	/**
 	 * sets the width (in pixels) of the uploaded image
 	 * 
-	 * @param heigth
+	 * @param height
 	 */
 	public void setHeight(Long height) {
 		this.height = height;
