@@ -39,11 +39,13 @@ mvn package
 ```
 
 ## Documentation
-The SDK API documentation can be viewed online at [http://smartsheet-platform.github.io/smartsheet-java-sdk](http://smartsheet-platform.github.io/smartsheet-java-sdk).
-
-The documentation can also be downloaded as a jar file [here](http://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST&c=javadoc).
+The API is documented here: http://smartsheet-platform.github.io/api-docs/?java
+The SDK javadoc is here: [http://smartsheet-platform.github.io/smartsheet-java-sdk](http://smartsheet-platform.github.io/smartsheet-java-sdk) (Download as a jar file [here](http://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST&c=javadoc).)
 
 ##Example Usage
+A reference sample application is here: https://github.com/smartsheet-samples/java-read-write-sheet
+
+
 To use the Java SDK, you'll need to include the appropriate **import** directives in your code. For example, the code examples in this section require the following **import** directives:
 
 ```java
@@ -140,7 +142,7 @@ public static void OAuthExample() throws SmartsheetException, UnsupportedEncodin
 }
 ```
 
-More Java examples available [here](http://smartsheet-platform.github.io/api-docs/?java#java-sample-code).
+More Java examples available [here](https://github.com/smartsheet-samples/).
 
 ## Contributing
 If you would like to contribute a change to the SDK, please fork a branch and then submit a pull request. [More info here](https://help.github.com/articles/using-pull-requests).
