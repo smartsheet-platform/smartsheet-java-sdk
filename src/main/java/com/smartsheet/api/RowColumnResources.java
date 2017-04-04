@@ -1,5 +1,9 @@
 package com.smartsheet.api;
 
+import com.smartsheet.api.models.CellHistory;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.PaginationParameters;
+
 import java.io.FileNotFoundException;
 
 /*
@@ -21,9 +25,6 @@ import java.io.FileNotFoundException;
  * limitations under the License.
  * %[license]
  */
-import com.smartsheet.api.models.CellHistory;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PaginationParameters;
 
 /**
  * This interface provides methods to access row column resources that are associated to a sheet object.
@@ -71,8 +72,10 @@ public interface RowColumnResources {
      * @param rowId the row id
      * @param columnId the column id
      * @param file the file path
+     * @param fileType
      * ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception
+     * @throws FileNotFoundException image file not found
      */
     public void addImageToCell(Long sheetId, Long rowId, Long columnId, String file, String fileType) throws FileNotFoundException, SmartsheetException;
 }

@@ -36,6 +36,6 @@ public enum FolderRemapExclusion {
 
     @Override
     public String toString() {
-        return super.toString();
+        return inclusion;
     }
 }

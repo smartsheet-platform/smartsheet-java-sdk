@@ -16,7 +16,7 @@ Add the SDK as a dependency in your project.
 <dependency>
   <groupId>com.smartsheet</groupId>
   <artifactId>smartsheet-sdk-java</artifactId>
-  <version>2.0.4</version>
+  <version>2.1.1</version>
 </dependency>
 ```
 
@@ -152,66 +152,4 @@ If you have any questions or issues with this SDK please post on [StackOverflow 
 
 Each specific release is available for download via [Github](https://github.com/smartsheet-platform/smartsheet-java-sdk/tags) or the [Maven repository](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.smartsheet%22%20AND%20a%3A%22smartsheet-sdk-java%22).
 
-**2.0.5**
-* Fixed issue with supporting formats.
-* Added column format information
-* Other various fixes.
-
-**2.0.4**
-
-* Added bulk row update with partial success
-* Added support for Change Agent header.
-
-**2.0.3**
-
-* Invalid, do not use
-
-**2.0.2**
-
-* Added custom mixin to our JSON serializer, allowing Id's to be serialized when model classes are used outside of the SDK.
-
-**2.0.1**
-
-* Added ability to retrieve Contacts.
-* Added ability to copy folder/sheet/workspace.
-* Added ability to move folder/sheet.
-* Added ability to delete multiple rows at once.
-* Added ability to send multiple rows at once.
-* Added ability to create update request.
-* Added ability to create discussion on row and include file attachment (in a single request).
-
-**2.0.0**
-* Migrated to latest API version 2.0.0
-* Added support for new and modified operations
-
-**1.1.0**
-* Added support for group administration and sharing (note there are some backwards incompatible changes to sharing)
-* Added support for attachment versioning
-* Added support for Formats on cells, rows, and columns
-
-**1.0.6**
-* Improved attachments allowing for the use of InputStreams
-* Other minor improvements and bug fixes
-
-**1.0.5**
-* Nothing changed. This release is the same as 1.0.4.
-
-**1.0.4**
-* Fixed issue when refreshing an existing OAuth token.
-* Added ability to represent boolean values (without a cast) in a Cell Object.
-
-**1.0.3**
-* Added missing file required by unit test
-
-**1.0.2**
-* Cell data is returned as an Object to support both String and Boolean Cell data types.
-* Added support for the smartsheet auto number column in DATETIME format
-
-**1.0.1 (Feb 19, 2014)**
-* Synchronized the versions on github, javadoc, pom/maven repository and the readme.md
-
-**1.0.0 (Feb 19, 2014)**
-* Initial Release of the Smartsheet Java SDK
-
-
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/4b2c0d7b11c532fb1693dec0e5f300d5 "githalytics.com")](http://githalytics.com/smartsheet-platform/smartsheet-java-sdk)
+See https://github.com/smartsheet-platform/smartsheet-java-sdk/releases

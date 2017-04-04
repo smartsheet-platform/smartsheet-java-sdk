@@ -36,6 +36,6 @@ public enum WorkspaceRemapExclusion {
 
     @Override
     public String toString() {
-        return super.toString();
+        return inclusion;
     }
 }

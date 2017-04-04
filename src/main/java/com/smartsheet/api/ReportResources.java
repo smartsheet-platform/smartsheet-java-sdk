@@ -91,12 +91,30 @@ public interface ReportResources {
      *   - SmartsheetException : if there is any other error occurred during the operation
      *
      * @param parameters pagination parameters for paging result
+     * @param modifiedSince restrict results to sheets modified on or after this date
+     * @return all sheets (note that empty list will be returned if there is none)
+     * @throws SmartsheetException the smartsheet exception
+     */
+     PagedResult<Report> listReports(PaginationParameters parameters, Date modifiedSince) throws SmartsheetException;
+
+    /**
+     * List all reports.
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /reports
+     *
+     * Exceptions:
+     *   - InvalidRequestException : if there is any problem with the REST API request
+     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   - SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param parameters pagination parameters for paging result
      * @return all sheets (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
      @Deprecated
      PagedResult<Report> listReports(PaginationParameters parameters) throws SmartsheetException;
-     PagedResult<Report> listReports(PaginationParameters parameters, Date modifiedSince) throws SmartsheetException;
 
     /**
      * Get a Report as an excel file.

@@ -39,6 +39,6 @@ public enum WorkspaceCopyInclusion {
 
     @Override
     public String toString() {
-        return super.toString();
+        return inclusion;
     }
 }

@@ -19,10 +19,10 @@
  */
 package com.smartsheet.api;
 
-import java.util.List;
-
 import com.smartsheet.api.models.ImageUrl;
 import com.smartsheet.api.models.ImageUrlMap;
+
+import java.util.List;
 
 public interface ImageUrlResources {
 	/**
@@ -31,7 +31,7 @@ public interface ImageUrlResources {
 	 * <p>It mirrors to the following Smartsheet REST API method:</p>
 	 * <p>POST /imageurls</p>
 	 *
-	 * @param array of requested Images and sizes.
+	 * @param requestUrls array of requested Images and sizes.
 	 * @return the ImageUrlMap object (note that if there is no such resource, this method will throw 
 	 * ResourceNotFoundException rather than returning null).
 	 * @throws IllegalArgumentException if any argument is null or empty string

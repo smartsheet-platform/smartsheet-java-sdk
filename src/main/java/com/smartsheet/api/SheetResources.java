@@ -43,6 +43,24 @@ public interface SheetResources {
 	 *
 	 * @param includes the source inclusion
 	 * @param pagination the object containing the pagination parameters
+	 * @param modifiedSince restrict results to sheets modified on or after this date
+	 * @return A list of all sheets (note that an empty list will be returned if there are none).
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	public PagedResult<Sheet> listSheets(EnumSet<SourceInclusion> includes, PaginationParameters pagination, Date modifiedSince) throws SmartsheetException;
+	
+	/**
+	 * <p>List all sheets.</p>
+	 *
+	 * <p>It mirrors to the following Smartsheet REST API method: GET /sheets</p>
+	 *
+	 * @param includes the source inclusion
+	 * @param pagination the object containing the pagination parameters
 	 * @return A list of all sheets (note that an empty list will be returned if there are none).
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
@@ -53,8 +71,7 @@ public interface SheetResources {
 	 */
 	@Deprecated
 	public PagedResult<Sheet> listSheets(EnumSet<SourceInclusion> includes, PaginationParameters pagination) throws SmartsheetException;
-	public PagedResult<Sheet> listSheets(EnumSet<SourceInclusion> includes, PaginationParameters pagination, Date modifiedSince) throws SmartsheetException;
-
+	
 	/**
 	 * <p>List all sheets in the organization.</p>
 	 *
