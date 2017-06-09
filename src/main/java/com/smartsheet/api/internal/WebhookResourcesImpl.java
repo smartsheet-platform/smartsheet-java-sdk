@@ -52,7 +52,7 @@ public class WebhookResourcesImpl extends AbstractResources implements WebhookRe
 	 *
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /webhooks</p>
 	 *
- 	 * @param pagination the object containing the pagination parameters
+ 	 * @param paging the object containing the pagination parameters
 	 * @return IndexResult object containing an array of Webhook objects.
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
@@ -87,7 +87,7 @@ public class WebhookResourcesImpl extends AbstractResources implements WebhookRe
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */	
-	public Webhook getWebhook(Long webhookId) throws SmartsheetException {
+	public Webhook getWebhook(long webhookId) throws SmartsheetException {
 		return this.getResource("webhooks/" + webhookId, Webhook.class);
 	}
 	
@@ -140,7 +140,7 @@ public class WebhookResourcesImpl extends AbstractResources implements WebhookRe
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */	
-	public void deleteWebhook(Long webhookId) throws SmartsheetException {
+	public void deleteWebhook(long webhookId) throws SmartsheetException {
 		this.deleteResource("webhooks/" + webhookId, Webhook.class);
 	}
 	
@@ -159,7 +159,7 @@ public class WebhookResourcesImpl extends AbstractResources implements WebhookRe
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */		
-	public WebhookSharedSecret ResetSharedSecret(Long webhookId) throws SmartsheetException {
+	public WebhookSharedSecret resetSharedSecret(long webhookId) throws SmartsheetException {
 		HttpRequest request = createHttpRequest(this.getSmartsheet().getBaseURI().resolve("webhooks/" + 
 				webhookId + "/resetsharedsecret"), HttpMethod.POST);
 

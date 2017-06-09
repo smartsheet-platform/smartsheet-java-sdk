@@ -82,6 +82,11 @@ public class ShareResourcesImplTest extends ResourcesImplBase {
 		Share newShare = shareResourcesImpl.updateShare(123L, share);
 		assertEquals(share.getAccessLevel(), newShare.getAccessLevel());
 	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testUpdateShareWithNullShare() throws SmartsheetException {
+		shareResourcesImpl.updateShare(123L, null);
+	}
 
 	@Test
 	public void testDeleteShare() throws SmartsheetException, IOException {

@@ -41,7 +41,7 @@ public interface SheetUpdateRequestResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	PagedResult<UpdateRequest> listUpdateRequests(Long sheetId, PaginationParameters paging) throws SmartsheetException;
+	PagedResult<UpdateRequest> listUpdateRequests(long sheetId, PaginationParameters paging) throws SmartsheetException;
 
 	/**
 	 * <p>Gets the specified Update Request for the Sheet that has a future schedule.</p>
@@ -58,7 +58,7 @@ public interface SheetUpdateRequestResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */	
-	UpdateRequest getUpdateRequest(Long sheetId, Long updateRequestId) throws SmartsheetException;
+	UpdateRequest getUpdateRequest(long sheetId, long updateRequestId) throws SmartsheetException;
 	
 	/**
 	 * <p>Creates an Update Request for the specified Row(s) within the Sheet. An email notification
@@ -76,7 +76,7 @@ public interface SheetUpdateRequestResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */	
-	UpdateRequest createUpdateRequest(Long sheetId, UpdateRequest updateRequest) throws SmartsheetException;
+	UpdateRequest createUpdateRequest(long sheetId, UpdateRequest updateRequest) throws SmartsheetException;
 	
 	/**
 	 * <p>Terminates the future scheduled delivery of the Update Request specified in the URL.</p>
@@ -92,7 +92,7 @@ public interface SheetUpdateRequestResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */	
-	void deleteUpdateRequest(Long sheetId, Long updateRequestId) throws SmartsheetException;
+	void deleteUpdateRequest(long sheetId, long updateRequestId) throws SmartsheetException;
 	
 	/**
 	 * <p>Changes the specified Update Request for the Sheet.</p>
@@ -109,7 +109,7 @@ public interface SheetUpdateRequestResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */	
-	UpdateRequest updateUpdateRequest(Long sheetId, UpdateRequest updateRequest) throws SmartsheetException;
+	UpdateRequest updateUpdateRequest(long sheetId, UpdateRequest updateRequest) throws SmartsheetException;
 
 	/**
 	 * <p>Gets a list of all Sent Update Requests that have future schedules associated with the specified Sheet.</p>
@@ -126,7 +126,7 @@ public interface SheetUpdateRequestResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */	
-	PagedResult<SentUpdateRequest> listSentUpdateRequests(Long sheetId, PaginationParameters paging) throws SmartsheetException;
+	PagedResult<SentUpdateRequest> listSentUpdateRequests(long sheetId, PaginationParameters paging) throws SmartsheetException;
 
 	/**
 	 * <p>Gets the specified sent update request on the Sheet.</p>
@@ -143,7 +143,7 @@ public interface SheetUpdateRequestResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */		
-	SentUpdateRequest getSentUpdateRequest(Long sheetId, Long sentUpdateRequestId) throws SmartsheetException;
+	SentUpdateRequest getSentUpdateRequest(long sheetId, long sentUpdateRequestId) throws SmartsheetException;
 	
 	/**
 	 * <p>Deletes the specified sent update request.</p>
@@ -159,5 +159,5 @@ public interface SheetUpdateRequestResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */		
-	void deleteSentUpdateRequest(Long sheetId, Long sentUpdateRequestId) throws SmartsheetException;
+	void deleteSentUpdateRequest(long sheetId, long sentUpdateRequestId) throws SmartsheetException;
 }
