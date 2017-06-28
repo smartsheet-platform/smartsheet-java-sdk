@@ -20,16 +20,28 @@ package com.smartsheet.api.internal.http;
  * %[license]
  */
 
+import com.smartsheet.api.internal.util.StreamUtil;
 import com.smartsheet.api.internal.util.Util;
+import org.apache.commons.codec.binary.Hex;
+import org.apache.http.Header;
 import org.apache.http.HttpHeaders;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.*;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,6 +53,7 @@ import java.util.Map;
  * thread safe.
  */
 public class DefaultHttpClient implements HttpClient {
+
 	/**
 	 * Represents the underlying Apache CloseableHttpClient.
 	 * 
@@ -49,14 +62,17 @@ public class DefaultHttpClient implements HttpClient {
 	private final CloseableHttpClient httpClient;
 	
 	/** The apache http request. */
-	private org.apache.http.client.methods.HttpRequestBase apacheHttpRequest;
+	private HttpRequestBase apacheHttpRequest;
 	
 	/** The apache http response. */
 	private CloseableHttpResponse apacheHttpResponse;
-	
 
+	/** UserAgent string sent with each request */
+	private final String userAgent;
+
+	@Deprecated // never used (within SDK)
 	public static final String USER_AGENT = "Mozilla/5.0 Firefox/26.0";
-	
+
 	/**
 	 * Constructor.
 	 */
@@ -77,6 +93,7 @@ public class DefaultHttpClient implements HttpClient {
 		Util.throwIfNull(httpClient);
 		
 		this.httpClient = httpClient;
+		this.userAgent = generateUserAgent(getClass());
 	}
 
 	/**
@@ -124,30 +141,24 @@ public class DefaultHttpClient implements HttpClient {
 		}
 		
 		// Set User Agent
-		String thisVersion = "";
-		String title = "";
-		Package thisPackage = getClass().getPackage();
-		if(thisPackage != null){
-			thisVersion = thisPackage.getImplementationVersion();
-			title = thisPackage.getImplementationTitle();
-		}
-		
-		apacheHttpRequest.setHeader(HttpHeaders.USER_AGENT, title+"/" + thisVersion +" " + 
-				System.getProperty("os.name") + " "+System.getProperty("java.vm.name") + " " + 
-				System.getProperty("java.vendor") + " " + System.getProperty("java.version"));
+		apacheHttpRequest.setHeader(HttpHeaders.USER_AGENT, userAgent);
 
 		// Set HTTP entity
-		if (apacheHttpRequest instanceof HttpEntityEnclosingRequestBase && smartsheetRequest.getEntity() != null && 
-				smartsheetRequest.getEntity().getContent() != null) {
-			InputStreamEntity entity = new InputStreamEntity(smartsheetRequest.getEntity().getContent(), smartsheetRequest.getEntity().getContentLength());
-			entity.setChunked(false);
-			((HttpEntityEnclosingRequestBase) apacheHttpRequest).setEntity(entity);
+		final HttpEntity entity = smartsheetRequest.getEntity();
+		if (apacheHttpRequest instanceof HttpEntityEnclosingRequestBase && entity != null && entity.getContent() != null) {
+			// we need access to the original stream so we can log it - once it's wrapped we can't touch it
+			logRequest(apacheHttpRequest, entity);
+			InputStreamEntity streamEntity = new InputStreamEntity(entity.getContent(), entity.getContentLength());
+			streamEntity.setChunked(false);	// why?  not supported by library?
+			((HttpEntityEnclosingRequestBase) apacheHttpRequest).setEntity(streamEntity);
+		} else {
+			logRequest(apacheHttpRequest, null);
 		}
 		
 		// Make the HTTP request
 		try {
 			apacheHttpResponse = this.httpClient.execute(apacheHttpRequest);
-			
+
 			// Set returned headers
 			smartsheetResponse.setHeaders(new HashMap<String, String>());
 			for (org.apache.http.Header header : apacheHttpResponse.getAllHeaders()) {
@@ -157,12 +168,14 @@ public class DefaultHttpClient implements HttpClient {
 
 			// Set returned entities
 			if (apacheHttpResponse.getEntity() != null) {
-				HttpEntity entity = new HttpEntity();
-				entity.setContentType(apacheHttpResponse.getEntity().getContentType().getValue());
-				entity.setContentLength(apacheHttpResponse.getEntity().getContentLength());
-				entity.setContent(apacheHttpResponse.getEntity().getContent());
-				smartsheetResponse.setEntity(entity);
+				HttpEntity httpEntity = new HttpEntity();
+				httpEntity.setContentType(apacheHttpResponse.getEntity().getContentType().getValue());
+				httpEntity.setContentLength(apacheHttpResponse.getEntity().getContentLength());
+				httpEntity.setContent(apacheHttpResponse.getEntity().getContent());
+				smartsheetResponse.setEntity(httpEntity);
 			}
+
+			logResponse(apacheHttpRequest, smartsheetResponse);
 		} catch (ClientProtocolException e) {
 			throw new HttpClientException("Error occurred.", e);
 		} catch (IOException e) {
@@ -191,10 +204,110 @@ public class DefaultHttpClient implements HttpClient {
 		if(apacheHttpResponse != null){
 			try {
 				apacheHttpResponse.close();
+				apacheHttpResponse = null;
 			} catch (IOException e) {
-				// Ignore exception as there isn't anything else that can be done.
-				//TODO: log this
+				logger.error("error closing Apache HttpResponse - {}", e);
 			}
 		}
+	}
+
+	static String generateUserAgent(Class<?> clazz) {
+		String thisVersion = "";
+		String title = "";
+		Package thisPackage = clazz.getPackage();
+		if (thisPackage != null){
+			thisVersion = thisPackage.getImplementationVersion();
+			title = thisPackage.getImplementationTitle();
+		}
+		return title +"/" + thisVersion +" " + System.getProperty("os.name") + " "
+				+ System.getProperty("java.vm.name") + " " + System.getProperty("java.vendor") + " "
+				+ System.getProperty("java.version");
+	}
+
+	private static void logRequest(HttpRequestBase request, HttpEntity entity) {
+		if (requestLogger.isTraceEnabled()) {
+			StringBuilder buf = new StringBuilder();
+			append(buf, request, entity, true);
+			requestLogger.trace("Request ({}) - {}", System.identityHashCode(request), buf.toString());
+		} else if(requestLogger.isInfoEnabled()) {
+			StringBuilder buf = new StringBuilder();
+			append(buf, request, null, false);
+			requestLogger.info("Request ({}) - {}", System.identityHashCode(request), buf.toString());
+		}
+	}
+
+	private static void logResponse(HttpRequestBase request, HttpResponse response) {
+		if (response.getStatusCode() != 200) {
+			// verbose logging of non-OK responses
+			StringBuilder buf = new StringBuilder();
+			append(buf, response, response.getEntity(), true);
+			responseLogger.warn("Response ({}) - {}", System.identityHashCode(request), buf.toString());
+		} else if (responseLogger.isTraceEnabled()) {
+			StringBuilder buf = new StringBuilder();
+			append(buf, response, response.getEntity(), true);
+			responseLogger.trace("Response ({}) - {}", System.identityHashCode(request), buf.toString());
+		} else if (responseLogger.isInfoEnabled()) {
+			StringBuilder buf = new StringBuilder();
+			append(buf, response, null, false);
+			responseLogger.info("Response ({}) - {}", System.identityHashCode(request), buf.toString());
+		}
+	}
+
+	private static void append(StringBuilder buf, HttpRequestBase request, HttpEntity entity, boolean includeHeaders) {
+		buf.append("{ request:").append(request.getRequestLine());
+		if (includeHeaders) {
+			StringBuilder headerBuf = new StringBuilder();
+			Header[] headers = request.getAllHeaders();
+			for (Header header : headers) {
+				headerBuf.append(',').append(header.getName()).append(':');
+				if ("Authorization".equals(header.getName())) {
+					headerBuf.append("Bearer ***");
+				} else {
+					headerBuf.append(Arrays.toString(header.getElements()));
+				}
+			}
+			buf.append(", headers:[").append(headerBuf.substring(1)).append("]");
+		}
+		if (entity != null) {
+			buf.append(", content:");
+			append(buf, entity);
+		}
+		buf.append("}");
+	}
+
+	private static void append(StringBuilder buf, HttpResponse response, HttpEntity entity, boolean includeHeaders) {
+		buf.append("{ status:").append(response.getStatusCode());
+		if (includeHeaders) {
+			buf.append(", headers:").append(response.getHeaders());
+		}
+		if (entity != null) {
+			buf.append(", entity:");
+			append(buf, entity);
+		}
+		buf.append(" }");
+	}
+
+	private static void append(StringBuilder buf, HttpEntity entity) {
+		String contentAsText = null;
+		try {
+			byte[] contentBytes = StreamUtil.readBytesFromStream(entity.getContent());
+			try {
+				contentAsText = new String(contentBytes, "UTF-8");
+			} catch (UnsupportedEncodingException badEncodingOrNotText) {
+				contentAsText = new String(Hex.encodeHex(contentBytes));
+				logger.info("failed to create string with contentType '{}' from bytes '{}'",
+						entity.getContentType(), contentAsText);
+			}
+			// since we've consumed the stream we have to reset it (note, this will have real perf impact if the stream
+			// was to a large file or something else we'd rather not hold entirely in RAM if we can help it)
+			entity.setContent(new ByteArrayInputStream(contentBytes));
+		} catch (IOException iox) {
+			logger.error("failed to extract content from response - {}", iox);
+		}
+
+		buf.append("{ contentType:").append(entity.getContentType())
+				.append(", contentLen:").append(entity.getContentLength())
+				.append(", content:").append(contentAsText)
+				.append(" }");
 	}
 }
