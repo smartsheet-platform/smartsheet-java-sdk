@@ -21,6 +21,8 @@ package com.smartsheet.api.internal.util;
  */
 
 
+import org.apache.commons.codec.binary.Hex;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -91,5 +93,21 @@ public class StreamUtil {
         }
         // if we can't reset the source we need to create a replacement around what we read
         return new ByteArrayInputStream(target.toByteArray());
+    }
+
+    public static String toUtf8StringOrHex(ByteArrayOutputStream byteStream) {
+        return toUtf8StringOrHex(byteStream, 1024);
+    }
+
+    public static String toUtf8StringOrHex(ByteArrayOutputStream byteStream, int maxLen) {
+        String result;
+        try {
+            result = byteStream.toString("UTF-8");
+        } catch (Exception notUtf8) {
+            result = Hex.encodeHexString(byteStream.toByteArray());
+        }
+        int resultLen = result != null ? result.length() : 0;
+        return resultLen == 0 ? "" : result.substring(0, Math.min(result.length(), maxLen));
+
     }
 }
