@@ -39,7 +39,9 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -53,10 +55,9 @@ import java.util.Map;
  * thread safe.
  */
 public class DefaultHttpClient implements HttpClient {
-
 	/**
 	 * Represents the underlying Apache CloseableHttpClient.
-	 * 
+	 *
 	 * It will be initialized in constructor and will not change afterwards.
 	 */
 	private final CloseableHttpClient httpClient;
@@ -112,17 +113,22 @@ public class DefaultHttpClient implements HttpClient {
 		HttpResponse smartsheetResponse = new HttpResponse();
 
 		// Create Apache HTTP request based on the smartsheetRequest request type
-		if (HttpMethod.GET == smartsheetRequest.getMethod()) {
-			apacheHttpRequest = new HttpGet(smartsheetRequest.getUri());
-		} else if (HttpMethod.POST == smartsheetRequest.getMethod()) {
-			apacheHttpRequest = new HttpPost(smartsheetRequest.getUri());
-		} else if (HttpMethod.PUT == smartsheetRequest.getMethod()) {
-			apacheHttpRequest = new HttpPut(smartsheetRequest.getUri());
-		} else if (HttpMethod.DELETE == smartsheetRequest.getMethod()) {
-			apacheHttpRequest = new HttpDelete(smartsheetRequest.getUri());
-		} else {
-			throw new UnsupportedOperationException("Request method " + smartsheetRequest.getMethod()
-					+ " is not supported!");
+		switch(smartsheetRequest.getMethod()) {
+			case GET :
+				apacheHttpRequest = new HttpGet(smartsheetRequest.getUri());
+				break;
+			case POST :
+				apacheHttpRequest = new HttpPost(smartsheetRequest.getUri());
+				break;
+			case PUT:
+				apacheHttpRequest = new HttpPut(smartsheetRequest.getUri());
+				break;
+			case DELETE:
+				apacheHttpRequest = new HttpDelete(smartsheetRequest.getUri());
+				break;
+			default:
+				throw new UnsupportedOperationException("Request method " + smartsheetRequest.getMethod()
+						+ " is not supported!");
 		}
 		
 		RequestConfig.Builder builder = RequestConfig.custom();
@@ -219,7 +225,7 @@ public class DefaultHttpClient implements HttpClient {
 			thisVersion = thisPackage.getImplementationVersion();
 			title = thisPackage.getImplementationTitle();
 		}
-		return title +"/" + thisVersion +" " + System.getProperty("os.name") + " "
+		return title + "/" + thisVersion + " " + System.getProperty("os.name") + " "
 				+ System.getProperty("java.vm.name") + " " + System.getProperty("java.vendor") + " "
 				+ System.getProperty("java.version");
 	}
@@ -290,17 +296,13 @@ public class DefaultHttpClient implements HttpClient {
 	private static void append(StringBuilder buf, HttpEntity entity) {
 		String contentAsText = null;
 		try {
-			byte[] contentBytes = StreamUtil.readBytesFromStream(entity.getContent());
-			try {
-				contentAsText = new String(contentBytes, "UTF-8");
-			} catch (UnsupportedEncodingException badEncodingOrNotText) {
-				contentAsText = new String(Hex.encodeHex(contentBytes));
-				logger.info("failed to create string with contentType '{}' from bytes '{}'",
-						entity.getContentType(), contentAsText);
+			InputStream inputStream = entity.getContent();
+			ByteArrayOutputStream contentCopyStream = new ByteArrayOutputStream();
+			InputStream resetStream = StreamUtil.cloneContent(inputStream, contentCopyStream);
+			if (resetStream != inputStream) {
+				entity.setContent(resetStream);
 			}
-			// since we've consumed the stream we have to reset it (note, this will have real perf impact if the stream
-			// was to a large file or something else we'd rather not hold entirely in RAM if we can help it)
-			entity.setContent(new ByteArrayInputStream(contentBytes));
+			contentAsText = StreamUtil.toUtf8StringOrHex(contentCopyStream);
 		} catch (IOException iox) {
 			logger.error("failed to extract content from response - {}", iox);
 		}
