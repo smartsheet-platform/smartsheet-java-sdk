@@ -23,6 +23,7 @@ package com.smartsheet.api.internal.util;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 public class QueryUtil {

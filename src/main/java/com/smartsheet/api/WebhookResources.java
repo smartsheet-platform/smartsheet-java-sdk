@@ -57,7 +57,7 @@ public interface WebhookResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */	
-	Webhook getWebhook(Long webhookId) throws SmartsheetException;
+	Webhook getWebhook(long webhookId) throws SmartsheetException;
 	
 	/**
 	 * <p>Creates a new Webhook.</p>
@@ -104,7 +104,7 @@ public interface WebhookResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */	
-	void deleteWebhook(Long webhookId) throws SmartsheetException;
+	void deleteWebhook(long webhookId) throws SmartsheetException;
 	
 	/**
 	 * <p>Resets the shared secret for the specified Webhook. For more information about how a shared secret is used,
@@ -121,5 +121,5 @@ public interface WebhookResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */		
-	WebhookSharedSecret ResetSharedSecret(Long webhookId) throws SmartsheetException;
+	WebhookSharedSecret resetSharedSecret(long webhookId) throws SmartsheetException;
 }

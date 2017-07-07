@@ -95,8 +95,8 @@ public class SheetDiscussionResourcesImpl extends  AbstractResources implements 
      * @throws IOException is there is with file
      */
     public Discussion createDiscussionWithAttachment(long sheetId, Discussion discussion, File file, String contentType) throws SmartsheetException, IOException{
+        Util.throwIfNull(discussion, file, contentType);
         String path = "sheets/" + sheetId + "/discussions";
-        Util.throwIfNull(sheetId, discussion, file, contentType);
 
         return this.createDiscussionWithAttachment(path, discussion, new FileInputStream(file), contentType, file.getName());
     }
