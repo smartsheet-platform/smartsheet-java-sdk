@@ -352,7 +352,9 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return the home resources
 	 */
 	public HomeResources homeResources() {
-		home.compareAndSet(null, new HomeResourcesImpl(this));
+		if (home.get() == null) {
+			home.compareAndSet(null, new HomeResourcesImpl(this));
+		}
 		return home.get();
 	}
 
@@ -362,7 +364,9 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return the workspace resources
 	 */
 	public WorkspaceResources workspaceResources() {
-		workspaces.compareAndSet(null, new WorkspaceResourcesImpl(this));
+		if (workspaces.get() == null) {
+			workspaces.compareAndSet(null, new WorkspaceResourcesImpl(this));
+		}
 		return workspaces.get();
 	}
 
@@ -372,7 +376,9 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return the folder resources
 	 */
 	public FolderResources folderResources() {
-		folders.compareAndSet(null, new FolderResourcesImpl(this));
+		if (folders.get() == null) {
+			folders.compareAndSet(null, new FolderResourcesImpl(this));
+		}
 		return folders.get();
 	}
 
@@ -382,7 +388,9 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return the template resources
 	 */
 	public TemplateResources templateResources() {
-		templates.compareAndSet(null, new TemplateResourcesImpl(this));
+		if (templates.get() == null) {
+			templates.compareAndSet(null, new TemplateResourcesImpl(this));
+		}
 		return templates.get();
 	}
 
@@ -392,7 +400,9 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return the sheet resources
 	 */
 	public SheetResources sheetResources() {
-		sheets.compareAndSet(null, new SheetResourcesImpl(this));
+		if (sheets.get() == null) {
+			sheets.compareAndSet(null, new SheetResourcesImpl(this));
+		}
 		return sheets.get();
 	}
 
@@ -402,7 +412,9 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return the sight resources
 	 */	
 	public SightResources sightResources() {
-		sights.compareAndSet(null,  new SightResourcesImpl(this));
+		if (sights.get() == null) {
+			sights.compareAndSet(null, new SightResourcesImpl(this));
+		}
 		return sights.get();
 	}
 	/**
@@ -411,7 +423,9 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return the favorite resources
 	 */
 	public FavoriteResources favoriteResources() {
-		favorites.compareAndSet(null, new FavoriteResourcesImpl(this));
+		if (favorites.get() == null) {
+			favorites.compareAndSet(null, new FavoriteResourcesImpl(this));
+		}
 		return favorites.get();
 	}
 
@@ -421,7 +435,9 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return the user resources
 	 */
 	public UserResources userResources() {
-		users.compareAndSet(null, new UserResourcesImpl(this));
+		if (users.get() == null) {
+			users.compareAndSet(null, new UserResourcesImpl(this));
+		}
 		return users.get();
 	}
 
@@ -431,7 +447,9 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return the user resources
 	 */
 	public GroupResources groupResources() {
-		groups.compareAndSet(null, new GroupResourcesImpl(this));
+		if (groups.get() == null) {
+			groups.compareAndSet(null, new GroupResourcesImpl(this));
+		}
 		return groups.get();
 	}
 
@@ -441,7 +459,9 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return the search resources
 	 */
 	public SearchResources searchResources() {
-		search.compareAndSet(null, new SearchResourcesImpl(this));
+		if (search.get() == null) {
+			search.compareAndSet(null, new SearchResourcesImpl(this));
+		}
 		return search.get();
 	}
 
@@ -451,7 +471,9 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return the report resources
 	 */
 	public ReportResources reportResources() {
-		reports.compareAndSet(null, new ReportResourcesImpl(this));
+		if (reports.get() == null) {
+			reports.compareAndSet(null, new ReportResourcesImpl(this));
+		}
 		return reports.get();
 	}
 
@@ -461,7 +483,9 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return the ServerInfo resources
 	 */
 	public ServerInfoResources serverInfoResources() {
-		serverInfo.compareAndSet(null, new ServerInfoResourcesImpl(this));
+		if (serverInfo.get() == null) {
+			serverInfo.compareAndSet(null, new ServerInfoResourcesImpl(this));
+		}
 		return serverInfo.get();
 	}
 	
@@ -471,7 +495,9 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return the token resources
 	 */
 	public TokenResources tokenResources() {
-		tokens.compareAndSet(null, new TokenResourcesImpl(this));
+		if (tokens.get() == null) {
+			tokens.compareAndSet(null, new TokenResourcesImpl(this));
+		}
 		return tokens.get();
 	}
 
@@ -481,7 +507,9 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return the contact resources
 	 */
 	public ContactResources contactResources() {
-		contacts.compareAndSet(null, new ContactResourcesImpl(this));
+		if (contacts.get() == null) {
+			contacts.compareAndSet(null, new ContactResourcesImpl(this));
+		}
 		return contacts.get();
 	}
 
@@ -491,7 +519,9 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return the image url resources
 	 */
 	public ImageUrlResources imageUrlResources() {
-		imageUrls.compareAndSet(null, new ImageUrlResourcesImpl(this));
+		if (imageUrls.get() == null) {
+			imageUrls.compareAndSet(null, new ImageUrlResourcesImpl(this));
+		}
 		return imageUrls.get();
 	}
 
@@ -501,7 +531,9 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @return the webhook resources
 	 */
 	public WebhookResources webhookResources() {
-		webhooks.compareAndSet(null, new WebhookResourcesImpl(this));
+		if (webhooks.get() == null) {
+			webhooks.compareAndSet(null, new WebhookResourcesImpl(this));
+		}
 		return webhooks.get();
 	}
 	
@@ -628,6 +660,7 @@ public class SmartsheetImpl implements Smartsheet {
 	 * @deprecated As of release 2.0, replaced by {@link #sheetResources()}
 	 */
 	@Deprecated
-	public void sheets(){throw new UnsupportedOperationException();}
-
+	public void sheets(){
+		throw new UnsupportedOperationException();
+	}
 }
