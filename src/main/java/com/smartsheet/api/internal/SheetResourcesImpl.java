@@ -128,6 +128,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
 	public PagedResult<Sheet> listSheets(EnumSet<SourceInclusion> includes, PaginationParameters pagination) throws SmartsheetException {
 		return this.listSheets(includes, pagination, null);
 	}
+
 	public PagedResult<Sheet> listSheets(EnumSet<SourceInclusion> includes, PaginationParameters pagination, Date modifiedSince) throws SmartsheetException {
 		String path = "sheets";
 		

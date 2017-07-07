@@ -61,7 +61,7 @@ public interface SightResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Sight getSight(Long sightId) throws SmartsheetException;
+	public Sight getSight(long sightId) throws SmartsheetException;
 	
 	/**
 	 * <p>Get a specified Sight.</p>
@@ -92,7 +92,7 @@ public interface SightResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public void deleteSight(Long sightId) throws SmartsheetException;
+	public void deleteSight(long sightId) throws SmartsheetException;
 	
 	/**
 	 * <p>Creates s copy of the specified Sight.</p>
@@ -109,7 +109,7 @@ public interface SightResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */	
-	public Sight copySight(Long sightId, ContainerDestination destination) throws SmartsheetException;
+	public Sight copySight(long sightId, ContainerDestination destination) throws SmartsheetException;
 	
 	/**
 	 * <p>Creates s copy of the specified Sight.</p>
@@ -126,7 +126,7 @@ public interface SightResources {
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */	
-	public Sight moveSight(Long sightId, ContainerDestination destination) throws SmartsheetException;
+	public Sight moveSight(long sightId, ContainerDestination destination) throws SmartsheetException;
 	
 	/**
 	 * <p>Return the ShareResources object that provides access to share resources associated with

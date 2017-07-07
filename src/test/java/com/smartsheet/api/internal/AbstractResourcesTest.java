@@ -20,7 +20,10 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
+import com.smartsheet.api.SmartsheetBuilder;
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
+import com.smartsheet.api.models.Home;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -31,14 +34,23 @@ import java.util.Map;
  */
 public class AbstractResourcesTest {
 
+    private String tokenValue = "somevalue";
+    private String changeAgent = "mychangeagent";
     @Test
     public void testHeaders() {
-        String tokenValue = "somevalue";
-        String changeAgent = "mychangeagent";
+
         AbstractResources resources = new AbstractResources(new SmartsheetImpl("doesnt/matter", tokenValue,  new DefaultHttpClient(), null, changeAgent)) {};
 
         Map<String, String> headers = resources.createHeaders();
         assertEquals(headers.get("Authorization"), "Bearer " + tokenValue);
         assertEquals(headers.get("Smartsheet-Change-Agent"), changeAgent);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void createResourceWithObjectClassNull() throws SmartsheetException {
+        AbstractResources resources = new AbstractResources(new SmartsheetImpl(SmartsheetBuilder.DEFAULT_BASE_URI, tokenValue,  new DefaultHttpClient(), null, changeAgent)) {};
+        Home home = new Home();
+
+        resources.createResource("someValidPath", null, home);
     }
 }

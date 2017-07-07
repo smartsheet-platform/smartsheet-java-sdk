@@ -115,7 +115,7 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
 	 *
 	 * @param sheetId the sheet id
 	 * @param columnId the column id
-	 * @return the created column
+	 *
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
 	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
@@ -174,6 +174,12 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	public Column getColumn(long sheetId, long columnId, EnumSet<ColumnInclusion> includes) throws SmartsheetException  {
-		return this.getResource("sheets/" + sheetId + "/columns/" + columnId, Column.class);
+		String path = "sheets/" + sheetId + "/columns/" + columnId;
+
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+
+		path = QueryUtil.generateUrl(path, parameters);
+		return this.getResource(path, Column.class);
 	}
 }
