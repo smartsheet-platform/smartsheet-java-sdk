@@ -946,7 +946,7 @@ public abstract class AbstractResources {
 		request.getHeaders().put("Accept", fileType);
 
 		try {
-			com.smartsheet.api.internal.http.HttpResponse response = getSmartsheet().getHttpClient().request(request);
+			HttpResponse response = getSmartsheet().getHttpClient().request(request);
 
 			switch (response.getStatusCode()) {
 				case 200:
