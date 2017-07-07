@@ -21,19 +21,23 @@ package com.smartsheet.api.internal;
  */
 
 import com.smartsheet.api.internal.http.DefaultHttpClient;
+import com.smartsheet.api.internal.http.HttpClient;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class SmartsheetImplTest extends ResourcesImplBase {
 
 	private SmartsheetImpl smartsheet;
+	private HttpClient httpClient;
+	private final String baseURI = "http://localhost:9090/1.1/";
+	private final String accessToken = "accessToken";
 
 	@Before
 	public void setUp() throws Exception {
-		smartsheet = new SmartsheetImpl("http://localhost:9090/1.1/", "accessToken", 
-				new DefaultHttpClient(), serializer);
+		httpClient = new DefaultHttpClient();
+		smartsheet = new SmartsheetImpl(baseURI, accessToken, httpClient, serializer);
 	}
 
 	@Test
@@ -43,32 +47,32 @@ public class SmartsheetImplTest extends ResourcesImplBase {
 
 	@Test
 	public void testSmartsheetImpl() {
-		
+
 	}
 
 	@Test
 	public void testGetHttpClient() {
-		
+		assertSame(httpClient, smartsheet.getHttpClient());
 	}
 
 	@Test
 	public void testGetJsonSerializer() {
-		
+		assertNotNull(smartsheet.getJsonSerializer());
 	}
 
 	@Test
 	public void testGetBaseURI() {
-		
+		assertEquals(baseURI, smartsheet.getBaseURI().toString());
 	}
 
 	@Test
 	public void testGetAssumedUser() {
-		
+		assertNull(smartsheet.getAssumedUser());
 	}
 
 	@Test
 	public void testGetAccessToken() {
-		
+		assertEquals(accessToken, smartsheet.getAccessToken());
 	}
 
 	@Test
@@ -125,4 +129,6 @@ public class SmartsheetImplTest extends ResourcesImplBase {
 		smartsheet.setAccessToken("1234");
 	}
 
+	@Test
+	public void testSights() { assertNotNull(smartsheet.sightResources()); }
 }
