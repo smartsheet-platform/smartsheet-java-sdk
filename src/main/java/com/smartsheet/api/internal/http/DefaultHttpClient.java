@@ -39,6 +39,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -296,25 +297,12 @@ public class DefaultHttpClient implements HttpClient {
 		String contentAsText = null;
 		try {
 			InputStream inputStream = entity.getContent();
-			if (inputStream.markSupported()) {
-				inputStream.mark(0);
+			ByteArrayOutputStream contentCopyStream = new ByteArrayOutputStream();
+			InputStream resetStream = StreamUtil.cloneContent(inputStream, contentCopyStream);
+			if (resetStream != inputStream) {
+				entity.setContent(resetStream);
 			}
-			byte[] contentBytes = StreamUtil.readBytesFromStream(inputStream);
-			try {
-				contentAsText = new String(contentBytes, "UTF-8");
-			} catch (UnsupportedEncodingException badEncodingOrNotText) {
-				contentAsText = new String(Hex.encodeHex(contentBytes));
-				logger.info("failed to create string with contentType '{}' from bytes '{}'",
-						entity.getContentType(), contentAsText);
-			}
-			// since we've consumed the stream we have to reset it (note, this will have real perf impact if the stream
-			// was to a large file or something else we'd rather not hold entirely in RAM if we can help it)
-			if (inputStream.markSupported()) {
-				inputStream.reset();
-			} else {
-				entity.setContent(new ByteArrayInputStream(contentBytes));
-			}
-
+			contentAsText = StreamUtil.toUtf8StringOrHex(contentCopyStream);
 		} catch (IOException iox) {
 			logger.error("failed to extract content from response - {}", iox);
 		}
