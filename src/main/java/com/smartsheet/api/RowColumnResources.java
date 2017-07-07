@@ -77,5 +77,5 @@ public interface RowColumnResources {
      * @throws SmartsheetException the smartsheet exception
      * @throws FileNotFoundException image file not found
      */
-    public void addImageToCell(Long sheetId, Long rowId, Long columnId, String file, String fileType) throws FileNotFoundException, SmartsheetException;
+    public void addImageToCell(long sheetId, long rowId, long columnId, String file, String fileType) throws FileNotFoundException, SmartsheetException;
 }

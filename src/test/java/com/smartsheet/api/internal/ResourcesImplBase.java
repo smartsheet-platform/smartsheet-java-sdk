@@ -30,7 +30,7 @@ public class ResourcesImplBase {
 	HttpTestServer server;
 	FolderResourcesImpl folderResource;
 	JacksonJsonSerializer serializer;
-	
+
 	@Before
 	public void baseSetUp() throws Exception {
 		// Setup test server

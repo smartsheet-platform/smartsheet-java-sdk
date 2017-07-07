@@ -145,7 +145,7 @@ public abstract class AbstractResources {
 	 * 
 	 * It will be initialized in constructor and will not change afterwards.
 	 */
-	protected SmartsheetImpl smartsheet;
+	protected final SmartsheetImpl smartsheet;
 
 	/**
 	 * Constructor.
@@ -196,7 +196,7 @@ public abstract class AbstractResources {
 		
 		T obj = null;
 		switch (response.getStatusCode()) {
-			case 200: 
+			case 200:
 				// Can't be here as the stream has not
 				try {
 					obj = this.smartsheet.getJsonSerializer().deserialize(objectClass, response.getEntity().getContent());
@@ -208,8 +208,8 @@ public abstract class AbstractResources {
 					throw new SmartsheetException(e);
 				}
 			break;
-			default: 
-				handleError(response); 
+			default:
+				handleError(response);
 		}
 		
 		smartsheet.getHttpClient().releaseConnection();
@@ -237,7 +237,7 @@ public abstract class AbstractResources {
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	protected <T, S> T createResource(String path, Class<T> objectClass, S object) throws SmartsheetException {
-		Util.throwIfNull(path, object);
+		Util.throwIfNull(path, object, objectClass);
 		Util.throwIfEmpty(path);
 
 		HttpRequest request;
@@ -738,12 +738,12 @@ public abstract class AbstractResources {
 		
 		Attachment attachment = null;
 		switch (response.getStatusCode()) {
-		case 200:
-			attachment = this.getSmartsheet().getJsonSerializer().deserializeResult(Attachment.class, 
-					response.getEntity().getContent()).getResult();
-			break;
-		default:
-			handleError(response);
+			case 200:
+				attachment = this.getSmartsheet().getJsonSerializer().deserializeResult(Attachment.class,
+						response.getEntity().getContent()).getResult();
+				break;
+			default:
+				handleError(response);
 		}
 		
 		this.getSmartsheet().getHttpClient().releaseConnection();
@@ -843,15 +843,6 @@ public abstract class AbstractResources {
 	 */
 	public SmartsheetImpl getSmartsheet() {
 		return smartsheet;
-	}
-
-	/**
-	 * Sets the smartsheet.
-	 *
-	 * @param smartsheet the new smartsheet
-	 */
-	public void setSmartsheet(SmartsheetImpl smartsheet) {
-		this.smartsheet = smartsheet;
 	}
 
 	/**

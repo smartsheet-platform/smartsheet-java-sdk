@@ -19,7 +19,6 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 import com.smartsheet.api.AuthorizationException;
@@ -54,7 +53,6 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
 	 *
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/updaterequests</p>
 	 *
-	 * @param includes the source inclusion
 	 * @param paging the object containing the pagination parameters
 	 * @return A list of all UpdateRequests (note that an empty list will be returned if there are none).
 	 * @throws IllegalArgumentException if any argument is null or empty string
@@ -64,7 +62,7 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public PagedResult<UpdateRequest> listUpdateRequests(Long sheetId, PaginationParameters paging) throws SmartsheetException {
+	public PagedResult<UpdateRequest> listUpdateRequests(long sheetId, PaginationParameters paging) throws SmartsheetException {
 		String path = "sheets/" + sheetId + "/updaterequests";
 		
 		HashMap<String, Object> parameters = new HashMap<String, Object>();
@@ -91,9 +89,9 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */	
-	public UpdateRequest getUpdateRequest(Long sheetId, Long updateRequestId) throws SmartsheetException {
+	public UpdateRequest getUpdateRequest(long sheetId, long updateRequestId) throws SmartsheetException {
         return this.getResource("sheets/" + sheetId + "/updaterequests/" + updateRequestId, UpdateRequest.class);
-	};
+	}
 	
 	/**
 	 * <p>Creates an Update Request for the specified Row(s) within the Sheet. An email notification
@@ -111,9 +109,9 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */	
-	public UpdateRequest createUpdateRequest(Long sheetId, UpdateRequest updateRequest) throws SmartsheetException {
+	public UpdateRequest createUpdateRequest(long sheetId, UpdateRequest updateRequest) throws SmartsheetException {
 		return this.createResource("sheets/" + sheetId + "/updaterequests", UpdateRequest.class, updateRequest);
-	};
+	}
 	
 	/**
 	 * <p>Terminates the future scheduled delivery of the Update Request specified in the URL.</p>
@@ -129,7 +127,7 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */	
-	public void deleteUpdateRequest(Long sheetId, Long updateRequestId) throws SmartsheetException {
+	public void deleteUpdateRequest(long sheetId, long updateRequestId) throws SmartsheetException {
         this.deleteResource("sheets/" + sheetId + "/updaterequests/" + updateRequestId, UpdateRequest.class);
 	}
 	
@@ -148,10 +146,10 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */	
-	public UpdateRequest updateUpdateRequest(Long sheetId, UpdateRequest updateRequest) throws SmartsheetException {
+	public UpdateRequest updateUpdateRequest(long sheetId, UpdateRequest updateRequest) throws SmartsheetException {
 		return this.updateResource("sheets/" + sheetId + "/updaterequests/" + updateRequest.getId(), 
 				UpdateRequest.class, updateRequest);
-	};
+	}
 
 	/**
 	 * <p>Gets a list of all Sent Update Requests that have future schedules associated with the specified Sheet.</p>
@@ -168,7 +166,7 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */	
-	public PagedResult<SentUpdateRequest> listSentUpdateRequests(Long sheetId, PaginationParameters paging) throws SmartsheetException {
+	public PagedResult<SentUpdateRequest> listSentUpdateRequests(long sheetId, PaginationParameters paging) throws SmartsheetException {
 		String path = "sheets/" + sheetId + "/sentupdaterequests";
 		
 		HashMap<String, Object> parameters = new HashMap<String, Object>();
@@ -195,7 +193,7 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */		
-	public SentUpdateRequest getSentUpdateRequest(Long sheetId, Long sentUpdateRequestId) throws SmartsheetException {
+	public SentUpdateRequest getSentUpdateRequest(long sheetId, long sentUpdateRequestId) throws SmartsheetException {
         return this.getResource("sheets/" + sheetId + "/sentupdaterequests/" + sentUpdateRequestId, 
         		SentUpdateRequest.class);
 	}
@@ -214,7 +212,7 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */		
-	public void deleteSentUpdateRequest(Long sheetId, Long sentUpdateRequestId) throws SmartsheetException {
+	public void deleteSentUpdateRequest(long sheetId, long sentUpdateRequestId) throws SmartsheetException {
         this.deleteResource("sheets/" + sheetId + "/sentupdaterequests/" + sentUpdateRequestId, SentUpdateRequest.class);
 	}
 

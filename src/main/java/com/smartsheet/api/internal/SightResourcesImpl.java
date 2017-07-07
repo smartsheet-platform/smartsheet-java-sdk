@@ -32,6 +32,7 @@ import com.smartsheet.api.ShareResources;
 import com.smartsheet.api.SightResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
+import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.ContainerDestination;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
@@ -57,7 +58,6 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
 	 * 
 	 * <p>It mirrors to the following Smartsheet REST API method: GET /sights</p>
 	 *
-	 * @param parameters the pagination parameters
 	 * @param modifiedSince
 	 * @return IndexResult object containing an array of Sight objects limited to the following attributes:
 	 * 	id, name, accessLevel, permalink, createdAt, modifiedAt.
@@ -97,7 +97,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public Sight getSight(Long sightId) throws SmartsheetException {
+	public Sight getSight(long sightId) throws SmartsheetException {
 		return this.getResource("sights/" + sightId, Sight.class);
 	}
 	
@@ -116,6 +116,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Sight updateSight(Sight sight) throws SmartsheetException {
+		Util.throwIfNull(sight);
 		return this.updateResource("sights/" + sight.getId(), Sight.class, sight);
 	}
 	
@@ -125,7 +126,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
 	 * <p>It mirrors to the following Smartsheet REST API method: DELETE /sights/{sightId}</p>
 	 *
 	 * @param sightId the Id of the Sight
-	 * @return the Sight resource.
+	 *
 	 * @throws IllegalArgumentException if any argument is null or empty string
 	 * @throws InvalidRequestException if there is any problem with the REST API request
 	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
@@ -133,7 +134,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
-	public void deleteSight(Long sightId) throws SmartsheetException {
+	public void deleteSight(long sightId) throws SmartsheetException {
 		this.deleteResource("sights/" + sightId, Sight.class);
 	}
 	
@@ -152,7 +153,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */	
-	public Sight copySight(Long sightId, ContainerDestination destination) throws SmartsheetException {
+	public Sight copySight(long sightId, ContainerDestination destination) throws SmartsheetException {
 		return this.createResource("sights/" + sightId + "/copy", Sight.class, destination);		
 	}
 	
@@ -171,7 +172,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
 	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */	
-	public Sight moveSight(Long sightId, ContainerDestination destination) throws SmartsheetException {
+	public Sight moveSight(long sightId, ContainerDestination destination) throws SmartsheetException {
 		return this.createResource("sights/" + sightId + "/move", Sight.class, destination);		
 	}
 	
@@ -183,6 +184,6 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
 	 */	
 	public ShareResources shareResources() {
 		return this.shares;
-	};
+	}
 	
 }
