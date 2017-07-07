@@ -25,14 +25,34 @@ import org.apache.commons.io.input.CharSequenceInputStream;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+
 /**
  *
  */
 public class StreamUtilTest {
     @Test
     public void testReadBytesFromStream() throws Exception {
-        String testString = "fuzzy wuzzy was a bear; fuzzy wuzzy had no hair...";
-        byte[] bytes = StreamUtil.readBytesFromStream(new CharSequenceInputStream(testString, "UTF-8"));
-        Assert.assertArrayEquals(testString.getBytes(), bytes); // it's all US-ASCII so it should match UTF-8 bytes
+        final String testString = "fuzzy wuzzy was a bear; fuzzy wuzzy had no hair...";
+        final byte[] testBytes = testString.getBytes("UTF-8");
+        final InputStream inputStream = new CharSequenceInputStream(testString, "UTF-8");
+        final ByteArrayOutputStream copyStream = new ByteArrayOutputStream();
+
+        // this takes what was in inputStream, copies it into copyStream, and either resets inputStream (if supported)
+        // or returns a new stream around the bytes read
+        final InputStream backupStream = StreamUtil.cloneContent(inputStream, copyStream);
+        if (backupStream == inputStream) {
+            System.out.println("same stream returned (reset)");
+            // verify readBytesFromStream gets everything from the inputStream (it also verifies cloneContent resets the source)
+            byte[] streamBytes = StreamUtil.readBytesFromStream(inputStream);
+            Assert.assertArrayEquals(testBytes, streamBytes); // it's all US-ASCII so it should match UTF-8 bytes
+        } else {
+            System.out.println("new stream returned");
+            byte[] backupBytes = StreamUtil.readBytesFromStream(backupStream);
+            Assert.assertArrayEquals(testBytes, backupBytes);
+        }
+
+        Assert.assertArrayEquals(testBytes, copyStream.toByteArray());
     }
 }
