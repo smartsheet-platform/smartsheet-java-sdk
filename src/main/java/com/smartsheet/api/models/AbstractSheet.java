@@ -143,6 +143,11 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
     private Long ownerId;
 
     /**
+     * Represents projects settings for a dependency-enabled sheet
+     */
+    private ProjectSettings projectSettings;
+
+    /**
      * Gets the owner email.
      *
      * @return the owner email
@@ -593,7 +598,24 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param source the source
      */
-    public void setSource(Source source) {
-        this.source = source;
+    public void setSource(Source source) { this.source = source; }
+
+    /**
+     * Gets the project settings.
+     *
+     * @return the project settings
+     */
+    public ProjectSettings getProjectSettings() {
+        return projectSettings;
     }
+
+    /**
+     * Sets the project settings.
+     *
+     * @param projectSettings the project settings
+     */
+    public void setProjectSettings(ProjectSettings projectSettings) {
+        this.projectSettings = projectSettings;
+    }
+
 }
