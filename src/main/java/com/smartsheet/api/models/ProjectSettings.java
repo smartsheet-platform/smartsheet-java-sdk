@@ -36,7 +36,7 @@ public class ProjectSettings {
 	private List<String> nonWorkingDays;;
 	
 	/**
-	 * Length of a workday for a project sheet. Valid value must be above or equal to 1 hour, and less than or equal to 24 hours.
+	 * Length of a workday in hours for a project sheet. Valid value must be above or equal to 1 hour, and less than or equal to 24 hours.
 	 */
 	private Float lengthOfDay;
 
@@ -78,7 +78,7 @@ public class ProjectSettings {
 	}
 
      /**
-	 * Indicates this duration represents elapsed time, which ignores non-working time
+	 * Get length of workday for a project sheet, in hours.
 	 * 
 	 * @return length of day
 	 */
@@ -87,7 +87,7 @@ public class ProjectSettings {
 	}
 	
 	/**
-	 * Set length of a workday for a project sheet. Valid value must be above or equal to 1 hour, and less than or equal to 24 hours.
+	 * Set length of a workday for a project sheet in hours. Valid value must be above or equal to 1 hour, and less than or equal to 24 hours.
 	 * 
 	 * @param lengthOfDay
 	 */
