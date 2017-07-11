@@ -1,3 +1,7 @@
 target/
 .idea/
 src/integration-test/resources/config.properties
+
+.settings/org.eclipse.core.resources.prefs
+
+.vscode/settings.json
