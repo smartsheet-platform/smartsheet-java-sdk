@@ -2,4 +2,3 @@ target/
 .idea/
 out/
 src/integration-test/resources/config.properties
-*.iml
