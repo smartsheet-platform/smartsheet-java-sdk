@@ -1,9 +1,10 @@
 package com.smartsheet.api.models;
+
 /*
  * #[license]
- * Smartsheet SDK for Java
+ * Smartsheet Java SDK
  * %%
- * Copyright (C) 2014 Smartsheet
+ * Copyright (C) 2014 - 2017 Smartsheet
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +22,13 @@ package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.ObjectValueType;
 
-public interface ObjectValue {
-	/**
-	 * Get the objectValue type
-	 * 
-	 * @return objectType;
-	 */
-	ObjectValueType getObjectType();
+public class ContactObjectValue extends Contact implements ObjectValue {
+
+    /**
+     * Gets the objectValueType
+     */
+    @Override
+    public ObjectValueType getObjectType() {
+        return ObjectValueType.CONTACT;
+    }
 }

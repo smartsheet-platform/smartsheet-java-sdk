@@ -19,13 +19,10 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-public class Duration {
+import com.smartsheet.api.models.enums.ObjectValueType;
 
-	/**
-	 * "DURATION"
-	 */
-	private String objectType;
-	
+public class Duration implements ObjectValue {
+
 	/**
 	 * When used as a predecessor's lag value, indicates whether the lag is negative(true) or positive(false)
 	 */
@@ -65,25 +62,46 @@ public class Duration {
 	 * The number of milliseconds for this duration
 	 */
 	private Integer milliseconds;
-	
+
+	/**
+	 * Default constructor for serialization
+	 */
+	public Duration() {
+		// For serialization
+	}
+
+	/**
+	 * Constructor with all possible attributes specified.
+	 * @param negative
+	 * @param elapsed
+	 * @param weeks
+	 * @param days
+	 * @param hours
+	 * @param minutes
+	 * @param seconds
+	 * @param milliseconds
+	 */
+	public Duration(Boolean negative, Boolean elapsed, Integer weeks, Integer days, Integer hours, Integer minutes, Integer seconds, Integer milliseconds) {
+		this.negative = negative;
+		this.elapsed = elapsed;
+		this.weeks = weeks;
+		this.days = days;
+		this.hours = hours;
+		this.minutes = minutes;
+		this.seconds = seconds;
+		this.milliseconds = milliseconds;
+	}
+
 	/**
 	 * "DURATION"
 	 * 
 	 * @return objectType
 	 */
-	public String getObjectType() {
-		return objectType;
+	@Override
+	public ObjectValueType getObjectType() {
+		return ObjectValueType.DURATION;
 	}
-	
-	/**
-	 * "DURATION"
-	 * 
-	 * @param objectType
-	 */
-	public void setObjectType(String objectType) {
-		this.objectType = objectType;
-	}
-	
+
 	/**
 	 * Get flag indicating whether the lag is negative(true) or positive(false)
 	 * 

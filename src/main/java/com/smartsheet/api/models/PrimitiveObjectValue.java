@@ -1,9 +1,10 @@
 package com.smartsheet.api.models;
+
 /*
  * #[license]
- * Smartsheet SDK for Java
+ * Smartsheet Java SDK
  * %%
- * Copyright (C) 2014 Smartsheet
+ * Copyright (C) 2014 - 2017 Smartsheet
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +20,12 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-import com.smartsheet.api.models.enums.ObjectValueType;
+import com.fasterxml.jackson.core.JsonGenerator;
 
-public interface ObjectValue {
-	/**
-	 * Get the objectValue type
-	 * 
-	 * @return objectType;
-	 */
-	ObjectValueType getObjectType();
+import java.io.IOException;
+
+public interface PrimitiveObjectValue<T> extends ObjectValue {
+    T getValue();
+    void setValue(T value);
+    void serialize(JsonGenerator jsonGenerator) throws IOException;
 }
