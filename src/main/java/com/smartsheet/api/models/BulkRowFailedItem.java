@@ -32,23 +32,26 @@ public class BulkRowFailedItem {
         return index;
     }
 
-    public void setIndex(int index) {
+    public BulkRowFailedItem setIndex(int index) {
         this.index = index;
+        return this;
     }
 
     public Error getError() {
         return error;
     }
 
-    public void setError(Error error) {
+    public BulkRowFailedItem setError(Error error) {
         this.error = error;
+        return this;
     }
 
     public Long getRowId() {
         return rowId;
     }
 
-    public void setRowId(Long rowId) {
+    public BulkRowFailedItem setRowId(Long rowId) {
         this.rowId = rowId;
+        return this;
     }
 }

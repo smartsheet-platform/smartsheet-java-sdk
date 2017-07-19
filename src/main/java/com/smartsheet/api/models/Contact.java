@@ -44,8 +44,9 @@ public class Contact extends NamedModel<String>{
      * Sets the name for the contact
      * @param name the name
      */
-    public void setName(String name) {
+    public Contact setName(String name) {
         this.name = name;
+        return this;
     }
 
     /**
@@ -61,7 +62,8 @@ public class Contact extends NamedModel<String>{
      * Sets the email for the contact
      * @param email the email
      */
-    public void setEmail(String email) {
+    public Contact setEmail(String email) {
         this.email = email;
+        return this;
     }
 }

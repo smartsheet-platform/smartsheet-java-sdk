@@ -59,8 +59,9 @@ public class Filter {
      * Sets the filter type
      * @param type the filter type
      */
-    public void setType(FilterType type) {
+    public Filter setType(FilterType type) {
         this.type = type;
+        return this;
     }
 
     /**
@@ -75,8 +76,9 @@ public class Filter {
      * Sets the exclude selected flag
      * @param excludeSelected the excludeSelected flag
      */
-    public void setExcludeSelected(Boolean excludeSelected) {
+    public Filter setExcludeSelected(Boolean excludeSelected) {
         this.excludeSelected = excludeSelected;
+        return this;
     }
 
     /**
@@ -91,8 +93,9 @@ public class Filter {
      * Sets the list of values
      * @param values list of values
      */
-    public void setValues(List<Object> values) {
+    public Filter setValues(List<Object> values) {
         this.values = values;
+        return this;
     }
 
     /**
@@ -107,7 +110,8 @@ public class Filter {
      * Sets the list of criteria
      * @param criteria list of criteria
      */
-    public void setCriteria(List<Criteria> criteria) {
+    public Filter setCriteria(List<Criteria> criteria) {
         this.criteria = criteria;
+        return this;
     }
 }

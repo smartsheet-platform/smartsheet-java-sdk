@@ -43,8 +43,9 @@ public class MultiRowEmail extends RowEmail {
      * Sets the IDs of rows to be included
      * @param rowIds list of row ids
      */
-    public void setRowIds(List<Long> rowIds) {
+    public MultiRowEmail setRowIds(List<Long> rowIds) {
         this.rowIds = rowIds;
+        return this;
     }
 
     /**

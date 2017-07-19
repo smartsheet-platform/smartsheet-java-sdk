@@ -41,11 +41,12 @@ public class ReportPublish {
 	
 	/**
 	 * If true, a rich version of the report is published
-	 * 
+	 *
 	 * @param readOnlyFullEnabled report publish status
 	 */
-	public void setReadOnlyFullEnabled(boolean readOnlyFullEnabled) {
+	public ReportPublish setReadOnlyFullEnabled(boolean readOnlyFullEnabled) {
 		this.readOnlyFullEnabled = readOnlyFullEnabled;
+		return this;
 	}
 	
 	/**
@@ -67,11 +68,12 @@ public class ReportPublish {
 	/**
 	 * Set parameter indicating who can see the published report. Only valid when
 	 * readOnlyFullEnabled = true.
-	 * 
+	 *
 	 * @param readOnlyFullAccessibleBy - valid options are "ALL" and "ORG"
 	 */
-	public void setReadOnlyFullAccessibleBy(String readOnlyFullAccessibleBy) {
+	public ReportPublish setReadOnlyFullAccessibleBy(String readOnlyFullAccessibleBy) {
 		this.readOnlyFullAccessibleBy = readOnlyFullAccessibleBy;
+		return this;
 	}
 
 	/**

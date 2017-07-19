@@ -113,11 +113,12 @@ public class Duration implements ObjectValue {
 	
 	/**
 	 * Set flag indicating whether the lag is negative(true) or positive(false)
-	 * 
+	 *
 	 * @param negative
 	 */
-	public void setNegative(Boolean negative) {
+	public Duration setNegative(Boolean negative) {
 		this.negative = negative;
+		return this;
 	}
 	
 	/**
@@ -131,11 +132,12 @@ public class Duration implements ObjectValue {
 	
 	/**
 	 * Set flag indicating this duration represents elapsed time.
-	 * 
+	 *
 	 * @param elapsed
 	 */
-	public void setElapsed(Boolean elapsed) {
+	public Duration setElapsed(Boolean elapsed) {
 		this.elapsed = elapsed;
+		return this;
 	}
 	
 	/**
@@ -149,11 +151,12 @@ public class Duration implements ObjectValue {
 	
 	/**
 	 * Set the number of weeks in duration.
-	 * 
+	 *
 	 * @param weeks
 	 */
-	public void setWeeks(Integer weeks) {
+	public Duration setWeeks(Integer weeks) {
 		this.weeks = weeks;
+		return this;
 	}
 	
 	/**
@@ -167,11 +170,12 @@ public class Duration implements ObjectValue {
 	
 	/**
 	 * Set the number of days for this duration.
-	 * 
+	 *
 	 * @param days
 	 */
-	public void setDays(Integer days) {
+	public Duration setDays(Integer days) {
 		this.days = days;
+		return this;
 	}
 	
 	/**
@@ -185,11 +189,12 @@ public class Duration implements ObjectValue {
 	
 	/**
 	 * Set the number of hours for this duration.
-	 * 
+	 *
 	 * @param hours
 	 */
-	public void setHours(Integer hours) {
+	public Duration setHours(Integer hours) {
 		this.hours = hours;
+		return this;
 	}
 	
 	/**
@@ -203,11 +208,12 @@ public class Duration implements ObjectValue {
 	
 	/**
 	 * Set the number of minutes for this duration.
-	 * 
+	 *
 	 * @param minutes
 	 */
-	public void setMinutes(Integer minutes) {
+	public Duration setMinutes(Integer minutes) {
 		this.minutes = minutes;
+		return this;
 	}
 	
 	/**
@@ -221,11 +227,12 @@ public class Duration implements ObjectValue {
 	
 	/**
 	 * Set the number of seconds for this duration.
-	 * 
+	 *
 	 * @param seconds
 	 */
-	public void setSeconds(Integer seconds) {
+	public Duration setSeconds(Integer seconds) {
 		this.seconds = seconds;
+		return this;
 	}
 	
 	/**
@@ -239,10 +246,11 @@ public class Duration implements ObjectValue {
 	
 	/**
 	 * Set the number of milliseconds for this duration.
-	 * 
+	 *
 	 * @param milliseconds
 	 */
-	public void setMilliseconds(Integer milliseconds) {
+	public Duration setMilliseconds(Integer milliseconds) {
 		this.milliseconds = milliseconds;
+		return this;
 	}
 }

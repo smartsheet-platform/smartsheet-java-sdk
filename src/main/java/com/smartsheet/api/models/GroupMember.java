@@ -54,8 +54,9 @@ public class GroupMember extends UserModelWithName {
     /**
      * @param email the group member's email address to set
      */
-    public void setEmail(String email) {
+    public UserModel setEmail(String email) {
         this.email = email;
+        return null;
     }
 
     /**
@@ -70,8 +71,9 @@ public class GroupMember extends UserModelWithName {
     /**
      * @param firstName the Group Member's first name to set
      */
-    public void setFirstName(String firstName) {
+    public UserModel setFirstName(String firstName) {
         this.firstName = firstName;
+        return null;
     }
 
     /**
@@ -86,8 +88,9 @@ public class GroupMember extends UserModelWithName {
     /**
      * @param lastName the Group Member’s last name to set
      */
-    public void setLastName(String lastName) {
+    public UserModel setLastName(String lastName) {
         this.lastName = lastName;
+        return null;
     }
 
     /**

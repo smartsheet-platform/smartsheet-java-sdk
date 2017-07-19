@@ -39,8 +39,9 @@ public class BooleanObjectValue implements PrimitiveObjectValue<Boolean> {
         return value;
     }
 
-    public void setValue(Boolean value) {
+    public BooleanObjectValue setValue(Boolean value) {
         this.value = value;
+        return this;
     }
 
     @Override

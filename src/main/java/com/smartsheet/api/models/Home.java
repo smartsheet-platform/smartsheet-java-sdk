@@ -73,8 +73,9 @@ public class Home {
 	 *
 	 * @param sheets the new sheets
 	 */
-	public void setSheets(List<Sheet> sheets) {
+	public Home setSheets(List<Sheet> sheets) {
 		this.sheets = sheets;
+		return this;
 	}
 
 	/**
@@ -91,8 +92,9 @@ public class Home {
 	 *
 	 * @param folders the new folders
 	 */
-	public void setFolders(List<Folder> folders) {
+	public Home setFolders(List<Folder> folders) {
 		this.folders = folders;
+		return this;
 	}
 
 	/**
@@ -109,8 +111,9 @@ public class Home {
 	 *
 	 * @param reports the new reports
 	 */
-	public void setReports(List<Report> reports) {
+	public Home setReports(List<Report> reports) {
 		this.reports = reports;
+		return this;
 	}
 
 	/**
@@ -127,8 +130,9 @@ public class Home {
 	 *
 	 * @param templates the new templates
 	 */
-	public void setTemplates(List<Template> templates) {
+	public Home setTemplates(List<Template> templates) {
 		this.templates = templates;
+		return this;
 	}
 
 	/**
@@ -145,8 +149,9 @@ public class Home {
 	 *
 	 * @param workspaces the new workspaces
 	 */
-	public void setWorkspaces(List<Workspace> workspaces) {
+	public Home setWorkspaces(List<Workspace> workspaces) {
 		this.workspaces = workspaces;
+		return this;
 	}
 	
 	/** 
@@ -160,10 +165,11 @@ public class Home {
 	
 	/**
 	 * Sets the sights in the home location.
-	 * 
+	 *
 	 * @param sights
 	 */
-	public void setSights(List<Sight> sights) {
+	public Home setSights(List<Sight> sights) {
 		this.sights = sights;
+		return this;
 	}
 }

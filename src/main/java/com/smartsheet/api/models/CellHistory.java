@@ -51,8 +51,9 @@ public class CellHistory extends Cell {
 	 *
 	 * @param modifiedAt the new modified at
 	 */
-	public void setModifiedAt(Date modifiedAt) {
+	public CellHistory setModifiedAt(Date modifiedAt) {
 		this.modifiedAt = modifiedAt;
+		return this;
 	}
 
 	/**
@@ -69,7 +70,8 @@ public class CellHistory extends Cell {
 	 *
 	 * @param modifiedBy the new modified by
 	 */
-	public void setModifiedBy(User modifiedBy) {
+	public CellHistory setModifiedBy(User modifiedBy) {
 		this.modifiedBy = modifiedBy;
+		return this;
 	}
 }

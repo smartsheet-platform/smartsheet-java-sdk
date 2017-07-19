@@ -99,8 +99,9 @@ public class Attachment extends NamedModel<Long> {
 	 * @param url
 	 *            the new url
 	 */
-	public void setUrl(String url) {
+	public Attachment setUrl(String url) {
 		this.url = url;
+		return this;
 	}
 
 	/**
@@ -118,8 +119,9 @@ public class Attachment extends NamedModel<Long> {
 	 * @param urlExpiresInMillis
 	 *            the new url expires in millis
 	 */
-	public void setUrlExpiresInMillis(Long urlExpiresInMillis) {
+	public Attachment setUrlExpiresInMillis(Long urlExpiresInMillis) {
 		this.urlExpiresInMillis = urlExpiresInMillis;
+		return this;
 	}
 
 	/**
@@ -137,8 +139,9 @@ public class Attachment extends NamedModel<Long> {
 	 * @param attachmentType
 	 *            the new attachment type
 	 */
-	public void setAttachmentType(AttachmentType attachmentType) {
+	public Attachment setAttachmentType(AttachmentType attachmentType) {
 		this.attachmentType = attachmentType;
+		return this;
 	}
 
 	/**
@@ -156,8 +159,9 @@ public class Attachment extends NamedModel<Long> {
 	 * @param attachmentSubType
 	 *            the new attachment sub type
 	 */
-	public void setAttachmentSubType(AttachmentSubType attachmentSubType) {
+	public Attachment setAttachmentSubType(AttachmentSubType attachmentSubType) {
 		this.attachmentSubType = attachmentSubType;
+		return this;
 	}
 
 	/**
@@ -175,8 +179,9 @@ public class Attachment extends NamedModel<Long> {
 	 * @param createdAt
 	 *            the new created at
 	 */
-	public void setCreatedAt(Date createdAt) {
+	public Attachment setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
+		return this;
 	}
 
 	/**
@@ -194,8 +199,9 @@ public class Attachment extends NamedModel<Long> {
 	 * @param mimeType
 	 *            the new mime type
 	 */
-	public void setMimeType(String mimeType) {
+	public Attachment setMimeType(String mimeType) {
 		this.mimeType = mimeType;
+		return this;
 	}
 
 	/**
@@ -213,8 +219,9 @@ public class Attachment extends NamedModel<Long> {
 	 * @param parentType
 	 *            the new parent type
 	 */
-	public void setParentType(AttachmentParentType parentType) {
+	public Attachment setParentType(AttachmentParentType parentType) {
 		this.parentType = parentType;
+		return this;
 	}
 
 	/**
@@ -232,8 +239,9 @@ public class Attachment extends NamedModel<Long> {
 	 * @param parentId
 	 *            the new parent id
 	 */
-	public void setParentId(Long parentId) {
+	public Attachment setParentId(Long parentId) {
 		this.parentId = parentId;
+		return this;
 	}
 
 	/**
@@ -251,8 +259,9 @@ public class Attachment extends NamedModel<Long> {
 	 * @param sizeInKb
 	 *            the new size in kb
 	 */
-	public void setSizeInKb(Long sizeInKb) {
+	public Attachment setSizeInKb(Long sizeInKb) {
 		this.sizeInKb = sizeInKb;
+		return this;
 	}
 
 	/**
@@ -265,8 +274,9 @@ public class Attachment extends NamedModel<Long> {
 	/**
 	 * @param createdBy the createdBy to set
 	 */
-	public void setCreatedBy(User createdBy) {
+	public Attachment setCreatedBy(User createdBy) {
 		this.createdBy = createdBy;
+		return this;
 	}
 
 	/**
@@ -284,8 +294,9 @@ public class Attachment extends NamedModel<Long> {
 	 * @param description the description
 	 *
 	 */
-	public void setDescription(String description) {
+	public Attachment setDescription(String description) {
 		this.description = description;
+		return this;
 	}
 
 	/**

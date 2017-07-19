@@ -51,16 +51,18 @@ public class DateObjectValue implements ObjectValue {
         return objectType;
     }
 
-    public void setObjectType(ObjectValueType objectType) {
+    public DateObjectValue setObjectType(ObjectValueType objectType) {
         this.objectType = objectType;
+        return this;
     }
 
     public String getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public DateObjectValue setValue(String value) {
         this.value = value;
+        return this;
     }
 
     public Date toDate() throws ParseException {

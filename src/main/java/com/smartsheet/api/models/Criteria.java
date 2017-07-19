@@ -53,8 +53,9 @@ public class Criteria {
      * Sets the operator
      * @param operator the operator
      */
-    public void setOperator(Operator operator) {
+    public Criteria setOperator(Operator operator) {
         this.operator = operator;
+        return this;
     }
 
     /**
@@ -69,8 +70,9 @@ public class Criteria {
      * Sets the value1
      * @param value1 the value1
      */
-    public void setValue1(Object value1) {
+    public Criteria setValue1(Object value1) {
         this.value1 = value1;
+        return this;
     }
 
     /**
@@ -85,7 +87,8 @@ public class Criteria {
      * Sets the value2
      * @param value2 the value2
      */
-    public void setValue2(Object value2) {
+    public Criteria setValue2(Object value2) {
         this.value2 = value2;
+        return this;
     }
 }

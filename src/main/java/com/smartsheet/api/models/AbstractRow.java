@@ -27,7 +27,7 @@ import com.smartsheet.api.models.format.Format;
 import java.util.Date;
 import java.util.List;
 
-public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  IdentifiableModel<Long>{
+public class AbstractRow<TColumn extends Column, TCell extends Cell> extends IdentifiableModel<Long>{
 
     @Override
     @JsonIgnore(false)
@@ -37,8 +37,9 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
 
     @Override
     @JsonIgnore(false)
-    public void setId(Long id) {
+    public IdentifiableModel<Long> setId(Long id) {
         super.setId(id);
+        return this;
     }
 
     /** Represents the Sheet ID. */
@@ -133,8 +134,9 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
      *
      * @param accessLevel the new access level
      */
-    public void setAccessLevel(AccessLevel accessLevel) {
+    public AbstractRow<TColumn, TCell> setAccessLevel(AccessLevel accessLevel) {
         this.accessLevel = accessLevel;
+        return this;
     }
 
     /**
@@ -151,8 +153,9 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
      *
      * @param version the new version
      */
-    public void setVersion(Integer version) {
+    public AbstractRow<TColumn, TCell> setVersion(Integer version) {
         this.version = version;
+        return this;
     }
 
     /**
@@ -169,8 +172,9 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
      *
      * @param expanded the new expanded
      */
-    public void setExpanded(Boolean expanded) {
+    public AbstractRow<TColumn, TCell> setExpanded(Boolean expanded) {
         this.expanded = expanded;
+        return this;
     }
 
     /**
@@ -231,8 +235,9 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
      *
      * @param sheetId the new sheet id
      */
-    public void setSheetId(Long sheetId) {
+    public AbstractRow<TColumn, TCell> setSheetId(Long sheetId) {
         this.sheetId = sheetId;
+        return this;
     }
 
     /**
@@ -249,8 +254,9 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
      *
      * @param rowNumber the new row number
      */
-    public void setRowNumber(Integer rowNumber) {
+    public AbstractRow<TColumn, TCell> setRowNumber(Integer rowNumber) {
         this.rowNumber = rowNumber;
+        return this;
     }
 
     /**
@@ -267,8 +273,9 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
      *
      * @param parentRowNumber the new parent row number
      */
-    public void setParentRowNumber(Integer parentRowNumber) {
+    public AbstractRow<TColumn, TCell> setParentRowNumber(Integer parentRowNumber) {
         this.parentRowNumber = parentRowNumber;
+        return this;
     }
 
     /**
@@ -285,8 +292,9 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
      *
      * @param cells the new cells
      */
-    public void setCells(List<TCell> cells) {
+    public AbstractRow<TColumn, TCell> setCells(List<TCell> cells) {
         this.cells = cells;
+        return this;
     }
 
     /**
@@ -303,8 +311,9 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
      *
      * @param discussions the new discussions
      */
-    public void setDiscussions(List<Discussion> discussions) {
+    public AbstractRow<TColumn, TCell> setDiscussions(List<Discussion> discussions) {
         this.discussions = discussions;
+        return this;
     }
 
     /**
@@ -321,8 +330,9 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
      *
      * @param attachments the new attachments
      */
-    public void setAttachments(List<Attachment> attachments) {
+    public AbstractRow<TColumn, TCell> setAttachments(List<Attachment> attachments) {
         this.attachments = attachments;
+        return this;
     }
 
     /**
@@ -339,8 +349,9 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
      *
      * @param columns the new columns
      */
-    public void setColumns(List<TColumn> columns) {
+    public AbstractRow<TColumn, TCell> setColumns(List<TColumn> columns) {
         this.columns = columns;
+        return this;
     }
 
     /**
@@ -357,8 +368,9 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
      *
      * @param createdAt the new created at
      */
-    public void setCreatedAt(Date createdAt) {
+    public AbstractRow<TColumn, TCell> setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+        return this;
     }
 
     /**
@@ -375,8 +387,9 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
      *
      * @param modifiedAt the new modified at
      */
-    public void setModifiedAt(Date modifiedAt) {
+    public AbstractRow<TColumn, TCell> setModifiedAt(Date modifiedAt) {
         this.modifiedAt = modifiedAt;
+        return this;
     }
 
     /**
@@ -391,8 +404,9 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
     /**
      * @param locked the locked status
      */
-    public void setLocked(Boolean locked) {
+    public AbstractRow<TColumn, TCell> setLocked(Boolean locked) {
         this.locked = locked;
+        return this;
     }
 
     /**
@@ -403,8 +417,9 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
         return lockedForUser;
     }
 
-    public void setLockedForUser(Boolean lockedForUser) {
+    public AbstractRow<TColumn, TCell> setLockedForUser(Boolean lockedForUser) {
         this.lockedForUser = lockedForUser;
+        return this;
     }
 
     /**
@@ -417,8 +432,9 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
     /**
      * @param format the {@link Format} to set
      */
-    public void setFormat(Format format) {
+    public AbstractRow<TColumn, TCell> setFormat(Format format) {
         this.format = format;
+        return this;
     }
 
     /**
@@ -435,8 +451,9 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
      *
      * @param parentId the parent row id
      */
-    public void setParentId(Long parentId) {
+    public AbstractRow<TColumn, TCell> setParentId(Long parentId) {
         this.parentId = parentId;
+        return this;
     }
 
     /**
@@ -453,8 +470,9 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
      *
      * @param siblingId the sibling row id
      */
-    public void setSiblingId(Long siblingId) {
+    public AbstractRow<TColumn, TCell> setSiblingId(Long siblingId) {
         this.siblingId = siblingId;
+        return this;
     }
 
     /**
@@ -471,8 +489,9 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
      *
      * @param permalink the URL to the row
      */
-    public void setPermalink(String permalink) {
+    public AbstractRow<TColumn, TCell> setPermalink(String permalink) {
         this.permalink = permalink;
+        return this;
     }
 
     /**
@@ -489,8 +508,9 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
      *
      * @param filteredOut if the row is filtered out
      */
-    public void setFilteredOut(Boolean filteredOut) {
+    public AbstractRow<TColumn, TCell> setFilteredOut(Boolean filteredOut) {
         this.filteredOut = filteredOut;
+        return this;
     }
 
     /**
@@ -507,8 +527,9 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
      *
      * @param inCriticalPath if the row is in critical path
      */
-    public void setInCriticalPath(Boolean inCriticalPath) {
+    public AbstractRow<TColumn, TCell> setInCriticalPath(Boolean inCriticalPath) {
         this.inCriticalPath = inCriticalPath;
+        return this;
     }
 
     /**
@@ -523,8 +544,9 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
      *
      * @param conditionalFormat the conditional format
      */
-    public void setConditionalFormat(Format conditionalFormat) {
+    public AbstractRow<TColumn, TCell> setConditionalFormat(Format conditionalFormat) {
         this.conditionalFormat = conditionalFormat;
+        return this;
     }
 
     /**
@@ -541,8 +563,9 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
      *
      * @param toTop if the row is to the top
      */
-    public void setToTop(Boolean toTop) {
+    public AbstractRow<TColumn, TCell> setToTop(Boolean toTop) {
         this.toTop = toTop;
+        return this;
     }
 
     /**
@@ -559,8 +582,9 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
      *
      * @param toBottom if the row is to the bottom
      */
-    public void setToBottom(Boolean toBottom) {
+    public AbstractRow<TColumn, TCell> setToBottom(Boolean toBottom) {
         this.toBottom = toBottom;
+        return this;
     }
 
     /**
@@ -577,8 +601,9 @@ public class AbstractRow <TColumn extends Column, TCell extends Cell> extends  I
      *
      * @param above if the row is above a specified row
      */
-    public void setAbove(Boolean above) {
+    public AbstractRow<TColumn, TCell> setAbove(Boolean above) {
         this.above = above;
+        return this;
     }
     
     /**

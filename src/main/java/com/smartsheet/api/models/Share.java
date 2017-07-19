@@ -1,5 +1,9 @@
 package com.smartsheet.api.models;
 
+import com.smartsheet.api.models.enums.AccessLevel;
+import com.smartsheet.api.models.enums.ShareScope;
+import com.smartsheet.api.models.enums.ShareType;
+
 import java.util.Date;
 
 /*
@@ -21,10 +25,6 @@ import java.util.Date;
  * limitations under the License.
  * %[license]
  */
-
-import com.smartsheet.api.models.enums.AccessLevel;
-import com.smartsheet.api.models.enums.ShareScope;
-import com.smartsheet.api.models.enums.ShareType;
 
 /**
  * Represents a Share Object.
@@ -102,8 +102,9 @@ public class Share extends NamedModel<String> {
 	 *
 	 * @param subject the subject of the email
 	 */
-	public void setSubject(String subject) {
+	public Share setSubject(String subject) {
 		this.subject = subject;
+		return this;
 	}
 
 	/**
@@ -120,8 +121,9 @@ public class Share extends NamedModel<String> {
 	 *
 	 * @param message the message
 	 */
-	public void setMessage(String message) {
+	public Share setMessage(String message) {
 		this.message = message;
+		return this;
 	}
 
 	/**
@@ -138,8 +140,9 @@ public class Share extends NamedModel<String> {
 	 *
 	 * @param ccMe the flag for CC
 	 */
-	public void setCcMe(Boolean ccMe) {
+	public Share setCcMe(Boolean ccMe) {
 		this.ccMe = ccMe;
+		return this;
 	}
 
 	/**
@@ -156,8 +159,9 @@ public class Share extends NamedModel<String> {
 	 *
 	 * @param accessLevel the new access level
 	 */
-	public void setAccessLevel(AccessLevel accessLevel) {
+	public Share setAccessLevel(AccessLevel accessLevel) {
 		this.accessLevel = accessLevel;
+		return this;
 	}
 
 	/**
@@ -174,8 +178,9 @@ public class Share extends NamedModel<String> {
 	 *
 	 * @param email the new email
 	 */
-	public void setEmail(String email) {
+	public Share setEmail(String email) {
 		this.email = email;
+		return this;
 	}
 
 	/**
@@ -189,11 +194,12 @@ public class Share extends NamedModel<String> {
 	
 	/**
 	 * Set the scope of this share. One of ITEM or WORKSPACE
-	 * 
+	 *
 	 * @param scope
 	 */
-	public void setScope(ShareScope scope) {
+	public Share setScope(ShareScope scope) {
 		this.scope = scope;
+		return this;
 	}
 	
 	/**
@@ -207,11 +213,12 @@ public class Share extends NamedModel<String> {
 	
 	/**
 	 * Sets the time that the share was created
-	 * 
+	 *
 	 * @param createdAt
 	 */
-	public void setCreatedAt(Date createdAt) {
+	public Share setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
+		return this;
 	}
 	
 	/**
@@ -225,11 +232,12 @@ public class Share extends NamedModel<String> {
 	
 	/**
 	 * Sets the time that the share was last modified
-	 * 
+	 *
 	 * @param modifiedAt
 	 */
-	public void setModifiedAt(Date modifiedAt) {
+	public Share setModifiedAt(Date modifiedAt) {
 		this.modifiedAt = modifiedAt;
+		return this;
 	}
 	
 	/**
@@ -572,8 +580,9 @@ public class Share extends NamedModel<String> {
 	/**
 	 * @param userId the userId to set
 	 */
-	public void setUserId(Long userId) {
+	public Share setUserId(Long userId) {
 		this.userId = userId;
+		return this;
 	}
 
 	/**
@@ -586,8 +595,9 @@ public class Share extends NamedModel<String> {
 	/**
 	 * @param groupId the groupId to set
 	 */
-	public void setGroupId(Long groupId) {
+	public Share setGroupId(Long groupId) {
 		this.groupId = groupId;
+		return this;
 	}
 
 	/**
@@ -600,7 +610,8 @@ public class Share extends NamedModel<String> {
 	/**
 	 * @param type the {@link ShareType} to set
 	 */
-	public void setType(ShareType type) {
+	public Share setType(ShareType type) {
 		this.type = type;
+		return this;
 	}
 }

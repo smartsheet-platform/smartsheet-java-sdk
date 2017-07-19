@@ -39,8 +39,9 @@ public class NumberObjectValue implements PrimitiveObjectValue<Number> {
         return value;
     }
 
-    public void setValue(Number value) {
+    public NumberObjectValue setValue(Number value) {
         this.value = value;
+        return this;
     }
 
     @Override

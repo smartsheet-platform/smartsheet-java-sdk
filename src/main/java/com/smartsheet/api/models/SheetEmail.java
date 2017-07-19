@@ -29,48 +29,6 @@ import java.util.List;
  * Represents Sheet Email object used for sending a sheet by email.
  */
 public class SheetEmail extends Email {
-
-	Email email = new Email() {
-		@Override
-		public List<Recipient> getSendTo() {
-			return super.getSendTo();
-		}
-
-		@Override
-		public void setSendTo(List<Recipient> sendTo) {
-			super.setSendTo(sendTo);
-		}
-
-		@Override
-		public String getSubject() {
-			return super.getSubject();
-		}
-
-		@Override
-		public void setSubject(String subject) {
-			super.setSubject(subject);
-		}
-
-		@Override
-		public String getMessage() {
-			return super.getMessage();
-		}
-
-		@Override
-		public void setMessage(String message) {
-			super.setMessage(message);
-		}
-
-		@Override
-		public Boolean getCcMe() {
-			return super.getCcMe();
-		}
-
-		@Override
-		public void setCcMe(Boolean ccMe) {
-			super.setCcMe(ccMe);
-		}
-	};
 	/**
 	 * Represents the sheet email format (PDF or Excel).
 	 */
@@ -95,8 +53,9 @@ public class SheetEmail extends Email {
 	 *
 	 * @param format the new format
 	 */
-	public void setFormat(SheetEmailFormat format) {
+	public SheetEmail setFormat(SheetEmailFormat format) {
 		this.format = format;
+		return this;
 	}
 
 	/**
@@ -113,8 +72,9 @@ public class SheetEmail extends Email {
 	 *
 	 * @param formatDetails the new format details
 	 */
-	public void setFormatDetails(FormatDetails formatDetails) {
+	public SheetEmail setFormatDetails(FormatDetails formatDetails) {
 		this.formatDetails = formatDetails;
+		return this;
 	}
 
 	/**

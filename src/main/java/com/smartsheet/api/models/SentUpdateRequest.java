@@ -19,10 +19,10 @@
  */
 package com.smartsheet.api.models;
 
+import com.smartsheet.api.models.enums.UpdateRequestStatus;
+
 import java.util.Date;
 import java.util.List;
-
-import com.smartsheet.api.models.enums.UpdateRequestStatus;
 
 public class SentUpdateRequest extends IdentifiableModel<Long> {
 
@@ -92,11 +92,12 @@ public class SentUpdateRequest extends IdentifiableModel<Long> {
 	
 	/**
 	 * Set the Id of the originating update request.
-	 * 
+	 *
 	 * @param updateRequestId
 	 */
-	public void setUpdateRequestId(Long updateRequestId) {
+	public SentUpdateRequest setUpdateRequestId(Long updateRequestId) {
 		this.updateRequestId = updateRequestId;
+		return this;
 	}
 	
 	/**
@@ -112,8 +113,9 @@ public class SentUpdateRequest extends IdentifiableModel<Long> {
 	 * Set the date and time for when the update request was sent
 	 * @param sentAt
 	 */
-	public void setSentAt(Date sentAt) {
+	public SentUpdateRequest setSentAt(Date sentAt) {
 		this.sentAt = sentAt;
+		return this;
 	}
 	
 	/**
@@ -127,11 +129,12 @@ public class SentUpdateRequest extends IdentifiableModel<Long> {
 	
 	/**
 	 * Set the User object containing the name and email of the sender.
-	 * 
+	 *
 	 * @param sentBy
 	 */
-	public void setSentBy(User sentBy) {
+	public SentUpdateRequest setSentBy(User sentBy) {
 		this.sentBy = sentBy;
+		return this;
 	}
 	
 	/**
@@ -145,11 +148,12 @@ public class SentUpdateRequest extends IdentifiableModel<Long> {
 	
 	/**
 	 * Set the status of the sent update request.
-	 * 
+	 *
 	 * @param status
 	 */
-	public void setStatus(UpdateRequestStatus status) {
+	public SentUpdateRequest setStatus(UpdateRequestStatus status) {
 		this.status = status;
+		return this;
 	}
 	
 	/**
@@ -163,11 +167,12 @@ public class SentUpdateRequest extends IdentifiableModel<Long> {
 	
 	/**
 	 * Set the Ids of the rows for which the update is request.
-	 * 
+	 *
 	 * @param rowIds
 	 */
-	public void setRowIds(List<Long> rowIds) {
+	public SentUpdateRequest setRowIds(List<Long> rowIds) {
 		this.rowIds = rowIds;
+		return this;
 	}
 	
 	/**
@@ -181,11 +186,12 @@ public class SentUpdateRequest extends IdentifiableModel<Long> {
 	
 	/**
 	 * Set the Ids of the columns included in the request.
-	 * 
+	 *
 	 * @param columnIds
 	 */
-	public void setColumnIds(List<Long> columnIds) {
+	public SentUpdateRequest setColumnIds(List<Long> columnIds) {
 		this.columnIds = columnIds;
+		return this;
 	}
 	
 	/**
@@ -199,11 +205,12 @@ public class SentUpdateRequest extends IdentifiableModel<Long> {
 	
 	/**
 	 * Sets the flag that indicates if attachments should be included in the email.
-	 * 
+	 *
 	 * @param includeAttachments
 	 */
-	public void setIncludeAttachments(Boolean includeAttachments) {
+	public SentUpdateRequest setIncludeAttachments(Boolean includeAttachments) {
 		this.includeAttachments = includeAttachments;
+		return this;
 	}
 	
 	/** 
@@ -217,11 +224,12 @@ public class SentUpdateRequest extends IdentifiableModel<Long> {
 	
 	/**
 	 * Sets the flag that indicates if discussions should be included in the email.
-	 * 
+	 *
 	 * @param includeDiscussions
 	 */
-	public void setIncludeDiscussions(Boolean includeDiscussions) {
+	public SentUpdateRequest setIncludeDiscussions(Boolean includeDiscussions) {
 		this.includeDiscussions = includeDiscussions;
+		return this;
 	}
 	
 	/**
@@ -235,11 +243,12 @@ public class SentUpdateRequest extends IdentifiableModel<Long> {
 	
 	/**
 	 * Sets the recipient
-	 * 
+	 *
 	 * @param sentTo
 	 */
-	public void setSentTo(Recipient sentTo) {
+	public SentUpdateRequest setSentTo(Recipient sentTo) {
 		this.sentTo = sentTo;
+		return this;
 	}
 	
 	/**
@@ -253,11 +262,12 @@ public class SentUpdateRequest extends IdentifiableModel<Long> {
 	
 	/**
 	 * Sets the subject
-	 * 
+	 *
 	 * @param subject
 	 */
-	public void setSubject(String subject) {
+	public SentUpdateRequest setSubject(String subject) {
 		this.subject = subject;
+		return this;
 	}
 	
 	/**
@@ -271,11 +281,12 @@ public class SentUpdateRequest extends IdentifiableModel<Long> {
 	
 	/**
 	 * Sets the email message.
-	 * 
+	 *
 	 * @param message
 	 */
-	public void setMessage(String message) {
+	public SentUpdateRequest setMessage(String message) {
 		this.message = message;
+		return this;
 	}
 }
 

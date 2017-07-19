@@ -39,8 +39,9 @@ public class StringObjectValue implements PrimitiveObjectValue<String> {
         return value;
     }
 
-    public void setValue(String value) {
+    public StringObjectValue setValue(String value) {
         this.value = value;
+        return this;
     }
 
     @Override

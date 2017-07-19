@@ -73,8 +73,9 @@ public class Group extends NamedModel<Long> {
 	/**
 	 * @param description the description to set
 	 */
-	public void setDescription(String description) {
+	public Group setDescription(String description) {
 		this.description = description;
+		return this;
 	}
 
 
@@ -89,8 +90,9 @@ public class Group extends NamedModel<Long> {
 	/**
 	 * @param owner the owner email address to set
 	 */
-	public void setOwner(String owner) {
+	public Group setOwner(String owner) {
 		this.owner = owner;
+		return this;
 	}
 
 
@@ -105,8 +107,9 @@ public class Group extends NamedModel<Long> {
 	/**
 	 * @param ownerId the owner Id to set
 	 */
-	public void setOwnerId(Long ownerId) {
+	public Group setOwnerId(Long ownerId) {
 		this.ownerId = ownerId;
+		return this;
 	}
 
 
@@ -121,8 +124,9 @@ public class Group extends NamedModel<Long> {
 	/**
 	 * @param createdAt the createdAt {@link Date} to set
 	 */
-	public void setCreatedAt(Date createdAt) {
+	public Group setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
+		return this;
 	}
 
 
@@ -137,8 +141,9 @@ public class Group extends NamedModel<Long> {
 	/**
 	 * @param modifiedAt the modifiedAt {@link Date} to set
 	 */
-	public void setModifiedAt(Date modifiedAt) {
+	public Group setModifiedAt(Date modifiedAt) {
 		this.modifiedAt = modifiedAt;
+		return this;
 	}
 
 
@@ -153,8 +158,9 @@ public class Group extends NamedModel<Long> {
 	/**
 	 * @param members the {@link List} of {@link User}s to set
 	 */
-	public void setMembers(List<GroupMember> members) {
+	public Group setMembers(List<GroupMember> members) {
 		this.members = members;
+		return this;
 	}
 		
 	/**

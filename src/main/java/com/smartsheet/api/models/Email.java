@@ -58,7 +58,10 @@ public abstract class Email {
 	 * Sets the list of recipients to send to
 	 * @param sendTo list of recipients
 	 */
-	public void setSendTo(List<Recipient> sendTo) { this.sendTo = sendTo; }
+	public Email setSendTo(List<Recipient> sendTo) {
+		this.sendTo = sendTo;
+		return this;
+	}
 
 	/**
 	 * Gets the subject.
@@ -74,8 +77,9 @@ public abstract class Email {
 	 *
 	 * @param subject the new subject
 	 */
-	public void setSubject(String subject) {
+	public Email setSubject(String subject) {
 		this.subject = subject;
+		return this;
 	}
 
 	/**
@@ -92,8 +96,9 @@ public abstract class Email {
 	 *
 	 * @param message the new message
 	 */
-	public void setMessage(String message) {
+	public Email setMessage(String message) {
 		this.message = message;
+		return this;
 	}
 
 	/**
@@ -110,7 +115,8 @@ public abstract class Email {
 	 *
 	 * @param ccMe the new cc me
 	 */
-	public void setCcMe(Boolean ccMe) {
+	public Email setCcMe(Boolean ccMe) {
 		this.ccMe = ccMe;
+		return this;
 	}
 }

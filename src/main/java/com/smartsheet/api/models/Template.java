@@ -1,5 +1,8 @@
 package com.smartsheet.api.models;
 
+import com.smartsheet.api.models.enums.AccessLevel;
+import com.smartsheet.api.models.enums.GlobalTemplate;
+
 import java.util.List;
 
 /*
@@ -21,10 +24,6 @@ import java.util.List;
  * limitations under the License.
  * %[license]
  */
-
-
-import com.smartsheet.api.models.enums.AccessLevel;
-import com.smartsheet.api.models.enums.GlobalTemplate;
 
 /**
  * A template object that is a default layout for future sheets.
@@ -95,8 +94,9 @@ public class Template extends NamedModel<Long> {
 	 *
 	 * @param description the new description
 	 */
-	public void setDescription(String description) {
+	public Template setDescription(String description) {
 		this.description = description;
+		return this;
 	}
 
 	/**
@@ -113,8 +113,9 @@ public class Template extends NamedModel<Long> {
 	 *
 	 * @param accessLevel the new access level
 	 */
-	public void setAccessLevel(AccessLevel accessLevel) {
+	public Template setAccessLevel(AccessLevel accessLevel) {
 		this.accessLevel = accessLevel;
+		return this;
 	}
 	
 	/**
@@ -128,11 +129,12 @@ public class Template extends NamedModel<Long> {
 	
 	/**
 	 * Sets the URL to the small preview image for this template.
-	 * 
+	 *
 	 * @param image
 	 */
-	public void setImage(String image) {
+	public Template setImage(String image) {
 		this.image = image;
+		return this;
 	}
 	
 	/**
@@ -146,11 +148,12 @@ public class Template extends NamedModel<Long> {
 	
 	/**
 	 * Sets the URL to the large preview image for this template.
-	 * 
+	 *
 	 * @param largeImage
 	 */
-	public void setLargeImage(String largeImage) {
+	public Template setLargeImage(String largeImage) {
 		this.largeImage = largeImage;
+		return this;
 	}
 	
 	/** 
@@ -164,11 +167,12 @@ public class Template extends NamedModel<Long> {
 	
 	/**
 	 * Sets the locate of the template.
-	 * 
+	 *
 	 * @param locale
 	 */
-	public void setLocale(String locale) {
+	public Template setLocale(String locale) {
 		this.locale = locale;
+		return this;
 	}
 	
 	/**
@@ -182,11 +186,12 @@ public class Template extends NamedModel<Long> {
 	
 	/**
 	 * Sets the type of the template. One of "sheet" or "report"
-	 * 
+	 *
 	 * @param type
 	 */
-	public void setType(String type) {
+	public Template setType(String type) {
 		this.type = type;
+		return this;
 	}
 	
 	/**
@@ -200,11 +205,12 @@ public class Template extends NamedModel<Long> {
 	
 	/**
 	 * Sets the array of search tags for this template.
-	 * 
+	 *
 	 * @param tags
 	 */
-	public void setTags(List<String> tags) {
+	public Template setTags(List<String> tags) {
 		this.tags = tags;
+		return this;
 	}
 	
 	/**
@@ -218,11 +224,12 @@ public class Template extends NamedModel<Long> {
 	
 	/**
 	 * Sets the array of categories this template belongs to
-	 * 
+	 *
 	 * @param categories
 	 */
-	public void setCategories(List<String> categories) {
+	public Template setCategories(List<String> categories) {
 		this.categories = categories;
+		return this;
 	}
 	
 	/**
@@ -236,11 +243,12 @@ public class Template extends NamedModel<Long> {
 	
 	/**
 	 * Sets the flag indicating whether this template is blank.
-	 * 
+	 *
 	 * @param blank
 	 */
-	public void setBlank(Boolean blank) {
+	public Template setBlank(Boolean blank) {
 		this.blank = blank;
+		return this;
 	}
 	
 	/**
@@ -254,10 +262,11 @@ public class Template extends NamedModel<Long> {
 	
 	/**
 	 * Sets the type of global template
-	 * 
+	 *
 	 * @param globalTemplate
 	 */
-	public void setGlobalTemplate(GlobalTemplate globalTemplate) {
+	public Template setGlobalTemplate(GlobalTemplate globalTemplate) {
 		this.globalTemplate = globalTemplate;
+		return this;
 	}
 }

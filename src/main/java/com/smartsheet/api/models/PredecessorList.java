@@ -52,8 +52,9 @@ public class PredecessorList implements ObjectValue {
      *
      * @param predecessors
      */
-    public void setPredecessors(List<Predecessor> predecessors) {
+    public PredecessorList setPredecessors(List<Predecessor> predecessors) {
         this.predecessors = predecessors;
+        return this;
     }
 
     @Override

@@ -121,8 +121,9 @@ public class Column extends IdentifiableModel<Long> {
 	 *
 	 * @param index the new index
 	 */
-	public void setIndex(Integer index) {
+	public Column setIndex(Integer index) {
 		this.index = index;
+		return this;
 	}
 
 	/**
@@ -139,8 +140,9 @@ public class Column extends IdentifiableModel<Long> {
 	 *
 	 * @param title the new title
 	 */
-	public void setTitle(String title) {
+	public Column setTitle(String title) {
 		this.title = title;
+		return this;
 	}
 
 	/**
@@ -157,8 +159,9 @@ public class Column extends IdentifiableModel<Long> {
 	 *
 	 * @param primary the new primary flag
 	 */
-	public void setPrimary(Boolean primary) {
+	public Column setPrimary(Boolean primary) {
 		this.primary = primary;
+		return this;
 	}
 
 	/**
@@ -175,8 +178,9 @@ public class Column extends IdentifiableModel<Long> {
 	 *
 	 * @param type the new type
 	 */
-	public void setType(ColumnType type) {
+	public Column setType(ColumnType type) {
 		this.type = type;
+		return this;
 	}
 
 	/**
@@ -193,8 +197,9 @@ public class Column extends IdentifiableModel<Long> {
 	 *
 	 * @param options the new options
 	 */
-	public void setOptions(List<String> options) {
+	public Column setOptions(List<String> options) {
 		this.options = options;
+		return this;
 	}
 
 	/**
@@ -211,8 +216,9 @@ public class Column extends IdentifiableModel<Long> {
 	 *
 	 * @param hidden the new hidden flag
 	 */
-	public void setHidden(Boolean hidden) {
+	public Column setHidden(Boolean hidden) {
 		this.hidden = hidden;
+		return this;
 	}
 
 	/**
@@ -229,8 +235,9 @@ public class Column extends IdentifiableModel<Long> {
 	 *
 	 * @param symbol the new symbol
 	 */
-	public void setSymbol(Symbol symbol) {
+	public Column setSymbol(Symbol symbol) {
 		this.symbol = symbol;
+		return this;
 	}
 
 	/**
@@ -247,8 +254,9 @@ public class Column extends IdentifiableModel<Long> {
 	 *
 	 * @param systemColumnType the new system column type
 	 */
-	public void setSystemColumnType(SystemColumnType systemColumnType) {
+	public Column setSystemColumnType(SystemColumnType systemColumnType) {
 		this.systemColumnType = systemColumnType;
+		return this;
 	}
 
 	/**
@@ -262,11 +270,12 @@ public class Column extends IdentifiableModel<Long> {
 
 	/**
 	 * Sets the format for the auto generated numbers.
-	 * 
+	 *
 	 * @param autoNumberFormat the new auto number format
 	 */
-	public void setAutoNumberFormat(AutoNumberFormat autoNumberFormat) {
+	public Column setAutoNumberFormat(AutoNumberFormat autoNumberFormat) {
 		this.autoNumberFormat = autoNumberFormat;
+		return this;
 	}
 
 	/**
@@ -283,8 +292,9 @@ public class Column extends IdentifiableModel<Long> {
 	 *
 	 * @param tags the new tags
 	 */
-	public void setTags(List<ColumnTag> tags) {
+	public Column setTags(List<ColumnTag> tags) {
 		this.tags = tags;
+		return this;
 	}
 
 	/**
@@ -299,8 +309,9 @@ public class Column extends IdentifiableModel<Long> {
 	 * Sets the locked flag
 	 * @param locked the locked flag
 	 */
-	public void setLocked(Boolean locked) {
+	public Column setLocked(Boolean locked) {
 		this.locked = locked;
+		return this;
 	}
 
 	/**
@@ -315,8 +326,9 @@ public class Column extends IdentifiableModel<Long> {
 	 * Sets the locked for user flag
 	 * @param lockedForUser the locked for user flag
 	 */
-	public void setLockedForUser(Boolean lockedForUser) {
+	public Column setLockedForUser(Boolean lockedForUser) {
 		this.lockedForUser = lockedForUser;
+		return this;
 	}
 
 	/**
@@ -331,8 +343,9 @@ public class Column extends IdentifiableModel<Long> {
 	 * Sets the width
 	 * @param width the width
 	 */
-	public void setWidth(Integer width) {
+	public Column setWidth(Integer width) {
 		this.width = width;
+		return this;
 	}
 
 	/**
@@ -345,8 +358,9 @@ public class Column extends IdentifiableModel<Long> {
 	/**
 	 * @param format the {@link Format} to set
 	 */
-	public void setFormat(Format format) {
+	public Column setFormat(Format format) {
 		this.format = format;
+		return this;
 	}
 
 	/**
@@ -361,8 +375,9 @@ public class Column extends IdentifiableModel<Long> {
 	 * Sets the filter
 	 * @param filter the filter
 	 */
-	public void setFilter(Filter filter) {
+	public Column setFilter(Filter filter) {
 		this.filter = filter;
+		return this;
 	}
 
 	/**

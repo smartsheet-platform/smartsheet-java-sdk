@@ -26,6 +26,6 @@ import java.io.IOException;
 
 public interface PrimitiveObjectValue<T> extends ObjectValue {
     T getValue();
-    void setValue(T value);
+    PrimitiveObjectValue<T> setValue(T value);
     void serialize(JsonGenerator jsonGenerator) throws IOException;
 }
