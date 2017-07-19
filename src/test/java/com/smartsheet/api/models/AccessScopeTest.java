@@ -21,17 +21,14 @@ package com.smartsheet.api.models;
  */
 
 import com.smartsheet.api.models.enums.AccessScope;
-import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.junit.Assert.*;
 
 public class AccessScopeTest {
-
-	@Before
-	public void setUp() throws Exception {
-	}
 
 	@Test
 	public void test() {
@@ -44,10 +41,25 @@ public class AccessScopeTest {
 		assertNotNull(AccessScope.valueOf("DELETE_SIGHTS"));
 		assertNotNull(AccessScope.valueOf("READ_SIGHTS"));
 		assertNotNull(AccessScope.valueOf("SHARE_SIGHTS"));
+		assertNotNull(AccessScope.valueOf("READ_USERS"));
 		assertNotNull(AccessScope.valueOf("ADMIN_USERS"));
 		assertNotNull(AccessScope.valueOf("ADMIN_SHEETS"));
 		assertNotNull(AccessScope.valueOf("ADMIN_WORKSPACES"));
-		assertEquals(12,AccessScope.values().length);
+		assertNotNull(AccessScope.valueOf("ADMIN_WEBHOOKS"));
+		assertEquals(14, AccessScope.values().length);
 	}
 
+	@Test
+	public void bothVersionsOfAccessScopeAreIdentical() {
+		Set<String> scopeNames = new HashSet<String>();
+		for (AccessScope accessScope : AccessScope.values()) {
+			scopeNames.add(accessScope.name());
+		}
+
+		for (com.smartsheet.api.oauth.AccessScope accessScope : com.smartsheet.api.oauth.AccessScope.values()) {
+			assertTrue("Verify '" + accessScope.name() + "' exists", scopeNames.contains(accessScope.name()));
+		}
+
+		assertEquals("Verify lengths are the same", com.smartsheet.api.oauth.AccessScope.values().length, AccessScope.values().length);
+	}
 }

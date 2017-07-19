@@ -52,7 +52,9 @@ public enum AccessScope {
 	/** Modify sheet structure, including comlumn definition, publish state, etc */
 	ADMIN_SHEETS("ADMIN_SHEETS"),
 	/** Create and manage workspaces and folders, including sharing */
-	ADMIN_WORKSPACES("ADMIN_WORKSPACES");
+	ADMIN_WORKSPACES("ADMIN_WORKSPACES"),
+	/**	 Create and manage webhooks */
+	ADMIN_WEBHOOKS("ADMIN_WEBHOOKS");
 
 	String scope;
 	AccessScope(String scope) {
