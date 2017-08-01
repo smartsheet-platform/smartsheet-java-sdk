@@ -60,8 +60,9 @@ public class PaginationParameters {
      * Sets includeAll
      * @param includeAll include all parameter
      */
-    public void setIncludeAll(boolean includeAll) {
+    public PaginationParameters setIncludeAll(boolean includeAll) {
         this.includeAll = includeAll;
+        return this;
     }
 
     /**
@@ -76,8 +77,9 @@ public class PaginationParameters {
      * Sets the page size
      * @param pageSize the page size
      */
-    public void setPageSize(Integer pageSize) {
+    public PaginationParameters setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
+        return this;
     }
 
     /**
@@ -92,8 +94,9 @@ public class PaginationParameters {
      * Sets the page
      * @param page the page number
      */
-    public void setPage(Integer page) {
+    public PaginationParameters setPage(Integer page) {
         this.page = page;
+        return this;
     }
 
     public String toQueryString() {

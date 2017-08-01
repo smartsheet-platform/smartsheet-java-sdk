@@ -27,45 +27,49 @@ import java.util.List;
  */
 public class RowEmail extends Email {
 
-		@Override
-		public List<Recipient> getSendTo() {
-			return super.getSendTo();
-		}
+	@Override
+	public List<Recipient> getSendTo() {
+		return super.getSendTo();
+	}
 
-		@Override
-		public void setSendTo(List<Recipient> sendTo) {
-			super.setSendTo(sendTo);
-		}
+	@Override
+	public RowEmail setSendTo(List<Recipient> sendTo) {
+		super.setSendTo(sendTo);
+		return this;
+	}
 
-		@Override
-		public String getSubject() {
-			return super.getSubject();
-		}
+	@Override
+	public String getSubject() {
+		return super.getSubject();
+	}
 
-		@Override
-		public void setSubject(String subject) {
-			super.setSubject(subject);
-		}
+	@Override
+	public RowEmail setSubject(String subject) {
+		super.setSubject(subject);
+		return this;
+	}
 
-		@Override
-		public String getMessage() {
-			return super.getMessage();
-		}
+	@Override
+	public String getMessage() {
+		return super.getMessage();
+	}
 
-		@Override
-		public void setMessage(String message) {
-			super.setMessage(message);
-		}
+	@Override
+	public RowEmail setMessage(String message) {
+		super.setMessage(message);
+		return this;
+	}
 
-		@Override
-		public Boolean getCcMe() {
-			return super.getCcMe();
-		}
+	@Override
+	public Boolean getCcMe() {
+		return super.getCcMe();
+	}
 
-		@Override
-		public void setCcMe(Boolean ccMe) {
-			super.setCcMe(ccMe);
-		}
+	@Override
+	public RowEmail setCcMe(Boolean ccMe) {
+		super.setCcMe(ccMe);
+		return this;
+	}
 
 	/**
 	 * A flag to indicate if attachments should be included in the email.
@@ -96,8 +100,9 @@ public class RowEmail extends Email {
 	 *
 	 * @param columnIds the column ids
 	 */
-	public void setColumnIds(List<Long> columnIds) {
+	public RowEmail setColumnIds(List<Long> columnIds) {
 		this.columnIds = columnIds;
+		return this;
 	}
 
 	/**
@@ -114,8 +119,9 @@ public class RowEmail extends Email {
 	 *
 	 * @param includeAttachments the new include attachments
 	 */
-	public void setIncludeAttachments(Boolean includeAttachments) {
+	public RowEmail setIncludeAttachments(Boolean includeAttachments) {
 		this.includeAttachments = includeAttachments;
+		return this;
 	}
 
 	/**
@@ -132,8 +138,9 @@ public class RowEmail extends Email {
 	 *
 	 * @param includeDiscussions the new include discussions
 	 */
-	public void setIncludeDiscussions(Boolean includeDiscussions) {
+	public RowEmail setIncludeDiscussions(Boolean includeDiscussions) {
 		this.includeDiscussions = includeDiscussions;
+		return this;
 	}
 
 	/**

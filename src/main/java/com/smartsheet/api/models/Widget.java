@@ -98,11 +98,12 @@ public class Widget extends IdentifiableModel<Long> {
 	
 	/**
 	 * Set the type of the widget
-	 * 
+	 *
 	 * @param type
 	 */
-	public void setType(WidgetType type) {
+	public Widget setType(WidgetType type) {
 		this.type = type;
+		return this;
 	}
 	
 	/**
@@ -116,11 +117,12 @@ public class Widget extends IdentifiableModel<Long> {
 	
 	/** 
 	 * Set the title of the widget.
-	 * 
+	 *
 	 * @param title
 	 */
-	public void setTitle(String title) {
+	public Widget setTitle(String title) {
 		this.title = title;
+		return this;
 	}
 	
 	/**
@@ -134,11 +136,12 @@ public class Widget extends IdentifiableModel<Long> {
 	
 	/**
 	 * Set flag indicating if the client should display the widget title.
-	 * 
+	 *
 	 * @param showTitle
 	 */
-	public void setShowTitle(Boolean showTitle) {
+	public Widget setShowTitle(Boolean showTitle) {
 		this.showTitle = showTitle;
+		return this;
 	}
 	
 	/**
@@ -152,11 +155,12 @@ public class Widget extends IdentifiableModel<Long> {
 	
 	/**
 	 * Set flag indicating if the client should display the sheet icon.
-	 * 
+	 *
 	 * @param showTitleIcon
 	 */
-	public void setShowTitleIcon(Boolean showTitleIcon) {
+	public Widget setShowTitleIcon(Boolean showTitleIcon) {
 		this.showTitleIcon = showTitleIcon;
+		return this;
 	}
 	
 	/**
@@ -170,11 +174,12 @@ public class Widget extends IdentifiableModel<Long> {
 	
 	/**
 	 * Set the title format descriptor string
-	 * 
+	 *
 	 * @param titleFormat
 	 */
-	public void setTitleFormat(String titleFormat) {
+	public Widget setTitleFormat(String titleFormat) {
 		this.titleFormat = titleFormat;
+		return this;
 	}
 	
 	/** 
@@ -188,11 +193,12 @@ public class Widget extends IdentifiableModel<Long> {
 	
 	/**
 	 * Set the x-coordinate of widget's position on the sight.
-	 * 
+	 *
 	 * @param xPosition
 	 */
-	public void setXPosition(Integer xPosition) {
+	public Widget setXPosition(Integer xPosition) {
 		this.xPosition = xPosition;
+		return this;
 	}
 	
 	/**
@@ -206,11 +212,12 @@ public class Widget extends IdentifiableModel<Long> {
 	
 	/**
 	 * Set the y-coordinate of widget's position on the sight.
-	 * 
+	 *
 	 * @param yPosition
 	 */
-	public void setYPosition(Integer yPosition) {
+	public Widget setYPosition(Integer yPosition) {
 		this.yPosition = yPosition;
+		return this;
 	}
 	
 	/**
@@ -224,11 +231,12 @@ public class Widget extends IdentifiableModel<Long> {
 	
 	/**
 	 * Set the number of rows that the widget occupies
-	 * 
+	 *
 	 * @param height
 	 */
-	public void setHeight(Integer height) {
+	public Widget setHeight(Integer height) {
 		this.height = height;
+		return this;
 	}
 	
 	/**
@@ -242,11 +250,12 @@ public class Widget extends IdentifiableModel<Long> {
 	
 	/**
 	 * Set the number of columns that the widget occupies
-	 * 
+	 *
 	 * @param width
 	 */
-	public void setWidth(Integer width) {
+	public Widget setWidth(Integer width) {
 		this.width = width;
+		return this;
 	}
 	
 	/**
@@ -260,11 +269,12 @@ public class Widget extends IdentifiableModel<Long> {
 	
 	/** 
 	 * Set the widget version number
-	 * 
+	 *
 	 * @param version
 	 */
-	public void setVersion(Integer version) {
+	public Widget setVersion(Integer version) {
 		this.version = version;
+		return this;
 	}
 	
 	/**
@@ -280,10 +290,11 @@ public class Widget extends IdentifiableModel<Long> {
 	/**
 	 * Get the data that specifies the contents of the widget. 
 	 * See description of contents variable for valid objects
-	 * 
+	 *
 	 * @param contents
 	 */
-	public void setContents(WidgetContent contents) {
+	public Widget setContents(WidgetContent contents) {
 		this.contents = contents;
+		return this;
 	}
 }

@@ -43,5 +43,17 @@ public enum ObjectValueType {
 	/**
 	 * PREDECESSOR_LIST
 	 */
-	PREDECESSOR_LIST
+	PREDECESSOR_LIST,
+	/**
+	 * NUMBER
+	 */
+	NUMBER,
+	/**
+	 * BOOLEAN
+	 */
+	BOOLEAN,
+	/**
+	 * STRING
+	 */
+	STRING,
 }

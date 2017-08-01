@@ -41,8 +41,9 @@ public class RowMapping {
      *
      * @param from the Row ID in the source sheet
      */
-    public void setFrom(Long from) {
+    public RowMapping setFrom(Long from) {
         this.from = from;
+        return this;
     }
 
     /**
@@ -59,7 +60,8 @@ public class RowMapping {
      *
      * @param to Row ID in the destination sheet
      */
-    public void setTo(Long to) {
+    public RowMapping setTo(Long to) {
         this.to = to;
+        return this;
     }
 }

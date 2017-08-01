@@ -55,8 +55,9 @@ public class AutoNumberFormat {
 	 *
 	 * @param prefix the new prefix
 	 */
-	public void setPrefix(String prefix) {
+	public AutoNumberFormat setPrefix(String prefix) {
 		this.prefix = prefix;
+		return this;
 	}
 
 	/**
@@ -73,8 +74,9 @@ public class AutoNumberFormat {
 	 *
 	 * @param suffix the new suffix
 	 */
-	public void setSuffix(String suffix) {
+	public AutoNumberFormat setSuffix(String suffix) {
 		this.suffix = suffix;
+		return this;
 	}
 
 	/**
@@ -91,8 +93,9 @@ public class AutoNumberFormat {
 	 *
 	 * @param fill the new fill
 	 */
-	public void setFill(String fill) {
+	public AutoNumberFormat setFill(String fill) {
 		this.fill = fill;
+		return this;
 	}
 
 	/**
@@ -109,8 +112,9 @@ public class AutoNumberFormat {
 	 *
 	 * @param startingNumber the new starting number
 	 */
-	public void setStartingNumber(Long startingNumber) {
+	public AutoNumberFormat setStartingNumber(Long startingNumber) {
 		this.startingNumber = startingNumber;
+		return this;
 	}
 
 }

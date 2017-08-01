@@ -42,7 +42,8 @@ public class UserModelWithName extends UserModel{
      * Sets the user's name
      * @param name the user name
      */
-    public void setName(String name) {
+    public UserModelWithName setName(String name) {
         this.name = name;
+        return this;
     }
 }

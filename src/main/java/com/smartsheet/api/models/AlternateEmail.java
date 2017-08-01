@@ -1,7 +1,5 @@
 package com.smartsheet.api.models;
 
-import com.smartsheet.api.models.GroupMember.AddGroupMemberBuilder;
-
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -59,8 +57,9 @@ public class AlternateEmail {
 	 * @param email the  email
 	 * Set the user's alternate email address.
 	 */
-	public void setEmail(String email) {
+	public AlternateEmail setEmail(String email) {
 		this.email = email;
+		return this;
 	}
 	
 	/** 

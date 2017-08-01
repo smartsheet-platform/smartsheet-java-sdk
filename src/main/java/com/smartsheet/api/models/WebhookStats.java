@@ -49,11 +49,12 @@ public class WebhookStats {
 	
 	/**
 	 * Set the number of retries the webhook had performed as of the last callback attempt.
-	 * 
+	 *
 	 * @param lastCallbackAttemptRetryCount
 	 */
-	public void setLastCallbackAttemptRetryCount(Integer lastCallbackAttemptRetryCount) {
+	public WebhookStats setLastCallbackAttemptRetryCount(Integer lastCallbackAttemptRetryCount) {
 		this.lastCallbackAttemptRetryCount = lastCallbackAttemptRetryCount;
+		return this;
 	}
 	
 	/**
@@ -67,11 +68,12 @@ public class WebhookStats {
 	
 	/**
 	 * Set the timestamp from the last callback attempt.
-	 * 
+	 *
 	 * @param lastCallbackAttempt
 	 */
-	public void setLastCallbackAttempt(Date lastCallbackAttempt) {
+	public WebhookStats setLastCallbackAttempt(Date lastCallbackAttempt) {
 		this.lastCallbackAttempt = lastCallbackAttempt;
+		return this;
 	}
 	
 	/**
@@ -85,11 +87,12 @@ public class WebhookStats {
 	
 	/**
 	 * Set the timestamp from the last successful callback.
-	 * 
+	 *
 	 * @param lastSuccessfulCallback
 	 */
-	public void setLastSuccessfulCallback(Date lastSuccessfulCallback) {
+	public WebhookStats setLastSuccessfulCallback(Date lastSuccessfulCallback) {
 		this.lastSuccessfulCallback = lastSuccessfulCallback;
+		return this;
 	}
 
 }

@@ -75,8 +75,9 @@ public class Discussion extends IdentifiableModel<Long> {
 	 *
 	 * @param readOnly the read only status
 	 */
-	public void setReadOnly(Boolean readOnly) {
+	public Discussion setReadOnly(Boolean readOnly) {
 		this.readOnly = readOnly;
+		return this;
 	}
 
 	/**
@@ -93,8 +94,9 @@ public class Discussion extends IdentifiableModel<Long> {
 	 *
 	 * @param createdBy the created by
 	 */
-	public void setCreatedBy(User createdBy) {
+	public Discussion setCreatedBy(User createdBy) {
 		this.createdBy = createdBy;
+		return this;
 	}
 
 	/**
@@ -111,8 +113,9 @@ public class Discussion extends IdentifiableModel<Long> {
 	 *
 	 * @param title the new title
 	 */
-	public void setTitle(String title) {
+	public Discussion setTitle(String title) {
 		this.title = title;
+		return this;
 	}
 
 	/**
@@ -138,8 +141,9 @@ public class Discussion extends IdentifiableModel<Long> {
 	 *
 	 * @param comments the new comments
 	 */
-	public void setComments(List<Comment> comments) {
+	public Discussion setComments(List<Comment> comments) {
 		this.comments = comments;
+		return this;
 	}
 	
 	/**
@@ -147,13 +151,14 @@ public class Discussion extends IdentifiableModel<Long> {
 	 *
 	 * @param comment the new comment
 	 */
-	public void setComment(Comment comment) {
+	public Discussion setComment(Comment comment) {
 		// To keep the comments variable in sync
 		List<Comment> comments = new ArrayList<Comment>();
 		comments.add(comment);
 		this.comments = comments;
 		
 		this.comment = comment;
+		return this;
 	}
 
 	/**
@@ -170,8 +175,9 @@ public class Discussion extends IdentifiableModel<Long> {
 	 *
 	 * @param commentAttachments the new comment attachments
 	 */
-	public void setCommentAttachments(List<Attachment> commentAttachments) {
+	public Discussion setCommentAttachments(List<Attachment> commentAttachments) {
 		this.commentAttachments = commentAttachments;
+		return this;
 	}
 
 	/**
@@ -188,8 +194,9 @@ public class Discussion extends IdentifiableModel<Long> {
 	 *
 	 * @param lastCommentedAt the new last commented at
 	 */
-	public void setLastCommentedAt(Date lastCommentedAt) {
+	public Discussion setLastCommentedAt(Date lastCommentedAt) {
 		this.lastCommentedAt = lastCommentedAt;
+		return this;
 	}
 
 	/**
@@ -206,8 +213,9 @@ public class Discussion extends IdentifiableModel<Long> {
 	 *
 	 * @param lastCommentedUser the new last commented user
 	 */
-	public void setLastCommentedUser(User lastCommentedUser) {
+	public Discussion setLastCommentedUser(User lastCommentedUser) {
 		this.lastCommentedUser = lastCommentedUser;
+		return this;
 	}
 
 	/**
@@ -224,8 +232,9 @@ public class Discussion extends IdentifiableModel<Long> {
 	 *
 	 * @param accessLevel the new access level
 	 */
-	public void setAccessLevel(String accessLevel) {
+	public Discussion setAccessLevel(String accessLevel) {
 		this.accessLevel = accessLevel;
+		return this;
 	}
 
 	/**
@@ -242,8 +251,9 @@ public class Discussion extends IdentifiableModel<Long> {
 	 *
 	 * @param parentId the new access level
 	 */
-	public void setParentId(Long parentId) {
+	public Discussion setParentId(Long parentId) {
 		this.parentId = parentId;
+		return this;
 	}
 
 	/**
@@ -260,8 +270,9 @@ public class Discussion extends IdentifiableModel<Long> {
 	 *
 	 * @param parentType the new access level
 	 */
-	public void setParentType(ParentType parentType) {
+	public Discussion setParentType(ParentType parentType) {
 		this.parentType = parentType;
+		return this;
 	}
 
 	/**

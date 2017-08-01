@@ -58,11 +58,12 @@ public class ShortcutDataItem {
 	
 	/**
 	 * Set the label for the data point.
-	 * 
+	 *
 	 * @param label
 	 */
-	public void setLabel(String label) {
+	public ShortcutDataItem setLabel(String label) {
 		this.label = label;
+		return this;
 	}
 	
 	/** 
@@ -76,11 +77,12 @@ public class ShortcutDataItem {
 	
 	/**
 	 * Set the label format string
-	 * 
+	 *
 	 * @param labelFormat
 	 */
-	public void setLabelFormat(String labelFormat) {
+	public ShortcutDataItem setLabelFormat(String labelFormat) {
 		this.labelFormat = labelFormat;
+		return this;
 	}
 	
 	/**
@@ -96,11 +98,12 @@ public class ShortcutDataItem {
 	/**
 	 * Set the MIME Type
 	 * (one of FILE, GOOGLE_DRIVE, LINK, BOX_COM, DROPBOX, EVERNOTE, or EGNYTE).
-	 * 
+	 *
 	 * @param mimeType
 	 */
-	public void setMimeType(String mimeType) {
+	public ShortcutDataItem setMimeType(String mimeType) {
 		this.mimeType = mimeType;
+		return this;
 	}
 	
 	/**
@@ -114,11 +117,12 @@ public class ShortcutDataItem {
 	
 	/** 
 	 * Set the hyperlink object
-	 * 
+	 *
 	 * @param hyperlink
 	 */
-	public void setHyperlink(Link hyperlink) {
+	public ShortcutDataItem setHyperlink(Link hyperlink) {
 		this.hyperlink = hyperlink;
+		return this;
 	}
 	
 	/**
@@ -132,10 +136,11 @@ public class ShortcutDataItem {
 	
 	/**
 	 * Set the display order for this shortcut data item
-	 * 
+	 *
 	 * @param order
 	 */
-	public void setOrder(Integer order) {
+	public ShortcutDataItem setOrder(Integer order) {
 		this.order = order;
+		return this;
 	}
 }

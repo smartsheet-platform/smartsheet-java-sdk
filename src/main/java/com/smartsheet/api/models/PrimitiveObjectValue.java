@@ -1,10 +1,10 @@
-package com.smartsheet.api.models.enums;
+package com.smartsheet.api.models;
 
 /*
  * #[license]
- * Smartsheet SDK for Java
+ * Smartsheet Java SDK
  * %%
- * Copyright (C) 2014 Smartsheet
+ * Copyright (C) 2014 - 2017 Smartsheet
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,25 +20,12 @@ package com.smartsheet.api.models.enums;
  * %[license]
  */
 
+import com.fasterxml.jackson.core.JsonGenerator;
 
+import java.io.IOException;
 
-/**
- * Represents the type of access that is granted on a given sheet.
- * @see <a href="http://www.smartsheet.com/developers/api-documentation#h.89hb3ivv7eum">Access Scopes Help</a>
- */
-public enum AccessScope {
-	READ_SHEETS,
-	WRITE_SHEETS,
-	SHARE_SHEETS,
-	DELETE_SHEETS,
-	CREATE_SHEETS,
-	CREATE_SIGHTS,
-	READ_SIGHTS,
-	DELETE_SIGHTS,
-	SHARE_SIGHTS,
-	READ_USERS,
-	ADMIN_USERS,
-	ADMIN_SHEETS,
-	ADMIN_WORKSPACES,
-	ADMIN_WEBHOOKS;
+public interface PrimitiveObjectValue<T> extends ObjectValue {
+    T getValue();
+    PrimitiveObjectValue<T> setValue(T value);
+    void serialize(JsonGenerator jsonGenerator) throws IOException;
 }

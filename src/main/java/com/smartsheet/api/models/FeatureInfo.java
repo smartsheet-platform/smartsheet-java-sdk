@@ -39,7 +39,8 @@ public class FeatureInfo {
      *
      * @param symbolsVersion the symbols version
      */
-    public void setSymbolsVersion(Integer symbolsVersion) {
+    public FeatureInfo setSymbolsVersion(Integer symbolsVersion) {
         this.symbolsVersion = symbolsVersion;
+        return this;
     }
 }

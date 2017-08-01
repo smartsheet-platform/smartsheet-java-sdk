@@ -50,8 +50,9 @@ public class Error {
 	 *
 	 * @param message the new message
 	 */
-	public void setMessage(String message) {
+	public Error setMessage(String message) {
 		this.message = message;
+		return this;
 	}
 
 	/**
@@ -68,7 +69,8 @@ public class Error {
 	 *
 	 * @param errorCode the new error code
 	 */
-	public void setErrorCode(Integer errorCode) {
+	public Error setErrorCode(Integer errorCode) {
 		this.errorCode = errorCode;
+		return this;
 	}
 }

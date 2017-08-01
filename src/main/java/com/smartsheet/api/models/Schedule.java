@@ -19,12 +19,12 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-import java.util.Date;
-import java.util.List;
-
 import com.smartsheet.api.models.enums.DayDescriptor;
 import com.smartsheet.api.models.enums.DayOrdinal;
 import com.smartsheet.api.models.enums.ScheduleType;
+
+import java.util.Date;
+import java.util.List;
 
 public class Schedule {
 
@@ -84,11 +84,12 @@ public class Schedule {
 	
 	/**
 	 * Set the schedule type
-	 * 
+	 *
 	 * @param type
 	 */
-	public void setType(ScheduleType type) {
+	public Schedule setType(ScheduleType type) {
 		this.type = type;
+		return this;
 	}
 	
 	/**
@@ -102,11 +103,12 @@ public class Schedule {
 	
 	/**
 	 * Set the date, time and time zone at which the first delivery will start
-	 * 
+	 *
 	 * @param startAt
 	 */
-	public void setStartAt(Date startAt) {
+	public Schedule setStartAt(Date startAt) {
 		this.startAt = startAt;
+		return this;
 	}
 	
 	/**
@@ -122,8 +124,9 @@ public class Schedule {
 	 * Set the date, time and time zone at which the delivery schedule will end
 	 * @param endAt
 	 */
-	public void setEndAt(Date endAt) {
+	public Schedule setEndAt(Date endAt) {
 		this.endAt = endAt;
+		return this;
 	}
 	
 	/**
@@ -137,11 +140,12 @@ public class Schedule {
 	
 	/**
 	 * Set the day within the month
-	 * 
+	 *
 	 * @param dayOfMonth
 	 */
-	public void setDayOfMonth(Integer dayOfMonth) {
+	public Schedule setDayOfMonth(Integer dayOfMonth) {
 		this.dayOfMonth = dayOfMonth;
+		return this;
 	}
 	
 	/**
@@ -155,11 +159,12 @@ public class Schedule {
 	
 	/**
 	 * Set the day ordinal
-	 * 
+	 *
 	 * @param dayOrdinal
 	 */
-	public void setDayOrdinal(DayOrdinal dayOrdinal) {
+	public Schedule setDayOrdinal(DayOrdinal dayOrdinal) {
 		this.dayOrdinal = dayOrdinal;
+		return this;
 	}
 	
 	/**
@@ -173,11 +178,12 @@ public class Schedule {
 	
 	/**
 	 * Set the array of day descriptors
-	 * 
+	 *
 	 * @param dayDescriptors
 	 */
-	public void setDayDescriptors(List<DayDescriptor> dayDescriptors) {
+	public Schedule setDayDescriptors(List<DayDescriptor> dayDescriptors) {
 		this.dayDescriptors = dayDescriptors;
+		return this;
 	}
 	
 	/**
@@ -191,11 +197,12 @@ public class Schedule {
 	
 	/**
 	 * Set the frequency on which the request will be delivered.
-	 * 
+	 *
 	 * @param repeatEvery
 	 */
-	public void setRepeatEvery(Integer repeatEvery) {
+	public Schedule setRepeatEvery(Integer repeatEvery) {
 		this.repeatEvery = repeatEvery;
+		return this;
 	}
 	
 	/**
@@ -209,11 +216,12 @@ public class Schedule {
 	
 	/**
 	 * Set the date and time for when the last request was sent.
-	 * 
+	 *
 	 * @param lastSentAt
 	 */
-	public void setLastSentAt(Date lastSentAt) {
+	public Schedule setLastSentAt(Date lastSentAt) {
 		this.lastSentAt = lastSentAt;
+		return this;
 	}
 	
 	/**
@@ -227,10 +235,11 @@ public class Schedule {
 	
 	/**
 	 * Set the date and time for when the next request is schedule to send.
-	 * 
+	 *
 	 * @param nextSendAt
 	 */
-	public void sentNextSendAt(Date nextSendAt) {
+	public Schedule sentNextSendAt(Date nextSendAt) {
 		this.nextSendAt = nextSendAt;
+		return this;
 	}
 }

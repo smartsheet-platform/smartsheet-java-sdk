@@ -19,8 +19,6 @@ package com.smartsheet.api.internal.json;
  * %[license]
  */
 
-import java.io.IOException;
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonToken;
@@ -28,21 +26,104 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.smartsheet.api.models.ObjectValue;
+import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.ObjectValueType;
+
+import java.io.IOException;
+import java.util.List;
 
 public class ObjectValueDeserializer extends JsonDeserializer<ObjectValue> {
 
 	@Override
 	public ObjectValue deserialize(JsonParser jp, DeserializationContext ctxt)
 			throws IOException, JsonProcessingException {
-		if(jp.getCurrentToken() == JsonToken.START_OBJECT) {
-			ObjectValue objectValue; 
+
+		final ObjectValue objectValue;
+
+		if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-			objectValue = mapper.readValue(jp, ObjectValue.class);
-			return objectValue;
+
+			ObjectValueAttributeSuperset superset = mapper.readValue(jp, ObjectValueAttributeSuperset.class);
+
+			ObjectValueType parsedObjectType;
+			try {
+				parsedObjectType = ObjectValueType.valueOf(superset.objectType);
+			} catch (IllegalArgumentException e) {
+				// If a new object type is introduced to the Smartsheet API that this version of the SDK doesn't support, return null instead of throwing an exception.
+				return null;
+			}
+
+			switch (parsedObjectType) {
+				case DURATION:
+					objectValue = new Duration(
+							superset.negative,
+							superset.elapsed,
+							superset.weeks,
+							superset.days,
+							superset.hours,
+							superset.minutes,
+							superset.seconds,
+							superset.milliseconds);
+					break;
+
+				case PREDECESSOR_LIST:
+					objectValue = new PredecessorList(superset.predecessors);
+					break;
+
+				case CONTACT:
+					ContactObjectValue contactObjectValue = new ContactObjectValue();
+					contactObjectValue.setName(superset.name);
+					contactObjectValue.setEmail(superset.email);
+					contactObjectValue.setId(superset.id);
+					objectValue = contactObjectValue;
+					break;
+
+
+				case DATE:				// Intentional fallthrough
+				case DATETIME:			// Intentional fallthrough
+				case ABSTRACT_DATETIME:
+					objectValue = new DateObjectValue(parsedObjectType, superset.value);
+					break;
+
+				default:
+					objectValue = null;
+			}
+		} else {
+			JsonToken token = jp.getCurrentToken();
+			if (token.isBoolean()) {
+				objectValue = new BooleanObjectValue(jp.getBooleanValue());
+			} else if (token.isNumeric()) {
+				objectValue = new NumberObjectValue(jp.getNumberValue());
+			} else {
+				objectValue = new StringObjectValue(jp.getText());
+			}
 		}
-		return null;
+		return objectValue;
 	}
 
+	private static class ObjectValueAttributeSuperset {
+		public String objectType; // This needs to be represented as a string so that any new object types added won't completely break the API
+
+		// PREDECESSOR_LIST specific attributes
+		public List<Predecessor> predecessors;
+
+		// DURATION specific attributes
+		public Boolean negative;
+		public Boolean elapsed;
+		public Integer weeks;
+		public Integer days;
+		public Integer hours;
+		public Integer minutes;
+		public Integer seconds;
+		public Integer milliseconds;
+
+		// CONTACT specific attributes
+		public String id;
+		public String name;
+		public String email;
+
+		// Various other types
+		public String value;
+	}
 }

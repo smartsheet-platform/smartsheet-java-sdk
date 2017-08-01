@@ -20,11 +20,11 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.smartsheet.api.models.enums.ColumnType;
 import com.smartsheet.api.models.format.Format;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents the Cell object that holds data in a sheet.
@@ -120,8 +120,9 @@ public class Cell {
 	 *
 	 * @param columnType the new columnType
 	 */
-	public void setColumnType(ColumnType columnType) {
+	public Cell setColumnType(ColumnType columnType) {
 		this.type = columnType;
+		return this;
 	}
 
 	/**
@@ -138,8 +139,9 @@ public class Cell {
 	 *
 	 * @param type the new columnType
 	 */
-	public void setType(ColumnType type) {
+	public Cell setType(ColumnType type) {
 		this.type = type;
+		return this;
 	}
 
 	/**
@@ -156,8 +158,9 @@ public class Cell {
 	 *
 	 * @param value the new value
 	 */
-	public void setValue(Object value) {
+	public Cell setValue(Object value) {
 		this.value = value;
+		return this;
 	}
 
 	/**
@@ -171,11 +174,12 @@ public class Cell {
 	
 	/**
 	 * Set object representation of the cell's value
-	 * 
+	 *
 	 * @param objectValue
 	 */
-	public void setObjectValue(ObjectValue objectValue) {
+	public Cell setObjectValue(ObjectValue objectValue) {
 		this.objectValue = objectValue;
+		return this;
 	}
 	
 	/**
@@ -192,8 +196,9 @@ public class Cell {
 	 *
 	 * @param displayValue the new display value
 	 */
-	public void setDisplayValue(String displayValue) {
+	public Cell setDisplayValue(String displayValue) {
 		this.displayValue = displayValue;
+		return this;
 	}
 
 	/**
@@ -210,8 +215,9 @@ public class Cell {
 	 *
 	 * @param columnId the new column id
 	 */
-	public void setColumnId(Long columnId) {
+	public Cell setColumnId(Long columnId) {
 		this.columnId = columnId;
+		return this;
 	}
 
 	/**
@@ -228,8 +234,9 @@ public class Cell {
 	 *
 	 * @param rowId the new row id
 	 */
-	public void setRowId(Long rowId) {
+	public Cell setRowId(Long rowId) {
 		this.rowId = rowId;
+		return this;
 	}
 
 	/**
@@ -247,8 +254,9 @@ public class Cell {
 	 * @param formula the new formula
 	 * @see <a href="http://help.smartsheet.com/customer/portal/articles/775363-using-formulas">Using Formulas</a>
 	 */
-	public void setFormula(String formula) {
+	public Cell setFormula(String formula) {
 		this.formula = formula;
+		return this;
 	}
 
 	/**
@@ -267,8 +275,9 @@ public class Cell {
 	 * @see <a href="http://www.smartsheet.com/developers/api-documentation#h.lay2yj3x1pp8">Column Types</a>
 	 * @param strict the new strict
 	 */
-	public void setStrict(Boolean strict) {
+	public Cell setStrict(Boolean strict) {
 		this.strict = strict;
+		return this;
 	}
 
 	/**
@@ -290,12 +299,12 @@ public class Cell {
 		 * @return the update row cells builder
 		 */
 		public UpdateRowCellsBuilder addCell(Long columnId, Object value, Boolean strict, Hyperlink hyperlink,  CellLink linkInFromCell) {
-			Cell cell = new Cell();
-			cell.setColumnId(columnId);
-			cell.setValue(value);
-			cell.setStrict(strict);
-			cell.setHyperlink(hyperlink);
-			cell.setLinkInFromCell(linkInFromCell);
+			Cell cell = new Cell()
+				.setColumnId(columnId)
+				.setValue(value)
+				.setStrict(strict)
+				.setHyperlink(hyperlink)
+				.setLinkInFromCell(linkInFromCell);
 			cells.add(cell);
 			return this;
 		}
@@ -336,8 +345,9 @@ public class Cell {
 	/**
 	 * @param format the {@link Format} to set
 	 */
-	public void setFormat(Format format) {
+	public Cell setFormat(Format format) {
 		this.format = format;
+		return this;
 	}
 
 	/**
@@ -350,8 +360,9 @@ public class Cell {
 	/**
 	 * @param hyperlink hyperlink to a URL, sheet, or report to set
 	 */
-	public void setHyperlink(Hyperlink hyperlink) {
+	public Cell setHyperlink(Hyperlink hyperlink) {
 		this.hyperlink = hyperlink;
+		return this;
 	}
 
 	/**
@@ -364,8 +375,9 @@ public class Cell {
 	/**
 	 * @param linkInFromCell inbound link from a cell in another sheet to set
 	 */
-	public void setLinkInFromCell(CellLink linkInFromCell) {
+	public Cell setLinkInFromCell(CellLink linkInFromCell) {
 		this.linkInFromCell = linkInFromCell;
+		return this;
 	}
 
 	/**
@@ -378,8 +390,9 @@ public class Cell {
 	/**
 	 * @param linksOutToCells array of CellLink objects
 	 */
-	public void setLinksOutToCells(List<CellLink> linksOutToCells) {
+	public Cell setLinksOutToCells(List<CellLink> linksOutToCells) {
 		this.linksOutToCells = linksOutToCells;
+		return this;
 	}
 
 	/**
@@ -392,8 +405,9 @@ public class Cell {
 	/**
 	 * @param conditionalFormat the format descriptor describing this cell’s conditional format to set
 	 */
-	public void setConditionalFormat(String conditionalFormat) {
+	public Cell setConditionalFormat(String conditionalFormat) {
 		this.conditionalFormat = conditionalFormat;
+		return this;
 	}
 
 	/**
@@ -410,8 +424,9 @@ public class Cell {
 	 * 
 	 * @param image
 	 */
-	public void setImage(Image image) {
+	public Cell setImage(Image image) {
 		this.image = image;
+		return this;
 	}
 	
 	/**
@@ -433,12 +448,12 @@ public class Cell {
 		 * @return the update row cells builder
 		 */
 		public AddRowCellsBuilder addCell(Long columnId, Object value, Boolean strict, Hyperlink hyperlink,  CellLink linkInFromCell) {
-			Cell cell = new Cell();
-			cell.setColumnId(columnId);
-			cell.setValue(value);
-			cell.setStrict(strict);
-			cell.setHyperlink(hyperlink);
-			cell.setLinkInFromCell(linkInFromCell);
+			Cell cell = new Cell()
+				.setColumnId(columnId)
+				.setValue(value)
+				.setStrict(strict)
+				.setHyperlink(hyperlink)
+				.setLinkInFromCell(linkInFromCell);
 			cells.add(cell);
 			return this;
 		}

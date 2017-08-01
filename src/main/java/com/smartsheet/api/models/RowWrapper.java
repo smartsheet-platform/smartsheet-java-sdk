@@ -65,8 +65,9 @@ public class RowWrapper {
 	 *
 	 * @param toTop the new to top
 	 */
-	public void setToTop(Boolean toTop) {
+	public RowWrapper setToTop(Boolean toTop) {
 		this.toTop = toTop;
+		return this;
 	}
 
 	/**
@@ -83,8 +84,9 @@ public class RowWrapper {
 	 *
 	 * @param toBottom the new to bottom
 	 */
-	public void setToBottom(Boolean toBottom) {
+	public RowWrapper setToBottom(Boolean toBottom) {
 		this.toBottom = toBottom;
+		return this;
 	}
 
 	/**
@@ -101,8 +103,9 @@ public class RowWrapper {
 	 *
 	 * @param parentId the new parent id
 	 */
-	public void setParentId(Long parentId) {
+	public RowWrapper setParentId(Long parentId) {
 		this.parentId = parentId;
+		return this;
 	}
 
 	/**
@@ -119,8 +122,9 @@ public class RowWrapper {
 	 *
 	 * @param siblingId the new sibling id
 	 */
-	public void setSiblingId(Long siblingId) {
+	public RowWrapper setSiblingId(Long siblingId) {
 		this.siblingId = siblingId;
+		return this;
 	}
 
 	/**
@@ -137,8 +141,9 @@ public class RowWrapper {
 	 *
 	 * @param rows the new rows
 	 */
-	public void setRows(List<Row> rows) {
+	public RowWrapper setRows(List<Row> rows) {
 		this.rows = rows;
+		return this;
 	}
 
 	/**

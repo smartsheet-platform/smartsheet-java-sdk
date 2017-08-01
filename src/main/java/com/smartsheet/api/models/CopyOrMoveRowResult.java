@@ -43,8 +43,9 @@ public class CopyOrMoveRowResult {
      *
      * @param destinationSheetId ID of the destination sheet
      */
-    public void setDestinationSheetId(String destinationSheetId) {
+    public CopyOrMoveRowResult setDestinationSheetId(String destinationSheetId) {
         this.destinationSheetId = destinationSheetId;
+        return this;
     }
 
     /**
@@ -61,7 +62,8 @@ public class CopyOrMoveRowResult {
      *
      * @param rowMappings the Array of RowMapping objects
      */
-    public void setRowMappings(List<RowMapping> rowMappings) {
+    public CopyOrMoveRowResult setRowMappings(List<RowMapping> rowMappings) {
         this.rowMappings = rowMappings;
+        return this;
     }
 }

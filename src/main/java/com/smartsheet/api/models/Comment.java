@@ -63,8 +63,9 @@ public class Comment extends IdentifiableModel<Long> {
 	 *
 	 * @param text the new text
 	 */
-	public void setText(String text) {
+	public Comment setText(String text) {
 		this.text = text;
+		return this;
 	}
 
 	/**
@@ -81,8 +82,9 @@ public class Comment extends IdentifiableModel<Long> {
 	 *
 	 * @param createdBy the new created by
 	 */
-	public void setCreatedBy(User createdBy) {
+	public Comment setCreatedBy(User createdBy) {
 		this.createdBy = createdBy;
+		return this;
 	}
 
 	/**
@@ -99,8 +101,9 @@ public class Comment extends IdentifiableModel<Long> {
 	 *
 	 * @param modifiedDate the new modified date
 	 */
-	public void setModifiedDate(Date modifiedDate) {
+	public Comment setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
+		return this;
 	}
 
 	/**
@@ -117,8 +120,9 @@ public class Comment extends IdentifiableModel<Long> {
 	 *
 	 * @param attachments the new attachments
 	 */
-	public void setAttachments(List<Attachment> attachments) {
+	public Comment setAttachments(List<Attachment> attachments) {
 		this.attachments = attachments;
+		return this;
 	}
 
 	/**
@@ -135,8 +139,9 @@ public class Comment extends IdentifiableModel<Long> {
 	 *
 	 * @param discussionId the new discussion id
 	 */
-	public void setDiscussionId(Long discussionId) {
+	public Comment setDiscussionId(Long discussionId) {
 		this.discussionId = discussionId;
+		return this;
 	}
 
 	/**
@@ -153,8 +158,9 @@ public class Comment extends IdentifiableModel<Long> {
 	 *
 	 * @param createdAt the new created at
 	 */
-	public void setCreatedAt(Date createdAt) {
+	public Comment setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
+		return this;
 	}
 
 	/**
@@ -171,8 +177,9 @@ public class Comment extends IdentifiableModel<Long> {
 	 *
 	 * @param modifiedAt the new modified at
 	 */
-	public void setModifiedAt(Date modifiedAt) {
+	public Comment setModifiedAt(Date modifiedAt) {
 		this.modifiedAt = modifiedAt;
+		return this;
 	}
 
 	/**

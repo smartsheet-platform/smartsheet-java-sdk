@@ -65,11 +65,12 @@ public class WidgetContent {
 	
 	/**
 	 * Set "when clicked" hyperlink
-	 * 
+	 *
 	 * @param hyperlink
 	 */
-	public void setHyperlink(Link hyperlink) {
+	public WidgetContent setHyperlink(Link hyperlink) {
 		this.hyperlink = hyperlink;
+		return this;
 	}
 	
 	/**
@@ -83,11 +84,12 @@ public class WidgetContent {
 	
 	/**
 	 * Set array of cell data
-	 * 
+	 *
 	 * @param cellData
 	 */
-	public void setCellData(List<CellDataItem> cellData) {
+	public WidgetContent setCellData(List<CellDataItem> cellData) {
 		this.cellData = cellData;
+		return this;
 	}
 	
 	/**
@@ -101,11 +103,12 @@ public class WidgetContent {
 	
 	/**
 	 * Set array of column objects
-	 * 
+	 *
 	 * @param column
 	 */
-	public void setColumn(List<Column> column) {
+	public WidgetContent setColumn(List<Column> column) {
 		this.column = column;
+		return this;
 	}
 	
 	/**
@@ -119,11 +122,12 @@ public class WidgetContent {
 	
 	/**
 	 * Set widget content as HTML
-	 * 
+	 *
 	 * @param html
 	 */
-	public void setHtml(String html) {
+	public WidgetContent setHtml(String html) {
 		this.html = html;
+		return this;
 	}
 	
 	/**
@@ -137,11 +141,12 @@ public class WidgetContent {
 	
 	/**
 	 * Set the array of ShortcutDataItems 
-	 * 
+	 *
 	 * @param shortcutData
 	 */
-	public void setShortcutData(List<ShortcutDataItem> shortcutData) {
+	public WidgetContent setShortcutData(List<ShortcutDataItem> shortcutData) {
 		this.shortcutData = shortcutData;
+		return this;
 	}
 	
 	/**
@@ -155,11 +160,12 @@ public class WidgetContent {
 	
 	/** 
 	 * Set HTML snippet to render Report
-	 * 
+	 *
 	 * @param htmlContent
 	 */
-	public void setHtmlContent(String htmlContent) {
+	public WidgetContent setHtmlContent(String htmlContent) {
 		this.htmlContent = htmlContent;
+		return this;
 	}
 	
 	/**
@@ -173,11 +179,12 @@ public class WidgetContent {
 	
 	/**
 	 * Set the image private Id
-	 * 
+	 *
 	 * @param privateId
 	 */
-	public void setPrivateId(String privateId) {
+	public WidgetContent setPrivateId(String privateId) {
 		this.privateId = privateId;
+		return this;
 	}
 	
 	/**
@@ -191,11 +198,12 @@ public class WidgetContent {
 	
 	/**
 	 * Set the original height of the image in pixels
-	 * 
+	 *
 	 * @param height
 	 */
-	public void setHeight(Integer height) {
+	public WidgetContent setHeight(Integer height) {
 		this.height = height;
+		return this;
 	}
 	
 	/**
@@ -209,11 +217,12 @@ public class WidgetContent {
 	
 	/**
 	 * Set the original width of the image in pixels
-	 * 
+	 *
 	 * @param width
 	 */
-	public void setWidth(Integer width) {
+	public WidgetContent setWidth(Integer width) {
 		this.width = width;
+		return this;
 	}
 	
 	/**
@@ -227,11 +236,12 @@ public class WidgetContent {
 	
 	/**
 	 * Set the file name of the image file
-	 * 
+	 *
 	 * @param fileName
 	 */
-	public void setFileName(String fileName) {
+	public WidgetContent setFileName(String fileName) {
 		this.fileName = fileName;
+		return this;
 	}
 	
 	/**
@@ -245,10 +255,11 @@ public class WidgetContent {
 	
 	/**
 	 * Set the format descriptor of the image
-	 * 
+	 *
 	 * @param format
 	 */
-	public void setFormat(String format) {
+	public WidgetContent setFormat(String format) {
 		this.format = format;
+		return this;
 	}
 }

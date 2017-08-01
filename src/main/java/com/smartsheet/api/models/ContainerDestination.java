@@ -22,7 +22,7 @@ package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.DestinationType;
 
-public class ContainerDestination extends NamedModel<Long>{
+public class ContainerDestination extends NamedModel<Long> {
 
     /** Represents the destination type when a Sheet or Folder is moved, or when a Sheet, Folder, or Workspace is copied.. */
     private DestinationType destinationType;
@@ -46,8 +46,9 @@ public class ContainerDestination extends NamedModel<Long>{
      * Sets the type for the folder
      * @param destinationType the destination type
      */
-    public void setDestinationType(DestinationType destinationType) {
+    public ContainerDestination setDestinationType(DestinationType destinationType) {
         this.destinationType = destinationType;
+        return this;
     }
 
     /**
@@ -63,8 +64,9 @@ public class ContainerDestination extends NamedModel<Long>{
      * Sets the id for the folder
      * @param destinationId the destination id
      */
-    public void setDestinationId(Long destinationId) {
+    public ContainerDestination setDestinationId(Long destinationId) {
         this.destinationId = destinationId;
+        return this;
     }
 
     /**
@@ -80,8 +82,9 @@ public class ContainerDestination extends NamedModel<Long>{
      * Sets the name for the destination
      * @param newName the new name
      */
-    public void setNewName(String newName) {
+    public ContainerDestination setNewName(String newName) {
         this.newName = newName;
+        return this;
     }
 
     /**

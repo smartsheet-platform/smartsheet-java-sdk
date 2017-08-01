@@ -70,8 +70,9 @@ public class Link {
 	 *
 	 * @param type the new type
 	 */
-	public void setType(LinkType type) {
+	public Link setType(LinkType type) {
 		this.type = type;
+		return this;
 	}
 
 	/**
@@ -88,8 +89,9 @@ public class Link {
 	 *
 	 * @param url the new url
 	 */
-	public void setUrl(String url) {
+	public Link setUrl(String url) {
 		this.url = url;
+		return this;
 	}
 
 	/**
@@ -106,8 +108,9 @@ public class Link {
 	 *
 	 * @param sheetId the new sheet id
 	 */
-	public void setSheetId(Long sheetId) {
+	public Link setSheetId(Long sheetId) {
 		this.sheetId = sheetId;
+		return this;
 	}
 
 	/**
@@ -121,11 +124,12 @@ public class Link {
 	
 	/**
 	 * Set the sight id.
-	 * 
+	 *
 	 * @param sightId
 	 */
-	public void setSightId(Long sightId) {
+	public Link setSightId(Long sightId) {
 		this.sightId = sightId;
+		return this;
 	}
 	
 	/**
@@ -142,8 +146,9 @@ public class Link {
 	 *
 	 * @param columnId the new column id
 	 */
-	public void setColumnId(Long columnId) {
+	public Link setColumnId(Long columnId) {
 		this.columnId = columnId;
+		return this;
 	}
 
 	/**
@@ -160,7 +165,8 @@ public class Link {
 	 *
 	 * @param rowId the new row id
 	 */
-	public void setRowId(Long rowId) {
+	public Link setRowId(Long rowId) {
 		this.rowId = rowId;
+		return this;
 	}
 }

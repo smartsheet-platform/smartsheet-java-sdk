@@ -44,8 +44,9 @@ public class Currency {
      *
      * @param code the currency code
      */
-    public void setCode(String code) {
+    public Currency setCode(String code) {
         this.code = code;
+        return this;
     }
 
     /**
@@ -62,7 +63,8 @@ public class Currency {
      *
      * @param symbol the currency symbol
      */
-    public void setSymbol(String symbol) {
+    public Currency setSymbol(String symbol) {
         this.symbol = symbol;
+        return this;
     }
 }

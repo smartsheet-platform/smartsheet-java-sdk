@@ -38,8 +38,9 @@ public class CopyOrMoveRowDestination {
      *
      * @param sheetId ID of the destination object
      */
-    public void setSheetId(Long sheetId) {
+    public CopyOrMoveRowDestination setSheetId(Long sheetId) {
         this.sheetId = sheetId;
+        return this;
     }
 
     /**

@@ -78,8 +78,9 @@ public class Folder extends NamedModel<Long> {
 	 *
 	 * @param permalink the new sheets
 	 */
-	public void setPermalink(String permalink) {
+	public Folder setPermalink(String permalink) {
 		this.permalink = permalink;
+		return this;
 	}
 
 	/**
@@ -96,8 +97,9 @@ public class Folder extends NamedModel<Long> {
 	 *
 	 * @param favorite the new sheets
 	 */
-	public void setFavorite(Boolean favorite) {
+	public Folder setFavorite(Boolean favorite) {
 		this.favorite = favorite;
+		return this;
 	}
 
 	/**
@@ -114,8 +116,9 @@ public class Folder extends NamedModel<Long> {
 	 *
 	 * @param sheets the new sheets
 	 */
-	public void setSheets(List<Sheet> sheets) {
+	public Folder setSheets(List<Sheet> sheets) {
 		this.sheets = sheets;
+		return this;
 	}
 
 	/**
@@ -132,8 +135,9 @@ public class Folder extends NamedModel<Long> {
 	 *
 	 * @param folders the new folders
 	 */
-	public void setFolders(List<Folder> folders) {
+	public Folder setFolders(List<Folder> folders) {
 		this.folders = folders;
+		return this;
 	}
 
 	/**
@@ -150,8 +154,9 @@ public class Folder extends NamedModel<Long> {
 	 *
 	 * @param reports the new reports
 	 */
-	public void setReports(List<Report> reports) {
+	public Folder setReports(List<Report> reports) {
 		this.reports = reports;
+		return this;
 	}
 
 	/**
@@ -168,8 +173,9 @@ public class Folder extends NamedModel<Long> {
 	 *
 	 * @param templates the new templates
 	 */
-	public void setTemplates(List<Template> templates) {
+	public Folder setTemplates(List<Template> templates) {
 		this.templates = templates;
+		return this;
 	}
 
 	/**
@@ -183,11 +189,12 @@ public class Folder extends NamedModel<Long> {
 	
 	/**
 	 * Sets the sights contained in this folder.
-	 * 
+	 *
 	 * @param sights
 	 */
-	public void setSights(List<Sight> sights) {
+	public Folder setSights(List<Sight> sights) {
 		this.sights = sights;
+		return this;
 	}
 	
 	/**
