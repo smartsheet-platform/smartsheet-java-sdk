@@ -33,10 +33,6 @@ import java.io.Closeable;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface HttpClient extends Closeable {
-	/** logger for requests */
-	static final Logger requestLogger = LoggerFactory.getLogger(HttpClient.class.getName() + ".request");
-	/** logger for responses */
-	static final Logger responseLogger = LoggerFactory.getLogger(HttpClient.class.getName() + ".response");
 	/** logger for general errors, warnings, etc */
 	static final Logger logger = LoggerFactory.getLogger(HttpClient.class);
 
@@ -60,4 +56,15 @@ public interface HttpClient extends Closeable {
 	 * Release connection.
 	 */
 	public void releaseConnection();
+
+	/**
+	 * set the debug level for this client
+	 * @return the previous debug level
+	 */
+	public boolean setDebugMode(boolean debug);
+
+	/**
+	 * @return the current debug level for this client
+	 */
+	public boolean getDebugMode();
 }
