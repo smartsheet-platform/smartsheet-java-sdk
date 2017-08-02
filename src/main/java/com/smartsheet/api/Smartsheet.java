@@ -157,6 +157,12 @@ public interface Smartsheet {
 	public void setAccessToken(String accessToken);
 
 	/**
+	 * <p>Set the debug mode for this client</p>
+	 * @param debug
+	 */
+	public void setDebugMode(boolean debug);
+
+	/**
 	 * @deprecated As of release 2.0, replaced by {@link #homeResources()}
 	 */
 	@Deprecated
