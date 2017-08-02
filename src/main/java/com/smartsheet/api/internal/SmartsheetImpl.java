@@ -560,6 +560,12 @@ public class SmartsheetImpl implements Smartsheet {
 		this.accessToken.set(accessToken);
 	}
 
+	@Override
+	public void setDebugMode(boolean debug) {
+		getHttpClient().setDebugMode(debug);
+	}
+
+
 	/**
 	 * @deprecated As of release 2.0, use sheetResources().columnResources()
 	 */
