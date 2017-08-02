@@ -69,6 +69,9 @@ import java.util.Map;
  * Thread Safety: This class is thread safe because it is immutable and the underlying SmartsheetImpl is thread safe.
  */
 public abstract class AbstractResources {
+	/** this system property is used to control the number of characters logged from an API response in logs */
+	public static final String PROPERTY_RESPONSE_LOG_CHARS = "Smartsheet.responseLogChars";
+
 	private static final Logger log = LoggerFactory.getLogger(AbstractResources.class);
 
 	/** The Constant BUFFER_SIZE. */
@@ -221,7 +224,7 @@ public abstract class AbstractResources {
 						if (log.isInfoEnabled()) {
 							ByteArrayOutputStream contentCopyStream = new ByteArrayOutputStream();
 							inputStream = StreamUtil.cloneContent(inputStream, contentCopyStream);
-							content = StreamUtil.toUtf8StringOrHex(contentCopyStream);
+							content = StreamUtil.toUtf8StringOrHex(contentCopyStream, getResponseLogLength());
 						}
 						obj = this.smartsheet.getJsonSerializer().deserialize(objectClass, inputStream);
 					} catch (JsonParseException e) {
@@ -288,12 +291,12 @@ public abstract class AbstractResources {
 			InputStream inputStream = response.getEntity().getContent();
 			switch (response.getStatusCode()) {
 				case 200:
-					// Can't be here as the stream has not
+					// Can't be here as the stream has not ...???
 					try {
 						if (log.isInfoEnabled()) {
 							ByteArrayOutputStream contentCopyStream = new ByteArrayOutputStream();
 							inputStream = StreamUtil.cloneContent(inputStream, contentCopyStream);
-							content = StreamUtil.toUtf8StringOrHex(contentCopyStream);
+							content = StreamUtil.toUtf8StringOrHex(contentCopyStream, getResponseLogLength());
 						}
 						obj = this.smartsheet.getJsonSerializer().deserializeResult(objectClass, inputStream).getResult();
 					} catch (JsonParseException e) {
@@ -1012,5 +1015,10 @@ public abstract class AbstractResources {
 			}
 		}
 		return headers;
+	}
+
+	int getResponseLogLength() {
+	 	// not cached to allow for it to be changed dynamically by client code
+	 	return Integer.getInteger(PROPERTY_RESPONSE_LOG_CHARS, 1024);
 	}
 }
