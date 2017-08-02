@@ -37,6 +37,8 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -69,6 +71,8 @@ public class DefaultHttpClient implements HttpClient {
 
 	/** UserAgent string sent with each request */
 	private final String userAgent;
+
+	private boolean inDebugMode;
 
 	@Deprecated // never used (within SDK)
 	public static final String USER_AGENT = "Mozilla/5.0 Firefox/26.0";
@@ -159,7 +163,12 @@ public class DefaultHttpClient implements HttpClient {
 		} else {
 			logRequest(apacheHttpRequest, null);
 		}
-		
+
+		if (inDebugMode) {
+			StringBuilder buf = new StringBuilder();
+			append(buf, apacheHttpRequest, entity, true);
+			System.out.println(buf.toString());
+		}
 		// Make the HTTP request
 		try {
 			apacheHttpResponse = this.httpClient.execute(apacheHttpRequest);
@@ -179,8 +188,12 @@ public class DefaultHttpClient implements HttpClient {
 				httpEntity.setContent(apacheHttpResponse.getEntity().getContent());
 				smartsheetResponse.setEntity(httpEntity);
 			}
-
 			logResponse(apacheHttpRequest, smartsheetResponse);
+			if (inDebugMode) {
+				StringBuilder buf = new StringBuilder();
+				append(buf, smartsheetResponse, smartsheetResponse.getEntity(), true);
+				System.out.println(buf.toString());
+			}
 		} catch (ClientProtocolException e) {
 			throw new HttpClientException("Error occurred.", e);
 		} catch (IOException e) {
@@ -198,6 +211,7 @@ public class DefaultHttpClient implements HttpClient {
 	 *
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
+	@Override
 	public void close() throws IOException {
 		this.httpClient.close();
 	}
@@ -205,6 +219,7 @@ public class DefaultHttpClient implements HttpClient {
 	/* (non-Javadoc)
 	 * @see com.smartsheet.api.internal.http.HttpClient#releaseConnection()
 	 */
+	@Override
 	public void releaseConnection() {
 		if(apacheHttpResponse != null){
 			try {
@@ -214,6 +229,18 @@ public class DefaultHttpClient implements HttpClient {
 				logger.error("error closing Apache HttpResponse - {}", e);
 			}
 		}
+	}
+
+	@Override
+	public boolean getDebugMode() {
+		return inDebugMode;
+	}
+
+	@Override
+	public boolean setDebugMode(boolean debug) {
+		boolean previous = inDebugMode;
+		inDebugMode = debug;
+		return previous;
 	}
 
 	static String generateUserAgent(Class<?> clazz) {
@@ -230,6 +257,8 @@ public class DefaultHttpClient implements HttpClient {
 	}
 
 	private static void logRequest(HttpRequestBase request, HttpEntity entity) {
+		// lazy-eval to allow for any config changes before first request is sent
+		Logger requestLogger = LoggerFactory.getLogger(HttpClient.class.getName() + ".request");
 		if (requestLogger.isTraceEnabled()) {
 			StringBuilder buf = new StringBuilder();
 			append(buf, request, entity, true);
@@ -242,9 +271,11 @@ public class DefaultHttpClient implements HttpClient {
 	}
 
 	private static void logResponse(HttpRequestBase request, HttpResponse response) {
+		// lazy-eval to allow for any config changes before first response is received
+		Logger responseLogger = LoggerFactory.getLogger(HttpClient.class.getName() + ".response");
 		if (response.getStatusCode() != 200) {
-			// verbose logging of non-OK responses
 			StringBuilder buf = new StringBuilder();
+			// verbose logging of non-OK responses
 			append(buf, response, response.getEntity(), true);
 			responseLogger.warn("Response ({}) - {}", System.identityHashCode(request), buf.toString());
 		} else if (responseLogger.isTraceEnabled()) {
