@@ -20,7 +20,7 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-public class RecipientGroup implements Recipient{
+public class RecipientGroup implements Recipient {
 
     /**
      * The ID of a group recipient.
@@ -39,8 +39,9 @@ public class RecipientGroup implements Recipient{
      * Set the group ID
      * @param groupId the group ID
      */
-    public void setGroupId(Long groupId) {
+    public RecipientGroup setGroupId(Long groupId) {
         this.groupId = groupId;
+        return this;
     }
 
     /**

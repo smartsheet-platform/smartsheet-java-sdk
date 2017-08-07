@@ -45,7 +45,8 @@ public abstract class NamedModel<T> extends IdentifiableModel<T> {
 	 *
 	 * @param name the new name
 	 */
-	public void setName(String name) {
+	public NamedModel<T> setName(String name) {
 		this.name = name;
+		return this;
 	}
 }

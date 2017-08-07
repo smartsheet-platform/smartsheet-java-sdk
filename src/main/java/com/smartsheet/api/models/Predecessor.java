@@ -62,11 +62,12 @@ public class Predecessor {
 	
 	/**
 	 * Set the Id of the predecessor row
-	 * 
+	 *
 	 * @param rowId
 	 */
-	public void setRowId(Long rowId) {
+	public Predecessor setRowId(Long rowId) {
 		this.rowId = rowId;
+		return this;
 	}
 	
 	/**
@@ -80,11 +81,12 @@ public class Predecessor {
 	
 	/**
 	 * Set the number of the predecessor row
-	 * 
+	 *
 	 * @param rowNumber
 	 */
-	public void setRowNumber(Integer rowNumber) {
+	public Predecessor setRowNumber(Integer rowNumber) {
 		this.rowNumber = rowNumber;
+		return this;
 	}
 	
 	/**
@@ -98,11 +100,12 @@ public class Predecessor {
 	
 	/**
 	 * Set the type of the predecessor
-	 * 
+	 *
 	 * @param type
 	 */
-	public void setType(String type) {
+	public Predecessor setType(String type) {
 		this.type = type;
+		return this;
 	}
 	
 	/**
@@ -116,11 +119,12 @@ public class Predecessor {
 	
 	/**
 	 * Set the lag value of this predecessor
-	 * 
+	 *
 	 * @param lag
 	 */
-	public void setLag(Duration lag) {
+	public Predecessor setLag(Duration lag) {
 		this.lag = lag;
+		return this;
 	}
 	
 	/**
@@ -136,11 +140,12 @@ public class Predecessor {
 	/**
 	 * Set flag indicating if the row referenced by rowId is not a valid row in this sheet,
 	 * or if there is a circular reference
-	 * 
+	 *
 	 * @param invalid
 	 */
-	public void setInvalid(Boolean invalid) {
+	public Predecessor setInvalid(Boolean invalid) {
 		this.invalid = invalid;
+		return this;
 	}
 	
 	/**
@@ -154,11 +159,12 @@ public class Predecessor {
 	
 	/**
 	 * Set flag indicating if this predecessor is in the critical path
-	 * 
+	 *
 	 * @param inCriticalPath
 	 */
-	public void setInCriticalPath(Boolean inCriticalPath) {
+	public Predecessor setInCriticalPath(Boolean inCriticalPath) {
 		this.inCriticalPath = inCriticalPath;
+		return this;
 	}
 }
 

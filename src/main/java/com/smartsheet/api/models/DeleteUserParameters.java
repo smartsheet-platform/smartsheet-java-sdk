@@ -69,8 +69,9 @@ public class DeleteUserParameters {
      * Sets the id of the user to transfer ownership to
      * @param transferToId the user id
      */
-    public void setTransferToId(Long transferToId) {
+    public DeleteUserParameters setTransferToId(Long transferToId) {
         this.transferToId = transferToId;
+        return this;
     }
 
     /**
@@ -85,8 +86,9 @@ public class DeleteUserParameters {
      * Sets the transfer sheets flag
      * @param transferSheets the transfer sheets flag
      */
-    public void setTransferSheets(boolean transferSheets) {
+    public DeleteUserParameters setTransferSheets(boolean transferSheets) {
         this.transferSheets = transferSheets;
+        return this;
     }
 
     /**
@@ -101,8 +103,9 @@ public class DeleteUserParameters {
      * Sets the remove from sharing flag
      * @param removeFromSharing the remove from sharing flag
      */
-    public void setRemoveFromSharing(boolean removeFromSharing) {
+    public DeleteUserParameters setRemoveFromSharing(boolean removeFromSharing) {
         this.removeFromSharing = removeFromSharing;
+        return this;
     }
 
     public String toQueryString() {

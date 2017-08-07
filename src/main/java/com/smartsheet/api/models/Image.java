@@ -52,11 +52,12 @@ public class Image {
 	
 	/**
 	 * Sets the image id
-	 * 
+	 *
 	 * @param id
 	 */
-	public void setId(String id) {
+	public Image setId(String id) {
 		this.id = id;
+		return this;
 	}
 	
 	/**
@@ -68,11 +69,12 @@ public class Image {
 
 	/**
 	 * sets the width (in pixels)
-	 * 
+	 *
 	 * @param width
 	 */
-	public void setWidth(Long width) {
+	public Image setWidth(Long width) {
 		this.width = width;
+		return this;
 	}
 	
 	/**
@@ -86,11 +88,12 @@ public class Image {
 	
 	/**
 	 * sets the width (in pixels) of the uploaded image
-	 * 
+	 *
 	 * @param height
 	 */
-	public void setHeight(Long height) {
+	public Image setHeight(Long height) {
 		this.height = height;
+		return this;
 	}
 
 	/**
@@ -104,10 +107,11 @@ public class Image {
 	
 	/**
 	 * set the alternate text (altText) for the image.
-	 * 
+	 *
 	 * @param altText
 	 */
-	public void setAltText(String altText) {
+	public Image setAltText(String altText) {
 		this.altText = altText;
+		return this;
 	}
 }

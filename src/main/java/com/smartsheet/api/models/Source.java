@@ -42,8 +42,8 @@ public class Source extends IdentifiableModel<Long> {
      *
      * @param type the type
      */
-    public void setType(SourceType type) {
+    public Source setType(SourceType type) {
         this.type = type;
+        return this;
     }
-
 }

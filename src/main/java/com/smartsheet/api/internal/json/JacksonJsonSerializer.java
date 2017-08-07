@@ -81,7 +81,11 @@ public class JacksonJsonSerializer implements JsonSerializer{
 		module = new SimpleModule("ObjectValueDeserializerModule", Version.unknownVersion());
 		module.addDeserializer(ObjectValue.class, new ObjectValueDeserializer());
 		OBJECT_MAPPER.registerModule(module);
-		
+
+		module = new SimpleModule("PrimitiveObjectValueSerializerModule", Version.unknownVersion());
+		module.addSerializer(PrimitiveObjectValue.class, new PrimitiveObjectValueSerializer());
+		OBJECT_MAPPER.registerModule(module);
+
 		module = new SimpleModule("RecipientDeserializerModule", Version.unknownVersion());
 		module.addDeserializer(Recipient.class, new RecipientDeserializer());
 		OBJECT_MAPPER.registerModule(module);

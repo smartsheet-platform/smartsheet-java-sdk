@@ -47,8 +47,9 @@ public class FontFamily {
      *
      * @param name the new name of the font family.
      */
-    public void setName(String name) {
+    public FontFamily setName(String name) {
         this.name = name;
+        return this;
     }
 
     /**
@@ -65,7 +66,8 @@ public class FontFamily {
      *
      * @param traits the new traits of the font family.
      */
-    public void setTraits(List<String> traits) {
+    public FontFamily setTraits(List<String> traits) {
         this.traits = traits;
+        return this;
     }
 }

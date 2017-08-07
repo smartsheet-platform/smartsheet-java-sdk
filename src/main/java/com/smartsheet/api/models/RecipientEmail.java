@@ -38,8 +38,9 @@ public class RecipientEmail implements Recipient {
      * Set the recipient's email
      * @param email the email
      */
-    public void setEmail(String email) {
+    public RecipientEmail setEmail(String email) {
         this.email = email;
+        return this;
     }
 
     /**

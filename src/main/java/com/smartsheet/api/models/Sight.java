@@ -1,9 +1,9 @@
 package com.smartsheet.api.models;
 
+import com.smartsheet.api.models.enums.AccessLevel;
+
 import java.util.Date;
 import java.util.List;
-
-import com.smartsheet.api.models.enums.AccessLevel;
 
 /*
  * #[license]
@@ -78,11 +78,12 @@ public class Sight extends NamedModel<Long> {
 	
 	/**
 	 * Set the number of columns that the Sight contains
-	 * 
+	 *
 	 * @param columnCount
 	 */
-	public void setColumnCount(Integer columnCount) {
+	public Sight setColumnCount(Integer columnCount) {
 		this.columnCount = columnCount;
+		return this;
 	}
 	
 	/**
@@ -96,11 +97,12 @@ public class Sight extends NamedModel<Long> {
 	
 	/**
 	 * Set the array of Sight widgets
-	 * 
+	 *
 	 * @param widgets
 	 */
-	public void setWidgets(List<Widget> widgets) {
+	public Sight setWidgets(List<Widget> widgets) {
 		this.widgets = widgets;
+		return this;
 	}
 	
 	/**
@@ -114,11 +116,12 @@ public class Sight extends NamedModel<Long> {
 	
 	/**
 	 * Set flag indicating whether the user has marked the Sight as a favorite
-	 * 
+	 *
 	 * @param favorite
 	 */
-	public void setFavorite(Boolean favorite) {
+	public Sight setFavorite(Boolean favorite) {
 		this.favorite = favorite;
+		return this;
 	}
 	
 	/** 
@@ -132,11 +135,12 @@ public class Sight extends NamedModel<Long> {
 	
 	/**
 	 * Set User's permissions on the Sight
-	 * 
+	 *
 	 * @param accessLevel
 	 */
-	public void setAccessLevel(AccessLevel accessLevel) {
+	public Sight setAccessLevel(AccessLevel accessLevel) {
 		this.accessLevel = accessLevel;
+		return this;
 	}
 	
 	/** 
@@ -150,11 +154,12 @@ public class Sight extends NamedModel<Long> {
 	
 	/**
 	 * Set URL pointing to a direct link to the Sight
-	 * 
+	 *
 	 * @param permalink
 	 */
-	public void setPermalink(String permalink) {
+	public Sight setPermalink(String permalink) {
 		this.permalink = permalink;
+		return this;
 	}
 	
 	/** 
@@ -168,11 +173,12 @@ public class Sight extends NamedModel<Long> {
 	
 	/**
 	 * Set time of Sight creation
-	 * 
+	 *
 	 * @param createdAt
 	 */
-	public void setCreatedAt(Date createdAt) {
+	public Sight setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
+		return this;
 	}
 	
 	/**
@@ -186,11 +192,12 @@ public class Sight extends NamedModel<Long> {
 	
 	/**
 	 * Set time of last modification
-	 * 
+	 *
 	 * @param modifiedAt
 	 */
-	public void setModifiedAt(Date modifiedAt) {
+	public Sight setModifiedAt(Date modifiedAt) {
 		this.modifiedAt = modifiedAt;
+		return this;
 	}
 	
 	/** 
@@ -204,10 +211,11 @@ public class Sight extends NamedModel<Long> {
 	
 	/**
 	 * Set workspace object for this Sight (limited to only id and name)
-	 * 
+	 *
 	 * @param workspace
 	 */
-	public void setWorkspace(Workspace workspace) {
+	public Sight setWorkspace(Workspace workspace) {
 		this.workspace = workspace;
+		return this;
 	}
 }

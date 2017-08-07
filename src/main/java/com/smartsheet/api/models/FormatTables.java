@@ -114,8 +114,9 @@ public class FormatTables {
      *
      * @param defaults the new defaults
      */
-    public void setDefaults(String defaults) {
+    public FormatTables setDefaults(String defaults) {
         this.defaults = defaults;
+        return this;
     }
 
     /**
@@ -132,8 +133,9 @@ public class FormatTables {
      *
      * @param fontFamily the new Font families
      */
-    public void setFontFamily(List<FontFamily> fontFamily) {
+    public FormatTables setFontFamily(List<FontFamily> fontFamily) {
         this.fontFamily = fontFamily;
+        return this;
     }
 
     /**
@@ -150,8 +152,9 @@ public class FormatTables {
      *
      * @param fontSize the new Font sizes in points
      */
-    public void setFontSize(List<String> fontSize) {
+    public FormatTables setFontSize(List<String> fontSize) {
         this.fontSize = fontSize;
+        return this;
     }
 
     /**
@@ -168,8 +171,9 @@ public class FormatTables {
      *
      * @param bold the new Possible bold values
      */
-    public void setBold(List<String> bold) {
+    public FormatTables setBold(List<String> bold) {
         this.bold = bold;
+        return this;
     }
 
     /**
@@ -186,8 +190,9 @@ public class FormatTables {
      *
      * @param italic the new Possible italic values
      */
-    public void setItalic(List<String> italic) {
+    public FormatTables setItalic(List<String> italic) {
         this.italic = italic;
+        return this;
     }
 
     /**
@@ -204,8 +209,9 @@ public class FormatTables {
      *
      * @param underline the new Possible underline values
      */
-    public void setUnderline(List<String> underline) {
+    public FormatTables setUnderline(List<String> underline) {
         this.underline = underline;
+        return this;
     }
 
     /**
@@ -222,8 +228,9 @@ public class FormatTables {
      *
      * @param strikethrough the new Possible strikethrough values
      */
-    public void setStrikethrough(List<String> strikethrough) {
+    public FormatTables setStrikethrough(List<String> strikethrough) {
         this.strikethrough = strikethrough;
+        return this;
     }
 
     /**
@@ -240,8 +247,9 @@ public class FormatTables {
      *
      * @param horizontalAlign the new Possible horizontalAlign values
      */
-    public void setHorizontalAlign(List<String> horizontalAlign) {
+    public FormatTables setHorizontalAlign(List<String> horizontalAlign) {
         this.horizontalAlign = horizontalAlign;
+        return this;
     }
 
     /**
@@ -258,8 +266,9 @@ public class FormatTables {
      *
      * @param verticalAlign the new Possible verticalAlign values
      */
-    public void setVerticalAlign(List<String> verticalAlign) {
+    public FormatTables setVerticalAlign(List<String> verticalAlign) {
         this.verticalAlign = verticalAlign;
+        return this;
     }
 
     /**
@@ -276,8 +285,9 @@ public class FormatTables {
      *
      * @param color the new Color hex values
      */
-    public void setColor(List<String> color) {
+    public FormatTables setColor(List<String> color) {
         this.color = color;
+        return this;
     }
 
     /**
@@ -294,8 +304,9 @@ public class FormatTables {
      *
      * @param currency the new Currency codes and symbols
      */
-    public void setCurrency(List<Currency> currency) {
+    public FormatTables setCurrency(List<Currency> currency) {
         this.currency = currency;
+        return this;
     }
 
     /**
@@ -312,8 +323,9 @@ public class FormatTables {
      *
      * @param decimalCount the new allowed decimal count values
      */
-    public void setDecimalCount(List<String> decimalCount) {
+    public FormatTables setDecimalCount(List<String> decimalCount) {
         this.decimalCount = decimalCount;
+        return this;
     }
 
     /**
@@ -330,8 +342,9 @@ public class FormatTables {
      *
      * @param thousandsSeparator the new thousandsSeparator values
      */
-    public void setThousandsSeparator(List<String> thousandsSeparator) {
+    public FormatTables setThousandsSeparator(List<String> thousandsSeparator) {
         this.thousandsSeparator = thousandsSeparator;
+        return this;
     }
 
     /**
@@ -348,8 +361,9 @@ public class FormatTables {
      *
      * @param numberFormat the new numberFormat values
      */
-    public void setNumberFormat(List<String> numberFormat) {
+    public FormatTables setNumberFormat(List<String> numberFormat) {
         this.numberFormat = numberFormat;
+        return this;
     }
 
     /**
@@ -366,7 +380,8 @@ public class FormatTables {
      *
      * @param textWrap the new textWrap values
      */
-    public void setTextWrap(List<String> textWrap) {
+    public FormatTables setTextWrap(List<String> textWrap) {
         this.textWrap = textWrap;
+        return this;
     }
 }

@@ -44,8 +44,9 @@ public class CopyOrMoveRowDirective {
      *
      * @param rowIds ID of the destination sheet
      */
-    public void setRowIds(List<Long> rowIds) {
+    public CopyOrMoveRowDirective setRowIds(List<Long> rowIds) {
         RowIds = rowIds;
+        return this;
     }
 
     /**
@@ -62,8 +63,9 @@ public class CopyOrMoveRowDirective {
      *
      * @param to CopyOrMoveRowDestination object
      */
-    public void setTo(CopyOrMoveRowDestination to) {
+    public CopyOrMoveRowDirective setTo(CopyOrMoveRowDestination to) {
         this.to = to;
+        return this;
     }
 
     /**

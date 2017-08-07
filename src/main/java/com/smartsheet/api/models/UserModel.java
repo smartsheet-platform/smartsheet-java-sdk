@@ -50,8 +50,9 @@ public abstract class UserModel extends IdentifiableModel<Long> {
      *
      * @param email the new email address
      */
-    public void setEmail(String email) {
+    public UserModel setEmail(String email) {
         this.email = email;
+        return this;
     }
 
     /**
@@ -68,8 +69,9 @@ public abstract class UserModel extends IdentifiableModel<Long> {
      *
      * @param firstName the new first name
      */
-    public void setFirstName(String firstName) {
+    public UserModel setFirstName(String firstName) {
         this.firstName = firstName;
+        return this;
     }
 
     /**
@@ -86,7 +88,8 @@ public abstract class UserModel extends IdentifiableModel<Long> {
      *
      * @param lastName the new last name
      */
-    public void setLastName(String lastName) {
+    public UserModel setLastName(String lastName) {
         this.lastName = lastName;
+        return this;
     }
 }

@@ -26,7 +26,7 @@ import java.util.Date;
  * Represents the UpdateRequest object.
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/504779-using-update-requests">Using Update Request Help</a>
  */
-public class UpdateRequest extends MultiRowEmail{
+public class UpdateRequest extends MultiRowEmail {
 
     /**
      * Represents the ID of the update request.
@@ -67,8 +67,9 @@ public class UpdateRequest extends MultiRowEmail{
      * 
      * @param id
      */
-    public void setId(Long id) {
+    public UpdateRequest setId(Long id) {
         this.id = id;
+        return this;
     }
     
     /**
@@ -85,8 +86,9 @@ public class UpdateRequest extends MultiRowEmail{
      * 
      * @param sentBy
      */
-    public void setSentBy(User sentBy) {
+    public UpdateRequest setSentBy(User sentBy) {
     	this.sentBy = sentBy;
+    	return this;
     }
     
     /**
@@ -103,8 +105,9 @@ public class UpdateRequest extends MultiRowEmail{
      * 
      * @param schedule
      */
-    public void setSchedule(Schedule schedule) {
+    public UpdateRequest setSchedule(Schedule schedule) {
     	this.schedule = schedule;
+    	return this;
     }
     
     /**
@@ -121,8 +124,9 @@ public class UpdateRequest extends MultiRowEmail{
      *  
      * @param createdAt
      */
-    public void setCreatedAt(Date createdAt) {
+    public UpdateRequest setCreatedAt(Date createdAt) {
     	this.createdAt = createdAt;
+    	return this;
     }
     
     /**
@@ -139,7 +143,8 @@ public class UpdateRequest extends MultiRowEmail{
      * 
      * @param modifiedAt
      */
-    public void setModifiedAt(Date modifiedAt) {
+    public UpdateRequest setModifiedAt(Date modifiedAt) {
     	this.modifiedAt = modifiedAt;
+    	return this;
     }
 }

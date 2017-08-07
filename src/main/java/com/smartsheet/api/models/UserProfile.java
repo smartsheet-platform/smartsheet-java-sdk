@@ -89,8 +89,9 @@ public class UserProfile extends UserModel {
 	 *
 	 * @param admin the new admin
 	 */
-	public void setAdmin(Boolean admin) {
+	public UserProfile setAdmin(Boolean admin) {
 		this.admin = admin;
+		return this;
 	}
 
 	/**
@@ -107,8 +108,9 @@ public class UserProfile extends UserModel {
 	 *
 	 * @param licensedSheetCreator the new licensed sheet creator
 	 */
-	public void setLicensedSheetCreator(Boolean licensedSheetCreator) {
+	public UserProfile setLicensedSheetCreator(Boolean licensedSheetCreator) {
 		this.licensedSheetCreator = licensedSheetCreator;
+		return this;
 	}
 
 	/**
@@ -125,8 +127,9 @@ public class UserProfile extends UserModel {
 	 *
 	 * @param status the new status
 	 */
-	public void setStatus(UserStatus status) {
+	public UserProfile setStatus(UserStatus status) {
 		this.status = status;
+		return this;
 	}
 
 	/**
@@ -140,8 +143,9 @@ public class UserProfile extends UserModel {
 	 * Sets the resource manager flag.
 	 * @param resourceViewer the flag
 	 */
-	public void setResourceViewer(Boolean resourceViewer) {
+	public UserProfile setResourceViewer(Boolean resourceViewer) {
 		this.resourceViewer = resourceViewer;
+		return this;
 	}
 
 	/**
@@ -155,15 +159,17 @@ public class UserProfile extends UserModel {
 	/**
 	 * @param groupAdmin sets the flag that indicates if someone is a groupAdmin
 	 */
-	public void setGroupAdmin(Boolean groupAdmin) {
+	public UserProfile setGroupAdmin(Boolean groupAdmin) {
 		this.groupAdmin = groupAdmin;
+		return this;
 	}
 	/**
 	 * Sets the time zone
 	 * @param timeZone the time zone
 	 */
-	public void setTimeZone(String timeZone) {
+	public UserProfile setTimeZone(String timeZone) {
 		this.timeZone = timeZone;
+		return this;
 	}
 
 	/**
@@ -178,8 +184,9 @@ public class UserProfile extends UserModel {
 	 * Sets the locale
 	 * @param locale the locale
 	 */
-	public void setLocale(String locale) {
+	public UserProfile setLocale(String locale) {
 		this.locale = locale;
+		return this;
 	}
 
 	/**
@@ -194,7 +201,8 @@ public class UserProfile extends UserModel {
 	 * Sets the account
 	 * @param account the account
 	 */
-	public void setAccount(Account account) {
+	public UserProfile setAccount(Account account) {
 		this.account = account;
+		return this;
 	}
 }

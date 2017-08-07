@@ -23,7 +23,7 @@ package com.smartsheet.api.models;
 /**
  * Represents the ReportCell object.
  */
-public class ReportCell extends Cell{
+public class ReportCell extends Cell {
 
     /**
      * Represents the virtual ID of the cell’s column.
@@ -44,7 +44,8 @@ public class ReportCell extends Cell{
      *
      * @param virtualColumnId the new title
      */
-    public void setVirtualColumnId(Long virtualColumnId) {
+    public ReportCell setVirtualColumnId(Long virtualColumnId) {
         this.virtualColumnId = virtualColumnId;
+        return this;
     }
 }
