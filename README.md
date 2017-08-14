@@ -1,15 +1,19 @@
-# Smartsheet Java SDK
+# Smartsheet SDK for Java
 
 This is a Java SDK to simplify connecting to [Smartsheet API](http://www.smartsheet.com/developers/api-documentation) in Java applications.
+
+## System Requirements
+
+The SDK supports Java version 1.6 or later.
 
 ## Installation
 There are three different ways to install the SDK. Select the one that fits your environment best:
 
-1. [Use Maven](#1-maven)
-2. [Download Jar File](#2-download-jar-file)
-3. [Compile From Source](#3-compile-from-source)
+* [Install By Using Maven](install-by-using-maven)
+* [Install By Downloading the Jar File](install-by-downloading-the-jar-file)
+* [Install By Compiling Directly From Source](install-by-compiling-directly-from-source)
 
-### 1. Use Maven
+### Install By Using Maven
 Add the SDK as a dependency in your project.
 
 ```xml
@@ -20,7 +24,7 @@ Add the SDK as a dependency in your project.
 </dependency>
 ```
 
-### 2. Download Jar File
+### Install By Downloading the Jar File
 <!--* [The SDK packaged in a jar with Dependencies](https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST) built in.-->
 [SDK packaged as a jar](https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST). This jar requires that all of the following dependencies are manually added to the path:
 
@@ -29,7 +33,7 @@ Add the SDK as a dependency in your project.
 	Jackson FasterXML 2.6.2
 	Jackson Core 2.6.2
 
-### 3. Compile from source
+### Install By Compiling Directly From Source
 The source code for the jar can be downloaded from Github and then compiled. This can be accomplished using [git](http://git-scm.com/) and [maven](http://maven.apache.org/) with the following 3 steps.
 
 ```bash
@@ -39,14 +43,20 @@ mvn package
 ```
 
 ## Documentation
-The API is documented here: http://smartsheet-platform.github.io/api-docs/?java
-The SDK javadoc is here: [http://smartsheet-platform.github.io/smartsheet-java-sdk](http://smartsheet-platform.github.io/smartsheet-java-sdk) (Download as a jar file [here](http://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST&c=javadoc).)
+The full Smartsheet API documentation is here: http://smartsheet-platform.github.io/api-docs/?java
+
+The generated SDK javadoc is here: [http://smartsheet-platform.github.io/smartsheet-java-sdk](http://smartsheet-platform.github.io/smartsheet-java-sdk) (Download as a jar file [here](http://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST&c=javadoc).)
 
 ## Example Usage
-A reference sample application is here: https://github.com/smartsheet-samples/java-read-write-sheet
+To call the API, you will need an *access token*, which looks something like this example: ll352u9jujauoqz4gstvsae05. You can find the access token in the UI at Account > Personal Settings > API Access.
 
+The following is a brief sample that shows you how to:
 
-To use the Java SDK, you'll need to include the appropriate **import** directives in your code. For example, the code examples in this section require the following **import** directives:
+* Initialize the client
+* List all sheets
+* Load one sheet
+
+To initialize the client, you'll need to include the appropriate **import** directives in your code. For example, the code examples in this section require the following **import** directives:
 
 ```java
 import com.smartsheet.api.*;
@@ -141,6 +151,8 @@ public static void OAuthExample() throws SmartsheetException, UnsupportedEncodin
     // Save the token or use it.
 }
 ```
+
+A reference sample application is here: https://github.com/smartsheet-samples/java-read-write-sheet
 
 More Java examples available [here](https://github.com/smartsheet-samples/).
 
