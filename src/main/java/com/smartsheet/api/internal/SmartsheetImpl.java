@@ -561,8 +561,8 @@ public class SmartsheetImpl implements Smartsheet {
 	}
 
 	@Override
-	public void setDebugMode(boolean debug) {
-		getHttpClient().setDebugMode(debug);
+	public void setTraces(Trace... traces) {
+		getHttpClient().setTraces(traces);
 	}
 
 
