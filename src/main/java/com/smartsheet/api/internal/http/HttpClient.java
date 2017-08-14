@@ -22,10 +22,12 @@ package com.smartsheet.api.internal.http;
 
 
 
+import com.smartsheet.api.Trace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Closeable;
+import java.util.Set;
 
 /**
  * This interface defines methods to make an HTTP request.
@@ -58,13 +60,12 @@ public interface HttpClient extends Closeable {
 	public void releaseConnection();
 
 	/**
-	 * set the debug level for this client
-	 * @return the previous debug level
+	 * set the traces for this client
 	 */
-	public boolean setDebugMode(boolean debug);
+	public void setTraces(Trace... traces);
 
 	/**
-	 * @return the current debug level for this client
+	 * @return the current traces enabled for this client (not a live copy so can be modified without side-effects)
 	 */
-	public boolean getDebugMode();
+	public Set<Trace> getTraces();
 }
