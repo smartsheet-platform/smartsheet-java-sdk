@@ -23,25 +23,45 @@ package com.smartsheet.api.internal.util;
 public class Util {
 
 	public Util() {}
-	
+
+	/** faster util method that avoids creation of array for single-arg cases */
+	public static void throwIfNull(Object obj) {
+		if(obj == null){
+			throw new IllegalArgumentException();
+		}
+	}
+
+	/** faster util method that avoids creation of array for two-arg cases */
+	public static void throwIfNull(Object obj1, Object obj2) {
+		if(obj1 == null){
+			throw new IllegalArgumentException();
+		}
+		if(obj2 == null){
+			throw new IllegalArgumentException();
+		}
+	}
+
 	/**
 	 * Helper function that throws an IllegalArgumentException if one of the parameters is null.
 	 * @param objects the paramters to 
 	 */
 	public static void throwIfNull(Object... objects) {
 		for (Object obj : objects) {
-			if(obj == null){
-				throw new IllegalArgumentException();
-			}
-		}
-	}
-	
-	public static void throwIfEmpty(String... strings) {
-		for (String string : strings) {
-			if(string != null && string.isEmpty()){
-				throw new IllegalArgumentException();
-			}
+			throwIfNull(obj);
 		}
 	}
 
+
+	/** faster util method that avoids creation of array for single-arg cases */
+	public static void throwIfEmpty(String string) {
+		if(string != null && string.isEmpty()){ // FIXME - so... null isn't empty?
+			throw new IllegalArgumentException();
+		}
+	}
+
+	public static void throwIfEmpty(String... strings) {
+		for (String string : strings) {
+			throwIfEmpty(string);
+		}
+	}
 }
