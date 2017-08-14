@@ -157,10 +157,10 @@ public interface Smartsheet {
 	public void setAccessToken(String accessToken);
 
 	/**
-	 * <p>Set the debug mode for this client</p>
-	 * @param debug
+	 * <p>Enable request/response tracing in client</p>
+	 * @param levels - what to trace (if anything; null if not tracing at all)
 	 */
-	public void setDebugMode(boolean debug);
+	public void setTraces(Trace... levels);
 
 	/**
 	 * @deprecated As of release 2.0, replaced by {@link #homeResources()}
