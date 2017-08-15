@@ -80,17 +80,17 @@ public static void SampleCode() throws SmartsheetException{
         null            // Date modifiedSince
     );
 
-    Console.WriteLine("Found " + sheets.TotalCount + " sheets");
+    System.out.println("Found " + sheets.getTotalCount() + " sheets");
 
-    long sheetId = (long) sheets.Data[0].Id;                // Default to first sheet
+    long sheetId = (long) sheets.getData([0].Id);                // Default to first sheet
 
     // sheetId = 567034672138842L;                          // TODO: Uncomment if you wish to read a specific sheet
 
-    Console.WriteLine("Loading sheet id: " + sheetId);
+    System.out.println("Loading sheet id: " + sheetId);
 
     // Load the entire sheet
     Sheet sheet = smartsheet.sheetResources().getSheet(
-        567034672138842L,      // long sheetId
+        sheetId,                // long sheetId
         null,                   // EnumSet<SheetInclusion> includes    
         null,                   // EnumSet<ObjectExclusion> excludes
         null,                   // Set<Long> rowIds
@@ -99,7 +99,7 @@ public static void SampleCode() throws SmartsheetException{
         null,                   // Integer pageSize
         null                    // Integer page
     );
-    Console.WriteLine("Loaded " + sheet.Rows.Count + " rows from sheet: " + sheet.Name);
+    System.out.println("Loaded " + sheet.getTotalRowCount() + " rows from sheet: " + sheet.getName());
 }
 ```
 
