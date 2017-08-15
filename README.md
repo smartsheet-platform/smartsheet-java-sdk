@@ -64,43 +64,45 @@ To initialize the client, you'll need to include the appropriate **import** dire
 import com.smartsheet.api.*;
 import com.smartsheet.api.models.*;
 import com.smartsheet.api.oauth.*;
+import java.io.FileInputStream;
+import java.util.*;
 ```
 
 ```java
-public static void SampleCode() throws SmartsheetException{
+// Initialize client
+Smartsheet smartsheet = new SmartsheetBuilder().setAccessToken(accessToken).build();
 
-    // Set the Access Token
-    Token token = new Token();
-    token.setAccessToken("ll352u9jujauoqz4gstvsae05");
+// Set the Access Token
+Token token = new Token();
+token.setAccessToken("ll352u9jujauoqz4gstvsae05");
 
-    // List all sheets
-    PagedResult<Sheet> sheets = smartsheet.sheetResources().listSheets(
-        null,           // EnumSet<SourceInclusion> includes
-        null,           // PaginationParameters
-        null            // Date modifiedSince
-    );
+// List all sheets
+PagedResult<Sheet> sheets = smartsheet.sheetResources().listSheets(
+    null,           // EnumSet<SourceInclusion> includes
+    null,           // PaginationParameters
+    null            // Date modifiedSince
+);
 
-    System.out.println("Found " + sheets.getTotalCount() + " sheets");
+System.out.println("Found " + sheets.getTotalCount() + " sheets");
 
-    long sheetId = (long) sheets.getData([0].Id);                // Default to first sheet
+long sheetId = sheets.getData().get(0).getId();      // Default to first sheet
 
-    // sheetId = 567034672138842L;                          // TODO: Uncomment if you wish to read a specific sheet
+// sheetId = 567034672138842L;                       // TODO: Uncomment if you wish to read a specific sheet
 
-    System.out.println("Loading sheet id: " + sheetId);
+System.out.println("Loading sheet id: " + sheetId);
 
-    // Load the entire sheet
-    Sheet sheet = smartsheet.sheetResources().getSheet(
-        sheetId,                // long sheetId
-        null,                   // EnumSet<SheetInclusion> includes    
-        null,                   // EnumSet<ObjectExclusion> excludes
-        null,                   // Set<Long> rowIds
-        null,                   // Set<Integer> rowNumbers
-        null,                   // Set<Long> columnIds
-        null,                   // Integer pageSize
-        null                    // Integer page
-    );
-    System.out.println("Loaded " + sheet.getTotalRowCount() + " rows from sheet: " + sheet.getName());
-}
+// Load the entire sheet
+Sheet sheet = smartsheet.sheetResources().getSheet(
+    sheetId,                // long sheetId
+    null,                   // EnumSet<SheetInclusion> includes
+    null,                   // EnumSet<ObjectExclusion> excludes
+    null,                   // Set<Long> rowIds
+    null,                   // Set<Integer> rowNumbers
+    null,                   // Set<Long> columnIds
+    null,                   // Integer pageSize
+    null                    // Integer page
+);
+System.out.println("Loaded " + sheet.getTotalRowCount() + " rows from sheet: " + sheet.getName());
 ```
 
 A simple, but complete sample application is here: https://github.com/smartsheet-samples/java-read-write-sheet
