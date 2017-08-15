@@ -70,7 +70,7 @@ import java.util.*;
 
 ```java
 // Initialize client
-String accessToken = "ll352u9jujauoqz4gstvsae05"
+String accessToken = "ll352u9jujauoqz4gstvsae05";
 
 Smartsheet smartsheet = new SmartsheetBuilder().setAccessToken(accessToken).build();
 
