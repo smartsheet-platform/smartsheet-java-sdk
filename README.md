@@ -9,9 +9,9 @@ The SDK supports Java version 1.6 or later.
 ## Installation
 There are three different ways to install the SDK. Select the one that fits your environment best:
 
-* [Install By Using Maven](install-by-using-maven)
-* [Install By Downloading the Jar File](install-by-downloading-the-jar-file)
-* [Install By Compiling Directly From Source](install-by-compiling-directly-from-source)
+* [Install By Using Maven](#install-by-using-maven)
+* [Install By Downloading the Jar File](#install-by-downloading-the-jar-file)
+* [Install By Compiling Directly From Source](#install-by-compiling-directly-from-source)
 
 ### Install By Using Maven
 Add the SDK as a dependency in your project.
@@ -32,6 +32,8 @@ Add the SDK as a dependency in your project.
 	Simple Logging Facade for Java 1.7.12
 	Jackson FasterXML 2.6.2
 	Jackson Core 2.6.2
+
+You can also navigate to the [Sonatype Library Page](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22smartsheet-sdk-java%22) instead of directly downloading the Jar file.
 
 ### Install By Compiling Directly From Source
 The source code for the jar can be downloaded from Github and then compiled. This can be accomplished using [git](http://git-scm.com/) and [maven](http://maven.apache.org/) with the following 3 steps.
@@ -61,42 +63,44 @@ To initialize the client, you'll need to include the appropriate **import** dire
 ```java
 import com.smartsheet.api.*;
 import com.smartsheet.api.models.*;
-import com.smartsheet.api.models.enums.SourceInclusion;
-import com.smartsheet.api.models.enums.ColumnType;
 import com.smartsheet.api.oauth.*;
 ```
 
 ```java
-// Set the Access Token
-Token token = new Token();
-token.setAccessToken("ll352u9jujauoqz4gstvsae05");
+public static void SampleCode() throws SmartsheetException{
 
-// You can List Sheets with or without pagination. Here are samples for both ways to do it.
+    // Set the Access Token
+    Token token = new Token();
+    token.setAccessToken("ll352u9jujauoqz4gstvsae05");
 
-// Sample 1: Omit 'include' parameter and pagination parameters
-PagedResult<Sheet> sheets = smartsheet.sheetResources().listSheets(
-    null,           // EnumSet<SourceInclusion> includes
-    null,           // PaginationParameters
-    null            // Date modifiedSince
-);
+    // List all sheets
+    PagedResult<Sheet> sheets = smartsheet.sheetResources().listSheets(
+        null,           // EnumSet<SourceInclusion> includes
+        null,           // PaginationParameters
+        null            // Date modifiedSince
+    );
 
-// Sample 2: Specify pagination parameter 'includeAll' 
-PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+    Console.WriteLine("Found " + sheets.TotalCount + " sheets");
 
-// Specify 'include' parameter with value of "SOURCE", and 'includeAll' parameter with value of 'true'
-PagedResult<Sheet> sheets = smartsheet.sheetResources().listSheets(EnumSet.of(SourceInclusion.SOURCE), parameters, modifiedSince);    
+    long sheetId = (long) sheets.Data[0].Id;                // Default to first sheet
 
-// In the response, find the sheet you want details about and copy that sheet ID to Get Sheet
-Sheet sheet = smartsheet.sheetResources().getSheet(
-    9283173393803140L,      // long sheetId
-    null,                   // EnumSet<SheetInclusion> includes    
-    null,                   // EnumSet<ObjectExclusion> excludes
-    null,                   // Set<Long> rowIds
-    null,                   // Set<Integer> rowNumbers
-    null,                   // Set<Long> columnIds
-    null,                   // Integer pageSize
-    null                    // Integer page
-);
+    // sheetId = 567034672138842L;                          // TODO: Uncomment if you wish to read a specific sheet
+
+    Console.WriteLine("Loading sheet id: " + sheetId);
+
+    // Load the entire sheet
+    Sheet sheet = smartsheet.sheetResources().getSheet(
+        567034672138842L,      // long sheetId
+        null,                   // EnumSet<SheetInclusion> includes    
+        null,                   // EnumSet<ObjectExclusion> excludes
+        null,                   // Set<Long> rowIds
+        null,                   // Set<Integer> rowNumbers
+        null,                   // Set<Long> columnIds
+        null,                   // Integer pageSize
+        null                    // Integer page
+    );
+    Console.WriteLine("Loaded " + sheet.Rows.Count + " rows from sheet: " + sheet.Name);
+}
 ```
 
 A simple, but complete sample application is here: https://github.com/smartsheet-samples/java-read-write-sheet
