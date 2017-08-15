@@ -70,11 +70,9 @@ import java.util.*;
 
 ```java
 // Initialize client
-Smartsheet smartsheet = new SmartsheetBuilder().setAccessToken(accessToken).build();
+String accessToken = "ll352u9jujauoqz4gstvsae05"
 
-// Set the Access Token
-Token token = new Token();
-token.setAccessToken("ll352u9jujauoqz4gstvsae05");
+Smartsheet smartsheet = new SmartsheetBuilder().setAccessToken(accessToken).build();
 
 // List all sheets
 PagedResult<Sheet> sheets = smartsheet.sheetResources().listSheets(
