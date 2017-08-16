@@ -25,10 +25,11 @@ public class Util {
 	public Util() {}
 
 	/** faster util method that avoids creation of array for single-arg cases */
-	public static void throwIfNull(Object obj) {
+	public static <T> T throwIfNull(T obj) {
 		if(obj == null){
 			throw new IllegalArgumentException();
 		}
+		return obj;
 	}
 
 	/** faster util method that avoids creation of array for two-arg cases */
