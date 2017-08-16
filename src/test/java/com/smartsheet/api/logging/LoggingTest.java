@@ -1,54 +1,73 @@
 package com.smartsheet.api.logging;
 
+/*
+ * #[license]
+ * Smartsheet Java SDK
+ * %%
+ * Copyright (C) 2014 - 2017 Smartsheet
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * %[license]
+ */
+
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetBuilder;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.Trace;
+import com.smartsheet.api.internal.http.DefaultHttpClient;
+import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.models.Sheet;
-import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.io.StringWriter;
 
 /**
  *
  */
 public class LoggingTest {
-    private static PrintStream originalSystemOut;
-    private static ByteArrayOutputStream ourOutputStream = new ByteArrayOutputStream();
-    private static PrintStream ourSystemOut = new PrintStream(ourOutputStream, true);
-
-    @BeforeClass
-    public static void rerouteSystemOut() {
-        originalSystemOut = System.out;
-        System.setOut(ourSystemOut);
-    }
-
-    @AfterClass
-    public static void replaceSystemOut() {
-        System.setOut(originalSystemOut);
+    @Before
+    public void dontFailOnUnrecongnizedFields() {
+        // Setup the serializer
+        JacksonJsonSerializer.setFailOnUnknownProperties(false);    // no idea why they enable this in ResourcesImplBase.baseSetup
     }
 
     @Test
     public void testConsoleLogging() throws Exception {
+        StringWriter testWriter = new StringWriter();
+        DefaultHttpClient.setTraceWriter(testWriter);
         Smartsheet client = new SmartsheetBuilder().build();
-        client.setTraces(Trace.Request, Trace.Response);    // should log entire request and response to console
+        client.setTraces(Trace.Request, Trace.Response);    // should log entire request and response
         try {
             Sheet sheet = client.sheetResources().getSheet(42, null, null, null, null, null, 1, 1);
             Assert.fail("expected SmartsheetException");
         } catch (SmartsheetException expected) {
-            String output = ourOutputStream.toString();
-            ourOutputStream.reset();
-            // not super-robust but asserts the important parts
-            Assert.assertTrue(output.contains("\"request\" : {"));
-            Assert.assertTrue(output.contains("\"Authorization\" : \"Bearer null\","));
-            Assert.assertTrue(output.contains("\"response\" : {"));
-            Assert.assertTrue(output.contains("\"body\" : \"{\\n  \\\"errorCode\\\" : 1002,\\n  \\\"message\\\" : \\\"Your Access Token is invalid.\\\",\\n  \\\"refId\\\" :"));
-            Assert.assertTrue(output.contains("\"status\" : \"HTTP/1.1 401 Unauthorized\""));
-            originalSystemOut.println(output);
+            String output = testWriter.toString();
+            // not super-robust but asserts some of the important parts
+            Assert.assertTrue("request not found in - " + output,
+                    output.contains("\"request\" : {"));
+            Assert.assertTrue("Auth header not found in - " + output,
+                    output.contains("\"Authorization\" : \"Bearer nul")); // allows for truncated Auth header
+            Assert.assertTrue("response not found in - " + output,
+                    output.contains("\"response\" : {"));
+            Assert.assertTrue("response-body not found in - " + output,
+                    output.contains("\"body\" : \"{\\n  \\\"errorCode\\\" : 1002,\\n  \\\"message\\\" : " +
+                            "\\\"Your Access Token is invalid.\\\",\\n  \\\"refId\\\" :"));
+            Assert.assertTrue("status not found in - " + output,
+                    output.contains("\"status\" : \"HTTP/1.1 401 Unauthorized\""));
+
+//            originalSystemOut.println(output);
         }
     }
 }
