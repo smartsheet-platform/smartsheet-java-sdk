@@ -560,9 +560,16 @@ public class SmartsheetImpl implements Smartsheet {
 		this.accessToken.set(accessToken);
 	}
 
+	/** set what request/response fields to log in trace-logging */
 	@Override
 	public void setTraces(Trace... traces) {
 		getHttpClient().setTraces(traces);
+	}
+
+	/** set whether or not to generate "pretty formatted" JSON in trace-logging */
+	@Override
+	public void setTracePrettyPrint(boolean pretty) {
+		getHttpClient().setTracePrettyPrint(pretty);
 	}
 
 

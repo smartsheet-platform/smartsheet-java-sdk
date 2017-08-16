@@ -20,6 +20,8 @@ package com.smartsheet.api;
  * %[license]
  */
 
+import java.io.Writer;
+
 /**
  * <p>This interface is the entry point of the Smartsheet SDK, it provides convenient methods to get XXXResources instances
  * for accessing different types of resources.</p>
@@ -161,6 +163,12 @@ public interface Smartsheet {
 	 * @param levels - what to trace (if anything; null if not tracing at all)
 	 */
 	public void setTraces(Trace... levels);
+
+	/**
+	 * enable/disable pretty JSON trace logging
+	 * @param pretty if the JSON is nicely-formatted or compact
+	 */
+	public void setTracePrettyPrint(boolean pretty);
 
 	/**
 	 * @deprecated As of release 2.0, replaced by {@link #homeResources()}
