@@ -31,13 +31,12 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
 /**
- * a struct for creating pretty-formatted output from HTTP request/response pairs
+ * a POJO from which is generated JSON from HTTP request/response pairs
  */
 public class RequestAndResponseData {
     public static abstract class HttpPayloadData {
@@ -101,7 +100,7 @@ public class RequestAndResponseData {
 
             public RequestData build() {
                 try {
-                    return getDataObject(); // FIXME - here make the parts immutable
+                    return dataObject;  // if nothing was added then nothing was built (i.e., this can be null)
                 } finally {
                     reset();
                 }
@@ -139,13 +138,15 @@ public class RequestAndResponseData {
 
             public ResponseData build() {
                 try {
-                    return getDataObject(); // FIXME - here make the parts immutable
+                    return dataObject;  // if nothing was added then nothing was built (i.e., this can be null)
                 } finally {
                     reset();
                 }
             }
         }
     }
+
+    private static int TRUNCATE_LENGTH = Integer.getInteger("Smartsheet.trace.truncateLen", 1024);
 
     public final RequestData request;
     public final ResponseData response;
@@ -159,49 +160,49 @@ public class RequestAndResponseData {
     /**
      * factory method for creating a RequestAndResponseData object from request and response data with the specifid trace fields
      */
-    public static RequestAndResponseData of(HttpRequestBase request, HttpEntity reqEntity,
-                                            HttpResponse response, HttpEntity respEntity, Set<Trace> traces)
+    public static RequestAndResponseData of(HttpRequestBase request, HttpEntity requestEntity,
+                                            HttpResponse response, HttpEntity responseEntity,
+                                            Set<Trace> traces)
             throws IOException {
         RequestData.Builder requestBuilder = new RequestData.Builder();
         ResponseData.Builder responseBuilder = new ResponseData.Builder();
 
-        requestBuilder.withCommand(request.getMethod() + " " + request.getURI());
-        if (traces.contains(Trace.RequestHeaders) && request.getAllHeaders() != null) {
-            for (Header header : request.getAllHeaders()) {
-                requestBuilder.addHeader(header.getName(), header.getValue());
+        if (request != null) {
+            requestBuilder.withCommand(request.getMethod() + " " + request.getURI());
+            if (traces.contains(Trace.RequestHeaders) && request.getAllHeaders() != null) {
+                for (Header header : request.getAllHeaders()) {
+                    String headerName = header.getName();
+                    String headerValue = header.getValue();
+                    if ("Authorization".equals(headerName) && headerValue.length() > 0) {
+                        headerValue = headerValue.substring(0, Math.min(10, headerValue.length() - 1)) + "****";
+                    }
+                    requestBuilder.addHeader(headerName, headerValue);
+                }
+            }
+            if (requestEntity != null) {
+                if (traces.contains(Trace.RequestBody)) {
+                    requestBuilder.setBody(getContentAsText(requestEntity));
+                } else if (traces.contains(Trace.RequestBodySummary)) {
+                    requestBuilder.setBody(truncateAsNeeded(getContentAsText(requestEntity), TRUNCATE_LENGTH));
+                }
             }
         }
-        if (traces.contains(Trace.RequestBody)) {
-            requestBuilder.setBody(getContentAsText(reqEntity));
-        } else if (traces.contains(Trace.RequestBodySummary)) {
-            requestBuilder.setBody(truncateAsNeeded(getContentAsText(reqEntity), getTruncateLength()));
-        }
-
-        responseBuilder.withStatus(response.getStatusText());
-        if (traces.contains(Trace.ResponseHeaders) && response.getHeaders() != null) {
-            for (Map.Entry<String,String> header : response.getHeaders().entrySet()) {
-                responseBuilder.addHeader(header.getKey(), header.getValue());
+        if (response != null) {
+            responseBuilder.withStatus(response.getStatusText());
+            if (traces.contains(Trace.ResponseHeaders) && response.getHeaders() != null) {
+                for (Map.Entry<String, String> header : response.getHeaders().entrySet()) {
+                    responseBuilder.addHeader(header.getKey(), header.getValue());
+                }
             }
-        }
-        if (traces.contains(Trace.ResponseBody)) {
-            responseBuilder.setBody(getContentAsText(respEntity));
-        } else if (traces.contains(Trace.ResponseBodySummary)) {
-            responseBuilder.setBody(truncateAsNeeded(getContentAsText(respEntity), getTruncateLength()));
+            if (responseEntity != null) {
+                if (traces.contains(Trace.ResponseBody)) {
+                    responseBuilder.setBody(getContentAsText(responseEntity));
+                } else if (traces.contains(Trace.ResponseBodySummary)) {
+                    responseBuilder.setBody(truncateAsNeeded(getContentAsText(responseEntity), TRUNCATE_LENGTH));
+                }
+            }
         }
         return new RequestAndResponseData(requestBuilder.build(), responseBuilder.build());
-    }
-
-    static String toString(Header[] headers) {
-        StringBuilder headerBuf = new StringBuilder();
-        for (Header header : headers) {
-            headerBuf.append(',').append(header.getName()).append(':');
-            if ("Authorization".equals(header.getName())) {
-                headerBuf.append("Bearer ***");
-            } else {
-                headerBuf.append(Arrays.toString(header.getElements()));
-            }
-        }
-        return "[" + headerBuf.substring(1) + "]";
     }
 
     public static String getContentAsText(HttpEntity entity) throws IOException {
@@ -209,8 +210,12 @@ public class RequestAndResponseData {
             return "";
         }
         InputStream inputStream = entity.getContent();
-        if (inputStream.markSupported()) {
-            inputStream.mark(0);
+        if (inputStream == null) {
+            return "";
+        }
+        final boolean markSupported = inputStream.markSupported();
+        if (markSupported) {
+            inputStream.mark(10 * 1024 * 1024);  // 10MB read buffer; beyond that it probably won't matter
         }
 
         byte[] contentBytes = StreamUtil.readBytesFromStream(inputStream);
@@ -223,9 +228,10 @@ public class RequestAndResponseData {
 
         // since we've consumed the stream we have to reset it (note, this will have real perf impact if the stream
         // was to a large file or something else we'd rather not hold entirely in RAM if we can help it)
-        if (inputStream.markSupported()) {
+        if (markSupported) {
             inputStream.reset();
         } else {
+            // we can't reset the stream so rebuild the stream around the bytes we read
             entity.setContent(new ByteArrayInputStream(contentBytes));
         }
         return contentAsText;
@@ -238,9 +244,5 @@ public class RequestAndResponseData {
         truncateLen = Math.min(string.length(), truncateLen);
         String suffix = truncateLen < string.length() ? "..." : "";
         return string.substring(0, truncateLen) + suffix;
-    }
-
-    static int getTruncateLength() {
-        return Integer.getInteger("Smartsheet.traceTruncateTo", 1024);
     }
 }
