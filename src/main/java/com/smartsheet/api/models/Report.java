@@ -48,8 +48,9 @@ public class Report extends AbstractSheet<ReportRow, ReportColumn, ReportCell> {
      *
      * @param sourceSheets the new index
      */
-    public void setSourceSheets(List<Sheet> sourceSheets) {
+    public Report setSourceSheets(List<Sheet> sourceSheets) {
         this.sourceSheets = sourceSheets;
+        return this;
     }
 }
 

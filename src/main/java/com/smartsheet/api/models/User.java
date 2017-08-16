@@ -69,8 +69,9 @@ public class User extends UserModelWithName {
 	 *
 	 * @param admin the new admin
 	 */
-	public void setAdmin(Boolean admin) {
+	public User setAdmin(Boolean admin) {
 		this.admin = admin;
+		return this;
 	}
 
 	/**
@@ -87,8 +88,9 @@ public class User extends UserModelWithName {
 	 *
 	 * @param licensedSheetCreator the new licensed sheet creator
 	 */
-	public void setLicensedSheetCreator(Boolean licensedSheetCreator) {
+	public User setLicensedSheetCreator(Boolean licensedSheetCreator) {
 		this.licensedSheetCreator = licensedSheetCreator;
+		return this;
 	}
 
 	/**
@@ -105,8 +107,9 @@ public class User extends UserModelWithName {
 	 *
 	 * @param status the new status
 	 */
-	public void setStatus(UserStatus status) {
+	public User setStatus(UserStatus status) {
 		this.status = status;
+		return this;
 	}
 
 	/**
@@ -120,8 +123,9 @@ public class User extends UserModelWithName {
 	 * Sets the resource manager flag.
 	 * @param resourceViewer the flag
 	 */
-	public void setResourceViewer(Boolean resourceViewer) {
+	public User setResourceViewer(Boolean resourceViewer) {
 		this.resourceViewer = resourceViewer;
+		return this;
 	}
 
 	/**
@@ -135,8 +139,9 @@ public class User extends UserModelWithName {
 	/**
 	 * @param groupAdmin sets the flag that indicates if someone is a groupAdmin
 	 */
-	public void setGroupAdmin(Boolean groupAdmin) {
+	public User setGroupAdmin(Boolean groupAdmin) {
 		this.groupAdmin = groupAdmin;
+		return this;
 	}
 	/**
 	 * A convenience class for making a {@link User} object with the appropriate fields for adding the user.

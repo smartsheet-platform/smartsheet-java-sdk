@@ -46,7 +46,8 @@ public class FormatDetails {
 	 *
 	 * @param paperSize the new paper size
 	 */
-	public void setPaperSize(PaperSize paperSize) {
+	public FormatDetails setPaperSize(PaperSize paperSize) {
 		this.paperSize = paperSize;
+		return this;
 	}
 }

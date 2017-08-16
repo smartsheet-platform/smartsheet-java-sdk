@@ -94,19 +94,13 @@ public class DefaultHttpClient implements HttpClient {
      */
     private final CloseableHttpClient httpClient;
 
-    /**
-     * The apache http request.
-     */
+    /** The apache http request. */
     private HttpRequestBase apacheHttpRequest;
 
-    /**
-     * The apache http response.
-     */
+    /** The apache http response. */
     private CloseableHttpResponse apacheHttpResponse;
 
-    /**
-     * UserAgent string sent with each request
-     */
+    /** UserAgent string sent with each request */
     private final String userAgent;
 
     /** the set of Trace levels to use in trace-logging */
@@ -134,8 +128,7 @@ public class DefaultHttpClient implements HttpClient {
      * @param httpClient the http client
      */
     public DefaultHttpClient(CloseableHttpClient httpClient) {
-        Util.throwIfNull(httpClient);
-        this.httpClient = httpClient;
+        this.httpClient = Util.throwIfNull(httpClient);
         this.userAgent = generateUserAgent(getClass());
     }
 
@@ -327,4 +320,4 @@ public class DefaultHttpClient implements HttpClient {
                 + System.getProperty("java.vm.name") + " " + System.getProperty("java.vendor") + " "
                 + System.getProperty("java.version");
     }
-}
+}		

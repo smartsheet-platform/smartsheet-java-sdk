@@ -49,8 +49,9 @@ public class ReportColumn extends Column {
      *
      * @param sheetNameColumn the sheetname for column
      */
-    public void setSheetNameColumn(boolean sheetNameColumn) {
+    public ReportColumn setSheetNameColumn(boolean sheetNameColumn) {
         this.sheetNameColumn = sheetNameColumn;
+        return this;
     }
 
     /**
@@ -68,7 +69,8 @@ public class ReportColumn extends Column {
      * @param virtualId the virtual id
      */
 
-    public void setVirtualId(Long virtualId) {
+    public ReportColumn setVirtualId(Long virtualId) {
         this.virtualId = virtualId;
+        return this;
     }
 }

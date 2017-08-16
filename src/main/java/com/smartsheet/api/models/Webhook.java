@@ -19,10 +19,10 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import com.smartsheet.api.models.enums.WebhookStatus;
+
 import java.util.Date;
 import java.util.List;
-
-import com.smartsheet.api.models.enums.WebhookStatus;
 
 public class Webhook extends NamedModel<Long> {
 
@@ -107,11 +107,12 @@ public class Webhook extends NamedModel<Long> {
 	
 	/**
 	 * Set the API client Id corresponding to third-party app that created the webhook.
-	 * 
+	 *
 	 * @param apiClientId
 	 */
-	public void setApiClientId(String apiClientId) {
+	public Webhook setApiClientId(String apiClientId) {
 		this.apiClientId = apiClientId;
+		return this;
 	}
 	
 	/**
@@ -125,11 +126,12 @@ public class Webhook extends NamedModel<Long> {
 	
 	/** 
 	 * Set the API client name corresponding to third-party app that created the webhook.
-	 * 
+	 *
 	 * @param apiClientName
 	 */
-	public void setApiClientName(String apiClientName) {
+	public Webhook setApiClientName(String apiClientName) {
 		this.apiClientName = apiClientName;
+		return this;
 	}
 	
 	/**
@@ -143,11 +145,12 @@ public class Webhook extends NamedModel<Long> {
 	
 	/**
 	 * Set the scope of the subscription
-	 * 
+	 *
 	 * @param scope
 	 */
-	public void setScope(String scope) {
+	public Webhook setScope(String scope) {
 		this.scope = scope;
+		return this;
 	}
 	
 	/**
@@ -161,11 +164,12 @@ public class Webhook extends NamedModel<Long> {
 	
 	/**
 	 * Set the Id of the object that is subscribed to
-	 * 
+	 *
 	 * @param scopeObjectId
 	 */
-	public void setScopeObjectId(Long scopeObjectId) {
+	public Webhook setScopeObjectId(Long scopeObjectId) {
 		this.scopeObjectId = scopeObjectId;
+		return this;
 	}
 	
 	/**
@@ -179,11 +183,12 @@ public class Webhook extends NamedModel<Long> {
 	
 	/**
 	 * Set the array of events that are subscribed to
-	 * 
+	 *
 	 * @param events
 	 */
-	public void setEvents(List<String> events) {
+	public Webhook setEvents(List<String> events) {
 		this.events = events;
+		return this;
 	}
 	
 	/**
@@ -197,11 +202,12 @@ public class Webhook extends NamedModel<Long> {
 	
 	/**
 	 * Set the HTTPS URL where callbacks will be sent
-	 * 
+	 *
 	 * @param callbackUrl
 	 */
-	public void setCallbackUrl(String callbackUrl) {
+	public Webhook setCallbackUrl(String callbackUrl) {
 		this.callbackUrl = callbackUrl;
+		return this;
 	}
 	
 	/**
@@ -215,11 +221,12 @@ public class Webhook extends NamedModel<Long> {
 	
 	/**
 	 * Set the shared secret for this webhook
-	 * 
+	 *
 	 * @param sharedSecret
 	 */
-	public void setSharedSecret(String sharedSecret) {
+	public Webhook setSharedSecret(String sharedSecret) {
 		this.sharedSecret = sharedSecret;
+		return this;
 	}
 	
 	/**
@@ -233,11 +240,12 @@ public class Webhook extends NamedModel<Long> {
 	
 	/**
 	 * Set flag indicating whether the webhook is on or off.
-	 * 
+	 *
 	 * @param enabled
 	 */
-	public void setEnabled(Boolean enabled) {
+	public Webhook setEnabled(Boolean enabled) {
 		this.enabled = enabled;
+		return this;
 	}
 	
 	/**
@@ -251,11 +259,12 @@ public class Webhook extends NamedModel<Long> {
 	
 	/**
 	 * Set the webhook status
-	 * 
+	 *
 	 * @param status
 	 */
-	public void setStatus(WebhookStatus status) {
+	public Webhook setStatus(WebhookStatus status) {
 		this.status = status;
+		return this;
 	}
 	
 	/**
@@ -269,11 +278,12 @@ public class Webhook extends NamedModel<Long> {
 	
 	/**
 	 * Set the details about the reason the webhook was disabled.
-	 * 
+	 *
 	 * @param disabledDetails
 	 */
-	public void setDisabledDetails(String disabledDetails) {
+	public Webhook setDisabledDetails(String disabledDetails) {
 		this.disabledDetails = disabledDetails;
+		return this;
 	}
 	
 	/**
@@ -287,11 +297,12 @@ public class Webhook extends NamedModel<Long> {
 	
 	/**
 	 * Set the webhook version
-	 * 
+	 *
 	 * @param version
 	 */
-	public void setVersion(Integer version) {
+	public Webhook setVersion(Integer version) {
 		this.version = version;
+		return this;
 	}
 	
 	/**
@@ -305,11 +316,12 @@ public class Webhook extends NamedModel<Long> {
 	
 	/**
 	 * Set the statistics for this webhook.
-	 * 
+	 *
 	 * @param stats
 	 */
-	public void setStats(WebhookStats stats) {
+	public Webhook setStats(WebhookStats stats) {
 		this.stats = stats;
+		return this;
 	}
 	
 	/**
@@ -323,11 +335,12 @@ public class Webhook extends NamedModel<Long> {
 	
 	/**
 	 * Set the time the webhook was created.
-	 * 
+	 *
 	 * @param createdAt
 	 */
-	public void setCreatedAt(Date createdAt) {
+	public Webhook setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
+		return this;
 	}
 	
 	/**
@@ -341,10 +354,11 @@ public class Webhook extends NamedModel<Long> {
 	
 	/**
 	 * Set the time that the webhook was last modified.
-	 * 
+	 *
 	 * @param modifiedAt
 	 */
-	public void setModifiedAt(Date modifiedAt) {
+	public Webhook setModifiedAt(Date modifiedAt) {
 		this.modifiedAt = modifiedAt;
+		return this;
 	}
 }

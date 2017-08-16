@@ -167,7 +167,7 @@ public abstract class AbstractResources {
 	 * 
 	 * It will be initialized in constructor and will not change afterwards.
 	 */
-	protected SmartsheetImpl smartsheet;
+	protected final SmartsheetImpl smartsheet;
 
 	/**
 	 * Constructor.
@@ -247,7 +247,6 @@ public abstract class AbstractResources {
 		} finally {
 			smartsheet.getHttpClient().releaseConnection();
 		}
-		
 		return obj;
 	}
 
@@ -271,7 +270,7 @@ public abstract class AbstractResources {
 	 * @throws SmartsheetException the smartsheet exception
 	 */
 	protected <T, S> T createResource(String path, Class<T> objectClass, S object) throws SmartsheetException {
-		Util.throwIfNull(path, object);
+		Util.throwIfNull(path, object, objectClass);
 		Util.throwIfEmpty(path);
 
 		HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
@@ -915,15 +914,6 @@ public abstract class AbstractResources {
 	}
 
 	/**
-	 * Sets the smartsheet.
-	 *
-	 * @param smartsheet the new smartsheet
-	 */
-	public void setSmartsheet(SmartsheetImpl smartsheet) {
-		this.smartsheet = smartsheet;
-	}
-
-	/**
 	 * Get a sheet as a file.
 	 *
 	 * Exceptions:
@@ -949,7 +939,7 @@ public abstract class AbstractResources {
 		request.getHeaders().put("Accept", fileType);
 
 		try {
-			com.smartsheet.api.internal.http.HttpResponse response = getSmartsheet().getHttpClient().request(request);
+			HttpResponse response = getSmartsheet().getHttpClient().request(request);
 
 			switch (response.getStatusCode()) {
 				case 200:

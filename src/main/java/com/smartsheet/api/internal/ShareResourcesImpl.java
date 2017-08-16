@@ -22,6 +22,7 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.*;
 import com.smartsheet.api.internal.util.QueryUtil;
+import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Share;
@@ -66,7 +67,7 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 	 *   SmartsheetException : if there is any other error occurred during the operation
 	 *
 	 * @param objectId the id of the object to share.
-	 * @param parameters the pagination parameters
+	 * @param pagination the pagination parameters
 	 * @param includeWorkspaceShares include workspace shares in enumeration
 	 * @return the shares (note that empty list will be returned if there is none)
 	 * @throws SmartsheetException the smartsheet exception
@@ -74,6 +75,7 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 	public PagedResult<Share> listShares(long objectId, PaginationParameters pagination) throws SmartsheetException {
 		return this.listShares(objectId, pagination, false);
 	}
+
 	public PagedResult<Share> listShares(long objectId, PaginationParameters pagination, Boolean includeWorkspaceShares) throws SmartsheetException {
 		String path = getMasterResourceType() + "/" + objectId + "/shares";
 		
@@ -81,7 +83,7 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 		if (pagination != null) {
 			parameters = pagination.toHashMap();
 		}
-		if (includeWorkspaceShares == true) {
+		if (includeWorkspaceShares != null && includeWorkspaceShares == true) {
 			parameters.put("include", "workspaceShares");
 		}
 		path += QueryUtil.generateUrl(null, parameters);
@@ -169,6 +171,7 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */
 	public Share updateShare(long objectId, Share share) throws SmartsheetException {
+		Util.throwIfNull(share);
 		return this.updateResource(getMasterResourceType() + "/" + objectId + "/shares/" + share.getId(), Share.class, share);
 	}
 

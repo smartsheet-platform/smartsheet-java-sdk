@@ -58,11 +58,12 @@ public class ImageUrl {
 	
 	/**
 	 * Set the image id
-	 * 
+	 *
 	 * @param imageId
 	 */
-	public void setImageId(String imageId) {
+	public ImageUrl setImageId(String imageId) {
 		this.imageId = imageId;
+		return this;
 	}
 	
 	/**
@@ -76,11 +77,12 @@ public class ImageUrl {
 	
 	/**
 	 * Set the image width
-	 * 
+	 *
 	 * @param width
 	 */
-	public void setWidth(Long width) {
+	public ImageUrl setWidth(Long width) {
 		this.width = width;
+		return this;
 	}
 	
 	/**
@@ -94,11 +96,12 @@ public class ImageUrl {
 	
 	/**
 	 * Set the image height
-	 * 
+	 *
 	 * @param height
 	 */
-	public void setHeight(Long height) {
+	public ImageUrl setHeight(Long height) {
 		this.height = height;
+		return this;
 	}
 	
 	/**
@@ -112,11 +115,12 @@ public class ImageUrl {
 	
 	/**
 	 * Set the temporary URL that can be used to retrieve the image.
-	 * 
+	 *
 	 * @param url
 	 */
-	public void setUrl(String url) {
+	public ImageUrl setUrl(String url) {
 		this.url = url;
+		return this;
 	}
 	
 	/**
@@ -130,10 +134,11 @@ public class ImageUrl {
 	
 	/**
 	 * Set the error object.
-	 * 
+	 *
 	 * @param error
 	 */
-	public void setError(Error error) {
+	public ImageUrl setError(Error error) {
 		this.error = error;
+		return this;
 	}
 }

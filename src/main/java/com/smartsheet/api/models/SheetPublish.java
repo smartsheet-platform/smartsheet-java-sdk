@@ -94,8 +94,9 @@ public class SheetPublish {
 	 *
 	 * @param readOnlyLiteEnabled the new read only lite enabled flag
 	 */
-	public void setReadOnlyLiteEnabled(Boolean readOnlyLiteEnabled) {
+	public SheetPublish setReadOnlyLiteEnabled(Boolean readOnlyLiteEnabled) {
 		this.readOnlyLiteEnabled = readOnlyLiteEnabled;
+		return this;
 	}
 
 	/**
@@ -112,8 +113,9 @@ public class SheetPublish {
 	 *
 	 * @param readOnlyFullEnabled the new read only full enabled flag
 	 */
-	public void setReadOnlyFullEnabled(Boolean readOnlyFullEnabled) {
+	public SheetPublish setReadOnlyFullEnabled(Boolean readOnlyFullEnabled) {
 		this.readOnlyFullEnabled = readOnlyFullEnabled;
+		return this;
 	}
 
 	/**
@@ -130,8 +132,9 @@ public class SheetPublish {
 	 *
 	 * @param readWriteEnabled the new read write enabled flag
 	 */
-	public void setReadWriteEnabled(Boolean readWriteEnabled) {
+	public SheetPublish setReadWriteEnabled(Boolean readWriteEnabled) {
 		this.readWriteEnabled = readWriteEnabled;
+		return this;
 	}
 
 	/**
@@ -148,8 +151,9 @@ public class SheetPublish {
 	 *
 	 * @param icalEnabled the new ical enabled flag
 	 */
-	public void setIcalEnabled(Boolean icalEnabled) {
+	public SheetPublish setIcalEnabled(Boolean icalEnabled) {
 		this.icalEnabled = icalEnabled;
+		return this;
 	}
 
 	/**
@@ -163,11 +167,12 @@ public class SheetPublish {
 	
 	/**
 	 * Set string indicating who can access the "Read-Only Full" view of the published sheet.
-	 * 
+	 *
 	 * @param readOnlyFullAccessibleBy
 	 */
-	public void setReadOnlyFullAccessibleBy(String readOnlyFullAccessibleBy) {
+	public SheetPublish setReadOnlyFullAccessibleBy(String readOnlyFullAccessibleBy) {
 		this.readOnlyFullAccessibleBy = readOnlyFullAccessibleBy;
+		return this;
 	}
 	
 	/**
@@ -181,11 +186,12 @@ public class SheetPublish {
 	
 	/**
 	 * Set string indicating who can access the "Edit by Anyone" view of the published sheet.
-	 * 
+	 *
 	 * @param readWriteAccessibleBy
 	 */
-	public void setReadWriteAccessibleBy(String readWriteAccessibleBy) {
+	public SheetPublish setReadWriteAccessibleBy(String readWriteAccessibleBy) {
 		this.readWriteAccessibleBy = readWriteAccessibleBy;
+		return this;
 	}
 	
 	/**
@@ -202,8 +208,9 @@ public class SheetPublish {
 	 *
 	 * @param readOnlyLiteUrl the new read only lite url
 	 */
-	public void setReadOnlyLiteUrl(String readOnlyLiteUrl) {
+	public SheetPublish setReadOnlyLiteUrl(String readOnlyLiteUrl) {
 		this.readOnlyLiteUrl = readOnlyLiteUrl;
+		return this;
 	}
 
 	/**
@@ -220,8 +227,9 @@ public class SheetPublish {
 	 *
 	 * @param readOnlyFullUrl the new read only full url
 	 */
-	public void setReadOnlyFullUrl(String readOnlyFullUrl) {
+	public SheetPublish setReadOnlyFullUrl(String readOnlyFullUrl) {
 		this.readOnlyFullUrl = readOnlyFullUrl;
+		return this;
 	}
 
 	/**
@@ -238,8 +246,9 @@ public class SheetPublish {
 	 *
 	 * @param readWriteUrl the new read write url
 	 */
-	public void setReadWriteUrl(String readWriteUrl) {
+	public SheetPublish setReadWriteUrl(String readWriteUrl) {
 		this.readWriteUrl = readWriteUrl;
+		return this;
 	}
 
 	/**
@@ -256,8 +265,9 @@ public class SheetPublish {
 	 *
 	 * @param icalUrl the new ical url
 	 */
-	public void setIcalUrl(String icalUrl) {
+	public SheetPublish setIcalUrl(String icalUrl) {
 		this.icalUrl = icalUrl;
+		return this;
 	}
 
 	/**

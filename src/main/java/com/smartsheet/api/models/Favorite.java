@@ -51,8 +51,9 @@ public class Favorite{
      *
      * @param objectId ID of the favorited item.
      */
-    public void setObjectId(Long objectId) {
+    public Favorite setObjectId(Long objectId) {
         this.objectId = objectId;
+        return this;
     }
 
     /**
@@ -69,8 +70,9 @@ public class Favorite{
      *
      * @param type the new dependencies enabled
      */
-    public void setType(FavoriteType type) {
+    public Favorite setType(FavoriteType type) {
         this.type = type;
+        return this;
     }
 
     /**

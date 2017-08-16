@@ -71,8 +71,9 @@ public class CellDataItem {
 	 * 
 	 * @param label
 	 */
-	public void setLabel(String label) {
+	public CellDataItem setLabel(String label) {
 		this.label = label;
+		return this;
 	}
 	
 	/**
@@ -89,8 +90,9 @@ public class CellDataItem {
 	 * 
 	 * @param labelFormat
 	 */
-	public void setLabelFormat(String labelFormat) {
+	public CellDataItem setLabelFormat(String labelFormat) {
 		this.labelFormat = labelFormat;
+		return this;
 	}
 	
 	/**
@@ -109,8 +111,9 @@ public class CellDataItem {
 	 * 
 	 * @param objectValue
 	 */
-	public void setObjectValue(Object objectValue) {
+	public CellDataItem setObjectValue(Object objectValue) {
 		this.objectValue = objectValue;
+		return this;
 	}
 	
 	/**
@@ -127,8 +130,9 @@ public class CellDataItem {
 	 * 
 	 * @param cell
 	 */
-	public void setCell(Cell cell) {
+	public CellDataItem setCell(Cell cell) {
 		this.cell = cell;
+		return this;
 	}
 	
 	/** 
@@ -145,8 +149,9 @@ public class CellDataItem {
 	 * 
 	 * @param valueFormat
 	 */
-	public void setValueFormat(String valueFormat) {
+	public CellDataItem setValueFormat(String valueFormat) {
 		this.valueFormat = valueFormat;
+		return this;
 	}
 	
 	/** 
@@ -163,8 +168,9 @@ public class CellDataItem {
 	 * 
 	 * @param order
 	 */
-	public void setOrder(Integer order) {
+	public CellDataItem setOrder(Integer order) {
 		this.order = order;
+		return this;
 	}
 	
 	/**
@@ -181,7 +187,8 @@ public class CellDataItem {
 	 * 
 	 * @param columnId
 	 */
-	public void setColumnId(Long columnId) {
+	public CellDataItem setColumnId(Long columnId) {
 		this.columnId = columnId;
+		return this;
 	}
 }

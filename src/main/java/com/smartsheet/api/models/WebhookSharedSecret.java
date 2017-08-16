@@ -37,10 +37,11 @@ public class WebhookSharedSecret {
 	
 	/**
 	 * Set the shared secret for this webhook.
-	 * 
+	 *
 	 * @param sharedSecret
 	 */
-	public void setSharedSecret(String sharedSecret) {
+	public WebhookSharedSecret setSharedSecret(String sharedSecret) {
 		this.sharedSecret = sharedSecret;
+		return this;
 	}
 }

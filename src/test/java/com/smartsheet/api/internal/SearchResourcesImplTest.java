@@ -82,4 +82,23 @@ public class SearchResourcesImplTest  extends ResourcesImplBase  {
 		assertEquals("SDK Code Checklist", results.get(0).getParentObjectName());
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void nullQuerySearchSheet() throws SmartsheetException {
+		searchResources.searchSheet(1234L, null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void emptyQuerySearchSheet() throws SmartsheetException {
+		searchResources.searchSheet(1234L, "");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void nullQueryOnSeaerch() throws SmartsheetException {
+		searchResources.search(null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void emptyQuerySearch() throws SmartsheetException {
+		searchResources.search("");
+	}
 }

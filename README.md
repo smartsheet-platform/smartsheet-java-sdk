@@ -1,26 +1,30 @@
-# Smartsheet Java SDK
+# Smartsheet SDK for Java
 
 This is a Java SDK to simplify connecting to [Smartsheet API](http://www.smartsheet.com/developers/api-documentation) in Java applications.
+
+## System Requirements
+
+The SDK supports Java version 1.6 or later.
 
 ## Installation
 There are three different ways to install the SDK. Select the one that fits your environment best:
 
-1. [Use Maven](#1-maven)
-2. [Download Jar File](#2-download-jar-file)
-3. [Compile From Source](#3-compile-from-source)
+* [Install By Using Maven](#install-by-using-maven)
+* [Install By Downloading the Jar File](#install-by-downloading-the-jar-file)
+* [Install By Compiling Directly From Source](#install-by-compiling-directly-from-source)
 
-### 1. Use Maven
+### Install By Using Maven
 Add the SDK as a dependency in your project.
 
 ```xml
 <dependency>
   <groupId>com.smartsheet</groupId>
   <artifactId>smartsheet-sdk-java</artifactId>
-  <version>2.1.1</version>
+  <version>2.2.0</version>
 </dependency>
 ```
 
-### 2. Download Jar File
+### Install By Downloading the Jar File
 <!--* [The SDK packaged in a jar with Dependencies](https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST) built in.-->
 [SDK packaged as a jar](https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST). This jar requires that all of the following dependencies are manually added to the path:
 
@@ -29,7 +33,9 @@ Add the SDK as a dependency in your project.
 	Jackson FasterXML 2.6.2
 	Jackson Core 2.6.2
 
-### 3. Compile from source
+You can also navigate to the [Sonatype Library Page](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22smartsheet-sdk-java%22) instead of directly downloading the Jar file.
+
+### Install By Compiling Directly From Source
 The source code for the jar can be downloaded from Github and then compiled. This can be accomplished using [git](http://git-scm.com/) and [maven](http://maven.apache.org/) with the following 3 steps.
 
 ```bash
@@ -39,108 +45,65 @@ mvn package
 ```
 
 ## Documentation
-The API is documented here: http://smartsheet-platform.github.io/api-docs/?java
-The SDK javadoc is here: [http://smartsheet-platform.github.io/smartsheet-java-sdk](http://smartsheet-platform.github.io/smartsheet-java-sdk) (Download as a jar file [here](http://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST&c=javadoc).)
+The full Smartsheet API documentation is here: http://smartsheet-platform.github.io/api-docs/?java
+
+The generated SDK javadoc is here: [http://smartsheet-platform.github.io/smartsheet-java-sdk](http://smartsheet-platform.github.io/smartsheet-java-sdk) (Download as a jar file [here](http://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST&c=javadoc).)
 
 ## Example Usage
-A reference sample application is here: https://github.com/smartsheet-samples/java-read-write-sheet
+To call the API, you will need an *access token*, which looks something like this example: ll352u9jujauoqz4gstvsae05. You can find the access token in the UI at Account > Personal Settings > API Access.
 
+The following is a brief sample that shows you how to:
 
-To use the Java SDK, you'll need to include the appropriate **import** directives in your code. For example, the code examples in this section require the following **import** directives:
+* Initialize the client
+* List all sheets
+* Load one sheet
+
+To initialize the client, you'll need to include the appropriate **import** directives in your code. For example, the code examples in this section require the following **import** directives:
 
 ```java
 import com.smartsheet.api.*;
 import com.smartsheet.api.models.*;
-import com.smartsheet.api.models.enums.SourceInclusion;
-import com.smartsheet.api.models.enums.ColumnType;
 import com.smartsheet.api.oauth.*;
+import java.io.FileInputStream;
+import java.util.*;
 ```
 
 ```java
-public static void SampleCode() throws SmartsheetException{
-    // Set the Access Token
-    Token token = new Token();
-    token.setAccessToken("INSERT_YOUR_TOKEN_HERE");
+// Initialize client
+String accessToken = "ll352u9jujauoqz4gstvsae05";
 
-    // Use the Smartsheet Builder to create a Smartsheet
-    Smartsheet smartsheet = new SmartsheetBuilder().setAccessToken(token.getAccessToken()).build();
+Smartsheet smartsheet = new SmartsheetBuilder().setAccessToken(accessToken).build();
 
-    // Get home with Source Inclusion parameter
-    Home home = smartsheet.homeResources().getHome(EnumSet.of(SourceInclusion.SOURCE));
+// List all sheets
+PagedResult<Sheet> sheets = smartsheet.sheetResources().listSheets(
+    null,           // EnumSet<SourceInclusion> includes
+    null,           // PaginationParameters
+    null            // Date modifiedSince
+);
 
-    // List home folders
-    List<Folder> homeFolders = home.getFolders();
-    for(Folder folder : homeFolders){
-        System.out.println("folder:"+folder.getName());
-    }
+System.out.println("Found " + sheets.getTotalCount() + " sheets");
 
-    //List Sheets with Source Inclusion parameters and null Pagination parameters
-    PagedResult<Sheet> homeSheets = smartsheet.sheetResources().listSheets(EnumSet.of(SourceInclusion.SOURCE), null);
-    for(Sheet sheet : homeSheets.getData()){
-        System.out.println("sheet: " + sheet.getName());
-    }
+long sheetId = sheets.getData().get(0).getId();      // Default to first sheet
 
-    // Create folder in home
-    Folder folder = new Folder.CreateFolderBuilder().setName("New Folder").build();
-    folder = smartsheet.homeResources().folderResources().createFolder(folder);
-    System.out.println("Folder ID: " + folder.getId() + ", Folder Name: " + folder.getName());
+// sheetId = 567034672138842L;                       // TODO: Uncomment if you wish to read a specific sheet
 
-    // Setup checkbox Column Object
-    Column checkboxColumn = new Column.AddColumnToSheetBuilder()
-                                    .setType(ColumnType.CHECKBOX)
-                                    .setTitle("Finished")
-                                    .build();
-    // Setup text Column Object
-    Column textColumn = new Column.AddColumnToSheetBuilder()
-                                    .setPrimary(true)
-                                    .setTitle("To Do List")
-                                    .setType(ColumnType.TEXT_NUMBER)
-                                    .build();
+System.out.println("Loading sheet id: " + sheetId);
 
-    // Add the 2 Columns (flag & text) to a new Sheet Object
-    Sheet sheet = new Sheet.CreateSheetBuilder()
-                            .setName("New Sheet")
-                            .setColumns(Arrays.asList(checkboxColumn, textColumn))
-                            .build();
-        
-    // Send the request to create the sheet @ Smartsheet
-    sheet = smartsheet.sheetResources().createSheet(sheet);
-}
-
-/**
- * This provides an example of how to use OAuth to generate a Token from a third party application. It handles
- * requesting the authorization code, sending the user to a specific website to request access and then getting
- * the access token to use for all future requests.
- */
-public static void OAuthExample() throws SmartsheetException, UnsupportedEncodingException, URISyntaxException,
-        NoSuchAlgorithmException {
-
-    // Setup the information that is necessary to request an authorization code
-    OAuthFlow oauth = new OAuthFlowBuilder()
-                            .setClientId("YOUR_CLIENT_ID")
-                            .setClientSecret("YOUR_CLIENT_SECRET")
-                            .setRedirectURL("https://YOUR_DOMAIN.com/").build();
-
-    // Create the URL that the user will go to grant authorization to the application
-    String url = oauth.newAuthorizationURL(EnumSet.of(com.smartsheet.api.oauth.AccessScope.CREATE_SHEETS,
-            com.smartsheet.api.oauth.AccessScope.WRITE_SHEETS), "key=YOUR_VALUE");
-
-    // Take the user to the following URL
-    System.out.println(url);
-
-    // After the user accepts or declines the authorization they are taken to the redirect URL. The URL of the page
-    // the user is taken to can be used to generate an authorization Result object.
-    String authorizationResponseURL = "https://yourDomain.com/?code=l4csislal82qi5h&expires_in=239550&state=key%3D12344";
-
-    // On this page pass in the full URL of the page to create an authorizationResult object
-    AuthorizationResult authResult = oauth.extractAuthorizationResult(authorizationResponseURL);
-
-    // Get the token from the authorization result
-    Token token = oauth.obtainNewToken(authResult);
-
-    // Save the token or use it.
-}
+// Load the entire sheet
+Sheet sheet = smartsheet.sheetResources().getSheet(
+    sheetId,                // long sheetId
+    null,                   // EnumSet<SheetInclusion> includes
+    null,                   // EnumSet<ObjectExclusion> excludes
+    null,                   // Set<Long> rowIds
+    null,                   // Set<Integer> rowNumbers
+    null,                   // Set<Long> columnIds
+    null,                   // Integer pageSize
+    null                    // Integer page
+);
+System.out.println("Loaded " + sheet.getTotalRowCount() + " rows from sheet: " + sheet.getName());
 ```
+
+A simple, but complete sample application is here: https://github.com/smartsheet-samples/java-read-write-sheet
 
 More Java examples available [here](https://github.com/smartsheet-samples/).
 

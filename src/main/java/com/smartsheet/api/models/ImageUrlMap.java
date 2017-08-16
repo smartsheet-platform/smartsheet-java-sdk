@@ -48,11 +48,12 @@ public class ImageUrlMap {
 	
 	/**
 	 * Set the milliseconds before the URLs within imageUruls will expire.
-	 * 
+	 *
 	 * @param urlExpiresInMillis
 	 */
-	public void setUrlExpiresInMillis(Long urlExpiresInMillis) {
+	public ImageUrlMap setUrlExpiresInMillis(Long urlExpiresInMillis) {
 		this.urlExpiresInMillis = urlExpiresInMillis;
+		return this;
 	}
 	
 	/**
@@ -66,10 +67,11 @@ public class ImageUrlMap {
 	
 	/**
 	 * Set the array of imageUrl objects
-	 * 
+	 *
 	 * @param imageUrls
 	 */
-	public void setImageUrls(List<ImageUrl> imageUrls) {
+	public ImageUrlMap setImageUrls(List<ImageUrl> imageUrls) {
 		this.imageUrls = imageUrls;
+		return this;
 	}
 }

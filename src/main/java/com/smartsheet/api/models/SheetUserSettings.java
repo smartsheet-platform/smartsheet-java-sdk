@@ -45,8 +45,9 @@ public class SheetUserSettings {
      *
      * @param criticalPathEnabled if the user has critical path enabled
      */
-    public void setCriticalPathEnabled(Boolean criticalPathEnabled) {
+    public SheetUserSettings setCriticalPathEnabled(Boolean criticalPathEnabled) {
         this.criticalPathEnabled = criticalPathEnabled;
+        return this;
     }
 
     /**
@@ -60,11 +61,12 @@ public class SheetUserSettings {
     
     /**
      * Sets the value for display summary tasks.
-     * 
+     *
      * @param displaySummaryTasks
      */
-    public void setDisplaySummaryTasks(Boolean displaySummaryTasks) {
+    public SheetUserSettings setDisplaySummaryTasks(Boolean displaySummaryTasks) {
     	this.displaySummaryTasks = displaySummaryTasks;
+        return this;
     }
     
     /**

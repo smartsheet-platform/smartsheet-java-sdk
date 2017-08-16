@@ -54,8 +54,9 @@ public class Workspace extends Folder {
 	 *
 	 * @param accessLevel the new access level
 	 */
-	public void setAccessLevel(AccessLevel accessLevel) {
+	public Workspace setAccessLevel(AccessLevel accessLevel) {
 		this.accessLevel = accessLevel;
+		return this;
 	}
 
 	/**
@@ -70,11 +71,12 @@ public class Workspace extends Folder {
 	/**
 	 * Sets the permalink to the workspace.
 	 *
-	 * @param permalink the new permalink
-	 */
-	public void setPermalink(String permalink) {
+     * @param permalink the new permalink
+     */
+	public Folder setPermalink(String permalink) {
 		this.permalink = permalink;
-	}
+        return null;
+    }
 
 	/**
 	 * Gets the favorite
@@ -88,8 +90,9 @@ public class Workspace extends Folder {
 	 * Sets the favorite
 	 * @param favorite the favorite
 	 */
-	public void setFavorite(Boolean favorite) {
+	public Folder setFavorite(Boolean favorite) {
 		this.favorite = favorite;
+		return null;
 	}
 
 	/**

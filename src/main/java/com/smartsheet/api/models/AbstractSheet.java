@@ -143,6 +143,11 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
     private Long ownerId;
 
     /**
+     * Represents projects settings for a dependency-enabled sheet
+     */
+    private ProjectSettings projectSettings;
+
+    /**
      * Gets the owner email.
      *
      * @return the owner email
@@ -156,8 +161,9 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param owner the owner email
      */
-    public void setOwner(String owner) {
+    public AbstractSheet<TRow, TColumn, TCell> setOwner(String owner) {
         this.owner = owner;
+        return this;
     }
 
     /**
@@ -174,8 +180,9 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param ownerId the owner id
      */
-    public void setOwnerId(long ownerId) {
+    public AbstractSheet<TRow, TColumn, TCell> setOwnerId(long ownerId) {
         this.ownerId = ownerId;
+        return this;
     }
 
     /**
@@ -192,8 +199,9 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param dependenciesEnabled the new dependencies enabled
      */
-    public void setDependenciesEnabled(Boolean dependenciesEnabled) {
+    public AbstractSheet<TRow, TColumn, TCell> setDependenciesEnabled(Boolean dependenciesEnabled) {
         this.dependenciesEnabled = dependenciesEnabled;
+        return this;
     }
 
     /**
@@ -273,8 +281,9 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param columns the new columns
      */
-    public void setColumns(List<TColumn> columns) {
+    public AbstractSheet<TRow, TColumn, TCell> setColumns(List<TColumn> columns) {
         this.columns = columns;
+        return this;
     }
 
     /**
@@ -291,8 +300,9 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param rows the new rows
      */
-    public void setRows(List<TRow> rows) {
+    public AbstractSheet<TRow, TColumn, TCell> setRows(List<TRow> rows) {
         this.rows = rows;
+        return this;
     }
 
     /**
@@ -309,8 +319,9 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param accessLevel the new access level
      */
-    public void setAccessLevel(AccessLevel accessLevel) {
+    public AbstractSheet<TRow, TColumn, TCell> setAccessLevel(AccessLevel accessLevel) {
         this.accessLevel = accessLevel;
+        return this;
     }
 
     /**
@@ -327,8 +338,9 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param discussions the new discussions
      */
-    public void setDiscussions(List<Discussion> discussions) {
+    public AbstractSheet<TRow, TColumn, TCell> setDiscussions(List<Discussion> discussions) {
         this.discussions = discussions;
+        return this;
     }
 
     /**
@@ -345,8 +357,9 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param attachments the new attachments
      */
-    public void setAttachments(List<Attachment> attachments) {
+    public AbstractSheet<TRow, TColumn, TCell> setAttachments(List<Attachment> attachments) {
         this.attachments = attachments;
+        return this;
     }
 
     /**
@@ -363,8 +376,9 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param readOnly the new read only
      */
-    public void setReadOnly(Boolean readOnly) {
+    public AbstractSheet<TRow, TColumn, TCell> setReadOnly(Boolean readOnly) {
         this.readOnly = readOnly;
+        return this;
     }
 
     /**
@@ -381,8 +395,9 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param createdAt the new created at
      */
-    public void setCreatedAt(Date createdAt) {
+    public AbstractSheet<TRow, TColumn, TCell> setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+        return this;
     }
 
     /**
@@ -399,8 +414,9 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param modifiedAt the new modified at
      */
-    public void setModifiedAt(Date modifiedAt) {
+    public AbstractSheet<TRow, TColumn, TCell> setModifiedAt(Date modifiedAt) {
         this.modifiedAt = modifiedAt;
+        return this;
     }
 
     /**
@@ -417,8 +433,9 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param permalink the new permalink
      */
-    public void setPermalink(String permalink) {
+    public AbstractSheet<TRow, TColumn, TCell> setPermalink(String permalink) {
         this.permalink = permalink;
+        return this;
     }
 
     /**
@@ -435,8 +452,9 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param ganttEnabled the new gantt enabled flag
      */
-    public void setGanttEnabled(Boolean ganttEnabled) {
+    public AbstractSheet<TRow, TColumn, TCell> setGanttEnabled(Boolean ganttEnabled) {
         this.ganttEnabled = ganttEnabled;
+        return this;
     }
 
     /**
@@ -453,8 +471,9 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param version the new version
      */
-    public void setVersion(Integer version) {
+    public AbstractSheet<TRow, TColumn, TCell> setVersion(Integer version) {
         this.version = version;
+        return this;
     }
 
     /**
@@ -471,8 +490,9 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param fromId the new from id
      */
-    public void setFromId(Long fromId) {
+    public AbstractSheet<TRow, TColumn, TCell> setFromId(Long fromId) {
         this.fromId = fromId;
+        return this;
     }
 
     /**
@@ -485,8 +505,9 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
     /**
      * @param resourceManagementEnabled the resourceManagementEnabled to set
      */
-    public void setResourceManagementEnabled(Boolean resourceManagementEnabled) {
+    public AbstractSheet<TRow, TColumn, TCell> setResourceManagementEnabled(Boolean resourceManagementEnabled) {
         this.resourceManagementEnabled = resourceManagementEnabled;
+        return this;
     }
 
     /**
@@ -503,8 +524,9 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param totalRowCount the total row count
      */
-    public void setTotalRowCount(Integer totalRowCount) {
+    public AbstractSheet<TRow, TColumn, TCell> setTotalRowCount(Integer totalRowCount) {
         this.totalRowCount = totalRowCount;
+        return this;
     }
 
     /**
@@ -521,8 +543,9 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param effectiveAttachmentOptions the effective attachment options
      */
-    public void setEffectiveAttachmentOptions(EnumSet<AttachmentType> effectiveAttachmentOptions) {
+    public AbstractSheet<TRow, TColumn, TCell> setEffectiveAttachmentOptions(EnumSet<AttachmentType> effectiveAttachmentOptions) {
         this.effectiveAttachmentOptions = effectiveAttachmentOptions;
+        return this;
     }
 
     /**
@@ -539,8 +562,9 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param favorite the favorite
      */
-    public void setFavorite(Boolean favorite) {
+    public AbstractSheet<TRow, TColumn, TCell> setFavorite(Boolean favorite) {
         this.favorite = favorite;
+        return this;
     }
 
     /**
@@ -557,8 +581,9 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param showParentRowsForFilters the show parent rows for filters
      */
-    public void setShowParentRowsForFilters(Boolean showParentRowsForFilters) {
+    public AbstractSheet<TRow, TColumn, TCell> setShowParentRowsForFilters(Boolean showParentRowsForFilters) {
         this.showParentRowsForFilters = showParentRowsForFilters;
+        return this;
     }
 
     /**
@@ -575,8 +600,9 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param userSettings the user settings
      */
-    public void setUserSettings(SheetUserSettings userSettings) {
+    public AbstractSheet<TRow, TColumn, TCell> setUserSettings(SheetUserSettings userSettings) {
         this.userSettings = userSettings;
+        return this;
     }
 
     /**
@@ -593,7 +619,28 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      *
      * @param source the source
      */
-    public void setSource(Source source) {
+    public AbstractSheet<TRow, TColumn, TCell> setSource(Source source) {
         this.source = source;
+        return this;
     }
+
+    /**
+     * Gets the project settings.
+     *
+     * @return the project settings
+     */
+    public ProjectSettings getProjectSettings() {
+        return projectSettings;
+    }
+
+    /**
+     * Sets the project settings.
+     *
+     * @param projectSettings the project settings
+     */
+    public AbstractSheet<TRow, TColumn, TCell> setProjectSettings(ProjectSettings projectSettings) {
+        this.projectSettings = projectSettings;
+        return this;
+    }
+
 }

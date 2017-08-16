@@ -53,8 +53,9 @@ public class CellLink {
      * Sets the status
      * @param status the status
      */
-    public void setStatus(String status) {
+    public CellLink setStatus(String status) {
         this.status = status;
+        return this;
     }
 
     /**
@@ -69,8 +70,9 @@ public class CellLink {
      * Sets the Sheet ID of the sheet that the linked cell belongs to
      * @param sheetId the sheetId
      */
-    public void setSheetId(Long sheetId) {
+    public CellLink setSheetId(Long sheetId) {
         this.sheetId = sheetId;
+        return this;
     }
 
     /**
@@ -85,8 +87,9 @@ public class CellLink {
      * Sets
      * @param rowId the row Id
      */
-    public void setRowId(Long rowId) {
+    public CellLink setRowId(Long rowId) {
         this.rowId = rowId;
+        return this;
     }
 
     /**
@@ -101,8 +104,9 @@ public class CellLink {
      * Sets Column ID of the linked cell
      * @param columnId the column ID
      */
-    public void setColumnId(Long columnId) {
+    public CellLink setColumnId(Long columnId) {
         this.columnId = columnId;
+        return this;
     }
 
     /**
@@ -117,7 +121,8 @@ public class CellLink {
      * Sets Sheet name of the linked cell
      * @param sheetName the sheet name
      */
-    public void setSheetName(String sheetName) {
+    public CellLink setSheetName(String sheetName) {
         this.sheetName = sheetName;
+        return this;
     }
 }

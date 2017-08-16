@@ -19,55 +19,13 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-import java.util.List;
-
 import com.smartsheet.api.models.enums.ObjectValueType;
 
-public class ObjectValue extends Object {
-
-	/**
-	 * Represents the objectValue type.
-	 */
-	private ObjectValueType objectType;
-	
-	/**
-	 * The list of predecessors
-	 */
-	private List<Predecessor> predecessors;
-	
+public interface ObjectValue {
 	/**
 	 * Get the objectValue type
 	 * 
 	 * @return objectType;
 	 */
-	public ObjectValueType getObjectType() {
-		return objectType;
-	}
-	
-	/**
-	 * Set the objectValue type
-	 * 
-	 * @param objectType
-	 */
-	public void setObjectType(ObjectValueType objectType) {
-		this.objectType = objectType;
-	}
-	
-	/**
-	 * Gets the array of Predecessor objects.
-	 * 
-	 * @return predecessors
-	 */
-	public List<Predecessor> getPredecessors() {
-		return predecessors;
-	}
-	
-	/**
-	 * Sets the array of Predecessor objects.
-	 * 
-	 * @param predecessors
-	 */
-	public void setPredecessors(List<Predecessor> predecessors) {
-		this.predecessors = predecessors;
-	}
+	ObjectValueType getObjectType();
 }

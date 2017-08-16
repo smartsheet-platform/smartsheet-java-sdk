@@ -57,9 +57,10 @@ public class Hyperlink {
      *
      * @param url the urk
      */
-    public void setUrl(String url) {
+    public Hyperlink setUrl(String url) {
         this.isNull = false;
         this.url = url;
+        return this;
     }
 
     /**
@@ -76,9 +77,10 @@ public class Hyperlink {
      *
      * @param sheetId the sheet Id
      */
-    public void setSheetId(Long sheetId) {
+    public Hyperlink setSheetId(Long sheetId) {
         this.isNull = false;
         this.sheetId = sheetId;
+        return this;
     }
 
     /**
@@ -95,9 +97,10 @@ public class Hyperlink {
      *
      * @param reportId the report Id
      */
-    public void setReportId(Long reportId) {
+    public Hyperlink setReportId(Long reportId) {
         this.isNull = false;
         this.reportId = reportId;
+        return this;
     }
     
     /**
