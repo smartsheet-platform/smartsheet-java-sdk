@@ -22,10 +22,9 @@ package com.smartsheet.api.internal.http;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartsheet.api.Trace;
-import com.smartsheet.api.internal.util.StreamUtil;
 import com.smartsheet.api.internal.util.Util;
-import org.apache.commons.codec.binary.Hex;
-import org.apache.http.Header;
+import com.smartsheet.api.internal.util.logging.LoggerLevel;
+import com.smartsheet.api.internal.util.logging.LoggerWriter;
 import org.apache.http.HttpHeaders;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
@@ -42,51 +41,78 @@ import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * This is the Apache HttpClient (http://hc.apache.org/httpcomponents-client-ga/index.html) based HttpClient
  * implementation.
- * <p>
+ *
  * Thread Safety: This class is thread safe because it is immutable and the underlying Apache CloseableHttpClient is
  * thread safe.
  */
 public class DefaultHttpClient implements HttpClient {
-    // to avoid creating new sets for each call (we use sets for perf reasons)
-    private static final Set<Trace> REQUEST_BODY_ONLY = Collections.singleton(Trace.RequestBody);
-    private static final Set<Trace> REQUEST_ALL_PARTS = new TreeSet<Trace>(Arrays.asList(Trace.RequestHeaders, Trace.RequestBody));
-    private static final Set<Trace> RESPONSE_BODY_ONLY = Collections.singleton(Trace.ResponseBody);
-    private static final Set<Trace> RESPONSE_ALL_PARTS = new TreeSet<Trace>(Arrays.asList(Trace.ResponseHeaders, Trace.ResponseBody));
-    private static final ObjectMapper JSON_MAPPER = new ObjectMapper(); // thread-safe (don't change config after first use)
+    /** logger for general errors, warnings, etc */
+    private static final Logger logger = LoggerFactory.getLogger(DefaultHttpClient.class);
+
+    /** used for printing request/response JSON when errors occur */
+    private static final LoggerWriter errorLoggerWriter = new LoggerWriter(logger, LoggerLevel.Warn);
+
+    // to avoid creating new sets for each call (we use Sets for practical and perf reasons)
+    private static final Set<Trace> REQUEST_RESPONSE_SUMMARY = Collections.unmodifiableSet(new HashSet<Trace>(
+            Arrays.asList(Trace.RequestHeaders, Trace.RequestBodySummary, Trace.ResponseHeaders, Trace.ResponseBodySummary)));
+
+    private static final ObjectMapper JSON_MAPPER = new ObjectMapper(); // thread-safe (just don't change its config after first use)
+
+    // default values for trace-logging extracted from system-properties (can still be overwritten at the instance level)
+    private static final boolean TRACE_PRETTY_PRINT_DEFAULT = Boolean.parseBoolean(System.getProperty("Smartsheet.trace.pretty", "true"));
+    private static final Set<Trace> TRACE_DEFAULT_TRACE_SET  = Trace.parse(System.getProperty("Smartsheet.trace.parts"));    // empty by default
+
+    /** where to send trace logs */
+    private static Writer TRACE_WRITER = new OutputStreamWriter(System.out) {
+        @Override
+        public void close() throws IOException {
+            // disabled so writer can be reused; Jackson calls close() in writeValue()
+        }
+    };
+
+    static {
+        logger.info("default trace logging - pretty:{} parts:{}", TRACE_PRETTY_PRINT_DEFAULT, TRACE_DEFAULT_TRACE_SET);
+    }
 
     /**
      * Represents the underlying Apache CloseableHttpClient.
-     *
+     * <p>
      * It will be initialized in constructor and will not change afterwards.
      */
     private final CloseableHttpClient httpClient;
 
-    /** The apache http request. */
+    /**
+     * The apache http request.
+     */
     private HttpRequestBase apacheHttpRequest;
 
-    /** The apache http response. */
+    /**
+     * The apache http response.
+     */
     private CloseableHttpResponse apacheHttpResponse;
 
-    /** UserAgent string sent with each request */
+    /**
+     * UserAgent string sent with each request
+     */
     private final String userAgent;
 
     /** the set of Trace levels to use in trace-logging */
-    private Set<Trace> traces = new TreeSet<Trace>();
+    private final Set<Trace> traces = new HashSet<Trace>(TRACE_DEFAULT_TRACE_SET);
+    /** whether to log pretty or compact */
+    private boolean tracePrettyPrint = TRACE_PRETTY_PRINT_DEFAULT;
 
     @Deprecated // never used (within SDK)
     public static final String USER_AGENT = "Mozilla/5.0 Firefox/26.0";
@@ -126,8 +152,6 @@ public class DefaultHttpClient implements HttpClient {
             throw new IllegalArgumentException("A Request URI is required.");
         }
 
-        HttpResponse smartsheetResponse = new HttpResponse();
-
         // Create Apache HTTP request based on the smartsheetRequest request type
         switch (smartsheetRequest.getMethod()) {
             case GET:
@@ -165,19 +189,26 @@ public class DefaultHttpClient implements HttpClient {
         // Set User Agent
         apacheHttpRequest.setHeader(HttpHeaders.USER_AGENT, userAgent);
 
+
+        HttpEntity originalRequestEntity = null;
+        HttpEntity originalResponseEntity = null;
         // Set HTTP entity
         final HttpEntity entity = smartsheetRequest.getEntity();
         if (apacheHttpRequest instanceof HttpEntityEnclosingRequestBase && entity != null && entity.getContent() != null) {
-            // we need access to the original stream so we can log it - once it's wrapped we can't touch it
-            logRequest(apacheHttpRequest, entity);
+            try {
+                // we need access to the original request stream so we can log it (in the event of errors and/or tracing)
+                originalRequestEntity = new HttpEntity(entity);
+            } catch (IOException iox) {
+                logger.error("failed to make copy of original request entity - {}", iox);
+            }
+
             InputStreamEntity streamEntity = new InputStreamEntity(entity.getContent(), entity.getContentLength());
             streamEntity.setChunked(false);    // why?  not supported by library?
             ((HttpEntityEnclosingRequestBase) apacheHttpRequest).setEntity(streamEntity);
-        } else {
-            logRequest(apacheHttpRequest, null);
         }
 
         // Make the HTTP request
+        HttpResponse smartsheetResponse = new HttpResponse();
         try {
             apacheHttpResponse = this.httpClient.execute(apacheHttpRequest);
 
@@ -196,18 +227,38 @@ public class DefaultHttpClient implements HttpClient {
                 httpEntity.setContentLength(apacheHttpResponse.getEntity().getContentLength());
                 httpEntity.setContent(apacheHttpResponse.getEntity().getContent());
                 smartsheetResponse.setEntity(httpEntity);
+                originalResponseEntity = new HttpEntity(httpEntity);
             }
-            logResponse(apacheHttpRequest, smartsheetResponse);
+            // HTTP-error logging
+            if (smartsheetResponse.getStatusCode() != 200) {
+                // log the summary request and response on error
+                JSON_MAPPER.writeValue(errorLoggerWriter, RequestAndResponseData.of(
+                        apacheHttpRequest, originalRequestEntity, smartsheetResponse, originalResponseEntity, REQUEST_RESPONSE_SUMMARY));
+                errorLoggerWriter.flush();
+            }
 
-            // log request and response (if so configured)
-            if (traces.size() > 0) {
+            if (traces.size() > 0) { // trace-logging of request and response (if so configured)
                 RequestAndResponseData requestAndResponseData = RequestAndResponseData.of(
-                        apacheHttpRequest, entity, smartsheetResponse, smartsheetResponse.getEntity(), traces);
-                JSON_MAPPER.writerWithDefaultPrettyPrinter().writeValue(System.out, requestAndResponseData);
+                        apacheHttpRequest, originalRequestEntity, smartsheetResponse, originalResponseEntity, traces);
+                if (tracePrettyPrint) {
+                    JSON_MAPPER.writerWithDefaultPrettyPrinter().writeValue(TRACE_WRITER, requestAndResponseData);
+                } else {
+                    JSON_MAPPER.writeValue(TRACE_WRITER, requestAndResponseData);
+                }
+                TRACE_WRITER.write("\n");
+                TRACE_WRITER.flush();
             }
         } catch (ClientProtocolException e) {
+            try {
+                JSON_MAPPER.writeValue(errorLoggerWriter, RequestAndResponseData.of(
+                        apacheHttpRequest, originalRequestEntity, smartsheetResponse, originalResponseEntity, REQUEST_RESPONSE_SUMMARY));
+            } catch (IOException ignore) {}
             throw new HttpClientException("Error occurred.", e);
         } catch (IOException e) {
+            try {
+                JSON_MAPPER.writeValue(errorLoggerWriter, RequestAndResponseData.of(
+                        apacheHttpRequest, originalRequestEntity, smartsheetResponse, originalResponseEntity, REQUEST_RESPONSE_SUMMARY));
+            } catch (IOException ignore) {}
             throw new HttpClientException("Error occurred.", e);
         }
 
@@ -243,21 +294,27 @@ public class DefaultHttpClient implements HttpClient {
     public void setTraces(Trace... traces) {
         this.traces.clear();
         for (Trace trace : traces) {
-            if (trace == Trace.Request) {
-                this.traces.addAll(REQUEST_ALL_PARTS);
-            } else if (trace == Trace.Response) {
-                this.traces.addAll(RESPONSE_ALL_PARTS);
-            } else {
+            if (!trace.addReplacements(this.traces)) {
                 this.traces.add(trace);
             }
         }
     }
 
     @Override
-    public Set<Trace> getTraces() {
-        return Collections.unmodifiableSet(traces);
+    public void setTracePrettyPrint(boolean pretty) {
+        tracePrettyPrint = pretty;
     }
 
+    /** only included for testing purposes */
+    public static void setTraceWriter(Writer writer) {
+        TRACE_WRITER = writer;
+    }
+
+    /**
+     *
+     * @param clazz the Class used to find the Package (depends on the jar MANIFEST from which this class was loaded)
+     * @return a User-Agent string that represents this version of the SDK (along with platform info)
+     */
     static String generateUserAgent(Class<?> clazz) {
         String thisVersion = "";
         String title = "";
@@ -269,105 +326,5 @@ public class DefaultHttpClient implements HttpClient {
         return title + "/" + thisVersion + " " + System.getProperty("os.name") + " "
                 + System.getProperty("java.vm.name") + " " + System.getProperty("java.vendor") + " "
                 + System.getProperty("java.version");
-    }
-
-    private static void logRequest(HttpRequestBase request, HttpEntity entity) {
-        // lazy-eval to allow for any config changes before first request is sent
-        Logger requestLogger = LoggerFactory.getLogger(HttpClient.class.getName() + ".request");
-        if (requestLogger.isTraceEnabled()) {
-            StringBuilder buf = new StringBuilder();
-            append(buf, request, entity, REQUEST_ALL_PARTS);
-            requestLogger.trace("Request ({}) - {}", System.identityHashCode(request), buf.toString());
-        } else if (requestLogger.isInfoEnabled()) {
-            StringBuilder buf = new StringBuilder();
-            append(buf, request, null, REQUEST_BODY_ONLY);
-            requestLogger.info("Request ({}) - {}", System.identityHashCode(request), buf.toString());
-        }
-    }
-
-    private static void logResponse(HttpRequestBase request, HttpResponse response) {
-        // lazy-eval to allow for any config changes before first response is received
-        Logger responseLogger = LoggerFactory.getLogger(HttpClient.class.getName() + ".response");
-        if (response.getStatusCode() != 200) {
-            StringBuilder buf = new StringBuilder();
-            // verbose logging of non-OK responses
-            append(buf, response, response.getEntity(), RESPONSE_ALL_PARTS);
-            responseLogger.warn("Response ({}) - {}", System.identityHashCode(request), buf.toString());
-        } else if (responseLogger.isTraceEnabled()) {
-            StringBuilder buf = new StringBuilder();
-            append(buf, response, response.getEntity(), RESPONSE_ALL_PARTS);
-            responseLogger.trace("Response ({}) - {}", System.identityHashCode(request), buf.toString());
-        } else if (responseLogger.isInfoEnabled()) {
-            StringBuilder buf = new StringBuilder();
-            append(buf, response, null, RESPONSE_BODY_ONLY);
-            responseLogger.info("Response ({}) - {}", System.identityHashCode(request), buf.toString());
-        }
-    }
-
-    private static void append(StringBuilder buf, HttpRequestBase request, HttpEntity entity, Set<Trace> traces) {
-        buf.append("{ request:'").append(request.getRequestLine()).append("',");
-        if (traces.contains(Trace.RequestHeaders)) {
-            StringBuilder headerBuf = new StringBuilder();
-            Header[] headers = request.getAllHeaders();
-            for (Header header : headers) {
-                headerBuf.append(',').append(header.getName()).append(':');
-                if ("Authorization".equals(header.getName())) {
-                    headerBuf.append("Bearer ***");
-                } else {
-                    headerBuf.append(Arrays.toString(header.getElements()));
-                }
-            }
-            buf.append(", headers:[").append(headerBuf.substring(1)).append("]");
-        }
-        if (entity != null) {
-            buf.append(", content:");
-            append(buf, entity);
-        }
-        buf.append("}");
-    }
-
-    private static void append(StringBuilder buf, HttpResponse response, HttpEntity entity, Set<Trace> traces) {
-        buf.append("{ status:").append(response.getStatusCode());
-        if (traces.contains(Trace.ResponseHeaders)) {
-            buf.append(", headers:").append(response.getHeaders());
-        }
-        if (entity != null) {
-            buf.append(", entity:");
-            append(buf, entity);
-        }
-        buf.append(" }");
-    }
-
-    private static void append(StringBuilder buf, HttpEntity entity) {
-        String contentAsText = null;
-        try {
-            InputStream inputStream = entity.getContent();
-            if (inputStream.markSupported()) {
-                inputStream.mark(0);
-            }
-            byte[] contentBytes = StreamUtil.readBytesFromStream(inputStream);
-            try {
-                contentAsText = new String(contentBytes, "UTF-8");
-            } catch (UnsupportedEncodingException badEncodingOrNotText) {
-                contentAsText = new String(Hex.encodeHex(contentBytes));
-                logger.info("failed to create string with contentType '{}' from bytes '{}'",
-                        entity.getContentType(), contentAsText);
-            }
-            // since we've consumed the stream we have to reset it (note, this will have real perf impact if the stream
-            // was to a large file or something else we'd rather not hold entirely in RAM if we can help it)
-            if (inputStream.markSupported()) {
-                inputStream.reset();
-            } else {
-                entity.setContent(new ByteArrayInputStream(contentBytes));
-            }
-
-        } catch (IOException iox) {
-            logger.error("failed to extract content from response - {}", iox);
-        }
-
-        buf.append("{ contentType:").append(entity.getContentType())
-                .append(", contentLen:").append(entity.getContentLength())
-                .append(", content:").append(contentAsText)
-                .append(" }");
     }
 }
