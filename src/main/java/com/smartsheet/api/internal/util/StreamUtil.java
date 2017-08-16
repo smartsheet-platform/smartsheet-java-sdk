@@ -84,6 +84,9 @@ public class StreamUtil {
      * used when you want to clone a InputStream's content and still have it appear "rewound" to the stream beginning
      */
     public static InputStream cloneContent(InputStream source, ByteArrayOutputStream target) throws IOException {
+        if (source == null) {
+            return null;
+        }
         final boolean markSupported = source.markSupported();
         final int maxReadBack = 1024 * 1024;
         if (markSupported) {
