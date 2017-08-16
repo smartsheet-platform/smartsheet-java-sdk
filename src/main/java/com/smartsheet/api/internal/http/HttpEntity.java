@@ -22,6 +22,11 @@ package com.smartsheet.api.internal.http;
 
 
 
+import com.smartsheet.api.internal.util.StreamUtil;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -50,7 +55,26 @@ public class HttpEntity {
 	 * It has a pair of setter/getter (not shown on class diagram for brevity).
 	 */
 	private InputStream content;
-	
+
+	/**
+	 * default ctor (needed because we're adding a copy-ctor)
+	 */
+	public HttpEntity() {}
+
+	/**
+	 * copy-ctor (because Cloneable is broken - @see http://www.artima.com/intv/bloch13.html)
+	 */
+	public HttpEntity(HttpEntity original) throws IOException {
+		contentLength = original.contentLength;
+		contentType = original.contentType;
+		// we need to read and then reset (if possible) the original entity's content stream (or replace it with an exact copy)
+		// if contentLength > Integer.MAX_VALUE we have MUCH bigger problems than long->int rollover
+		ByteArrayOutputStream copyBuffer = new ByteArrayOutputStream(contentLength > 0 ? (int)contentLength : 0);
+		original.content = StreamUtil.cloneContent(original.content, copyBuffer);
+		// we now wrap our own content stream around the copy
+		content = new ByteArrayInputStream(copyBuffer.toByteArray());
+	}
+
 	/**
 	 * Gets the content type.
 	 *
@@ -104,5 +128,4 @@ public class HttpEntity {
 	public void setContent(InputStream content) {
 		this.content = content;
 	}
-
 }
