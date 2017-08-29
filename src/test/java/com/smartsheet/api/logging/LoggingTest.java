@@ -27,8 +27,10 @@ import com.smartsheet.api.Trace;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.models.Sheet;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.StringWriter;
@@ -37,13 +39,18 @@ import java.io.StringWriter;
  *
  */
 public class LoggingTest {
-    @Before
-    public void dontFailOnUnrecongnizedFields() {
+    @BeforeClass
+    public static void dontFailOnUnrecongnizedFields() {
         // Setup the serializer
-        JacksonJsonSerializer.setFailOnUnknownProperties(false);    // no idea why they enable this in ResourcesImplBase.baseSetup
+        JacksonJsonSerializer.setFailOnUnknownProperties(false);    // no idea why we enable this in ResourcesImplBase.baseSetup
     }
 
-    @Test
+    @AfterClass
+    public static void failOnUnrecongnizedFields() {
+        // Setup the serializer
+        JacksonJsonSerializer.setFailOnUnknownProperties(true);    // put it back the way we found it
+    }
+
     public void testConsoleLogging() throws Exception {
         StringWriter testWriter = new StringWriter();
         DefaultHttpClient.setTraceWriter(testWriter);
@@ -66,8 +73,27 @@ public class LoggingTest {
                             "\\\"Your Access Token is invalid.\\\",\\n  \\\"refId\\\" :"));
             Assert.assertTrue("status not found in - " + output,
                     output.contains("\"status\" : \"HTTP/1.1 401 Unauthorized\""));
+        }
+    }
 
-//            originalSystemOut.println(output);
+    @Test
+    public void testCustomLogging() throws Exception {
+        StringWriter testWriter = new StringWriter();
+        DefaultHttpClient.setTraceWriter(testWriter);
+        Smartsheet client = new SmartsheetBuilder().build();
+        client.setTraces(Trace.Request, Trace.Response);    // should log entire request and response
+        try {
+            Sheet sheet = client.sheetResources().getSheet(42, null, null, null, null, null, 1, 1);
+            Assert.fail("expected SmartsheetException");
+        } catch (SmartsheetException expected) {
+            String output = testWriter.toString();
+            // not super-robust but asserts some of the important parts
+            Assert.assertTrue("request not found in - " + output, output.contains("request:{"));
+            Assert.assertTrue("Auth header not found in - " + output, output.contains("'Authorization':'Bearer nul")); // allows for truncated Auth header
+            Assert.assertTrue("response not found in - " + output, output.contains("response:{"));
+            Assert.assertTrue("response-body not found in - " + output,
+                    output.contains("body:'{\n  \"errorCode\" : 1002,\n  \"message\" : \"Your Access Token is invalid.\",\n  \"refId\" :"));
+            Assert.assertTrue("status not found in - " + output, output.contains("status:'HTTP/1.1 401 Unauthorized'"));
         }
     }
 }

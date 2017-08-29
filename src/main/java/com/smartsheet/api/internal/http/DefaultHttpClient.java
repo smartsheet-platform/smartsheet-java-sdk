@@ -63,26 +63,19 @@ public class DefaultHttpClient implements HttpClient {
     private static final Logger logger = LoggerFactory.getLogger(DefaultHttpClient.class);
 
     /** used for printing request/response JSON when errors occur */
-    private static final LoggerWriter errorLoggerWriter = new LoggerWriter(logger, LoggerLevel.Warn);
+//    private static final LoggerWriter errorLoggerWriter = new LoggerWriter(logger, LoggerLevel.Warn);
 
     // to avoid creating new sets for each call (we use Sets for practical and perf reasons)
     private static final Set<Trace> REQUEST_RESPONSE_SUMMARY = Collections.unmodifiableSet(new HashSet<Trace>(
             Arrays.asList(Trace.RequestHeaders, Trace.RequestBodySummary, Trace.ResponseHeaders, Trace.ResponseBodySummary)));
 
-    private static final ObjectMapper JSON_MAPPER = new ObjectMapper(); // thread-safe (just don't change its config after first use)
-
     // default values for trace-logging extracted from system-properties (can still be overwritten at the instance level)
     private static final boolean TRACE_PRETTY_PRINT_DEFAULT = Boolean.parseBoolean(System.getProperty("Smartsheet.trace.pretty", "true"));
+
     private static final Set<Trace> TRACE_DEFAULT_TRACE_SET  = Trace.parse(System.getProperty("Smartsheet.trace.parts"));    // empty by default
 
     /** where to send trace logs */
-    private static Writer TRACE_WRITER = new OutputStreamWriter(System.out) {
-        @Override
-        public void close() throws IOException {
-            // disabled so writer can be reused; Jackson calls close() in writeValue()
-        }
-    };
-
+    private static Writer TRACE_WRITER = new OutputStreamWriter(System.out);
     static {
         logger.info("default trace logging - pretty:{} parts:{}", TRACE_PRETTY_PRINT_DEFAULT, TRACE_DEFAULT_TRACE_SET);
     }
@@ -225,32 +218,25 @@ public class DefaultHttpClient implements HttpClient {
             // HTTP-error logging
             if (smartsheetResponse.getStatusCode() != 200) {
                 // log the summary request and response on error
-                JSON_MAPPER.writeValue(errorLoggerWriter, RequestAndResponseData.of(
-                        apacheHttpRequest, originalRequestEntity, smartsheetResponse, originalResponseEntity, REQUEST_RESPONSE_SUMMARY));
-                errorLoggerWriter.flush();
+                logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, originalRequestEntity, smartsheetResponse,
+                        originalResponseEntity, REQUEST_RESPONSE_SUMMARY));
             }
 
             if (traces.size() > 0) { // trace-logging of request and response (if so configured)
                 RequestAndResponseData requestAndResponseData = RequestAndResponseData.of(
                         apacheHttpRequest, originalRequestEntity, smartsheetResponse, originalResponseEntity, traces);
-                if (tracePrettyPrint) {
-                    JSON_MAPPER.writerWithDefaultPrettyPrinter().writeValue(TRACE_WRITER, requestAndResponseData);
-                } else {
-                    JSON_MAPPER.writeValue(TRACE_WRITER, requestAndResponseData);
-                }
-                TRACE_WRITER.write("\n");
-                TRACE_WRITER.flush();
+                TRACE_WRITER.write(requestAndResponseData.toString(tracePrettyPrint) + "\n");
             }
         } catch (ClientProtocolException e) {
             try {
-                JSON_MAPPER.writeValue(errorLoggerWriter, RequestAndResponseData.of(
-                        apacheHttpRequest, originalRequestEntity, smartsheetResponse, originalResponseEntity, REQUEST_RESPONSE_SUMMARY));
+                logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, originalRequestEntity, smartsheetResponse,
+                        originalResponseEntity, REQUEST_RESPONSE_SUMMARY));
             } catch (IOException ignore) {}
             throw new HttpClientException("Error occurred.", e);
         } catch (IOException e) {
             try {
-                JSON_MAPPER.writeValue(errorLoggerWriter, RequestAndResponseData.of(
-                        apacheHttpRequest, originalRequestEntity, smartsheetResponse, originalResponseEntity, REQUEST_RESPONSE_SUMMARY));
+                logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, originalRequestEntity, smartsheetResponse,
+                        originalResponseEntity, REQUEST_RESPONSE_SUMMARY));
             } catch (IOException ignore) {}
             throw new HttpClientException("Error occurred.", e);
         }

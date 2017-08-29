@@ -156,6 +156,70 @@ public class RequestAndResponseData {
         response = responseData;
     }
 
+    @Override
+    public String toString() {
+        return toString(false);
+    }
+
+    public String toString(boolean pretty) {
+        final String EOL = pretty ? "\n" : "";
+        final String INDENT  = pretty ? "  " : "";
+        final String INDENT2 = INDENT + INDENT;
+        final String INDENT3 = INDENT2 + INDENT;
+
+        StringBuilder buf = new StringBuilder();
+        buf.append("{").append(EOL);
+        buf.append(INDENT).append("request:");
+        if (request == null) {
+            buf.append("null,").append(EOL);
+        } else {
+            buf.append("{").append(EOL);
+            buf.append(INDENT2).append("command:'").append(request.getCommand()).append("',").append(EOL);
+            buf.append(INDENT2).append("headers:");
+            if (request.getHeaders() == null) {
+                buf.append("null,").append(EOL);
+            } else {
+                buf.append("{").append(EOL);
+                for (Map.Entry<String, String> header : request.headers.entrySet()) {
+                    buf.append(INDENT3).append("'").append(header.getKey()).append("':'").append(header.getValue()).append("',").append(EOL);
+                }
+                buf.append(INDENT2).append("},").append(EOL);
+            }
+            buf.append(INDENT2).append("body:");
+            if (request.body == null) {
+                buf.append("null");
+            } else {
+                buf.append("'").append(request.body).append("'");
+            }
+            buf.append(EOL).append(INDENT).append("},").append(EOL);
+        }
+        buf.append(INDENT).append("response:");
+        if (response == null) {
+            buf.append("null").append(EOL);
+        } else {
+            buf.append("{").append(EOL);
+            buf.append(INDENT2).append("status:'").append(response.getStatus()).append("',").append(EOL);
+            buf.append(INDENT2).append("headers:");
+            if (response.getHeaders() == null) {
+                buf.append("null,").append(EOL);
+            } else {
+                buf.append("{").append(EOL);
+                for (Map.Entry<String, String> header : response.headers.entrySet()) {
+                    buf.append(INDENT3).append("'").append(header.getKey()).append("':'").append(header.getValue()).append("',").append(EOL);
+                }
+                buf.append(INDENT2).append("},").append(EOL);
+            }
+            buf.append(INDENT2).append("body:");
+            if (response.body == null) {
+                buf.append("null");
+            } else {
+                buf.append("'").append(response.body).append("'");
+            }
+            buf.append(EOL).append(INDENT).append("}").append(EOL);
+        }
+        buf.append("}");
+        return buf.toString();
+    }
 
     /**
      * factory method for creating a RequestAndResponseData object from request and response data with the specifid trace fields
@@ -169,40 +233,53 @@ public class RequestAndResponseData {
 
         if (request != null) {
             requestBuilder.withCommand(request.getMethod() + " " + request.getURI());
+            boolean binaryBody = false;
             if (traces.contains(Trace.RequestHeaders) && request.getAllHeaders() != null) {
                 for (Header header : request.getAllHeaders()) {
                     String headerName = header.getName();
                     String headerValue = header.getValue();
                     if ("Authorization".equals(headerName) && headerValue.length() > 0) {
                         headerValue = headerValue.substring(0, Math.min(10, headerValue.length() - 1)) + "****";
+                    } else if ("Content-Disposition".equals(headerName)) {
+                        binaryBody = true;
                     }
                     requestBuilder.addHeader(headerName, headerValue);
                 }
             }
             if (requestEntity != null) {
                 if (traces.contains(Trace.RequestBody)) {
-                    requestBuilder.setBody(getContentAsText(requestEntity));
+                    requestBuilder.setBody(binaryBody ? binaryBody(requestEntity) : getContentAsText(requestEntity));
                 } else if (traces.contains(Trace.RequestBodySummary)) {
-                    requestBuilder.setBody(truncateAsNeeded(getContentAsText(requestEntity), TRUNCATE_LENGTH));
+                    requestBuilder.setBody(binaryBody ? binaryBody(requestEntity) : truncateAsNeeded(getContentAsText(requestEntity), TRUNCATE_LENGTH));
                 }
             }
         }
         if (response != null) {
+            boolean binaryBody = false;
             responseBuilder.withStatus(response.getStatusText());
             if (traces.contains(Trace.ResponseHeaders) && response.getHeaders() != null) {
                 for (Map.Entry<String, String> header : response.getHeaders().entrySet()) {
-                    responseBuilder.addHeader(header.getKey(), header.getValue());
+                    String headerName = header.getKey();
+                    String headerValue = header.getValue();
+                    if ("Content-Disposition".equals(headerName)) {
+                        binaryBody = true;
+                    }
+                    responseBuilder.addHeader(headerName, headerValue);
                 }
             }
             if (responseEntity != null) {
                 if (traces.contains(Trace.ResponseBody)) {
-                    responseBuilder.setBody(getContentAsText(responseEntity));
+                    responseBuilder.setBody(binaryBody ? binaryBody(responseEntity) : getContentAsText(responseEntity));
                 } else if (traces.contains(Trace.ResponseBodySummary)) {
-                    responseBuilder.setBody(truncateAsNeeded(getContentAsText(responseEntity), TRUNCATE_LENGTH));
+                    responseBuilder.setBody(binaryBody ? binaryBody(responseEntity) : truncateAsNeeded(getContentAsText(responseEntity), TRUNCATE_LENGTH));
                 }
             }
         }
         return new RequestAndResponseData(requestBuilder.build(), responseBuilder.build());
+    }
+
+    static String binaryBody(HttpEntity entity) {
+        return "**possibly-binary(type:" + entity.getContentType() + ", len:" + entity.getContentLength() + ")**";
     }
 
     public static String getContentAsText(HttpEntity entity) throws IOException {
