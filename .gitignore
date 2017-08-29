@@ -1,7 +1,20 @@
 target/
-.idea/
 src/integration-test/resources/config.properties
-
 .settings/org.eclipse.core.resources.prefs
-
 .vscode/settings.json
+
+# list of .idea files from app-core's .gitignore
+.idea/artifacts
+.idea/dataSources
+.idea/compiler.xml
+.idea/dictionaries
+.idea/modules.xml
+.idea/shelf
+.idea/tasks.xml
+.idea/workspace.xml
+.idea/dataSources.ids
+.idea/dataSources.xml
+.idea/dataSources.local.xml
+.idea/kotlinc.xml
+.idea/markdown-navigator*
+.idea/markdown-exported-files.xml
