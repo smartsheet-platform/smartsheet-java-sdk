@@ -29,12 +29,10 @@ import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.models.Sheet;
 import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
-import java.io.StringWriter;
 
 /**
  *
@@ -66,7 +64,7 @@ public class LoggingTest {
             Assert.assertTrue("request not found in - " + output,
                     output.contains("\"request\" : {"));
             Assert.assertTrue("Auth header not found in - " + output,
-                    output.contains("\"Authorization\" : \"Bearer nul")); // allows for truncated Auth header
+                    output.contains("\"Authorization\" : \"Bearer ****null")); // truncated Auth header
             Assert.assertTrue("response not found in - " + output,
                     output.contains("\"response\" : {"));
             Assert.assertTrue("response-body not found in - " + output,
@@ -90,7 +88,7 @@ public class LoggingTest {
             String output = traceStream.toString();
             // not super-robust but asserts some of the important parts
             Assert.assertTrue("request not found in - " + output, output.contains("request:{"));
-            Assert.assertTrue("Auth header not found in - " + output, output.contains("'Authorization':'Bearer nul")); // allows for truncated Auth header
+            Assert.assertTrue("Auth header not found in - " + output, output.contains("'Authorization':'Bearer ****null")); // truncated Auth header
             Assert.assertTrue("response not found in - " + output, output.contains("response:{"));
             Assert.assertTrue("response-body not found in - " + output,
                     output.contains("body:'{\n  \"errorCode\" : 1002,\n  \"message\" : \"Your Access Token is invalid.\",\n  \"refId\" :"));
