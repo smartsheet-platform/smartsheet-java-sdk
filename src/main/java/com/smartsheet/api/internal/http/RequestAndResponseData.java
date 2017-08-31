@@ -239,7 +239,7 @@ public class RequestAndResponseData {
                     String headerName = header.getName();
                     String headerValue = header.getValue();
                     if ("Authorization".equals(headerName) && headerValue.length() > 0) {
-                        headerValue = headerValue.substring(0, Math.min(10, headerValue.length() - 1)) + "****";
+                        headerValue = "Bearer ****" + headerValue.substring(Math.max(0, headerValue.length() - 4));
                     } else if ("Content-Disposition".equals(headerName)) {
                         binaryBody = true;
                     }

@@ -20,11 +20,8 @@ package com.smartsheet.api.internal.http;
  * %[license]
  */
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smartsheet.api.Trace;
 import com.smartsheet.api.internal.util.Util;
-import com.smartsheet.api.internal.util.logging.LoggerLevel;
-import com.smartsheet.api.internal.util.logging.LoggerWriter;
 import org.apache.http.HttpHeaders;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
@@ -42,7 +39,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.Arrays;
 import java.util.Collections;
@@ -62,9 +60,6 @@ public class DefaultHttpClient implements HttpClient {
     /** logger for general errors, warnings, etc */
     private static final Logger logger = LoggerFactory.getLogger(DefaultHttpClient.class);
 
-    /** used for printing request/response JSON when errors occur */
-//    private static final LoggerWriter errorLoggerWriter = new LoggerWriter(logger, LoggerLevel.Warn);
-
     // to avoid creating new sets for each call (we use Sets for practical and perf reasons)
     private static final Set<Trace> REQUEST_RESPONSE_SUMMARY = Collections.unmodifiableSet(new HashSet<Trace>(
             Arrays.asList(Trace.RequestHeaders, Trace.RequestBodySummary, Trace.ResponseHeaders, Trace.ResponseBodySummary)));
@@ -75,9 +70,12 @@ public class DefaultHttpClient implements HttpClient {
     private static final Set<Trace> TRACE_DEFAULT_TRACE_SET  = Trace.parse(System.getProperty("Smartsheet.trace.parts"));    // empty by default
 
     /** where to send trace logs */
-    private static Writer TRACE_WRITER = new OutputStreamWriter(System.out);
+    private static PrintWriter TRACE_WRITER;
     static {
-        logger.info("default trace logging - pretty:{} parts:{}", TRACE_PRETTY_PRINT_DEFAULT, TRACE_DEFAULT_TRACE_SET);
+        setTraceStream(System.out); // default trace stream
+        if (TRACE_DEFAULT_TRACE_SET.size() > 0) {
+            TRACE_WRITER.println("default trace logging - pretty:" + TRACE_PRETTY_PRINT_DEFAULT + " parts:" + TRACE_DEFAULT_TRACE_SET);
+        }
     }
 
     /**
@@ -225,7 +223,7 @@ public class DefaultHttpClient implements HttpClient {
             if (traces.size() > 0) { // trace-logging of request and response (if so configured)
                 RequestAndResponseData requestAndResponseData = RequestAndResponseData.of(
                         apacheHttpRequest, originalRequestEntity, smartsheetResponse, originalResponseEntity, traces);
-                TRACE_WRITER.write(requestAndResponseData.toString(tracePrettyPrint) + "\n");
+                TRACE_WRITER.println(requestAndResponseData.toString(tracePrettyPrint));
             }
         } catch (ClientProtocolException e) {
             try {
@@ -285,8 +283,8 @@ public class DefaultHttpClient implements HttpClient {
     }
 
     /** only included for testing purposes */
-    public static void setTraceWriter(Writer writer) {
-        TRACE_WRITER = writer;
+    public static void setTraceStream(OutputStream traceStream) {
+        TRACE_WRITER = new PrintWriter(traceStream, true);
     }
 
     /**

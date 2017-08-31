@@ -33,6 +33,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
 import java.io.StringWriter;
 
 /**
@@ -52,15 +53,15 @@ public class LoggingTest {
     }
 
     public void testConsoleLogging() throws Exception {
-        StringWriter testWriter = new StringWriter();
-        DefaultHttpClient.setTraceWriter(testWriter);
+        ByteArrayOutputStream traceStream = new ByteArrayOutputStream();
+        DefaultHttpClient.setTraceStream(traceStream);
         Smartsheet client = new SmartsheetBuilder().build();
         client.setTraces(Trace.Request, Trace.Response);    // should log entire request and response
         try {
             Sheet sheet = client.sheetResources().getSheet(42, null, null, null, null, null, 1, 1);
             Assert.fail("expected SmartsheetException");
         } catch (SmartsheetException expected) {
-            String output = testWriter.toString();
+            String output = traceStream.toString();
             // not super-robust but asserts some of the important parts
             Assert.assertTrue("request not found in - " + output,
                     output.contains("\"request\" : {"));
@@ -78,15 +79,15 @@ public class LoggingTest {
 
     @Test
     public void testCustomLogging() throws Exception {
-        StringWriter testWriter = new StringWriter();
-        DefaultHttpClient.setTraceWriter(testWriter);
+        ByteArrayOutputStream traceStream = new ByteArrayOutputStream();
+        DefaultHttpClient.setTraceStream(traceStream);
         Smartsheet client = new SmartsheetBuilder().build();
         client.setTraces(Trace.Request, Trace.Response);    // should log entire request and response
         try {
             Sheet sheet = client.sheetResources().getSheet(42, null, null, null, null, null, 1, 1);
             Assert.fail("expected SmartsheetException");
         } catch (SmartsheetException expected) {
-            String output = testWriter.toString();
+            String output = traceStream.toString();
             // not super-robust but asserts some of the important parts
             Assert.assertTrue("request not found in - " + output, output.contains("request:{"));
             Assert.assertTrue("Auth header not found in - " + output, output.contains("'Authorization':'Bearer nul")); // allows for truncated Auth header
