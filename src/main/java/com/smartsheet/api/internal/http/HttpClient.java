@@ -21,9 +21,7 @@ package com.smartsheet.api.internal.http;
  */
 
 
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.smartsheet.api.Trace;
 
 import java.io.Closeable;
 
@@ -33,13 +31,6 @@ import java.io.Closeable;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface HttpClient extends Closeable {
-	/** logger for requests */
-	static final Logger requestLogger = LoggerFactory.getLogger(HttpClient.class.getName() + ".request");
-	/** logger for responses */
-	static final Logger responseLogger = LoggerFactory.getLogger(HttpClient.class.getName() + ".response");
-	/** logger for general errors, warnings, etc */
-	static final Logger logger = LoggerFactory.getLogger(HttpClient.class);
-
 	/**
 	 * Make an HTTP request and return the response.
 	 * 
@@ -60,4 +51,16 @@ public interface HttpClient extends Closeable {
 	 * Release connection.
 	 */
 	public void releaseConnection();
+
+	/**
+	 * set the traces for this client
+	 * @param traces the fields to include in trace-logging
+	 */
+	public void setTraces(Trace... traces);
+
+	/**
+	 * set whether to use nicely-formatted JSON or more compact format JSON in trace logging
+	 * @param pretty whether to print JSON in a "pretty" format or compact
+	 */
+	public void setTracePrettyPrint(boolean pretty);
 }
