@@ -17,107 +17,56 @@
  * limitations under the License.
  * %[license]
  */
-import com.smartsheet.api.*;
-import com.smartsheet.api.models.*;
-import com.smartsheet.api.models.enums.*;
-import com.smartsheet.api.oauth.*;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
-import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-import java.util.EnumSet;
+import com.smartsheet.api.Smartsheet;
+import com.smartsheet.api.SmartsheetBuilder;
+import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.models.Column;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.Row;
+import com.smartsheet.api.models.Sheet;
+
 import java.util.List;
 
 public class Sample {
 
-    public static void main(String[] args) throws SmartsheetException,UnsupportedEncodingException,
-                                                  URISyntaxException, NoSuchAlgorithmException{
-        SampleProgram();
-        OAuthExample();
-    }
+    public static void main(String[] args) throws SmartsheetException
+    {
+        // Set trace levels before initializing smartsheet client
+        System.setProperty("Smartsheet.trace.parts", "Request, ResponseBodySummary");
 
-    public static void SampleProgram() throws SmartsheetException{
-        // Set the Access Token
-        Token token = new Token();
-        token.setAccessToken("INSERT_YOUR_TOKEN_HERE");
+        // TODO: Set your access token here or in environment variable
+        String token = System.getenv("SMARTSHEET_ACCESS_TOKEN");
 
         // Use the Smartsheet Builder to create a Smartsheet
-        Smartsheet smartsheet = new SmartsheetBuilder().setAccessToken(token.getAccessToken()).build();
+        Smartsheet smartsheet = new SmartsheetBuilder().setAccessToken(token).build();
 
-        // Get home with Source Inclusion parameter
-        Home home = smartsheet.homeResources().getHome(EnumSet.of(SourceInclusion.SOURCE));
+        PagedResult<Sheet> sheets = smartsheet.sheetResources().listSheets(null, null, null );
+        System.out.println("Found " + sheets.getTotalCount() + " sheets");
 
-        // List home folders
-        List<Folder> homeFolders = home.getFolders();
-        for(Folder folder : homeFolders){
-            System.out.println("folder:"+folder.getName());
-        }
+        Long sheetId =  sheets.getData().get(0).getId();            // Default to first sheet
 
-        //List Sheets with Source Inclusion parameters and null Pagination parameters
-        PagedResult<Sheet> homeSheets = smartsheet.sheetResources().listSheets(EnumSet.of(SourceInclusion.SOURCE), null);
-        for(Sheet sheet : homeSheets.getData()){
-            System.out.println("sheet: " + sheet.getName());
-        }
+        // TODO: Uncomment if you wish to read a specific sheet
+        // sheetId = 239236234L;
 
-        // Create folder in home
-        Folder folder = new Folder.CreateFolderBuilder().setName("New Folder").build();
-        folder = smartsheet.homeResources().folderResources().createFolder(folder);
-        System.out.println("Folder ID: " + folder.getId() + ", Folder Name: " + folder.getName());
+        Sheet sheet = smartsheet.sheetResources().getSheet(sheetId, null, null, null, null, null, null, null);
+        List<Row> rows = sheet.getRows();
+        System.out.println("Loaded sheet id " + sheetId + " with " + rows.size() + " rows, title: " + sheet.getName());
 
-        // Setup checkbox Column Object
-        Column checkboxColumn = new Column.AddColumnToSheetBuilder()
-                                        .setType(ColumnType.CHECKBOX)
-                                        .setTitle("Finished")
-                                        .build();
-        // Setup text Column Object
-        Column textColumn = new Column.AddColumnToSheetBuilder()
-                                        .setPrimary(true)
-                                        .setTitle("To Do List")
-                                        .setType(ColumnType.TEXT_NUMBER)
-                                        .build();
+        // Display the first 5 rows & columns
+        for (int rowNumber = 0; rowNumber < rows.size() && rowNumber < 5; rowNumber++)
+            DumpRow(rows.get(rowNumber), sheet.getColumns());
 
-        // Add the 2 Columns (flag & text) to a new Sheet Object
-        Sheet sheet = new Sheet.CreateSheetBuilder()
-                                .setName("New Sheet")
-                                .setColumns(Arrays.asList(checkboxColumn, textColumn))
-                                .build();
-
-        // Send the request to create the sheet @ Smartsheet
-        sheet = smartsheet.sheetResources().createSheet(sheet);
     }
 
-    /**
-     * This provides an example of how to use OAuth to generate a Token from a third party application. It handles
-     * requesting the authorization code, sending the user to a specific website to request access and then getting
-     * the access token to use for all future requests.
-     */
-    public static void OAuthExample() throws SmartsheetException, UnsupportedEncodingException, URISyntaxException,
-            NoSuchAlgorithmException {
+    static void DumpRow(Row row, List<Column> columns)
+    {
+        System.out.println("Row # " + row.getRowNumber() + ":");
+        for (int columnNumber = 0; columnNumber < columns.size() && columnNumber < 5; columnNumber++) {
+            System.out.println("    " + columns.get(columnNumber).getTitle() + ": " + row.getCells().get(columnNumber).getValue());
+        }
 
-        // Setup the information that is necessary to request an authorization code
-        OAuthFlow oauth = new OAuthFlowBuilder()
-                                .setClientId("YOUR_CLIENT_ID")
-                                .setClientSecret("YOUR_CLIENT_SECRET")
-                                .setRedirectURL("https://YOUR_DOMAIN.com/").build();
-
-        // Create the URL that the user will go to grant authorization to the application
-        String url = oauth.newAuthorizationURL(EnumSet.of(com.smartsheet.api.oauth.AccessScope.CREATE_SHEETS,
-                com.smartsheet.api.oauth.AccessScope.WRITE_SHEETS), "key=YOUR_VALUE");
-
-        // Take the user to the following URL
-        System.out.println(url);
-
-        // After the user accepts or declines the authorization they are taken to the redirect URL. The URL of the page
-        // the user is taken to can be used to generate an authorization Result object.
-        String authorizationResponseURL = "https://yourDomain.com/?code=l4csislal82qi5h&expires_in=239550&state=key%3D12344";
-
-        // On this page pass in the full URL of the page to create an authorizationResult object
-        AuthorizationResult authResult = oauth.extractAuthorizationResult(authorizationResponseURL);
-
-        // Get the token from the authorization result
-        Token token = oauth.obtainNewToken(authResult);
-
-        // Save the token or use it.
     }
+
+
 }
