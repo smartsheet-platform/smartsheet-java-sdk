@@ -61,7 +61,7 @@ public enum Trace {
         if (traces == null || traces.trim().isEmpty()) {
             return Collections.emptySet();
         }
-        String[] parts = traces.split(",");
+        String[] parts = traces.split(", *");
         Set<Trace> results = new HashSet<Trace>(parts.length + parts.length / 2); // pad for load-factor
         for (String part : parts) {
             try {
