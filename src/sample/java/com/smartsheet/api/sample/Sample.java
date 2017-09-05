@@ -31,7 +31,7 @@ import com.smartsheet.api.models.Sheet;
  */
 public class Sample {
     static {
-        System.setProperty("Smartsheet.trace.parts", "Request,ResponseBodySummary");
+        System.setProperty("Smartsheet.trace.parts", "RequestBody,ResponseBodySummary");
         System.setProperty("Smartsheet.trace.pretty", "true");
 
     }
