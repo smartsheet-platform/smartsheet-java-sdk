@@ -34,6 +34,7 @@ public class HttpResponse extends HttpMessage {
 	 * It has a pair of setter/getter (not shown on class diagram for brevity).
 	 */
 	private int statusCode;
+	private String statusText;
 
 	/**
 	 * Gets the status code.
@@ -45,6 +46,15 @@ public class HttpResponse extends HttpMessage {
 	}
 
 	/**
+	 * Gets the status text.
+	 *
+	 * @return the status text
+	 */
+	public String getStatusText() {
+		return statusText;
+	}
+
+	/**
 	 * Sets the status code.
 	 *
 	 * @param statusCode the new status code
@@ -52,4 +62,16 @@ public class HttpResponse extends HttpMessage {
 	public void setStatusCode(int statusCode) {
 		this.statusCode = statusCode;
 	}
+
+	/**
+	 * Sets the status code and text.
+	 *
+	 * @param statusCode the new status code
+	 * @param statusText the new status text
+	 */
+	public void setStatus(int statusCode, String statusText) {
+		this.statusCode = statusCode;
+		this.statusText = statusText;
+	}
+
 }
