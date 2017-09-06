@@ -23,8 +23,12 @@ package com.smartsheet.api.sample;
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetBuilder;
 import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.models.Column;
 import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.Row;
 import com.smartsheet.api.models.Sheet;
+
+import java.util.List;
 
 /**
  *
@@ -37,12 +41,41 @@ public class Sample {
     }
     public static void main(String[] args) {
         try {
-            Smartsheet api = new SmartsheetBuilder().setAccessToken(System.getenv("SMARTSHEET_ACCESS_TOKEN")).build();
-            PagedResult<Sheet> sheets = api.sheetResources().listSheets(null, null, null);
-            System.out.format("hello world - num-sheets: %d\n", sheets.getTotalCount());
+            // TODO: Set your access token here or in this environment variable
+            String token = System.getenv("SMARTSHEET_ACCESS_TOKEN");
+
+            // Create Smartsheet client
+            Smartsheet smartsheet = new SmartsheetBuilder().setAccessToken(token).build();
+
+            // List all sheets
+            PagedResult<Sheet> sheets = smartsheet.sheetResources().listSheets(null, null, null );
+            System.out.println("Found " + sheets.getTotalCount() + " sheets");
+
+            Long sheetId =  sheets.getData().get(0).getId();            // Default to first sheet
+
+            // TODO: Uncomment if you wish to read a specific sheet
+            // sheetId = 239236234L;
+
+            // Load entire sheet
+            Sheet sheet = smartsheet.sheetResources().getSheet(sheetId, null, null, null, null, null, null, null);
+            List<Row> rows = sheet.getRows();
+            System.out.println("Loaded sheet id " + sheetId + " with " + rows.size() + " rows, title: " + sheet.getName());
+
+            // Display the first 5 rows & columns
+            for (int rowNumber = 0; rowNumber < rows.size() && rowNumber < 5; rowNumber++)
+                DumpRow(rows.get(rowNumber), sheet.getColumns());
         } catch (SmartsheetException sx) {
             sx.printStackTrace();
         }
         System.out.println("done.");
+    }
+
+    static void DumpRow(Row row, List<Column> columns)
+    {
+        System.out.println("Row # " + row.getRowNumber() + ":");
+        for (int columnNumber = 0; columnNumber < columns.size() && columnNumber < 5; columnNumber++) {
+            System.out.println("    " + columns.get(columnNumber).getTitle() + ": " + row.getCells().get(columnNumber).getValue());
+        }
+
     }
 }
