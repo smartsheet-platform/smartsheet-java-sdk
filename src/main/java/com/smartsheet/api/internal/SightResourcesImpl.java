@@ -37,6 +37,7 @@ import com.smartsheet.api.models.ContainerDestination;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Sight;
+import com.smartsheet.api.models.SightPublish;
 
 public class SightResourcesImpl extends AbstractResources implements SightResources {
 	
@@ -175,7 +176,45 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
 	public Sight moveSight(long sightId, ContainerDestination destination) throws SmartsheetException {
 		return this.createResource("sights/" + sightId + "/move", Sight.class, destination);		
 	}
-	
+
+	/**
+	 * <p>Get the publish status of a Sight.</p>
+	 *
+	 * <p>It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/publish</p>
+	 *
+	 * @param sightId the Id of the Sight
+	 * @return the Sight's publish status.
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	public SightPublish getPublishStatus(long sightId) throws SmartsheetException {
+		return this.getResource("sights/" + sightId + "/publish", SightPublish.class);
+	}
+
+	/**
+	 * <p>Sets the publish status of a Sight and returns the new status, including the URLs of any enabled publishing.</p>
+	 *
+	 * <p>It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/publish</p>
+	 *
+	 * @param sightId the Id of the Sight
+	 * @param sightPublish the SightPublish object containing publish status
+	 * @return the Sight's publish status.
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException if there is any other error during the operation
+	 */
+	public SightPublish setPublishStatus(long sightId, SightPublish sightPublish) throws SmartsheetException {
+		Util.throwIfNull(sightPublish);
+		return this.updateResource("sights/" + sightId + "/publish", SightPublish.class, sightPublish);
+	}
+
 	/**
 	 * <p>Return the ShareResources object that provides access to share resources associated with
 	 * Sight resources.</p>
