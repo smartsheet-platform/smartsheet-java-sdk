@@ -76,7 +76,12 @@ public class Column extends IdentifiableModel<Long> {
 	 * Represents the format for the auto generated numbers (if the SystemColumnType is an AUTO_NUMBER).
 	 */
 	private AutoNumberFormat autoNumberFormat;
-	
+
+	/**
+	 * List containing contact options
+	 */
+	private List<Contact> contactOptions;
+
 	/**
 	 * Represents the tags to indicate a special type of column.
 	 */
@@ -275,6 +280,24 @@ public class Column extends IdentifiableModel<Long> {
 	 */
 	public Column setAutoNumberFormat(AutoNumberFormat autoNumberFormat) {
 		this.autoNumberFormat = autoNumberFormat;
+		return this;
+	}
+
+	/**
+	 * Gets a list of contact options
+	 *
+	 * @return list of contact options
+	 */
+	public List<Contact> getContactOptions() { return contactOptions; }
+
+	/**
+	 * Sets the list of contact options
+	 *
+	 * @param contactOptions the new list of contact options
+	 * @return Column
+	 */
+	public Column setContactOptions(List<Contact> contactOptions) {
+		this.contactOptions = contactOptions;
 		return this;
 	}
 
