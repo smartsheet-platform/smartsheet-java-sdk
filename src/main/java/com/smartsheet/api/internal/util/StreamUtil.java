@@ -30,11 +30,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- *
+ * a collection of Stream-oriented utility methods
  */
 public class StreamUtil {
     /**
      * read all bytes from an InputStream; doesn't close input-stream
+     *
      * @param source the input stream to consume
      * @return the bytes read from 'is'
      * @throws IOException if anything goes wrong reading from 'is'
@@ -45,8 +46,9 @@ public class StreamUtil {
 
     /**
      * read all bytes from an InputStream with the specified buffer size; doesn't close input-stream
-     * @param source        the input stream to consume
-     * @param bufferSize    the buffer size to use when reading the stream
+     *
+     * @param source     the input stream to consume
+     * @param bufferSize the buffer size to use when reading the stream
      * @return the bytes read from 'is'
      * @throws IOException if anything goes wrong reading from 'is'
      */
@@ -58,6 +60,7 @@ public class StreamUtil {
 
     /**
      * the real work-horse behind all the above methods
+     *
      * @param source
      * @param content
      * @param bufferSize
@@ -81,6 +84,9 @@ public class StreamUtil {
      * used when you want to clone a InputStream's content and still have it appear "rewound" to the stream beginning
      */
     public static InputStream cloneContent(InputStream source, ByteArrayOutputStream target) throws IOException {
+        if (source == null) {
+            return null;
+        }
         final boolean markSupported = source.markSupported();
         final int maxReadBack = 1024 * 1024;
         if (markSupported) {
@@ -95,19 +101,28 @@ public class StreamUtil {
         return new ByteArrayInputStream(target.toByteArray());
     }
 
-    public static String toUtf8StringOrHex(ByteArrayOutputStream byteStream) {
-        return toUtf8StringOrHex(byteStream, 1024);
-    }
-
+    /**
+     * generate a String of UTF-8 characters (or hex-digits if byteStream isn't UTF-8 chars) from byteStream,
+     * truncating to maxLen (with "..." added if the result is truncated)
+     *
+     * @param byteStream
+     * @param maxLen
+     * @return
+     */
     public static String toUtf8StringOrHex(ByteArrayOutputStream byteStream, int maxLen) {
+        if (maxLen == -1) {
+            maxLen = Integer.MAX_VALUE;
+        }
+
         String result;
         try {
             result = byteStream.toString("UTF-8");
         } catch (Exception notUtf8) {
             result = Hex.encodeHexString(byteStream.toByteArray());
         }
-        int resultLen = result != null ? result.length() : 0;
-        return resultLen == 0 ? "" : result.substring(0, Math.min(result.length(), maxLen));
 
+        final int resultLen = result != null ? result.length() : 0;
+        final String suffix = resultLen > maxLen ? "..." : "";
+        return resultLen == 0 ? "" : result.substring(0, Math.min(resultLen, maxLen)) + suffix;
     }
 }
