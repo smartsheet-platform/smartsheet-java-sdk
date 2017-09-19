@@ -169,6 +169,7 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
 		private String sheetName;
 		private Long id;
 		private SheetUserSettings userSettings;
+		private ProjectSettings projectSettings;
 
 		/**
 		 * Get the user settings
@@ -185,6 +186,22 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
 		 */
 		public UpdateSheetBuilder setUserSettings(SheetUserSettings userSettings) {
 			this.userSettings = userSettings;
+			return this;
+		}
+
+		/**
+		 * Get the project settings
+		 * @return the project settings
+		 */
+		public ProjectSettings getProjectSettings() { return projectSettings; }
+
+		/**
+		 * Set the project settings
+		 * @param projectSettings the sheet project settings
+		 * @return the updateSheetBuilder object
+		 */
+		public UpdateSheetBuilder setProjectSettings(ProjectSettings projectSettings) {
+			this.projectSettings = projectSettings;
 			return this;
 		}
 
@@ -241,6 +258,7 @@ public class Sheet extends AbstractSheet<Row, Column, Cell> {
 			sheet.setName(sheetName);
 			sheet.setId(id);
 			sheet.setUserSettings(userSettings);
+			sheet.setProjectSettings(projectSettings);
 			return sheet;
 		}
 	}
