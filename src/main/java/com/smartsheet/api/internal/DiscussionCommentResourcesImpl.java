@@ -96,4 +96,23 @@ public class DiscussionCommentResourcesImpl extends AbstractResources implements
         return this.createResourceWithAttachment(path, Comment.class, comment, "comment", inputStream , contentType, attachmentName);
     }
 
+    /**
+     * <p>Update the specified comment</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>PUT  PUT /sheets/{sheetId}/comments/{commentId}</p>
+
+     * @param sheetId the sheet id
+     * @param comment the new comment object
+     * @return the updated comment
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Comment updateComment(long sheetId, Comment comment) throws SmartsheetException {
+        return this.updateResource("sheets/" + sheetId + "/comments/" + comment.getId(), Comment.class, comment);
+    }
 }
