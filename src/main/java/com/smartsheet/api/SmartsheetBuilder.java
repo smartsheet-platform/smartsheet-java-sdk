@@ -237,7 +237,7 @@ public class SmartsheetBuilder {
 		if(accessToken == null){
 			accessToken = System.getenv("SMARTSHEET_ACCESS_TOKEN");
 		}
-		
+
 		SmartsheetImpl smartsheet = new SmartsheetImpl(baseURI, accessToken, httpClient, jsonSerializer, changeAgent);
 		
 		if (assumedUser != null) { smartsheet.setAssumedUser(assumedUser); }
