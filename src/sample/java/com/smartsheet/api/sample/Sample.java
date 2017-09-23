@@ -41,11 +41,8 @@ public class Sample {
     }
     public static void main(String[] args) {
         try {
-            // TODO: Set your access token here or in this environment variable
-            String token = System.getenv("SMARTSHEET_ACCESS_TOKEN");
-
             // Create Smartsheet client
-            Smartsheet smartsheet = new SmartsheetBuilder().setAccessToken(token).build();
+            Smartsheet smartsheet = new SmartsheetBuilder().build();
 
             // List all sheets
             PagedResult<Sheet> sheets = smartsheet.sheetResources().listSheets(null, null, null );

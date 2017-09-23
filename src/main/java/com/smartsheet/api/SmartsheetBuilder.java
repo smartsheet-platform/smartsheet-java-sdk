@@ -233,6 +233,10 @@ public class SmartsheetBuilder {
 		if(baseURI == null){
 			baseURI = DEFAULT_BASE_URI;
 		}
+
+		if(accessToken == null){
+			accessToken = System.getenv("SMARTSHEET_ACCESS_TOKEN");
+		}
 		
 		SmartsheetImpl smartsheet = new SmartsheetImpl(baseURI, accessToken, httpClient, jsonSerializer, changeAgent);
 		
