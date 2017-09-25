@@ -37,6 +37,11 @@ public class Error {
 	private String message;
 
 	/**
+	 * Reference ID
+	 */
+	private String refId;
+
+	/**
 	 * Gets the message.
 	 *
 	 * @return the message
@@ -71,6 +76,24 @@ public class Error {
 	 */
 	public Error setErrorCode(Integer errorCode) {
 		this.errorCode = errorCode;
+		return this;
+	}
+
+	/**
+	 * Get the reference ID
+	 *
+	 * @return the refId
+	 */
+	public String getRefId() { return refId; }
+
+	/**
+	 * Set the reference ID
+	 *
+	 * @param refId the reference ID
+	 * @return the Error Object
+	 */
+	public Error setRefId(String refId) {
+		this.refId = refId;
 		return this;
 	}
 }

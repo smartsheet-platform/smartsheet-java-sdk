@@ -41,6 +41,13 @@ public class SmartsheetRestException extends SmartsheetException {
 	private final int errorCode;
 
 	/**
+	 * 	<p>Represents the reference ID.</p>
+	 *
+	 * 	<p>It will be initialized in the constructor and will not change afterwards.</p>
+	 */
+	private final String refId;
+
+	/**
 	 * <p>Constructor.</p>
 	 *
 	 * @param error the Error object from Smartsheet REST API
@@ -48,6 +55,7 @@ public class SmartsheetRestException extends SmartsheetException {
 	public SmartsheetRestException(Error error) {
 		super(error.getMessage());
 		errorCode = error.getErrorCode();
+		refId = error.getRefId();
 	}
 	
 	
@@ -60,4 +68,11 @@ public class SmartsheetRestException extends SmartsheetException {
 	public int getErrorCode() {
 		return this.errorCode;
 	}
+
+	/**
+	 * <p>Retruns the refId.</p>
+	 *
+	 * @return the refId
+	 */
+	public String getRefId() { return this.refId; }
 }
