@@ -48,5 +48,9 @@ public enum WidgetType {
 	/**
 	 * ImageWidgetContent object
 	 */
-	IMAGE
+	IMAGE,
+	/**
+	 * same as RichTextWidgetContent object
+	 */
+	TITLE
 }
