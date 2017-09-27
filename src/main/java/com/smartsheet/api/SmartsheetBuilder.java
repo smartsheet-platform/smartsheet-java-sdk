@@ -24,9 +24,11 @@ package com.smartsheet.api;
 
 import com.smartsheet.api.internal.SmartsheetImpl;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
+import com.smartsheet.api.internal.http.DefaultCalcBackoff;
 import com.smartsheet.api.internal.http.HttpClient;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
+import com.smartsheet.api.retry.CalcBackoff;
 
 /**
  * <p>A convenience class to help create a {@link Smartsheet} instance with the appropriate fields.</p>
@@ -69,6 +71,13 @@ public class SmartsheetBuilder {
 	 * <p>It can be set using corresponding setter.</p>
 	 */
 	private String assumedUser;
+
+	/**
+	 * <p>User provided calc backoff routine.</p>
+	 *
+	 * <p>It can be set using corresponding setter.</p>
+	 */
+	private CalcBackoff calcBackoff = new DefaultCalcBackoff(15000);
 
 	/**
 	 * <p>Represents the change agent.</p>
@@ -144,6 +153,33 @@ public class SmartsheetBuilder {
 		this.assumedUser = assumedUser;
 		return this;
 	}
+
+	/**
+	 * <p>Store a user provided userCalcBackoff.</p>
+	 *
+	 * <p>This interface is only valid when the DefaultHttpClient is used.</p>
+	 *
+	 * @param maxRetryTimeout
+	 * @return the smartsheet builder
+	 */
+	public SmartsheetBuilder setMaxRetryTimeout(long maxRetryTimeout) {
+		this.calcBackoff = new DefaultCalcBackoff(maxRetryTimeout);
+		return this;
+	}
+
+	/**
+	 * <p>Create a defaultCalcBackoff with a max elapsed timeout specified by the user.</p>
+	 *
+	 * <p>This interface is only valid when the DefaultHttpClient is used.</p>
+	 *
+	 * @param calcBackoff
+	 * @return the smartsheet builder
+	 */
+	public SmartsheetBuilder setUserCalcBackoff(CalcBackoff calcBackoff) {
+		this.calcBackoff = calcBackoff;
+		return this;
+	}
+
 	/**
 	 * <p>Set the assumed user.</p>
 	 *
@@ -222,14 +258,6 @@ public class SmartsheetBuilder {
 	 * @throws IllegalStateException if accessToken isn't set yet.
 	 */
 	public Smartsheet build() {
-		if(httpClient == null){
-			httpClient = new DefaultHttpClient();
-		}
-		
-		if(jsonSerializer == null){
-			jsonSerializer = new JacksonJsonSerializer();
-		}
-		
 		if(baseURI == null){
 			baseURI = DEFAULT_BASE_URI;
 		}
@@ -239,7 +267,12 @@ public class SmartsheetBuilder {
 		}
 
 		SmartsheetImpl smartsheet = new SmartsheetImpl(baseURI, accessToken, httpClient, jsonSerializer, changeAgent);
-		
+
+		if(httpClient == null) {
+			// only set the calcBackoff if the defaultHttpClient was used
+			smartsheet.setCalcBackoff(calcBackoff);
+		}
+
 		if (assumedUser != null) { smartsheet.setAssumedUser(assumedUser); }
 		
 		return smartsheet;

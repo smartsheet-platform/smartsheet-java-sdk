@@ -22,11 +22,15 @@ package com.smartsheet.api.internal;
 
 
 import com.smartsheet.api.*;
+import com.smartsheet.api.internal.http.DefaultShouldRetry;
+import com.smartsheet.api.retry.CalcBackoff;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.http.HttpClient;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.internal.util.Util;
+import com.smartsheet.api.retry.ShouldRetry;
+import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
 import java.net.URI;
@@ -59,6 +63,12 @@ public class SmartsheetImpl implements Smartsheet {
 	 * It will be initialized in constructor and will not change afterwards.
 	 */
 	private URI baseURI;
+
+	/**
+	 * Keep a reference to the defaultShouldRetry created by this implementation in order to pass along
+	 * CalcBackoff references instantiated by the caller.
+	 */
+	private DefaultShouldRetry defaultShouldRetry = null;
 
 	/**
 	 * Represents the AtomicReference to HomeResources.
@@ -258,7 +268,13 @@ public class SmartsheetImpl implements Smartsheet {
 		Util.throwIfEmpty(baseURI);
 		
 		this.baseURI = URI.create(baseURI);
-		this.httpClient = httpClient == null ? new DefaultHttpClient() : httpClient;
+		if(httpClient == null) {
+			this.defaultShouldRetry = new DefaultShouldRetry(jsonSerializer);
+			this.httpClient = new DefaultHttpClient(HttpClients.createDefault(), this.defaultShouldRetry);
+		}
+		else {
+			this.httpClient = httpClient;
+		}
 		this.jsonSerializer = jsonSerializer == null ? new JacksonJsonSerializer() : jsonSerializer;
 		this.home = new AtomicReference<HomeResources>();
 		this.workspaces = new AtomicReference<WorkspaceResources>();
@@ -558,6 +574,11 @@ public class SmartsheetImpl implements Smartsheet {
 	 */
 	public void setAccessToken(String accessToken) {
 		this.accessToken.set(accessToken);
+	}
+
+	public void setCalcBackoff(CalcBackoff calcBackoff) {
+		Util.throwIfNull(defaultShouldRetry);
+		defaultShouldRetry.setCalcBackoff(calcBackoff);
 	}
 
 	/** set what request/response fields to log in trace-logging */

@@ -22,6 +22,7 @@ package com.smartsheet.api.internal.http;
 
 import com.smartsheet.api.Trace;
 import com.smartsheet.api.internal.util.Util;
+import com.smartsheet.api.retry.ShouldRetry;
 import org.apache.http.Header;
 import org.apache.http.HttpHeaders;
 import org.apache.http.client.ClientProtocolException;
@@ -52,6 +53,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import static java.lang.System.currentTimeMillis;
 
 /**
  * This is the Apache HttpClient (http://hc.apache.org/httpcomponents-client-ga/index.html) based HttpClient
@@ -106,11 +109,13 @@ public class DefaultHttpClient implements HttpClient {
     @Deprecated // never used (within SDK)
     public static final String USER_AGENT = "Mozilla/5.0 Firefox/26.0";
 
+    private ShouldRetry shouldRetry;
+
     /**
      * Constructor.
      */
     public DefaultHttpClient() {
-        this(HttpClients.createDefault());
+        this(HttpClients.createDefault(), new DefaultShouldRetry(null));
     }
 
     /**
@@ -122,9 +127,10 @@ public class DefaultHttpClient implements HttpClient {
      *
      * @param httpClient the http client
      */
-    public DefaultHttpClient(CloseableHttpClient httpClient) {
+    public DefaultHttpClient(CloseableHttpClient httpClient, ShouldRetry shouldRetry) {
         this.httpClient = Util.throwIfNull(httpClient);
         this.userAgent = generateUserAgent(getClass());
+        this.shouldRetry = shouldRetry;
     }
 
     /**
@@ -140,116 +146,145 @@ public class DefaultHttpClient implements HttpClient {
             throw new IllegalArgumentException("A Request URI is required.");
         }
 
-        // Create Apache HTTP request based on the smartsheetRequest request type
-        switch (smartsheetRequest.getMethod()) {
-            case GET:
-                apacheHttpRequest = new HttpGet(smartsheetRequest.getUri());
-                break;
-            case POST:
-                apacheHttpRequest = new HttpPost(smartsheetRequest.getUri());
-                break;
-            case PUT:
-                apacheHttpRequest = new HttpPut(smartsheetRequest.getUri());
-                break;
-            case DELETE:
-                apacheHttpRequest = new HttpDelete(smartsheetRequest.getUri());
-                break;
-            default:
-                throw new UnsupportedOperationException("Request method " + smartsheetRequest.getMethod()
-                        + " is not supported!");
-        }
+        int attempt = 0;
+        long start = System.currentTimeMillis();
 
-        RequestConfig.Builder builder = RequestConfig.custom();
-        if (apacheHttpRequest.getConfig() != null) {
-            builder = RequestConfig.copy(apacheHttpRequest.getConfig());
-        }
-        builder.setRedirectsEnabled(true);
-        RequestConfig config = builder.build();
-        apacheHttpRequest.setConfig(config);
+        HttpResponse smartsheetResponse = null;
 
-        // Set HTTP headers
-        if (smartsheetRequest.getHeaders() != null) {
-            for (Map.Entry<String, String> header : smartsheetRequest.getHeaders().entrySet()) {
-                apacheHttpRequest.addHeader(header.getKey(), header.getValue());
+        // the retry loop
+        while(true) {
+
+            // Create Apache HTTP request based on the smartsheetRequest request type
+            switch (smartsheetRequest.getMethod()) {
+                case GET:
+                    apacheHttpRequest = new HttpGet(smartsheetRequest.getUri());
+                    break;
+                case POST:
+                    apacheHttpRequest = new HttpPost(smartsheetRequest.getUri());
+                    break;
+                case PUT:
+                    apacheHttpRequest = new HttpPut(smartsheetRequest.getUri());
+                    break;
+                case DELETE:
+                    apacheHttpRequest = new HttpDelete(smartsheetRequest.getUri());
+                    break;
+                default:
+                    throw new UnsupportedOperationException("Request method " + smartsheetRequest.getMethod()
+                            + " is not supported!");
             }
-        }
 
-        // Set User Agent
-        apacheHttpRequest.setHeader(HttpHeaders.USER_AGENT, userAgent);
+            RequestConfig.Builder builder = RequestConfig.custom();
+            if (apacheHttpRequest.getConfig() != null) {
+                builder = RequestConfig.copy(apacheHttpRequest.getConfig());
+            }
+            builder.setRedirectsEnabled(true);
+            RequestConfig config = builder.build();
+            apacheHttpRequest.setConfig(config);
+
+            // Set HTTP headers
+            if (smartsheetRequest.getHeaders() != null) {
+                for (Map.Entry<String, String> header : smartsheetRequest.getHeaders().entrySet()) {
+                    apacheHttpRequest.addHeader(header.getKey(), header.getValue());
+                }
+            }
+
+            // Set User Agent
+            apacheHttpRequest.setHeader(HttpHeaders.USER_AGENT, userAgent);
 
 
-        HttpEntity originalRequestEntity = null;
-        HttpEntity originalResponseEntity = null;
-        // Set HTTP entity
-        final HttpEntity entity = smartsheetRequest.getEntity();
-        if (apacheHttpRequest instanceof HttpEntityEnclosingRequestBase && entity != null && entity.getContent() != null) {
+            HttpEntity originalRequestEntity = null;
+            HttpEntity originalResponseEntity = null;
+            // Set HTTP entity
+            final HttpEntity entity = smartsheetRequest.getEntity();
+            if (apacheHttpRequest instanceof HttpEntityEnclosingRequestBase && entity != null && entity.getContent() != null) {
+                try {
+                    // we need access to the original request stream so we can log it (in the event of errors and/or tracing)
+                    originalRequestEntity = new HttpEntity(entity);
+                } catch (IOException iox) {
+                    logger.error("failed to make copy of original request entity - {}", iox);
+                }
+
+                InputStreamEntity streamEntity = new InputStreamEntity(entity.getContent(), entity.getContentLength());
+                streamEntity.setChunked(false);    // why?  not supported by library?
+                ((HttpEntityEnclosingRequestBase) apacheHttpRequest).setEntity(streamEntity);
+            }
+
+            // Make the HTTP request
+            smartsheetResponse = new HttpResponse();
+            HttpContext context = new BasicHttpContext();
             try {
-                // we need access to the original request stream so we can log it (in the event of errors and/or tracing)
-                originalRequestEntity = new HttpEntity(entity);
-            } catch (IOException iox) {
-                logger.error("failed to make copy of original request entity - {}", iox);
-            }
+                apacheHttpResponse = this.httpClient.execute(apacheHttpRequest, context);
 
-            InputStreamEntity streamEntity = new InputStreamEntity(entity.getContent(), entity.getContentLength());
-            streamEntity.setChunked(false);    // why?  not supported by library?
-            ((HttpEntityEnclosingRequestBase) apacheHttpRequest).setEntity(streamEntity);
+                // Set request headers to values ACTUALLY SENT (not just created by us)
+                HttpRequestWrapper actualRequest = (HttpRequestWrapper) context.getAttribute("http.request");
+                if (actualRequest != null) {
+                    apacheHttpRequest.setHeaders(actualRequest.getAllHeaders());
+                }
+
+                // Set returned headers
+                smartsheetResponse.setHeaders(new HashMap<String, String>());
+                for (Header header : apacheHttpResponse.getAllHeaders()) {
+                    smartsheetResponse.getHeaders().put(header.getName(), header.getValue());
+                }
+                smartsheetResponse.setStatus(apacheHttpResponse.getStatusLine().getStatusCode(),
+                        apacheHttpResponse.getStatusLine().toString());
+
+                // Set returned entities
+                if (apacheHttpResponse.getEntity() != null) {
+                    HttpEntity httpEntity = new HttpEntity();
+                    httpEntity.setContentType(apacheHttpResponse.getEntity().getContentType().getValue());
+                    httpEntity.setContentLength(apacheHttpResponse.getEntity().getContentLength());
+                    httpEntity.setContent(apacheHttpResponse.getEntity().getContent());
+                    smartsheetResponse.setEntity(httpEntity);
+                    originalResponseEntity = new HttpEntity(httpEntity);
+                }
+                // HTTP-error logging
+                if (smartsheetResponse.getStatusCode() != 200) {
+                    // log the summary request and response on error
+                    logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, originalRequestEntity, smartsheetResponse,
+                            originalResponseEntity, REQUEST_RESPONSE_SUMMARY));
+                }
+
+                if (traces.size() > 0) { // trace-logging of request and response (if so configured)
+                    RequestAndResponseData requestAndResponseData = RequestAndResponseData.of(apacheHttpRequest,
+                            originalRequestEntity, smartsheetResponse, originalResponseEntity, traces);
+                    TRACE_WRITER.println(requestAndResponseData.toString(tracePrettyPrint));
+                }
+
+                if (smartsheetResponse.getStatusCode() == 200) {
+                    // call successful, exit the retry loop
+                    break;
+                }
+
+                long stop = System.currentTimeMillis();
+                if (!shouldRetry.shouldRetry(++attempt, (stop-start), smartsheetResponse)) {
+                    // should not retry, or retry time exceeded, exit the retry loop
+                    smartsheetResponse.getEntity().getContent().reset();
+                    break;
+                }
+            } catch (ClientProtocolException e) {
+                try {
+                    logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, originalRequestEntity, smartsheetResponse,
+                            originalResponseEntity, REQUEST_RESPONSE_SUMMARY));
+                } catch (IOException ignore) {
+                }
+                throw new HttpClientException("Error occurred.", e);
+            } catch (IOException e) {
+                try {
+                    logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, originalRequestEntity, smartsheetResponse,
+                            originalResponseEntity, REQUEST_RESPONSE_SUMMARY));
+                } catch (IOException ignore) {
+                }
+                throw new HttpClientException("Error occurred.", e);
+            } catch (InterruptedException e) {
+                try {
+                    logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, originalRequestEntity, smartsheetResponse,
+                            originalResponseEntity, REQUEST_RESPONSE_SUMMARY));
+                } catch (IOException ignore) {
+                }
+                throw new HttpClientException("Operation interrupted.", e);
+            }
         }
-
-        // Make the HTTP request
-        HttpResponse smartsheetResponse = new HttpResponse();
-        HttpContext context = new BasicHttpContext();
-        try {
-            apacheHttpResponse = this.httpClient.execute(apacheHttpRequest, context);
-
-            // Set request headers to values ACTUALLY SENT (not just created by us)
-            HttpRequestWrapper actualRequest = (HttpRequestWrapper)context.getAttribute("http.request");
-            if (actualRequest != null) {
-                apacheHttpRequest.setHeaders(actualRequest.getAllHeaders());
-            }
-
-            // Set returned headers
-            smartsheetResponse.setHeaders(new HashMap<String, String>());
-            for (Header header : apacheHttpResponse.getAllHeaders()) {
-                smartsheetResponse.getHeaders().put(header.getName(), header.getValue());
-            }
-            smartsheetResponse.setStatus(apacheHttpResponse.getStatusLine().getStatusCode(),
-                    apacheHttpResponse.getStatusLine().toString());
-
-            // Set returned entities
-            if (apacheHttpResponse.getEntity() != null) {
-                HttpEntity httpEntity = new HttpEntity();
-                httpEntity.setContentType(apacheHttpResponse.getEntity().getContentType().getValue());
-                httpEntity.setContentLength(apacheHttpResponse.getEntity().getContentLength());
-                httpEntity.setContent(apacheHttpResponse.getEntity().getContent());
-                smartsheetResponse.setEntity(httpEntity);
-                originalResponseEntity = new HttpEntity(httpEntity);
-            }
-            // HTTP-error logging
-            if (smartsheetResponse.getStatusCode() != 200) {
-                // log the summary request and response on error
-                logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, originalRequestEntity, smartsheetResponse,
-                        originalResponseEntity, REQUEST_RESPONSE_SUMMARY));
-            }
-
-            if (traces.size() > 0) { // trace-logging of request and response (if so configured)
-                RequestAndResponseData requestAndResponseData = RequestAndResponseData.of(apacheHttpRequest,
-                        originalRequestEntity, smartsheetResponse, originalResponseEntity, traces);
-                TRACE_WRITER.println(requestAndResponseData.toString(tracePrettyPrint));
-            }
-        } catch (ClientProtocolException e) {
-            try {
-                logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, originalRequestEntity, smartsheetResponse,
-                        originalResponseEntity, REQUEST_RESPONSE_SUMMARY));
-            } catch (IOException ignore) {}
-            throw new HttpClientException("Error occurred.", e);
-        } catch (IOException e) {
-            try {
-                logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, originalRequestEntity, smartsheetResponse,
-                        originalResponseEntity, REQUEST_RESPONSE_SUMMARY));
-            } catch (IOException ignore) {}
-            throw new HttpClientException("Error occurred.", e);
-        }
-
         return smartsheetResponse;
     }
 
