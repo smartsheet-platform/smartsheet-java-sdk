@@ -276,13 +276,6 @@ public class DefaultHttpClient implements HttpClient {
                 } catch (IOException ignore) {
                 }
                 throw new HttpClientException("Error occurred.", e);
-            } catch (InterruptedException e) {
-                try {
-                    logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, originalRequestEntity, smartsheetResponse,
-                            originalResponseEntity, REQUEST_RESPONSE_SUMMARY));
-                } catch (IOException ignore) {
-                }
-                throw new HttpClientException("Operation interrupted.", e);
             }
         }
         return smartsheetResponse;

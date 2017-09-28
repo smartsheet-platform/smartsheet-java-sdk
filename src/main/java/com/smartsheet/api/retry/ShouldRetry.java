@@ -36,5 +36,5 @@ public interface ShouldRetry {
      * @param response
      * @return a boolean indicating if the API call can be retried.
      */
-    boolean shouldRetry(int previousAttempts, long totalElapsedTime, HttpResponse response) throws IOException, InterruptedException;
+    boolean shouldRetry(int previousAttempts, long totalElapsedTime, HttpResponse response);
 }

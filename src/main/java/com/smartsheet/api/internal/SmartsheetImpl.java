@@ -29,7 +29,6 @@ import com.smartsheet.api.internal.http.HttpClient;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.internal.util.Util;
-import com.smartsheet.api.retry.ShouldRetry;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
@@ -577,8 +576,9 @@ public class SmartsheetImpl implements Smartsheet {
 	}
 
 	public void setCalcBackoff(CalcBackoff calcBackoff) {
-		Util.throwIfNull(defaultShouldRetry);
-		defaultShouldRetry.setCalcBackoff(calcBackoff);
+		if(defaultShouldRetry != null) {
+			defaultShouldRetry.setCalcBackoff(calcBackoff);
+		}
 	}
 
 	/** set what request/response fields to log in trace-logging */

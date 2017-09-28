@@ -38,10 +38,10 @@ public class DefaultShouldRetry implements ShouldRetry {
 
     private JsonSerializer jsonSerializer;
 
-    private CalcBackoff calcBackoff = null;
+    private CalcBackoff calcBackoff = new DefaultCalcBackoff(15000);
 
     /** logger for general errors, warnings, etc */
-    private static final Logger logger = LoggerFactory.getLogger(DefaultCalcBackoff.class);
+    private static final Logger logger = LoggerFactory.getLogger(DefaultShouldRetry.class);
 
     /** Constructor */
     public DefaultShouldRetry(JsonSerializer jsonSerializer) {
@@ -59,14 +59,18 @@ public class DefaultShouldRetry implements ShouldRetry {
      * @param totalElapsedTime
      * @param response the failed HttpResponse
      * @return true if this request can be retried
-     * @throws IOException
-     * @throws InterruptedException
      */
-    public boolean shouldRetry(int previousAttempts, long totalElapsedTime, HttpResponse response) throws IOException, InterruptedException {
+    public boolean shouldRetry(int previousAttempts, long totalElapsedTime, HttpResponse response) {
         Util.throwIfNull(calcBackoff);
 
         Error error;
-        error = jsonSerializer.deserialize(Error.class, response.getEntity().getContent());
+        try {
+            error = jsonSerializer.deserialize(Error.class, response.getEntity().getContent());
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
         switch(error.getErrorCode()) {
             case 4001: /** Smartsheet.com is currently offline for system maintenance. Please check back again shortly. */
             case 4002: /** Server timeout exceeded. Request has failed */
@@ -83,7 +87,13 @@ public class DefaultShouldRetry implements ShouldRetry {
             return false;
 
         logger.info("HttpError StatusCode=" + response.getStatusCode() + ": Retrying in " + backoff + " milliseconds");
-        Thread.sleep(backoff);
+        try {
+            Thread.sleep(backoff);
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 }

@@ -77,7 +77,7 @@ public class SmartsheetBuilder {
 	 *
 	 * <p>It can be set using corresponding setter.</p>
 	 */
-	private CalcBackoff calcBackoff = new DefaultCalcBackoff(15000);
+	private CalcBackoff calcBackoff = null;
 
 	/**
 	 * <p>Represents the change agent.</p>
@@ -268,8 +268,7 @@ public class SmartsheetBuilder {
 
 		SmartsheetImpl smartsheet = new SmartsheetImpl(baseURI, accessToken, httpClient, jsonSerializer, changeAgent);
 
-		if(httpClient == null) {
-			// only set the calcBackoff if the defaultHttpClient was used
+		if(calcBackoff != null) {
 			smartsheet.setCalcBackoff(calcBackoff);
 		}
 
