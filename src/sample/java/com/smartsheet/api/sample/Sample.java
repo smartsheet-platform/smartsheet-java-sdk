@@ -35,8 +35,9 @@ import java.util.List;
  */
 public class Sample {
     static {
-        System.setProperty("Smartsheet.trace.parts", "RequestBody,ResponseBodySummary");
-        System.setProperty("Smartsheet.trace.pretty", "true");
+        // Uncomment these lines to enable logging to console
+        // System.setProperty("Smartsheet.trace.parts", "RequestBody,ResponseBodySummary");
+        // System.setProperty("Smartsheet.trace.pretty", "true");
 
     }
     public static void main(String[] args) {
@@ -49,7 +50,7 @@ public class Sample {
 
             // List all sheets
             PagedResult<Sheet> sheets = smartsheet.sheetResources().listSheets(null, null, null );
-            System.out.println("Found " + sheets.getTotalCount() + " sheets");
+            System.out.println("\nFound " + sheets.getTotalCount() + " sheets\n");
 
             Long sheetId =  sheets.getData().get(0).getId();            // Default to first sheet
 
@@ -59,7 +60,7 @@ public class Sample {
             // Load entire sheet
             Sheet sheet = smartsheet.sheetResources().getSheet(sheetId, null, null, null, null, null, null, null);
             List<Row> rows = sheet.getRows();
-            System.out.println("Loaded sheet id " + sheetId + " with " + rows.size() + " rows, title: " + sheet.getName());
+            System.out.println("\nLoaded sheet id " + sheetId + " with " + rows.size() + " rows, title: " + sheet.getName());
 
             // Display the first 5 rows & columns
             for (int rowNumber = 0; rowNumber < rows.size() && rowNumber < 5; rowNumber++)
