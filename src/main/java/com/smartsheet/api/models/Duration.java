@@ -36,32 +36,32 @@ public class Duration implements ObjectValue {
 	/**
 	 * The number of weeks for this duration
 	 */
-	private Integer weeks;
+	private Double weeks;
 	
 	/**
 	 * The number of days for this duration
 	 */
-	private Integer days;
+	private Double days;
 	
 	/**
 	 * The number of hours for this duration
 	 */
-	private Integer hours;
+	private Double hours;
 	
 	/**
 	 * The number of minutes for this duration
 	 */
-	private Integer minutes;
+	private Double minutes;
 	
 	/**
 	 * The number of seconds for this duration
 	 */
-	private Integer seconds;
+	private Double seconds;
 	
 	/**
 	 * The number of milliseconds for this duration
 	 */
-	private Integer milliseconds;
+	private Double milliseconds;
 
 	/**
 	 * Default constructor for serialization
@@ -81,7 +81,7 @@ public class Duration implements ObjectValue {
 	 * @param seconds
 	 * @param milliseconds
 	 */
-	public Duration(Boolean negative, Boolean elapsed, Integer weeks, Integer days, Integer hours, Integer minutes, Integer seconds, Integer milliseconds) {
+	public Duration(Boolean negative, Boolean elapsed, Double weeks, Double days, Double hours, Double minutes, Double seconds, Double milliseconds) {
 		this.negative = negative;
 		this.elapsed = elapsed;
 		this.weeks = weeks;
@@ -145,7 +145,7 @@ public class Duration implements ObjectValue {
 	 * 
 	 * @return weeks
 	 */
-	public Integer getWeeks() {
+	public Double getWeeks() {
 		return weeks;
 	}
 	
@@ -154,7 +154,7 @@ public class Duration implements ObjectValue {
 	 *
 	 * @param weeks
 	 */
-	public Duration setWeeks(Integer weeks) {
+	public Duration setWeeks(Double weeks) {
 		this.weeks = weeks;
 		return this;
 	}
@@ -164,7 +164,7 @@ public class Duration implements ObjectValue {
 	 * 
 	 * @return days
 	 */
-	public Integer getDays() {
+	public Double getDays() {
 		return days;
 	}
 	
@@ -173,7 +173,7 @@ public class Duration implements ObjectValue {
 	 *
 	 * @param days
 	 */
-	public Duration setDays(Integer days) {
+	public Duration setDays(Double days) {
 		this.days = days;
 		return this;
 	}
@@ -183,7 +183,7 @@ public class Duration implements ObjectValue {
 	 * 
 	 * @return hours
 	 */
-	public Integer getHours() {
+	public Double getHours() {
 		return hours;
 	}
 	
@@ -192,7 +192,7 @@ public class Duration implements ObjectValue {
 	 *
 	 * @param hours
 	 */
-	public Duration setHours(Integer hours) {
+	public Duration setHours(Double hours) {
 		this.hours = hours;
 		return this;
 	}
@@ -202,7 +202,7 @@ public class Duration implements ObjectValue {
 	 * 
 	 * @return minutes
 	 */
-	public Integer getMinutes() {
+	public Double getMinutes() {
 		return minutes;
 	}
 	
@@ -211,7 +211,7 @@ public class Duration implements ObjectValue {
 	 *
 	 * @param minutes
 	 */
-	public Duration setMinutes(Integer minutes) {
+	public Duration setMinutes(Double minutes) {
 		this.minutes = minutes;
 		return this;
 	}
@@ -221,7 +221,7 @@ public class Duration implements ObjectValue {
 	 * 
 	 * @return seconds
 	 */
-	public Integer getSeconds() {
+	public Double getSeconds() {
 		return seconds;
 	}
 	
@@ -230,7 +230,7 @@ public class Duration implements ObjectValue {
 	 *
 	 * @param seconds
 	 */
-	public Duration setSeconds(Integer seconds) {
+	public Duration setSeconds(Double seconds) {
 		this.seconds = seconds;
 		return this;
 	}
@@ -240,7 +240,7 @@ public class Duration implements ObjectValue {
 	 * 
 	 * @return milliseconds
 	 */
-	public Integer getMilliseconds() {
+	public Double getMilliseconds() {
 		return milliseconds;
 	}
 	
@@ -249,7 +249,7 @@ public class Duration implements ObjectValue {
 	 *
 	 * @param milliseconds
 	 */
-	public Duration setMilliseconds(Integer milliseconds) {
+	public Duration setMilliseconds(Double milliseconds) {
 		this.milliseconds = milliseconds;
 		return this;
 	}

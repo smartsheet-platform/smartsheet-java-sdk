@@ -34,6 +34,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class ObjectValueDeserializerTest {
+    private static final double DELTA = 0.000001;
     private JacksonJsonSerializer jacksonJsonSerializer = new JacksonJsonSerializer();
 
     @Test
@@ -65,8 +66,8 @@ public class ObjectValueDeserializerTest {
 
         assertSerializedAttributes(objectValue,
                 new ExpectedAttributeValue("objectType", ObjectValueType.DURATION.name()),
-                new ExpectedAttributeValue("hours", 7),
-                new ExpectedAttributeValue("minutes", 30));
+                new ExpectedAttributeValue("hours", 7.0),
+                new ExpectedAttributeValue("minutes", 30.0));
     }
 
     @Test
@@ -89,9 +90,9 @@ public class ObjectValueDeserializerTest {
 
         assertSerializedAttributes(objectValue,
                 new ExpectedAttributeValue("objectType", ObjectValueType.DURATION.name()),
-                new ExpectedAttributeValue("days", 1),
-                new ExpectedAttributeValue("hours", 7),
-                new ExpectedAttributeValue("minutes", 30));
+                new ExpectedAttributeValue("days", 1.0),
+                new ExpectedAttributeValue("hours", 7.0),
+                new ExpectedAttributeValue("minutes", 30.0));
     }
 
     @Test
@@ -125,12 +126,51 @@ public class ObjectValueDeserializerTest {
                 new ExpectedAttributeValue("objectType", ObjectValueType.DURATION.name()),
                 new ExpectedAttributeValue("negative", true),
                 new ExpectedAttributeValue("elapsed", false),
-                new ExpectedAttributeValue("weeks", 2),
-                new ExpectedAttributeValue("days", 3),
-                new ExpectedAttributeValue("hours", 7),
-                new ExpectedAttributeValue("minutes", 30),
-                new ExpectedAttributeValue("seconds", 45),
-                new ExpectedAttributeValue("milliseconds", 500));
+                new ExpectedAttributeValue("weeks", 2.0),
+                new ExpectedAttributeValue("days", 3.0),
+                new ExpectedAttributeValue("hours", 7.0),
+                new ExpectedAttributeValue("minutes", 30.0),
+                new ExpectedAttributeValue("seconds", 45.0),
+                new ExpectedAttributeValue("milliseconds", 500.0));
+    }
+
+    @Test
+    public void duration_floatingPointValues() throws JSONSerializerException, IOException {
+        String json = "{\"objectValue\": {\n" +
+                "                        \"objectType\": \"DURATION\",\n" +
+                "                        \"negative\": true,\n" +
+                "                        \"elapsed\": false,\n" +
+                "                        \"weeks\": 2.3,\n" +
+                "                        \"days\": 3.4,\n" +
+                "                        \"hours\": 7.5,\n" +
+                "                        \"minutes\": 30.6,\n" +
+                "                        \"seconds\": 45.7,\n" +
+                "                        \"milliseconds\": 500.8\n" +
+                "                    }}";
+
+        ObjectValue objectValue = getObjectValue(json);
+
+        assertTrue(objectValue instanceof Duration);
+        Duration durationObjectValue = (Duration) objectValue;
+        assertEquals(true, durationObjectValue.getNegative());
+        assertEquals(false, durationObjectValue.getElapsed());
+        assertEquals(2.3, durationObjectValue.getWeeks(), DELTA);
+        assertEquals(3.4, durationObjectValue.getDays(), DELTA);
+        assertEquals(7.5, durationObjectValue.getHours(), DELTA);
+        assertEquals(30.6, durationObjectValue.getMinutes(), DELTA);
+        assertEquals(45.7, durationObjectValue.getSeconds(), DELTA);
+        assertEquals(500.8, durationObjectValue.getMilliseconds(), DELTA);
+
+        assertSerializedAttributes(objectValue,
+                new ExpectedAttributeValue("objectType", ObjectValueType.DURATION.name()),
+                new ExpectedAttributeValue("negative", true),
+                new ExpectedAttributeValue("elapsed", false),
+                new ExpectedAttributeValue("weeks", 2.3),
+                new ExpectedAttributeValue("days", 3.4),
+                new ExpectedAttributeValue("hours", 7.5),
+                new ExpectedAttributeValue("minutes", 30.6),
+                new ExpectedAttributeValue("seconds", 45.7),
+                new ExpectedAttributeValue("milliseconds", 500.8));
     }
 
     @Test
