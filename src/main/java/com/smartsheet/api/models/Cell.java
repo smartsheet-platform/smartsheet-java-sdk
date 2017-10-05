@@ -107,6 +107,13 @@ public class Cell {
 	private Format format;
 
 	/**
+	 * ((Admin only) Flag indicating whether the cell value can contain a value outside of the validation
+	 * limits (value = true). When using this parameter, you must also set strict to false to bypass
+	 * value type checking. This property is honored for POST or PUT actions that update rows.
+	 */
+	private Boolean overrideValidation;
+
+	/**
 	 * Gets the column columnType.
 	 *
 	 * @return the columnType
@@ -281,61 +288,6 @@ public class Cell {
 	}
 
 	/**
-	 * A convenience class for quickly creating a List of cells to update.
-	 */
-	public static class UpdateRowCellsBuilder {
-
-		/** The cells. */
-		List<Cell> cells = new ArrayList<Cell>();
-
-		/**
-		 * Adds the cell.
-		 *
-		 * @param columnId the column id
-		 * @param value the value
-		 * @param strict the strict
-		 * @param hyperlink the hyperlink
-		 * @param linkInFromCell the link
-		 * @return the update row cells builder
-		 */
-		public UpdateRowCellsBuilder addCell(Long columnId, Object value, Boolean strict, Hyperlink hyperlink,  CellLink linkInFromCell) {
-			Cell cell = new Cell()
-				.setColumnId(columnId)
-				.setValue(value)
-				.setStrict(strict)
-				.setHyperlink(hyperlink)
-				.setLinkInFromCell(linkInFromCell);
-			cells.add(cell);
-			return this;
-		}
-
-		public List<Cell> getCells(){
-			return cells;
-		}
-
-		/**
-		 * Adds the cell.
-		 *
-		 * @param columnId the column id
-		 * @param value the value
-		 * @return the update row cells builder
-		 */
-		public UpdateRowCellsBuilder addCell(Long columnId, Object value) {
-			addCell(columnId, value, true, null, null);
-			return this;
-		}
-
-		/**
-		 * Returns the list of cells.
-		 *
-		 * @return the list
-		 */
-		public List<Cell> build() {
-			return cells;
-		}
-	}
-
-	/**
 	 * @return the {@link Format}
 	 */
 	public Format getFormat() {
@@ -428,7 +380,25 @@ public class Cell {
 		this.image = image;
 		return this;
 	}
-	
+
+	/**
+	 * Gets the value of the overrideValidation flag.
+	 *
+	 * @return the overrideValidation flag
+	 */
+	public Boolean getOverrideValidation() {return overrideValidation; }
+
+	/**
+	 * Sets the value of the overrideValidation flag.
+	 *
+	 * @param overrideValidation the new overrideValidation
+	 * @return the Cell
+	 */
+	public Cell setOverrideValidation(Boolean overrideValidation) {
+		this.overrideValidation = overrideValidation;
+		return this;
+	}
+
 	/**
 	 * A convenience class for quickly creating a List of cells to add.
 	 */
@@ -445,7 +415,7 @@ public class Cell {
 		 * @param strict the strict
 		 * @param hyperlink the hyperlink
 		 * @param linkInFromCell the link
-		 * @return the update row cells builder
+		 * @return the add row cells builder
 		 */
 		public AddRowCellsBuilder addCell(Long columnId, Object value, Boolean strict, Hyperlink hyperlink,  CellLink linkInFromCell) {
 			Cell cell = new Cell()
@@ -454,6 +424,29 @@ public class Cell {
 				.setStrict(strict)
 				.setHyperlink(hyperlink)
 				.setLinkInFromCell(linkInFromCell);
+			cells.add(cell);
+			return this;
+		}
+
+		/**
+		 * Adds the cell
+		 *
+		 * @param columnId the column id
+		 * @param value the value
+		 * @param strict the strict
+		 * @param hyperlink the hyperlink
+		 * @param linkInFromCell the link
+		 * @param overrideValidation the overrideValidation flag
+		 * @return the add row cells builder
+		 */
+		public AddRowCellsBuilder addCell(Long columnId, Object value, Boolean strict, Hyperlink hyperlink, CellLink linkInFromCell, Boolean overrideValidation) {
+			Cell cell = new Cell()
+					.setColumnId(columnId)
+					.setValue(value)
+					.setStrict(strict)
+					.setHyperlink(hyperlink)
+					.setLinkInFromCell(linkInFromCell)
+					.setOverrideValidation(overrideValidation);
 			cells.add(cell);
 			return this;
 		}
@@ -484,4 +477,81 @@ public class Cell {
 		}
 	}
 
+	/**
+	 * A convenience class for quickly creating a List of cells to update.
+	 */
+	public static class UpdateRowCellsBuilder {
+
+		/** The cells. */
+		List<Cell> cells = new ArrayList<Cell>();
+
+		/**
+		 * Adds the cell.
+		 *
+		 * @param columnId the column id
+		 * @param value the value
+		 * @param strict the strict
+		 * @param hyperlink the hyperlink
+		 * @param linkInFromCell the link
+		 * @return the update row cells builder
+		 */
+		public UpdateRowCellsBuilder addCell(Long columnId, Object value, Boolean strict, Hyperlink hyperlink,  CellLink linkInFromCell) {
+			Cell cell = new Cell()
+					.setColumnId(columnId)
+					.setValue(value)
+					.setStrict(strict)
+					.setHyperlink(hyperlink)
+					.setLinkInFromCell(linkInFromCell);
+			cells.add(cell);
+			return this;
+		}
+
+		/**
+		 * Adds the cell.
+		 *
+		 * @param columnId the column id
+		 * @param value the value
+		 * @param strict the strict
+		 * @param hyperlink the hyperlink
+		 * @param linkInFromCell the link
+		 * @param overrideValidation the overrideValidation flag
+		 * @return the update row cells builder
+		 */
+		public UpdateRowCellsBuilder addCell(Long columnId, Object value, Boolean strict, Hyperlink hyperlink, CellLink linkInFromCell, Boolean overrideValidation) {
+			Cell cell = new Cell()
+					.setColumnId(columnId)
+					.setValue(value)
+					.setStrict(strict)
+					.setHyperlink(hyperlink)
+					.setLinkInFromCell(linkInFromCell)
+					.setOverrideValidation(overrideValidation);
+			cells.add(cell);
+			return this;
+		}
+
+		public List<Cell> getCells(){
+			return cells;
+		}
+
+		/**
+		 * Adds the cell.
+		 *
+		 * @param columnId the column id
+		 * @param value the value
+		 * @return the update row cells builder
+		 */
+		public UpdateRowCellsBuilder addCell(Long columnId, Object value) {
+			addCell(columnId, value, true, null, null);
+			return this;
+		}
+
+		/**
+		 * Returns the list of cells.
+		 *
+		 * @return the list
+		 */
+		public List<Cell> build() {
+			return cells;
+		}
+	}
 }

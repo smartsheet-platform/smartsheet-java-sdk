@@ -113,6 +113,11 @@ public class Column extends IdentifiableModel<Long> {
 	private Filter filter;
 
 	/**
+	 * Flag indicating whether validation has been enabled for the column
+	 */
+	private Boolean validation;
+
+	/**
 	 * Gets the position of the column.
 	 *
 	 * @return the index
@@ -404,6 +409,22 @@ public class Column extends IdentifiableModel<Long> {
 	}
 
 	/**
+	 * Gets the value of the validation flag
+	 * @return the validation flag
+	 */
+	public Boolean getValidation() { return validation; }
+
+	/**
+	 * Sets the value of the validation flag
+	 * @param validation
+	 * @return the Column
+	 */
+	public Column setValidation(Boolean validation) {
+		this.validation = validation;
+		return this;
+	}
+
+	/**
 	 * A convenience class to help create a column object with the appropriate fields for adding to a sheet.
 	 */
 	public static class AddColumnToSheetBuilder {
@@ -436,6 +457,9 @@ public class Column extends IdentifiableModel<Long> {
 
 		/** The column format */
 		private Format format;
+
+		/** Flag indicating whether validation has been enabled for the column */
+		private Boolean validation;
 
 		/**
 		 * Gets the width for the column.
@@ -631,6 +655,22 @@ public class Column extends IdentifiableModel<Long> {
 		}
 
 		/**
+		 * Gets the value of the validation flag
+		 * @return
+		 */
+		public Boolean getValidation() { return validation; }
+
+		/**
+		 * Sets the value of the validation flag
+		 * @param validation
+		 * @return the AddColumn builder
+		 */
+		public AddColumnToSheetBuilder setValidation(Boolean validation) {
+			this.validation = validation;
+			return this;
+		}
+
+		/**
 		 * Builds the column.
 		 *
 		 * @return the column
@@ -651,6 +691,7 @@ public class Column extends IdentifiableModel<Long> {
 			column.autoNumberFormat = autoNumberFormat;
 			column.primary = primary;
 			column.format = format;
+			column.validation = validation;
 			return column;
 		}
 
@@ -692,6 +733,9 @@ public class Column extends IdentifiableModel<Long> {
 
 		/** The column id */
 		private Long id;
+
+		/** Flag indicating whether validation has been enabled for the column */
+		private Boolean validation;
 
 		/**
 		 * Gets the column id.
@@ -820,6 +864,16 @@ public class Column extends IdentifiableModel<Long> {
 			this.width = width;
 			return this;
 		}
+
+		/**
+		 * Sets the value of the validation flag
+		 * @param validation
+		 * @return the modify column builder
+		 */
+		public UpdateColumnBuilder setValidation(Boolean validation) {
+			this.validation = validation;
+			return this;
+		}
 		
 		/**
 		 * Gets the index.
@@ -910,6 +964,12 @@ public class Column extends IdentifiableModel<Long> {
 		}
 
 		/**
+		 * Gets the value of the validation flag
+		 * @return the validation flag
+		 */
+		public Boolean getValidation() { return validation; }
+
+		/**
 		 * Builds the column.
 		 *
 		 * @return the column
@@ -929,6 +989,7 @@ public class Column extends IdentifiableModel<Long> {
 			column.autoNumberFormat = autoNumberFormat;
 			column.width = width;
 			column.format = format;
+			column.validation = validation;
 			column.setId(id);
 			return column;
 		}
