@@ -113,6 +113,12 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
 
     /** Indicates if the row should be put above the specified sibling row*/
     private Boolean above;
+
+    /** Indent a row (applicable for update only)*/
+    private Integer indent;
+
+    /** Outdent a row (applicable for update only)*/
+    private Integer outdent;
     
     /** User object containing name and email of the creator of this row */
     private User createdBy;
@@ -605,7 +611,41 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
         this.above = above;
         return this;
     }
-    
+
+    /**
+     * Get integer value specifying the number of levels to indent this row (update only).
+     *
+     * @return value specifying the number of levels to indent this row
+     */
+    public Integer getIndent() { return indent; }
+
+    /**
+     * Sets integer value specifying the number of levels to indent this row (update only).
+     *
+     * @param indent integer value specifying the number of levels to indent
+     */
+    public AbstractRow<TColumn, TCell> setIndent(Integer indent) {
+        this.indent = indent;
+        return this;
+    }
+
+    /**
+     * Get integer value specifying the number of levels to outdent this row (update only).
+     *
+     * @return value specifying the number of levels to outdent this row
+     */
+    public Integer getOutdent() { return outdent; }
+
+    /**
+     * Sets integer value specifying the number of levels to outdent this row (update only).
+     *
+     * @param outdent integer value specifying number of levels to outdent
+     */
+    public AbstractRow<TColumn, TCell> setOutdent(Integer outdent) {
+        this.outdent = outdent;
+        return this;
+    }
+
     /**
      * Gets the User object containing name and email of the creator of this row.
      *

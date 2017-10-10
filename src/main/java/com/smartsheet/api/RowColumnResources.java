@@ -78,4 +78,29 @@ public interface RowColumnResources {
      * @throws FileNotFoundException image file not found
      */
     public void addImageToCell(long sheetId, long rowId, long columnId, String file, String fileType) throws FileNotFoundException, SmartsheetException;
+
+    /**
+     * Uploads an image to the specified cell within a sheet.
+     *
+     * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/columns/{columnId}/cellimages
+     *
+     * Exceptions:
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ResourceNotFoundException : if the resource can not be found
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param sheetId the sheet Id
+     * @param rowId the row id
+     * @param columnId the column id
+     * @param file the file path
+     * @param fileType
+     * @param overrideValidation override column type validation
+     * ResourceNotFoundException rather than returning null).
+     * @throws SmartsheetException the smartsheet exception
+     * @throws FileNotFoundException image file not found
+     */
+    public void addImageToCell(long sheetId, long rowId, long columnId, String file, String fileType, boolean overrideValidation, String altText) throws FileNotFoundException, SmartsheetException;
 }

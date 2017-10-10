@@ -263,4 +263,19 @@ public interface UserResources {
 	 * @throws SmartsheetException if there is any other error during the operation
 	 */	
 	public void deleteAlternateEmail(long userId, long altEmailId) throws SmartsheetException;
+
+	/**
+	 * Promote and alternate email to primary.
+	 *
+	 * @param userId id of the user
+	 * @param altEmailId alternate email id
+	 * @return alternateEmail of the primary
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException f there is any other error during the operation
+	 */
+	public AlternateEmail promoteAlternateEmail(long userId, long altEmailId) throws SmartsheetException;
 }

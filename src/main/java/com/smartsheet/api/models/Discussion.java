@@ -41,6 +41,9 @@ public class Discussion extends IdentifiableModel<Long> {
 	/** Represents the comment attachments. */
 	private List<Attachment> commentAttachments;
 
+	/** The number of comments in the discussion. */
+	private Integer commentCount;
+
 	/** Represents the date a comment was last added to a discussion. */
 	private Date lastCommentedAt;
 
@@ -177,6 +180,24 @@ public class Discussion extends IdentifiableModel<Long> {
 	 */
 	public Discussion setCommentAttachments(List<Attachment> commentAttachments) {
 		this.commentAttachments = commentAttachments;
+		return this;
+	}
+
+	/**
+	 * Gets the discussion comment count
+	 *
+	 * @return the comment count
+	 */
+	public Integer getCommentCount() { return commentCount; }
+
+	/**
+	 * Sets the discussion comment count
+	 *
+	 * @param commentCount the new comment count
+	 * @return the Discussion
+	 */
+	public Discussion setCommentCount(Integer commentCount) {
+		this.commentCount = commentCount;
 		return this;
 	}
 

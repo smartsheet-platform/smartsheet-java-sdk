@@ -23,10 +23,16 @@ package com.smartsheet.api.internal;
 
 
 import com.smartsheet.api.*;
+import com.smartsheet.api.internal.http.HttpEntity;
+import com.smartsheet.api.internal.http.HttpMethod;
+import com.smartsheet.api.internal.http.HttpRequest;
+import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -303,8 +309,43 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
 	public void deleteAlternateEmail(long userId, long altEmailId) throws SmartsheetException {
 		this.deleteResource("users/" + userId + "/alternateemails/" + altEmailId, AlternateEmail.class);
 	}
-	
-	
+
+	/**
+	 * Promote and alternate email to primary.
+	 *
+	 * @param userId id of the user
+	 * @param altEmailId alternate email id
+	 * @return alternateEmail of the primary
+	 * @throws IllegalArgumentException if any argument is null or empty string
+	 * @throws InvalidRequestException if there is any problem with the REST API request
+	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+	 * @throws ResourceNotFoundException if the resource cannot be found
+	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+	 * @throws SmartsheetException f there is any other error during the operation
+	 */
+	public AlternateEmail promoteAlternateEmail(long userId, long altEmailId) throws SmartsheetException {
+
+		HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(
+				"users/" + userId + "/alternateemails/" + altEmailId + "/makeprimary"), HttpMethod.POST);
+
+		Object obj = null;
+		try {
+			HttpResponse response = this.smartsheet.getHttpClient().request(request);
+			switch (response.getStatusCode()) {
+				case 200:
+					obj = this.smartsheet.getJsonSerializer().deserializeResult(AlternateEmail.class,
+							response.getEntity().getContent());
+					break;
+				default:
+					handleError(response);
+			}
+		} finally {
+			smartsheet.getHttpClient().releaseConnection();
+		}
+
+		return (AlternateEmail)obj;
+	}
+
 	@Override
 	public User updateUser(User user) throws SmartsheetException {
 		return this.updateResource("users/" + user.getId(), User.class, user);

@@ -210,6 +210,9 @@ public class Row extends AbstractRow<Column, Cell> {
         private Boolean toBottom;
         private Long parentId;
         private Long siblingId;
+        private Boolean above;
+        private Integer indent;
+        private Integer outdent;
         private Format format;
         private Boolean expanded;
         private List<Cell> cells;
@@ -306,6 +309,54 @@ public class Row extends AbstractRow<Column, Cell> {
         }
 
         /**
+         * Gets the above flag
+         * @return the above flag
+         */
+        public Boolean getAbove() { return above; }
+
+        /**
+         * Sets the above flag
+         * @param above the above flag
+         * @return the insert rows builder
+         */
+        public UpdateRowBuilder setAbove(Boolean above) {
+            this.above = above;
+            return this;
+        }
+
+        /**
+         * Gets the number of levels of indent
+         * @return the number of levels of indent
+         */
+        public Integer getIndent() { return indent; }
+
+        /**
+         * Sets the number of levels of indent
+         * @param indent number of levels of indent
+         * @return the update rows builder
+         */
+        public UpdateRowBuilder setIndent(Integer indent) {
+            this.indent = indent;
+            return this;
+        }
+
+        /**
+         * Gets the number of levels of outdent
+         * @return the number of levels of outdent
+         */
+        public Integer getOutdent() { return outdent; }
+
+        /**
+         * Sets the number of levels of outdent
+         * @param outdent number of levels of outdent
+         * @return the update rows builder
+         */
+        public UpdateRowBuilder setOutdent(Integer outdent) {
+            this.outdent = outdent;
+            return this;
+        }
+
+        /**
          * Gets the format
          * @return the format
          */
@@ -379,6 +430,9 @@ public class Row extends AbstractRow<Column, Cell> {
             row.setToBottom(toBottom);
             row.setParentId(parentId);
             row.setSiblingId(siblingId);
+            row.setAbove(above);
+            row.setIndent(indent);
+            row.setOutdent(outdent);
             row.setFormat(format);
             row.setExpanded(expanded);
             row.setCells(cells);

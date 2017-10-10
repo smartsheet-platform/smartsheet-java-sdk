@@ -72,6 +72,11 @@ public class RowEmail extends Email {
 	}
 
 	/**
+	 * Represents IDs of the columns to be included.
+	 */
+	private List<Long> columnIds;
+
+	/**
 	 * A flag to indicate if attachments should be included in the email.
 	 */
 	private Boolean includeAttachments;
@@ -82,9 +87,9 @@ public class RowEmail extends Email {
 	private Boolean includeDiscussions;
 
 	/**
-	 * Represents IDs of the columns to be included.
+	 * One of the following values: HORIZONTAL, VERTICAL
 	 */
-	private List<Long> columnIds;
+	private String layout;
 
 	/**
 	 * Gets the IDs of the columns to be included.
@@ -144,6 +149,25 @@ public class RowEmail extends Email {
 	}
 
 	/**
+	 * Gets a string containing the layout. Defaults to HORIZONTAL if multiple rows are being setn,
+	 * and to VERTICAL when a single row is being sent.
+	 *
+	 * @return layout
+	 */
+	public String getLayout() { return layout; }
+
+	/**
+	 * Sets the layout string
+	 * @param layout string containing HORIZONTAL or VERTICAL strings
+	 *
+	 * @return
+	 */
+	public RowEmail setLayout(String layout) {
+		this.layout = layout;
+		return this;
+	}
+
+	/**
 	 * A convenience class to help create a RowEmail object with the appropriate fields.
 	 */
 	public static class AddRowEmailBuilder {
@@ -156,6 +180,11 @@ public class RowEmail extends Email {
 		 * A flag to indicate if discussions should be included in the email.
 		 */
 		private Boolean includeDiscussions;
+
+		/**
+		 * One of the following values: HORIZONTAL, VERTICAL
+		 */
+		private String layout;
 
 		/**
 		 * Gets the flag that indicates if attachments should be included in the email.
@@ -194,6 +223,25 @@ public class RowEmail extends Email {
 		 */
 		public AddRowEmailBuilder setIncludeDiscussions(Boolean includeDiscussions) {
 			this.includeDiscussions = includeDiscussions;
+			return this;
+		}
+
+		/**
+		 * Gets a string containing the layout. Defaults to HORIZONTAL if multiple rows are being setn,
+		 * and to VERTICAL when a single row is being sent.
+		 *
+		 * @return layout
+		 */
+		public String getLayout() { return layout; }
+
+		/**
+		 * Sets the layout string
+		 *
+		 * @param layout string containing HORIZONTAL or VERTICAL strings
+		 * @return the builder
+		 */
+		public AddRowEmailBuilder setLayout(String layout) {
+			this.layout = layout;
 			return this;
 		}
 
@@ -301,6 +349,7 @@ public class RowEmail extends Email {
 			RowEmail rowEmail = new RowEmail();
 			rowEmail.includeAttachments = includeAttachments;
 			rowEmail.includeDiscussions = includeDiscussions;
+			rowEmail.layout = layout;
 			rowEmail.setSendTo(sendTo);
 			rowEmail.setSubject(subject);
 			rowEmail.setMessage(message);

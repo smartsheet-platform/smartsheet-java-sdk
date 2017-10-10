@@ -93,6 +93,10 @@ public class JacksonJsonSerializer implements JsonSerializer{
 		module = new SimpleModule("HyperlinkSerializerModule", Version.unknownVersion());
 		module.addSerializer(Hyperlink.class, new HyperlinkSerializer());
 		OBJECT_MAPPER.registerModule(module);
+
+		module = new SimpleModule("CellSerializerModule", Version.unknownVersion());
+		module.setSerializerModifier(new CellSerializerModifier());
+		OBJECT_MAPPER.registerModule(module);
 		
 		// Ignore getId() for the IdentifiableModel class
 		//OBJECT_MAPPER.addMixIn(IdentifiableModel.class, IdentifiableModelMixin.class);

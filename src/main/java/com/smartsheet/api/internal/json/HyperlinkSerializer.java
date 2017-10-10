@@ -22,7 +22,6 @@ package com.smartsheet.api.internal.json;
 import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.smartsheet.api.models.Hyperlink;
@@ -31,7 +30,7 @@ public class HyperlinkSerializer extends JsonSerializer<Hyperlink>{
 
 	@Override
 	public void serialize(Hyperlink value, JsonGenerator gen, SerializerProvider serializers)
-			throws IOException, JsonProcessingException {
+			throws IOException {
 		if(value.isNull()) {
 			gen.writeNull();
 		}

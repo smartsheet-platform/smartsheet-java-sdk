@@ -25,6 +25,10 @@ public enum UpdateRequestStatus {
 	 */
 	PENDING,
 	/**
+	 * The request was canceled.
+	 */
+	CANCELED,
+	/**
 	 * Represents COMPLETE status.
 	 */
 	COMPLETE
