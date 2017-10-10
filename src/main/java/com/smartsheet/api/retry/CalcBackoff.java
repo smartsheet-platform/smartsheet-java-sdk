@@ -30,10 +30,10 @@ public interface CalcBackoff {
      * an exponential backoff calculation.
      *
      * @param previousAttempts
-     * @param totalElapsedTime
+     * @param totalElapsedTimeMillis
      * @param error
      * @return a positive value indicates that API requests should continue to be made,
      *         a return value of -1 will cause the caller to drop out of the retry loop.
      */
-    long calcBackoff(int previousAttempts, long totalElapsedTime, Error error);
+    long calcBackoff(int previousAttempts, long totalElapsedTimeMillis, Error error);
 }

@@ -32,29 +32,33 @@ import com.smartsheet.api.retry.CalcBackoff;
 public class DefaultCalcBackoff implements CalcBackoff {
 
     /** maximum total elapsed retry time. Will be set in the constructor */
-    private long maxRetryTime;
+    private long maxRetryTimeMillis;
 
     /** logger for general errors, warnings, etc */
     private static final Logger logger = LoggerFactory.getLogger(DefaultCalcBackoff.class);
 
-    public DefaultCalcBackoff(long maxRetryTime) {
-        this.maxRetryTime = maxRetryTime;
+    public DefaultCalcBackoff(long maxRetryTimeMillis) {
+        this.maxRetryTimeMillis = maxRetryTimeMillis;
     }
 
     /**
      * The backoff calculation routine. Uses exponential backoff. If the maximum elapsed time
      * has expired, this calculation returns -1 causing the caller to fall out of the retry loop.
      * @param previousAttempts
-     * @param totalElapsedTime
+     * @param totalElapsedTimeMillis
      * @param error
      * @return -1 to fall out of retry loop, positive number indicates backoff time
      */
-    public long calcBackoff(int previousAttempts, long totalElapsedTime, Error error) {
-        if(totalElapsedTime > maxRetryTime) {
-            logger.info("Total elapsed timeout exceeded, exiting retry loop");
+    public long calcBackoff(int previousAttempts, long totalElapsedTimeMillis, Error error) {
+
+        long backoffMillis = (long)(Math.pow(2, previousAttempts) * 1000) + new Random().nextInt(1000);
+
+        if(totalElapsedTimeMillis + backoffMillis > maxRetryTimeMillis) {
+            logger.info("Elapsed time " + totalElapsedTimeMillis + " + backoff time " + backoffMillis +
+                    " exceeds max retry time " + maxRetryTimeMillis + ", exiting retry loop");
             return -1;
         }
-        return (long)(Math.pow(2, previousAttempts) * 1000) + new Random().nextInt(1000);
+        return backoffMillis;
     }
 }
 

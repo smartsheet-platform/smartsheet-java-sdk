@@ -56,11 +56,11 @@ public class DefaultShouldRetry implements ShouldRetry {
      * Called by the DefaultHttpClient when an API request fails to determine if can retry the request.
      * Calls calcBackoff to determine the time to wait in between retries.
      * @param previousAttempts
-     * @param totalElapsedTime
+     * @param totalElapsedTimeMillis
      * @param response the failed HttpResponse
      * @return true if this request can be retried
      */
-    public boolean shouldRetry(int previousAttempts, long totalElapsedTime, HttpResponse response) {
+    public boolean shouldRetry(int previousAttempts, long totalElapsedTimeMillis, HttpResponse response) {
         Util.throwIfNull(calcBackoff);
 
         Error error;
@@ -82,13 +82,13 @@ public class DefaultShouldRetry implements ShouldRetry {
                 return false;
         }
 
-        long backoff = calcBackoff.calcBackoff(previousAttempts, totalElapsedTime, error);
-        if(backoff < 0)
+        long backoffMillis = calcBackoff.calcBackoff(previousAttempts, totalElapsedTimeMillis, error);
+        if(backoffMillis < 0)
             return false;
 
-        logger.info("HttpError StatusCode=" + response.getStatusCode() + ": Retrying in " + backoff + " milliseconds");
+        logger.info("HttpError StatusCode=" + response.getStatusCode() + ": Retrying in " + backoffMillis + " milliseconds");
         try {
-            Thread.sleep(backoff);
+            Thread.sleep(backoffMillis);
         }
         catch (InterruptedException e) {
             e.printStackTrace();

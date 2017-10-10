@@ -159,11 +159,11 @@ public class SmartsheetBuilder {
 	 *
 	 * <p>This interface is only valid when the DefaultHttpClient is used.</p>
 	 *
-	 * @param maxRetryTimeout
+	 * @param maxRetryTimeMillis
 	 * @return the smartsheet builder
 	 */
-	public SmartsheetBuilder setMaxRetryTimeout(long maxRetryTimeout) {
-		this.calcBackoff = new DefaultCalcBackoff(maxRetryTimeout);
+	public SmartsheetBuilder setMaxRetryTimeMillis(long maxRetryTimeMillis) {
+		this.calcBackoff = new DefaultCalcBackoff(maxRetryTimeMillis);
 		return this;
 	}
 

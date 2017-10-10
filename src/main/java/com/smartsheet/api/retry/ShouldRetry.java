@@ -32,9 +32,9 @@ public interface ShouldRetry {
      * Callback interface to determine if this request can be retried.
      *
      * @param previousAttempts
-     * @param totalElapsedTime
+     * @param totalElapsedTimeMillis
      * @param response
      * @return a boolean indicating if the API call can be retried.
      */
-    boolean shouldRetry(int previousAttempts, long totalElapsedTime, HttpResponse response);
+    boolean shouldRetry(int previousAttempts, long totalElapsedTimeMillis, HttpResponse response);
 }
