@@ -21,36 +21,36 @@ package com.smartsheet.api.models.enums;
  */
 
 public enum WidgetType {
-	/** 
-	 * CellLinkWidgetContent object
-	 */
-	CELLLINK,
-	/**
-	 * CellLinkWidgetContent object
-	 */
-	SHEETSUMMARY,
-	/** 
-	 * RichTextWidgetContent object
-	 */
-	RICHTEXT,
-	/** 
-	 * ShortcutWidgetContent object
-	 */
-	SHORTCUTICON,
-	/**
-	 * ShortcutWidgetContent object
-	 */
-	SHORTCUTLIST,
-	/**
-	 * ReportWidgetContent object
-	 */
-	GRIDGANTT,
-	/**
-	 * ImageWidgetContent object
-	 */
-	IMAGE,
-	/**
-	 * same as RichTextWidgetContent object
-	 */
-	TITLE
+    /**
+     * CellLinkWidgetContent object
+     */
+    CELLLINK,
+    /**
+     * CellLinkWidgetContent object
+     */
+    SHEETSUMMARY,
+    /**
+     * RichTextWidgetContent object
+     */
+    RICHTEXT,
+    /**
+     * ShortcutWidgetContent object
+     */
+    SHORTCUTICON,
+    /**
+     * ShortcutWidgetContent object
+     */
+    SHORTCUTLIST,
+    /**
+     * ReportWidgetContent object
+     */
+    GRIDGANTT,
+    /**
+     * ImageWidgetContent object
+     */
+    IMAGE,
+    /**
+     * same as RichTextWidgetContent object
+     */
+    TITLE
 }

@@ -27,25 +27,25 @@ import static org.junit.Assert.assertEquals;
 
 public class OAuthTokenExceptionTest {
 
-	@Before
-	public void setUp() throws Exception {
-	}
+    @Before
+    public void setUp() throws Exception {
+    }
 
-	@Test
-	public void testOAuthTokenExceptionString() {
-		try{
-			throw new OAuthTokenException("message");
-		}catch(OAuthTokenException e){
-			assertEquals("message", e.getMessage());
-		}
-	}
+    @Test
+    public void testOAuthTokenExceptionString() {
+        try{
+            throw new OAuthTokenException("message");
+        }catch(OAuthTokenException e){
+            assertEquals("message", e.getMessage());
+        }
+    }
 
-	@Test
-	public void testOAuthTokenExceptionStringThrowable() {
-		try{
-			throw new OAuthTokenException("message", null);
-		}catch(OAuthTokenException ex){
-			assertEquals("message", ex.getMessage());
-		}
-	}
+    @Test
+    public void testOAuthTokenExceptionStringThrowable() {
+        try{
+            throw new OAuthTokenException("message", null);
+        }catch(OAuthTokenException ex){
+            assertEquals("message", ex.getMessage());
+        }
+    }
 }

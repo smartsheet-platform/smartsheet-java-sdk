@@ -30,35 +30,35 @@ import java.util.Set;
  * An enumeration representing the available font families within Smartsheet.
  */
 public enum FontFamily {
-	ARIAL 			("Arial", 	Arrays.asList("sans-serif")),
-	TAHOMA			("Tahoma", 	Arrays.asList("sans-serif")),
-	TIMES_NEW_ROMAN	("Times New Roman", Arrays.asList("serif")),
-	VERDANA			("Verdana", Arrays.asList("sans-serif")),
-	;
-	private final String fontName;
-	private final Set<String> traits;
-	
-	/**
-	 * The default setting when the {@link Format} for {@link FontFamily} is null;
-	 */
-	public static final FontFamily DEFAULT = ARIAL;
-	
-	FontFamily (String name, List<String> traits) {
-		this.fontName = name;
-		this.traits = new HashSet<String>(traits);
-	}
+    ARIAL             ("Arial", Arrays.asList("sans-serif")),
+    TAHOMA            ("Tahoma", Arrays.asList("sans-serif")),
+    TIMES_NEW_ROMAN    ("Times New Roman", Arrays.asList("serif")),
+    VERDANA            ("Verdana", Arrays.asList("sans-serif")),
+    ;
+    private final String fontName;
+    private final Set<String> traits;
 
-	/**
-	 * @return the fontName
-	 */
-	public String getFontName() {
-		return fontName;
-	}
+    /**
+     * The default setting when the {@link Format} for {@link FontFamily} is null;
+     */
+    public static final FontFamily DEFAULT = ARIAL;
 
-	/**
-	 * @return the traits
-	 */
-	public Set<String> getTraits() {
-		return traits;
-	}
+    FontFamily (String name, List<String> traits) {
+        this.fontName = name;
+        this.traits = new HashSet<String>(traits);
+    }
+
+    /**
+     * @return the fontName
+     */
+    public String getFontName() {
+        return fontName;
+    }
+
+    /**
+     * @return the traits
+     */
+    public Set<String> getTraits() {
+        return traits;
+    }
 }

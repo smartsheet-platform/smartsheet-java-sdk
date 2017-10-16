@@ -20,24 +20,24 @@ package com.smartsheet.api.models.enums;
  */
 
 public enum DayOrdinal {
-	/**
-	 * Represents FIRST ordinal type
-	 */
-	FIRST,
-	/**
-	 * Represents SECOND ordinal type
-	 */
-	SECOND,
-	/**
-	 * Represents THIRD ordinal type
-	 */
-	THIRD,
-	/**
-	 * Represents FOURTH ordinal type
-	 */
-	FOURTH,
-	/**
-	 * Represents LAST ordinal type
-	 */
-	LAST
+    /**
+     * Represents FIRST ordinal type
+     */
+    FIRST,
+    /**
+     * Represents SECOND ordinal type
+     */
+    SECOND,
+    /**
+     * Represents THIRD ordinal type
+     */
+    THIRD,
+    /**
+     * Represents FOURTH ordinal type
+     */
+    FOURTH,
+    /**
+     * Represents LAST ordinal type
+     */
+    LAST
 }

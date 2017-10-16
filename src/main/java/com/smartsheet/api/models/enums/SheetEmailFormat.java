@@ -26,18 +26,18 @@ package com.smartsheet.api.models.enums;
  * Represents the Sheet email format.
  */
 public enum SheetEmailFormat {
-	/**
-	 * Represents PDF format.
-	 */
-	PDF,
+    /**
+     * Represents PDF format.
+     */
+    PDF,
 
-	/**
-	 * Represents EXCEL format.
-	 */
-	EXCEL,
+    /**
+     * Represents EXCEL format.
+     */
+    EXCEL,
 
-	/**
-	 * Represents PDF Gantt format.
-	 */
-	PDF_GANTT;
+    /**
+     * Represents PDF Gantt format.
+     */
+    PDF_GANTT;
 }

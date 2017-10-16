@@ -24,10 +24,10 @@ package com.smartsheet.api.models.enums;
  * Represents specific objects should be excluded in some responses.
  */
 public enum FolderRemapExclusion {
-    CELLLINKS   	("cellLinks"),
-    REPORTS     	("reports"),
-    SHEETHYPERLINKS	("sheetHyperlinks"),
-    SIGHTS			("sights"),
+    CELLLINKS       ("cellLinks"),
+    REPORTS         ("reports"),
+    SHEETHYPERLINKS ("sheetHyperlinks"),
+    SIGHTS          ("sights"),
     ;
 
     String inclusion;

@@ -33,23 +33,23 @@ import com.smartsheet.api.models.RecipientGroup;
 
 public class RecipientDeserializer extends JsonDeserializer<Recipient> {
 
-	@Override
-	public Recipient deserialize(JsonParser jp, DeserializationContext ctxt)
-			throws IOException, JsonProcessingException {
+    @Override
+    public Recipient deserialize(JsonParser jp, DeserializationContext ctxt)
+            throws IOException, JsonProcessingException {
 
-		if(jp.getCurrentToken() == JsonToken.START_OBJECT) {
-			JsonNode node = jp.getCodec().readTree(jp);
-			if(node.get("email") != null) {
-				RecipientEmail email = new 
-						RecipientEmail.AddRecipientEmailBuilder().setEmail(node.get("email").asText()).build();
-				return email;
-			}
-			else if(node.get("groupId") != null) {
-				RecipientGroup group = new
-						RecipientGroup.AddRecipientGroupBuilder().setGroupId(node.get("groupId").asLong()).build();
-				return group;
-			}
-		}		
-		return null;
-	}
+        if(jp.getCurrentToken() == JsonToken.START_OBJECT) {
+            JsonNode node = jp.getCodec().readTree(jp);
+            if(node.get("email") != null) {
+                RecipientEmail email = new
+                        RecipientEmail.AddRecipientEmailBuilder().setEmail(node.get("email").asText()).build();
+                return email;
+            }
+            else if(node.get("groupId") != null) {
+                RecipientGroup group = new
+                        RecipientGroup.AddRecipientGroupBuilder().setGroupId(node.get("groupId").asLong()).build();
+                return group;
+            }
+        }
+        return null;
+    }
 }

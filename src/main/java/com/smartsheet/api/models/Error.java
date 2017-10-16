@@ -26,74 +26,74 @@ package com.smartsheet.api.models;
  * Represents Error object.
  */
 public class Error {
-	/**
-	 * Represents the error code.
-	 */
-	private Integer errorCode;
+    /**
+     * Represents the error code.
+     */
+    private Integer errorCode;
 
-	/**
-	 * Represents the message.
-	 */
-	private String message;
+    /**
+     * Represents the message.
+     */
+    private String message;
 
-	/**
-	 * Reference ID
-	 */
-	private String refId;
+    /**
+     * Reference ID
+     */
+    private String refId;
 
-	/**
-	 * Gets the message.
-	 *
-	 * @return the message
-	 */
-	public String getMessage() {
-		return message;
-	}
+    /**
+     * Gets the message.
+     *
+     * @return the message
+     */
+    public String getMessage() {
+        return message;
+    }
 
-	/**
-	 * Sets the message.
-	 *
-	 * @param message the new message
-	 */
-	public Error setMessage(String message) {
-		this.message = message;
-		return this;
-	}
+    /**
+     * Sets the message.
+     *
+     * @param message the new message
+     */
+    public Error setMessage(String message) {
+        this.message = message;
+        return this;
+    }
 
-	/**
-	 * Gets the error code.
-	 *
-	 * @return the error code
-	 */
-	public Integer getErrorCode() {
-		return errorCode;
-	}
+    /**
+     * Gets the error code.
+     *
+     * @return the error code
+     */
+    public Integer getErrorCode() {
+        return errorCode;
+    }
 
-	/**
-	 * Sets the error code.
-	 *
-	 * @param errorCode the new error code
-	 */
-	public Error setErrorCode(Integer errorCode) {
-		this.errorCode = errorCode;
-		return this;
-	}
+    /**
+     * Sets the error code.
+     *
+     * @param errorCode the new error code
+     */
+    public Error setErrorCode(Integer errorCode) {
+        this.errorCode = errorCode;
+        return this;
+    }
 
-	/**
-	 * Get the reference ID
-	 *
-	 * @return the refId
-	 */
-	public String getRefId() { return refId; }
+    /**
+     * Get the reference ID
+     *
+     * @return the refId
+     */
+    public String getRefId() { return refId; }
 
-	/**
-	 * Set the reference ID
-	 *
-	 * @param refId the reference ID
-	 * @return the Error Object
-	 */
-	public Error setRefId(String refId) {
-		this.refId = refId;
-		return this;
-	}
+    /**
+     * Set the reference ID
+     *
+     * @param refId the reference ID
+     * @return the Error Object
+     */
+    public Error setRefId(String refId) {
+        this.refId = refId;
+        return this;
+    }
 }

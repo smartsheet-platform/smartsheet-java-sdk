@@ -32,30 +32,30 @@ import java.util.EnumSet;
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface HomeResources {
-	
-	/**
-	 * <p>Get a nested list of all Home objects, including sheets, workspaces and folders, and optionally reports and/or
-	 * templates, as shown on the Home tab.</p>
-	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:</p>
-	 * <p>GET /home</p>
-	 *
-	 * @param includes used to specify the optional objects to include.
-	 * @return the home resource (note that if there is no such resource, this method will throw 
-	 * ResourceNotFoundException rather than returning null).
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
-	 */
-	public Home getHome(EnumSet<SourceInclusion> includes) throws SmartsheetException;
 
-	/**
-	 * <p>Return the HomeFolderResources object that provides access to Folder resources under home.</p>
-	 *
-	 * @return the home folder resources
-	 */
-	public HomeFolderResources folderResources();
+    /**
+     * <p>Get a nested list of all Home objects, including sheets, workspaces and folders, and optionally reports and/or
+     * templates, as shown on the Home tab.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>GET /home</p>
+     *
+     * @param includes used to specify the optional objects to include.
+     * @return the home resource (note that if there is no such resource, this method will throw
+     * ResourceNotFoundException rather than returning null).
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Home getHome(EnumSet<SourceInclusion> includes) throws SmartsheetException;
+
+    /**
+     * <p>Return the HomeFolderResources object that provides access to Folder resources under home.</p>
+     *
+     * @return the home folder resources
+     */
+    public HomeFolderResources folderResources();
 }

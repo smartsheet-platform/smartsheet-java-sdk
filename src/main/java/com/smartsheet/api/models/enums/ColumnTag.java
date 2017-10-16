@@ -52,7 +52,7 @@ public enum ColumnTag {
     
     /** Represents GANTT_ASSIGNED_RESOURCE. */
     GANTT_ASSIGNED_RESOURCE,
-	
-	/** used for the allocation percentage for the resource management feature. */
-	GANTT_ALLOCATION;
+
+    /** used for the allocation percentage for the resource management feature. */
+    GANTT_ALLOCATION;
 }

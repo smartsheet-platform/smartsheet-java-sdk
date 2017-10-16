@@ -171,13 +171,13 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
         entity.setContentLength(f.length());
         request.setEntity(entity);
 
-		HttpResponse response = this.smartsheet.getHttpClient().request(request);
-		switch (response.getStatusCode()) {
+        HttpResponse response = this.smartsheet.getHttpClient().request(request);
+        switch (response.getStatusCode()) {
             case 200:
                 break;
             default:
                 handleError(response);
         }
-		smartsheet.getHttpClient().releaseConnection();
+        smartsheet.getHttpClient().releaseConnection();
     }
 }

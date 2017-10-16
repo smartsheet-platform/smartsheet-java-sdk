@@ -29,17 +29,17 @@ import static org.junit.Assert.assertNotNull;
 
 public class AccessLevelTest {
 
-	@Before
-	public void setUp() throws Exception {
-	}
+    @Before
+    public void setUp() throws Exception {
+    }
 
-	@Test
-	public void test() {
-		assertNotNull(AccessLevel.valueOf("VIEWER"));
-		assertNotNull(AccessLevel.valueOf("EDITOR"));
-		assertNotNull(AccessLevel.valueOf("EDITOR_SHARE"));
-		assertNotNull(AccessLevel.valueOf("ADMIN"));
-		assertNotNull(AccessLevel.valueOf("OWNER"));
-		assertEquals(5,AccessLevel.values().length);
-	}
+    @Test
+    public void test() {
+        assertNotNull(AccessLevel.valueOf("VIEWER"));
+        assertNotNull(AccessLevel.valueOf("EDITOR"));
+        assertNotNull(AccessLevel.valueOf("EDITOR_SHARE"));
+        assertNotNull(AccessLevel.valueOf("ADMIN"));
+        assertNotNull(AccessLevel.valueOf("OWNER"));
+        assertEquals(5,AccessLevel.values().length);
+    }
 }

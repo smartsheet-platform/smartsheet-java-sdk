@@ -40,189 +40,189 @@ import com.smartsheet.api.models.Sight;
 import com.smartsheet.api.models.SightPublish;
 
 public class SightResourcesImpl extends AbstractResources implements SightResources {
-	
-	private ShareResources shares;
-	
-	/**
-	 * Constructor.
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null
-	 *
-	 * @param smartsheet the smartsheet
-	 */
-	public SightResourcesImpl(SmartsheetImpl smartsheet) {
-		super(smartsheet);
-		this.shares = new ShareResourcesImpl(smartsheet, "sights");
-	}
-	/**
-	 * <p>Gets the list of all Sights where the User has access.</p>
-	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method: GET /sights</p>
-	 *
-	 * @param modifiedSince
-	 * @return IndexResult object containing an array of Sight objects limited to the following attributes:
-	 * 	id, name, accessLevel, permalink, createdAt, modifiedAt.
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
-	 */
-	public PagedResult<Sight> listSights(PaginationParameters paging, Date modifiedSince) throws SmartsheetException {
-		String path = "sights";
-		
-		HashMap<String, Object> parameters = new HashMap<String, Object>();
-		if (paging != null) {
-			parameters = paging.toHashMap();
-		}
-		if (modifiedSince != null) {
-			String isoDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(modifiedSince);
-			parameters.put("modifiedSince", isoDate);
-		}
-		path += QueryUtil.generateUrl(null, parameters);
-		return this.listResourcesWithWrapper(path, Sight.class);
-	}
 
-	/**
-	 * <p>Get a specified Sight.</p>
-	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method: GET /sights/{sightId}</p>
-	 *
-	 * @param sightId the Id of the Sight
-	 * @return the Sight resource.
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
-	 */
-	public Sight getSight(long sightId) throws SmartsheetException {
-		return this.getResource("sights/" + sightId, Sight.class);
-	}
-	
-	/**
-	 * <p>Get a specified Sight.</p>
-	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method: PUT /sights/{sightId}</p>
-	 *
-	 * @param sight - the Sight to update
-	 * @return the updated Sight resource.
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
-	 */
-	public Sight updateSight(Sight sight) throws SmartsheetException {
-		Util.throwIfNull(sight);
-		return this.updateResource("sights/" + sight.getId(), Sight.class, sight);
-	}
-	
-	/**
-	 * <p>Delete a specified Sight.</p>
-	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method: DELETE /sights/{sightId}</p>
-	 *
-	 * @param sightId the Id of the Sight
-	 *
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
-	 */
-	public void deleteSight(long sightId) throws SmartsheetException {
-		this.deleteResource("sights/" + sightId, Sight.class);
-	}
-	
-	/**
-	 * <p>Creates s copy of the specified Sight.</p>
-	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/copy</p>
-	 *
-	 * @param sightId the Id of the Sight
-	 * @param destination the destination to copy to
-	 * @return the newly created Sight resource.
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
-	 */	
-	public Sight copySight(long sightId, ContainerDestination destination) throws SmartsheetException {
-		return this.createResource("sights/" + sightId + "/copy", Sight.class, destination);		
-	}
-	
-	/**
-	 * <p>Creates s copy of the specified Sight.</p>
-	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/move</p>
-	 *
-	 * @param sightId the Id of the Sight
-	 * @param destination the destination to copy to
-	 * @return the newly created Sight resource.
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
-	 */	
-	public Sight moveSight(long sightId, ContainerDestination destination) throws SmartsheetException {
-		return this.createResource("sights/" + sightId + "/move", Sight.class, destination);		
-	}
+    private ShareResources shares;
 
-	/**
-	 * <p>Get the publish status of a Sight.</p>
-	 *
-	 * <p>It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/publish</p>
-	 *
-	 * @param sightId the Id of the Sight
-	 * @return the Sight's publish status.
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
-	 */
-	public SightPublish getPublishStatus(long sightId) throws SmartsheetException {
-		return this.getResource("sights/" + sightId + "/publish", SightPublish.class);
-	}
+    /**
+     * Constructor.
+     *
+     * Exceptions: - IllegalArgumentException : if any argument is null
+     *
+     * @param smartsheet the smartsheet
+     */
+    public SightResourcesImpl(SmartsheetImpl smartsheet) {
+        super(smartsheet);
+        this.shares = new ShareResourcesImpl(smartsheet, "sights");
+    }
+    /**
+     * <p>Gets the list of all Sights where the User has access.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sights</p>
+     *
+     * @param modifiedSince
+     * @return IndexResult object containing an array of Sight objects limited to the following attributes:
+     *     id, name, accessLevel, permalink, createdAt, modifiedAt.
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public PagedResult<Sight> listSights(PaginationParameters paging, Date modifiedSince) throws SmartsheetException {
+        String path = "sights";
 
-	/**
-	 * <p>Sets the publish status of a Sight and returns the new status, including the URLs of any enabled publishing.</p>
-	 *
-	 * <p>It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/publish</p>
-	 *
-	 * @param sightId the Id of the Sight
-	 * @param sightPublish the SightPublish object containing publish status
-	 * @return the Sight's publish status.
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
-	 */
-	public SightPublish setPublishStatus(long sightId, SightPublish sightPublish) throws SmartsheetException {
-		Util.throwIfNull(sightPublish);
-		return this.updateResource("sights/" + sightId + "/publish", SightPublish.class, sightPublish);
-	}
+        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        if (paging != null) {
+            parameters = paging.toHashMap();
+        }
+        if (modifiedSince != null) {
+            String isoDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(modifiedSince);
+            parameters.put("modifiedSince", isoDate);
+        }
+        path += QueryUtil.generateUrl(null, parameters);
+        return this.listResourcesWithWrapper(path, Sight.class);
+    }
 
-	/**
-	 * <p>Return the ShareResources object that provides access to share resources associated with
-	 * Sight resources.</p>
-	 *
-	 * @return the associated share resources
-	 */	
-	public ShareResources shareResources() {
-		return this.shares;
-	}
-	
+    /**
+     * <p>Get a specified Sight.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sights/{sightId}</p>
+     *
+     * @param sightId the Id of the Sight
+     * @return the Sight resource.
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Sight getSight(long sightId) throws SmartsheetException {
+        return this.getResource("sights/" + sightId, Sight.class);
+    }
+
+    /**
+     * <p>Get a specified Sight.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: PUT /sights/{sightId}</p>
+     *
+     * @param sight - the Sight to update
+     * @return the updated Sight resource.
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Sight updateSight(Sight sight) throws SmartsheetException {
+        Util.throwIfNull(sight);
+        return this.updateResource("sights/" + sight.getId(), Sight.class, sight);
+    }
+
+    /**
+     * <p>Delete a specified Sight.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: DELETE /sights/{sightId}</p>
+     *
+     * @param sightId the Id of the Sight
+     *
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public void deleteSight(long sightId) throws SmartsheetException {
+        this.deleteResource("sights/" + sightId, Sight.class);
+    }
+
+    /**
+     * <p>Creates s copy of the specified Sight.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/copy</p>
+     *
+     * @param sightId the Id of the Sight
+     * @param destination the destination to copy to
+     * @return the newly created Sight resource.
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Sight copySight(long sightId, ContainerDestination destination) throws SmartsheetException {
+        return this.createResource("sights/" + sightId + "/copy", Sight.class, destination);
+    }
+
+    /**
+     * <p>Creates s copy of the specified Sight.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/move</p>
+     *
+     * @param sightId the Id of the Sight
+     * @param destination the destination to copy to
+     * @return the newly created Sight resource.
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Sight moveSight(long sightId, ContainerDestination destination) throws SmartsheetException {
+        return this.createResource("sights/" + sightId + "/move", Sight.class, destination);
+    }
+
+    /**
+     * <p>Get the publish status of a Sight.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/publish</p>
+     *
+     * @param sightId the Id of the Sight
+     * @return the Sight's publish status.
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public SightPublish getPublishStatus(long sightId) throws SmartsheetException {
+        return this.getResource("sights/" + sightId + "/publish", SightPublish.class);
+    }
+
+    /**
+     * <p>Sets the publish status of a Sight and returns the new status, including the URLs of any enabled publishing.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/publish</p>
+     *
+     * @param sightId the Id of the Sight
+     * @param sightPublish the SightPublish object containing publish status
+     * @return the Sight's publish status.
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public SightPublish setPublishStatus(long sightId, SightPublish sightPublish) throws SmartsheetException {
+        Util.throwIfNull(sightPublish);
+        return this.updateResource("sights/" + sightId + "/publish", SightPublish.class, sightPublish);
+    }
+
+    /**
+     * <p>Return the ShareResources object that provides access to share resources associated with
+     * Sight resources.</p>
+     *
+     * @return the associated share resources
+     */
+    public ShareResources shareResources() {
+        return this.shares;
+    }
+
 }

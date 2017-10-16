@@ -29,220 +29,220 @@ import java.util.List;
  * Represents Sheet Email object used for sending a sheet by email.
  */
 public class SheetEmail extends Email {
-	/**
-	 * Represents the sheet email format (PDF or Excel).
-	 */
-	private SheetEmailFormat format;
+    /**
+     * Represents the sheet email format (PDF or Excel).
+     */
+    private SheetEmailFormat format;
 
-	/**
-	 * Represents the format details (paper dimensions).
-	 */
-	private FormatDetails formatDetails;
+    /**
+     * Represents the format details (paper dimensions).
+     */
+    private FormatDetails formatDetails;
 
-	/**
-	 * Gets the sheet email format (PDF or Excel).
-	 *
-	 * @return the format
-	 */
-	public SheetEmailFormat getFormat() {
-		return format;
-	}
+    /**
+     * Gets the sheet email format (PDF or Excel).
+     *
+     * @return the format
+     */
+    public SheetEmailFormat getFormat() {
+        return format;
+    }
 
-	/**
-	 * Sets the sheet email format (PDF or Excel).
-	 *
-	 * @param format the new format
-	 */
-	public SheetEmail setFormat(SheetEmailFormat format) {
-		this.format = format;
-		return this;
-	}
+    /**
+     * Sets the sheet email format (PDF or Excel).
+     *
+     * @param format the new format
+     */
+    public SheetEmail setFormat(SheetEmailFormat format) {
+        this.format = format;
+        return this;
+    }
 
-	/**
-	 * Gets the format details (paper dimensions).
-	 *
-	 * @return the format details
-	 */
-	public FormatDetails getFormatDetails() {
-		return formatDetails;
-	}
+    /**
+     * Gets the format details (paper dimensions).
+     *
+     * @return the format details
+     */
+    public FormatDetails getFormatDetails() {
+        return formatDetails;
+    }
 
-	/**
-	 * Sets the format details (paper dimensions).
-	 *
-	 * @param formatDetails the new format details
-	 */
-	public SheetEmail setFormatDetails(FormatDetails formatDetails) {
-		this.formatDetails = formatDetails;
-		return this;
-	}
+    /**
+     * Sets the format details (paper dimensions).
+     *
+     * @param formatDetails the new format details
+     */
+    public SheetEmail setFormatDetails(FormatDetails formatDetails) {
+        this.formatDetails = formatDetails;
+        return this;
+    }
 
-	/**
-	 * A convenience class to help create a SheetEmail object with the appropriate fields.
-	 */
-	public static class AddSheetEmailBuilder {
-		/**
-		 * Represents the sheet email format (PDF or Excel).
-		 */
-		private SheetEmailFormat format;
+    /**
+     * A convenience class to help create a SheetEmail object with the appropriate fields.
+     */
+    public static class AddSheetEmailBuilder {
+        /**
+         * Represents the sheet email format (PDF or Excel).
+         */
+        private SheetEmailFormat format;
 
-		/**
-		 * Represents the format details (paper dimensions).
-		 */
-		private FormatDetails formatDetails;
+        /**
+         * Represents the format details (paper dimensions).
+         */
+        private FormatDetails formatDetails;
 
-		/**
-		 * Gets the sheet email format (PDF or Excel).
-		 *
-		 * @return the format
-		 */
-		public SheetEmailFormat getFormat() {
-			return format;
-		}
+        /**
+         * Gets the sheet email format (PDF or Excel).
+         *
+         * @return the format
+         */
+        public SheetEmailFormat getFormat() {
+            return format;
+        }
 
-		/**
-		 * Sets the sheet email format (PDF or Excel).
-		 *
-		 * @param format the new format
-		 * @return the builder
-		 */
-		public AddSheetEmailBuilder setFormat(SheetEmailFormat format) {
-			this.format = format;
-			return this;
-		}
+        /**
+         * Sets the sheet email format (PDF or Excel).
+         *
+         * @param format the new format
+         * @return the builder
+         */
+        public AddSheetEmailBuilder setFormat(SheetEmailFormat format) {
+            this.format = format;
+            return this;
+        }
 
-		/**
-		 * Gets the format details (paper dimensions).
-		 *
-		 * @return the format details
-		 */
-		public FormatDetails getFormatDetails() {
-			return formatDetails;
-		}
+        /**
+         * Gets the format details (paper dimensions).
+         *
+         * @return the format details
+         */
+        public FormatDetails getFormatDetails() {
+            return formatDetails;
+        }
 
-		/**
-		 * Sets the format details (paper dimensions).
-		 *
-		 * @param formatDetails the new format details
-		 * @return the builder
-		 */
-		public AddSheetEmailBuilder setFormatDetails(FormatDetails formatDetails) {
-			this.formatDetails = formatDetails;
-			return this;
-		}
+        /**
+         * Sets the format details (paper dimensions).
+         *
+         * @param formatDetails the new format details
+         * @return the builder
+         */
+        public AddSheetEmailBuilder setFormatDetails(FormatDetails formatDetails) {
+            this.formatDetails = formatDetails;
+            return this;
+        }
 
-		/**
-		 * Represents the list of recipients to send to
-		 */
-		private List<Recipient> sendTo;
+        /**
+         * Represents the list of recipients to send to
+         */
+        private List<Recipient> sendTo;
 
-		/**
-		 * Represents the subject.
-		 */
-		private String subject;
+        /**
+         * Represents the subject.
+         */
+        private String subject;
 
-		/**
-		 * Represents the message.
-		 */
-		private String message;
+        /**
+         * Represents the message.
+         */
+        private String message;
 
-		/**
-		 * Represents the CC me flag.
-		 */
-		private Boolean ccMe;
+        /**
+         * Represents the CC me flag.
+         */
+        private Boolean ccMe;
 
-		/**
-		 * Gets the list of recipients to send to
-		 * @return the list of recipients
-		 */
-		public List<Recipient> getSendTo() { return sendTo; }
+        /**
+         * Gets the list of recipients to send to
+         * @return the list of recipients
+         */
+        public List<Recipient> getSendTo() { return sendTo; }
 
-		/**
-		 * Sets the list of recipients to send to
-		 * @param sendTo list of recipients
-		 * @return the associated builder
-		 */
-		public AddSheetEmailBuilder setSendTo(List<Recipient> sendTo) { this.sendTo = sendTo;
-		return  this;}
+        /**
+         * Sets the list of recipients to send to
+         * @param sendTo list of recipients
+         * @return the associated builder
+         */
+        public AddSheetEmailBuilder setSendTo(List<Recipient> sendTo) { this.sendTo = sendTo;
+        return  this;}
 
-		/**
-		 * Gets the subject.
-		 *
-		 * @return the subject
-		 */
-		public String getSubject() {
-			return subject;
-		}
+        /**
+         * Gets the subject.
+         *
+         * @return the subject
+         */
+        public String getSubject() {
+            return subject;
+        }
 
-		/**
-		 * Sets the subject.
-		 *
-		 * @param subject the new subject
-		 * @return the associated builder
-		 */
-		public AddSheetEmailBuilder setSubject(String subject) {
-			this.subject = subject;
-			return this;
-		}
+        /**
+         * Sets the subject.
+         *
+         * @param subject the new subject
+         * @return the associated builder
+         */
+        public AddSheetEmailBuilder setSubject(String subject) {
+            this.subject = subject;
+            return this;
+        }
 
-		/**
-		 * Gets the message.
-		 *
-		 * @return the message
-		 */
-		public String getMessage() {
-			return message;
-		}
+        /**
+         * Gets the message.
+         *
+         * @return the message
+         */
+        public String getMessage() {
+            return message;
+        }
 
-		/**
-		 * Sets the message.
-		 *
-		 * @param message the new message
-		 * @return the associated builder
-		 */
-		public AddSheetEmailBuilder setMessage(String message) {
-			this.message = message;
-			return this;
-		}
+        /**
+         * Sets the message.
+         *
+         * @param message the new message
+         * @return the associated builder
+         */
+        public AddSheetEmailBuilder setMessage(String message) {
+            this.message = message;
+            return this;
+        }
 
-		/**
-		 * Gets the carbon copy me flag.
-		 *
-		 * @return the cc me
-		 */
-		public Boolean getCcMe() {
-			return ccMe;
-		}
+        /**
+         * Gets the carbon copy me flag.
+         *
+         * @return the cc me
+         */
+        public Boolean getCcMe() {
+            return ccMe;
+        }
 
-		/**
-		 * Sets the carbon copy me flag.
-		 *
-		 * @param ccMe the new cc me
-		 * @return the associated builder
-		 */
-		public AddSheetEmailBuilder setCcMe(Boolean ccMe) {
-			this.ccMe = ccMe;
-			return this;
-		}
+        /**
+         * Sets the carbon copy me flag.
+         *
+         * @param ccMe the new cc me
+         * @return the associated builder
+         */
+        public AddSheetEmailBuilder setCcMe(Boolean ccMe) {
+            this.ccMe = ccMe;
+            return this;
+        }
 
-		/**
-		 * Builds the sheetEmail.
-		 *
-		 * @return the sheetEmail
-		 */
-		public SheetEmail build() {
-			SheetEmail sheetEmail = new SheetEmail();
-			sheetEmail.format = format;
-			sheetEmail.formatDetails = formatDetails;
-			sheetEmail.setSendTo(sendTo);
-			sheetEmail.setSubject(subject);
-			sheetEmail.setMessage(message);
-			sheetEmail.setCcMe(ccMe);
+        /**
+         * Builds the sheetEmail.
+         *
+         * @return the sheetEmail
+         */
+        public SheetEmail build() {
+            SheetEmail sheetEmail = new SheetEmail();
+            sheetEmail.format = format;
+            sheetEmail.formatDetails = formatDetails;
+            sheetEmail.setSendTo(sendTo);
+            sheetEmail.setSubject(subject);
+            sheetEmail.setMessage(message);
+            sheetEmail.setCcMe(ccMe);
 
-			return sheetEmail;
-		}
+            return sheetEmail;
+        }
 
-	}
-	
-	
+    }
+
+
 }

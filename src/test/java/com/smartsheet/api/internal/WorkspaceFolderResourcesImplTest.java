@@ -35,40 +35,40 @@ import static org.junit.Assert.assertEquals;
 
 public class WorkspaceFolderResourcesImplTest extends ResourcesImplBase {
 
-	private WorkspaceFolderResourcesImpl workspaceFolderResources;
+    private WorkspaceFolderResourcesImpl workspaceFolderResources;
 
-	@Before
-	public void setUp() throws Exception {
-		workspaceFolderResources = new WorkspaceFolderResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", 
-				"accessToken", new DefaultHttpClient(), serializer));
-	}
+    @Before
+    public void setUp() throws Exception {
+        workspaceFolderResources = new WorkspaceFolderResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
+                "accessToken", new DefaultHttpClient(), serializer));
+    }
 
-	@Test
-	public void testWorkspaceFolderResourcesImpl() {}
+    @Test
+    public void testWorkspaceFolderResourcesImpl() {}
 
-	@Test
-	public void testListFolders() throws IOException, SmartsheetException {
-		server.setResponseBody(new File("src/test/resources/listWorkspaceFolders.json"));
+    @Test
+    public void testListFolders() throws IOException, SmartsheetException {
+        server.setResponseBody(new File("src/test/resources/listWorkspaceFolders.json"));
 
-		PaginationParameters parameters = new PaginationParameters(true,null,null);
-		PagedResult<Folder> foldersWrapper = workspaceFolderResources.listFolders(1234L, parameters);
-		assertEquals(2, foldersWrapper.getData().size());
-		assertEquals(7116448184199044L, foldersWrapper.getData().get(0).getId().longValue());
-		assertEquals(7116448184188022L, foldersWrapper.getData().get(1).getId().longValue());
-		assertEquals("Folder 1", foldersWrapper.getData().get(0).getName());
-		assertEquals("Folder 2", foldersWrapper.getData().get(1).getName());
-		assertEquals("https://app.smartsheet.com/b/home?lx=9sljohj8jEXqvJIbTrK2Hb", foldersWrapper.getData().get(0).getPermalink());
-		assertEquals("https://app.smartsheet.com/b/home?lx=xgDVrNNbi-O9XwINEpT5Er", foldersWrapper.getData().get(1).getPermalink());
-	}
+        PaginationParameters parameters = new PaginationParameters(true,null,null);
+        PagedResult<Folder> foldersWrapper = workspaceFolderResources.listFolders(1234L, parameters);
+        assertEquals(2, foldersWrapper.getData().size());
+        assertEquals(7116448184199044L, foldersWrapper.getData().get(0).getId().longValue());
+        assertEquals(7116448184188022L, foldersWrapper.getData().get(1).getId().longValue());
+        assertEquals("Folder 1", foldersWrapper.getData().get(0).getName());
+        assertEquals("Folder 2", foldersWrapper.getData().get(1).getName());
+        assertEquals("https://app.smartsheet.com/b/home?lx=9sljohj8jEXqvJIbTrK2Hb", foldersWrapper.getData().get(0).getPermalink());
+        assertEquals("https://app.smartsheet.com/b/home?lx=xgDVrNNbi-O9XwINEpT5Er", foldersWrapper.getData().get(1).getPermalink());
+    }
 
-	@Test
-	public void testCreateFolder() throws IOException, SmartsheetException {
-		server.setResponseBody(new File("src/test/resources/newWorkspaceFolder.json"));
-		
-		Folder folder = new Folder.CreateFolderBuilder().setName("New Folder").build();
-		Folder newFolder = workspaceFolderResources.createFolder(1234L, folder);
-		assertEquals(8121709439018884L, newFolder.getId().longValue());
-		assertEquals("New Folder", newFolder.getName());
-	}
+    @Test
+    public void testCreateFolder() throws IOException, SmartsheetException {
+        server.setResponseBody(new File("src/test/resources/newWorkspaceFolder.json"));
+
+        Folder folder = new Folder.CreateFolderBuilder().setName("New Folder").build();
+        Folder newFolder = workspaceFolderResources.createFolder(1234L, folder);
+        assertEquals(8121709439018884L, newFolder.getId().longValue());
+        assertEquals("New Folder", newFolder.getName());
+    }
 
 }

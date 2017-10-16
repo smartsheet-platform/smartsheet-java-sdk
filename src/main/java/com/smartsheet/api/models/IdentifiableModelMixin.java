@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 
 public abstract class IdentifiableModelMixin<T> {
-	@JsonIgnore public abstract T getId();
+    @JsonIgnore public abstract T getId();
 
-	@JsonProperty public abstract void setId(T id);
+    @JsonProperty public abstract void setId(T id);
 }

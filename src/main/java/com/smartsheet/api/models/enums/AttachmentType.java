@@ -26,5 +26,5 @@ package com.smartsheet.api.models.enums;
  * Represents the type of attachment.
  */
 public enum AttachmentType {
-	FILE, GOOGLE_DRIVE, LINK, BOX_COM, DROPBOX, EGNYTE, ONEDRIVE;
+    FILE, GOOGLE_DRIVE, LINK, BOX_COM, DROPBOX, EGNYTE, ONEDRIVE;
 }

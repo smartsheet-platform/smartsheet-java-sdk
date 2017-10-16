@@ -40,127 +40,127 @@ import java.io.InputStream;
  */
 @Ignore
 public class HttpTestServer {
-	private Server _server;
-	//private String _responseBody;
-	private String _requestBody;
-	private int port;
-	private String contentType;
-	private byte[] _responseBody;
-	private int status;
+    private Server _server;
+    //private String _responseBody;
+    private String _requestBody;
+    private int port;
+    private String contentType;
+    private byte[] _responseBody;
+    private int status;
 
-	public HttpTestServer() {
-		this.port = 9090;
-		this.contentType = "application/json";
-	}
+    public HttpTestServer() {
+        this.port = 9090;
+        this.contentType = "application/json";
+    }
 
-	public HttpTestServer(String mockData) {
-		this();
-		setResponseBody(mockData);
-	}
+    public HttpTestServer(String mockData) {
+        this();
+        setResponseBody(mockData);
+    }
 
-	public void start() throws Exception {
-		_server = new Server(port);
-		_server.setHandler(getMockHandler());
-		_server.start();
-		status = HttpServletResponse.SC_OK;
-	}
+    public void start() throws Exception {
+        _server = new Server(port);
+        _server.setHandler(getMockHandler());
+        _server.start();
+        status = HttpServletResponse.SC_OK;
+    }
 
-	/**
-	 * Creates an {@link AbstractHandler handler} returning an arbitrary String as a response.
-	 * 
-	 * @return never <code>null</code>.
-	 */
-	public Handler getMockHandler() {
-		Handler handler = new AbstractHandler() {
+    /**
+     * Creates an {@link AbstractHandler handler} returning an arbitrary String as a response.
+     *
+     * @return never <code>null</code>.
+     */
+    public Handler getMockHandler() {
+        Handler handler = new AbstractHandler() {
 
-			//@Override
-			public void handle(String target, Request baseRequest, HttpServletRequest request,
-					HttpServletResponse response) throws IOException, ServletException {
+            //@Override
+            public void handle(String target, Request baseRequest, HttpServletRequest request,
+                    HttpServletResponse response) throws IOException, ServletException {
 
-				setRequestBody(IOUtils.toString(baseRequest.getInputStream()));
-				
-				response.setStatus(getStatus());
-				response.setContentType(getContentType());
-				
-				byte[] body = getResponseBody();
-				
-				response.setContentLength(body.length);
-				IOUtils.write(body, response.getOutputStream());
-				
-				baseRequest.setHandled(true);
-			}
-		};
-		return handler;
-	}
-	
-	public void setStatus(int status){
-		this.status = status;
-	}
-	
-	public int getStatus(){
-		return this.status;
-	}
+                setRequestBody(IOUtils.toString(baseRequest.getInputStream()));
 
-	public void stop() throws Exception {
-		_server.stop();
-	}
+                response.setStatus(getStatus());
+                response.setContentType(getContentType());
 
-	public void setResponseBody(byte[] responseBody) {
-		_responseBody = responseBody;
-	}
-	
-	public void setResponseBody(String responseBody) {
-		setResponseBody(responseBody.getBytes());
-	}
-	
-	public void setResponseBody(File file) throws IOException {
-		InputStream is = new FileInputStream(file);
-		setResponseBody(IOUtils.toByteArray(is));
-		is.close();
-	}
+                byte[] body = getResponseBody();
 
-	public byte[] getResponseBody() {
-		return _responseBody;
-	}
+                response.setContentLength(body.length);
+                IOUtils.write(body, response.getOutputStream());
 
-	public void setRequestBody(String requestBody) {
-		_requestBody = requestBody;
-	}
+                baseRequest.setHandled(true);
+            }
+        };
+        return handler;
+    }
 
-	public String getRequestBody() {
-		return _requestBody;
-	}
+    public void setStatus(int status){
+        this.status = status;
+    }
 
-//	public void setMockResponseData(String mockResponseData) {
-//		_mockResponseData = mockResponseData;
-//	}
-//	
-//	public void setMockResponseData(File file) throws IOException{
-//		InputStream is = new FileInputStream(file);
-//		_mockResponseData = IOUtils.toString(is);
-//	}
+    public int getStatus(){
+        return this.status;
+    }
 
-//	public String getMockResponseData() {
-//		return _mockResponseData;
-//	}
+    public void stop() throws Exception {
+        _server.stop();
+    }
 
-	protected Server getServer() {
-		return _server;
-	}
-	
-	public int getPort(){
-		return port;
-	}
-	
-	public void setPort(int port){
-		this.port = port;
-	}
-	
-	public String getContentType() {
-		return contentType;
-	}
+    public void setResponseBody(byte[] responseBody) {
+        _responseBody = responseBody;
+    }
 
-	public void setContentType(String contentType) {
-		this.contentType = contentType;
-	}
+    public void setResponseBody(String responseBody) {
+        setResponseBody(responseBody.getBytes());
+    }
+
+    public void setResponseBody(File file) throws IOException {
+        InputStream is = new FileInputStream(file);
+        setResponseBody(IOUtils.toByteArray(is));
+        is.close();
+    }
+
+    public byte[] getResponseBody() {
+        return _responseBody;
+    }
+
+    public void setRequestBody(String requestBody) {
+        _requestBody = requestBody;
+    }
+
+    public String getRequestBody() {
+        return _requestBody;
+    }
+
+//    public void setMockResponseData(String mockResponseData) {
+//        _mockResponseData = mockResponseData;
+//    }
+//
+//    public void setMockResponseData(File file) throws IOException{
+//        InputStream is = new FileInputStream(file);
+//        _mockResponseData = IOUtils.toString(is);
+//    }
+
+//    public String getMockResponseData() {
+//        return _mockResponseData;
+//    }
+
+    protected Server getServer() {
+        return _server;
+    }
+
+    public int getPort(){
+        return port;
+    }
+
+    public void setPort(int port){
+        this.port = port;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
 }

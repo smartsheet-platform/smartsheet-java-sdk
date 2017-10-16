@@ -29,23 +29,23 @@ import static org.junit.Assert.assertNotNull;
 
 public class ObjectInclusionTest {
 
-	@Before
-	public void setUp() throws Exception {
-	}
+    @Before
+    public void setUp() throws Exception {
+    }
 
-	@Test
-	public void testObjectInclusion() {
-		assertNotNull(ObjectInclusion.valueOf("DISCUSSIONS"));
-		assertNotNull(ObjectInclusion.valueOf("ATTACHMENTS"));
-		assertNotNull(ObjectInclusion.valueOf("DATA"));
-		assertNotNull(ObjectInclusion.valueOf("COLUMNS"));
-		assertNotNull(ObjectInclusion.valueOf("TEMPLATES"));
-		assertNotNull(ObjectInclusion.valueOf("FORMS"));
-		assertNotNull(ObjectInclusion.valueOf("CELL_LINKS"));
-		assertNotNull(ObjectInclusion.valueOf("FORMAT"));
-		assertNotNull(ObjectInclusion.valueOf("SOURCE"));
-		
-		assertEquals(9,ObjectInclusion.values().length);
-	}
+    @Test
+    public void testObjectInclusion() {
+        assertNotNull(ObjectInclusion.valueOf("DISCUSSIONS"));
+        assertNotNull(ObjectInclusion.valueOf("ATTACHMENTS"));
+        assertNotNull(ObjectInclusion.valueOf("DATA"));
+        assertNotNull(ObjectInclusion.valueOf("COLUMNS"));
+        assertNotNull(ObjectInclusion.valueOf("TEMPLATES"));
+        assertNotNull(ObjectInclusion.valueOf("FORMS"));
+        assertNotNull(ObjectInclusion.valueOf("CELL_LINKS"));
+        assertNotNull(ObjectInclusion.valueOf("FORMAT"));
+        assertNotNull(ObjectInclusion.valueOf("SOURCE"));
+
+        assertEquals(9,ObjectInclusion.values().length);
+    }
 
 }

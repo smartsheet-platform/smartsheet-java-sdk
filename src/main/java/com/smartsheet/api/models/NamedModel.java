@@ -26,27 +26,27 @@ package com.smartsheet.api.models;
  * Represents an object with a name and an id. The id is of type T.
  */
 public abstract class NamedModel<T> extends IdentifiableModel<T> {
-	/**
-	 * Represents the name.
-	 */
-	private String name;
+    /**
+     * Represents the name.
+     */
+    private String name;
 
-	/**
-	 * Gets the name.
-	 *
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * Sets the name.
-	 *
-	 * @param name the new name
-	 */
-	public NamedModel<T> setName(String name) {
-		this.name = name;
-		return this;
-	}
+    /**
+     * Sets the name.
+     *
+     * @param name the new name
+     */
+    public NamedModel<T> setName(String name) {
+        this.name = name;
+        return this;
+    }
 }

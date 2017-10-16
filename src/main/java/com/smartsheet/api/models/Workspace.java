@@ -29,131 +29,131 @@ import com.smartsheet.api.models.enums.AccessLevel;
  * Workspace</a>
  */
 public class Workspace extends Folder {
-	/** Represents the user's permissions on a workspace. */
-	private AccessLevel accessLevel;
+    /** Represents the user's permissions on a workspace. */
+    private AccessLevel accessLevel;
 
-	/** Represents the link . */
-	private String permalink;
+    /** Represents the link . */
+    private String permalink;
 
-	/**
-	 *  Represents if the workspace is marked as favorite
-	 */
-	private Boolean favorite;
+    /**
+     *  Represents if the workspace is marked as favorite
+     */
+    private Boolean favorite;
 
-	/**
-	 * Gets the user's permissions on a workspace.
-	 *
-	 * @return the access level
-	 */
-	public AccessLevel getAccessLevel() {
-		return accessLevel;
-	}
+    /**
+     * Gets the user's permissions on a workspace.
+     *
+     * @return the access level
+     */
+    public AccessLevel getAccessLevel() {
+        return accessLevel;
+    }
 
-	/**
-	 * Sets the user's permissions on a workspace.
-	 *
-	 * @param accessLevel the new access level
-	 */
-	public Workspace setAccessLevel(AccessLevel accessLevel) {
-		this.accessLevel = accessLevel;
-		return this;
-	}
+    /**
+     * Sets the user's permissions on a workspace.
+     *
+     * @param accessLevel the new access level
+     */
+    public Workspace setAccessLevel(AccessLevel accessLevel) {
+        this.accessLevel = accessLevel;
+        return this;
+    }
 
-	/**
-	 * Gets the permalink to the workspace.
-	 *
-	 * @return the permalink
-	 */
-	public String getPermalink() {
-		return permalink;
-	}
+    /**
+     * Gets the permalink to the workspace.
+     *
+     * @return the permalink
+     */
+    public String getPermalink() {
+        return permalink;
+    }
 
-	/**
-	 * Sets the permalink to the workspace.
-	 *
+    /**
+     * Sets the permalink to the workspace.
+     *
      * @param permalink the new permalink
      */
-	public Folder setPermalink(String permalink) {
-		this.permalink = permalink;
+    public Folder setPermalink(String permalink) {
+        this.permalink = permalink;
         return null;
     }
 
-	/**
-	 * Gets the favorite
-	 * @return the favorite
-	 */
-	public Boolean getFavorite() {
-		return favorite;
-	}
+    /**
+     * Gets the favorite
+     * @return the favorite
+     */
+    public Boolean getFavorite() {
+        return favorite;
+    }
 
-	/**
-	 * Sets the favorite
-	 * @param favorite the favorite
-	 */
-	public Folder setFavorite(Boolean favorite) {
-		this.favorite = favorite;
-		return null;
-	}
+    /**
+     * Sets the favorite
+     * @param favorite the favorite
+     */
+    public Folder setFavorite(Boolean favorite) {
+        this.favorite = favorite;
+        return null;
+    }
 
-	/**
-	 * A convenience class for creating a {@link Workspace} object with the appropriate fields for updating a workspace.
-	 */
-	public static class UpdateWorkspaceBuilder {
-		private String workspaceName;
-		private Long id;
+    /**
+     * A convenience class for creating a {@link Workspace} object with the appropriate fields for updating a workspace.
+     */
+    public static class UpdateWorkspaceBuilder {
+        private String workspaceName;
+        private Long id;
 
-		/**
-		 * Get the workspace id
-		 * @return the workspace id
-		 */
-		public Long getId() {
-			return id;
-		}
+        /**
+         * Get the workspace id
+         * @return the workspace id
+         */
+        public Long getId() {
+            return id;
+        }
 
-		/**
-		 * Set the workspace id
-		 * @param id the workspace id
-		 * @return the builder
-		 */
-		public UpdateWorkspaceBuilder setId(Long id) {
-			this.id = id;
-			return this;
-		}
+        /**
+         * Set the workspace id
+         * @param id the workspace id
+         * @return the builder
+         */
+        public UpdateWorkspaceBuilder setId(Long id) {
+            this.id = id;
+            return this;
+        }
 
-		/**
-		 * The name of the workspace.
-		 *
-		 * @param name the name
-		 * @return the update workspace builder
-		 */
-		public UpdateWorkspaceBuilder setName(String name) {
-			this.workspaceName = name;
-			return this;
-		}
+        /**
+         * The name of the workspace.
+         *
+         * @param name the name
+         * @return the update workspace builder
+         */
+        public UpdateWorkspaceBuilder setName(String name) {
+            this.workspaceName = name;
+            return this;
+        }
 
-		/**
-		 * Gets the name.
-		 *
-		 * @return the name
-		 */
-		public String getName() {
-			return workspaceName;
-		}
+        /**
+         * Gets the name.
+         *
+         * @return the name
+         */
+        public String getName() {
+            return workspaceName;
+        }
 
-		/**
-		 * Builds the {@link Workspace}.
-		 *
-		 * @return the workspace
-		 */
-		public Workspace build() {
-			if(workspaceName == null){
-				throw new InstantiationError("A workspace name is required.");
-			}
-			
-			Workspace workspace = new Workspace();
-			workspace.setName(workspaceName);
-			workspace.setId(id);
-			return workspace;
-		}
-	}
+        /**
+         * Builds the {@link Workspace}.
+         *
+         * @return the workspace
+         */
+        public Workspace build() {
+            if(workspaceName == null){
+                throw new InstantiationError("A workspace name is required.");
+            }
+
+            Workspace workspace = new Workspace();
+            workspace.setName(workspaceName);
+            workspace.setId(id);
+            return workspace;
+        }
+    }
 }

@@ -27,30 +27,30 @@ import static org.junit.Assert.*;
 
 public class IdentifiableModelTest {
 
-	@Before
-	public void setUp() throws Exception {
-	}
+    @Before
+    public void setUp() throws Exception {
+    }
 
-	@Test
-	public void testHashCode() {
-		Row row = new Row();
-		// Same Object
-		assertEquals(row,row);
-		row.setId(1234L);
-		Row row1 = new Row();
-		row1.setId(1234L);
-		row.equals(row);
-		// Same id in two different objects
-		assertEquals(row,row1);
-		
-		// Different Objects
-		assertNotEquals(row,new Object());
-	}
+    @Test
+    public void testHashCode() {
+        Row row = new Row();
+        // Same Object
+        assertEquals(row,row);
+        row.setId(1234L);
+        Row row1 = new Row();
+        row1.setId(1234L);
+        row.equals(row);
+        // Same id in two different objects
+        assertEquals(row,row1);
 
-	@Test
-	public void testEqualsObject() {
-		Row row = new Row();
-		assertNotNull(row.hashCode());
-	}
+        // Different Objects
+        assertNotEquals(row,new Object());
+    }
+
+    @Test
+    public void testEqualsObject() {
+        Row row = new Row();
+        assertNotNull(row.hashCode());
+    }
 
 }

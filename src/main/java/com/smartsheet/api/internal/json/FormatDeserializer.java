@@ -30,9 +30,9 @@ import java.io.IOException;
 
 public class FormatDeserializer extends JsonDeserializer<Format> {
 
-	@Override
-	public Format deserialize(JsonParser jsonParser, DeserializationContext ctx) throws IOException, JsonProcessingException {
-		return new Format(jsonParser.getValueAsString());
-	}
+    @Override
+    public Format deserialize(JsonParser jsonParser, DeserializationContext ctx) throws IOException, JsonProcessingException {
+        return new Format(jsonParser.getValueAsString());
+    }
 
 }

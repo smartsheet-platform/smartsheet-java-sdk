@@ -26,9 +26,9 @@ package com.smartsheet.api.models.enums;
  * Represents column types.
  */
 public enum ShareType {
-	/** Represents the GROUP share type. */
-	GROUP,
+    /** Represents the GROUP share type. */
+    GROUP,
 
-	/** Represents the USER share type. */
-	USER
+    /** Represents the USER share type. */
+    USER
 }

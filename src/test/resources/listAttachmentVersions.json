@@ -4,19 +4,19 @@
   "totalPages": 1,
   "totalCount": 2,
   "data": [
-	{
-	  "id": 4583173393803140,
-	  "name": "at3.png",
-	  "attachmentType": "file",
-	  "mimeType": "image/png",
-	  "createdAt": "2014-03-28T18:13:20-07:00"
-	},
-	{
-	  "id": 642523719853956,
-	  "name": "at3.png",
-	  "attachmentType": "file",
-	  "mimeType": "image/png",
-	  "createdAt": "2014-03-27T18:11:11-07:00"
-	}
+    {
+      "id": 4583173393803140,
+      "name": "at3.png",
+      "attachmentType": "file",
+      "mimeType": "image/png",
+      "createdAt": "2014-03-28T18:13:20-07:00"
+    },
+    {
+      "id": 642523719853956,
+      "name": "at3.png",
+      "attachmentType": "file",
+      "mimeType": "image/png",
+      "createdAt": "2014-03-27T18:11:11-07:00"
+    }
   ]
 }

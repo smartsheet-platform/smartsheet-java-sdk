@@ -27,56 +27,56 @@ package com.smartsheet.api.models.format;
  * 
  */
 public enum Currency {
-	NONE                (null, 	""),
-    ARGENTINE_PESO      ("ARS","\u0024"),
+    NONE                (null,  ""),
+    ARGENTINE_PESO      ("ARS", "\u0024"),
     AUSTRALIAN_DOLLAR   ("AUD", "$"),
-    BRAZIL_REAIS        ("BRL",	"\u0052$"),
+    BRAZIL_REAIS        ("BRL", "\u0052$"),
     CANADIAN_DOLLAR     ("CAD", "$"),
     CHILEAN_PESOS       ("CLP", "$"),
     EURO                ("EUR", "\u20AC"),
     BRITISH_POUND       ("GBP", "\u00A3"),
     ISRAEL_SHEKEL       ("ILS", "\u20AA"),
     INDIA_RUPEES        ("INR", "\u20A8"),
-    JAPAN_YEN           ("JPY",	"\u00A5"),
+    JAPAN_YEN           ("JPY", "\u00A5"),
     MEXICAN_PESOS       ("MXN", "$"),
     RUSSIAN_RUBLES      ("RUB", "\u0440\u0443\u0431"),
     USD                 ("USD", "$"),
     SOUTHAFRICA_RAND    ("ZAR", "R"),
-	SWISS_FRANC         ("CHF", "CHF"),
-	CHINA_YUAN          ("CNY", "\u5143"),
-	DENMARK_KRONER      ("DKK", "kr"),
-	HONKKONG_DOLLAR     ("HKD", "\u0048\u004B$"),	
-	SOUTHKOREAN_WON     ("KRW", "\u20A9"),
-	NORWAY_KRONER       ("NOK", "kr"),
-	NEWZEALAND_DOLLAR   ("NZD", "$"),
-	SWEDEN_KRONOR       ("SEK", "kr"),
-	SINGAPORE_DOLLAR    ("SGD", "$"),
-	;
-	
-	/**
-	 * The default setting when the {@link Format} for {@link Currency} is null;
-	 */
-	public static final Currency DEFAULT = NONE;
-	
-	private final String code;
-	private final String symbol;
-	
-	Currency (String code, String symbol) {
-		this.code = code;
-		this.symbol = symbol;
-	}
+    SWISS_FRANC         ("CHF", "CHF"),
+    CHINA_YUAN          ("CNY", "\u5143"),
+    DENMARK_KRONER      ("DKK", "kr"),
+    HONKKONG_DOLLAR     ("HKD", "\u0048\u004B$"),
+    SOUTHKOREAN_WON     ("KRW", "\u20A9"),
+    NORWAY_KRONER       ("NOK", "kr"),
+    NEWZEALAND_DOLLAR   ("NZD", "$"),
+    SWEDEN_KRONOR       ("SEK", "kr"),
+    SINGAPORE_DOLLAR    ("SGD", "$"),
+    ;
 
-	/**
-	 * @return the code
-	 */
-	public String getCode() {
-		return code;
-	}
+    /**
+     * The default setting when the {@link Format} for {@link Currency} is null;
+     */
+    public static final Currency DEFAULT = NONE;
 
-	/**
-	 * @return the symbol
-	 */
-	public String getSymbol() {
-		return symbol;
-	}
+    private final String code;
+    private final String symbol;
+
+    Currency (String code, String symbol) {
+        this.code = code;
+        this.symbol = symbol;
+    }
+
+    /**
+     * @return the code
+     */
+    public String getCode() {
+        return code;
+    }
+
+    /**
+     * @return the symbol
+     */
+    public String getSymbol() {
+        return symbol;
+    }
 }

@@ -29,35 +29,35 @@ import com.smartsheet.api.models.Comment;
  */
 @Deprecated
 public class CommentResourcesImpl extends AbstractResources implements CommentResources {
-	/**
-	 * @deprecated As of release 2.0
-	 */
-	@Deprecated
-	public CommentResourcesImpl(SmartsheetImpl smartsheet) {
-		super(smartsheet);
-	}
+    /**
+     * @deprecated As of release 2.0
+     */
+    @Deprecated
+    public CommentResourcesImpl(SmartsheetImpl smartsheet) {
+        super(smartsheet);
+    }
 
-	/**
-	 * @deprecated As of release 2.0
-	 */
-	@Deprecated
-	public AssociatedAttachmentResources attachments() {
-		throw new UnsupportedOperationException("Method moved to SheetCommentResources.");
-	}
+    /**
+     * @deprecated As of release 2.0
+     */
+    @Deprecated
+    public AssociatedAttachmentResources attachments() {
+        throw new UnsupportedOperationException("Method moved to SheetCommentResources.");
+    }
 
-	/**
-	 * @deprecated As of release 2.0
-	 */
-	@Deprecated
-	public Comment getComment(long sheetId, long commentId) {
-		throw new UnsupportedOperationException("Method moved to SheetCommentResources.");
-	}
+    /**
+     * @deprecated As of release 2.0
+     */
+    @Deprecated
+    public Comment getComment(long sheetId, long commentId) {
+        throw new UnsupportedOperationException("Method moved to SheetCommentResources.");
+    }
 
-	/**
-	 * @deprecated As of release 2.0
-	 */
-	@Deprecated
-	public void deleteComment(long sheetId, long commentId) {
-		throw new UnsupportedOperationException("Method moved to SheetCommentResources.");
-	}
+    /**
+     * @deprecated As of release 2.0
+     */
+    @Deprecated
+    public void deleteComment(long sheetId, long commentId) {
+        throw new UnsupportedOperationException("Method moved to SheetCommentResources.");
+    }
 }

@@ -28,21 +28,21 @@ import static org.junit.Assert.assertEquals;
 
 public class ServiceUnavailableExceptionTest {
 
-	@Before
-	public void setUp() throws Exception {
-	}
+    @Before
+    public void setUp() throws Exception {
+    }
 
-	@Test
-	public void testServiceUnavailableException() {
-		try{
-			Error error = new Error();
-			error.setErrorCode(1);
-			error.setMessage("testing testing");
-			throw new ServiceUnavailableException(error);
-		}catch(ServiceUnavailableException e){
-			assertEquals("testing testing",e.getMessage());
-			assertEquals(1, e.getErrorCode());
-		}
-	}
+    @Test
+    public void testServiceUnavailableException() {
+        try{
+            Error error = new Error();
+            error.setErrorCode(1);
+            error.setMessage("testing testing");
+            throw new ServiceUnavailableException(error);
+        }catch(ServiceUnavailableException e){
+            assertEquals("testing testing",e.getMessage());
+            assertEquals(1, e.getErrorCode());
+        }
+    }
 
 }

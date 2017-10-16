@@ -20,44 +20,44 @@ package com.smartsheet.api.models.enums;
  */
 
 public enum DayDescriptor {
-	/**
-	 * Represents DAY descriptor type.
-	 */
-	DAY,
-	/**
-	 * Represents WEEKDAY descriptor type.
-	 */
-	WEEKDAY,
-	/**
-	 * Represents WEEKEND descriptor type.
-	 */
-	WEEKEND,
-	/**
-	 * Represents SUNDAY descriptor type.
-	 */
-	SUNDAY,
-	/**
-	 * Represents MONDAY descriptor type.
-	 */
-	MONDAY,
-	/**
-	 * Represents TUESDAY descriptor type.
-	 */
-	TUESDAY,
-	/**
-	 * Represents WEDNESDAY descriptor type.
-	 */
-	WEDNESDAY,
-	/**
-	 * Represents THURSDAY descriptor type.
-	 */
-	THURSDAY,
-	/**
-	 * Represents FRIDAY descriptor type.
-	 */
-	FRIDAY,
-	/**
-	 * Represents SATURDAY descriptor type.
-	 */
-	SATURDAY
+    /**
+     * Represents DAY descriptor type.
+     */
+    DAY,
+    /**
+     * Represents WEEKDAY descriptor type.
+     */
+    WEEKDAY,
+    /**
+     * Represents WEEKEND descriptor type.
+     */
+    WEEKEND,
+    /**
+     * Represents SUNDAY descriptor type.
+     */
+    SUNDAY,
+    /**
+     * Represents MONDAY descriptor type.
+     */
+    MONDAY,
+    /**
+     * Represents TUESDAY descriptor type.
+     */
+    TUESDAY,
+    /**
+     * Represents WEDNESDAY descriptor type.
+     */
+    WEDNESDAY,
+    /**
+     * Represents THURSDAY descriptor type.
+     */
+    THURSDAY,
+    /**
+     * Represents FRIDAY descriptor type.
+     */
+    FRIDAY,
+    /**
+     * Represents SATURDAY descriptor type.
+     */
+    SATURDAY
 }

@@ -28,28 +28,28 @@ import com.smartsheet.api.models.Comment;
  */
 @Deprecated
 public interface CommentResources {
-	/**
-	 * @deprecated As of release 2.0
-	 * @param sheetId the id
-	 * @param commentId the commentid
-	 * @return the comment (note that if there is no such resource, this method will throw ResourceNotFoundException
-	 * rather than returning null).
-	 */
-	@Deprecated
-	public Comment getComment(long sheetId, long commentId) ;
+    /**
+     * @deprecated As of release 2.0
+     * @param sheetId the id
+     * @param commentId the commentid
+     * @return the comment (note that if there is no such resource, this method will throw ResourceNotFoundException
+     * rather than returning null).
+     */
+    @Deprecated
+    public Comment getComment(long sheetId, long commentId) ;
 
-	/**
-	 * @deprecated As of release 2.0
-	 * @param sheetId the id
-	 * @param commentId the commentid
-	 */
-	@Deprecated
-	public void deleteComment(long sheetId, long commentId);
+    /**
+     * @deprecated As of release 2.0
+     * @param sheetId the id
+     * @param commentId the commentid
+     */
+    @Deprecated
+    public void deleteComment(long sheetId, long commentId);
 
-	/**
-	 * @deprecated As of release 2.0
-	 * @return associated resources
-	 */
-	@Deprecated
-	public AssociatedAttachmentResources attachments();
+    /**
+     * @deprecated As of release 2.0
+     * @return associated resources
+     */
+    @Deprecated
+    public AssociatedAttachmentResources attachments();
 }

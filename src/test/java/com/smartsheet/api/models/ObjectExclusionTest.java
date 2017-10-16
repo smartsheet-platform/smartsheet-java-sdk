@@ -29,15 +29,15 @@ import static org.junit.Assert.assertNotNull;
 
 public class ObjectExclusionTest {
 
-	@Before
-	public void setUp() throws Exception {
-	}
+    @Before
+    public void setUp() throws Exception {
+    }
 
-	@Test
-	public void testObjectInclusion() {
-		assertNotNull(ObjectExclusion.valueOf("NONEXISTENT_CELLS"));
-		
-		assertEquals(1,ObjectExclusion.values().length);
-	}
+    @Test
+    public void testObjectInclusion() {
+        assertNotNull(ObjectExclusion.valueOf("NONEXISTENT_CELLS"));
+
+        assertEquals(1,ObjectExclusion.values().length);
+    }
 
 }

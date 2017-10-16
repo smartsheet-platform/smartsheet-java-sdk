@@ -35,26 +35,26 @@ import java.io.InputStream;
 @Deprecated
 public interface AttachmentResources {
 
-	/**
-	 * @deprecated As of release 2.0
-	 * @param attachmentId the id
-	 * @param file the file
-	 * @param contentType the content type
-	 * @return the attachment (note that if there is no such resource, this method will throw ResourceNotFoundException
-	 * rather than returning null).
-	 */
-	@Deprecated
-	public Attachment attachNewVersion(long attachmentId, File file, String contentType);
+    /**
+     * @deprecated As of release 2.0
+     * @param attachmentId the id
+     * @param file the file
+     * @param contentType the content type
+     * @return the attachment (note that if there is no such resource, this method will throw ResourceNotFoundException
+     * rather than returning null).
+     */
+    @Deprecated
+    public Attachment attachNewVersion(long attachmentId, File file, String contentType);
 
-	/**
-	 * @deprecated As of release 2.0
-	 * @param attachmentId the id of the attachment to upload a new version.
-	 * @param inputStream the file to attach
-	 * @param contentType the content type of the file
-	 * @param attachmentName attachment name
-	 * @param contentLength content length
-	 * @return the created attachment
-	 */
-	@Deprecated
-	public Attachment attachNewVersion (long attachmentId, InputStream inputStream, String contentType, long contentLength, String attachmentName);
+    /**
+     * @deprecated As of release 2.0
+     * @param attachmentId the id of the attachment to upload a new version.
+     * @param inputStream the file to attach
+     * @param contentType the content type of the file
+     * @param attachmentName attachment name
+     * @param contentLength content length
+     * @return the created attachment
+     */
+    @Deprecated
+    public Attachment attachNewVersion (long attachmentId, InputStream inputStream, String contentType, long contentLength, String attachmentName);
 }

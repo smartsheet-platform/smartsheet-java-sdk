@@ -28,93 +28,93 @@ package com.smartsheet.api.models;
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/1108408-auto-numbering">Auto Number Format Help</a>
  */
 public class AutoNumberFormat {
-	
-	/** Represents the prefix. */
-	private String prefix;
 
-	/** Represents the suffix. */
-	private String suffix;
+    /** Represents the prefix. */
+    private String prefix;
 
-	/** Represents the fill. */
-	private String fill;
+    /** Represents the suffix. */
+    private String suffix;
 
-	/** Represents the starting number. */
-	private Long startingNumber;
-	
-	/**
-	 * Gets the prefix.
-	 *
-	 * @return the prefix
-	 */
-	public String getPrefix() {
-		return prefix;
-	}
+    /** Represents the fill. */
+    private String fill;
 
-	/**
-	 * Sets the prefix. The prefix. Can include the date tokens {YY}, {YYYY}, {MM}, {DD}
-	 *
-	 * @param prefix the new prefix
-	 */
-	public AutoNumberFormat setPrefix(String prefix) {
-		this.prefix = prefix;
-		return this;
-	}
+    /** Represents the starting number. */
+    private Long startingNumber;
 
-	/**
-	 * Gets the suffix.
-	 *
-	 * @return the suffix
-	 */
-	public String getSuffix() {
-		return suffix;
-	}
+    /**
+     * Gets the prefix.
+     *
+     * @return the prefix
+     */
+    public String getPrefix() {
+        return prefix;
+    }
 
-	/**
-	 * Sets the suffix.
-	 *
-	 * @param suffix the new suffix
-	 */
-	public AutoNumberFormat setSuffix(String suffix) {
-		this.suffix = suffix;
-		return this;
-	}
+    /**
+     * Sets the prefix. The prefix. Can include the date tokens {YY}, {YYYY}, {MM}, {DD}
+     *
+     * @param prefix the new prefix
+     */
+    public AutoNumberFormat setPrefix(String prefix) {
+        this.prefix = prefix;
+        return this;
+    }
 
-	/**
-	 * Gets the fill.
-	 *
-	 * @return the fill
-	 */
-	public String getFill() {
-		return fill;
-	}
+    /**
+     * Gets the suffix.
+     *
+     * @return the suffix
+     */
+    public String getSuffix() {
+        return suffix;
+    }
 
-	/**
-	 * Sets the fill. Must be 0 - 10 "0" characters. Indicates zero-padding
-	 *
-	 * @param fill the new fill
-	 */
-	public AutoNumberFormat setFill(String fill) {
-		this.fill = fill;
-		return this;
-	}
+    /**
+     * Sets the suffix.
+     *
+     * @param suffix the new suffix
+     */
+    public AutoNumberFormat setSuffix(String suffix) {
+        this.suffix = suffix;
+        return this;
+    }
 
-	/**
-	 * Gets the starting number.
-	 *
-	 * @return the starting number
-	 */
-	public Long getStartingNumber() {
-		return startingNumber;
-	}
+    /**
+     * Gets the fill.
+     *
+     * @return the fill
+     */
+    public String getFill() {
+        return fill;
+    }
 
-	/**
-	 * Sets the starting number for the auto-id.
-	 *
-	 * @param startingNumber the new starting number
-	 */
-	public AutoNumberFormat setStartingNumber(Long startingNumber) {
-		this.startingNumber = startingNumber;
-		return this;
-	}
+    /**
+     * Sets the fill. Must be 0 - 10 "0" characters. Indicates zero-padding
+     *
+     * @param fill the new fill
+     */
+    public AutoNumberFormat setFill(String fill) {
+        this.fill = fill;
+        return this;
+    }
+
+    /**
+     * Gets the starting number.
+     *
+     * @return the starting number
+     */
+    public Long getStartingNumber() {
+        return startingNumber;
+    }
+
+    /**
+     * Sets the starting number for the auto-id.
+     *
+     * @param startingNumber the new starting number
+     */
+    public AutoNumberFormat setStartingNumber(Long startingNumber) {
+        this.startingNumber = startingNumber;
+        return this;
+    }
 
 }

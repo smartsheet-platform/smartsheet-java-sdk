@@ -30,26 +30,26 @@ import static org.junit.Assert.assertTrue;
 
 public class SmartsheetBuilderTest {
 
-	@Before
-	public void setUp() throws Exception {
-	}
+    @Before
+    public void setUp() throws Exception {
+    }
 
-	@Test
-	public void testSmartsheetBuilder() {}
+    @Test
+    public void testSmartsheetBuilder() {}
 
-	@Test
-	public void testSetHttpClient() {
-		
-	}
+    @Test
+    public void testSetHttpClient() {
 
-	@Test
-	public void testBuild() {
-		Smartsheet smartsheet = new SmartsheetBuilder().build();
-		assertTrue(smartsheet instanceof SmartsheetImpl);
-		
-		Smartsheet ss = (SmartsheetImpl)new SmartsheetBuilder().setBaseURI("a").setAccessToken("b").setHttpClient(
-				new DefaultHttpClient()).setJsonSerializer(new JacksonJsonSerializer()).setAssumedUser("user").build();
-		ss.getClass();
-	}
+    }
+
+    @Test
+    public void testBuild() {
+        Smartsheet smartsheet = new SmartsheetBuilder().build();
+        assertTrue(smartsheet instanceof SmartsheetImpl);
+
+        Smartsheet ss = (SmartsheetImpl)new SmartsheetBuilder().setBaseURI("a").setAccessToken("b").setHttpClient(
+                new DefaultHttpClient()).setJsonSerializer(new JacksonJsonSerializer()).setAssumedUser("user").build();
+        ss.getClass();
+    }
 
 }

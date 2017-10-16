@@ -35,55 +35,55 @@ import com.smartsheet.api.models.PaginationParameters;
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class GroupResourcesImpl extends AbstractResources implements GroupResources {
-	private GroupMemberResources groupMemberResources;
-	/**
-	 * Constructor.
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null
-	 *
-	 * @param smartsheet the smartsheet
-	 */
-	public GroupResourcesImpl(SmartsheetImpl smartsheet) {
-		super(smartsheet); 
-		this.groupMemberResources = new GroupMemberResourcesImpl(smartsheet, "group");
-	}
+    private GroupMemberResources groupMemberResources;
+    /**
+     * Constructor.
+     *
+     * Exceptions: - IllegalArgumentException : if any argument is null
+     *
+     * @param smartsheet the smartsheet
+     */
+    public GroupResourcesImpl(SmartsheetImpl smartsheet) {
+        super(smartsheet);
+        this.groupMemberResources = new GroupMemberResourcesImpl(smartsheet, "group");
+    }
 
-	@Override
-	public PagedResult<Group> listGroups(PaginationParameters parameters) throws SmartsheetException {
-		return this.listResourcesWithWrapper("groups" + parameters.toQueryString(), Group.class);
-	}
+    @Override
+    public PagedResult<Group> listGroups(PaginationParameters parameters) throws SmartsheetException {
+        return this.listResourcesWithWrapper("groups" + parameters.toQueryString(), Group.class);
+    }
 
-	@Override
-	public Group getGroup(long groupId) throws SmartsheetException {
-		return this.getResource("groups/" + groupId, Group.class);
-	}
+    @Override
+    public Group getGroup(long groupId) throws SmartsheetException {
+        return this.getResource("groups/" + groupId, Group.class);
+    }
 
-	@Override
-	public Group createGroup(Group group) throws SmartsheetException {
-		Util.throwIfNull(group);
-		return this.createResource("groups", Group.class, group);
-	}
+    @Override
+    public Group createGroup(Group group) throws SmartsheetException {
+        Util.throwIfNull(group);
+        return this.createResource("groups", Group.class, group);
+    }
 
-	@Override
-	public Group updateGroup(Group group) throws SmartsheetException {
-		Util.throwIfNull(group);
-		return this.updateResource("groups/"+ group.getId(), Group.class, group);
-	}
+    @Override
+    public Group updateGroup(Group group) throws SmartsheetException {
+        Util.throwIfNull(group);
+        return this.updateResource("groups/"+ group.getId(), Group.class, group);
+    }
 
-	@Override
-	public void deleteGroup(long groupId) throws SmartsheetException {
-		this.deleteResource("groups/" + groupId, Group.class);
-	}
+    @Override
+    public void deleteGroup(long groupId) throws SmartsheetException {
+        this.deleteResource("groups/" + groupId, Group.class);
+    }
 
-	@Override
-	/**
-	 * <p>Represents the GroupMemberResources.</p>
-	 * <p>It will be initialized in constructor and will not change afterwards.</p>
-	 *
-	 * @return members object
-	 * @throws SmartsheetException if there is any other error during the operation
-	 */
-	public GroupMemberResources memberResources() throws SmartsheetException {
-		return groupMemberResources;
-	}
+    @Override
+    /**
+     * <p>Represents the GroupMemberResources.</p>
+     * <p>It will be initialized in constructor and will not change afterwards.</p>
+     *
+     * @return members object
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public GroupMemberResources memberResources() throws SmartsheetException {
+        return groupMemberResources;
+    }
 }

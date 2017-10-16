@@ -26,5 +26,5 @@ package com.smartsheet.api.models.enums;
  * Represents the attachment sub type.
  */
 public enum AttachmentSubType {
-	DOCUMENT, SPREADSHEET, PRESENTATION, PDF, DRAWING;
+    DOCUMENT, SPREADSHEET, PRESENTATION, PDF, DRAWING;
 }

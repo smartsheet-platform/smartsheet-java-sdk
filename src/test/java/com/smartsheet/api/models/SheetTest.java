@@ -31,27 +31,27 @@ import static org.junit.Assert.assertNull;
 
 public class SheetTest {
 
-	@Before
-	public void setUp() throws Exception {
-	}
+    @Before
+    public void setUp() throws Exception {
+    }
 
-	@Test
-	public void testGetRowByRowNumber() {
-		Sheet sheet = new Sheet();
-		sheet.setReadOnly(false);
-		sheet.setDiscussions(new ArrayList<Discussion>());
-		sheet.setAttachments(new ArrayList<Attachment>());
-		
-		List<Row> rows = new ArrayList<Row>();
-		Row row = new Row();
-		row.setRowNumber(5);
-		row.setId(1234L);
-		rows.add(row);
-		sheet.setRows(rows);
-		
-		assertEquals(row,sheet.getRowByRowNumber(5));
-		assertNull(sheet.getRowByRowNumber(20));
-		assertNull(new Sheet().getRowByRowNumber(0));
-	}
+    @Test
+    public void testGetRowByRowNumber() {
+        Sheet sheet = new Sheet();
+        sheet.setReadOnly(false);
+        sheet.setDiscussions(new ArrayList<Discussion>());
+        sheet.setAttachments(new ArrayList<Attachment>());
+
+        List<Row> rows = new ArrayList<Row>();
+        Row row = new Row();
+        row.setRowNumber(5);
+        row.setId(1234L);
+        rows.add(row);
+        sheet.setRows(rows);
+
+        assertEquals(row,sheet.getRowByRowNumber(5));
+        assertNull(sheet.getRowByRowNumber(20));
+        assertNull(new Sheet().getRowByRowNumber(0));
+    }
 
 }

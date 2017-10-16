@@ -35,43 +35,43 @@ import java.io.InputStream;
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class DiscussionAttachmentResources extends AssociatedAttachmentResourcesImpl {
-	
-	/**
-	 * Constructor.
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null or empty string
-	 *
-	 * @param smartsheet the smartsheet
-	 */
-	public DiscussionAttachmentResources(SmartsheetImpl smartsheet) {
-		super(smartsheet, "discussion");
-	}
 
-	/**
-	 * Attach a file to the object.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /sheet/{id}/attachments POST /row/{id}/attachments
-	 * <p>POST /comment/{id}/attachments
-	 * 
-	 * Returns: the created attachment
-	 * 
-	 * Exceptions:
-	 *   UnsupportedOperationException : this exception is always thrown since this method is not supported by 
-	 *   discussion resources.
-	 *
-	 * @param objectId the object id
-	 * @param file the file to attach
-	 * @param contentType the content type of the file
-	 * @return the attachment
-	 */
-	public Attachment attachFile(long objectId, File file, String contentType) {
-		throw new UnsupportedOperationException("Attachments can only be attached to comments, not discussions.");
-	}
-	
-	/**
-	 * Throws an UnsupportedOperationException.
-	 */
-	public Attachment attachFile(long objectId, InputStream inputStream, String contentType, long contentLength, String fileName) {
-		throw new UnsupportedOperationException("Attachments can only be attached to comments, not discussions.");
-	}
+    /**
+     * Constructor.
+     *
+     * Exceptions: - IllegalArgumentException : if any argument is null or empty string
+     *
+     * @param smartsheet the smartsheet
+     */
+    public DiscussionAttachmentResources(SmartsheetImpl smartsheet) {
+        super(smartsheet, "discussion");
+    }
+
+    /**
+     * Attach a file to the object.
+     *
+     * It mirrors to the following Smartsheet REST API method: POST /sheet/{id}/attachments POST /row/{id}/attachments
+     * <p>POST /comment/{id}/attachments
+     *
+     * Returns: the created attachment
+     *
+     * Exceptions:
+     *   UnsupportedOperationException : this exception is always thrown since this method is not supported by
+     *   discussion resources.
+     *
+     * @param objectId the object id
+     * @param file the file to attach
+     * @param contentType the content type of the file
+     * @return the attachment
+     */
+    public Attachment attachFile(long objectId, File file, String contentType) {
+        throw new UnsupportedOperationException("Attachments can only be attached to comments, not discussions.");
+    }
+
+    /**
+     * Throws an UnsupportedOperationException.
+     */
+    public Attachment attachFile(long objectId, InputStream inputStream, String contentType, long contentLength, String fileName) {
+        throw new UnsupportedOperationException("Attachments can only be attached to comments, not discussions.");
+    }
 }

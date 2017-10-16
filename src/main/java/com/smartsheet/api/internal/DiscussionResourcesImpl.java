@@ -33,70 +33,70 @@ import com.smartsheet.api.models.Comment;
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class DiscussionResourcesImpl extends AbstractResources implements DiscussionResources {
-	/**
-	 * Represents the AssociatedAttachmentResources.
-	 * 
-	 * It will be initialized in constructor and will not change afterwards.
-	 */
-	private AssociatedAttachmentResources attachments;
-	
-	/**
-	 * Represents the DiscussionCommentResources.
-	 *
-	 * It will be initialized in constructor and will not change afterwards.
-	 */
-	private DiscussionCommentResources comments;
+    /**
+     * Represents the AssociatedAttachmentResources.
+     *
+     * It will be initialized in constructor and will not change afterwards.
+     */
+    private AssociatedAttachmentResources attachments;
 
-	/**
-	 * Constructor.
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null
-	 *
-	 * @param smartsheet the smartsheet
-	 */
-	public DiscussionResourcesImpl(SmartsheetImpl smartsheet) {
-		super(smartsheet);
-	}
-	
-	/**
-	 * Add a comment to a discussion.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /discussion/{discussionId}/comments
-	 * 
-	 * Exceptions:
-	 *   IllegalArgumentException : if any argument is null
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param id the discussion ID
-	 * @param comment the comment to add, limited to the following required attributes: text
-	 * @return the created comment
-	 * @throws SmartsheetException the smartsheet exception
-	 */
-	public Comment addDiscussionComment(long id, Comment comment) throws SmartsheetException {
-		return this.createResource("discussion/" + id + "/comments", Comment.class, comment);
-	}
+    /**
+     * Represents the DiscussionCommentResources.
+     *
+     * It will be initialized in constructor and will not change afterwards.
+     */
+    private DiscussionCommentResources comments;
 
-	/**
-	 * Return the AssociatedAttachmentResources object that provides access to attachment resources associated with
-	 * Discussion resources.
-	 *
-	 * @return the associated attachment resources
-	 */
-	public AssociatedAttachmentResources attachments() {
-		return this.attachments;
-	}
+    /**
+     * Constructor.
+     *
+     * Exceptions: - IllegalArgumentException : if any argument is null
+     *
+     * @param smartsheet the smartsheet
+     */
+    public DiscussionResourcesImpl(SmartsheetImpl smartsheet) {
+        super(smartsheet);
+    }
 
-	/**
-	 * Return the DiscussionCommentResources object that provides access to attachment resources associated with
-	 * Discussion resources.
-	 *
-	 * @return the associated attachment resources
-	 */
-	public DiscussionCommentResources comments() {
-		return this.comments;
-	}
+    /**
+     * Add a comment to a discussion.
+     *
+     * It mirrors to the following Smartsheet REST API method: POST /discussion/{discussionId}/comments
+     *
+     * Exceptions:
+     *   IllegalArgumentException : if any argument is null
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param id the discussion ID
+     * @param comment the comment to add, limited to the following required attributes: text
+     * @return the created comment
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Comment addDiscussionComment(long id, Comment comment) throws SmartsheetException {
+        return this.createResource("discussion/" + id + "/comments", Comment.class, comment);
+    }
+
+    /**
+     * Return the AssociatedAttachmentResources object that provides access to attachment resources associated with
+     * Discussion resources.
+     *
+     * @return the associated attachment resources
+     */
+    public AssociatedAttachmentResources attachments() {
+        return this.attachments;
+    }
+
+    /**
+     * Return the DiscussionCommentResources object that provides access to attachment resources associated with
+     * Discussion resources.
+     *
+     * @return the associated attachment resources
+     */
+    public DiscussionCommentResources comments() {
+        return this.comments;
+    }
 }

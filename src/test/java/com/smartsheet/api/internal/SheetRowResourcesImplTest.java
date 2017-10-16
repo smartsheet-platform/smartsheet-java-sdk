@@ -35,43 +35,43 @@ import static org.junit.Assert.*;
 
 public class SheetRowResourcesImplTest extends ResourcesImplBase {
 
-	private SheetRowResourcesImpl sheetRowResource;
+    private SheetRowResourcesImpl sheetRowResource;
 
-	@Before
-	public void setUp() throws Exception {
-		sheetRowResource = new SheetRowResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", "accessToken",
-				new DefaultHttpClient(), serializer));
-	}
+    @Before
+    public void setUp() throws Exception {
+        sheetRowResource = new SheetRowResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", "accessToken",
+                new DefaultHttpClient(), serializer));
+    }
 
-	@Test
-	public void testSheetRowResourcesImpl() {}
+    @Test
+    public void testSheetRowResourcesImpl() {}
 
-	@Test
-	public void testInsertRows() throws SmartsheetException, IOException {
-		server.setResponseBody(new File("src/test/resources/insertRows.json"));
-		
-		// Create a set of cells
-		List<Cell> cells = new ArrayList<Cell>();
-		Cell cell = new Cell();
-		cell.setDisplayValue("Testing");
-		cell.setColumnId(8764071660021636L);
-		cell.setRowId(1234L);
-		Link link = new Link();
-		link.setUrl("http://google.com");
-		link.setType(LinkType.URL);
-		link.setSheetId(1234L);
-		link.setColumnId(1234L);
-		link.setRowId(1234L);
-		//cell.setLink(link);
-		cell.setFormula("=1+1");
-		
-		// Create a row and add the cells to it.
-		List<Row> rows = new ArrayList<Row>();
-		Row row = new Row();
-		row.setCells(cells);
-		rows.add(row);
-		
-		List<Row> newRows = sheetRowResource.addRows(1234L, rows);
+    @Test
+    public void testInsertRows() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/insertRows.json"));
+
+        // Create a set of cells
+        List<Cell> cells = new ArrayList<Cell>();
+        Cell cell = new Cell();
+        cell.setDisplayValue("Testing");
+        cell.setColumnId(8764071660021636L);
+        cell.setRowId(1234L);
+        Link link = new Link();
+        link.setUrl("http://google.com");
+        link.setType(LinkType.URL);
+        link.setSheetId(1234L);
+        link.setColumnId(1234L);
+        link.setRowId(1234L);
+        //cell.setLink(link);
+        cell.setFormula("=1+1");
+
+        // Create a row and add the cells to it.
+        List<Row> rows = new ArrayList<Row>();
+        Row row = new Row();
+        row.setCells(cells);
+        rows.add(row);
+
+        List<Row> newRows = sheetRowResource.addRows(1234L, rows);
         Row row1 = newRows.get(0);
         Row row2 = newRows.get(1);
 
@@ -82,20 +82,20 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
         assertEquals(2040698783459204L, row2.getId().longValue());
         assertEquals(2, row2.getCells().size());
         assertEquals("New status", row2.getCells().get(1).getValue());
-	}
+    }
 
-	@Test
-	public void testGetRow() throws SmartsheetException, IOException {
-		server.setResponseBody(new File("src/test/resources/getRow.json"));
-		
-		Row row = sheetRowResource.getRow(1234L, 5678L, EnumSet.of(RowInclusion.COLUMNS, RowInclusion.FORMAT), EnumSet.of(ObjectExclusion.NONEXISTENT_CELLS));
+    @Test
+    public void testGetRow() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getRow.json"));
+
+        Row row = sheetRowResource.getRow(1234L, 5678L, EnumSet.of(RowInclusion.COLUMNS, RowInclusion.FORMAT), EnumSet.of(ObjectExclusion.NONEXISTENT_CELLS));
 
         assertNotNull(row);
         assertEquals(2361756178769796L, row.getId().longValue());
         assertEquals(4583173393803140L, row.getSheetId().longValue());
         assertEquals(2, row.getCells().size());
         assertEquals("Revision 1", row.getCells().get(0).getValue());
-	}
+    }
 
     @Test
     public void testSendRows() throws SmartsheetException, IOException {

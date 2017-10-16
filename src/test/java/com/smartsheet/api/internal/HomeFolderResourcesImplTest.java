@@ -36,39 +36,39 @@ import static org.junit.Assert.assertTrue;
 
 public class HomeFolderResourcesImplTest extends ResourcesImplBase {
 
-	private HomeFolderResourcesImpl homeFolderResources;
+    private HomeFolderResourcesImpl homeFolderResources;
 
-	@Before
-	public void setUp() throws Exception {
-		homeFolderResources = new HomeFolderResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", 
-				"accessToken", new DefaultHttpClient(), serializer));
-	}
+    @Before
+    public void setUp() throws Exception {
+        homeFolderResources = new HomeFolderResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
+                "accessToken", new DefaultHttpClient(), serializer));
+    }
 
-	@Test
-	public void testHomeFolderResourcesImpl() {
-	}
+    @Test
+    public void testHomeFolderResourcesImpl() {
+    }
 
-	@Test
-	public void testListFolders() throws SmartsheetException, IOException {
-		server.setResponseBody(new File("src/test/resources/listFolders.json"));
+    @Test
+    public void testListFolders() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/listFolders.json"));
 
-		PaginationParameters parameters = new PaginationParameters(true, null, null);
-		PagedResult<Folder> foldersWrapper = homeFolderResources.listFolders(parameters);
-		
-		assertTrue(foldersWrapper.getPageSize() == 100);
-		assertEquals("Folder 1", foldersWrapper.getData().get(0).getName());
-		assertEquals("Folder 2", foldersWrapper.getData().get(1).getName());
-		assertTrue(7116448184199044L == foldersWrapper.getData().get(0).getId());
-	}
+        PaginationParameters parameters = new PaginationParameters(true, null, null);
+        PagedResult<Folder> foldersWrapper = homeFolderResources.listFolders(parameters);
 
-	@Test
-	public void testCreateFolder() throws IOException, SmartsheetException {
-		server.setResponseBody(new File("src/test/resources/createFolders.json"));
-		
-		Folder folder = new Folder.CreateFolderBuilder().setName("Hello World").build();
-		
-		Folder newFolder = homeFolderResources.createFolder(folder);
-		assertTrue(6821399500220292L == newFolder.getId());
-		assertEquals("hello world", newFolder.getName());
-	}
+        assertTrue(foldersWrapper.getPageSize() == 100);
+        assertEquals("Folder 1", foldersWrapper.getData().get(0).getName());
+        assertEquals("Folder 2", foldersWrapper.getData().get(1).getName());
+        assertTrue(7116448184199044L == foldersWrapper.getData().get(0).getId());
+    }
+
+    @Test
+    public void testCreateFolder() throws IOException, SmartsheetException {
+        server.setResponseBody(new File("src/test/resources/createFolders.json"));
+
+        Folder folder = new Folder.CreateFolderBuilder().setName("Hello World").build();
+
+        Folder newFolder = homeFolderResources.createFolder(folder);
+        assertTrue(6821399500220292L == newFolder.getId());
+        assertEquals("hello world", newFolder.getName());
+    }
 }

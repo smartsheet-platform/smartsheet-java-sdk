@@ -25,25 +25,25 @@ package com.smartsheet.api.models.format;
  * An enumeration representing the available vertical alignments within Smartsheet.
  */
 public enum VerticalAlignment {
-	DEFAULT_ALIGNMENT 	(""),
-	TOP 		("top"),
-	MIDDLE 		("middle"),
-	BOTTOM 		("bottom"),
-	;
-	private final String position;
-	private VerticalAlignment(String position) {
-		this.position = position;
-	}
-	
-	/**
-	 * The default setting when the {@link Format} for {@link VerticalAlignment} is null;
-	 */
-	public static final VerticalAlignment DEFAULT = DEFAULT_ALIGNMENT;
-	
-	/**
-	 * @return the position
-	 */
-	public String getPosition() {
-		return position;
-	}
+    DEFAULT_ALIGNMENT   (""),
+    TOP                 ("top"),
+    MIDDLE              ("middle"),
+    BOTTOM              ("bottom"),
+    ;
+    private final String position;
+    private VerticalAlignment(String position) {
+        this.position = position;
+    }
+
+    /**
+     * The default setting when the {@link Format} for {@link VerticalAlignment} is null;
+     */
+    public static final VerticalAlignment DEFAULT = DEFAULT_ALIGNMENT;
+
+    /**
+     * @return the position
+     */
+    public String getPosition() {
+        return position;
+    }
 }

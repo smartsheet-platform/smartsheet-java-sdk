@@ -24,8 +24,8 @@ package com.smartsheet.api.models.enums;
  * Represents specific objects that can be included in some responses.
  */
 public enum SheetCopyInclusion {
-    DATA    ("data"),
-    ATTACHMENTS		("attachments"),
+    DATA            ("data"),
+    ATTACHMENTS     ("attachments"),
     DISCUSSIONS     ("discussions"),
     CELLLINKS       ("cellinks"),
     FORMS           ("forms"),

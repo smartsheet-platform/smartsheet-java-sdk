@@ -29,147 +29,147 @@ import java.util.List;
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/522237-the-home-tab">Home Tab Help</a>
  */
 public class Home {
-	/**
-	 * Represents the sheets in the home location.
-	 */
-	private List<Sheet> sheets;
+    /**
+     * Represents the sheets in the home location.
+     */
+    private List<Sheet> sheets;
 
-	/**
-	 * Represents the folders in the home location.
-	 */
-	private List<Folder> folders;
+    /**
+     * Represents the folders in the home location.
+     */
+    private List<Folder> folders;
 
-	/**
-	 * Represents the reports in the home location.
-	 */
-	private List<Report> reports;
+    /**
+     * Represents the reports in the home location.
+     */
+    private List<Report> reports;
 
-	/**
-	 * Represents the templates in the home location.
-	 */
-	private List<Template> templates;
+    /**
+     * Represents the templates in the home location.
+     */
+    private List<Template> templates;
 
-	/**
-	 * Represents the workspaces in the home location.
-	 */
-	private List<Workspace> workspaces;
+    /**
+     * Represents the workspaces in the home location.
+     */
+    private List<Workspace> workspaces;
 
-	/**
-	 * Represents the sights in the home location.
-	 */
-	private List<Sight> sights;
-	
-	/**
-	 * Gets the sheets in the home location.
-	 *
-	 * @return the sheets
-	 */
-	public List<Sheet> getSheets() {
-		return sheets;
-	}
+    /**
+     * Represents the sights in the home location.
+     */
+    private List<Sight> sights;
 
-	/**
-	 * Sets the sheets.
-	 *
-	 * @param sheets the new sheets
-	 */
-	public Home setSheets(List<Sheet> sheets) {
-		this.sheets = sheets;
-		return this;
-	}
+    /**
+     * Gets the sheets in the home location.
+     *
+     * @return the sheets
+     */
+    public List<Sheet> getSheets() {
+        return sheets;
+    }
 
-	/**
-	 * Gets the folders in the home location.
-	 *
-	 * @return the folders
-	 */
-	public List<Folder> getFolders() {
-		return folders;
-	}
+    /**
+     * Sets the sheets.
+     *
+     * @param sheets the new sheets
+     */
+    public Home setSheets(List<Sheet> sheets) {
+        this.sheets = sheets;
+        return this;
+    }
 
-	/**
-	 * Sets the folders in the home location.
-	 *
-	 * @param folders the new folders
-	 */
-	public Home setFolders(List<Folder> folders) {
-		this.folders = folders;
-		return this;
-	}
+    /**
+     * Gets the folders in the home location.
+     *
+     * @return the folders
+     */
+    public List<Folder> getFolders() {
+        return folders;
+    }
 
-	/**
-	 * Gets the reports.
-	 *
-	 * @return the reports
-	 */
-	public List<Report> getReports() {
-		return reports;
-	}
+    /**
+     * Sets the folders in the home location.
+     *
+     * @param folders the new folders
+     */
+    public Home setFolders(List<Folder> folders) {
+        this.folders = folders;
+        return this;
+    }
 
-	/**
-	 * Sets the reports.
-	 *
-	 * @param reports the new reports
-	 */
-	public Home setReports(List<Report> reports) {
-		this.reports = reports;
-		return this;
-	}
+    /**
+     * Gets the reports.
+     *
+     * @return the reports
+     */
+    public List<Report> getReports() {
+        return reports;
+    }
 
-	/**
-	 * Gets the templates in the home location.
-	 *
-	 * @return the templates
-	 */
-	public List<Template> getTemplates() {
-		return templates;
-	}
+    /**
+     * Sets the reports.
+     *
+     * @param reports the new reports
+     */
+    public Home setReports(List<Report> reports) {
+        this.reports = reports;
+        return this;
+    }
 
-	/**
-	 * Sets the templates in the home location.
-	 *
-	 * @param templates the new templates
-	 */
-	public Home setTemplates(List<Template> templates) {
-		this.templates = templates;
-		return this;
-	}
+    /**
+     * Gets the templates in the home location.
+     *
+     * @return the templates
+     */
+    public List<Template> getTemplates() {
+        return templates;
+    }
 
-	/**
-	 * Gets the workspaces in the home location.
-	 *
-	 * @return the workspaces
-	 */
-	public List<Workspace> getWorkspaces() {
-		return workspaces;
-	}
+    /**
+     * Sets the templates in the home location.
+     *
+     * @param templates the new templates
+     */
+    public Home setTemplates(List<Template> templates) {
+        this.templates = templates;
+        return this;
+    }
 
-	/**
-	 * Sets the workspaces in the home location.
-	 *
-	 * @param workspaces the new workspaces
-	 */
-	public Home setWorkspaces(List<Workspace> workspaces) {
-		this.workspaces = workspaces;
-		return this;
-	}
-	
-	/** 
-	 * Gets the sights in the home location.
-	 * 
-	 * @return array of sights
-	 */
-	public List<Sight> getSights() {
-		return sights;
-	}
-	
-	/**
-	 * Sets the sights in the home location.
-	 *
-	 * @param sights
-	 */
-	public Home setSights(List<Sight> sights) {
-		this.sights = sights;
-		return this;
-	}
+    /**
+     * Gets the workspaces in the home location.
+     *
+     * @return the workspaces
+     */
+    public List<Workspace> getWorkspaces() {
+        return workspaces;
+    }
+
+    /**
+     * Sets the workspaces in the home location.
+     *
+     * @param workspaces the new workspaces
+     */
+    public Home setWorkspaces(List<Workspace> workspaces) {
+        this.workspaces = workspaces;
+        return this;
+    }
+
+    /**
+     * Gets the sights in the home location.
+     *
+     * @return array of sights
+     */
+    public List<Sight> getSights() {
+        return sights;
+    }
+
+    /**
+     * Sets the sights in the home location.
+     *
+     * @param sights
+     */
+    public Home setSights(List<Sight> sights) {
+        this.sights = sights;
+        return this;
+    }
 }

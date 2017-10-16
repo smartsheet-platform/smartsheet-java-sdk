@@ -31,36 +31,36 @@ import java.io.Closeable;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface HttpClient extends Closeable {
-	/**
-	 * Make an HTTP request and return the response.
-	 * 
-	 * Parameters: - request : the HTTP request
-	 * 
-	 * Returns: the HTTP response
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - HttpClientException : if there is any other
-	 * error occurred during the operation
-	 *
-	 * @param request the request
-	 * @return the http response
-	 * @throws HttpClientException the http client exception
-	 */
-	public HttpResponse request(HttpRequest request) throws HttpClientException;
-	
-	/**
-	 * Release connection.
-	 */
-	public void releaseConnection();
+    /**
+     * Make an HTTP request and return the response.
+     *
+     * Parameters: - request : the HTTP request
+     *
+     * Returns: the HTTP response
+     *
+     * Exceptions: - IllegalArgumentException : if any argument is null - HttpClientException : if there is any other
+     * error occurred during the operation
+     *
+     * @param request the request
+     * @return the http response
+     * @throws HttpClientException the http client exception
+     */
+    public HttpResponse request(HttpRequest request) throws HttpClientException;
 
-	/**
-	 * set the traces for this client
-	 * @param traces the fields to include in trace-logging
-	 */
-	public void setTraces(Trace... traces);
+    /**
+     * Release connection.
+     */
+    public void releaseConnection();
 
-	/**
-	 * set whether to use nicely-formatted JSON or more compact format JSON in trace logging
-	 * @param pretty whether to print JSON in a "pretty" format or compact
-	 */
-	public void setTracePrettyPrint(boolean pretty);
+    /**
+     * set the traces for this client
+     * @param traces the fields to include in trace-logging
+     */
+    public void setTraces(Trace... traces);
+
+    /**
+     * set whether to use nicely-formatted JSON or more compact format JSON in trace logging
+     * @param pretty whether to print JSON in a "pretty" format or compact
+     */
+    public void setTracePrettyPrint(boolean pretty);
 }

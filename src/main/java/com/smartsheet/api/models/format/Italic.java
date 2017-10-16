@@ -25,24 +25,24 @@ package com.smartsheet.api.models.format;
  * An enumeration representing the available Italic state for a format.
  */
 public enum Italic {
-	NONE 	(false),
-	ON		(true),
-	;
-	private final boolean italic;
-	
-	private Italic (boolean italic) {
-		this.italic = italic;
-	}
-	
-	/**
-	 * The default setting when the {@link Format} for {@link Italic} is null;
-	 */
-	public static final Italic DEFAULT = NONE;
-	
-	/**
-	 * @return the italic
-	 */
-	public boolean isItalic() {
-		return italic;
-	}
+    NONE     (false),
+    ON        (true),
+    ;
+    private final boolean italic;
+
+    private Italic (boolean italic) {
+        this.italic = italic;
+    }
+
+    /**
+     * The default setting when the {@link Format} for {@link Italic} is null;
+     */
+    public static final Italic DEFAULT = NONE;
+
+    /**
+     * @return the italic
+     */
+    public boolean isItalic() {
+        return italic;
+    }
 }

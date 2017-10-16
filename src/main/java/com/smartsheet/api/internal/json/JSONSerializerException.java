@@ -30,35 +30,35 @@ import com.smartsheet.api.SmartsheetException;
  * Thread safety: Exceptions are not thread safe.
  */
 public class JSONSerializerException extends SmartsheetException {
-	
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Constructor.
-	 *
-	 * @param message the message
-	 */
-	public JSONSerializerException(String message) {
-		super(message);
-	}
+    /** The Constant serialVersionUID. */
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * Constructor.
-	 *
-	 * @param message the message
-	 * @param cause the cause
-	 */
-	public JSONSerializerException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    /**
+     * Constructor.
+     *
+     * @param message the message
+     */
+    public JSONSerializerException(String message) {
+        super(message);
+    }
 
-	/**
-	 * Instantiates a new JSON serializer exception.
-	 *
-	 * @param e the e
-	 */
-	public JSONSerializerException(Exception e) {
-		super(e);
-	}
+    /**
+     * Constructor.
+     *
+     * @param message the message
+     * @param cause the cause
+     */
+    public JSONSerializerException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    /**
+     * Instantiates a new JSON serializer exception.
+     *
+     * @param e the e
+     */
+    public JSONSerializerException(Exception e) {
+        super(e);
+    }
 }

@@ -25,7 +25,7 @@ package com.smartsheet.api.models.enums;
  */
 public enum WorkspaceCopyInclusion {
     DATA            ("data"),
-    ATTACHMENTS		("attachments"),
+    ATTACHMENTS     ("attachments"),
     DISCUSSIONS     ("discussions"),
     CELLLINKS       ("cellinks"),
     FORMS           ("forms"),

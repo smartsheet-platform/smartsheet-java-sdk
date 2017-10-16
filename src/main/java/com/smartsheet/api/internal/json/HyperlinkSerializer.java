@@ -28,22 +28,22 @@ import com.smartsheet.api.models.Hyperlink;
 
 public class HyperlinkSerializer extends JsonSerializer<Hyperlink>{
 
-	@Override
-	public void serialize(Hyperlink value, JsonGenerator gen, SerializerProvider serializers)
-			throws IOException {
-		if(value.isNull()) {
-			gen.writeNull();
-		}
-		else {
-			gen.writeStartObject();
-			if(value.getUrl() != null)
-				gen.writeStringField("url", value.getUrl());
-			if(value.getReportId() != null)
-				gen.writeNumberField("reportId", value.getReportId());
-			if(value.getSheetId() != null)
-				gen.writeNumberField("sheetId", value.getSheetId());
-			gen.writeEndObject();
-		}
-	}
+    @Override
+    public void serialize(Hyperlink value, JsonGenerator gen, SerializerProvider serializers)
+            throws IOException {
+        if(value.isNull()) {
+            gen.writeNull();
+        }
+        else {
+            gen.writeStartObject();
+            if(value.getUrl() != null)
+                gen.writeStringField("url", value.getUrl());
+            if(value.getReportId() != null)
+                gen.writeNumberField("reportId", value.getReportId());
+            if(value.getSheetId() != null)
+                gen.writeNumberField("sheetId", value.getSheetId());
+            gen.writeEndObject();
+        }
+    }
 
 }

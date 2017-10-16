@@ -24,25 +24,25 @@ package com.smartsheet.api.models.enums;
  * Represents specific objects that can be included in some responses.
  */
 public enum ObjectInclusion{
-	DISCUSSIONS		("discussions"), 
-	ATTACHMENTS		("attachments"), 
-	DATA			("data"), 
-	COLUMNS			("columns"), 
-	TEMPLATES		("templates"),
-	FORMS			("forms"),
-	CELL_LINKS		("cellLinks"),
-	FORMAT			("format"),
-	SOURCE			("source"),
-	;
+    DISCUSSIONS     ("discussions"),
+    ATTACHMENTS     ("attachments"),
+    DATA            ("data"),
+    COLUMNS         ("columns"),
+    TEMPLATES       ("templates"),
+    FORMS           ("forms"),
+    CELL_LINKS      ("cellLinks"),
+    FORMAT          ("format"),
+    SOURCE          ("source"),
+    ;
 
-	String inclusion;
+    String inclusion;
 
-	ObjectInclusion(String inclusion) {
-		this.inclusion = inclusion;
-	}
+    ObjectInclusion(String inclusion) {
+        this.inclusion = inclusion;
+    }
 
-	@Override
-	public String toString() {
-		return inclusion;
-	}
+    @Override
+    public String toString() {
+        return inclusion;
+    }
 }

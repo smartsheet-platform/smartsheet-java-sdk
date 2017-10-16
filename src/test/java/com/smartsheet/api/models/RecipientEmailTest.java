@@ -26,11 +26,11 @@ import static org.junit.Assert.assertNotNull;
 
 public class RecipientEmailTest {
 
-	@Test
-	public void testRecipientEmail() {
-		RecipientEmail recipient = new RecipientEmail();
-		recipient.setEmail("johndoe@smartsheet.com");
+    @Test
+    public void testRecipientEmail() {
+        RecipientEmail recipient = new RecipientEmail();
+        recipient.setEmail("johndoe@smartsheet.com");
 
-		assertNotNull(recipient.getEmail());
-	}
+        assertNotNull(recipient.getEmail());
+    }
 }

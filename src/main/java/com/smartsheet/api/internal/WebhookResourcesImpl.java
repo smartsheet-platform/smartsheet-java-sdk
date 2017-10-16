@@ -41,149 +41,149 @@ import com.smartsheet.api.models.WebhookSharedSecret;
 
 public class WebhookResourcesImpl extends AbstractResources implements WebhookResources {
 
-	public WebhookResourcesImpl(SmartsheetImpl smartsheet) {
-		super(smartsheet);
-	}
-	
-	/**
-	 * <p>Gets the list of all Webhooks that the user owns (if a user generated token was used to make the request)
-	 * or the list of all Webhooks associated with the third-party app (if a third-party app made the request). Items 
-	 * in the response are ordered by API Client name, then Webhook name, then creation date.</p>
-	 *
-	 * <p>It mirrors to the following Smartsheet REST API method: GET /webhooks</p>
-	 *
- 	 * @param paging the object containing the pagination parameters
-	 * @return IndexResult object containing an array of Webhook objects.
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
-	 */	
-	public PagedResult<Webhook> listWebhooks(PaginationParameters paging) throws SmartsheetException {
-		String path = "webhooks";
-		
-		HashMap<String, Object> parameters = new HashMap<String, Object>();
-		if (paging != null) {
-			parameters = paging.toHashMap();
-		}
-		
-		path += QueryUtil.generateUrl(null, parameters);
-		return this.listResourcesWithWrapper(path, Webhook.class);		
-	}
+    public WebhookResourcesImpl(SmartsheetImpl smartsheet) {
+        super(smartsheet);
+    }
 
-	/**
-	 * <p>Gets the Webhook specified in the URL.</p>
-	 *
-	 * <p>It mirrors to the following Smartsheet REST API method: GET /webhooks/{webhookId}</p>
-	 *
- 	 * @param webhookId the Id of the webhook
-	 * @return the webhook resource.
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
-	 */	
-	public Webhook getWebhook(long webhookId) throws SmartsheetException {
-		return this.getResource("webhooks/" + webhookId, Webhook.class);
-	}
-	
-	/**
-	 * <p>Creates a new Webhook.</p>
-	 *
-	 * <p>It mirrors to the following Smartsheet REST API method: POST /webhooks</p>
-	 *
- 	 * @param webhook the webhook to be created
-	 * @return the webhook resource.
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
-	 */	
-	public Webhook createWebhook(Webhook webhook) throws SmartsheetException {
-		return this.createResource("webhooks", Webhook.class, webhook);
-	}
-	
-	/**
-	 * <p>Updates the webhooks specified in the URL.</p>
-	 *
-	 * <p>It mirrors to the following Smartsheet REST API method: PUT /webhooks/{webhookId}</p>
-	 *
- 	 * @param webhook the webhook to update
-	 * @return the updated webhook resource.
-	 * @throws SmartsheetException 
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 */
-	public Webhook updateWebhook(Webhook webhook) throws SmartsheetException {
-		return this.updateResource("webhooks/" + webhook.getId(), Webhook.class, webhook);
-	}
-	
-	/**
-	 * <p>Delete a webhook.</p>
-	 *
-	 * <p>It mirrors to the following Smartsheet REST API method: DELETE /webhooks/{webhookId}</p>
-	 *
- 	 * @param webhookId the webhook Id
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
-	 */	
-	public void deleteWebhook(long webhookId) throws SmartsheetException {
-		this.deleteResource("webhooks/" + webhookId, Webhook.class);
-	}
-	
-	/**
-	 * <p>Resets the shared secret for the specified Webhook. For more information about how a shared secret is used,
-	 *  see Authenticating Callbacks.</p>
-	 *
-	 * <p>It mirrors to the following Smartsheet REST API method: POST /webhooks/{webhookId}/resetsharedsecret</p>
-	 *
- 	 * @param webhookId the webhook Id
- 	 * @return the Webhook shared secret
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
-	 */		
-	public WebhookSharedSecret resetSharedSecret(long webhookId) throws SmartsheetException {
-		HttpRequest request = createHttpRequest(this.getSmartsheet().getBaseURI().resolve("webhooks/" + 
-				webhookId + "/resetsharedsecret"), HttpMethod.POST);
+    /**
+     * <p>Gets the list of all Webhooks that the user owns (if a user generated token was used to make the request)
+     * or the list of all Webhooks associated with the third-party app (if a third-party app made the request). Items
+     * in the response are ordered by API Client name, then Webhook name, then creation date.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /webhooks</p>
+     *
+      * @param paging the object containing the pagination parameters
+     * @return IndexResult object containing an array of Webhook objects.
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public PagedResult<Webhook> listWebhooks(PaginationParameters paging) throws SmartsheetException {
+        String path = "webhooks";
 
-		HttpResponse response = getSmartsheet().getHttpClient().request(request);
+        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        if (paging != null) {
+            parameters = paging.toHashMap();
+        }
 
-		WebhookSharedSecret secret = null;
-		switch (response.getStatusCode()) {
-		case 200:
-			try {
-				secret = this.smartsheet.getJsonSerializer().deserialize(WebhookSharedSecret.class, 
-					response.getEntity().getContent());
-			} catch (JsonParseException e) {
-				throw new SmartsheetException(e);
-			} catch (JsonMappingException e) {
-				throw new SmartsheetException(e);
-			} catch (IOException e) {
-				throw new SmartsheetException(e);
-			}			
-			break;
-		default:
-			handleError(response);
-		}
-		
-		getSmartsheet().getHttpClient().releaseConnection();	
-		return secret;
-	}
+        path += QueryUtil.generateUrl(null, parameters);
+        return this.listResourcesWithWrapper(path, Webhook.class);
+    }
+
+    /**
+     * <p>Gets the Webhook specified in the URL.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /webhooks/{webhookId}</p>
+     *
+      * @param webhookId the Id of the webhook
+     * @return the webhook resource.
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Webhook getWebhook(long webhookId) throws SmartsheetException {
+        return this.getResource("webhooks/" + webhookId, Webhook.class);
+    }
+
+    /**
+     * <p>Creates a new Webhook.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /webhooks</p>
+     *
+      * @param webhook the webhook to be created
+     * @return the webhook resource.
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Webhook createWebhook(Webhook webhook) throws SmartsheetException {
+        return this.createResource("webhooks", Webhook.class, webhook);
+    }
+
+    /**
+     * <p>Updates the webhooks specified in the URL.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: PUT /webhooks/{webhookId}</p>
+     *
+      * @param webhook the webhook to update
+     * @return the updated webhook resource.
+     * @throws SmartsheetException
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     */
+    public Webhook updateWebhook(Webhook webhook) throws SmartsheetException {
+        return this.updateResource("webhooks/" + webhook.getId(), Webhook.class, webhook);
+    }
+
+    /**
+     * <p>Delete a webhook.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: DELETE /webhooks/{webhookId}</p>
+     *
+      * @param webhookId the webhook Id
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public void deleteWebhook(long webhookId) throws SmartsheetException {
+        this.deleteResource("webhooks/" + webhookId, Webhook.class);
+    }
+
+    /**
+     * <p>Resets the shared secret for the specified Webhook. For more information about how a shared secret is used,
+     *  see Authenticating Callbacks.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /webhooks/{webhookId}/resetsharedsecret</p>
+     *
+      * @param webhookId the webhook Id
+      * @return the Webhook shared secret
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public WebhookSharedSecret resetSharedSecret(long webhookId) throws SmartsheetException {
+        HttpRequest request = createHttpRequest(this.getSmartsheet().getBaseURI().resolve("webhooks/" +
+                webhookId + "/resetsharedsecret"), HttpMethod.POST);
+
+        HttpResponse response = getSmartsheet().getHttpClient().request(request);
+
+        WebhookSharedSecret secret = null;
+        switch (response.getStatusCode()) {
+        case 200:
+            try {
+                secret = this.smartsheet.getJsonSerializer().deserialize(WebhookSharedSecret.class,
+                    response.getEntity().getContent());
+            } catch (JsonParseException e) {
+                throw new SmartsheetException(e);
+            } catch (JsonMappingException e) {
+                throw new SmartsheetException(e);
+            } catch (IOException e) {
+                throw new SmartsheetException(e);
+            }
+            break;
+        default:
+            handleError(response);
+        }
+
+        getSmartsheet().getHttpClient().releaseConnection();
+        return secret;
+    }
 }

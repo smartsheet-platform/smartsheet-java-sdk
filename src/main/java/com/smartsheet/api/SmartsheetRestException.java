@@ -30,49 +30,49 @@ import com.smartsheet.api.models.Error;
  * <p>Thread safety: Exceptions are not thread safe.</p>
  */
 public class SmartsheetRestException extends SmartsheetException {
-	
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
-	/**
-	 * <p>Represents the error code.</p>
-	 * 
-	 * <p>It will be initialized in constructor and will not change afterwards.</p>
-	 */
-	private final int errorCode;
 
-	/**
-	 * 	<p>Represents the reference ID.</p>
-	 *
-	 * 	<p>It will be initialized in the constructor and will not change afterwards.</p>
-	 */
-	private final String refId;
+    /** The Constant serialVersionUID. */
+    private static final long serialVersionUID = 1L;
+    /**
+     * <p>Represents the error code.</p>
+     *
+     * <p>It will be initialized in constructor and will not change afterwards.</p>
+     */
+    private final int errorCode;
 
-	/**
-	 * <p>Constructor.</p>
-	 *
-	 * @param error the Error object from Smartsheet REST API
-	 */
-	public SmartsheetRestException(Error error) {
-		super(error.getMessage());
-		errorCode = error.getErrorCode();
-		refId = error.getRefId();
-	}
-	
-	
+    /**
+     *     <p>Represents the reference ID.</p>
+     *
+     *     <p>It will be initialized in the constructor and will not change afterwards.</p>
+     */
+    private final String refId;
 
-	/**
-	 * <p>Returns the error code.</p>
-	 *
-	 * @return the error code
-	 */
-	public int getErrorCode() {
-		return this.errorCode;
-	}
+    /**
+     * <p>Constructor.</p>
+     *
+     * @param error the Error object from Smartsheet REST API
+     */
+    public SmartsheetRestException(Error error) {
+        super(error.getMessage());
+        errorCode = error.getErrorCode();
+        refId = error.getRefId();
+    }
 
-	/**
-	 * <p>Retruns the refId.</p>
-	 *
-	 * @return the refId
-	 */
-	public String getRefId() { return this.refId; }
+
+
+    /**
+     * <p>Returns the error code.</p>
+     *
+     * @return the error code
+     */
+    public int getErrorCode() {
+        return this.errorCode;
+    }
+
+    /**
+     * <p>Retruns the refId.</p>
+     *
+     * @return the refId
+     */
+    public String getRefId() { return this.refId; }
 }

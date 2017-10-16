@@ -21,16 +21,16 @@
 package com.smartsheet.api.models.enums;
 
 public enum GlobalTemplate {
-	/**
-	 * Blank Sheet
-	 */
-	BLANK_SHEET,
-	/**
-	 * Task list
-	 */
-	TASK_LIST,
-	/**
-	 * Project sheet
-	 */
-	PROJECT_SHEET
+    /**
+     * Blank Sheet
+     */
+    BLANK_SHEET,
+    /**
+     * Task list
+     */
+    TASK_LIST,
+    /**
+     * Project sheet
+     */
+    PROJECT_SHEET
 }

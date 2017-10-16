@@ -30,33 +30,33 @@ import com.smartsheet.api.internal.util.Util;
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public abstract class AbstractAssociatedResources extends AbstractResources {
-	/**
-	 * Represents the master resource type (e.g. "sheet", "workspace").
-	 * 
-	 * It will be initialized in constructor and will not change afterwards.
-	 */
-	private String masterResourceType;
+    /**
+     * Represents the master resource type (e.g. "sheet", "workspace").
+     *
+     * It will be initialized in constructor and will not change afterwards.
+     */
+    private String masterResourceType;
 
-	/**
-	 * Constructor.
-	 *
-	 * @param smartsheet the smartsheet
-	 * @param masterResourceType the master resource type
-	 */
-	public AbstractAssociatedResources(SmartsheetImpl smartsheet, String masterResourceType) {
-		super(smartsheet);
-		Util.throwIfNull(masterResourceType);
-		Util.throwIfEmpty(masterResourceType);
+    /**
+     * Constructor.
+     *
+     * @param smartsheet the smartsheet
+     * @param masterResourceType the master resource type
+     */
+    public AbstractAssociatedResources(SmartsheetImpl smartsheet, String masterResourceType) {
+        super(smartsheet);
+        Util.throwIfNull(masterResourceType);
+        Util.throwIfEmpty(masterResourceType);
 
-		this.masterResourceType = masterResourceType;
-	}
+        this.masterResourceType = masterResourceType;
+    }
 
-	/**
-	 * Getter of corresponding field.
-	 *
-	 * @return the master resource type
-	 */
-	protected String getMasterResourceType() {
-		return masterResourceType;
-	}
+    /**
+     * Getter of corresponding field.
+     *
+     * @return the master resource type
+     */
+    protected String getMasterResourceType() {
+        return masterResourceType;
+    }
 }

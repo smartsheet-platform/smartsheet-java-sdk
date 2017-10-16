@@ -24,25 +24,25 @@ package com.smartsheet.api.models.format;
  * An enumeration representing the state of the Thousands separator.
  */
 public enum ThousandsSeparator {
-	NONE 	(false),
-	ON		(true),
-	;
-	private final boolean separated;
-	
-	private ThousandsSeparator (boolean separated) {
-		this.separated = separated;
-	}
+    NONE    (false),
+    ON      (true),
+    ;
+    private final boolean separated;
 
-	/**
-	 * The default setting when the {@link Format} for {@link ThousandsSeparator} is null;
-	 */
-	public static final ThousandsSeparator DEFAULT = NONE;
-	
-	
-	/**
-	 * @return the separated
-	 */
-	public boolean isSeparated() {
-		return separated;
-	}
+    private ThousandsSeparator (boolean separated) {
+        this.separated = separated;
+    }
+
+    /**
+     * The default setting when the {@link Format} for {@link ThousandsSeparator} is null;
+     */
+    public static final ThousandsSeparator DEFAULT = NONE;
+
+
+    /**
+     * @return the separated
+     */
+    public boolean isSeparated() {
+        return separated;
+    }
 }

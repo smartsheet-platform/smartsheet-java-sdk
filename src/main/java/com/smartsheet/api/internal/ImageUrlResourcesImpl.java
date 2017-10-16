@@ -48,70 +48,70 @@ import com.smartsheet.api.models.ImageUrlMap;
 
 public class ImageUrlResourcesImpl extends AbstractResources implements ImageUrlResources {
 
-	/**
-	 * Constructor.
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null
-	 *
-	 * @param smartsheet the smartsheet
-	 */
-	public ImageUrlResourcesImpl(SmartsheetImpl smartsheet) {
-		super(smartsheet); 
-	}
-	
-	/**
-	 * <p>Gets URLS that can be used to retieve the specified cell images.</p>
-	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:</p>
-	 * <p>POST /imageurls</p>
-	 *
-	 * @param array of requested Images ans sizes.
-	 * @return the ImageUrlMap object (note that if there is no such resource, this method will throw 
-	 * ResourceNotFoundException rather than returning null).
-	 * @throws JSONSerializerException 
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
-	 */	
-	public ImageUrlMap getImageUrls(List<ImageUrl> requestUrls) throws SmartsheetException
-	{
-		Util.throwIfNull(requestUrls);
+    /**
+     * Constructor.
+     *
+     * Exceptions: - IllegalArgumentException : if any argument is null
+     *
+     * @param smartsheet the smartsheet
+     */
+    public ImageUrlResourcesImpl(SmartsheetImpl smartsheet) {
+        super(smartsheet);
+    }
 
-		HttpRequest request;
-		request = createHttpRequest(smartsheet.getBaseURI().resolve("imageurls"), HttpMethod.POST);
+    /**
+     * <p>Gets URLS that can be used to retieve the specified cell images.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>POST /imageurls</p>
+     *
+     * @param array of requested Images ans sizes.
+     * @return the ImageUrlMap object (note that if there is no such resource, this method will throw
+     * ResourceNotFoundException rather than returning null).
+     * @throws JSONSerializerException
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public ImageUrlMap getImageUrls(List<ImageUrl> requestUrls) throws SmartsheetException
+    {
+        Util.throwIfNull(requestUrls);
 
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		this.smartsheet.getJsonSerializer().serialize(requestUrls, baos);
-		HttpEntity entity = new HttpEntity();
-		entity.setContentType("application/json");
-		entity.setContent(new ByteArrayInputStream(baos.toByteArray()));
-		entity.setContentLength(baos.size()); 
-		request.setEntity(entity);
+        HttpRequest request;
+        request = createHttpRequest(smartsheet.getBaseURI().resolve("imageurls"), HttpMethod.POST);
 
-		HttpResponse response = this.smartsheet.getHttpClient().request(request);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        this.smartsheet.getJsonSerializer().serialize(requestUrls, baos);
+        HttpEntity entity = new HttpEntity();
+        entity.setContentType("application/json");
+        entity.setContent(new ByteArrayInputStream(baos.toByteArray()));
+        entity.setContentLength(baos.size());
+        request.setEntity(entity);
 
-		ImageUrlMap obj = null;
-		
-		switch (response.getStatusCode()) {
-			case 200:
-				try {
-					obj = this.smartsheet.getJsonSerializer().deserialize(ImageUrlMap.class,
-							response.getEntity().getContent());
-				} catch (JsonParseException e) {
-					throw new SmartsheetException(e);
-				} catch (JsonMappingException e) {
-					throw new SmartsheetException(e);
-				} catch (IOException e) {
-					throw new SmartsheetException(e);
-				}				
-				break;
-			default:
-				handleError(response);
-		}
-		smartsheet.getHttpClient().releaseConnection();
-		return obj;
-	}
+        HttpResponse response = this.smartsheet.getHttpClient().request(request);
+
+        ImageUrlMap obj = null;
+
+        switch (response.getStatusCode()) {
+            case 200:
+                try {
+                    obj = this.smartsheet.getJsonSerializer().deserialize(ImageUrlMap.class,
+                            response.getEntity().getContent());
+                } catch (JsonParseException e) {
+                    throw new SmartsheetException(e);
+                } catch (JsonMappingException e) {
+                    throw new SmartsheetException(e);
+                } catch (IOException e) {
+                    throw new SmartsheetException(e);
+                }
+                break;
+            default:
+                handleError(response);
+        }
+        smartsheet.getHttpClient().releaseConnection();
+        return obj;
+    }
 }

@@ -1,13 +1,13 @@
 {
-	"resultCode": 0,
-	"result": {
-		"id": 6834973207488388,
-		"name": "Group New1 - renamed",
-		"description": "My Custom Decsription - renamed",
-		"owner": "kyan.skeem@smartsheet.com",
-		"ownerId": 4583173393803140,
-		"createdAt": "2014-06-16T13:04:01-07:00",
-		"modifiedAt": "2014-06-16T13:24:27-07:00"
-	},
-	"message": "SUCCESS"
+    "resultCode": 0,
+    "result": {
+        "id": 6834973207488388,
+        "name": "Group New1 - renamed",
+        "description": "My Custom Decsription - renamed",
+        "owner": "kyan.skeem@smartsheet.com",
+        "ownerId": 4583173393803140,
+        "createdAt": "2014-06-16T13:04:01-07:00",
+        "modifiedAt": "2014-06-16T13:24:27-07:00"
+    },
+    "message": "SUCCESS"
 }

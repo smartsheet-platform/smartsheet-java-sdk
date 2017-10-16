@@ -1,30 +1,30 @@
 {
-	"id": 4583173393803140,
-	"name": "Group 1",
-	"description": "testGroup1",
-	"owner": "kyan.skeem@smartsheet.com",
-	"ownerId": 4583173393803140,
-	"members": [{
-		"id": 4583173393803140,
-		"email": "kyan.skeem@smartsheet.com",
-		"firstName": "Test",
-		"lastName": "User",
-		"name": "Test User"
-	},
-	{
-		"id": 2331373580117892,
-		"email": "kyan.skeem+user1@smartsheet.com",
-		"firstName": "User",
-		"lastName": "One",
-		"name": "User One"
-	},
-	{
-		"id": 6834973207488388,
-		"email": "kyan.skeem+user2@smartsheet.com",
-		"firstName": "User",
-		"lastName": "Two",
-		"name": "User Two"
-	}],
-	"createdAt": "2014-06-16T11:02:18-07:00",
-	"modifiedAt": "2014-06-16T11:02:18-07:00"
+    "id": 4583173393803140,
+    "name": "Group 1",
+    "description": "testGroup1",
+    "owner": "kyan.skeem@smartsheet.com",
+    "ownerId": 4583173393803140,
+    "members": [{
+        "id": 4583173393803140,
+        "email": "kyan.skeem@smartsheet.com",
+        "firstName": "Test",
+        "lastName": "User",
+        "name": "Test User"
+    },
+    {
+        "id": 2331373580117892,
+        "email": "kyan.skeem+user1@smartsheet.com",
+        "firstName": "User",
+        "lastName": "One",
+        "name": "User One"
+    },
+    {
+        "id": 6834973207488388,
+        "email": "kyan.skeem+user2@smartsheet.com",
+        "firstName": "User",
+        "lastName": "Two",
+        "name": "User Two"
+    }],
+    "createdAt": "2014-06-16T11:02:18-07:00",
+    "modifiedAt": "2014-06-16T11:02:18-07:00"
 }

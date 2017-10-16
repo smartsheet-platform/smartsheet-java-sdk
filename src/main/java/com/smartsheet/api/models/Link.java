@@ -26,147 +26,147 @@ import com.smartsheet.api.models.enums.LinkType;
  * Represents the Link object.
  */
 public class Link {
-	/**
-	 * Represents the link type.
-	 */
-	private LinkType type;
+    /**
+     * Represents the link type.
+     */
+    private LinkType type;
 
-	/**
-	 * Represents the URL.
-	 */
-	private String url;
+    /**
+     * Represents the URL.
+     */
+    private String url;
 
-	/**
-	 * Represents the sheet ID.
-	 */
-	private Long sheetId;
+    /**
+     * Represents the sheet ID.
+     */
+    private Long sheetId;
 
-	/**
-	 * Represents the sight ID.
-	 */
-	private Long sightId;
-	
-	/**
-	 * Represents the column ID.
-	 */
-	private Long columnId;
+    /**
+     * Represents the sight ID.
+     */
+    private Long sightId;
 
-	/**
-	 * Represents the row ID.
-	 */
-	private Long rowId;
+    /**
+     * Represents the column ID.
+     */
+    private Long columnId;
 
-	/**
-	 * Gets the type.
-	 *
-	 * @return the type
-	 */
-	public LinkType getType() {
-		return type;
-	}
+    /**
+     * Represents the row ID.
+     */
+    private Long rowId;
 
-	/**
-	 * Sets the link type.
-	 *
-	 * @param type the new type
-	 */
-	public Link setType(LinkType type) {
-		this.type = type;
-		return this;
-	}
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
+    public LinkType getType() {
+        return type;
+    }
 
-	/**
-	 * Gets the url.
-	 *
-	 * @return the url
-	 */
-	public String getUrl() {
-		return url;
-	}
+    /**
+     * Sets the link type.
+     *
+     * @param type the new type
+     */
+    public Link setType(LinkType type) {
+        this.type = type;
+        return this;
+    }
 
-	/**
-	 * Sets the url.
-	 *
-	 * @param url the new url
-	 */
-	public Link setUrl(String url) {
-		this.url = url;
-		return this;
-	}
+    /**
+     * Gets the url.
+     *
+     * @return the url
+     */
+    public String getUrl() {
+        return url;
+    }
 
-	/**
-	 * Gets the sheet id.
-	 *
-	 * @return the sheet id
-	 */
-	public Long getSheetId() {
-		return sheetId;
-	}
+    /**
+     * Sets the url.
+     *
+     * @param url the new url
+     */
+    public Link setUrl(String url) {
+        this.url = url;
+        return this;
+    }
 
-	/**
-	 * Sets the sheet id.
-	 *
-	 * @param sheetId the new sheet id
-	 */
-	public Link setSheetId(Long sheetId) {
-		this.sheetId = sheetId;
-		return this;
-	}
+    /**
+     * Gets the sheet id.
+     *
+     * @return the sheet id
+     */
+    public Long getSheetId() {
+        return sheetId;
+    }
 
-	/**
-	 * Gets the sight id.
-	 * 
-	 * @return sightId
-	 */
-	public Long getSightId() {
-		return sightId;
-	}
-	
-	/**
-	 * Set the sight id.
-	 *
-	 * @param sightId
-	 */
-	public Link setSightId(Long sightId) {
-		this.sightId = sightId;
-		return this;
-	}
-	
-	/**
-	 * Gets the column id.
-	 *
-	 * @return the column id
-	 */
-	public Long getColumnId() {
-		return columnId;
-	}
+    /**
+     * Sets the sheet id.
+     *
+     * @param sheetId the new sheet id
+     */
+    public Link setSheetId(Long sheetId) {
+        this.sheetId = sheetId;
+        return this;
+    }
 
-	/**
-	 * Sets the column id.
-	 *
-	 * @param columnId the new column id
-	 */
-	public Link setColumnId(Long columnId) {
-		this.columnId = columnId;
-		return this;
-	}
+    /**
+     * Gets the sight id.
+     *
+     * @return sightId
+     */
+    public Long getSightId() {
+        return sightId;
+    }
 
-	/**
-	 * Gets the row id.
-	 *
-	 * @return the row id
-	 */
-	public Long getRowId() {
-		return rowId;
-	}
+    /**
+     * Set the sight id.
+     *
+     * @param sightId
+     */
+    public Link setSightId(Long sightId) {
+        this.sightId = sightId;
+        return this;
+    }
 
-	/**
-	 * Sets the row id.
-	 *
-	 * @param rowId the new row id
-	 */
-	public Link setRowId(Long rowId) {
-		this.rowId = rowId;
-		return this;
-	}
+    /**
+     * Gets the column id.
+     *
+     * @return the column id
+     */
+    public Long getColumnId() {
+        return columnId;
+    }
+
+    /**
+     * Sets the column id.
+     *
+     * @param columnId the new column id
+     */
+    public Link setColumnId(Long columnId) {
+        this.columnId = columnId;
+        return this;
+    }
+
+    /**
+     * Gets the row id.
+     *
+     * @return the row id
+     */
+    public Long getRowId() {
+        return rowId;
+    }
+
+    /**
+     * Sets the row id.
+     *
+     * @param rowId the new row id
+     */
+    public Link setRowId(Long rowId) {
+        this.rowId = rowId;
+        return this;
+    }
 }

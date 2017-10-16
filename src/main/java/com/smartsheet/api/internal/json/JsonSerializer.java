@@ -39,177 +39,177 @@ import java.util.Map;
  * Thread Safety: Implementation of this interface must be thread safe.
  */
 public interface JsonSerializer {
-	
-	/**
-	 * Serialize an object to JSON.
-	 * 
-	 * Parameters: - object : the object to serialize - outputStream : the output stream to which the JSON will be
-	 * written
-	 * 
-	 * Returns: None
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
-	 * other error occurred during the operation
-	 *
-	 * @param <T> the generic type
-	 * @param object the object
-	 * @param outputStream the output stream
-	 * @throws JSONSerializerException the JSON serializer exception
-	 */
-	public <T> void serialize(T object, java.io.OutputStream outputStream) throws JSONSerializerException;
 
-	/**
-	 * Serialize an object to JSON.
-	 *
-	 * Parameters: - object : the object to serialize - outputStream : the output stream to which the JSON will be
-	 * written
-	 *
-	 * Returns: None
-	 *
-	 * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
-	 * other error occurred during the operation
-	 *
-	 * @param <T> the generic type
-	 * @param object the object
-	 * @throws JSONSerializerException the JSON serializer exception
-	 */
-	public <T> String serialize(T object) throws JSONSerializerException;
+    /**
+     * Serialize an object to JSON.
+     *
+     * Parameters: - object : the object to serialize - outputStream : the output stream to which the JSON will be
+     * written
+     *
+     * Returns: None
+     *
+     * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
+     * other error occurred during the operation
+     *
+     * @param <T> the generic type
+     * @param object the object
+     * @param outputStream the output stream
+     * @throws JSONSerializerException the JSON serializer exception
+     */
+    public <T> void serialize(T object, java.io.OutputStream outputStream) throws JSONSerializerException;
 
-	/**
-	 * De-serialize json to PagedResult.
-	 * @param objectClass the object class
-	 * @param inputStream the input stream
-	 * @param <T> the generic type
-	 * @return the PagedResult containing a list of type T
-	 * @throws JSONSerializerException
-	 */
-	public <T> PagedResult<T> deserializeDataWrapper(Class<T> objectClass, java.io.InputStream inputStream) throws JSONSerializerException;
+    /**
+     * Serialize an object to JSON.
+     *
+     * Parameters: - object : the object to serialize - outputStream : the output stream to which the JSON will be
+     * written
+     *
+     * Returns: None
+     *
+     * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
+     * other error occurred during the operation
+     *
+     * @param <T> the generic type
+     * @param object the object
+     * @throws JSONSerializerException the JSON serializer exception
+     */
+    public <T> String serialize(T object) throws JSONSerializerException;
 
-	/**
-	 * De-serialize an object from JSON.
-	 * 
-	 * Parameters: - objectClass : the class of the object to de-serialize - inputStream : the input stream from which
-	 * the JSON will be read
-	 * 
-	 * Returns: the de-serialized object
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
-	 * other error occurred during the operation
-	 *
-	 * @param <T> the generic type
-	 * @param objectClass the object class
-	 * @param inputStream the input stream
-	 * @return the t
-	 * @throws JsonParseException the json parse exception
-	 * @throws JsonMappingException the json mapping exception
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 */
-	public <T> T deserialize(Class<T> objectClass, java.io.InputStream inputStream) throws JsonParseException,
-			JsonMappingException, IOException;
+    /**
+     * De-serialize json to PagedResult.
+     * @param objectClass the object class
+     * @param inputStream the input stream
+     * @param <T> the generic type
+     * @return the PagedResult containing a list of type T
+     * @throws JSONSerializerException
+     */
+    public <T> PagedResult<T> deserializeDataWrapper(Class<T> objectClass, java.io.InputStream inputStream) throws JSONSerializerException;
 
-	/**
-	 * De-serialize an object list from JSON.
-	 * 
-	 * Parameters: - objectClass : the class of the object (of the list) to de-serialize - inputStream : the input
-	 * stream from which the JSON will be read
-	 * 
-	 * Returns: the de-serialized list
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
-	 * other error occurred during the operation
-	 *
-	 * @param <T> the generic type
-	 * @param objectClass the object class
-	 * @param inputStream the input stream
-	 * @return the list
-	 * @throws JSONSerializerException the JSON serializer exception
-	 */
-	public <T> List<T> deserializeList(Class<T> objectClass, java.io.InputStream inputStream)
-			throws JSONSerializerException;
-	
-	
-	/**
-	 * De-serialize an object list from JSON to a Map.
-	 *
-	 * @param inputStream the input stream
-	 * @return the map
-	 * @throws JSONSerializerException the JSON serializer exception
-	 */
-	public Map<String, Object> deserializeMap(InputStream inputStream) throws JSONSerializerException;
-	
-	/**
-	 * De-serialize a Result<T> object from JSON.
-	 * 
-	 * Parameters: - objectClass : the class of the object (of the Result) to de-serialize - inputStream : the input
-	 * stream from which the JSON will be read
-	 * 
-	 * Returns: the de-serialized result
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
-	 * other error occurred during the operation
-	 *
-	 * @param <T> the generic type
-	 * @param objectClass the object class
-	 * @param inputStream the input stream
-	 * @return the result
-	 * @throws JSONSerializerException the JSON serializer exception
-	 */
-	public <T> Result<T> deserializeResult(Class<T> objectClass, java.io.InputStream inputStream)
-			throws JSONSerializerException;
+    /**
+     * De-serialize an object from JSON.
+     *
+     * Parameters: - objectClass : the class of the object to de-serialize - inputStream : the input stream from which
+     * the JSON will be read
+     *
+     * Returns: the de-serialized object
+     *
+     * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
+     * other error occurred during the operation
+     *
+     * @param <T> the generic type
+     * @param objectClass the object class
+     * @param inputStream the input stream
+     * @return the t
+     * @throws JsonParseException the json parse exception
+     * @throws JsonMappingException the json mapping exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    public <T> T deserialize(Class<T> objectClass, java.io.InputStream inputStream) throws JsonParseException,
+            JsonMappingException, IOException;
 
-	/**
-	 * De-serialize a Result<List<T>> object from JSON.
-	 * 
-	 * Parameters: - objectClass : the class of the object (of the Result) to de-serialize - inputStream : the input
-	 * stream from which the JSON will be read
-	 * 
-	 * Returns: the de-serialized result
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
-	 * other error occurred during the operation
-	 *
-	 * @param <T> the generic type
-	 * @param objectClass the object class
-	 * @param inputStream the input stream
-	 * @return the result
-	 * @throws JSONSerializerException the JSON serializer exception
-	 */
-	public <T> Result<List<T>> deserializeListResult(Class<T> objectClass, java.io.InputStream inputStream)
-			throws JSONSerializerException;
-	/**
-	 * De-serialize a PartialRowUpdateResult object from JSON.
-	 *
-	 * Parameters:
-	 * - inputStream : the input stream from which the JSON will be read
-	 *
-	 * Returns: the de-serialized result
-	 *
-	 * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
-	 * other error occurred during the operation
-	 *
-	 * @param inputStream the input stream
-	 * @return the result
-	 * @throws JSONSerializerException the JSON serializer exception
-	 */
-	public PartialRowUpdateResult deserializePartialRowUpdateResult(java.io.InputStream inputStream)
-			throws JSONSerializerException;
+    /**
+     * De-serialize an object list from JSON.
+     *
+     * Parameters: - objectClass : the class of the object (of the list) to de-serialize - inputStream : the input
+     * stream from which the JSON will be read
+     *
+     * Returns: the de-serialized list
+     *
+     * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
+     * other error occurred during the operation
+     *
+     * @param <T> the generic type
+     * @param objectClass the object class
+     * @param inputStream the input stream
+     * @return the list
+     * @throws JSONSerializerException the JSON serializer exception
+     */
+    public <T> List<T> deserializeList(Class<T> objectClass, java.io.InputStream inputStream)
+            throws JSONSerializerException;
 
-	/**
-	 * De-serialize a Result object from JSON.
-	 *
-	 * Parameters: - objectClass : the class of the object (of the Result) to de-serialize - inputStream : the input
-	 * stream from which the JSON will be read
-	 *
-	 * Returns: the de-serialized result
-	 *
-	 * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
-	 * other error occurred during the operation
-	 *
-	 * @param inputStream the input stream
-	 * @return the result
-	 * @throws JSONSerializerException the JSON serializer exception
-	 */
-	public CopyOrMoveRowResult deserializeCopyOrMoveRow(java.io.InputStream inputStream)
-			throws JSONSerializerException;
+
+    /**
+     * De-serialize an object list from JSON to a Map.
+     *
+     * @param inputStream the input stream
+     * @return the map
+     * @throws JSONSerializerException the JSON serializer exception
+     */
+    public Map<String, Object> deserializeMap(InputStream inputStream) throws JSONSerializerException;
+
+    /**
+     * De-serialize a Result<T> object from JSON.
+     *
+     * Parameters: - objectClass : the class of the object (of the Result) to de-serialize - inputStream : the input
+     * stream from which the JSON will be read
+     *
+     * Returns: the de-serialized result
+     *
+     * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
+     * other error occurred during the operation
+     *
+     * @param <T> the generic type
+     * @param objectClass the object class
+     * @param inputStream the input stream
+     * @return the result
+     * @throws JSONSerializerException the JSON serializer exception
+     */
+    public <T> Result<T> deserializeResult(Class<T> objectClass, java.io.InputStream inputStream)
+            throws JSONSerializerException;
+
+    /**
+     * De-serialize a Result<List<T>> object from JSON.
+     *
+     * Parameters: - objectClass : the class of the object (of the Result) to de-serialize - inputStream : the input
+     * stream from which the JSON will be read
+     *
+     * Returns: the de-serialized result
+     *
+     * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
+     * other error occurred during the operation
+     *
+     * @param <T> the generic type
+     * @param objectClass the object class
+     * @param inputStream the input stream
+     * @return the result
+     * @throws JSONSerializerException the JSON serializer exception
+     */
+    public <T> Result<List<T>> deserializeListResult(Class<T> objectClass, java.io.InputStream inputStream)
+            throws JSONSerializerException;
+    /**
+     * De-serialize a PartialRowUpdateResult object from JSON.
+     *
+     * Parameters:
+     * - inputStream : the input stream from which the JSON will be read
+     *
+     * Returns: the de-serialized result
+     *
+     * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
+     * other error occurred during the operation
+     *
+     * @param inputStream the input stream
+     * @return the result
+     * @throws JSONSerializerException the JSON serializer exception
+     */
+    public PartialRowUpdateResult deserializePartialRowUpdateResult(java.io.InputStream inputStream)
+            throws JSONSerializerException;
+
+    /**
+     * De-serialize a Result object from JSON.
+     *
+     * Parameters: - objectClass : the class of the object (of the Result) to de-serialize - inputStream : the input
+     * stream from which the JSON will be read
+     *
+     * Returns: the de-serialized result
+     *
+     * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
+     * other error occurred during the operation
+     *
+     * @param inputStream the input stream
+     * @return the result
+     * @throws JSONSerializerException the JSON serializer exception
+     */
+    public CopyOrMoveRowResult deserializeCopyOrMoveRow(java.io.InputStream inputStream)
+            throws JSONSerializerException;
 
 }

@@ -30,36 +30,36 @@ import static org.hamcrest.CoreMatchers.is;
 
 
 public class SmartsheetExceptionTest {
-	@Rule
-	public ExpectedException thrown = ExpectedException.none();
-	
-	
-	@Before
-	public void setUp() throws Exception {
-	}
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
-	@Test
-	public void testSmartsheetExceptionString() throws SmartsheetException {
-		thrown.expect(SmartsheetException.class);
-		thrown.expectMessage("My Exception");
-		throw new SmartsheetException("My Exception");
-	}
 
-	@Test
-	public void testSmartsheetExceptionStringThrowable() throws SmartsheetException {
-		NullPointerException expected = new NullPointerException();
-		thrown.expect(SmartsheetException.class);
-		thrown.expectMessage("Throwable exception");
-		thrown.expectCause(is(expected));
-		throw new SmartsheetException("Throwable exception", expected);
-	}
+    @Before
+    public void setUp() throws Exception {
+    }
 
-	@Test
-	public void testSmartsheetExceptionException() throws SmartsheetException {
-		NullPointerException expected = new NullPointerException();
-		thrown.expect(SmartsheetException.class);
-		thrown.expectCause(is(expected));
-		throw new SmartsheetException(expected);
-	}
+    @Test
+    public void testSmartsheetExceptionString() throws SmartsheetException {
+        thrown.expect(SmartsheetException.class);
+        thrown.expectMessage("My Exception");
+        throw new SmartsheetException("My Exception");
+    }
+
+    @Test
+    public void testSmartsheetExceptionStringThrowable() throws SmartsheetException {
+        NullPointerException expected = new NullPointerException();
+        thrown.expect(SmartsheetException.class);
+        thrown.expectMessage("Throwable exception");
+        thrown.expectCause(is(expected));
+        throw new SmartsheetException("Throwable exception", expected);
+    }
+
+    @Test
+    public void testSmartsheetExceptionException() throws SmartsheetException {
+        NullPointerException expected = new NullPointerException();
+        thrown.expect(SmartsheetException.class);
+        thrown.expectCause(is(expected));
+        throw new SmartsheetException(expected);
+    }
 
 }

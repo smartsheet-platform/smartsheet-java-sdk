@@ -24,18 +24,18 @@ package com.smartsheet.api.models.enums;
  * Represents specific objects that can be included in some responses.
  */
 public enum SourceInclusion {
-	SOURCE		("source"),
-	OWNERINFO	("ownerInfo"),
-	;
+    SOURCE      ("source"),
+    OWNERINFO   ("ownerInfo"),
+    ;
 
-	String inclusion;
+    String inclusion;
 
-	SourceInclusion(String inclusion) {
-		this.inclusion = inclusion;
-	}
+    SourceInclusion(String inclusion) {
+        this.inclusion = inclusion;
+    }
 
-	@Override
-	public String toString() {
-		return inclusion;
-	}
+    @Override
+    public String toString() {
+        return inclusion;
+    }
 }

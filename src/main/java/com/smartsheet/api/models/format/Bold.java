@@ -24,26 +24,26 @@ package com.smartsheet.api.models.format;
  * An enumeration representing the available Bold state for a format.
  */
 public enum Bold {
-	NONE 	(false),
-	ON		(true),
-	;
-	private final boolean bold;
-	
-	
-	/**
-	 * The default setting when the {@link Format} for {@link Bold} is null;
-	 */
-	public static final Bold DEFAULT = NONE;
-	
-	private Bold (boolean bold) {
-		this.bold = bold;
-	}
+    NONE     (false),
+    ON        (true),
+    ;
+    private final boolean bold;
 
-	/**
-	 * @return the bold
-	 */
-	public boolean isBold() {
-		return bold;
-	}
-	
+
+    /**
+     * The default setting when the {@link Format} for {@link Bold} is null;
+     */
+    public static final Bold DEFAULT = NONE;
+
+    private Bold (boolean bold) {
+        this.bold = bold;
+    }
+
+    /**
+     * @return the bold
+     */
+    public boolean isBold() {
+        return bold;
+    }
+
 }
