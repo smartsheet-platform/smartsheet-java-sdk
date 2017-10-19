@@ -66,6 +66,11 @@ public class SheetPublish {
     private String readOnlyLiteUrl;
 
     /**
+     * Represents the read-only lite URL with HTTPS.
+     */
+    private String readOnlyLiteSslUrl;
+
+    /**
      * Represents the read-only full URL.
      */
     private String readOnlyFullUrl;
@@ -79,6 +84,17 @@ public class SheetPublish {
      * Represents the iCal URL.
      */
     private String icalUrl;
+
+
+    /**
+     * Flag to show or hide the left nav toolbar for the read only sheet.
+     */
+    private Boolean readOnlyFullShowToolbar = true;
+
+    /**
+     * Flag to show or hide the left nav toolbar for the read/write sheet.
+     */
+    private Boolean readWriteShowToolbar = true;
 
     /**
      * Gets the read only lite enabled flag.
@@ -195,9 +211,9 @@ public class SheetPublish {
     }
 
     /**
-     * Gets the read only lite url flag.
+     * Gets the read only lite url.
      *
-     * @return the read only lite url flag
+     * @return the read only lite url
      */
     public String getReadOnlyLiteUrl() {
         return readOnlyLiteUrl;
@@ -212,6 +228,26 @@ public class SheetPublish {
         this.readOnlyLiteUrl = readOnlyLiteUrl;
         return this;
     }
+
+    /**
+     * Get the read only lite ssl url
+     *
+     * @return the read only lite ssl url
+     */
+    public String getReadOnlyLiteSslUrl() {
+        return readOnlyLiteSslUrl;
+    }
+
+    /**
+     * Sets the read only lite ssl url
+     *
+     * @param readOnlyLiteSslUrl
+     */
+    public SheetPublish setReadOnlyLiteSslUrl(String readOnlyLiteSslUrl) {
+        this.readOnlyLiteSslUrl = readOnlyLiteSslUrl;
+        return this;
+    }
+
 
     /**
      * Gets the read only full (fancy UI) url.
@@ -271,6 +307,45 @@ public class SheetPublish {
     }
 
     /**
+     * Get the read only full show toolbar flag
+     *
+     * @return readOnlyFullShowToolbar
+     */
+    public Boolean getReadOnlyFullShowToolbar() {
+        return readOnlyFullShowToolbar;
+    }
+
+    /**
+     * Set the read only full show toolbar flag
+     *
+     * @param readOnlyFullShowToolbar
+     * @return
+     */
+    public SheetPublish setReadOnlyFullShowToolbar(Boolean readOnlyFullShowToolbar) {
+        this.readOnlyFullShowToolbar = readOnlyFullShowToolbar;
+        return this;
+    }
+
+    /**
+     * Get the read/write show toolbar flag
+     *
+     * @return readWriteShowToolbar
+     */
+    public Boolean getReadWriteShowToolbar() {
+        return readWriteShowToolbar;
+    }
+
+    /**
+     * Set the read/write show toolbar flag
+     *
+     * @param readWriteShowToolbar
+     */
+    public SheetPublish setReadWriteShowToolbar(Boolean readWriteShowToolbar) {
+        this.readWriteShowToolbar = readWriteShowToolbar;
+        return this;
+    }
+
+    /**
      * A convenience class for making a {@link SheetPublish} object with the necessary fields to publish a sheet.
      */
     public static class PublishStatusBuilder {
@@ -278,6 +353,30 @@ public class SheetPublish {
         private Boolean readOnlyFullEnabled;
         private Boolean readWriteEnabled;
         private Boolean icalEnabled;
+        private Boolean readWriteShowToolbarEnabled;
+        private Boolean readOnlyFullShowToolbarEnabled;
+
+        /**
+         * Show or hide toolbar on a read/write sheet
+         *
+         * @param readWriteShowToolbarEnabled
+         * @return the publish status builder
+         */
+        public PublishStatusBuilder setReadWriteShowToolbarEnabled(Boolean readWriteShowToolbarEnabled) {
+           this.readWriteShowToolbarEnabled = readWriteShowToolbarEnabled;
+           return this;
+        }
+
+        /**
+         * Show or hide toolbar on a read only full sheet
+         *
+         * @param readOnlyFullShowToolbarEnabled
+         * @return the publish status builder
+         */
+        public PublishStatusBuilder setReadOnlyFullShowToolbarEnabled(Boolean readOnlyFullShowToolbarEnabled) {
+            this.readOnlyFullShowToolbarEnabled = readOnlyFullShowToolbarEnabled;
+            return this;
+        }
 
         /**
          * Read only lite enabled.
@@ -376,6 +475,15 @@ public class SheetPublish {
             sheetPublish.readOnlyFullEnabled = readOnlyFullEnabled;
             sheetPublish.readWriteEnabled = readWriteEnabled;
             sheetPublish.icalEnabled = icalEnabled;
+
+            if (readOnlyFullShowToolbarEnabled != null) {
+                sheetPublish.readOnlyFullShowToolbar = readOnlyFullShowToolbarEnabled;
+            }
+
+            if (readWriteShowToolbarEnabled != null) {
+                sheetPublish.readWriteShowToolbar = readWriteShowToolbarEnabled;
+            }
+
             return sheetPublish;
         }
     }

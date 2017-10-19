@@ -32,11 +32,15 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class ReportResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
     PagedResult<Report> reportsWrapper;
+
+    private Long getReportId() {
+        return reportsWrapper.getData().get(0).getId();
+    }
 
     @Before
     public void setUp() throws Exception {
@@ -50,39 +54,43 @@ public class ReportResourcesIT extends ITResourcesImpl{
         testGetReportAsExcel();
         testGetReportAsCsv();
         testSendSheet();
+        testPublishReport();
+    }
+
+    public void testListReports() throws  SmartsheetException, IOException {
+        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder()
+                .setIncludeAll(true).build();
+        reportsWrapper = smartsheet.reportResources().listReports(null);
+        reportsWrapper = smartsheet.reportResources().listReports(parameters);
     }
 
     public void testGetReport() throws SmartsheetException, IOException {
         if (reportsWrapper.getData().size() > 0) {
-            Report report = smartsheet.reportResources().getReport(reportsWrapper.getData().get(0).getId(), EnumSet.of(ReportInclusion.ATTACHMENTS, ReportInclusion.DISCUSSIONS), 1, 1);
-            smartsheet.reportResources().getReport(reportsWrapper.getData().get(0).getId(), null, null, null);
+            EnumSet<ReportInclusion> reportInclusions = EnumSet.of(ReportInclusion.ATTACHMENTS, ReportInclusion.DISCUSSIONS);
+            Report report = smartsheet.reportResources().getReport(getReportId(), reportInclusions, 1, 1);
+            smartsheet.reportResources().getReport(getReportId(), null, null, null);
             assertNotNull(report);
         }
-    }
-
-    public void testListReports() throws  SmartsheetException, IOException {
-        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
-        reportsWrapper = smartsheet.reportResources().listReports(null);
-        reportsWrapper = smartsheet.reportResources().listReports(parameters);
     }
 
     public void testGetReportAsExcel() throws SmartsheetException, IOException{
         if (reportsWrapper.getData().size() > 0) {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        smartsheet.reportResources().getReportAsExcel(reportsWrapper.getData().get(0).getId(), output);
+        smartsheet.reportResources().getReportAsExcel(getReportId(), output);
        assertNotNull(output);}
     }
 
     public void testGetReportAsCsv() throws SmartsheetException, IOException{
         if (reportsWrapper.getData().size() > 0) {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        smartsheet.reportResources().getReportAsCsv(reportsWrapper.getData().get(0).getId(), output);
+        smartsheet.reportResources().getReportAsCsv(getReportId(), output);
         assertNotNull(output);}
     }
 
     public void testSendSheet() throws SmartsheetException, IOException {
         List<Recipient> recipients = new ArrayList<Recipient>();
-        RecipientEmail recipientEmail = new RecipientEmail.AddRecipientEmailBuilder().setEmail("aditi.nioding@smartsheet.com").build();
+        RecipientEmail recipientEmail = new RecipientEmail.AddRecipientEmailBuilder()
+                .setEmail("aditi.nioding@smartsheet.com").build();
         //RecipientGroup recipientGroup = new RecipientGroup.AddRecipientGroupBuilder().setGroupId(1234L).build();
 
         //List<Recipient> recipients = Arrays.asList(recipientEmail, recipientGroup);
@@ -92,12 +100,33 @@ public class ReportResourcesIT extends ITResourcesImpl{
         FormatDetails formatDetails = new FormatDetails();
         formatDetails.setPaperSize(PaperSize.A0);
 
-        SheetEmail email = new SheetEmail.AddSheetEmailBuilder().setFormat(SheetEmailFormat.PDF).setFormatDetails(formatDetails).setSubject("Check this report out!").setMessage("something").setCcMe(false).setSendTo(recipients).setFormatDetails(formatDetails).build();
+        SheetEmail email = new SheetEmail.AddSheetEmailBuilder()
+                .setFormat(SheetEmailFormat.PDF)
+                .setFormatDetails(formatDetails)
+                .setSubject("Check this report out!")
+                .setMessage("something")
+                .setCcMe(false)
+                .setSendTo(recipients)
+                .setFormatDetails(formatDetails)
+                .build();
 
         if (reportsWrapper.getData().size() > 0) {
-            smartsheet.reportResources().sendReport(reportsWrapper.getData().get(0).getId(), email);
+            smartsheet.reportResources().sendReport(getReportId(), email);
             //smartsheet.reportResources().sendReport(8623082916079492L, email);
         }
     }
+
+    public void testPublishReport() throws SmartsheetException, IOException {
+        if (reportsWrapper.getData().size() > 0) {
+            ReportPublish reportPublish = new ReportPublish();
+            reportPublish.setReadOnlyFullEnabled(true);
+            reportPublish.setReadOnlyFullShowToolbar(false);
+
+            ReportPublish newReportPublish = smartsheet.reportResources().updatePublishStatus(getReportId(), reportPublish);
+            assertTrue(newReportPublish.getReadOnlyFullEnabled());
+            assertFalse(newReportPublish.getReadOnlyFullShowToolbar());
+        }
+    }
+
 
 }
