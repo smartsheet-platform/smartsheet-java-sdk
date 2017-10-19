@@ -28,10 +28,10 @@ Add the SDK as a dependency in your project.
 <!--* [The SDK packaged in a jar with Dependencies](https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST) built in.-->
 [SDK packaged as a jar](https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST). This jar requires that all of the following dependencies are manually added to the path:
 
-	Apache HttpComponents 4.5
-	Simple Logging Facade for Java 1.7.12
-	Jackson FasterXML 2.6.2
-	Jackson Core 2.6.2
+    Apache HttpComponents 4.5
+    Simple Logging Facade for Java 1.7.12
+    Jackson FasterXML 2.6.2
+    Jackson Core 2.6.2
 
 You can also navigate to the [Sonatype Library Page](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22smartsheet-sdk-java%22) instead of directly downloading the Jar file.
 

@@ -32,48 +32,48 @@ import java.util.List;
  */
 @Deprecated
 public class AssociatedAttachmentResourcesImpl extends AbstractAssociatedResources 
-	implements AssociatedAttachmentResources {
+    implements AssociatedAttachmentResources {
 
-	/**
-	 * @deprecated As of release 2.0
-	 */
-	@Deprecated
-	public AssociatedAttachmentResourcesImpl(SmartsheetImpl smartsheet, String masterResourceType) {
-		super(smartsheet, masterResourceType);
-	}
+    /**
+     * @deprecated As of release 2.0
+     */
+    @Deprecated
+    public AssociatedAttachmentResourcesImpl(SmartsheetImpl smartsheet, String masterResourceType) {
+        super(smartsheet, masterResourceType);
+    }
 
-	/**
-	 * @deprecated As of release 2.0
-	 */
-	@Deprecated
-	public List<Attachment> listAttachments(long objectId){
-		throw new UnsupportedOperationException();
-	}
+    /**
+     * @deprecated As of release 2.0
+     */
+    @Deprecated
+    public List<Attachment> listAttachments(long objectId){
+        throw new UnsupportedOperationException();
+    }
 
-	/**
-	 * @deprecated As of release 2.0
-	 */
-	@Deprecated
-	public Attachment attachFile(long objectId, File file, String contentType){
-		throw new UnsupportedOperationException();
-	}
-
-
-	/**
-	 * @deprecated As of release 2.0
-	 */
-	@Deprecated
-	public Attachment attachFile(long objectId, InputStream inputStream, String contentType, long contentLength, String attachmentName){
-		throw new UnsupportedOperationException();
-	}
+    /**
+     * @deprecated As of release 2.0
+     */
+    @Deprecated
+    public Attachment attachFile(long objectId, File file, String contentType){
+        throw new UnsupportedOperationException();
+    }
 
 
-	/**
-	 * @deprecated As of release 2.0
-	 */
-	@Deprecated
-	public Attachment attachURL(long objectId, Attachment attachment){
-		throw new UnsupportedOperationException();
-	}
+    /**
+     * @deprecated As of release 2.0
+     */
+    @Deprecated
+    public Attachment attachFile(long objectId, InputStream inputStream, String contentType, long contentLength, String attachmentName){
+        throw new UnsupportedOperationException();
+    }
+
+
+    /**
+     * @deprecated As of release 2.0
+     */
+    @Deprecated
+    public Attachment attachURL(long objectId, Attachment attachment){
+        throw new UnsupportedOperationException();
+    }
 
 }

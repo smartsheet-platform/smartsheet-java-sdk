@@ -27,23 +27,23 @@ import org.junit.Before;
 
 public class ResourcesImplBase {
 
-	HttpTestServer server;
-	FolderResourcesImpl folderResource;
-	JacksonJsonSerializer serializer;
+    HttpTestServer server;
+    FolderResourcesImpl folderResource;
+    JacksonJsonSerializer serializer;
 
-	@Before
-	public void baseSetUp() throws Exception {
-		// Setup test server
-		server = new HttpTestServer();
-		server.setPort(9090);
-		server.start();
+    @Before
+    public void baseSetUp() throws Exception {
+        // Setup test server
+        server = new HttpTestServer();
+        server.setPort(9090);
+        server.start();
 
-		// Setup the serializer
-		JacksonJsonSerializer.setFailOnUnknownProperties(true);
-	}
-	
-	@After
-	public void baseTearDown() throws Exception {
-		server.stop();
-	}
+        // Setup the serializer
+        JacksonJsonSerializer.setFailOnUnknownProperties(true);
+    }
+
+    @After
+    public void baseTearDown() throws Exception {
+        server.stop();
+    }
 }

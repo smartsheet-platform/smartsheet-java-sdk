@@ -26,18 +26,18 @@ package com.smartsheet.api.models.enums;
  * Represents the user status.
  */
 public enum UserStatus {
-	/**
-	 * Represents ACTIVE status.
-	 */
-	ACTIVE,
+    /**
+     * Represents ACTIVE status.
+     */
+    ACTIVE,
 
-	/**
-	 * Represents PENDING status.
-	 */
-	PENDING,
+    /**
+     * Represents PENDING status.
+     */
+    PENDING,
 
-	/**
-	 * Represents DECLINED status.
-	 */
-	DECLINED;
+    /**
+     * Represents DECLINED status.
+     */
+    DECLINED;
 }

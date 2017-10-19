@@ -29,20 +29,20 @@ import static org.junit.Assert.assertNotNull;
 
 public class AttachmentTypeTest {
 
-	@Before
-	public void setUp() throws Exception {
-	}
+    @Before
+    public void setUp() throws Exception {
+    }
 
-	@Test
-	public void test() {
-		assertNotNull(AttachmentType.valueOf("FILE"));
-		assertNotNull(AttachmentType.valueOf("GOOGLE_DRIVE"));
-		assertNotNull(AttachmentType.valueOf("LINK"));
-		assertNotNull(AttachmentType.valueOf("BOX_COM"));
-		assertNotNull(AttachmentType.valueOf("DROPBOX"));
-		assertNotNull(AttachmentType.valueOf("EGNYTE"));
-		assertNotNull(AttachmentType.valueOf("ONEDRIVE"));
-		assertEquals(7,AttachmentType.values().length);
-	}
+    @Test
+    public void test() {
+        assertNotNull(AttachmentType.valueOf("FILE"));
+        assertNotNull(AttachmentType.valueOf("GOOGLE_DRIVE"));
+        assertNotNull(AttachmentType.valueOf("LINK"));
+        assertNotNull(AttachmentType.valueOf("BOX_COM"));
+        assertNotNull(AttachmentType.valueOf("DROPBOX"));
+        assertNotNull(AttachmentType.valueOf("EGNYTE"));
+        assertNotNull(AttachmentType.valueOf("ONEDRIVE"));
+        assertEquals(7,AttachmentType.values().length);
+    }
 
 }

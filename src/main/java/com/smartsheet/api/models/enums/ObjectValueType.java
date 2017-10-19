@@ -20,40 +20,40 @@ package com.smartsheet.api.models.enums;
  */
 
 public enum ObjectValueType {
-	/**
-	 * DATE
-	 */
-	DATE,
-	/**
-	 * DATETIME
-	 */
-	DATETIME,
-	/**
-	 * ABSTRACT_DATETIME
-	 */
-	ABSTRACT_DATETIME,
-	/**
-	 * CONTACT
-	 */
-	CONTACT,
-	/**
-	 * DURATION
-	 */
-	DURATION,
-	/**
-	 * PREDECESSOR_LIST
-	 */
-	PREDECESSOR_LIST,
-	/**
-	 * NUMBER
-	 */
-	NUMBER,
-	/**
-	 * BOOLEAN
-	 */
-	BOOLEAN,
-	/**
-	 * STRING
-	 */
-	STRING,
+    /**
+     * DATE
+     */
+    DATE,
+    /**
+     * DATETIME
+     */
+    DATETIME,
+    /**
+     * ABSTRACT_DATETIME
+     */
+    ABSTRACT_DATETIME,
+    /**
+     * CONTACT
+     */
+    CONTACT,
+    /**
+     * DURATION
+     */
+    DURATION,
+    /**
+     * PREDECESSOR_LIST
+     */
+    PREDECESSOR_LIST,
+    /**
+     * NUMBER
+     */
+    NUMBER,
+    /**
+     * BOOLEAN
+     */
+    BOOLEAN,
+    /**
+     * STRING
+     */
+    STRING,
 }

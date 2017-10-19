@@ -28,21 +28,21 @@ import static org.junit.Assert.assertEquals;
 
 public class AccessTokenExpiredExceptionTest {
 
-	@Before
-	public void setUp() throws Exception {
-	}
+    @Before
+    public void setUp() throws Exception {
+    }
 
-	@Test
-	public void testAccessTokenExpiredException() {
-		try{
-			Error error = new Error();
-			error.setErrorCode(1);
-			error.setMessage("testing testing");
-			throw new AccessTokenExpiredException(error);
-		}catch(AccessTokenExpiredException e){
-			assertEquals("testing testing",e.getMessage());
-			assertEquals(1, e.getErrorCode());
-		}
-	}
+    @Test
+    public void testAccessTokenExpiredException() {
+        try{
+            Error error = new Error();
+            error.setErrorCode(1);
+            error.setMessage("testing testing");
+            throw new AccessTokenExpiredException(error);
+        }catch(AccessTokenExpiredException e){
+            assertEquals("testing testing",e.getMessage());
+            assertEquals(1, e.getErrorCode());
+        }
+    }
 
 }

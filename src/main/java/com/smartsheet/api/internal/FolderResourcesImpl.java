@@ -40,167 +40,167 @@ import java.util.HashMap;
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class FolderResourcesImpl extends AbstractResources implements FolderResources {
-	
-	/**
-	 * Constructor.
-	 * 
-	 * Parameters: - smartsheet : the SmartsheetImpl
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null
-	 *
-	 * @param smartsheet the smartsheet
-	 */
-	public FolderResourcesImpl(SmartsheetImpl smartsheet) {
-		super(smartsheet);
-	}
 
-	/**
-	 * Get a folder.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /folder/{id}
-	 * 
-	 * Exceptions:
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ResourceNotFoundException : if the resource can not be found
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param folderId the folder id
-	 * @param includes the include parameters
-	 * @return the folder (note that if there is no such resource, this method will throw ResourceNotFoundException
-	 * rather than returning null)
-	 * @throws SmartsheetException the smartsheet exception
-	 */
-	public Folder getFolder(long folderId, EnumSet<SourceInclusion> includes) throws SmartsheetException {
-		String path = "folders/" + folderId;
-		HashMap<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
-		path += QueryUtil.generateUrl(null, parameters);
+    /**
+     * Constructor.
+     *
+     * Parameters: - smartsheet : the SmartsheetImpl
+     *
+     * Exceptions: - IllegalArgumentException : if any argument is null
+     *
+     * @param smartsheet the smartsheet
+     */
+    public FolderResourcesImpl(SmartsheetImpl smartsheet) {
+        super(smartsheet);
+    }
 
-		return this.getResource(path, Folder.class);
-	}
+    /**
+     * Get a folder.
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /folder/{id}
+     *
+     * Exceptions:
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ResourceNotFoundException : if the resource can not be found
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param folderId the folder id
+     * @param includes the include parameters
+     * @return the folder (note that if there is no such resource, this method will throw ResourceNotFoundException
+     * rather than returning null)
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Folder getFolder(long folderId, EnumSet<SourceInclusion> includes) throws SmartsheetException {
+        String path = "folders/" + folderId;
+        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+        path += QueryUtil.generateUrl(null, parameters);
 
-	/**
-	 * Update a folder.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: PUT /folder/{id}
-	 * 
-	 * Exceptions:
-	 *   IllegalArgumentException : if folder is null
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ResourceNotFoundException : if the resource can not be found
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param folder the folder to update
-	 * @return the updated folder (note that if there is no such folder, this method will throw
-	 * ResourceNotFoundException rather than returning null).
-	 * @throws SmartsheetException the smartsheet exception
-	 */
-	public Folder updateFolder(Folder folder) throws SmartsheetException {
+        return this.getResource(path, Folder.class);
+    }
 
-		return this.updateResource("folders/" + folder.getId(), Folder.class, folder);
-	}
+    /**
+     * Update a folder.
+     *
+     * It mirrors to the following Smartsheet REST API method: PUT /folder/{id}
+     *
+     * Exceptions:
+     *   IllegalArgumentException : if folder is null
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ResourceNotFoundException : if the resource can not be found
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param folder the folder to update
+     * @return the updated folder (note that if there is no such folder, this method will throw
+     * ResourceNotFoundException rather than returning null).
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Folder updateFolder(Folder folder) throws SmartsheetException {
 
-	/**
-	 * Delete a folder.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: DELETE /folder{id}
-	 * 
-	 * Exceptions:
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token) 
-	 *   ResourceNotFoundException : if the resource can not be found
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param folderId the folder id
-	 * @throws SmartsheetException the smartsheet exception
-	 */
-	public void deleteFolder(long folderId) throws SmartsheetException {
-		
-		this.deleteResource("folders/" + folderId, Folder.class);
-	}
+        return this.updateResource("folders/" + folder.getId(), Folder.class, folder);
+    }
 
-	/**
-	 * List child folders of a given folder.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /folder/{id}/folders
-	 * 
-	 * Parameters: - parentFolderId : the parent folder ID
-	 * 
-	 * Exceptions:
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ResourceNotFoundException : if the resource can not be found
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 * 
-	 * @param parentFolderId the parent folder id
-	 * @param parameters the parameters for pagination
-	 * @return the child folders (note that empty list will be returned if no child folder found)
-	 * @throws SmartsheetException the smartsheet exception
-	 */
-	public PagedResult<Folder> listFolders(long parentFolderId, PaginationParameters parameters) throws SmartsheetException {
-		String path = "folders/" + parentFolderId + "/folders";
+    /**
+     * Delete a folder.
+     *
+     * It mirrors to the following Smartsheet REST API method: DELETE /folder{id}
+     *
+     * Exceptions:
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ResourceNotFoundException : if the resource can not be found
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param folderId the folder id
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public void deleteFolder(long folderId) throws SmartsheetException {
 
-		if (parameters != null) {
-			path += parameters.toQueryString();
-		}
+        this.deleteResource("folders/" + folderId, Folder.class);
+    }
 
-		return this.listResourcesWithWrapper(path, Folder.class);
-	}
+    /**
+     * List child folders of a given folder.
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /folder/{id}/folders
+     *
+     * Parameters: - parentFolderId : the parent folder ID
+     *
+     * Exceptions:
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ResourceNotFoundException : if the resource can not be found
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param parentFolderId the parent folder id
+     * @param parameters the parameters for pagination
+     * @return the child folders (note that empty list will be returned if no child folder found)
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public PagedResult<Folder> listFolders(long parentFolderId, PaginationParameters parameters) throws SmartsheetException {
+        String path = "folders/" + parentFolderId + "/folders";
 
-	/**
-	 * Create a folder.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /folder/{id}/folders
-	 * 
-	 * Exceptions:
-	 *   IllegalArgumentException : if folder is null
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param parentFolderId the parent folder id
-	 * @param folder the folder to create
-	 * @return the folder
-	 * @throws SmartsheetException the smartsheet exception
-	 */
-	public Folder createFolder(long parentFolderId, Folder folder) throws SmartsheetException {
+        if (parameters != null) {
+            path += parameters.toQueryString();
+        }
 
-		return this.createResource("folders/" + parentFolderId + "/folders", Folder.class, folder);
-	}
+        return this.listResourcesWithWrapper(path, Folder.class);
+    }
 
-	/**
-	 * Creates a copy of the specified Folder.
-	 *
-	 * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/copy
-	 *
-	 * Exceptions:
-	 *   IllegalArgumentException : if folder is null
-	 *   InvalidRequestException : if there is any problem with the REST API request
-	 *   AuthorizationException : if there is any problem with the REST API authorization(access token)
-	 *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-	 *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
-	 *   SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param folderId the folder id
-	 * @param containerDestination describes the destination container
+    /**
+     * Create a folder.
+     *
+     * It mirrors to the following Smartsheet REST API method: POST /folder/{id}/folders
+     *
+     * Exceptions:
+     *   IllegalArgumentException : if folder is null
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param parentFolderId the parent folder id
+     * @param folder the folder to create
+     * @return the folder
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Folder createFolder(long parentFolderId, Folder folder) throws SmartsheetException {
+
+        return this.createResource("folders/" + parentFolderId + "/folders", Folder.class, folder);
+    }
+
+    /**
+     * Creates a copy of the specified Folder.
+     *
+     * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/copy
+     *
+     * Exceptions:
+     *   IllegalArgumentException : if folder is null
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param folderId the folder id
+     * @param containerDestination describes the destination container
      * @param includes optional parameters to include
      * @param skipRemap optional parameters to exclude
-	 * @return the folder
-	 * @throws SmartsheetException the smartsheet exception
-	 */
-	public Folder copyFolder(long folderId, ContainerDestination containerDestination, EnumSet<FolderCopyInclusion> includes, EnumSet<FolderRemapExclusion> skipRemap) throws SmartsheetException {
+     * @return the folder
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Folder copyFolder(long folderId, ContainerDestination containerDestination, EnumSet<FolderCopyInclusion> includes, EnumSet<FolderRemapExclusion> skipRemap) throws SmartsheetException {
 
         String path = "folders/" + folderId + "/copy";
         HashMap<String, Object> parameters = new HashMap<String, Object>();
@@ -210,8 +210,8 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
 
         path += QueryUtil.generateUrl(null, parameters);
 
-		return this.createResource(path, Folder.class, containerDestination);
-	}
+        return this.createResource(path, Folder.class, containerDestination);
+    }
 
     /**
      * Moves the specified Folder to another location.

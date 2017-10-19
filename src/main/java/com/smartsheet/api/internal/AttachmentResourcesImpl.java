@@ -35,34 +35,34 @@ import java.io.InputStream;
  */
 @Deprecated
 public class AttachmentResourcesImpl extends AbstractResources implements AttachmentResources {
-	
-	/**
-	 * Constructor.
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null
-	 *
-	 * @param smartsheet the smartsheet
-	 */
-	public AttachmentResourcesImpl(SmartsheetImpl smartsheet) {
-		super(smartsheet);
-	}
 
-	/**
-	 * @deprecated As of release 2.0
-	 * @return the attachment
-	 */
-	@Deprecated
-	public Attachment attachNewVersion(long attachmentId, File file, String contentType){
-		throw new UnsupportedOperationException();
-	}
+    /**
+     * Constructor.
+     *
+     * Exceptions: - IllegalArgumentException : if any argument is null
+     *
+     * @param smartsheet the smartsheet
+     */
+    public AttachmentResourcesImpl(SmartsheetImpl smartsheet) {
+        super(smartsheet);
+    }
 
-	/**
-	 * @deprecated As of release 2.0
-	 * @return the attachment
-	 */
-	@Deprecated
-	public Attachment attachNewVersion (long attachmentId, InputStream inputStream, String contentType, long contentLength, String attachmentName)
-	{
-		throw new UnsupportedOperationException();
-	}
+    /**
+     * @deprecated As of release 2.0
+     * @return the attachment
+     */
+    @Deprecated
+    public Attachment attachNewVersion(long attachmentId, File file, String contentType){
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * @deprecated As of release 2.0
+     * @return the attachment
+     */
+    @Deprecated
+    public Attachment attachNewVersion (long attachmentId, InputStream inputStream, String contentType, long contentLength, String attachmentName)
+    {
+        throw new UnsupportedOperationException();
+    }
 }

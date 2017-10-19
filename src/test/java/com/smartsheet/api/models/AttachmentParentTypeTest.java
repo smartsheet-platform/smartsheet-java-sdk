@@ -29,16 +29,16 @@ import static org.junit.Assert.assertNotNull;
 
 public class AttachmentParentTypeTest {
 
-	@Before
-	public void setUp() throws Exception {
-	}
+    @Before
+    public void setUp() throws Exception {
+    }
 
-	@Test
-	public void test() {
-		assertNotNull(AttachmentParentType.valueOf("SHEET"));
-		assertNotNull(AttachmentParentType.valueOf("ROW"));
-		assertNotNull(AttachmentParentType.valueOf("COMMENT"));
-		assertEquals(3,AttachmentParentType.values().length);
-	}
+    @Test
+    public void test() {
+        assertNotNull(AttachmentParentType.valueOf("SHEET"));
+        assertNotNull(AttachmentParentType.valueOf("ROW"));
+        assertNotNull(AttachmentParentType.valueOf("COMMENT"));
+        assertEquals(3,AttachmentParentType.values().length);
+    }
 
 }

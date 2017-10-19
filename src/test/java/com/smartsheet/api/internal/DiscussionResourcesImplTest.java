@@ -34,33 +34,33 @@ import static org.junit.Assert.assertNull;
 
 public class DiscussionResourcesImplTest extends ResourcesImplBase {
 
-	private DiscussionResourcesImpl discussionResources;
+    private DiscussionResourcesImpl discussionResources;
 
-	@Before
-	public void setUp() throws Exception {
-		discussionResources = new DiscussionResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", 
-				"accessToken", new DefaultHttpClient(), serializer));
-	}
+    @Before
+    public void setUp() throws Exception {
+        discussionResources = new DiscussionResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
+                "accessToken", new DefaultHttpClient(), serializer));
+    }
 
-	@Test
-	public void testDiscussionResourcesImpl() {
-	}
+    @Test
+    public void testDiscussionResourcesImpl() {
+    }
 
-	@Test
-	public void testAddDiscussionComment() throws SmartsheetException, IOException {
-		server.setResponseBody(new File("src/test/resources/addDiscussionComment.json"));
-		
-		Comment comment = new Comment();
-		comment.setText("Some new Text");
-		
-		Comment newComment = discussionResources.addDiscussionComment(1234L, comment);
-		
-		assertEquals("This is a new comment.",newComment.getText());
-		assertEquals("John Doe", newComment.getCreatedBy().getName());
-	}
+    @Test
+    public void testAddDiscussionComment() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/addDiscussionComment.json"));
 
-	@Test
-	public void testAttachments() {
-		assertNull(discussionResources.attachments());
-	}
+        Comment comment = new Comment();
+        comment.setText("Some new Text");
+
+        Comment newComment = discussionResources.addDiscussionComment(1234L, comment);
+
+        assertEquals("This is a new comment.",newComment.getText());
+        assertEquals("John Doe", newComment.getCreatedBy().getName());
+    }
+
+    @Test
+    public void testAttachments() {
+        assertNull(discussionResources.attachments());
+    }
 }

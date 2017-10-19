@@ -33,65 +33,65 @@ import com.smartsheet.api.models.PaginationParameters;
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class WorkspaceFolderResourcesImpl extends AbstractResources implements WorkspaceFolderResources {
-	
-	/**
-	 * Constructor.
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is
-	 *
-	 * @param smartsheet the smartsheet
-	 */
-	public WorkspaceFolderResourcesImpl(SmartsheetImpl smartsheet) {
-		super(smartsheet);
-	}
 
-	/**
-	 * List folders of a given workspace.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: GET /workspace/{id}/folders
-	 *
-	 * Exceptions: 
-	 *   - InvalidRequestException : if there is any problem with the REST API request 
-	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token) 
-	 *   - ResourceNotFoundException : if the resource can not be found 
-	 *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) 
-	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation 
-	 *   - SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param workspaceId the ID of the workspace
-	 * @param parameters the pagination parameters
-	 * @return the folders (note that empty list will be returned if there is none)
-	 * @throws SmartsheetException the smartsheet exception
-	 */
-	public PagedResult<Folder> listFolders(long workspaceId, PaginationParameters parameters) throws SmartsheetException {
-		String path = "workspaces/" + workspaceId + "/folders";
+    /**
+     * Constructor.
+     *
+     * Exceptions: - IllegalArgumentException : if any argument is
+     *
+     * @param smartsheet the smartsheet
+     */
+    public WorkspaceFolderResourcesImpl(SmartsheetImpl smartsheet) {
+        super(smartsheet);
+    }
 
-		if (parameters != null) {
-			path += parameters.toQueryString();
-		}
+    /**
+     * List folders of a given workspace.
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /workspace/{id}/folders
+     *
+     * Exceptions:
+     *   - InvalidRequestException : if there is any problem with the REST API request
+     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   - ResourceNotFoundException : if the resource can not be found
+     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   - SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param workspaceId the ID of the workspace
+     * @param parameters the pagination parameters
+     * @return the folders (note that empty list will be returned if there is none)
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public PagedResult<Folder> listFolders(long workspaceId, PaginationParameters parameters) throws SmartsheetException {
+        String path = "workspaces/" + workspaceId + "/folders";
 
-		return this.listResourcesWithWrapper(path, Folder.class);
-	}
+        if (parameters != null) {
+            path += parameters.toQueryString();
+        }
 
-	/**
-	 * Create a folder in the workspace.
-	 * 
-	 * It mirrors to the following Smartsheet REST API method: POST /workspace/{id}/folders
-	 * 
-	 * Exceptions: 
-	 *   - IllegalArgumentException : if folder is null 
-	 *   - InvalidRequestException : if there is any problem with the REST API request 
-	 *   - AuthorizationException : if there is any problem with the REST API authorization(access token) 
-	 *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting) 
-	 *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation 
-	 *   - SmartsheetException : if there is any other error occurred during the operation
-	 *
-	 * @param workspaceId the workspace id
-	 * @param folder the folder to create
-	 * @return the created folder
-	 * @throws SmartsheetException the smartsheet exception
-	 */
-	public Folder createFolder(long workspaceId, Folder folder) throws SmartsheetException {
-		return this.createResource("workspaces/" + workspaceId + "/folders", Folder.class, folder);
-	}
+        return this.listResourcesWithWrapper(path, Folder.class);
+    }
+
+    /**
+     * Create a folder in the workspace.
+     *
+     * It mirrors to the following Smartsheet REST API method: POST /workspace/{id}/folders
+     *
+     * Exceptions:
+     *   - IllegalArgumentException : if folder is null
+     *   - InvalidRequestException : if there is any problem with the REST API request
+     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   - SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param workspaceId the workspace id
+     * @param folder the folder to create
+     * @return the created folder
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Folder createFolder(long workspaceId, Folder folder) throws SmartsheetException {
+        return this.createResource("workspaces/" + workspaceId + "/folders", Folder.class, folder);
+    }
 }

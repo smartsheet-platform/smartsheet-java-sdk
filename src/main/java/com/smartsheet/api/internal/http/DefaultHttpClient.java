@@ -343,4 +343,4 @@ public class DefaultHttpClient implements HttpClient {
                 + System.getProperty("java.vm.name") + " " + System.getProperty("java.vendor") + " "
                 + System.getProperty("java.version");
     }
-}		
+}

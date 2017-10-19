@@ -26,30 +26,30 @@ package com.smartsheet.api.models.enums;
  * Represents column types.
  */
 public enum ColumnType {
-	/** Represents the TEXT_NUMBER column type. */
-	TEXT_NUMBER,
+    /** Represents the TEXT_NUMBER column type. */
+    TEXT_NUMBER,
 
-	/** Represents the CONTACT_LIST column type. */
-	CONTACT_LIST,
+    /** Represents the CONTACT_LIST column type. */
+    CONTACT_LIST,
 
-	/** Represents the DATE column type. */
-	DATE,
+    /** Represents the DATE column type. */
+    DATE,
 
-	/** Represents the DATETIME column type. */
-	DATETIME,
+    /** Represents the DATETIME column type. */
+    DATETIME,
 
-	/** Represents the PICKLIST column type. */
-	PICKLIST,
+    /** Represents the PICKLIST column type. */
+    PICKLIST,
 
-	/** Represents the CHECKBOX column type. */
-	CHECKBOX,
+    /** Represents the CHECKBOX column type. */
+    CHECKBOX,
 
-	/** Represents the DURATION column type. */
-	DURATION,
+    /** Represents the DURATION column type. */
+    DURATION,
 
-	/** Represents the PREDECESSOR column type. */
-	PREDECESSOR,
-	
-	/** Represents the ABSTRACT_DATETIME (auto number) column type */
-	ABSTRACT_DATETIME,
+    /** Represents the PREDECESSOR column type. */
+    PREDECESSOR,
+
+    /** Represents the ABSTRACT_DATETIME (auto number) column type */
+    ABSTRACT_DATETIME,
 }

@@ -37,243 +37,243 @@ import com.smartsheet.api.retry.CalcBackoff;
  * multiple threads.</p>
  */
 public class SmartsheetBuilder {
-	/**
-	 * <p>Represents the HttpClient.</p>
-	 * 
-	 * <p>It can be set using corresponding setter.</p>
-	 */
-	private HttpClient httpClient;
+    /**
+     * <p>Represents the HttpClient.</p>
+     *
+     * <p>It can be set using corresponding setter.</p>
+     */
+    private HttpClient httpClient;
 
-	/**
-	 * <p>Represents the JsonSerializer.</p>
-	 * 
-	 * <p>It can be set using corresponding setter.</p>
-	 */
-	private JsonSerializer jsonSerializer;
+    /**
+     * <p>Represents the JsonSerializer.</p>
+     *
+     * <p>It can be set using corresponding setter.</p>
+     */
+    private JsonSerializer jsonSerializer;
 
-	/**
-	 * <p>Represents the base URI.</p>
-	 * 
-	 * <p>It can be set using corresponding setter.</p>
-	 */
-	private String baseURI;
+    /**
+     * <p>Represents the base URI.</p>
+     *
+     * <p>It can be set using corresponding setter.</p>
+     */
+    private String baseURI;
 
-	/**
-	 * <p>Represents the access token.</p>
-	 * 
-	 * <p>It can be set using corresponding setter.</p>
-	 */
-	private String accessToken;
+    /**
+     * <p>Represents the access token.</p>
+     *
+     * <p>It can be set using corresponding setter.</p>
+     */
+    private String accessToken;
 
-	/**
-	 * <p>Represents the assumed user.</p>
-	 * 
-	 * <p>It can be set using corresponding setter.</p>
-	 */
-	private String assumedUser;
+    /**
+     * <p>Represents the assumed user.</p>
+     *
+     * <p>It can be set using corresponding setter.</p>
+     */
+    private String assumedUser;
 
-	/**
-	 * <p>User provided calc backoff routine.</p>
-	 *
-	 * <p>It can be set using corresponding setter.</p>
-	 */
-	private CalcBackoff calcBackoff = null;
+    /**
+     * <p>User provided calc backoff routine.</p>
+     *
+     * <p>It can be set using corresponding setter.</p>
+     */
+    private CalcBackoff calcBackoff = null;
 
-	/**
-	 * <p>Represents the change agent.</p>
-	 *
-	 * <p>It can be set using corresponding setter.</p>
-	 */
-	private String changeAgent;
+    /**
+     * <p>Represents the change agent.</p>
+     *
+     * <p>It can be set using corresponding setter.</p>
+     */
+    private String changeAgent;
 
-	/**
-	 * <p>Represents the default base URI of the Smartsheet REST API.</p>
-	 * 
-	 * <p>It is a constant with value "https://api.smartsheet.com/1.1".</p>
-	 */
-	public static final String DEFAULT_BASE_URI = "https://api.smartsheet.com/2.0/";
+    /**
+     * <p>Represents the default base URI of the Smartsheet REST API.</p>
+     *
+     * <p>It is a constant with value "https://api.smartsheet.com/1.1".</p>
+     */
+    public static final String DEFAULT_BASE_URI = "https://api.smartsheet.com/2.0/";
 
-	/**
-	 * Constructor.
-	 */
-	public SmartsheetBuilder() {
-	}
+    /**
+     * Constructor.
+     */
+    public SmartsheetBuilder() {
+    }
 
-	/**
-	 * <p>Set the HttpClient.</p>
-	 *
-	 * @param httpClient the http client
-	 * @return the smartsheet builder
-	 */
-	public SmartsheetBuilder setHttpClient(HttpClient httpClient) {
-		this.httpClient = httpClient;
-		return this;
-	}
+    /**
+     * <p>Set the HttpClient.</p>
+     *
+     * @param httpClient the http client
+     * @return the smartsheet builder
+     */
+    public SmartsheetBuilder setHttpClient(HttpClient httpClient) {
+        this.httpClient = httpClient;
+        return this;
+    }
 
-	/**
-	 * <p>Set the JsonSerializer.</p>
-	 *
-	 * @param jsonSerializer the JsonSerializer
-	 * @return the SmartsheetBuilder
-	 */
-	public SmartsheetBuilder setJsonSerializer(JsonSerializer jsonSerializer) {
-		this.jsonSerializer = jsonSerializer;
-		return this;
-	}
+    /**
+     * <p>Set the JsonSerializer.</p>
+     *
+     * @param jsonSerializer the JsonSerializer
+     * @return the SmartsheetBuilder
+     */
+    public SmartsheetBuilder setJsonSerializer(JsonSerializer jsonSerializer) {
+        this.jsonSerializer = jsonSerializer;
+        return this;
+    }
 
-	/**
-	 * <p>Set the base URI.</p>
-	 *
-	 * @param baseURI the base uri
-	 * @return the smartsheet builder
-	 */
-	public SmartsheetBuilder setBaseURI(String baseURI) {
-		this.baseURI = baseURI; 
-		return this;
-	}
+    /**
+     * <p>Set the base URI.</p>
+     *
+     * @param baseURI the base uri
+     * @return the smartsheet builder
+     */
+    public SmartsheetBuilder setBaseURI(String baseURI) {
+        this.baseURI = baseURI;
+        return this;
+    }
 
-	/**
-	 * <p>Set the access token.</p>
-	 *
-	 * @param accessToken the access token
-	 * @return the smartsheet builder
-	 */
-	public SmartsheetBuilder setAccessToken(String accessToken) {
-		this.accessToken = accessToken;
-		return this;
-	}
+    /**
+     * <p>Set the access token.</p>
+     *
+     * @param accessToken the access token
+     * @return the smartsheet builder
+     */
+    public SmartsheetBuilder setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+        return this;
+    }
 
-	/**
-	 * <p>Set the assumed user.</p>
-	 *
-	 * @param assumedUser the assumed user
-	 * @return the smartsheet builder
-	 */
-	public SmartsheetBuilder setAssumedUser(String assumedUser) {
-		this.assumedUser = assumedUser;
-		return this;
-	}
+    /**
+     * <p>Set the assumed user.</p>
+     *
+     * @param assumedUser the assumed user
+     * @return the smartsheet builder
+     */
+    public SmartsheetBuilder setAssumedUser(String assumedUser) {
+        this.assumedUser = assumedUser;
+        return this;
+    }
 
-	/**
-	 * <p>Store a user provided userCalcBackoff.</p>
-	 *
-	 * <p>This interface is only valid when the DefaultHttpClient is used.</p>
-	 *
-	 * @param maxRetryTimeMillis
-	 * @return the smartsheet builder
-	 */
-	public SmartsheetBuilder setMaxRetryTimeMillis(long maxRetryTimeMillis) {
-		this.calcBackoff = new DefaultCalcBackoff(maxRetryTimeMillis);
-		return this;
-	}
+    /**
+     * <p>Store a user provided userCalcBackoff.</p>
+     *
+     * <p>This interface is only valid when the DefaultHttpClient is used.</p>
+     *
+     * @param maxRetryTimeMillis
+     * @return the smartsheet builder
+     */
+    public SmartsheetBuilder setMaxRetryTimeMillis(long maxRetryTimeMillis) {
+        this.calcBackoff = new DefaultCalcBackoff(maxRetryTimeMillis);
+        return this;
+    }
 
-	/**
-	 * <p>Create a defaultCalcBackoff with a max elapsed timeout specified by the user.</p>
-	 *
-	 * <p>This interface is only valid when the DefaultHttpClient is used.</p>
-	 *
-	 * @param calcBackoff
-	 * @return the smartsheet builder
-	 */
-	public SmartsheetBuilder setUserCalcBackoff(CalcBackoff calcBackoff) {
-		this.calcBackoff = calcBackoff;
-		return this;
-	}
+    /**
+     * <p>Create a defaultCalcBackoff with a max elapsed timeout specified by the user.</p>
+     *
+     * <p>This interface is only valid when the DefaultHttpClient is used.</p>
+     *
+     * @param calcBackoff
+     * @return the smartsheet builder
+     */
+    public SmartsheetBuilder setUserCalcBackoff(CalcBackoff calcBackoff) {
+        this.calcBackoff = calcBackoff;
+        return this;
+    }
 
-	/**
-	 * <p>Set the assumed user.</p>
-	 *
-	 * @param changeAgent the identifier to include in the webhooks that result from the changes
-	 *                    made using the API
-	 *
-	 * @return the smartsheet builder
-	 */
-	public SmartsheetBuilder setChangeAgent(String changeAgent) {
-		this.changeAgent = changeAgent;
-		return this;
-	}
+    /**
+     * <p>Set the assumed user.</p>
+     *
+     * @param changeAgent the identifier to include in the webhooks that result from the changes
+     *                    made using the API
+     *
+     * @return the smartsheet builder
+     */
+    public SmartsheetBuilder setChangeAgent(String changeAgent) {
+        this.changeAgent = changeAgent;
+        return this;
+    }
 
 
-	/**
-	 * <p>Gets the http client.</p>
-	 *
-	 * @return the http client
-	 */
-	public HttpClient getHttpClient() {
-		return httpClient;
-	}
+    /**
+     * <p>Gets the http client.</p>
+     *
+     * @return the http client
+     */
+    public HttpClient getHttpClient() {
+        return httpClient;
+    }
 
-	/**
-	 * <p>Gets the json serializer.</p>
-	 *
-	 * @return the json serializer
-	 */
-	public JsonSerializer getJsonSerializer() {
-		return jsonSerializer;
-	}
+    /**
+     * <p>Gets the json serializer.</p>
+     *
+     * @return the json serializer
+     */
+    public JsonSerializer getJsonSerializer() {
+        return jsonSerializer;
+    }
 
-	/**
-	 * <p>Gets the base uri.</p>
-	 *
-	 * @return the base uri
-	 */
-	public String getBaseURI() {
-		return baseURI;
-	}
+    /**
+     * <p>Gets the base uri.</p>
+     *
+     * @return the base uri
+     */
+    public String getBaseURI() {
+        return baseURI;
+    }
 
-	/**
-	 * <p>Gets the access token.</p>
-	 *
-	 * @return the access token
-	 */
-	public String getAccessToken() {
-		return accessToken;
-	}
+    /**
+     * <p>Gets the access token.</p>
+     *
+     * @return the access token
+     */
+    public String getAccessToken() {
+        return accessToken;
+    }
 
-	/**
-	 * <p>Gets the assumed user.</p>
-	 *
-	 * @return the assumed user
-	 */
-	public String getAssumedUser() {
-		return assumedUser;
-	}
+    /**
+     * <p>Gets the assumed user.</p>
+     *
+     * @return the assumed user
+     */
+    public String getAssumedUser() {
+        return assumedUser;
+    }
 
-	/**
-	 * <p>Gets the default base uri.</p>
-	 *
-	 * @return the default base uri
-	 */
-	public static String getDefaultBaseUri() {
-		return DEFAULT_BASE_URI;
-	}
+    /**
+     * <p>Gets the default base uri.</p>
+     *
+     * @return the default base uri
+     */
+    public static String getDefaultBaseUri() {
+        return DEFAULT_BASE_URI;
+    }
 
-	public String getChangeAgent() {
-		return changeAgent;
-	}
-	/**
-	 * <p>Build the Smartsheet instance.</p>
-	 *
-	 * @return the Smartsheet instance
-	 * @throws IllegalStateException if accessToken isn't set yet.
-	 */
-	public Smartsheet build() {
-		if(baseURI == null){
-			baseURI = DEFAULT_BASE_URI;
-		}
+    public String getChangeAgent() {
+        return changeAgent;
+    }
+    /**
+     * <p>Build the Smartsheet instance.</p>
+     *
+     * @return the Smartsheet instance
+     * @throws IllegalStateException if accessToken isn't set yet.
+     */
+    public Smartsheet build() {
+        if(baseURI == null){
+            baseURI = DEFAULT_BASE_URI;
+        }
 
-		if(accessToken == null){
-			accessToken = System.getenv("SMARTSHEET_ACCESS_TOKEN");
-		}
+        if(accessToken == null){
+            accessToken = System.getenv("SMARTSHEET_ACCESS_TOKEN");
+        }
 
-		SmartsheetImpl smartsheet = new SmartsheetImpl(baseURI, accessToken, httpClient, jsonSerializer, changeAgent);
+        SmartsheetImpl smartsheet = new SmartsheetImpl(baseURI, accessToken, httpClient, jsonSerializer, changeAgent);
 
-		if(calcBackoff != null) {
-			smartsheet.setCalcBackoff(calcBackoff);
-		}
+        if(calcBackoff != null) {
+            smartsheet.setCalcBackoff(calcBackoff);
+        }
 
-		if (assumedUser != null) { smartsheet.setAssumedUser(assumedUser); }
-		
-		return smartsheet;
-	}
+        if (assumedUser != null) { smartsheet.setAssumedUser(assumedUser); }
+
+        return smartsheet;
+    }
 }

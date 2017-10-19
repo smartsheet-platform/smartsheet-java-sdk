@@ -30,53 +30,53 @@ import java.util.Map;
  * Thread Safety: This class is not thread safe since it's mutable.
  */
 public abstract class HttpMessage {
-	/**
-	 * Represents the HTTP headers.
-	 * 
-	 * It has a pair of setter/getter (not shown on class diagram for brevity).
-	 */
-	private Map<String, String> headers;
+    /**
+     * Represents the HTTP headers.
+     *
+     * It has a pair of setter/getter (not shown on class diagram for brevity).
+     */
+    private Map<String, String> headers;
 
-	/**
-	 * Represents the HTTP entity.
-	 * 
-	 * It has a pair of setter/getter (not shown on class diagram for brevity).
-	 */
-	private HttpEntity entity;
-	
-	/**
-	 * Gets the headers.
-	 *
-	 * @return the headers
-	 */
-	public Map<String, String> getHeaders() {
-		return headers;
-	}
+    /**
+     * Represents the HTTP entity.
+     *
+     * It has a pair of setter/getter (not shown on class diagram for brevity).
+     */
+    private HttpEntity entity;
 
-	/**
-	 * Sets the headers.
-	 *
-	 * @param headers the headers
-	 */
-	public void setHeaders(Map<String, String> headers) {
-		this.headers = headers;
-	}
+    /**
+     * Gets the headers.
+     *
+     * @return the headers
+     */
+    public Map<String, String> getHeaders() {
+        return headers;
+    }
 
-	/**
-	 * Gets the entity.
-	 *
-	 * @return the entity
-	 */
-	public HttpEntity getEntity() {
-		return entity;
-	}
+    /**
+     * Sets the headers.
+     *
+     * @param headers the headers
+     */
+    public void setHeaders(Map<String, String> headers) {
+        this.headers = headers;
+    }
 
-	/**
-	 * Sets the entity.
-	 *
-	 * @param entity the new entity
-	 */
-	public void setEntity(HttpEntity entity) {
-		this.entity = entity;
-	}
+    /**
+     * Gets the entity.
+     *
+     * @return the entity
+     */
+    public HttpEntity getEntity() {
+        return entity;
+    }
+
+    /**
+     * Sets the entity.
+     *
+     * @param entity the new entity
+     */
+    public void setEntity(HttpEntity entity) {
+        this.entity = entity;
+    }
 }

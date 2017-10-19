@@ -28,49 +28,49 @@ import java.util.List;
  * Smartsheet</a>
  */
 public class SearchResult {
-	/**
-	 * Represents total count of results.
-	 */
-	private Integer totalCount;
+    /**
+     * Represents total count of results.
+     */
+    private Integer totalCount;
 
-	/**
-	 * A list of items returned from the search results.
-	 */
-	private List<SearchResultItem> results;
+    /**
+     * A list of items returned from the search results.
+     */
+    private List<SearchResultItem> results;
 
-	/**
-	 * Gets the total count of results.
-	 *
-	 * @return the total count
-	 */
-	public Integer getTotalCount() {
-		return totalCount;
-	}
+    /**
+     * Gets the total count of results.
+     *
+     * @return the total count
+     */
+    public Integer getTotalCount() {
+        return totalCount;
+    }
 
-	/**
-	 * Sets the total count of results.
-	 *
-	 * @param totalCount the new total count
-	 */
-	public void setTotalCount(Integer totalCount) {
-		this.totalCount = totalCount;
-	}
+    /**
+     * Sets the total count of results.
+     *
+     * @param totalCount the new total count
+     */
+    public void setTotalCount(Integer totalCount) {
+        this.totalCount = totalCount;
+    }
 
-	/**
-	 * Gets the list of results from the search.
-	 *
-	 * @return the results
-	 */
-	public List<SearchResultItem> getResults() {
-		return results;
-	}
+    /**
+     * Gets the list of results from the search.
+     *
+     * @return the results
+     */
+    public List<SearchResultItem> getResults() {
+        return results;
+    }
 
-	/**
-	 * Sets the results list of results.
-	 *
-	 * @param results the new results
-	 */
-	public void setResults(List<SearchResultItem> results) {
-		this.results = results;
-	}
+    /**
+     * Sets the results list of results.
+     *
+     * @param results the new results
+     */
+    public void setResults(List<SearchResultItem> results) {
+        this.results = results;
+    }
 }

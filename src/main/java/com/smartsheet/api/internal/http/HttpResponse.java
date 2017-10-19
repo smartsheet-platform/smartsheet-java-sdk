@@ -28,50 +28,50 @@ package com.smartsheet.api.internal.http;
  * Thread Safety: This class is not thread safe since it's mutable.
  */
 public class HttpResponse extends HttpMessage {
-	/**
-	 * Represents the response status code.
-	 * 
-	 * It has a pair of setter/getter (not shown on class diagram for brevity).
-	 */
-	private int statusCode;
-	private String statusText;
+    /**
+     * Represents the response status code.
+     *
+     * It has a pair of setter/getter (not shown on class diagram for brevity).
+     */
+    private int statusCode;
+    private String statusText;
 
-	/**
-	 * Gets the status code.
-	 *
-	 * @return the status code
-	 */
-	public int getStatusCode() {
-		return statusCode;
-	}
+    /**
+     * Gets the status code.
+     *
+     * @return the status code
+     */
+    public int getStatusCode() {
+        return statusCode;
+    }
 
-	/**
-	 * Gets the status text.
-	 *
-	 * @return the status text
-	 */
-	public String getStatusText() {
-		return statusText;
-	}
+    /**
+     * Gets the status text.
+     *
+     * @return the status text
+     */
+    public String getStatusText() {
+        return statusText;
+    }
 
-	/**
-	 * Sets the status code.
-	 *
-	 * @param statusCode the new status code
-	 */
-	public void setStatusCode(int statusCode) {
-		this.statusCode = statusCode;
-	}
+    /**
+     * Sets the status code.
+     *
+     * @param statusCode the new status code
+     */
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
+    }
 
-	/**
-	 * Sets the status code and text.
-	 *
-	 * @param statusCode the new status code
-	 * @param statusText the new status text
-	 */
-	public void setStatus(int statusCode, String statusText) {
-		this.statusCode = statusCode;
-		this.statusText = statusText;
-	}
+    /**
+     * Sets the status code and text.
+     *
+     * @param statusCode the new status code
+     * @param statusText the new status text
+     */
+    public void setStatus(int statusCode, String statusText) {
+        this.statusCode = statusCode;
+        this.statusText = statusText;
+    }
 
 }

@@ -29,24 +29,24 @@ import static org.junit.Assert.assertNotNull;
 
 public class ColumnTypeTest {
 
-	@Before
-	public void setUp() throws Exception {
-	}
+    @Before
+    public void setUp() throws Exception {
+    }
 
-	@Test
-	public void test() {
+    @Test
+    public void test() {
 
-		assertNotNull(ColumnType.valueOf("TEXT_NUMBER"));
-		assertNotNull(ColumnType.valueOf("PICKLIST"));
-		assertNotNull(ColumnType.valueOf("DATE"));
-		assertNotNull(ColumnType.valueOf("DATETIME"));
-		assertNotNull(ColumnType.valueOf("CONTACT_LIST"));
-		assertNotNull(ColumnType.valueOf("CHECKBOX"));
-		assertNotNull(ColumnType.valueOf("DURATION"));
-		assertNotNull(ColumnType.valueOf("PREDECESSOR"));
-		assertNotNull(ColumnType.valueOf("ABSTRACT_DATETIME"));
-		
-		assertEquals(9,ColumnType.values().length);
-	}
+        assertNotNull(ColumnType.valueOf("TEXT_NUMBER"));
+        assertNotNull(ColumnType.valueOf("PICKLIST"));
+        assertNotNull(ColumnType.valueOf("DATE"));
+        assertNotNull(ColumnType.valueOf("DATETIME"));
+        assertNotNull(ColumnType.valueOf("CONTACT_LIST"));
+        assertNotNull(ColumnType.valueOf("CHECKBOX"));
+        assertNotNull(ColumnType.valueOf("DURATION"));
+        assertNotNull(ColumnType.valueOf("PREDECESSOR"));
+        assertNotNull(ColumnType.valueOf("ABSTRACT_DATETIME"));
+
+        assertEquals(9,ColumnType.values().length);
+    }
 
 }

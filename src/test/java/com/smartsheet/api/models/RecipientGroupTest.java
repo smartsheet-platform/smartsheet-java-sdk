@@ -26,11 +26,11 @@ import static org.junit.Assert.assertNotNull;
 
 public class RecipientGroupTest {
 
-	@Test
-	public void testRecipientGroup() {
-		RecipientGroup recipient = new RecipientGroup();
-		recipient.setGroupId(123456789L);
+    @Test
+    public void testRecipientGroup() {
+        RecipientGroup recipient = new RecipientGroup();
+        recipient.setGroupId(123456789L);
 
-		assertNotNull(recipient.getGroupId());
-	}
+        assertNotNull(recipient.getGroupId());
+    }
 }

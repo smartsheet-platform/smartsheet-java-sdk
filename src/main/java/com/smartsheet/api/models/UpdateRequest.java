@@ -31,33 +31,33 @@ public class UpdateRequest extends MultiRowEmail {
     /**
      * Represents the ID of the update request.
      */
-	private Long id;
+    private Long id;
 
-	/**
-	 * User object containing name and email of the sender.
-	 */
-	private User sentBy;
-	
-	/**
-	 * The schedule for which update requests will be sent out.
-	 */
-	private Schedule schedule;
-	
-	/**
-	 * The date and time for when this request was originally created.
-	 */
-	private Date createdAt;
-	
-	/**
-	 * The date and time for when the last change was made to this request.
-	 */
-	private Date modifiedAt;
+    /**
+     * User object containing name and email of the sender.
+     */
+    private User sentBy;
 
-	/**
-	 * Get the Id of the update request.
-	 * 
-	 * @return id
-	 */
+    /**
+     * The schedule for which update requests will be sent out.
+     */
+    private Schedule schedule;
+
+    /**
+     * The date and time for when this request was originally created.
+     */
+    private Date createdAt;
+
+    /**
+     * The date and time for when the last change was made to this request.
+     */
+    private Date modifiedAt;
+
+    /**
+     * Get the Id of the update request.
+     *
+     * @return id
+     */
     public Long getId() {
         return id;
     }
@@ -78,7 +78,7 @@ public class UpdateRequest extends MultiRowEmail {
      * @return sentBy
      */
     public User getSentBy() {
-    	return sentBy;
+        return sentBy;
     }
     
     /**
@@ -87,8 +87,8 @@ public class UpdateRequest extends MultiRowEmail {
      * @param sentBy
      */
     public UpdateRequest setSentBy(User sentBy) {
-    	this.sentBy = sentBy;
-    	return this;
+        this.sentBy = sentBy;
+        return this;
     }
     
     /**
@@ -97,7 +97,7 @@ public class UpdateRequest extends MultiRowEmail {
      * @return schedule
      */
     public Schedule getSchedule() {
-    	return schedule;
+        return schedule;
     }
     
     /**
@@ -106,8 +106,8 @@ public class UpdateRequest extends MultiRowEmail {
      * @param schedule
      */
     public UpdateRequest setSchedule(Schedule schedule) {
-    	this.schedule = schedule;
-    	return this;
+        this.schedule = schedule;
+        return this;
     }
     
     /**
@@ -116,7 +116,7 @@ public class UpdateRequest extends MultiRowEmail {
      * @return createdAt
      */
     public Date getCreatedAt() {
-    	return createdAt;
+        return createdAt;
     }
     
     /** 
@@ -125,8 +125,8 @@ public class UpdateRequest extends MultiRowEmail {
      * @param createdAt
      */
     public UpdateRequest setCreatedAt(Date createdAt) {
-    	this.createdAt = createdAt;
-    	return this;
+        this.createdAt = createdAt;
+        return this;
     }
     
     /**
@@ -135,7 +135,7 @@ public class UpdateRequest extends MultiRowEmail {
      * @return modifiedAt
      */
     public Date getModifiedAt() {
-    	return modifiedAt;
+        return modifiedAt;
     }
     
     /**
@@ -144,7 +144,7 @@ public class UpdateRequest extends MultiRowEmail {
      * @param modifiedAt
      */
     public UpdateRequest setModifiedAt(Date modifiedAt) {
-    	this.modifiedAt = modifiedAt;
-    	return this;
+        this.modifiedAt = modifiedAt;
+        return this;
     }
 }

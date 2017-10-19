@@ -33,17 +33,17 @@ import com.smartsheet.api.models.Error;
  * <p>Thread safety: Exceptions are not thread safe.</p>
  */
 public class AuthorizationException extends SmartsheetRestException {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * Constructor.
-	 *
-	 * @param error the Error object from Smartsheet REST API
-	 */
-	public AuthorizationException(Error error) {
-		super(error);
-	}
+    /**
+     * Constructor.
+     *
+     * @param error the Error object from Smartsheet REST API
+     */
+    public AuthorizationException(Error error) {
+        super(error);
+    }
 }

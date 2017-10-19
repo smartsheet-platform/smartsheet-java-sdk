@@ -26,52 +26,52 @@ import java.util.List;
  * Represents the ImageUrl object.
  */
 public class ImageUrlMap {
-	
-	/**
-	 * Milliseconds before the URLs within imageUrls will expire.
-	 */
-	private Long urlExpiresInMillis;
-	
-	/**
-	 * Array of imageUrl objects
-	 */
-	private List<ImageUrl> imageUrls;
 
-	/**
-	 * Get the milliseconds before the URLs within imageUrls will expire.
-	 * 
-	 * @return urlExpiresInMillis
-	 */
-	public Long getUrlExpiresInMillis() {
-		return urlExpiresInMillis;
-	}
-	
-	/**
-	 * Set the milliseconds before the URLs within imageUruls will expire.
-	 *
-	 * @param urlExpiresInMillis
-	 */
-	public ImageUrlMap setUrlExpiresInMillis(Long urlExpiresInMillis) {
-		this.urlExpiresInMillis = urlExpiresInMillis;
-		return this;
-	}
-	
-	/**
-	 * Get the array of imageUrl objects
-	 *  
-	 * @return imageUrls
-	 */
-	public List<ImageUrl> getImageUrls() {
-		return imageUrls;
-	}
-	
-	/**
-	 * Set the array of imageUrl objects
-	 *
-	 * @param imageUrls
-	 */
-	public ImageUrlMap setImageUrls(List<ImageUrl> imageUrls) {
-		this.imageUrls = imageUrls;
-		return this;
-	}
+    /**
+     * Milliseconds before the URLs within imageUrls will expire.
+     */
+    private Long urlExpiresInMillis;
+
+    /**
+     * Array of imageUrl objects
+     */
+    private List<ImageUrl> imageUrls;
+
+    /**
+     * Get the milliseconds before the URLs within imageUrls will expire.
+     *
+     * @return urlExpiresInMillis
+     */
+    public Long getUrlExpiresInMillis() {
+        return urlExpiresInMillis;
+    }
+
+    /**
+     * Set the milliseconds before the URLs within imageUruls will expire.
+     *
+     * @param urlExpiresInMillis
+     */
+    public ImageUrlMap setUrlExpiresInMillis(Long urlExpiresInMillis) {
+        this.urlExpiresInMillis = urlExpiresInMillis;
+        return this;
+    }
+
+    /**
+     * Get the array of imageUrl objects
+     *
+     * @return imageUrls
+     */
+    public List<ImageUrl> getImageUrls() {
+        return imageUrls;
+    }
+
+    /**
+     * Set the array of imageUrl objects
+     *
+     * @param imageUrls
+     */
+    public ImageUrlMap setImageUrls(List<ImageUrl> imageUrls) {
+        this.imageUrls = imageUrls;
+        return this;
+    }
 }

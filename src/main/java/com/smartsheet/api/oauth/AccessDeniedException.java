@@ -28,14 +28,14 @@ package com.smartsheet.api.oauth;
  * <p>Thread safety: Exceptions are not thread safe.</p>
  */
 public class AccessDeniedException extends OAuthAuthorizationCodeException {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * Constructor.
-	 *
-	 * @param message the message
-	 */
-	public AccessDeniedException(String message) {
-		super(message);
-	}
+    /**
+     * Constructor.
+     *
+     * @param message the message
+     */
+    public AccessDeniedException(String message) {
+        super(message);
+    }
 }

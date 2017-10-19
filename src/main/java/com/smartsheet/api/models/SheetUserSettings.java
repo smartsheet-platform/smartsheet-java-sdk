@@ -56,7 +56,7 @@ public class SheetUserSettings {
      * @return displaySummaryTasks
      */
     public Boolean isDisplaySummaryTasksEnabled() {
-    	return displaySummaryTasks;
+        return displaySummaryTasks;
     }
     
     /**
@@ -65,7 +65,7 @@ public class SheetUserSettings {
      * @param displaySummaryTasks
      */
     public SheetUserSettings setDisplaySummaryTasks(Boolean displaySummaryTasks) {
-    	this.displaySummaryTasks = displaySummaryTasks;
+        this.displaySummaryTasks = displaySummaryTasks;
         return this;
     }
     
@@ -98,7 +98,7 @@ public class SheetUserSettings {
          * @return displaySummaryTasks;
          */
         public Boolean isDisplaySummaryTasksEnabled() {
-        	return displaySummaryTasks;
+            return displaySummaryTasks;
         }
         
         /**
@@ -119,8 +119,8 @@ public class SheetUserSettings {
          * @return the builder
          */
         public AddUserSettingsBuilder setDisplaySummaryTasks(Boolean displaySummaryTasks) {
-        	this.displaySummaryTasks = displaySummaryTasks;
-        	return this;
+            this.displaySummaryTasks = displaySummaryTasks;
+            return this;
         }
         
         public SheetUserSettings build() {

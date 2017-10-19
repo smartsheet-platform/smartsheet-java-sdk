@@ -652,7 +652,7 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
      * @return User object
      */    
     public User getCreatedBy() {
-    	return createdBy;
+        return createdBy;
     }
     
     /**
@@ -661,6 +661,6 @@ public class AbstractRow<TColumn extends Column, TCell extends Cell> extends Ide
      * @return User object
      */     
     public User getModifiedBy() {
-    	return modifiedBy;
+        return modifiedBy;
     }
 }

@@ -26,196 +26,196 @@ import java.util.List;
  */
 
 public class Sight extends NamedModel<Long> {
-	
-	/**
-	 * Number of columns that the Sight contains
-	 */
-	private Integer columnCount;
-	
-	/**
-	 * Array of Widget objects
-	 */
-	private List<Widget> widgets;
-	
-	/**
-	 * Indicates whether the User has marked the Sight as a favorite
-	 */
-	private Boolean favorite;
-	
-	/**
-	 * User's permissions on the Sight. 
-	 */
-	private AccessLevel accessLevel;
-	
-	/**
-	 * URL that represents a direct link to the Sight
-	 */
-	private String permalink;
-	
-	/**
-	 * Time of creation
-	 */
-	private Date createdAt;
-	
-	/**
-	 * Time last modified
-	 */
-	private Date modifiedAt;
-	
-	/**
-	 * A workspace object, limited to only Id and Name
-	 */
-	private Workspace workspace;
-	
-	/**
-	 * Get the number of columns that the Sight contains
-	 * 
-	 * @return columnCount
-	 */
-	public Integer getColumnCount() {
-		return columnCount;
-	}
-	
-	/**
-	 * Set the number of columns that the Sight contains
-	 *
-	 * @param columnCount
-	 */
-	public Sight setColumnCount(Integer columnCount) {
-		this.columnCount = columnCount;
-		return this;
-	}
-	
-	/**
-	 * Get the array of Sight widgets
-	 * 
-	 * @return array of widgets
-	 */
-	public List<Widget> getWidgets() {
-		return widgets;
-	}
-	
-	/**
-	 * Set the array of Sight widgets
-	 *
-	 * @param widgets
-	 */
-	public Sight setWidgets(List<Widget> widgets) {
-		this.widgets = widgets;
-		return this;
-	}
-	
-	/**
-	 * Get flag indicating whether the user has marked the Sight as a favorite
-	 * 
-	 * @return favorite flag
-	 */
-	public Boolean getFavorite() {
-		return favorite;
-	}
-	
-	/**
-	 * Set flag indicating whether the user has marked the Sight as a favorite
-	 *
-	 * @param favorite
-	 */
-	public Sight setFavorite(Boolean favorite) {
-		this.favorite = favorite;
-		return this;
-	}
-	
-	/** 
-	 * User's permissions on the Sight (OWNDER, ADMIN, VIEWER)
-	 * 
-	 * @return accessLevel
-	 */
-	public AccessLevel getAccessLevel() {
-		return accessLevel;
-	}
-	
-	/**
-	 * Set User's permissions on the Sight
-	 *
-	 * @param accessLevel
-	 */
-	public Sight setAccessLevel(AccessLevel accessLevel) {
-		this.accessLevel = accessLevel;
-		return this;
-	}
-	
-	/** 
-	 * URL that represents a direct link to the Sight
-	 * 
-	 * @return permalink
-	 */
-	public String getPermalink() {
-		return permalink;
-	}
-	
-	/**
-	 * Set URL pointing to a direct link to the Sight
-	 *
-	 * @param permalink
-	 */
-	public Sight setPermalink(String permalink) {
-		this.permalink = permalink;
-		return this;
-	}
-	
-	/** 
-	 * Get time of Sight creation
-	 * 
-	 * @return createdAt (Date)
-	 */
-	public Date getCreatedAt() {
-		return createdAt;
-	}
-	
-	/**
-	 * Set time of Sight creation
-	 *
-	 * @param createdAt
-	 */
-	public Sight setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-		return this;
-	}
-	
-	/**
-	 * Get time of last modification
-	 * 
-	 * @return modifiedAt (Date)
-	 */
-	public Date getModifiedAt() {
-		return modifiedAt;
-	}
-	
-	/**
-	 * Set time of last modification
-	 *
-	 * @param modifiedAt
-	 */
-	public Sight setModifiedAt(Date modifiedAt) {
-		this.modifiedAt = modifiedAt;
-		return this;
-	}
-	
-	/** 
-	 * A workspace object limited to only id and name
-	 * 
-	 * @return workspace
-	 */
-	public Workspace getWorkspace() {
-		return workspace;
-	}
-	
-	/**
-	 * Set workspace object for this Sight (limited to only id and name)
-	 *
-	 * @param workspace
-	 */
-	public Sight setWorkspace(Workspace workspace) {
-		this.workspace = workspace;
-		return this;
-	}
+
+    /**
+     * Number of columns that the Sight contains
+     */
+    private Integer columnCount;
+
+    /**
+     * Array of Widget objects
+     */
+    private List<Widget> widgets;
+
+    /**
+     * Indicates whether the User has marked the Sight as a favorite
+     */
+    private Boolean favorite;
+
+    /**
+     * User's permissions on the Sight.
+     */
+    private AccessLevel accessLevel;
+
+    /**
+     * URL that represents a direct link to the Sight
+     */
+    private String permalink;
+
+    /**
+     * Time of creation
+     */
+    private Date createdAt;
+
+    /**
+     * Time last modified
+     */
+    private Date modifiedAt;
+
+    /**
+     * A workspace object, limited to only Id and Name
+     */
+    private Workspace workspace;
+
+    /**
+     * Get the number of columns that the Sight contains
+     *
+     * @return columnCount
+     */
+    public Integer getColumnCount() {
+        return columnCount;
+    }
+
+    /**
+     * Set the number of columns that the Sight contains
+     *
+     * @param columnCount
+     */
+    public Sight setColumnCount(Integer columnCount) {
+        this.columnCount = columnCount;
+        return this;
+    }
+
+    /**
+     * Get the array of Sight widgets
+     *
+     * @return array of widgets
+     */
+    public List<Widget> getWidgets() {
+        return widgets;
+    }
+
+    /**
+     * Set the array of Sight widgets
+     *
+     * @param widgets
+     */
+    public Sight setWidgets(List<Widget> widgets) {
+        this.widgets = widgets;
+        return this;
+    }
+
+    /**
+     * Get flag indicating whether the user has marked the Sight as a favorite
+     *
+     * @return favorite flag
+     */
+    public Boolean getFavorite() {
+        return favorite;
+    }
+
+    /**
+     * Set flag indicating whether the user has marked the Sight as a favorite
+     *
+     * @param favorite
+     */
+    public Sight setFavorite(Boolean favorite) {
+        this.favorite = favorite;
+        return this;
+    }
+
+    /**
+     * User's permissions on the Sight (OWNDER, ADMIN, VIEWER)
+     *
+     * @return accessLevel
+     */
+    public AccessLevel getAccessLevel() {
+        return accessLevel;
+    }
+
+    /**
+     * Set User's permissions on the Sight
+     *
+     * @param accessLevel
+     */
+    public Sight setAccessLevel(AccessLevel accessLevel) {
+        this.accessLevel = accessLevel;
+        return this;
+    }
+
+    /**
+     * URL that represents a direct link to the Sight
+     *
+     * @return permalink
+     */
+    public String getPermalink() {
+        return permalink;
+    }
+
+    /**
+     * Set URL pointing to a direct link to the Sight
+     *
+     * @param permalink
+     */
+    public Sight setPermalink(String permalink) {
+        this.permalink = permalink;
+        return this;
+    }
+
+    /**
+     * Get time of Sight creation
+     *
+     * @return createdAt (Date)
+     */
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * Set time of Sight creation
+     *
+     * @param createdAt
+     */
+    public Sight setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /**
+     * Get time of last modification
+     *
+     * @return modifiedAt (Date)
+     */
+    public Date getModifiedAt() {
+        return modifiedAt;
+    }
+
+    /**
+     * Set time of last modification
+     *
+     * @param modifiedAt
+     */
+    public Sight setModifiedAt(Date modifiedAt) {
+        this.modifiedAt = modifiedAt;
+        return this;
+    }
+
+    /**
+     * A workspace object limited to only id and name
+     *
+     * @return workspace
+     */
+    public Workspace getWorkspace() {
+        return workspace;
+    }
+
+    /**
+     * Set workspace object for this Sight (limited to only id and name)
+     *
+     * @param workspace
+     */
+    public Sight setWorkspace(Workspace workspace) {
+        this.workspace = workspace;
+        return this;
+    }
 }

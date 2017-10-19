@@ -26,5 +26,5 @@ package com.smartsheet.api.models.enums;
  * Represents the attachment parent type.
  */
 public enum AttachmentParentType {
-	SHEET, ROW, COMMENT;
+    SHEET, ROW, COMMENT;
 }

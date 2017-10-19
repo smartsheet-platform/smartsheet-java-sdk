@@ -25,24 +25,24 @@ package com.smartsheet.api.models.format;
  * An enumeration representing the available text wrap settings within Smartsheet.
  */
 public enum TextWrap {
-	NONE 	(false),
-	ON		(true),
-	;
-	private final boolean wrapped;
-	
-	private TextWrap (boolean wrapped) {
-		this.wrapped = wrapped;
-	}
+    NONE    (false),
+    ON      (true),
+    ;
+    private final boolean wrapped;
 
-	/**
-	 * The default setting when the {@link Format} for {@link TextWrap} is null;
-	 */
-	public static final TextWrap DEFAULT = NONE;
-	
-	/**
-	 * @return the wrapped
-	 */
-	public boolean isWrapped() {
-		return wrapped;
-	}
+    private TextWrap (boolean wrapped) {
+        this.wrapped = wrapped;
+    }
+
+    /**
+     * The default setting when the {@link Format} for {@link TextWrap} is null;
+     */
+    public static final TextWrap DEFAULT = NONE;
+
+    /**
+     * @return the wrapped
+     */
+    public boolean isWrapped() {
+        return wrapped;
+    }
 }

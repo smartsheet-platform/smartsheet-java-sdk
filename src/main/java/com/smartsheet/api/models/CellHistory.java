@@ -29,49 +29,49 @@ import java.util.Date;
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/518314-viewing-cell-history">Cell History Documentation</a>
  */
 public class CellHistory extends Cell {
-	/**
-	 * Represents the user that modified the cell.
-	 */
-	private User modifiedBy;
-	
-	/** The date the cell was modified. */
-	private Date modifiedAt;
-	
-	/**
-	 * Gets the date the cell was modified.
-	 *
-	 * @return the modified at
-	 */
-	public Date getModifiedAt() {
-		return modifiedAt;
-	}
+    /**
+     * Represents the user that modified the cell.
+     */
+    private User modifiedBy;
 
-	/**
-	 * Sets the modified Date for the cell.
-	 *
-	 * @param modifiedAt the new modified at
-	 */
-	public CellHistory setModifiedAt(Date modifiedAt) {
-		this.modifiedAt = modifiedAt;
-		return this;
-	}
+    /** The date the cell was modified. */
+    private Date modifiedAt;
 
-	/**
-	 * Gets the user that modified the cell.
-	 *
-	 * @return the modified by
-	 */
-	public User getModifiedBy() {
-		return modifiedBy;
-	}
+    /**
+     * Gets the date the cell was modified.
+     *
+     * @return the modified at
+     */
+    public Date getModifiedAt() {
+        return modifiedAt;
+    }
 
-	/**
-	 * Sets the user that modified the cell.
-	 *
-	 * @param modifiedBy the new modified by
-	 */
-	public CellHistory setModifiedBy(User modifiedBy) {
-		this.modifiedBy = modifiedBy;
-		return this;
-	}
+    /**
+     * Sets the modified Date for the cell.
+     *
+     * @param modifiedAt the new modified at
+     */
+    public CellHistory setModifiedAt(Date modifiedAt) {
+        this.modifiedAt = modifiedAt;
+        return this;
+    }
+
+    /**
+     * Gets the user that modified the cell.
+     *
+     * @return the modified by
+     */
+    public User getModifiedBy() {
+        return modifiedBy;
+    }
+
+    /**
+     * Sets the user that modified the cell.
+     *
+     * @param modifiedBy the new modified by
+     */
+    public CellHistory setModifiedBy(User modifiedBy) {
+        this.modifiedBy = modifiedBy;
+        return this;
+    }
 }

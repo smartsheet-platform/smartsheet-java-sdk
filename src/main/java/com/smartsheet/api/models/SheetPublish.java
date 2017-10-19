@@ -26,357 +26,357 @@ package com.smartsheet.api.models;
  * Sheets</a>
  */
 public class SheetPublish {
-	/**
-	 * Represents the read-only lite (static HTML UI) flag.
-	 */
-	private Boolean readOnlyLiteEnabled;
+    /**
+     * Represents the read-only lite (static HTML UI) flag.
+     */
+    private Boolean readOnlyLiteEnabled;
 
-	/**
-	 * Represents the read-only full (fancy UI) flag.
-	 */
-	private Boolean readOnlyFullEnabled;
+    /**
+     * Represents the read-only full (fancy UI) flag.
+     */
+    private Boolean readOnlyFullEnabled;
 
-	/**
-	 * Represents the read-write enabled flag.
-	 */
-	private Boolean readWriteEnabled;
+    /**
+     * Represents the read-write enabled flag.
+     */
+    private Boolean readWriteEnabled;
 
-	/**
-	 * Represents the iCal enabled flag.
-	 */
-	private Boolean icalEnabled;
+    /**
+     * Represents the iCal enabled flag.
+     */
+    private Boolean icalEnabled;
 
-	/**
-	 * Flag to indicate who can access the 'Read-Only Full' view of the published sheet:
-	 *	If "ALL", it is available to anyone who has the link.
-	 *	If "ORG", it is available only to members of the sheet owner's Smartsheet organization.
-	 */
-	private String readOnlyFullAccessibleBy;
-	
-	/**
-	 * Flag to indicate who can access the 'Edit by Anyone' view of the published sheet:
-	 *	If "ALL", it is available to anyone who has the link.
-	 *	If "ORG", it is available only to members of the sheet owner's Smartsheet organization.
-	 */	
-	private String readWriteAccessibleBy;
-	
-	/**
-	 * Represents the read-only lite (static HTML UI) URL.
-	 */
-	private String readOnlyLiteUrl;
+    /**
+     * Flag to indicate who can access the 'Read-Only Full' view of the published sheet:
+     *    If "ALL", it is available to anyone who has the link.
+     *    If "ORG", it is available only to members of the sheet owner's Smartsheet organization.
+     */
+    private String readOnlyFullAccessibleBy;
 
-	/**
-	 * Represents the read-only full URL.
-	 */
-	private String readOnlyFullUrl;
+    /**
+     * Flag to indicate who can access the 'Edit by Anyone' view of the published sheet:
+     *    If "ALL", it is available to anyone who has the link.
+     *    If "ORG", it is available only to members of the sheet owner's Smartsheet organization.
+     */
+    private String readWriteAccessibleBy;
 
-	/**
-	 * Represents the read-write URL.
-	 */
-	private String readWriteUrl;
+    /**
+     * Represents the read-only lite (static HTML UI) URL.
+     */
+    private String readOnlyLiteUrl;
 
-	/**
-	 * Represents the iCal URL.
-	 */
-	private String icalUrl;
+    /**
+     * Represents the read-only full URL.
+     */
+    private String readOnlyFullUrl;
 
-	/**
-	 * Gets the read only lite enabled flag.
-	 *
-	 * @return the read only lite enabled flag
-	 */
-	public Boolean getReadOnlyLiteEnabled() {
-		return readOnlyLiteEnabled;
-	}
+    /**
+     * Represents the read-write URL.
+     */
+    private String readWriteUrl;
 
-	/**
-	 * Sets the read only lite (static html UI) enabled flag.
-	 *
-	 * @param readOnlyLiteEnabled the new read only lite enabled flag
-	 */
-	public SheetPublish setReadOnlyLiteEnabled(Boolean readOnlyLiteEnabled) {
-		this.readOnlyLiteEnabled = readOnlyLiteEnabled;
-		return this;
-	}
+    /**
+     * Represents the iCal URL.
+     */
+    private String icalUrl;
 
-	/**
-	 * Gets the read only full (fancy UI) enabled flag.
-	 *
-	 * @return the read only full enabled flag
-	 */
-	public Boolean getReadOnlyFullEnabled() {
-		return readOnlyFullEnabled;
-	}
+    /**
+     * Gets the read only lite enabled flag.
+     *
+     * @return the read only lite enabled flag
+     */
+    public Boolean getReadOnlyLiteEnabled() {
+        return readOnlyLiteEnabled;
+    }
 
-	/**
-	 * Sets the read only full (fancy UI) enabled flag.
-	 *
-	 * @param readOnlyFullEnabled the new read only full enabled flag
-	 */
-	public SheetPublish setReadOnlyFullEnabled(Boolean readOnlyFullEnabled) {
-		this.readOnlyFullEnabled = readOnlyFullEnabled;
-		return this;
-	}
+    /**
+     * Sets the read only lite (static html UI) enabled flag.
+     *
+     * @param readOnlyLiteEnabled the new read only lite enabled flag
+     */
+    public SheetPublish setReadOnlyLiteEnabled(Boolean readOnlyLiteEnabled) {
+        this.readOnlyLiteEnabled = readOnlyLiteEnabled;
+        return this;
+    }
 
-	/**
-	 * Gets the read write enabled flag.
-	 *
-	 * @return the read write enabled flag
-	 */
-	public Boolean getReadWriteEnabled() {
-		return readWriteEnabled;
-	}
+    /**
+     * Gets the read only full (fancy UI) enabled flag.
+     *
+     * @return the read only full enabled flag
+     */
+    public Boolean getReadOnlyFullEnabled() {
+        return readOnlyFullEnabled;
+    }
 
-	/**
-	 * Sets the read write enabled flag.
-	 *
-	 * @param readWriteEnabled the new read write enabled flag
-	 */
-	public SheetPublish setReadWriteEnabled(Boolean readWriteEnabled) {
-		this.readWriteEnabled = readWriteEnabled;
-		return this;
-	}
+    /**
+     * Sets the read only full (fancy UI) enabled flag.
+     *
+     * @param readOnlyFullEnabled the new read only full enabled flag
+     */
+    public SheetPublish setReadOnlyFullEnabled(Boolean readOnlyFullEnabled) {
+        this.readOnlyFullEnabled = readOnlyFullEnabled;
+        return this;
+    }
 
-	/**
-	 * Gets the ical enabled flag.
-	 *
-	 * @return the ical enabled flag
-	 */
-	public Boolean getIcalEnabled() {
-		return icalEnabled;
-	}
+    /**
+     * Gets the read write enabled flag.
+     *
+     * @return the read write enabled flag
+     */
+    public Boolean getReadWriteEnabled() {
+        return readWriteEnabled;
+    }
 
-	/**
-	 * Sets the ical enabled flag.
-	 *
-	 * @param icalEnabled the new ical enabled flag
-	 */
-	public SheetPublish setIcalEnabled(Boolean icalEnabled) {
-		this.icalEnabled = icalEnabled;
-		return this;
-	}
+    /**
+     * Sets the read write enabled flag.
+     *
+     * @param readWriteEnabled the new read write enabled flag
+     */
+    public SheetPublish setReadWriteEnabled(Boolean readWriteEnabled) {
+        this.readWriteEnabled = readWriteEnabled;
+        return this;
+    }
 
-	/**
-	 * Get string indicating who can access the "Read-Only Full" view of the published sheet.
-	 * 
-	 * @return readOnlyFullAccessibleBy
-	 */
-	public String getReadOnlyFullAccessibleBy() {
-		return readOnlyFullAccessibleBy;
-	}
-	
-	/**
-	 * Set string indicating who can access the "Read-Only Full" view of the published sheet.
-	 *
-	 * @param readOnlyFullAccessibleBy
-	 */
-	public SheetPublish setReadOnlyFullAccessibleBy(String readOnlyFullAccessibleBy) {
-		this.readOnlyFullAccessibleBy = readOnlyFullAccessibleBy;
-		return this;
-	}
-	
-	/**
-	 * Get string indicating who can access the "Edit by Anyone" view of the published sheet.
-	 * 
-	 * @return readWriteAccessibleBy
-	 */
-	public String getReadWriteAccessibleBy() {
-		return readWriteAccessibleBy;
-	}
-	
-	/**
-	 * Set string indicating who can access the "Edit by Anyone" view of the published sheet.
-	 *
-	 * @param readWriteAccessibleBy
-	 */
-	public SheetPublish setReadWriteAccessibleBy(String readWriteAccessibleBy) {
-		this.readWriteAccessibleBy = readWriteAccessibleBy;
-		return this;
-	}
-	
-	/**
-	 * Gets the read only lite url flag.
-	 *
-	 * @return the read only lite url flag
-	 */
-	public String getReadOnlyLiteUrl() {
-		return readOnlyLiteUrl;
-	}
+    /**
+     * Gets the ical enabled flag.
+     *
+     * @return the ical enabled flag
+     */
+    public Boolean getIcalEnabled() {
+        return icalEnabled;
+    }
 
-	/**
-	 * Sets the read only lite (static html UI) url.
-	 *
-	 * @param readOnlyLiteUrl the new read only lite url
-	 */
-	public SheetPublish setReadOnlyLiteUrl(String readOnlyLiteUrl) {
-		this.readOnlyLiteUrl = readOnlyLiteUrl;
-		return this;
-	}
+    /**
+     * Sets the ical enabled flag.
+     *
+     * @param icalEnabled the new ical enabled flag
+     */
+    public SheetPublish setIcalEnabled(Boolean icalEnabled) {
+        this.icalEnabled = icalEnabled;
+        return this;
+    }
 
-	/**
-	 * Gets the read only full (fancy UI) url.
-	 *
-	 * @return the read only full url
-	 */
-	public String getReadOnlyFullUrl() {
-		return readOnlyFullUrl;
-	}
+    /**
+     * Get string indicating who can access the "Read-Only Full" view of the published sheet.
+     *
+     * @return readOnlyFullAccessibleBy
+     */
+    public String getReadOnlyFullAccessibleBy() {
+        return readOnlyFullAccessibleBy;
+    }
 
-	/**
-	 * Sets the read only full (fancy UI) url.
-	 *
-	 * @param readOnlyFullUrl the new read only full url
-	 */
-	public SheetPublish setReadOnlyFullUrl(String readOnlyFullUrl) {
-		this.readOnlyFullUrl = readOnlyFullUrl;
-		return this;
-	}
+    /**
+     * Set string indicating who can access the "Read-Only Full" view of the published sheet.
+     *
+     * @param readOnlyFullAccessibleBy
+     */
+    public SheetPublish setReadOnlyFullAccessibleBy(String readOnlyFullAccessibleBy) {
+        this.readOnlyFullAccessibleBy = readOnlyFullAccessibleBy;
+        return this;
+    }
 
-	/**
-	 * Gets the read write url.
-	 *
-	 * @return the read write url
-	 */
-	public String getReadWriteUrl() {
-		return readWriteUrl;
-	}
+    /**
+     * Get string indicating who can access the "Edit by Anyone" view of the published sheet.
+     *
+     * @return readWriteAccessibleBy
+     */
+    public String getReadWriteAccessibleBy() {
+        return readWriteAccessibleBy;
+    }
 
-	/**
-	 * Sets the read write url.
-	 *
-	 * @param readWriteUrl the new read write url
-	 */
-	public SheetPublish setReadWriteUrl(String readWriteUrl) {
-		this.readWriteUrl = readWriteUrl;
-		return this;
-	}
+    /**
+     * Set string indicating who can access the "Edit by Anyone" view of the published sheet.
+     *
+     * @param readWriteAccessibleBy
+     */
+    public SheetPublish setReadWriteAccessibleBy(String readWriteAccessibleBy) {
+        this.readWriteAccessibleBy = readWriteAccessibleBy;
+        return this;
+    }
 
-	/**
-	 * Gets the ical url.
-	 *
-	 * @return the ical url
-	 */
-	public String getIcalUrl() {
-		return icalUrl;
-	}
+    /**
+     * Gets the read only lite url flag.
+     *
+     * @return the read only lite url flag
+     */
+    public String getReadOnlyLiteUrl() {
+        return readOnlyLiteUrl;
+    }
 
-	/**
-	 * Sets the ical url.
-	 *
-	 * @param icalUrl the new ical url
-	 */
-	public SheetPublish setIcalUrl(String icalUrl) {
-		this.icalUrl = icalUrl;
-		return this;
-	}
+    /**
+     * Sets the read only lite (static html UI) url.
+     *
+     * @param readOnlyLiteUrl the new read only lite url
+     */
+    public SheetPublish setReadOnlyLiteUrl(String readOnlyLiteUrl) {
+        this.readOnlyLiteUrl = readOnlyLiteUrl;
+        return this;
+    }
 
-	/**
-	 * A convenience class for making a {@link SheetPublish} object with the necessary fields to publish a sheet.
-	 */
-	public static class PublishStatusBuilder {
-		private Boolean readOnlyLiteEnabled;
-		private Boolean readOnlyFullEnabled;
-		private Boolean readWriteEnabled;
-		private Boolean icalEnabled;
+    /**
+     * Gets the read only full (fancy UI) url.
+     *
+     * @return the read only full url
+     */
+    public String getReadOnlyFullUrl() {
+        return readOnlyFullUrl;
+    }
 
-		/**
-		 * Read only lite enabled.
-		 *
-		 * @param readOnlyLiteEnabled the read only lite (static html UI) enabled
-		 * @return the publish status builder
-		 */
-		public PublishStatusBuilder setReadOnlyLiteEnabled(Boolean readOnlyLiteEnabled) {
-			this.readOnlyLiteEnabled = readOnlyLiteEnabled;
-			return this;
-		}
+    /**
+     * Sets the read only full (fancy UI) url.
+     *
+     * @param readOnlyFullUrl the new read only full url
+     */
+    public SheetPublish setReadOnlyFullUrl(String readOnlyFullUrl) {
+        this.readOnlyFullUrl = readOnlyFullUrl;
+        return this;
+    }
 
-		/**
-		 * Read only full (fancy UI) enabled.
-		 *
-		 * @param readOnlyFullEnabled the read only full enabled
-		 * @return the publish status builder
-		 */
-		public PublishStatusBuilder setReadOnlyFullEnabled(Boolean readOnlyFullEnabled) {
-			this.readOnlyFullEnabled = readOnlyFullEnabled;
-			return this;
-		}
+    /**
+     * Gets the read write url.
+     *
+     * @return the read write url
+     */
+    public String getReadWriteUrl() {
+        return readWriteUrl;
+    }
 
-		/**
-		 * Read write enabled.
-		 *
-		 * @param readWriteEnabled the read write enabled
-		 * @return the publish status builder
-		 */
-		public PublishStatusBuilder setReadWriteEnabled(Boolean readWriteEnabled) {
-			this.readWriteEnabled = readWriteEnabled;
-			return this;
-		}
+    /**
+     * Sets the read write url.
+     *
+     * @param readWriteUrl the new read write url
+     */
+    public SheetPublish setReadWriteUrl(String readWriteUrl) {
+        this.readWriteUrl = readWriteUrl;
+        return this;
+    }
 
-		/**
-		 * Ical enabled.
-		 *
-		 * @param icalEnabled the ical enabled
-		 * @return the publish status builder
-		 */
-		public PublishStatusBuilder setIcalEnabled(Boolean icalEnabled) {
-			this.icalEnabled = icalEnabled;
-			return this;
-		}
+    /**
+     * Gets the ical url.
+     *
+     * @return the ical url
+     */
+    public String getIcalUrl() {
+        return icalUrl;
+    }
 
-		/**
-		 * Gets the read only lite enabled.
-		 *
-		 * @return the read only lite enabled
-		 */
-		public Boolean getReadOnlyLiteEnabled() {
-			return readOnlyLiteEnabled;
-		}
+    /**
+     * Sets the ical url.
+     *
+     * @param icalUrl the new ical url
+     */
+    public SheetPublish setIcalUrl(String icalUrl) {
+        this.icalUrl = icalUrl;
+        return this;
+    }
 
-		/**
-		 * Gets the read only full enabled.
-		 *
-		 * @return the read only full enabled
-		 */
-		public Boolean getReadOnlyFullEnabled() {
-			return readOnlyFullEnabled;
-		}
+    /**
+     * A convenience class for making a {@link SheetPublish} object with the necessary fields to publish a sheet.
+     */
+    public static class PublishStatusBuilder {
+        private Boolean readOnlyLiteEnabled;
+        private Boolean readOnlyFullEnabled;
+        private Boolean readWriteEnabled;
+        private Boolean icalEnabled;
 
-		/**
-		 * Gets the read write enabled.
-		 *
-		 * @return the read write enabled
-		 */
-		public Boolean getReadWriteEnabled() {
-			return readWriteEnabled;
-		}
+        /**
+         * Read only lite enabled.
+         *
+         * @param readOnlyLiteEnabled the read only lite (static html UI) enabled
+         * @return the publish status builder
+         */
+        public PublishStatusBuilder setReadOnlyLiteEnabled(Boolean readOnlyLiteEnabled) {
+            this.readOnlyLiteEnabled = readOnlyLiteEnabled;
+            return this;
+        }
 
-		/**
-		 * Gets the ical enabled.
-		 *
-		 * @return the ical enabled
-		 */
-		public Boolean getIcalEnabled() {
-			return icalEnabled;
-		}
+        /**
+         * Read only full (fancy UI) enabled.
+         *
+         * @param readOnlyFullEnabled the read only full enabled
+         * @return the publish status builder
+         */
+        public PublishStatusBuilder setReadOnlyFullEnabled(Boolean readOnlyFullEnabled) {
+            this.readOnlyFullEnabled = readOnlyFullEnabled;
+            return this;
+        }
 
-		/**
-		 * Builds the.
-		 *
-		 * @return the sheet publish
-		 */
-		public SheetPublish build() {
-			
-			if(readOnlyLiteEnabled == null || readOnlyFullEnabled == null || readWriteEnabled == null){
-				throw new InstantiationError("'Read only lite', 'read only full' and 'read write' must be set to "
-						+ "update the publishing status.");
-			}
-			
-			SheetPublish sheetPublish = new SheetPublish();
-			sheetPublish.readOnlyLiteEnabled = readOnlyLiteEnabled;
-			sheetPublish.readOnlyFullEnabled = readOnlyFullEnabled;
-			sheetPublish.readWriteEnabled = readWriteEnabled;
-			sheetPublish.icalEnabled = icalEnabled;
-			return sheetPublish;
-		}
-	}
+        /**
+         * Read write enabled.
+         *
+         * @param readWriteEnabled the read write enabled
+         * @return the publish status builder
+         */
+        public PublishStatusBuilder setReadWriteEnabled(Boolean readWriteEnabled) {
+            this.readWriteEnabled = readWriteEnabled;
+            return this;
+        }
+
+        /**
+         * Ical enabled.
+         *
+         * @param icalEnabled the ical enabled
+         * @return the publish status builder
+         */
+        public PublishStatusBuilder setIcalEnabled(Boolean icalEnabled) {
+            this.icalEnabled = icalEnabled;
+            return this;
+        }
+
+        /**
+         * Gets the read only lite enabled.
+         *
+         * @return the read only lite enabled
+         */
+        public Boolean getReadOnlyLiteEnabled() {
+            return readOnlyLiteEnabled;
+        }
+
+        /**
+         * Gets the read only full enabled.
+         *
+         * @return the read only full enabled
+         */
+        public Boolean getReadOnlyFullEnabled() {
+            return readOnlyFullEnabled;
+        }
+
+        /**
+         * Gets the read write enabled.
+         *
+         * @return the read write enabled
+         */
+        public Boolean getReadWriteEnabled() {
+            return readWriteEnabled;
+        }
+
+        /**
+         * Gets the ical enabled.
+         *
+         * @return the ical enabled
+         */
+        public Boolean getIcalEnabled() {
+            return icalEnabled;
+        }
+
+        /**
+         * Builds the.
+         *
+         * @return the sheet publish
+         */
+        public SheetPublish build() {
+
+            if(readOnlyLiteEnabled == null || readOnlyFullEnabled == null || readWriteEnabled == null){
+                throw new InstantiationError("'Read only lite', 'read only full' and 'read write' must be set to "
+                        + "update the publishing status.");
+            }
+
+            SheetPublish sheetPublish = new SheetPublish();
+            sheetPublish.readOnlyLiteEnabled = readOnlyLiteEnabled;
+            sheetPublish.readOnlyFullEnabled = readOnlyFullEnabled;
+            sheetPublish.readWriteEnabled = readWriteEnabled;
+            sheetPublish.icalEnabled = icalEnabled;
+            return sheetPublish;
+        }
+    }
 }

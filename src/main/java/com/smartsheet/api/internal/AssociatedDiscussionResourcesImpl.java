@@ -32,23 +32,23 @@ import com.smartsheet.api.models.Discussion;
  */
 @Deprecated
 public class AssociatedDiscussionResourcesImpl extends AbstractAssociatedResources 
-	implements AssociatedDiscussionResources {
+    implements AssociatedDiscussionResources {
 
-	/**
-	 * @deprecated As of release 2.0
-	 */
-	@Deprecated
-	public AssociatedDiscussionResourcesImpl(SmartsheetImpl smartsheet, String masterResourceType) {
-		super(smartsheet,masterResourceType);
-	}
+    /**
+     * @deprecated As of release 2.0
+     */
+    @Deprecated
+    public AssociatedDiscussionResourcesImpl(SmartsheetImpl smartsheet, String masterResourceType) {
+        super(smartsheet,masterResourceType);
+    }
 
-	/**
-	 * @deprecated As of release 2.0
-	 */
-	@Deprecated
-	public Discussion createDiscussion(long objectId, Discussion discussion) throws SmartsheetException {
-		Util.throwIfNull(objectId, discussion);
-		return this.createResource(getMasterResourceType() + "/" + objectId + "/discussions",
-				Discussion.class, discussion);
-	}
+    /**
+     * @deprecated As of release 2.0
+     */
+    @Deprecated
+    public Discussion createDiscussion(long objectId, Discussion discussion) throws SmartsheetException {
+        Util.throwIfNull(objectId, discussion);
+        return this.createResource(getMasterResourceType() + "/" + objectId + "/discussions",
+                Discussion.class, discussion);
+    }
 }

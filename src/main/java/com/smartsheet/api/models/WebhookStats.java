@@ -23,76 +23,76 @@ import java.util.Date;
  */
 public class WebhookStats {
 
-	/**
-	 * The number of retries the webhook had performed as of the last callback
-	 */
-	private Integer lastCallbackAttemptRetryCount;
-	
-	/**
-	 * When this webhook last made a callback attempt.
-	 */
-	private Date lastCallbackAttempt;
-	
-	/**
-	 * When this webhook last make a successful callback.
-	 */
-	private Date lastSuccessfulCallback;
-	
-	/**
-	 * Get the number of retries the webhook had performed as of the last callback attempt.
-	 * 
-	 * @return lastCallbackAttemptRetryCount
-	 */
-	public Integer getLastCallbackAttemptRetryCount() {
-		return lastCallbackAttemptRetryCount;
-	}
-	
-	/**
-	 * Set the number of retries the webhook had performed as of the last callback attempt.
-	 *
-	 * @param lastCallbackAttemptRetryCount
-	 */
-	public WebhookStats setLastCallbackAttemptRetryCount(Integer lastCallbackAttemptRetryCount) {
-		this.lastCallbackAttemptRetryCount = lastCallbackAttemptRetryCount;
-		return this;
-	}
-	
-	/**
-	 * Get the timestamp from the last callback attempt.
-	 * 
-	 * @return lastCallbackAttempt
-	 */
-	public Date getLastCallbackAttempt() {
-		return lastCallbackAttempt;
-	}
-	
-	/**
-	 * Set the timestamp from the last callback attempt.
-	 *
-	 * @param lastCallbackAttempt
-	 */
-	public WebhookStats setLastCallbackAttempt(Date lastCallbackAttempt) {
-		this.lastCallbackAttempt = lastCallbackAttempt;
-		return this;
-	}
-	
-	/**
-	 * Get the timestamp from the last successful callback.
-	 * 
-	 * @return lastSuccessfulCallback
-	 */
-	public Date getLastSuccessfulCallback() {
-		return lastSuccessfulCallback;
-	}
-	
-	/**
-	 * Set the timestamp from the last successful callback.
-	 *
-	 * @param lastSuccessfulCallback
-	 */
-	public WebhookStats setLastSuccessfulCallback(Date lastSuccessfulCallback) {
-		this.lastSuccessfulCallback = lastSuccessfulCallback;
-		return this;
-	}
+    /**
+     * The number of retries the webhook had performed as of the last callback
+     */
+    private Integer lastCallbackAttemptRetryCount;
+
+    /**
+     * When this webhook last made a callback attempt.
+     */
+    private Date lastCallbackAttempt;
+
+    /**
+     * When this webhook last make a successful callback.
+     */
+    private Date lastSuccessfulCallback;
+
+    /**
+     * Get the number of retries the webhook had performed as of the last callback attempt.
+     *
+     * @return lastCallbackAttemptRetryCount
+     */
+    public Integer getLastCallbackAttemptRetryCount() {
+        return lastCallbackAttemptRetryCount;
+    }
+
+    /**
+     * Set the number of retries the webhook had performed as of the last callback attempt.
+     *
+     * @param lastCallbackAttemptRetryCount
+     */
+    public WebhookStats setLastCallbackAttemptRetryCount(Integer lastCallbackAttemptRetryCount) {
+        this.lastCallbackAttemptRetryCount = lastCallbackAttemptRetryCount;
+        return this;
+    }
+
+    /**
+     * Get the timestamp from the last callback attempt.
+     *
+     * @return lastCallbackAttempt
+     */
+    public Date getLastCallbackAttempt() {
+        return lastCallbackAttempt;
+    }
+
+    /**
+     * Set the timestamp from the last callback attempt.
+     *
+     * @param lastCallbackAttempt
+     */
+    public WebhookStats setLastCallbackAttempt(Date lastCallbackAttempt) {
+        this.lastCallbackAttempt = lastCallbackAttempt;
+        return this;
+    }
+
+    /**
+     * Get the timestamp from the last successful callback.
+     *
+     * @return lastSuccessfulCallback
+     */
+    public Date getLastSuccessfulCallback() {
+        return lastSuccessfulCallback;
+    }
+
+    /**
+     * Set the timestamp from the last successful callback.
+     *
+     * @param lastSuccessfulCallback
+     */
+    public WebhookStats setLastSuccessfulCallback(Date lastSuccessfulCallback) {
+        this.lastSuccessfulCallback = lastSuccessfulCallback;
+        return this;
+    }
 
 }

@@ -37,42 +37,42 @@ import static org.junit.Assert.assertNotNull;
 
 public class TemplateResourcesImplTest extends ResourcesImplBase {
 
-	private TemplateResourcesImpl templateResources;
+    private TemplateResourcesImpl templateResources;
 
-	@Before
-	public void setUp() throws Exception {
-		templateResources = new TemplateResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", 
-				"accessToken", new DefaultHttpClient(), serializer));
-	}
+    @Before
+    public void setUp() throws Exception {
+        templateResources = new TemplateResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
+                "accessToken", new DefaultHttpClient(), serializer));
+    }
 
-	@Test
-	public void testTemplateResourcesImpl() {}
+    @Test
+    public void testTemplateResourcesImpl() {}
 
-	@Test
-	public void testListTemplates() throws IOException, SmartsheetException {
-		server.setResponseBody(new File("src/test/resources/listTemplates.json"));
+    @Test
+    public void testListTemplates() throws IOException, SmartsheetException {
+        server.setResponseBody(new File("src/test/resources/listTemplates.json"));
 
-		PaginationParameters parameters = new PaginationParameters(false, 1, 1);
-		PagedResult<Template> templates = templateResources.listUserCreatedTemplates(parameters);
+        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+        PagedResult<Template> templates = templateResources.listUserCreatedTemplates(parameters);
 
-		assertNotNull(templates);
-		assertEquals("template 1", templates.getData().get(0).getName());
-		assertEquals(AccessLevel.OWNER, templates.getData().get(0).getAccessLevel());
-		assertEquals(3457273486960516L, templates.getData().get(0).getId().longValue());
-		assertEquals("This is template 1", templates.getData().get(0).getDescription());
-	}
+        assertNotNull(templates);
+        assertEquals("template 1", templates.getData().get(0).getName());
+        assertEquals(AccessLevel.OWNER, templates.getData().get(0).getAccessLevel());
+        assertEquals(3457273486960516L, templates.getData().get(0).getId().longValue());
+        assertEquals("This is template 1", templates.getData().get(0).getDescription());
+    }
 
-	@Test
-	public void testListPublicTemplates() throws IOException, SmartsheetException {
-		server.setResponseBody(new File("src/test/resources/listTemplates.json"));
+    @Test
+    public void testListPublicTemplates() throws IOException, SmartsheetException {
+        server.setResponseBody(new File("src/test/resources/listTemplates.json"));
 
-		PaginationParameters parameters = new PaginationParameters(false, 1, 1);
-		PagedResult<Template> templates = templateResources.listPublicTemplates(parameters);
+        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+        PagedResult<Template> templates = templateResources.listPublicTemplates(parameters);
 
-		assertNotNull(templates);
-		assertEquals("template 1", templates.getData().get(0).getName());
-		assertEquals(AccessLevel.OWNER, templates.getData().get(0).getAccessLevel());
-		assertEquals(3457273486960516L, templates.getData().get(0).getId().longValue());
-		assertEquals("This is template 1", templates.getData().get(0).getDescription());
-	}
+        assertNotNull(templates);
+        assertEquals("template 1", templates.getData().get(0).getName());
+        assertEquals(AccessLevel.OWNER, templates.getData().get(0).getAccessLevel());
+        assertEquals(3457273486960516L, templates.getData().get(0).getId().longValue());
+        assertEquals("This is template 1", templates.getData().get(0).getDescription());
+    }
 }

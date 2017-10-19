@@ -29,15 +29,15 @@ import static org.junit.Assert.assertNotNull;
 
 public class SheetEmailFormatTest {
 
-	@Before
-	public void setUp() throws Exception {
-	}
+    @Before
+    public void setUp() throws Exception {
+    }
 
-	@Test
-	public void test() {
-		assertNotNull(SheetEmailFormat.valueOf("PDF"));
-		assertNotNull(SheetEmailFormat.valueOf("EXCEL"));
-		assertEquals(3,SheetEmailFormat.values().length);
-	}
+    @Test
+    public void test() {
+        assertNotNull(SheetEmailFormat.valueOf("PDF"));
+        assertNotNull(SheetEmailFormat.valueOf("EXCEL"));
+        assertEquals(3,SheetEmailFormat.values().length);
+    }
 
 }

@@ -25,68 +25,68 @@
   */
 public class ReportPublish {
 
-	/**
-	 * Represents the current publish status of the report.
-	 */
-	private boolean readOnlyFullEnabled;
+    /**
+     * Represents the current publish status of the report.
+     */
+    private boolean readOnlyFullEnabled;
 
-	/**
-	 * Get the current publish status of a report
-	 *  
-	 * @return read only publish status 
-	 */
-	public boolean getReadOnlyFullEnabled() {
-		return readOnlyFullEnabled;
-	}
-	
-	/**
-	 * If true, a rich version of the report is published
-	 *
-	 * @param readOnlyFullEnabled report publish status
-	 */
-	public ReportPublish setReadOnlyFullEnabled(boolean readOnlyFullEnabled) {
-		this.readOnlyFullEnabled = readOnlyFullEnabled;
-		return this;
-	}
-	
-	/**
-	 * Indicates who can see the published report
-	 *     If "ALL", report is available to anyone who has the link.
-	 *     If "ORG", report is available only to members of the report owner's organization. 
-	 */
-	private String readOnlyFullAccessibleBy;
-	
-	/**
-	 * Get who can see the published report. Only available when readOnlyFullEnabled = true
-	 * 
-	 * @return String containing "ALL" - anyone, "ORG" - owner organization memebers 
-	 */
-	public String getReadOnlyFullAccessibleBy() {
-		return readOnlyFullAccessibleBy;
-	}
-	
-	/**
-	 * Set parameter indicating who can see the published report. Only valid when
-	 * readOnlyFullEnabled = true.
-	 *
-	 * @param readOnlyFullAccessibleBy - valid options are "ALL" and "ORG"
-	 */
-	public ReportPublish setReadOnlyFullAccessibleBy(String readOnlyFullAccessibleBy) {
-		this.readOnlyFullAccessibleBy = readOnlyFullAccessibleBy;
-		return this;
-	}
+    /**
+     * Get the current publish status of a report
+     *
+     * @return read only publish status
+     */
+    public boolean getReadOnlyFullEnabled() {
+        return readOnlyFullEnabled;
+    }
 
-	/**
-	 * String containing the URL of the published report.
-	 */
-	private String readOnlyFullUrl;
-	
-	/**
-	 * Get the URL of the published report. Valid only if readOnlyFullEnabled = true.
-	 * 
-	 * @return String containing the URL of the published report.
-	 */
-	public String getReadOnlyFullUrl() {
-		return readOnlyFullUrl;
-	}
+    /**
+     * If true, a rich version of the report is published
+     *
+     * @param readOnlyFullEnabled report publish status
+     */
+    public ReportPublish setReadOnlyFullEnabled(boolean readOnlyFullEnabled) {
+        this.readOnlyFullEnabled = readOnlyFullEnabled;
+        return this;
+    }
+
+    /**
+     * Indicates who can see the published report
+     *     If "ALL", report is available to anyone who has the link.
+     *     If "ORG", report is available only to members of the report owner's organization.
+     */
+    private String readOnlyFullAccessibleBy;
+
+    /**
+     * Get who can see the published report. Only available when readOnlyFullEnabled = true
+     *
+     * @return String containing "ALL" - anyone, "ORG" - owner organization memebers
+     */
+    public String getReadOnlyFullAccessibleBy() {
+        return readOnlyFullAccessibleBy;
+    }
+
+    /**
+     * Set parameter indicating who can see the published report. Only valid when
+     * readOnlyFullEnabled = true.
+     *
+     * @param readOnlyFullAccessibleBy - valid options are "ALL" and "ORG"
+     */
+    public ReportPublish setReadOnlyFullAccessibleBy(String readOnlyFullAccessibleBy) {
+        this.readOnlyFullAccessibleBy = readOnlyFullAccessibleBy;
+        return this;
+    }
+
+    /**
+     * String containing the URL of the published report.
+     */
+    private String readOnlyFullUrl;
+
+    /**
+     * Get the URL of the published report. Valid only if readOnlyFullEnabled = true.
+     *
+     * @return String containing the URL of the published report.
+     */
+    public String getReadOnlyFullUrl() {
+        return readOnlyFullUrl;
+    }
 }

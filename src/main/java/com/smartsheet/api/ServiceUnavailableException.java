@@ -33,16 +33,16 @@ import com.smartsheet.api.models.Error;
  * <p>Thread safety: Exceptions are not thread safe.</p>
  */
 public class ServiceUnavailableException extends SmartsheetRestException {
-	
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Constructor.
-	 *
-	 * @param error the Error object from Smartsheet REST API
-	 */
-	public ServiceUnavailableException(Error error) {
-		super(error);
-	}
+    /** The Constant serialVersionUID. */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Constructor.
+     *
+     * @param error the Error object from Smartsheet REST API
+     */
+    public ServiceUnavailableException(Error error) {
+        super(error);
+    }
 }

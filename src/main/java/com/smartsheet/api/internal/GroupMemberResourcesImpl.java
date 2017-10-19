@@ -34,31 +34,31 @@ import java.util.List;
  * Thread Safety: This class is thread safe because it is immutable and its base class is thread safe.
  */
 public class GroupMemberResourcesImpl extends AbstractAssociatedResources implements GroupMemberResources {
-	
-	/**
-	 * Constructor.
-	 * 
-	 * Exceptions: - IllegalArgumentException : if any argument is null or empty string
-	 *
-	 * @param smartsheet the smartsheet
-	 * @param masterResourceType the master resource type (e.g. "sheet", "workspace")
-	 */
-	public GroupMemberResourcesImpl(SmartsheetImpl smartsheet, String masterResourceType) {
-		super(smartsheet, masterResourceType);
-	}
 
-	@Override
-	public List<GroupMember> addGroupMembers(long groupId, List<GroupMember> members) throws SmartsheetException {
-		Util.throwIfNull(members);
-		if (members.size() == 0) {
-			return members;
-		}
-		return this.postAndReceiveList("groups/" + groupId + "/members", members, GroupMember.class);
-	}
+    /**
+     * Constructor.
+     *
+     * Exceptions: - IllegalArgumentException : if any argument is null or empty string
+     *
+     * @param smartsheet the smartsheet
+     * @param masterResourceType the master resource type (e.g. "sheet", "workspace")
+     */
+    public GroupMemberResourcesImpl(SmartsheetImpl smartsheet, String masterResourceType) {
+        super(smartsheet, masterResourceType);
+    }
 
-	@Override
-	public void deleteGroupMember(long groupId, long userId) throws SmartsheetException {
-		this.deleteResource("groups/" + groupId + "/members/" + userId, User.class);
-	}
+    @Override
+    public List<GroupMember> addGroupMembers(long groupId, List<GroupMember> members) throws SmartsheetException {
+        Util.throwIfNull(members);
+        if (members.size() == 0) {
+            return members;
+        }
+        return this.postAndReceiveList("groups/" + groupId + "/members", members, GroupMember.class);
+    }
+
+    @Override
+    public void deleteGroupMember(long groupId, long userId) throws SmartsheetException {
+        this.deleteResource("groups/" + groupId + "/members/" + userId, User.class);
+    }
 
 }

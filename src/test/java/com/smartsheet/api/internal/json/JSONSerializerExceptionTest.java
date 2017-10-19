@@ -29,39 +29,39 @@ import static org.hamcrest.CoreMatchers.is;
 
 public class JSONSerializerExceptionTest {
 
-	@Rule
-	public ExpectedException thrown = ExpectedException.none();
-	
-	@Before
-	public void setUp() throws Exception {
-	}
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
-	@Test
-	public void testJSONSerializerExceptionString() throws JSONSerializerException {
-		thrown.expect(JSONSerializerException.class);
-		String message = "Test Exception";
-		thrown.expectMessage(message);
-		throw new JSONSerializerException(message);
-	}
-	
-	
+    @Before
+    public void setUp() throws Exception {
+    }
 
-	@Test
-	public void testJSONSerializerExceptionStringThrowable() throws JSONSerializerException {
-		thrown.expect(JSONSerializerException.class);
-		String message = "Test Exception1";
-		thrown.expectMessage(message);
-		JSONSerializerException ex = new JSONSerializerException("test");
-		thrown.expectCause(is(ex));
-		throw new JSONSerializerException(message,ex);
-	}
+    @Test
+    public void testJSONSerializerExceptionString() throws JSONSerializerException {
+        thrown.expect(JSONSerializerException.class);
+        String message = "Test Exception";
+        thrown.expectMessage(message);
+        throw new JSONSerializerException(message);
+    }
 
-	@Test
-	public void testJSONSerializerExceptionException() throws JSONSerializerException {
-		thrown.expect(JSONSerializerException.class);
-		JSONSerializerException ex = new JSONSerializerException("test");
-		thrown.expectCause(is(ex));
-		throw new JSONSerializerException(ex);
-	}
+
+
+    @Test
+    public void testJSONSerializerExceptionStringThrowable() throws JSONSerializerException {
+        thrown.expect(JSONSerializerException.class);
+        String message = "Test Exception1";
+        thrown.expectMessage(message);
+        JSONSerializerException ex = new JSONSerializerException("test");
+        thrown.expectCause(is(ex));
+        throw new JSONSerializerException(message,ex);
+    }
+
+    @Test
+    public void testJSONSerializerExceptionException() throws JSONSerializerException {
+        thrown.expect(JSONSerializerException.class);
+        JSONSerializerException ex = new JSONSerializerException("test");
+        thrown.expectCause(is(ex));
+        throw new JSONSerializerException(ex);
+    }
 
 }

@@ -20,16 +20,16 @@ package com.smartsheet.api.models.enums;
  */
 
 public enum UpdateRequestStatus {
-	/**
-	 * Represents PENDING status.
-	 */
-	PENDING,
-	/**
-	 * The request was canceled.
-	 */
-	CANCELED,
-	/**
-	 * Represents COMPLETE status.
-	 */
-	COMPLETE
+    /**
+     * Represents PENDING status.
+     */
+    PENDING,
+    /**
+     * The request was canceled.
+     */
+    CANCELED,
+    /**
+     * Represents COMPLETE status.
+     */
+    COMPLETE
 }

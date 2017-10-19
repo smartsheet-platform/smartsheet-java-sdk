@@ -39,74 +39,74 @@ import static org.junit.Assert.assertTrue;
 
 public class ShareResourcesImplTest extends ResourcesImplBase {
 
-	private ShareResourcesImpl shareResourcesImpl;
+    private ShareResourcesImpl shareResourcesImpl;
 
-	@Before
-	public void setUp() throws Exception {
-		shareResourcesImpl = new ShareResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", "accessToken",
-				new DefaultHttpClient(), serializer), "sheets");
-	}
+    @Before
+    public void setUp() throws Exception {
+        shareResourcesImpl = new ShareResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", "accessToken",
+                new DefaultHttpClient(), serializer), "sheets");
+    }
 
-	@Test
-	public void testShareResourcesImpl() {
-	}
+    @Test
+    public void testShareResourcesImpl() {
+    }
 
-	@Test
-	public void testListShares() throws SmartsheetException, IOException {
+    @Test
+    public void testListShares() throws SmartsheetException, IOException {
 
-		server.setResponseBody(new File("src/test/resources/listShares.json"));
-		PaginationParameters parameters = new PaginationParameters(false, 1, 1);
-		PagedResult<Share> shares = shareResourcesImpl.listShares(2906571706525572L, parameters, false);
-		assertTrue("The number of shares returned is incorrect.", shares.getTotalCount() == 2);
+        server.setResponseBody(new File("src/test/resources/listShares.json"));
+        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+        PagedResult<Share> shares = shareResourcesImpl.listShares(2906571706525572L, parameters, false);
+        assertTrue("The number of shares returned is incorrect.", shares.getTotalCount() == 2);
 
-		assertEquals("Email attribute of the share is incorrect.", "john.doe@smartsheet.com", shares.getData().get(0).getEmail());
-		assertEquals("Email attribute of the share is incorrect.",null, shares.getData().get(1).getEmail());
-	}
+        assertEquals("Email attribute of the share is incorrect.", "john.doe@smartsheet.com", shares.getData().get(0).getEmail());
+        assertEquals("Email attribute of the share is incorrect.",null, shares.getData().get(1).getEmail());
+    }
 
-	@Test
-	public void testGetShare() throws SmartsheetException, IOException {
-		server.setResponseBody(new File("src/test/resources/getShare.json"));
+    @Test
+    public void testGetShare() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getShare.json"));
 
-		Share share = shareResourcesImpl.getShare(1234L, "fhqwhgads");
+        Share share = shareResourcesImpl.getShare(1234L, "fhqwhgads");
 
-		assertEquals("Group 1", share.getName());
-		assertEquals(AccessLevel.ADMIN, share.getAccessLevel());
-		assertEquals("AQAISF82FOeE", share.getId());
-	}
+        assertEquals("Group 1", share.getName());
+        assertEquals(AccessLevel.ADMIN, share.getAccessLevel());
+        assertEquals("AQAISF82FOeE", share.getId());
+    }
 
-	@Test
-	public void testUpdateShare() throws SmartsheetException, IOException {
-		server.setResponseBody(new File("src/test/resources/updateShare.json"));
-		Share share = new Share();
-		share.setAccessLevel(AccessLevel.ADMIN);
-		Share newShare = shareResourcesImpl.updateShare(123L, share);
-		assertEquals(share.getAccessLevel(), newShare.getAccessLevel());
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void testUpdateShareWithNullShare() throws SmartsheetException {
-		shareResourcesImpl.updateShare(123L, null);
-	}
+    @Test
+    public void testUpdateShare() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/updateShare.json"));
+        Share share = new Share();
+        share.setAccessLevel(AccessLevel.ADMIN);
+        Share newShare = shareResourcesImpl.updateShare(123L, share);
+        assertEquals(share.getAccessLevel(), newShare.getAccessLevel());
+    }
 
-	@Test
-	public void testDeleteShare() throws SmartsheetException, IOException {
-		server.setResponseBody(new File("src/test/resources/deleteShare.json"));
+    @Test(expected = IllegalArgumentException.class)
+    public void testUpdateShareWithNullShare() throws SmartsheetException {
+        shareResourcesImpl.updateShare(123L, null);
+    }
 
-		shareResourcesImpl.deleteShare(1234L, "fhqwhgads");
-	}
+    @Test
+    public void testDeleteShare() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/deleteShare.json"));
 
-	@Test
-	public void testShareTo() throws SmartsheetException, IOException {
-		server.setResponseBody(new File("src/test/resources/shareTo.json"));
+        shareResourcesImpl.deleteShare(1234L, "fhqwhgads");
+    }
 
-		List<Share> shares = new ArrayList<Share>();
-		shares.add(new Share.CreateUserShareBuilder().setEmailAddress("john.doe@smartsheet.com").build());
-		shares.add(new Share.CreateUserShareBuilder().setEmailAddress("jane.doe@smartsheet.com").build());
-		shares.add(new Share.CreateGroupShareBuilder().setGroupId(34343l).build());
+    @Test
+    public void testShareTo() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/shareTo.json"));
 
-		shares = shareResourcesImpl.shareTo(1234L, shares, true);
-		assertTrue(shares.size() == 1);
-		assertEquals("jane.doe@smartsheet.com", shares.get(0).getEmail());
-		assertEquals("Jane Doe", shares.get(0).getName());
-	}
+        List<Share> shares = new ArrayList<Share>();
+        shares.add(new Share.CreateUserShareBuilder().setEmailAddress("john.doe@smartsheet.com").build());
+        shares.add(new Share.CreateUserShareBuilder().setEmailAddress("jane.doe@smartsheet.com").build());
+        shares.add(new Share.CreateGroupShareBuilder().setGroupId(34343l).build());
+
+        shares = shareResourcesImpl.shareTo(1234L, shares, true);
+        assertTrue(shares.size() == 1);
+        assertEquals("jane.doe@smartsheet.com", shares.get(0).getEmail());
+        assertEquals("Jane Doe", shares.get(0).getName());
+    }
 }

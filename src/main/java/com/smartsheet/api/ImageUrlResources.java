@@ -25,21 +25,21 @@ import com.smartsheet.api.models.ImageUrlMap;
 import java.util.List;
 
 public interface ImageUrlResources {
-	/**
-	 * <p>Gets URLS that can be used to retrieve the specified cell images.</p>
-	 * 
-	 * <p>It mirrors to the following Smartsheet REST API method:</p>
-	 * <p>POST /imageurls</p>
-	 *
-	 * @param requestUrls array of requested Images and sizes.
-	 * @return the ImageUrlMap object (note that if there is no such resource, this method will throw 
-	 * ResourceNotFoundException rather than returning null).
-	 * @throws IllegalArgumentException if any argument is null or empty string
-	 * @throws InvalidRequestException if there is any problem with the REST API request
-	 * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
-	 * @throws ResourceNotFoundException if the resource cannot be found
-	 * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
-	 * @throws SmartsheetException if there is any other error during the operation
-	 */	
-	public ImageUrlMap getImageUrls(List<ImageUrl> requestUrls) throws SmartsheetException;	
+    /**
+     * <p>Gets URLS that can be used to retrieve the specified cell images.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>POST /imageurls</p>
+     *
+     * @param requestUrls array of requested Images and sizes.
+     * @return the ImageUrlMap object (note that if there is no such resource, this method will throw
+     * ResourceNotFoundException rather than returning null).
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public ImageUrlMap getImageUrls(List<ImageUrl> requestUrls) throws SmartsheetException;
 }

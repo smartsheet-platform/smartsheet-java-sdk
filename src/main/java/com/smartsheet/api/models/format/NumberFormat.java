@@ -21,14 +21,14 @@ package com.smartsheet.api.models.format;
 
 
 public enum NumberFormat {
-	NONE,
-	NUMBER,
-	CURRENCY,
-	PERCENT,
-	;
-	
-	/**
-	 * The default setting when the {@link Format} for {@link NumberFormat} is null;
-	 */
-	public static final NumberFormat DEFAULT = NONE;
+    NONE,
+    NUMBER,
+    CURRENCY,
+    PERCENT,
+    ;
+
+    /**
+     * The default setting when the {@link Format} for {@link NumberFormat} is null;
+     */
+    public static final NumberFormat DEFAULT = NONE;
 }

@@ -31,35 +31,35 @@ import static org.junit.Assert.fail;
 
 public class DiscussionAttachmentResourcesTest extends ResourcesImplBase  {
 
-	private DiscussionAttachmentResources discussionAttachmentResources;
+    private DiscussionAttachmentResources discussionAttachmentResources;
 
-	@Before
-	public void setUp() throws Exception {
-		discussionAttachmentResources = new DiscussionAttachmentResources(new SmartsheetImpl("http://localhost:9090/1.1/", 
-				"accessToken", new DefaultHttpClient(), serializer));
-	}
+    @Before
+    public void setUp() throws Exception {
+        discussionAttachmentResources = new DiscussionAttachmentResources(new SmartsheetImpl("http://localhost:9090/1.1/",
+                "accessToken", new DefaultHttpClient(), serializer));
+    }
 
-	@Test
-	public void testAttachFileLongFileString() {
-		try{
-			discussionAttachmentResources.attachFile(1234L, new File("src/test/rescoures/getPDF.pdf"), "application/pdf");
-			fail("Exception should have been thrown.");
-		}catch(UnsupportedOperationException ex){
-			// Expected
-		}
-	}
-	
-	@Test
-	public void testAttachFileLongFileStringLong(){
-		try{
-			discussionAttachmentResources.attachFile(1234L, new ByteArrayInputStream(new byte[]{}), "application/pdf", 1234L, "file.pdf");
-			fail("Exception should have been thrown.");
-		}catch(UnsupportedOperationException ex){
-			// Expected
-		}
-	}
+    @Test
+    public void testAttachFileLongFileString() {
+        try{
+            discussionAttachmentResources.attachFile(1234L, new File("src/test/rescoures/getPDF.pdf"), "application/pdf");
+            fail("Exception should have been thrown.");
+        }catch(UnsupportedOperationException ex){
+            // Expected
+        }
+    }
 
-	@Test
-	public void testDiscussionAttachmentResources() {}
+    @Test
+    public void testAttachFileLongFileStringLong(){
+        try{
+            discussionAttachmentResources.attachFile(1234L, new ByteArrayInputStream(new byte[]{}), "application/pdf", 1234L, "file.pdf");
+            fail("Exception should have been thrown.");
+        }catch(UnsupportedOperationException ex){
+            // Expected
+        }
+    }
+
+    @Test
+    public void testDiscussionAttachmentResources() {}
 
 }

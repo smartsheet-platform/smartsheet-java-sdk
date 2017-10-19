@@ -20,24 +20,24 @@ package com.smartsheet.api.models.enums;
  */
 
 public enum ScheduleType {
-	/**
-	 * Represents ONCE schedule type.
-	 */
-	ONCE,
-	/**
-	 * Represents DAILY schedule type.
-	 */
-	DAILY,
-	/**
-	 * Represents WEEKLY schedule type.
-	 */
-	WEEKLY,
-	/**
-	 * Represents MONTHLY schedule type.
-	 */
-	MONTHLY,
-	/**
-	 * Represents YEARLY schedule type.
-	 */
-	YEARLY
+    /**
+     * Represents ONCE schedule type.
+     */
+    ONCE,
+    /**
+     * Represents DAILY schedule type.
+     */
+    DAILY,
+    /**
+     * Represents WEEKLY schedule type.
+     */
+    WEEKLY,
+    /**
+     * Represents MONTHLY schedule type.
+     */
+    MONTHLY,
+    /**
+     * Represents YEARLY schedule type.
+     */
+    YEARLY
 }

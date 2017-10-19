@@ -1,26 +1,26 @@
 {
   "accessLevel": "OWNER",
   "columns": [
-	{
-	  "id": 4583173393803140,
-	  "index": 0,
-	  "primary": true,
-	  "title": "Primary Column",
-	  "format": ",,,,,,1,1,,,,,,,,",
-	  "type": "TEXT_NUMBER"
-	},
-	{
-	  "id": 2331373580117892,
-	  "index": 1,
-	  "options": [
-		"new",
-		"in progress",
-		"completed"
-	  ],
-	  "title": "status",
-	  "format": ",,,,,,1,1,,,,,,,,",
-	  "type": "PICKLIST"
-	}
+    {
+      "id": 4583173393803140,
+      "index": 0,
+      "primary": true,
+      "title": "Primary Column",
+      "format": ",,,,,,1,1,,,,,,,,",
+      "type": "TEXT_NUMBER"
+    },
+    {
+      "id": 2331373580117892,
+      "index": 1,
+      "options": [
+        "new",
+        "in progress",
+        "completed"
+      ],
+      "title": "status",
+      "format": ",,,,,,1,1,,,,,,,,",
+      "type": "PICKLIST"
+    }
   ],
   "createdAt": "2012-07-24T18:22:29-07:00",
   "id": 4583173393803140,

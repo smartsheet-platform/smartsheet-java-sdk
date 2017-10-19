@@ -31,587 +31,587 @@ import java.util.Date;
  * @see <a href="http://help.smartsheet.com/customer/portal/articles/520104-sharing-sheets">Sharing Sheets</a>
  */
 public class Share extends NamedModel<String> {
-	/**
-	 * Represents the access level for this specific share.
-	 */
-	private AccessLevel accessLevel;
+    /**
+     * Represents the access level for this specific share.
+     */
+    private AccessLevel accessLevel;
 
-	/**
-	 * Represents the email for this specific share.
-	 */
-	private String email;
+    /**
+     * Represents the email for this specific share.
+     */
+    private String email;
 
-	/**
-	 * Represents the userId if the share is of type {@link ShareType#USER}
-	 */
-	private Long userId;
+    /**
+     * Represents the userId if the share is of type {@link ShareType#USER}
+     */
+    private Long userId;
 
-	/**
-	 * Represents the groupId if the share is of type {@link ShareType#GROUP}
-	 */
-	private Long groupId;
+    /**
+     * Represents the groupId if the share is of type {@link ShareType#GROUP}
+     */
+    private Long groupId;
 
-	/**
-	 * Indicates what type of share this is.
-	 */
-	private ShareType type;
+    /**
+     * Indicates what type of share this is.
+     */
+    private ShareType type;
 
-	/**
-	 * The scope of this share. One of the following values:
-	 *	ITEM: an item-level share (i.e., the specific object to which the Share applies is shared with the user or group)
-	 * 	WORKSPACE: a workspace-level share (i.e., the workspace that contains the object to which the Share applies is shared with the user or group)
-	 */
-	private ShareScope scope;
-	
-	/**
-	 * Time that the share was created.
-	 */
-	private Date createdAt;
-	
-	/**
-	 * Time that the share was modified.
-	 */
-	private Date modifiedAt;
-	
-	/**
-	 * Represents the subject of the email that will optionally be sent to notify the recipient.
-	 */
-	private String subject;
+    /**
+     * The scope of this share. One of the following values:
+     *    ITEM: an item-level share (i.e., the specific object to which the Share applies is shared with the user or group)
+     *     WORKSPACE: a workspace-level share (i.e., the workspace that contains the object to which the Share applies is shared with the user or group)
+     */
+    private ShareScope scope;
 
-	/**
-	 * Represents the message to be included in the body of the email.
-	 */
-	private String message;
+    /**
+     * Time that the share was created.
+     */
+    private Date createdAt;
 
-	/**
-	 * Represents the flag to indicate whether or not to send a copy of the email to the sharer of the sheet.
-	 */
-	private Boolean ccMe;
+    /**
+     * Time that the share was modified.
+     */
+    private Date modifiedAt;
 
-	/**
-	 * Gets the subject of the email that will optionally be sent to notify the recipient.
-	 *
-	 * @return the subject
-	 */
-	public String getSubject() {
-		return subject;
-	}
+    /**
+     * Represents the subject of the email that will optionally be sent to notify the recipient.
+     */
+    private String subject;
 
-	/**
-	 * Sets the subject of the email that will optionally be sent to notify the recipient.
-	 *
-	 * @param subject the subject of the email
-	 */
-	public Share setSubject(String subject) {
-		this.subject = subject;
-		return this;
-	}
+    /**
+     * Represents the message to be included in the body of the email.
+     */
+    private String message;
 
-	/**
-	 * Gets the message to be included in the body of the email.
-	 *
-	 * @return the message
-	 */
-	public String getMessage() {
-		return message;
-	}
+    /**
+     * Represents the flag to indicate whether or not to send a copy of the email to the sharer of the sheet.
+     */
+    private Boolean ccMe;
 
-	/**
-	 * Sets the message to be included in the body of the email.
-	 *
-	 * @param message the message
-	 */
-	public Share setMessage(String message) {
-		this.message = message;
-		return this;
-	}
+    /**
+     * Gets the subject of the email that will optionally be sent to notify the recipient.
+     *
+     * @return the subject
+     */
+    public String getSubject() {
+        return subject;
+    }
 
-	/**
-	 * Gets the flag to indicate whether or not to send a copy of the email to the sharer
-	 *
-	 * @return the flag for CC
-	 */
-	public Boolean isCcMe() {
-		return ccMe;
-	}
+    /**
+     * Sets the subject of the email that will optionally be sent to notify the recipient.
+     *
+     * @param subject the subject of the email
+     */
+    public Share setSubject(String subject) {
+        this.subject = subject;
+        return this;
+    }
 
-	/**
-	 * Sets the flag to indicate whether or not to send a copy of the email to the sharer.
-	 *
-	 * @param ccMe the flag for CC
-	 */
-	public Share setCcMe(Boolean ccMe) {
-		this.ccMe = ccMe;
-		return this;
-	}
+    /**
+     * Gets the message to be included in the body of the email.
+     *
+     * @return the message
+     */
+    public String getMessage() {
+        return message;
+    }
 
-	/**
-	 * Gets the access level for this specific share.
-	 *
-	 * @return the access level
-	 */
-	public AccessLevel getAccessLevel() {
-		return accessLevel;
-	}
+    /**
+     * Sets the message to be included in the body of the email.
+     *
+     * @param message the message
+     */
+    public Share setMessage(String message) {
+        this.message = message;
+        return this;
+    }
 
-	/**
-	 * Sets the access level for this specific share.
-	 *
-	 * @param accessLevel the new access level
-	 */
-	public Share setAccessLevel(AccessLevel accessLevel) {
-		this.accessLevel = accessLevel;
-		return this;
-	}
+    /**
+     * Gets the flag to indicate whether or not to send a copy of the email to the sharer
+     *
+     * @return the flag for CC
+     */
+    public Boolean isCcMe() {
+        return ccMe;
+    }
 
-	/**
-	 * Gets the email for this specific share.
-	 *
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
+    /**
+     * Sets the flag to indicate whether or not to send a copy of the email to the sharer.
+     *
+     * @param ccMe the flag for CC
+     */
+    public Share setCcMe(Boolean ccMe) {
+        this.ccMe = ccMe;
+        return this;
+    }
 
-	/**
-	 * Sets the email for this specific share.
-	 *
-	 * @param email the new email
-	 */
-	public Share setEmail(String email) {
-		this.email = email;
-		return this;
-	}
+    /**
+     * Gets the access level for this specific share.
+     *
+     * @return the access level
+     */
+    public AccessLevel getAccessLevel() {
+        return accessLevel;
+    }
 
-	/**
-	 * Get the scope of this share. One of ITEM or WORKSPACE
-	 * 
-	 * @return scope
-	 */
-	public ShareScope getScope() {
-		return scope;
-	}
-	
-	/**
-	 * Set the scope of this share. One of ITEM or WORKSPACE
-	 *
-	 * @param scope
-	 */
-	public Share setScope(ShareScope scope) {
-		this.scope = scope;
-		return this;
-	}
-	
-	/**
-	 * Gets the time that the share was created
-	 * 
-	 * @return createdAt
-	 */
-	public Date getCreatedAt() {
-		return createdAt;
-	}
-	
-	/**
-	 * Sets the time that the share was created
-	 *
-	 * @param createdAt
-	 */
-	public Share setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-		return this;
-	}
-	
-	/**
-	 * Gets the time that the share was last modified
-	 * 
-	 * @return modifiedAt
-	 */
-	public Date getModifiedAt() {
-		return modifiedAt;
-	}
-	
-	/**
-	 * Sets the time that the share was last modified
-	 *
-	 * @param modifiedAt
-	 */
-	public Share setModifiedAt(Date modifiedAt) {
-		this.modifiedAt = modifiedAt;
-		return this;
-	}
-	
-	/**
-	 * A convenience class for creating a {@link Share} with the necessary fields for sharing the sheet to one user.
-	 */
-	public static class ShareToOneUserBuilder {
-		private AccessLevel accessLevel;
-		private String email;
-		private Long userId;
+    /**
+     * Sets the access level for this specific share.
+     *
+     * @param accessLevel the new access level
+     */
+    public Share setAccessLevel(AccessLevel accessLevel) {
+        this.accessLevel = accessLevel;
+        return this;
+    }
 
-		/**
-		 * Access level for this specific share.
-		 *
-		 * @param accessLevel the access level
-		 * @return the share to one builder
-		 */
-		public ShareToOneUserBuilder setAccessLevel(AccessLevel accessLevel) {
-			this.accessLevel = accessLevel;
-			return this;
-		}
+    /**
+     * Gets the email for this specific share.
+     *
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
 
-		/**
-		 * Email address for this specific share.
-		 *
-		 * @param email the email
-		 * @return the share to one builder
-		 */
-		public ShareToOneUserBuilder setEmail(String email) {
-			this.email = email;
-			return this;
-		}
-		/**
-		 * User Id for this share.
-		 *
-		 * @param userId the User Id.
-		 * @return the share to one builder
-		 */
-		public ShareToOneUserBuilder setUserId(Long userId) {
-			this.userId = userId;
-			return this;
-		}
+    /**
+     * Sets the email for this specific share.
+     *
+     * @param email the new email
+     */
+    public Share setEmail(String email) {
+        this.email = email;
+        return this;
+    }
 
-		/**
-		 * Gets the access level.
-		 *
-		 * @return the access level
-		 */
-		public AccessLevel getAccessLevel() {
-			return accessLevel;
-		}
+    /**
+     * Get the scope of this share. One of ITEM or WORKSPACE
+     *
+     * @return scope
+     */
+    public ShareScope getScope() {
+        return scope;
+    }
 
-		/**
-		 * Gets the email.
-		 *
-		 * @return the email
-		 */
-		public String getEmail() {
-			return email;
-		}
-		/**
-		 * Gets the user Id.
-		 *
-		 * @return the user Id
-		 */
-		public Long getUserId() {
-			return userId;
-		}
+    /**
+     * Set the scope of this share. One of ITEM or WORKSPACE
+     *
+     * @param scope
+     */
+    public Share setScope(ShareScope scope) {
+        this.scope = scope;
+        return this;
+    }
 
-		/**
-		 * Builds the {@link Share} object.
-		 *
-		 * @return the share
-		 */
-		public Share build() {
-			if(accessLevel == null ||
-				email == null && userId == null ||
-				email != null && userId != null){
-						throw new InstantiationError("You must provide one and only one of emailAddress and userId, and accessLevel is required");
-			}
+    /**
+     * Gets the time that the share was created
+     *
+     * @return createdAt
+     */
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
-			Share share = new Share();
-			share.accessLevel = accessLevel;
-			share.email = email;
-			share.userId = userId;
-			share.type = ShareType.USER;
-			return share;
-		}
-	}
+    /**
+     * Sets the time that the share was created
+     *
+     * @param createdAt
+     */
+    public Share setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
 
-	/**
-	 * A convenience class for creating a {@link Share} with the necessary fields for sharing the sheet to one {@link Group}.
-	 */
-	public static class ShareToOneGroupBuilder {
-		private AccessLevel accessLevel;
-		private Long groupId;
+    /**
+     * Gets the time that the share was last modified
+     *
+     * @return modifiedAt
+     */
+    public Date getModifiedAt() {
+        return modifiedAt;
+    }
 
-		/**
-		 * Access level for this specific share.
-		 *
-		 * @param accessLevel the access level
-		 * @return the share to one builder
-		 */
-		public ShareToOneGroupBuilder setAccessLevel(AccessLevel accessLevel) {
-			this.accessLevel = accessLevel;
-			return this;
-		}
+    /**
+     * Sets the time that the share was last modified
+     *
+     * @param modifiedAt
+     */
+    public Share setModifiedAt(Date modifiedAt) {
+        this.modifiedAt = modifiedAt;
+        return this;
+    }
 
-		/**
-		 * Group Id for this share.
-		 *
-		 * @param groupId the group Id.
-		 * @return the share to one builder
-		 */
-		public ShareToOneGroupBuilder setUserId(Long groupId) {
-			this.groupId = groupId;
-			return this;
-		}
+    /**
+     * A convenience class for creating a {@link Share} with the necessary fields for sharing the sheet to one user.
+     */
+    public static class ShareToOneUserBuilder {
+        private AccessLevel accessLevel;
+        private String email;
+        private Long userId;
 
-		/**
-		 * Gets the access level.
-		 *
-		 * @return the access level
-		 */
-		public AccessLevel getAccessLevel() {
-			return accessLevel;
-		}
-		/**
-		 * Gets the user Id.
-		 *
-		 * @return the user Id
-		 */
-		public Long getGroupId() {
-			return groupId;
-		}
+        /**
+         * Access level for this specific share.
+         *
+         * @param accessLevel the access level
+         * @return the share to one builder
+         */
+        public ShareToOneUserBuilder setAccessLevel(AccessLevel accessLevel) {
+            this.accessLevel = accessLevel;
+            return this;
+        }
 
-		/**
-		 * Builds the {@link Share} object.
-		 *
-		 * @return the share
-		 */
-		public Share build() {
-			if(accessLevel == null || groupId != null){
-						throw new InstantiationError("You must provide a groupId and accessLevel");
-			}
+        /**
+         * Email address for this specific share.
+         *
+         * @param email the email
+         * @return the share to one builder
+         */
+        public ShareToOneUserBuilder setEmail(String email) {
+            this.email = email;
+            return this;
+        }
+        /**
+         * User Id for this share.
+         *
+         * @param userId the User Id.
+         * @return the share to one builder
+         */
+        public ShareToOneUserBuilder setUserId(Long userId) {
+            this.userId = userId;
+            return this;
+        }
 
-			Share share = new Share();
-			share.accessLevel = accessLevel;
-			share.groupId = groupId;
-			share.type = ShareType.GROUP;
-			return share;
-		}
-	}
-	/**
-	 * A convenience class for creating a {@link Share} with the necessary fields to update a specific share.
-	 */
-	public static class UpdateShareBuilder {
-		private AccessLevel accessLevel;
-		private String id;
+        /**
+         * Gets the access level.
+         *
+         * @return the access level
+         */
+        public AccessLevel getAccessLevel() {
+            return accessLevel;
+        }
 
-		/**
-		 * Access level for this specific share.
-		 *
-		 * @return the builder
-		 */
-		public String getShareId() {
-			return id;
-		}
+        /**
+         * Gets the email.
+         *
+         * @return the email
+         */
+        public String getEmail() {
+            return email;
+        }
+        /**
+         * Gets the user Id.
+         *
+         * @return the user Id
+         */
+        public Long getUserId() {
+            return userId;
+        }
 
-		public UpdateShareBuilder setShareId(String shareId) {
-			this.id = shareId;
-			return this;
-		}
-		/**
-		 * Access level for the share.
-		 *
-		 * @param accessLevel the access level
-		 * @return the update share builder
-		 */
-		public UpdateShareBuilder setAccessLevel(AccessLevel accessLevel) {
-			this.accessLevel = accessLevel;
-			return this;
-		}
+        /**
+         * Builds the {@link Share} object.
+         *
+         * @return the share
+         */
+        public Share build() {
+            if(accessLevel == null ||
+                email == null && userId == null ||
+                email != null && userId != null){
+                        throw new InstantiationError("You must provide one and only one of emailAddress and userId, and accessLevel is required");
+            }
 
-		/**
-		 * Gets the access level.
-		 *
-		 * @return the access level
-		 */
-		public AccessLevel getAccessLevel() {
-			return accessLevel;
-		}
+            Share share = new Share();
+            share.accessLevel = accessLevel;
+            share.email = email;
+            share.userId = userId;
+            share.type = ShareType.USER;
+            return share;
+        }
+    }
 
-		/**
-		 * Builds the {@link Share} object.
-		 *
-		 * @return the share
-		 */
-		public Share build() {
-			if(accessLevel == null || id == null){
-				throw new InstantiationError("The access level and share id must be specified.");
-			}
-			
-			Share share = new Share();
-			share.accessLevel = accessLevel;
-			share.setId(id);
-			return share;
-		}
-	}
+    /**
+     * A convenience class for creating a {@link Share} with the necessary fields for sharing the sheet to one {@link Group}.
+     */
+    public static class ShareToOneGroupBuilder {
+        private AccessLevel accessLevel;
+        private Long groupId;
 
-	/**
-	 * A convenience class for creating a {@link Share} with the necessary fields to create a {@link ShareType#USER} {@link Share}.
-	 * You must set one and only of of emailAddress and userId.
-	 */
-	public static class CreateUserShareBuilder {
-		private String email;
-		private Long userId;
-		private AccessLevel accessLevel;
-		
-		/**
-		 * Email address for the {@link ShareType#USER} share.
-		 *
-		 * @param emailAddress the email address
-		 * @return the {@link CreateUserShareBuilder}
-		 */
-		public CreateUserShareBuilder setEmailAddress(String emailAddress) {
-			this.email = emailAddress;
-			return this;
-		}
+        /**
+         * Access level for this specific share.
+         *
+         * @param accessLevel the access level
+         * @return the share to one builder
+         */
+        public ShareToOneGroupBuilder setAccessLevel(AccessLevel accessLevel) {
+            this.accessLevel = accessLevel;
+            return this;
+        }
 
-		/**
-		 * Gets the email address.
-		 *
-		 * @return the email address
-		 */
-		public String getEmailAddress() {
-			return email;
-		}
-		/**
-		 * User ID for the {@link ShareType#USER} share.
-		 *
-		 * @param userId user id
-		 * @return the update share builder
-		 */
-		public CreateUserShareBuilder setUserId(Long userId) {
-			this.userId = userId;;
-			return this;
-		}
-		
-		/**
-		 * Gets the user Id.
-		 *
-		 * @return the email address
-		 */
-		public Long getUserId() {
-			return userId;
-		}
+        /**
+         * Group Id for this share.
+         *
+         * @param groupId the group Id.
+         * @return the share to one builder
+         */
+        public ShareToOneGroupBuilder setUserId(Long groupId) {
+            this.groupId = groupId;
+            return this;
+        }
 
-		public AccessLevel getAccessLevel() {
-			return accessLevel;
-		}
+        /**
+         * Gets the access level.
+         *
+         * @return the access level
+         */
+        public AccessLevel getAccessLevel() {
+            return accessLevel;
+        }
+        /**
+         * Gets the user Id.
+         *
+         * @return the user Id
+         */
+        public Long getGroupId() {
+            return groupId;
+        }
 
-		public CreateUserShareBuilder setAccessLevel(AccessLevel accessLevel) {
-			this.accessLevel = accessLevel;
-			return this;
-		}
+        /**
+         * Builds the {@link Share} object.
+         *
+         * @return the share
+         */
+        public Share build() {
+            if(accessLevel == null || groupId != null){
+                        throw new InstantiationError("You must provide a groupId and accessLevel");
+            }
 
-		/**
-		 * Builds the {@link Share} object.
-		 *
-		 * @return the share
-		 */
-		public Share build() {
-			if(email == null && userId == null ||
-			   email != null && userId != null){
-				throw new InstantiationError("You must provide one and only one of emailAddress and userId");
-			}
+            Share share = new Share();
+            share.accessLevel = accessLevel;
+            share.groupId = groupId;
+            share.type = ShareType.GROUP;
+            return share;
+        }
+    }
+    /**
+     * A convenience class for creating a {@link Share} with the necessary fields to update a specific share.
+     */
+    public static class UpdateShareBuilder {
+        private AccessLevel accessLevel;
+        private String id;
 
-//			if (accessLevel == null){
-//				throw new InstantiationError("You must provide share access level.");
-//			}
-			
-			Share share = new Share();
-			share.userId  = userId;
-			share.email = email;
-			share.accessLevel = accessLevel;
-			return share;
-		}
-	}
-	
-	/**
-	 * A convenience class for creating a {@link Share} with the necessary fields to create a {@link ShareType#GROUP} {@link Share}.
-	 * You must set groupId
-	 */
-	public static class CreateGroupShareBuilder {
-		private Long groupId;
-		
-		/**
-		 * Group ID for the {@link ShareType#GROUP} share.
-		 *
-		 * @param groupId the group id
-		 * @return the update share builder
-		 */
-		public CreateGroupShareBuilder setGroupId(Long groupId) {
-			this.groupId = groupId;;
-			return this;
-		}
-		
-		/**
-		 * Gets the user Id.
-		 *
-		 * @return the email address
-		 */
-		public Long getGroupId() {
-			return groupId;
-		}
+        /**
+         * Access level for this specific share.
+         *
+         * @return the builder
+         */
+        public String getShareId() {
+            return id;
+        }
 
-		/**
-		 * Builds the {@link Share} object.
-		 *
-		 * @return the share
-		 */
-		public Share build() {
-			if(groupId == null ){
-				throw new InstantiationError("You must provide a groupId");
-			}
-			
-			Share share = new Share();
-			share.groupId  = groupId;
-			share.type = ShareType.GROUP;
-			return share;
-		}
-	}
-	/**
-	 * @return the userId, <code>null</code> if is {@link ShareType#GROUP}
-	 */
-	public Long getUserId() {
-		return userId;
-	}
+        public UpdateShareBuilder setShareId(String shareId) {
+            this.id = shareId;
+            return this;
+        }
+        /**
+         * Access level for the share.
+         *
+         * @param accessLevel the access level
+         * @return the update share builder
+         */
+        public UpdateShareBuilder setAccessLevel(AccessLevel accessLevel) {
+            this.accessLevel = accessLevel;
+            return this;
+        }
 
-	/**
-	 * @param userId the userId to set
-	 */
-	public Share setUserId(Long userId) {
-		this.userId = userId;
-		return this;
-	}
+        /**
+         * Gets the access level.
+         *
+         * @return the access level
+         */
+        public AccessLevel getAccessLevel() {
+            return accessLevel;
+        }
 
-	/**
-	 * @return the groupId, <code>null</code> if is {@link ShareType#USER}
-	 */
-	public Long getGroupId() {
-		return groupId;
-	}
+        /**
+         * Builds the {@link Share} object.
+         *
+         * @return the share
+         */
+        public Share build() {
+            if(accessLevel == null || id == null){
+                throw new InstantiationError("The access level and share id must be specified.");
+            }
 
-	/**
-	 * @param groupId the groupId to set
-	 */
-	public Share setGroupId(Long groupId) {
-		this.groupId = groupId;
-		return this;
-	}
+            Share share = new Share();
+            share.accessLevel = accessLevel;
+            share.setId(id);
+            return share;
+        }
+    }
 
-	/**
-	 * @return the type
-	 */
-	public ShareType getType() {
-		return type;
-	}
+    /**
+     * A convenience class for creating a {@link Share} with the necessary fields to create a {@link ShareType#USER} {@link Share}.
+     * You must set one and only of of emailAddress and userId.
+     */
+    public static class CreateUserShareBuilder {
+        private String email;
+        private Long userId;
+        private AccessLevel accessLevel;
 
-	/**
-	 * @param type the {@link ShareType} to set
-	 */
-	public Share setType(ShareType type) {
-		this.type = type;
-		return this;
-	}
+        /**
+         * Email address for the {@link ShareType#USER} share.
+         *
+         * @param emailAddress the email address
+         * @return the {@link CreateUserShareBuilder}
+         */
+        public CreateUserShareBuilder setEmailAddress(String emailAddress) {
+            this.email = emailAddress;
+            return this;
+        }
+
+        /**
+         * Gets the email address.
+         *
+         * @return the email address
+         */
+        public String getEmailAddress() {
+            return email;
+        }
+        /**
+         * User ID for the {@link ShareType#USER} share.
+         *
+         * @param userId user id
+         * @return the update share builder
+         */
+        public CreateUserShareBuilder setUserId(Long userId) {
+            this.userId = userId;;
+            return this;
+        }
+
+        /**
+         * Gets the user Id.
+         *
+         * @return the email address
+         */
+        public Long getUserId() {
+            return userId;
+        }
+
+        public AccessLevel getAccessLevel() {
+            return accessLevel;
+        }
+
+        public CreateUserShareBuilder setAccessLevel(AccessLevel accessLevel) {
+            this.accessLevel = accessLevel;
+            return this;
+        }
+
+        /**
+         * Builds the {@link Share} object.
+         *
+         * @return the share
+         */
+        public Share build() {
+            if(email == null && userId == null ||
+               email != null && userId != null){
+                throw new InstantiationError("You must provide one and only one of emailAddress and userId");
+            }
+
+//            if (accessLevel == null){
+//                throw new InstantiationError("You must provide share access level.");
+//            }
+
+            Share share = new Share();
+            share.userId  = userId;
+            share.email = email;
+            share.accessLevel = accessLevel;
+            return share;
+        }
+    }
+
+    /**
+     * A convenience class for creating a {@link Share} with the necessary fields to create a {@link ShareType#GROUP} {@link Share}.
+     * You must set groupId
+     */
+    public static class CreateGroupShareBuilder {
+        private Long groupId;
+
+        /**
+         * Group ID for the {@link ShareType#GROUP} share.
+         *
+         * @param groupId the group id
+         * @return the update share builder
+         */
+        public CreateGroupShareBuilder setGroupId(Long groupId) {
+            this.groupId = groupId;;
+            return this;
+        }
+
+        /**
+         * Gets the user Id.
+         *
+         * @return the email address
+         */
+        public Long getGroupId() {
+            return groupId;
+        }
+
+        /**
+         * Builds the {@link Share} object.
+         *
+         * @return the share
+         */
+        public Share build() {
+            if(groupId == null ){
+                throw new InstantiationError("You must provide a groupId");
+            }
+
+            Share share = new Share();
+            share.groupId  = groupId;
+            share.type = ShareType.GROUP;
+            return share;
+        }
+    }
+    /**
+     * @return the userId, <code>null</code> if is {@link ShareType#GROUP}
+     */
+    public Long getUserId() {
+        return userId;
+    }
+
+    /**
+     * @param userId the userId to set
+     */
+    public Share setUserId(Long userId) {
+        this.userId = userId;
+        return this;
+    }
+
+    /**
+     * @return the groupId, <code>null</code> if is {@link ShareType#USER}
+     */
+    public Long getGroupId() {
+        return groupId;
+    }
+
+    /**
+     * @param groupId the groupId to set
+     */
+    public Share setGroupId(Long groupId) {
+        this.groupId = groupId;
+        return this;
+    }
+
+    /**
+     * @return the type
+     */
+    public ShareType getType() {
+        return type;
+    }
+
+    /**
+     * @param type the {@link ShareType} to set
+     */
+    public Share setType(ShareType type) {
+        this.type = type;
+        return this;
+    }
 }

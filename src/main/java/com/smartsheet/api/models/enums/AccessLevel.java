@@ -27,5 +27,5 @@ package com.smartsheet.api.models.enums;
  * @see <a href="http://www.smartsheet.com/developers/api-documentation#h.umfgm4xt25dq">Access Level Help</a>
  */
 public enum AccessLevel {
-	VIEWER, EDITOR, EDITOR_SHARE, ADMIN, OWNER;
+    VIEWER, EDITOR, EDITOR_SHARE, ADMIN, OWNER;
 }

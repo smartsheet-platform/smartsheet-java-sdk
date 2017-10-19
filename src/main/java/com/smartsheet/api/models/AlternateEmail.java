@@ -25,57 +25,57 @@ package com.smartsheet.api.models;
  */
 public class AlternateEmail {
 
-	/**
-	 * The alternate email id
-	 */	
-	private Long id;
-	
-	/**
-	 * Get the alternate email id.
-	 * 
-	 * @return the alternate email id
-	 */
-	public Long getId() {
-		return id;
-	}
-	
-	/**
-	 * The user's alternate email address (user@example.com)
-	 */
-	private String email;
-	
-	/**
-	 * Get the user's alternate email address.
-	 * 
-	 * @return String containing the alternate email address
-	 */
-	public String getEmail() {
-		return email;
-	}
-	
-	/**
-	 * @param email the  email
-	 * Set the user's alternate email address.
-	 */
-	public AlternateEmail setEmail(String email) {
-		this.email = email;
-		return this;
-	}
-	
-	/** 
-	 * Flag indicating whether the alternate email address has been confirmed
-	 */
-	private Boolean confirmed;
-	
-	/**
-	 * Get flag indicating whether the alternate email address is confirmed.
-	 * 
-	 * @return true if the alternate email address has been confirmed
-	 */
-	public Boolean getConfirmed() {
-		return confirmed;
-	}
-	
+    /**
+     * The alternate email id
+     */
+    private Long id;
+
+    /**
+     * Get the alternate email id.
+     *
+     * @return the alternate email id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * The user's alternate email address (user@example.com)
+     */
+    private String email;
+
+    /**
+     * Get the user's alternate email address.
+     *
+     * @return String containing the alternate email address
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the  email
+     * Set the user's alternate email address.
+     */
+    public AlternateEmail setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    /**
+     * Flag indicating whether the alternate email address has been confirmed
+     */
+    private Boolean confirmed;
+
+    /**
+     * Get flag indicating whether the alternate email address is confirmed.
+     *
+     * @return true if the alternate email address has been confirmed
+     */
+    public Boolean getConfirmed() {
+        return confirmed;
+    }
+
     /**
      * A convenience class for making a {@link AlternateEmail} object with the appropriate fields for adding to a {@link User}.
      */
@@ -110,5 +110,5 @@ public class AlternateEmail {
             return altEmail;
         }
     }
-	
+
 }

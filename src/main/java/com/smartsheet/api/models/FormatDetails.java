@@ -27,27 +27,27 @@ import com.smartsheet.api.models.enums.PaperSize;
  * Represents the format details when generating a digital copy (PDF/EXCEL) of a sheet.
  */
 public class FormatDetails {
-	/**
-	 * Represents the paper size.
-	 */
-	private PaperSize paperSize;
+    /**
+     * Represents the paper size.
+     */
+    private PaperSize paperSize;
 
-	/**
-	 * Gets the paper size.
-	 *
-	 * @return the paper size
-	 */
-	public PaperSize getPaperSize() {
-		return paperSize;
-	}
+    /**
+     * Gets the paper size.
+     *
+     * @return the paper size
+     */
+    public PaperSize getPaperSize() {
+        return paperSize;
+    }
 
-	/**
-	 * Sets the paper size.
-	 *
-	 * @param paperSize the new paper size
-	 */
-	public FormatDetails setPaperSize(PaperSize paperSize) {
-		this.paperSize = paperSize;
-		return this;
-	}
+    /**
+     * Sets the paper size.
+     *
+     * @param paperSize the new paper size
+     */
+    public FormatDetails setPaperSize(PaperSize paperSize) {
+        this.paperSize = paperSize;
+        return this;
+    }
 }

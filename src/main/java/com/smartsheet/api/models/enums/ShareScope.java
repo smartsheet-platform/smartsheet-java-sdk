@@ -21,6 +21,6 @@ package com.smartsheet.api.models.enums;
  */
 
 public enum ShareScope {
-	ITEM,
-	WORKSPACE
+    ITEM,
+    WORKSPACE
 }

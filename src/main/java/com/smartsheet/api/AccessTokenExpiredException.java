@@ -32,14 +32,14 @@ import com.smartsheet.api.models.Error;
  */
 public class AccessTokenExpiredException extends AuthorizationException {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * Instantiates a new access token expired exception.
-	 *
-	 * @param error the error
-	 */
-	public AccessTokenExpiredException(Error error) {
-		super(error);
-	}
+    /**
+     * Instantiates a new access token expired exception.
+     *
+     * @param error the error
+     */
+    public AccessTokenExpiredException(Error error) {
+        super(error);
+    }
 }

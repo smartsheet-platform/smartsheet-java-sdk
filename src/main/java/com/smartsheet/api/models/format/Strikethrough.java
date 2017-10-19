@@ -25,24 +25,24 @@ package com.smartsheet.api.models.format;
  * An enumeration representing the available Strikethrough state for a format.
  */
 public enum Strikethrough {
-	NONE 	(false),
-	ON		(true),
-	;
-	private final boolean striken;
-	
-	private Strikethrough (boolean striken) {
-		this.striken = striken;
-	}
+    NONE    (false),
+    ON      (true),
+    ;
+    private final boolean striken;
 
-	/**
-	 * The default setting when the {@link Format} for {@link Strikethrough} is null;
-	 */
-	public static final Strikethrough DEFAULT = NONE;
-	
-	/**
-	 * @return the strikeThrough
-	 */
-	public boolean isStricken() {
-		return striken;
-	}
+    private Strikethrough (boolean striken) {
+        this.striken = striken;
+    }
+
+    /**
+     * The default setting when the {@link Format} for {@link Strikethrough} is null;
+     */
+    public static final Strikethrough DEFAULT = NONE;
+
+    /**
+     * @return the strikeThrough
+     */
+    public boolean isStricken() {
+        return striken;
+    }
 }

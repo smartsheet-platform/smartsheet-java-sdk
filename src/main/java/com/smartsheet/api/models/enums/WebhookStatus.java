@@ -20,36 +20,36 @@ package com.smartsheet.api.models.enums;
  */
 
 public enum WebhookStatus {
-	/**
-	 * Webhook is active.
-	 */
-	ENABLED,
-	/**
-	 * Webhook has been created but is not enabled because it has not yet been verified. 
-	 */
-	NEW_NOT_VERIFIED,
-	/**
-	 * Webhook has been disabled by the owner.
-	 */
-	DISABLED_BY_OWNER,
-	/**
-	 * Webhook verification has failed.
-	 */
-	DISABLED_VERIFICATION_FAILED,
-	/**
-	 * Webhook has been disabled because callback was not successfully delivered to the Callback URL.
-	 */
-	DISABLED_CALLBACK_FAILED,
-	/**
-	 * Webhook has been disabled because the third-party app associated with the webhook has had its access revoked.
-	 */
-	DISABLED_APP_REVOKED,
-	/**
-	 * Webhook has been disabled because its owner lost access to the corresponding data in Smartsheet
-	 */
-	DISABLED_SCOPE_INACCESSIBLE,
-	/**
-	 * Webhook has been disabled by Smartsheet support.
-	 */
-	DISABLED_ADMINISTRATIVE
+    /**
+     * Webhook is active.
+     */
+    ENABLED,
+    /**
+     * Webhook has been created but is not enabled because it has not yet been verified.
+     */
+    NEW_NOT_VERIFIED,
+    /**
+     * Webhook has been disabled by the owner.
+     */
+    DISABLED_BY_OWNER,
+    /**
+     * Webhook verification has failed.
+     */
+    DISABLED_VERIFICATION_FAILED,
+    /**
+     * Webhook has been disabled because callback was not successfully delivered to the Callback URL.
+     */
+    DISABLED_CALLBACK_FAILED,
+    /**
+     * Webhook has been disabled because the third-party app associated with the webhook has had its access revoked.
+     */
+    DISABLED_APP_REVOKED,
+    /**
+     * Webhook has been disabled because its owner lost access to the corresponding data in Smartsheet
+     */
+    DISABLED_SCOPE_INACCESSIBLE,
+    /**
+     * Webhook has been disabled by Smartsheet support.
+     */
+    DISABLED_ADMINISTRATIVE
 }

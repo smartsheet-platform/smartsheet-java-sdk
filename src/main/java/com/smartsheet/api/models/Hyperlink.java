@@ -109,6 +109,6 @@ public class Hyperlink {
      * @return value of isNull flag
      */
     public boolean isNull() {
-		return this.isNull;
+        return this.isNull;
     }
 }

@@ -38,94 +38,94 @@ import static org.junit.Assert.assertNotNull;
 
 public class WorkspaceResourcesImplTest extends ResourcesImplBase {
 
-	private WorkspaceResourcesImpl workspaceResources;
+    private WorkspaceResourcesImpl workspaceResources;
 
-	@Before
-	public void setUp() throws Exception {
-		workspaceResources = new WorkspaceResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/", 
-				"accessToken", new DefaultHttpClient(), serializer));
-	}
+    @Before
+    public void setUp() throws Exception {
+        workspaceResources = new WorkspaceResourcesImpl(new SmartsheetImpl("http://localhost:9090/1.1/",
+                "accessToken", new DefaultHttpClient(), serializer));
+    }
 
-	@Test
-	public void testWorkspaceResourcesImpl() {}
+    @Test
+    public void testWorkspaceResourcesImpl() {}
 
-	@Test
-	public void testListWorkspaces() throws SmartsheetException, IOException {
-		server.setResponseBody(new File("src/test/resources/listWorkspaces.json"));
-		PaginationParameters parameters = new PaginationParameters(false, 1, 1);
-		PagedResult<Workspace> workspace = workspaceResources.listWorkspaces(parameters);
-		assertEquals(1, workspace.getPageNumber().longValue());
-		assertEquals(100, workspace.getPageSize().longValue());
-		assertEquals(1, workspace.getTotalPages().longValue());
-		assertEquals(2, workspace.getTotalCount().longValue());
+    @Test
+    public void testListWorkspaces() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/listWorkspaces.json"));
+        PaginationParameters parameters = new PaginationParameters(false, 1, 1);
+        PagedResult<Workspace> workspace = workspaceResources.listWorkspaces(parameters);
+        assertEquals(1, workspace.getPageNumber().longValue());
+        assertEquals(100, workspace.getPageSize().longValue());
+        assertEquals(1, workspace.getTotalPages().longValue());
+        assertEquals(2, workspace.getTotalCount().longValue());
 
-		assertEquals(2, workspace.getData().size());
-		assertEquals(AccessLevel.OWNER, workspace.getData().get(0).getAccessLevel());
-		assertEquals(3457273486960516L, workspace.getData().get(0).getId().longValue());
-		assertEquals("workspace 1", workspace.getData().get(0).getName());
-		assertEquals("https://app.smartsheet.com/b/home?lx=JNL0bgXtXc0pzni9tzAc4g", workspace.getData().get(0).getPermalink());
-	}
+        assertEquals(2, workspace.getData().size());
+        assertEquals(AccessLevel.OWNER, workspace.getData().get(0).getAccessLevel());
+        assertEquals(3457273486960516L, workspace.getData().get(0).getId().longValue());
+        assertEquals("workspace 1", workspace.getData().get(0).getName());
+        assertEquals("https://app.smartsheet.com/b/home?lx=JNL0bgXtXc0pzni9tzAc4g", workspace.getData().get(0).getPermalink());
+    }
 
-	@Test
-	public void testGetWorkspace() throws IOException, SmartsheetException {
-		server.setResponseBody(new File("src/test/resources/getWorkspace.json"));
-		
-		Workspace workspace = workspaceResources.getWorkspace(1234L, true, EnumSet.allOf(SourceInclusion.class));
-		assertEquals(1, workspace.getSheets().size());
+    @Test
+    public void testGetWorkspace() throws IOException, SmartsheetException {
+        server.setResponseBody(new File("src/test/resources/getWorkspace.json"));
 
-		Sheet sheet = workspace.getSheets().get(0);
-		assertEquals("sheet 1", sheet.getName());
+        Workspace workspace = workspaceResources.getWorkspace(1234L, true, EnumSet.allOf(SourceInclusion.class));
+        assertEquals(1, workspace.getSheets().size());
 
-		Source source = sheet.getSource();
-		assertNotNull(source.getId());
-		assertNotNull(source.getType());
+        Sheet sheet = workspace.getSheets().get(0);
+        assertEquals("sheet 1", sheet.getName());
 
-		assertEquals(7116448184199044L, workspace.getId().longValue());
-		assertEquals("New workspace", workspace.getName());
+        Source source = sheet.getSource();
+        assertNotNull(source.getId());
+        assertNotNull(source.getType());
 
-		assertEquals(AccessLevel.OWNER, workspace.getAccessLevel());
-		assertEquals("https://app.smartsheet.com/b/home?lx=8Z0XuFUEAkxmHCSsMw4Zgg", workspace.getPermalink());
-	}
+        assertEquals(7116448184199044L, workspace.getId().longValue());
+        assertEquals("New workspace", workspace.getName());
 
-	@Test
-	public void testCreateWorkspace() throws IOException, SmartsheetException {
-		server.setResponseBody(new File("src/test/resources/createWorkspace.json"));
-		
-		Workspace workspace = new Workspace();
-		workspace.setName("New Workspace");
-		Workspace newWorkspace = workspaceResources.createWorkspace(workspace);
-		assertEquals(2349499415848836L, newWorkspace.getId().longValue());
-		assertEquals("New Workspace", newWorkspace.getName());
-		assertEquals(AccessLevel.OWNER, newWorkspace.getAccessLevel());
-		assertEquals("https://app.smartsheet.com/b/home?lx=Jasdfa", newWorkspace.getPermalink());
-	}
+        assertEquals(AccessLevel.OWNER, workspace.getAccessLevel());
+        assertEquals("https://app.smartsheet.com/b/home?lx=8Z0XuFUEAkxmHCSsMw4Zgg", workspace.getPermalink());
+    }
 
-	@Test
-	public void testUpdateWorkspace() throws IOException, SmartsheetException {
-		server.setResponseBody(new File("src/test/resources/updateWorkspace.json"));
-		
-		Workspace workspace = new Workspace();
-		workspace.setName("New Workspace");
-		Workspace newWorkspace = workspaceResources.updateWorkspace(workspace);
-		assertEquals(2349499415848836L, newWorkspace.getId().longValue());
-		assertEquals("New Workspace1", newWorkspace.getName());
-		assertEquals(AccessLevel.OWNER, newWorkspace.getAccessLevel());
-		assertEquals("https://app.smartsheet.com/b/home?lx=asdf", newWorkspace.getPermalink());
-	}
+    @Test
+    public void testCreateWorkspace() throws IOException, SmartsheetException {
+        server.setResponseBody(new File("src/test/resources/createWorkspace.json"));
 
-	@Test
-	public void testDeleteWorkspace() throws IOException, SmartsheetException {
-		server.setResponseBody(new File("src/test/resources/deleteWorkspace.json"));
-		workspaceResources.deleteWorkspace(1234L);
-	}
+        Workspace workspace = new Workspace();
+        workspace.setName("New Workspace");
+        Workspace newWorkspace = workspaceResources.createWorkspace(workspace);
+        assertEquals(2349499415848836L, newWorkspace.getId().longValue());
+        assertEquals("New Workspace", newWorkspace.getName());
+        assertEquals(AccessLevel.OWNER, newWorkspace.getAccessLevel());
+        assertEquals("https://app.smartsheet.com/b/home?lx=Jasdfa", newWorkspace.getPermalink());
+    }
 
-	@Test
-	public void testCopyWorkspace() throws IOException, SmartsheetException {
-		server.setResponseBody(new File("src/test/resources/copyWorkspace.json"));
-		ContainerDestination containerDestination = new ContainerDestination();
-		containerDestination.setDestinationType(DestinationType.WORKSPACE);
+    @Test
+    public void testUpdateWorkspace() throws IOException, SmartsheetException {
+        server.setResponseBody(new File("src/test/resources/updateWorkspace.json"));
 
-		Folder folder = workspaceResources.copyWorkspace(123L, containerDestination, null, null);
-		assertEquals(folder.getPermalink(), "https://{url}?lx=VL4YlIUnyYgASeX02grbLQ");
-	}
+        Workspace workspace = new Workspace();
+        workspace.setName("New Workspace");
+        Workspace newWorkspace = workspaceResources.updateWorkspace(workspace);
+        assertEquals(2349499415848836L, newWorkspace.getId().longValue());
+        assertEquals("New Workspace1", newWorkspace.getName());
+        assertEquals(AccessLevel.OWNER, newWorkspace.getAccessLevel());
+        assertEquals("https://app.smartsheet.com/b/home?lx=asdf", newWorkspace.getPermalink());
+    }
+
+    @Test
+    public void testDeleteWorkspace() throws IOException, SmartsheetException {
+        server.setResponseBody(new File("src/test/resources/deleteWorkspace.json"));
+        workspaceResources.deleteWorkspace(1234L);
+    }
+
+    @Test
+    public void testCopyWorkspace() throws IOException, SmartsheetException {
+        server.setResponseBody(new File("src/test/resources/copyWorkspace.json"));
+        ContainerDestination containerDestination = new ContainerDestination();
+        containerDestination.setDestinationType(DestinationType.WORKSPACE);
+
+        Folder folder = workspaceResources.copyWorkspace(123L, containerDestination, null, null);
+        assertEquals(folder.getPermalink(), "https://{url}?lx=VL4YlIUnyYgASeX02grbLQ");
+    }
 }

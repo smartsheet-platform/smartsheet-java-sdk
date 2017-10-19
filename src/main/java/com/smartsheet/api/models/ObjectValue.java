@@ -22,10 +22,10 @@ package com.smartsheet.api.models;
 import com.smartsheet.api.models.enums.ObjectValueType;
 
 public interface ObjectValue {
-	/**
-	 * Get the objectValue type
-	 * 
-	 * @return objectType;
-	 */
-	ObjectValueType getObjectType();
+    /**
+     * Get the objectValue type
+     *
+     * @return objectType;
+     */
+    ObjectValueType getObjectType();
 }

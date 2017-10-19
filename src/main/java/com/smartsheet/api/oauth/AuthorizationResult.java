@@ -26,80 +26,80 @@ package com.smartsheet.api.oauth;
  * Represents an OAuth authorization result.
  */
 public class AuthorizationResult {
-	/** Represents the authorization code which is required to obtain an access token. */
-	private String code;
+    /** Represents the authorization code which is required to obtain an access token. */
+    private String code;
 
-	/** Represents the total number of seconds that the authorization token is valid. This is always 4 minutes. */
-	private long expiresInSeconds;
+    /** Represents the total number of seconds that the authorization token is valid. This is always 4 minutes. */
+    private long expiresInSeconds;
 
-	/** Represents the state string which is returned to the redirect URL for a registered application. */
-	private String state;
-	
-	/**
-	 * Gets the authorization code which is required to obtain an access token.
-	 *
-	 * @return the authorization code
-	 */
-	public String getCode() {
-		return code;
-	}
+    /** Represents the state string which is returned to the redirect URL for a registered application. */
+    private String state;
 
-	/**
-	 * Sets the authorization code which is required to obtain an access token.
-	 *
-	 * @param code the new code
-	 */
-	public void setCode(String code) {
-		this.code = code;
-	}
+    /**
+     * Gets the authorization code which is required to obtain an access token.
+     *
+     * @return the authorization code
+     */
+    public String getCode() {
+        return code;
+    }
 
-	/**
-	 * Gets the total number of seconds that the authorization token is valid. This is always 4 minutes.
-	 *
-	 * @return the expires in seconds
-	 */
-	public long getExpiresInSeconds() {
-		return expiresInSeconds;
-	}
+    /**
+     * Sets the authorization code which is required to obtain an access token.
+     *
+     * @param code the new code
+     */
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	/**
-	 * Sets the total number of seconds that the authorization token is valid. This is always 4 minutes.
-	 *
-	 * @param expiresInSeconds the new expires in seconds
-	 */
-	public void setExpiresInSeconds(long expiresInSeconds) {
-		this.expiresInSeconds = expiresInSeconds;
-	}
+    /**
+     * Gets the total number of seconds that the authorization token is valid. This is always 4 minutes.
+     *
+     * @return the expires in seconds
+     */
+    public long getExpiresInSeconds() {
+        return expiresInSeconds;
+    }
 
-	/**
-	 * Gets the state string which is returned to the redirect URL for a registered application
-	 *
-	 * @return the state
-	 */
-	public String getState() {
-		return state;
-	}
+    /**
+     * Sets the total number of seconds that the authorization token is valid. This is always 4 minutes.
+     *
+     * @param expiresInSeconds the new expires in seconds
+     */
+    public void setExpiresInSeconds(long expiresInSeconds) {
+        this.expiresInSeconds = expiresInSeconds;
+    }
 
-	/**
-	 * Sets the state string which is returned to the redirect URL for a registered application
-	 *
-	 * @param state the new state
-	 */
-	public void setState(String state) {
-		this.state = state;
-	}
+    /**
+     * Gets the state string which is returned to the redirect URL for a registered application
+     *
+     * @return the state
+     */
+    public String getState() {
+        return state;
+    }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return new StringBuilder().append("AuthorizationResult [code=")
-				.append(code)
-				.append(", expiresInSeconds=")
-				.append(expiresInSeconds)
-				.append(", state=")
-				.append(state)
-				.append("]").toString();
-	}
+    /**
+     * Sets the state string which is returned to the redirect URL for a registered application
+     *
+     * @param state the new state
+     */
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return new StringBuilder().append("AuthorizationResult [code=")
+                .append(code)
+                .append(", expiresInSeconds=")
+                .append(expiresInSeconds)
+                .append(", state=")
+                .append(state)
+                .append("]").toString();
+    }
 }

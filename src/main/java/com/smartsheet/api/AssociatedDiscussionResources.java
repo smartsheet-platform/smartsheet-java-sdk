@@ -29,13 +29,13 @@ import com.smartsheet.api.models.Discussion;
  */
 @Deprecated
 public interface AssociatedDiscussionResources {
-	/**
-	 * @deprecated As of release 2.0
-	 * @param objectId the object id (sheet id or row id)
-	 * @param discussion the discussion object
-	 * @return the created discussion
-	 * @throws SmartsheetException if there is any other error during the operation
-	 */
-	@Deprecated
-	public Discussion createDiscussion(long objectId, Discussion discussion) throws SmartsheetException;
+    /**
+     * @deprecated As of release 2.0
+     * @param objectId the object id (sheet id or row id)
+     * @param discussion the discussion object
+     * @return the created discussion
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    @Deprecated
+    public Discussion createDiscussion(long objectId, Discussion discussion) throws SmartsheetException;
 }
