@@ -79,7 +79,7 @@ public class LoggingTest {
     public void testCustomLogging() throws Exception {
         ByteArrayOutputStream traceStream = new ByteArrayOutputStream();
         DefaultHttpClient.setTraceStream(traceStream);
-        Smartsheet client = new SmartsheetBuilder().build();
+        Smartsheet client = new SmartsheetBuilder().setAccessToken("null").build();
         client.setTraces(Trace.Request, Trace.Response);    // should log entire request and response
         try {
             Sheet sheet = client.sheetResources().getSheet(42, null, null, null, null, null, 1, 1);
