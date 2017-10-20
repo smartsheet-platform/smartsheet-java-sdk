@@ -49,8 +49,14 @@ public class GroupResourcesImpl extends AbstractResources implements GroupResour
     }
 
     @Override
-    public PagedResult<Group> listGroups(PaginationParameters parameters) throws SmartsheetException {
-        return this.listResourcesWithWrapper("groups" + parameters.toQueryString(), Group.class);
+    public PagedResult<Group> listGroups(PaginationParameters paging) throws SmartsheetException {
+        String path = "groups";
+
+        if (paging != null) {
+            path += paging.toQueryString();
+        }
+
+        return this.listResourcesWithWrapper(path, Group.class);
     }
 
     @Override
