@@ -61,6 +61,8 @@ public class SheetResourcesIT extends ITResourcesImpl{
         testGetSheetAsPDF();
         testGetPublishStatus();
         testUpdateSheet();
+        testPublishSheetDefaults();
+        testPublishSheet();
         testUpdatePublishStatus();
         testListSheets();
         testListOrganizationSheets();
@@ -248,6 +250,34 @@ public class SheetResourcesIT extends ITResourcesImpl{
         Sheet newSheet = smartsheet.sheetResources().updateSheet(sheet);
 
         assertEquals(sheet.getName(), newSheet.getName());
+    }
+
+    public void testPublishSheetDefaults() throws SmartsheetException, IOException {
+        SheetPublish sheetPublish = new SheetPublish.PublishStatusBuilder()
+                .setIcalEnabled(false)
+                .setReadOnlyFullEnabled(true)
+                .setReadWriteEnabled(true)
+                .setReadOnlyLiteEnabled(true)
+                .build();
+        SheetPublish newSheetPublish = smartsheet.sheetResources().updatePublishStatus(newSheetHome.getId(), sheetPublish);
+
+        assertTrue("read write show toolbar should be enabled", newSheetPublish.getReadWriteShowToolbar());
+        assertTrue("read only full show toolbar should be enabled", newSheetPublish.getReadOnlyFullShowToolbar());
+    }
+
+    public void testPublishSheet() throws SmartsheetException, IOException {
+        SheetPublish sheetPublish = new SheetPublish.PublishStatusBuilder()
+                .setIcalEnabled(false)
+                .setReadOnlyFullEnabled(true)
+                .setReadWriteEnabled(true)
+                .setReadOnlyLiteEnabled(true)
+                .setReadWriteShowToolbarEnabled(false)
+                .setReadOnlyFullShowToolbarEnabled(false)
+                .build();
+        SheetPublish newSheetPublish = smartsheet.sheetResources().updatePublishStatus(newSheetHome.getId(), sheetPublish);
+
+        assertFalse("read write show toolbar should not be enabled", newSheetPublish.getReadWriteShowToolbar());
+        assertFalse("read only full show toolbar should not be enabled", newSheetPublish.getReadOnlyFullShowToolbar());
     }
 
     public void testUpdatePublishStatus() throws SmartsheetException, IOException {

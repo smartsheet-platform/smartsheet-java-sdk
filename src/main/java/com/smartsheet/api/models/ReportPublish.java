@@ -19,7 +19,7 @@
   * limitations under the License.
   * %[license]
   */
- 
+
  /**
   * The ReportPublish object (see: http://smartsheet-platform.github.io/api-docs/?java#reportpublish-object)
   */
@@ -89,4 +89,29 @@ public class ReportPublish {
     public String getReadOnlyFullUrl() {
         return readOnlyFullUrl;
     }
+
+
+     /**
+      * Flag to show or hide the left nav toolbar for the read only report.
+      */
+     private Boolean readOnlyFullShowToolbar = true;
+
+
+     /**
+      * Get the read only full show toolbar flag
+      *
+      * @return readOnlyFullShowToolbar
+      */
+     public Boolean getReadOnlyFullShowToolbar() { return readOnlyFullShowToolbar; }
+
+     /**
+      * Set the read only full show toolbar flag
+      *
+      * @param readOnlyFullShowToolbar
+      * @return
+      */
+     public ReportPublish setReadOnlyFullShowToolbar(Boolean readOnlyFullShowToolbar) {
+         this.readOnlyFullShowToolbar = readOnlyFullShowToolbar;
+         return this;
+     }
 }
