@@ -20,7 +20,7 @@ Add the SDK as a dependency in your project.
 <dependency>
   <groupId>com.smartsheet</groupId>
   <artifactId>smartsheet-sdk-java</artifactId>
-  <version>2.2.1</version>
+  <version>2.2.2</version>
 </dependency>
 ```
 
@@ -109,6 +109,13 @@ More Java examples available [here](https://github.com/smartsheet-samples/).
 
 ## Contributing
 If you would like to contribute a change to the SDK, please fork a branch and then submit a pull request. [More info here](https://help.github.com/articles/using-pull-requests).
+
+#### Running the tests
+Unit tests: `mvn test`
+
+Integration tests:
+1. Set up an api access token in `src/integration-test/resources/config.properties`
+2. `mvn integration-test`
 
 ## Support
 If you have any questions or issues with this SDK please post on [StackOverflow using the tag "smartsheet-api"](http://stackoverflow.com/questions/tagged/smartsheet-api) or contact us directly at api@smartsheet.com.
