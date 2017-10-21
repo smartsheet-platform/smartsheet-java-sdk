@@ -997,13 +997,16 @@ public abstract class AbstractResources {
                 throw new RuntimeException ("Unsupported encode. You must support utf-8 for the Smartsheet Java SDK to work",e);
             }
         }
-        if (smartsheet.getChangeAgent() != null) {
-            try {
-                headers.put("Smartsheet-Change-Agent", URLEncoder.encode(smartsheet.getChangeAgent(), "utf-8"));
-            } catch (UnsupportedEncodingException e) {
-                throw new RuntimeException ("Unsupported encode. You must support utf-8 for the Smartsheet Java SDK to work",e);
-            }
-        }
+         if (smartsheet.getChangeAgent() != null) {
+             try {
+                 headers.put("Smartsheet-Change-Agent", URLEncoder.encode(smartsheet.getChangeAgent(), "utf-8"));
+             } catch (UnsupportedEncodingException e) {
+                 throw new RuntimeException ("Unsupported encode. You must support utf-8 for the Smartsheet Java SDK to work",e);
+             }
+         }
+         if (smartsheet.getAPIScenario() != null && !smartsheet.getAPIScenario().isEmpty()) {
+            headers.put("Api-Scenario", smartsheet.getAPIScenario());
+         }
         return headers;
     }
 
