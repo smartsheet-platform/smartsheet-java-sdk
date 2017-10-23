@@ -20,6 +20,7 @@
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.AccessLevel;
 import com.smartsheet.api.models.enums.PaperSize;
 import com.smartsheet.api.models.enums.ReportInclusion;
 import com.smartsheet.api.models.enums.SheetEmailFormat;
@@ -36,15 +37,23 @@ import static org.junit.Assert.*;
 
 public class ReportResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
-    PagedResult<Report> reportsWrapper;
-
-    private Long getReportId() {
-        return reportsWrapper.getData().get(0).getId();
-    }
+    private Long reportId = null;
 
     @Before
     public void setUp() throws Exception {
         smartsheet = createAuthentication();
+
+         PagedResult<Report> reports = smartsheet.reportResources().listReports(null, null);
+         for (Report report : reports.getData()) {
+             if (report.getAccessLevel() == AccessLevel.OWNER) {
+                 reportId = report.getId();
+                 break;
+             }
+         }
+         if (reportId == null) {
+             throw new Exception("No valid reports found for the configured account. This test requires at least one owned report");
+         }
+
     }
 
     @Test
@@ -55,36 +64,35 @@ public class ReportResourcesIT extends ITResourcesImpl{
         testGetReportAsCsv();
         testSendSheet();
         testPublishReport();
+        testUnpublishReport();
     }
 
     public void testListReports() throws  SmartsheetException, IOException {
         PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder()
                 .setIncludeAll(true).build();
-        reportsWrapper = smartsheet.reportResources().listReports(null);
-        reportsWrapper = smartsheet.reportResources().listReports(parameters);
+
+        PagedResult<Report> reports = smartsheet.reportResources().listReports(null, null);
+        assertNotNull(reports);
+        assertTrue(reports.getData().size() > 0);
     }
 
     public void testGetReport() throws SmartsheetException, IOException {
-        if (reportsWrapper.getData().size() > 0) {
-            EnumSet<ReportInclusion> reportInclusions = EnumSet.of(ReportInclusion.ATTACHMENTS, ReportInclusion.DISCUSSIONS);
-            Report report = smartsheet.reportResources().getReport(getReportId(), reportInclusions, 1, 1);
-            smartsheet.reportResources().getReport(getReportId(), null, null, null);
-            assertNotNull(report);
-        }
+        EnumSet<ReportInclusion> reportInclusions = EnumSet.of(ReportInclusion.ATTACHMENTS, ReportInclusion.DISCUSSIONS);
+        Report report = smartsheet.reportResources().getReport(reportId, reportInclusions, 1, 1);
+        smartsheet.reportResources().getReport(reportId, null, null, null);
+        assertNotNull(report);
     }
 
     public void testGetReportAsExcel() throws SmartsheetException, IOException{
-        if (reportsWrapper.getData().size() > 0) {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        smartsheet.reportResources().getReportAsExcel(getReportId(), output);
-       assertNotNull(output);}
+        smartsheet.reportResources().getReportAsExcel(reportId, output);
+        assertNotNull(output);
     }
 
     public void testGetReportAsCsv() throws SmartsheetException, IOException{
-        if (reportsWrapper.getData().size() > 0) {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        smartsheet.reportResources().getReportAsCsv(getReportId(), output);
-        assertNotNull(output);}
+        smartsheet.reportResources().getReportAsCsv(reportId, output);
+        assertNotNull(output);
     }
 
     public void testSendSheet() throws SmartsheetException, IOException {
@@ -110,22 +118,29 @@ public class ReportResourcesIT extends ITResourcesImpl{
                 .setFormatDetails(formatDetails)
                 .build();
 
-        if (reportsWrapper.getData().size() > 0) {
-            smartsheet.reportResources().sendReport(getReportId(), email);
-            //smartsheet.reportResources().sendReport(8623082916079492L, email);
-        }
+        smartsheet.reportResources().sendReport(reportId, email);
+        //smartsheet.reportResources().sendReport(8623082916079492L, email);
     }
 
     public void testPublishReport() throws SmartsheetException, IOException {
-        if (reportsWrapper.getData().size() > 0) {
-            ReportPublish reportPublish = new ReportPublish();
-            reportPublish.setReadOnlyFullEnabled(true);
-            reportPublish.setReadOnlyFullShowToolbar(false);
+        ReportPublish reportPublish = new ReportPublish();
+        reportPublish.setReadOnlyFullEnabled(true);
+        reportPublish.setReadOnlyFullShowToolbar(false);
 
-            ReportPublish newReportPublish = smartsheet.reportResources().updatePublishStatus(getReportId(), reportPublish);
-            assertTrue(newReportPublish.getReadOnlyFullEnabled());
-            assertFalse(newReportPublish.getReadOnlyFullShowToolbar());
-        }
+        ReportPublish newReportPublish = smartsheet.reportResources().updatePublishStatus(reportId, reportPublish);
+        assertTrue(newReportPublish.getReadOnlyFullEnabled());
+        assertFalse(newReportPublish.getReadOnlyFullShowToolbar());
+    }
+
+    public void testUnpublishReport() throws SmartsheetException, IOException {
+        ReportPublish reportPublish = new ReportPublish();
+        reportPublish.setReadOnlyFullEnabled(false);
+        reportPublish.setReadOnlyFullShowToolbar(false);
+
+        ReportPublish newReportPublish = smartsheet.reportResources().updatePublishStatus(reportId, reportPublish);
+        assertFalse(newReportPublish.getReadOnlyFullEnabled());
+        // Note that if you set readOnlyFullEnabled to false, readOnlyFullShowToolbar will always be true
+        assertTrue(newReportPublish.getReadOnlyFullShowToolbar());
     }
 
 
