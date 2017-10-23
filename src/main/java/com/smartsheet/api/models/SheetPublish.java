@@ -85,7 +85,6 @@ public class SheetPublish {
      */
     private String icalUrl;
 
-
     /**
      * Flag to show or hide the left nav toolbar for the read only sheet.
      */
@@ -95,6 +94,16 @@ public class SheetPublish {
      * Flag to show or hide the left nav toolbar for the read/write sheet.
      */
     private Boolean readWriteShowToolbar = true;
+
+    /**
+     * Default view for read only published sheet. (GRID, CARD, CALENDAR)
+     */
+    private String readOnlyFullDefaultView;
+
+    /**
+     * Default view for read write published sheet. (GRID, CARD, CALENDAR)
+     */
+    private String readWriteDefaultView;
 
     /**
      * Gets the read only lite enabled flag.
@@ -248,7 +257,6 @@ public class SheetPublish {
         return this;
     }
 
-
     /**
      * Gets the read only full (fancy UI) url.
      *
@@ -342,6 +350,42 @@ public class SheetPublish {
      */
     public SheetPublish setReadWriteShowToolbar(Boolean readWriteShowToolbar) {
         this.readWriteShowToolbar = readWriteShowToolbar;
+        return this;
+    }
+
+    /**
+     * Get the read only full default view
+     *
+     * @return readOnlyFullDefaultView. Valid options are "GRID", "CARD", "CALENDAR"
+     */
+    public String getReadOnlyFullDefaultView() { return readOnlyFullDefaultView; }
+
+    /**
+     * Set the read only full default view
+     *
+     * @param readOnlyFullDefaultView Valid options are "GRID", "CARD", "CALENDAR"
+     * @return the SheetPublish
+     */
+    public SheetPublish setReadOnlyFullDefaultView(String readOnlyFullDefaultView) {
+        this.readOnlyFullDefaultView = readOnlyFullDefaultView;
+        return this;
+    }
+
+    /**
+     * Get the read write default view
+     *
+     * @return readWriteDefaultView. Valid options are "GRID", "CARD", "CALENDAR"
+     */
+    public String getReadWriteDefaultView() { return readWriteDefaultView; }
+
+    /**
+     * Set the read write default view
+     *
+     * @param readWriteDefaultView. Valid options are "GRID", "CARD", "CALENDAR"
+     * @return the SheetPublish
+     */
+    public SheetPublish setReadWriteDefaultView(String readWriteDefaultView) {
+        this.readWriteDefaultView = readWriteDefaultView;
         return this;
     }
 
