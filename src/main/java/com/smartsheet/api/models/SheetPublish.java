@@ -96,12 +96,12 @@ public class SheetPublish {
     private Boolean readWriteShowToolbar = true;
 
     /**
-     * Default view for read only published sheet. (GRID, CARD, CALENDAR)
+     * Default view for read only published sheet. (GRID, CARDS, CALENDAR)
      */
     private String readOnlyFullDefaultView;
 
     /**
-     * Default view for read write published sheet. (GRID, CARD, CALENDAR)
+     * Default view for read write published sheet. (GRID, CARDS, CALENDAR)
      */
     private String readWriteDefaultView;
 
@@ -356,14 +356,14 @@ public class SheetPublish {
     /**
      * Get the read only full default view
      *
-     * @return readOnlyFullDefaultView. Valid options are "GRID", "CARD", "CALENDAR"
+     * @return readOnlyFullDefaultView. Valid options are "GRID", "CARDS", "CALENDAR"
      */
     public String getReadOnlyFullDefaultView() { return readOnlyFullDefaultView; }
 
     /**
      * Set the read only full default view
      *
-     * @param readOnlyFullDefaultView Valid options are "GRID", "CARD", "CALENDAR"
+     * @param readOnlyFullDefaultView Valid options are "GRID", "CARDS", "CALENDAR"
      * @return the SheetPublish
      */
     public SheetPublish setReadOnlyFullDefaultView(String readOnlyFullDefaultView) {
@@ -374,14 +374,14 @@ public class SheetPublish {
     /**
      * Get the read write default view
      *
-     * @return readWriteDefaultView. Valid options are "GRID", "CARD", "CALENDAR"
+     * @return readWriteDefaultView. Valid options are "GRID", "CARDS", "CALENDAR"
      */
     public String getReadWriteDefaultView() { return readWriteDefaultView; }
 
     /**
      * Set the read write default view
      *
-     * @param readWriteDefaultView. Valid options are "GRID", "CARD", "CALENDAR"
+     * @param readWriteDefaultView Valid options are "GRID", "CARDS", "CALENDAR"
      * @return the SheetPublish
      */
     public SheetPublish setReadWriteDefaultView(String readWriteDefaultView) {

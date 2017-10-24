@@ -48,7 +48,7 @@ public class ReportPublish {
      private Boolean readOnlyFullShowToolbar = true;
 
      /**
-      *  Default view for published report. (GRID, CARD, CALENDAR)
+      *  Default view for published report. (GRID, CARDS, CALENDAR)
       */
      private String readOnlyFullDefaultView;
 
@@ -121,14 +121,14 @@ public class ReportPublish {
      /**
       * Get the read only full default view
       *
-      * @return readOnlyFullDefaultView. Valid options are "GRID", "CARD", "CALENDAR"
+      * @return readOnlyFullDefaultView. Valid options are "GRID", "CARDS", "CALENDAR"
       */
     public String getReadOnlyFullDefaultView() { return readOnlyFullDefaultView; }
 
      /**
       * Set the read only full default view
       *
-      * @param readOnlyFullDefaultView Valid options are "GRID", "CARD", "CALENDAR"
+      * @param readOnlyFullDefaultView Valid options are "GRID", "CARDS", "CALENDAR"
       * @return the ReportPublish
       */
     public ReportPublish setReadOnlyFullDefaultView(String readOnlyFullDefaultView) {
