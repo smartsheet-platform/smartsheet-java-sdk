@@ -347,7 +347,7 @@ public abstract class AbstractResources {
         HttpPost uploadFile = createHttpPost(this.getSmartsheet().getBaseURI().resolve(path));
 
         try {
-            uploadFile.addHeader("Content-Type", "multipart/form-data; boundary=" + boundary);
+            uploadFile.setHeader("Content-Type", "multipart/form-data; boundary=" + boundary);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -840,7 +840,7 @@ public abstract class AbstractResources {
         HttpPost uploadFile = createHttpPost(this.getSmartsheet().getBaseURI().resolve(url));
 
         try {
-            uploadFile.addHeader("Content-Type", "multipart/form-data; boundary=" + boundary);
+            uploadFile.setHeader("Content-Type", "multipart/form-data; boundary=" + boundary);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -988,6 +988,7 @@ public abstract class AbstractResources {
      Map<String,String> createHeaders() {
         Map<String, String> headers = new HashMap<String, String>();
         headers.put("Authorization", "Bearer " + smartsheet.getAccessToken());
+        headers.put("Content-Type", "application/json");
 
         // Set assumed user
         if (smartsheet.getAssumedUser() != null) {
