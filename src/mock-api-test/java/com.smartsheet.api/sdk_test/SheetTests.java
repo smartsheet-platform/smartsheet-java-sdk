@@ -21,12 +21,16 @@ package com.smartsheet.api.sdk_test;
 
 
 import com.smartsheet.api.Smartsheet;
+import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
 
+import com.smartsheet.api.models.enums.SourceInclusion;
 import org.junit.Assert;
 import org.junit.Test;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.EnumSet;
+
 
 public class SheetTests {
 
@@ -43,4 +47,34 @@ public class SheetTests {
 		}
 	}
 
+	@Test
+	public void ListSheets_IncludeOwnerInfo()
+	{
+		try{
+			Smartsheet ss =  HelperFunctions.SetupClient("List Sheets - Include Owner Info");
+			PagedResult<Sheet> sheets = ss.sheetResources().listSheets(EnumSet.of(SourceInclusion.OWNERINFO), null, null);
+			Assert.assertEquals(sheets.getData().get(0).getOwner(),"john.doe@smartsheet.com");
+		}catch(Exception ex){
+			Assert.fail(String.format("Exception: %s Detail: %s", ex.getMessage(), ex.getCause()));
+		}
+	}
+
+	@Test
+	public void CreateSheet__Invalid_NoColumns()
+	{
+		try {
+			Smartsheet ss = HelperFunctions.SetupClient("Create Sheet - Invalid - No Columns");
+
+			Sheet sheetA = new Sheet();
+			sheetA.setName("New Sheet");
+			sheetA.setColumns(new ArrayList<Column>());
+			ss.sheetResources().createSheet(sheetA);
+
+		}catch(SmartsheetException ex){
+			Assert.assertEquals(ex.getMessage(), "The new sheet requires either a fromId or columns.");
+
+		}catch(Exception ex){
+			Assert.fail(String.format("Exception: %s Detail: %s", ex.getMessage(), ex.getCause()));
+		}
+	}
 }
