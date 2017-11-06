@@ -23,6 +23,7 @@ package com.smartsheet.api.sdk_test;
 import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.ObjectValueType;
 import org.junit.Assert;
 import org.junit.Test;
 import java.util.List;
@@ -225,7 +226,6 @@ public class RowTests {
 
 			Assert.assertEquals(addedRows.get(0).getCells().get(1).getFormula(), "=SUM([Column2]3, [Column2]3, [Column2]4)");
 			Assert.assertEquals(addedRows.get(0).getCells().get(1).getColumnId().longValue(), 102L);
-			Assert.fail("hello");
 
 		}catch(Exception ex){
 			Assert.fail(String.format("Exception: %s Detail: %s", ex.getMessage(), ex.getCause()));
@@ -388,6 +388,39 @@ public class RowTests {
 			Assert.fail(String.format("Exception: %s Detail: %s", ex.getMessage(), ex.getCause()));
 		}
 	}
+
+	@Test
+	public void AddRows_AssignObjectValue_PredecessorList()
+	{
+		try{
+			Smartsheet ss = HelperFunctions.SetupClient("Add Rows - Assign Object Value - Predecessor List");
+
+			Row rowA = new Row();
+			Cell cell1 = new Cell();
+			cell1.setColumnId(101L);
+			Duration duration = new Duration();
+			duration.setDays(2.0);
+			duration.setHours(4.0);
+			Predecessor predecessor = new Predecessor();
+			predecessor.setRowId(10L);
+			predecessor.setType("FS");
+			predecessor.setLag(duration);
+			PredecessorList predecessorList = new PredecessorList();
+			predecessorList.setPredecessors(Arrays.asList(predecessor));
+			cell1.setObjectValue(predecessorList);
+			rowA.setCells(Arrays.asList(cell1));
+
+			List<Row> addedRows = ss.sheetResources().rowResources().addRows(1, Arrays.asList(rowA));
+
+
+			Assert.assertEquals(addedRows.get(0).getCells().get(0).getColumnId().longValue(), 101L);
+			Assert.assertEquals(addedRows.get(0).getCells().get(0).getValue(), "2FS +2d 4h");
+
+		}catch(Exception ex){
+			Assert.fail(String.format("Exception: %s Detail: %s", ex.getMessage(), ex.getCause()));
+		}
+	}
+
 
 	@Test
 	public void UpdateRows_AssignValues_String()
@@ -684,6 +717,172 @@ public class RowTests {
 
 		}catch(SmartsheetException ex){
 			Assert.assertEquals(ex.getMessage(), "If cell.formula is specified, then value, objectValue, image, hyperlink, and linkInFromCell must not be specified.");
+		}catch(Exception ex){
+			Assert.fail(String.format("Exception: %s Detail: %s", ex.getMessage(), ex.getCause()));
+		}
+	}
+
+	@Test
+	public void UpdateRows_ClearValue_TextNumber()
+	{
+		try{
+			Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Clear Value - Text Number");
+
+			Row rowA = new Row();
+			rowA.setId(10L);
+			Cell cell1 = new Cell();
+			cell1.setColumnId(101L);
+			cell1.setValue("");
+			rowA.setCells(Arrays.asList(cell1));
+
+			List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1, Arrays.asList(rowA));
+
+			Assert.assertEquals(updatedRows.get(0).getCells().get(0).getColumnId().longValue(), 101L);
+			Assert.assertEquals(updatedRows.get(0).getCells().get(0).getValue(), null);
+
+		}catch(Exception ex){
+			Assert.fail(String.format("Exception: %s Detail: %s", ex.getMessage(), ex.getCause()));
+		}
+	}
+
+    @Test
+	public void UpdateRows_ClearValue_Checkbox()
+	{
+		try{
+			Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Clear Value - Checkbox");
+
+			Row rowA = new Row();
+			rowA.setId(10L);
+			Cell cell1 = new Cell();
+			cell1.setColumnId(101L);
+			cell1.setValue("");
+			rowA.setCells(Arrays.asList(cell1));
+
+			List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1, Arrays.asList(rowA));
+
+			Assert.assertEquals(updatedRows.get(0).getCells().get(0).getColumnId().longValue(), 101L);
+			Assert.assertEquals(updatedRows.get(0).getCells().get(0).getValue(), false);
+
+		}catch(Exception ex){
+			Assert.fail(String.format("Exception: %s Detail: %s", ex.getMessage(), ex.getCause()));
+		}
+	}
+
+    @Test
+	public void UpdateRows_ClearValue_Hyperlink()
+	{
+		try{
+			Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Clear Value - Hyperlink");
+
+			Row rowA = new Row();
+			rowA.setId(10L);
+			Cell cell1 = new Cell();
+			cell1.setColumnId(101L);
+			cell1.setValue("");
+			cell1.setHyperlink(null);
+			rowA.setCells(Arrays.asList(cell1));
+
+			List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1, Arrays.asList(rowA));
+
+			Assert.assertEquals(updatedRows.get(0).getCells().get(0).getColumnId().longValue(), 101L);
+			Assert.assertEquals(updatedRows.get(0).getCells().get(0).getValue(), null);
+			Assert.assertEquals(updatedRows.get(0).getCells().get(0).getHyperlink(), null);
+
+		}catch(Exception ex){
+			Assert.fail(String.format("Exception: %s Detail: %s", ex.getMessage(), ex.getCause()));
+		}
+	}
+
+    @Test
+	public void UpdateRows_ClearValue_CellLink()
+	{
+		try{
+			Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Clear Value - Cell Link");
+
+			Row rowA = new Row();
+			rowA.setId(10L);
+			Cell cell1 = new Cell();
+			cell1.setColumnId(101L);
+			cell1.setValue("");
+			cell1.setLinkInFromCell(null);
+			rowA.setCells(Arrays.asList(cell1));
+
+			List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1, Arrays.asList(rowA));
+
+			Assert.assertEquals(updatedRows.get(0).getCells().get(0).getColumnId().longValue(), 101L);
+			Assert.assertEquals(updatedRows.get(0).getCells().get(0).getValue(), null);
+			Assert.assertEquals(updatedRows.get(0).getCells().get(0).getLinkInFromCell(), null);
+
+		}catch(Exception ex){
+			Assert.fail(String.format("Exception: %s Detail: %s", ex.getMessage(), ex.getCause()));
+		}
+	}
+
+    @Test
+	public void UpdateRows_Invalid_AssignHyperlinkAndCellLink()
+	{
+		try{
+			Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Invalid - Assign Hyperlink and Cell Link");
+
+			Row rowA = new Row();
+			rowA.setId(10L);
+			Cell cell1 = new Cell();
+			cell1.setColumnId(101L);
+			cell1.setValue("");
+			Hyperlink hyperlink = new Hyperlink();
+			hyperlink.setUrl("www.google.com");
+			cell1.setHyperlink(hyperlink);
+			CellLink cellLink = new CellLink();
+			cellLink.setRowId(20L);
+			cellLink.setSheetId(2L);
+			cellLink.setColumnId(201L);
+			cell1.setLinkInFromCell(cellLink);
+			rowA.setCells(Arrays.asList(cell1));
+
+			List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1, Arrays.asList(rowA));
+
+		}catch(SmartsheetException ex){
+			Assert.assertEquals(ex.getMessage(), "Only one of cell.hyperlink or cell.linkInFromCell may be non-null.");
+		}catch(Exception ex){
+			Assert.fail(String.format("Exception: %s Detail: %s", ex.getMessage(), ex.getCause()));
+		}
+	}
+
+    @Test
+	public void UpdateRows_Location_Top()
+	{
+		try{
+			Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Location - Top");
+
+			Row rowA = new Row();
+			rowA.setId(10L);
+			rowA.setToTop(true);
+
+			List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1, Arrays.asList(rowA));
+
+			Assert.assertEquals(updatedRows.get(0).getId().longValue(), 10L);
+			Assert.assertEquals(updatedRows.get(0).getRowNumber().longValue(), 1L);
+
+		}catch(Exception ex){
+			Assert.fail(String.format("Exception: %s Detail: %s", ex.getMessage(), ex.getCause()));
+		}
+	}
+
+    @Test
+	public void UpdateRows_Location_Bottom()
+	{
+		try{
+			Smartsheet ss = HelperFunctions.SetupClient("Update Rows - Location - Bottom");
+
+			Row rowA = new Row();
+			rowA.setId(10L);
+			rowA.setToBottom(true);
+
+			List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1, Arrays.asList(rowA));
+
+			Assert.assertEquals(updatedRows.get(0).getId().longValue(), 10L);
+			Assert.assertEquals(updatedRows.get(0).getRowNumber().longValue(), 100L);
+
 		}catch(Exception ex){
 			Assert.fail(String.format("Exception: %s Detail: %s", ex.getMessage(), ex.getCause()));
 		}
