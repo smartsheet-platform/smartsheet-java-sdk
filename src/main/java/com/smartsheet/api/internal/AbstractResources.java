@@ -347,7 +347,7 @@ public abstract class AbstractResources {
         HttpPost uploadFile = createHttpPost(this.getSmartsheet().getBaseURI().resolve(path));
 
         try {
-            uploadFile.addHeader("Content-Type", "multipart/form-data; boundary=" + boundary);
+            uploadFile.setHeader("Content-Type", "multipart/form-data; boundary=" + boundary);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -840,7 +840,7 @@ public abstract class AbstractResources {
         HttpPost uploadFile = createHttpPost(this.getSmartsheet().getBaseURI().resolve(url));
 
         try {
-            uploadFile.addHeader("Content-Type", "multipart/form-data; boundary=" + boundary);
+            uploadFile.setHeader("Content-Type", "multipart/form-data; boundary=" + boundary);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -988,6 +988,7 @@ public abstract class AbstractResources {
      Map<String,String> createHeaders() {
         Map<String, String> headers = new HashMap<String, String>();
         headers.put("Authorization", "Bearer " + smartsheet.getAccessToken());
+        headers.put("Content-Type", "application/json");
 
         // Set assumed user
         if (smartsheet.getAssumedUser() != null) {
@@ -997,13 +998,16 @@ public abstract class AbstractResources {
                 throw new RuntimeException ("Unsupported encode. You must support utf-8 for the Smartsheet Java SDK to work",e);
             }
         }
-        if (smartsheet.getChangeAgent() != null) {
-            try {
-                headers.put("Smartsheet-Change-Agent", URLEncoder.encode(smartsheet.getChangeAgent(), "utf-8"));
-            } catch (UnsupportedEncodingException e) {
-                throw new RuntimeException ("Unsupported encode. You must support utf-8 for the Smartsheet Java SDK to work",e);
-            }
-        }
+         if (smartsheet.getChangeAgent() != null) {
+             try {
+                 headers.put("Smartsheet-Change-Agent", URLEncoder.encode(smartsheet.getChangeAgent(), "utf-8"));
+             } catch (UnsupportedEncodingException e) {
+                 throw new RuntimeException ("Unsupported encode. You must support utf-8 for the Smartsheet Java SDK to work",e);
+             }
+         }
+         if (smartsheet.getAPIScenario() != null && !smartsheet.getAPIScenario().isEmpty()) {
+            headers.put("Api-Scenario", smartsheet.getAPIScenario());
+         }
         return headers;
     }
 

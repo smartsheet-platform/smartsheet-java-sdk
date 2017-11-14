@@ -178,6 +178,15 @@ public class SmartsheetImpl implements Smartsheet {
     private final AtomicReference<String> accessToken;
 
     /**
+     * Represents the AtomicReference for API scenario.
+     *
+     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
+     * SmartsheetImpl in thread safe manner.
+     */
+    private final AtomicReference<String> apiScenario;
+
+    /**
      * Represents the AtomicReference for change agent
      *
      * It will be initialized in constructor and will not change afterwards.
@@ -250,8 +259,9 @@ public class SmartsheetImpl implements Smartsheet {
      * @param jsonSerializer the json serializer (optional)
      */
     public SmartsheetImpl(String baseURI, String accessToken, HttpClient httpClient, JsonSerializer jsonSerializer) {
-        this(baseURI, accessToken, httpClient, jsonSerializer, null);
+        this(baseURI, accessToken, httpClient, jsonSerializer, null, null);
     }
+
     /**
      * Create an instance with given server URI, HttpClient (optional) and JsonSerializer (optional)
      *
@@ -262,7 +272,7 @@ public class SmartsheetImpl implements Smartsheet {
      * @param httpClient the http client (optional)
      * @param jsonSerializer the json serializer (optional)
      */
-    public SmartsheetImpl(String baseURI, String accessToken, HttpClient httpClient, JsonSerializer jsonSerializer, String changeAgent) {
+    public SmartsheetImpl(String baseURI, String accessToken, HttpClient httpClient, JsonSerializer jsonSerializer, String changeAgent, String apiScenario) {
         Util.throwIfNull(baseURI);
         Util.throwIfEmpty(baseURI);
 
@@ -287,6 +297,7 @@ public class SmartsheetImpl implements Smartsheet {
         this.search = new AtomicReference<SearchResources>();
         this.assumedUser = new AtomicReference<String>();
         this.accessToken = new AtomicReference<String>(accessToken);
+        this.apiScenario = new AtomicReference<String>(apiScenario);
         this.changeAgent = new AtomicReference<String>(changeAgent);
         this.reports = new AtomicReference<ReportResources>();
         this.serverInfo = new AtomicReference<ServerInfoResources>();
@@ -350,6 +361,15 @@ public class SmartsheetImpl implements Smartsheet {
      */
     String getAccessToken() {
         return accessToken.get();
+    }
+
+    /**
+     * Return the API scenario
+     *
+     * @return the API scenario
+     */
+    String getAPIScenario() {
+        return apiScenario.get();
     }
 
     /**
@@ -571,8 +591,20 @@ public class SmartsheetImpl implements Smartsheet {
      *
      * @param accessToken the new access token
      */
-    public void setAccessToken(String accessToken) {
-        this.accessToken.set(accessToken);
+    public void setAccessToken(String accessToken) { this.accessToken.set(accessToken); }
+
+    /**
+     * Set the API Scenario to use.
+     *
+     * Parameters: - apiScenario : the API Scenario
+     *
+     * Returns: None
+     *
+     *
+     * @param apiScenario the new API Scenario
+     */
+    public void setAPIScenario(String apiScenario) {
+        this.apiScenario.set(apiScenario);
     }
 
     public void setCalcBackoff(CalcBackoff calcBackoff) {
