@@ -41,9 +41,9 @@ public class SheetTests {
 		try {
 			Smartsheet ss = HelperFunctions.SetupClient("List Sheets - No Params");
 			PagedResult<Sheet> sheets = ss.sheetResources().listSheets(null, null, null);
-			Assert.assertEquals(sheets.getData().get(0).getName(), "Copy of Sample Sheet");
+			Assert.assertEquals("Copy of Sample Sheet", sheets.getData().get(0).getName());
 		}catch(Exception ex){
-			Assert.fail(String.format("Exception: %s Detail: %s", ex.getMessage(), ex.getCause()));
+			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
 	}
 
@@ -53,9 +53,9 @@ public class SheetTests {
 		try{
 			Smartsheet ss =  HelperFunctions.SetupClient("List Sheets - Include Owner Info");
 			PagedResult<Sheet> sheets = ss.sheetResources().listSheets(EnumSet.of(SourceInclusion.OWNERINFO), null, null);
-			Assert.assertEquals(sheets.getData().get(0).getOwner(),"john.doe@smartsheet.com");
+			Assert.assertEquals("john.doe@smartsheet.com", sheets.getData().get(0).getOwner());
 		}catch(Exception ex){
-			Assert.fail(String.format("Exception: %s Detail: %s", ex.getMessage(), ex.getCause()));
+			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
 	}
 
@@ -71,10 +71,10 @@ public class SheetTests {
 			ss.sheetResources().createSheet(sheetA);
 
 		}catch(SmartsheetException ex){
-			Assert.assertEquals(ex.getMessage(), "The new sheet requires either a fromId or columns.");
+			Assert.assertEquals("The new sheet requires either a fromId or columns.", ex.getMessage());
 
 		}catch(Exception ex){
-			Assert.fail(String.format("Exception: %s Detail: %s", ex.getMessage(), ex.getCause()));
+			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
 	}
 }
