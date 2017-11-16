@@ -323,6 +323,7 @@
 					<!-- Excludes integration tests when unit tests are run -->
 					<excludes>
 						<exclude>**/*IT.java</exclude>
+						<exclude>**/sdk_test/*.java</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
