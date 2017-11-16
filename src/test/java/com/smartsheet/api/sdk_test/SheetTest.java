@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 
 
-public class SheetTests {
+public class SheetTest {
 
 	
 	@Test
