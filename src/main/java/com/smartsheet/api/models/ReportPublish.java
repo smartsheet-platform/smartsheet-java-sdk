@@ -30,6 +30,28 @@ public class ReportPublish {
      */
     private boolean readOnlyFullEnabled;
 
+     /**
+      * Indicates who can see the published report
+      *     If "ALL", report is available to anyone who has the link.
+      *     If "ORG", report is available only to members of the report owner's organization.
+      */
+     private String readOnlyFullAccessibleBy;
+
+     /**
+      * String containing the URL of the published report.
+      */
+     private String readOnlyFullUrl;
+
+     /**
+      * Flag to show or hide the left nav toolbar for the read only report.
+      */
+     private Boolean readOnlyFullShowToolbar = true;
+
+     /**
+      *  Default view for published report. (GRID, CARDS, CALENDAR)
+      */
+     private String readOnlyFullDefaultView;
+
     /**
      * Get the current publish status of a report
      *
@@ -50,16 +72,9 @@ public class ReportPublish {
     }
 
     /**
-     * Indicates who can see the published report
-     *     If "ALL", report is available to anyone who has the link.
-     *     If "ORG", report is available only to members of the report owner's organization.
-     */
-    private String readOnlyFullAccessibleBy;
-
-    /**
      * Get who can see the published report. Only available when readOnlyFullEnabled = true
      *
-     * @return String containing "ALL" - anyone, "ORG" - owner organization memebers
+     * @return String containing "ALL" - anyone, "ORG" - owner organization members
      */
     public String getReadOnlyFullAccessibleBy() {
         return readOnlyFullAccessibleBy;
@@ -77,11 +92,6 @@ public class ReportPublish {
     }
 
     /**
-     * String containing the URL of the published report.
-     */
-    private String readOnlyFullUrl;
-
-    /**
      * Get the URL of the published report. Valid only if readOnlyFullEnabled = true.
      *
      * @return String containing the URL of the published report.
@@ -90,28 +100,39 @@ public class ReportPublish {
         return readOnlyFullUrl;
     }
 
+    /**
+     * Get the read only full show toolbar flag
+     *
+     * @return readOnlyFullShowToolbar
+     */
+    public Boolean getReadOnlyFullShowToolbar() { return readOnlyFullShowToolbar; }
+
+    /**
+     * Set the read only full show toolbar flag
+     *
+     * @param readOnlyFullShowToolbar
+     * @return
+     */
+    public ReportPublish setReadOnlyFullShowToolbar(Boolean readOnlyFullShowToolbar) {
+        this.readOnlyFullShowToolbar = readOnlyFullShowToolbar;
+        return this;
+    }
 
      /**
-      * Flag to show or hide the left nav toolbar for the read only report.
-      */
-     private Boolean readOnlyFullShowToolbar = true;
-
-
-     /**
-      * Get the read only full show toolbar flag
+      * Get the read only full default view
       *
-      * @return readOnlyFullShowToolbar
+      * @return readOnlyFullDefaultView. Valid options are "GRID", "CARDS", "CALENDAR"
       */
-     public Boolean getReadOnlyFullShowToolbar() { return readOnlyFullShowToolbar; }
+    public String getReadOnlyFullDefaultView() { return readOnlyFullDefaultView; }
 
      /**
-      * Set the read only full show toolbar flag
+      * Set the read only full default view
       *
-      * @param readOnlyFullShowToolbar
-      * @return
+      * @param readOnlyFullDefaultView Valid options are "GRID", "CARDS", "CALENDAR"
+      * @return the ReportPublish
       */
-     public ReportPublish setReadOnlyFullShowToolbar(Boolean readOnlyFullShowToolbar) {
-         this.readOnlyFullShowToolbar = readOnlyFullShowToolbar;
-         return this;
-     }
+    public ReportPublish setReadOnlyFullDefaultView(String readOnlyFullDefaultView) {
+        this.readOnlyFullDefaultView = readOnlyFullDefaultView;
+        return this;
+    }
 }

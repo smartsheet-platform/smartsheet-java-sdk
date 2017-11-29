@@ -46,15 +46,12 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import static java.lang.System.currentTimeMillis;
 
 /**
  * This is the Apache HttpClient (http://hc.apache.org/httpcomponents-client-ga/index.html) based HttpClient
@@ -191,7 +188,6 @@ public class DefaultHttpClient implements HttpClient {
             // Set User Agent
             apacheHttpRequest.setHeader(HttpHeaders.USER_AGENT, userAgent);
 
-
             HttpEntity originalRequestEntity = null;
             HttpEntity originalResponseEntity = null;
             // Set HTTP entity
@@ -262,6 +258,7 @@ public class DefaultHttpClient implements HttpClient {
                     smartsheetResponse.getEntity().getContent().reset();
                     break;
                 }
+                this.releaseConnection();
             } catch (ClientProtocolException e) {
                 try {
                     logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, originalRequestEntity, smartsheetResponse,
