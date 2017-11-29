@@ -22,6 +22,7 @@ import com.smartsheet.api.models.Attachment;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 /**
  * <p>This interface provides methods to access CommentAttachment resources.</p>
@@ -72,6 +73,20 @@ public interface CommentAttachmentResources {
      * @throws SmartsheetException if there is any other error during the operation
      */
     public Attachment attachFile(long sheetId, long commentId, File file, String contentType) throws FileNotFoundException, SmartsheetException;
+
+    /**
+     * <p>Attach file for simple upload.</p>
+     *
+     * @param sheetId the sheet id
+     * @param commentId the comment id
+     * @param inputStream the attachment data inputStream
+     * @param contentType the content type
+     * @param contentLength the content length
+     * @param attachmentName the name of the attachment
+     * @return the attachment
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Attachment attachFileWithSimpleUpload(long sheetId, long commentId, InputStream inputStream, String contentType, long contentLength, String attachmentName) throws SmartsheetException;
 
 //    /**
 //     * <p>Attach a file to a comment with multipart upload.</p>

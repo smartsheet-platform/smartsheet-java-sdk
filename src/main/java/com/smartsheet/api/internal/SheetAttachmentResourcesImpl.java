@@ -162,18 +162,17 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
     }
 
     /**
-     * Attach file for simple upload.
+     * <p>Attach file for simple upload.</p>
      *
      * @param sheetId the sheet id
+     * @param inputStream attachment data inputStream
      * @param contentType the content type
      * @param contentLength the content length
      * @param attachmentName the name of the attachment
      * @return the attachment
-     * @throws FileNotFoundException the file not found exception
      * @throws SmartsheetException the smartsheet exception
-     * @throws UnsupportedEncodingException the unsupported encoding exception
      */
-    private Attachment attachFileWithSimpleUpload(long sheetId, InputStream inputStream, String contentType, long contentLength, String attachmentName)
+    public Attachment attachFileWithSimpleUpload(long sheetId, InputStream inputStream, String contentType, long contentLength, String attachmentName)
             throws SmartsheetException {
         Util.throwIfNull(inputStream, contentType);
         return super.attachFile("sheets/" + sheetId + "/attachments", inputStream, contentType, contentLength, attachmentName);
