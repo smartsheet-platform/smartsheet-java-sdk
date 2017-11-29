@@ -119,14 +119,16 @@ public class SmartsheetImplTest extends ResourcesImplBase {
     public void testReports() {
         assertNotNull(smartsheet.reportResources());
     }
-    @Test
-    public void testSetAssumedUser() {
-        smartsheet.setAssumedUser("user");
-    }
 
     @Test
-    public void testSetAccessToken() {
-        smartsheet.setAccessToken("1234");
+    public void testSetAssumedUser() { smartsheet.setAssumedUser("user"); }
+
+    @Test
+    public void testSetAccessToken() { smartsheet.setAccessToken("1234"); }
+
+    @Test
+    public void testSetAPIScenario() {
+        smartsheet.setAPIScenario("Scenario Name");
     }
 
     @Test
