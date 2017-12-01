@@ -12,7 +12,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -82,5 +84,25 @@ public class RowAttachmentResourcesImplTest extends ResourcesImplBase {
         assertEquals("application/pdf", attachment.getMimeType());
         assertTrue(1831L == attachment.getSizeInKb());
         assertEquals(AttachmentParentType.SHEET, attachment.getParentType());
+    }
+
+    @Test
+    public void testAttachFileAsInputStream() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/attachFile.json"));
+        File file = new File("src/test/resources/large_sheet.pdf");
+        InputStream inputStream = new FileInputStream(file);
+        Attachment attachment = rowAttachmentResources.attachFile(1234L, 345L, inputStream, "application/pdf", file.length(), file.getName());
+        assertEquals("application/pdf", attachment.getMimeType());
+        assertEquals("Testing.PDF", attachment.getName());
+        assertEquals(1831L, (long) attachment.getSizeInKb());
+        assertEquals(AttachmentType.FILE, attachment.getAttachmentType());
+    }
+
+    @Test(expected = SmartsheetException.class)
+    public void testAttachFileAsInputStreamWrongContentLength() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/attachFile.json"));
+        File file = new File("src/test/resources/large_sheet.pdf");
+        InputStream inputStream = new FileInputStream(file);
+        rowAttachmentResources.attachFile(1234L, 345L, inputStream, "application/pdf", file.length() + 5, file.getName());
     }
 }

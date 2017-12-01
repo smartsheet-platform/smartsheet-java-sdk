@@ -12,7 +12,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import static org.junit.Assert.*;
 
@@ -98,5 +100,20 @@ public class SheetAttachmentResourcesImplTest extends ResourcesImplBase {
         assertEquals("application/pdf", attachment.getMimeType());
         assertTrue(1831L == attachment.getSizeInKb());
         assertEquals(AttachmentParentType.SHEET, attachment.getParentType());
+    }
+
+    @Test
+    public void testAttachFileAsInputStream() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/attachFile.json"));
+        File file = new File("src/test/resources/large_sheet.pdf");
+        InputStream inputStream = new FileInputStream(file);
+        Attachment attachment = sheetAttachmentResources.attachFile(1234L, inputStream, "application/pdf", file.length(), file.getName());
+        assertTrue(attachment.getId() == 7265404226692996L);
+        assertEquals("Testing.PDF", attachment.getName());
+        assertEquals(AttachmentType.FILE, attachment.getAttachmentType());
+        assertEquals("application/pdf", attachment.getMimeType());
+        assertTrue(1831L == attachment.getSizeInKb());
+        assertEquals(AttachmentParentType.SHEET, attachment.getParentType());
+
     }
 }

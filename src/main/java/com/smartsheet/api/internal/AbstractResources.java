@@ -142,7 +142,7 @@ public abstract class AbstractResources {
          * @return the exception
          * @throws SmartsheetException the smartsheet exception
          */
-        public SmartsheetRestException getException(com.smartsheet.api.models.Error error) throws SmartsheetException  {
+        public SmartsheetRestException getException(com.smartsheet.api.models.Error error) throws SmartsheetException {
 
             try {
                 return exceptionClass.getConstructor(com.smartsheet.api.models.Error.class).newInstance(error);
@@ -796,10 +796,9 @@ public abstract class AbstractResources {
         }
         HttpEntity entity = new HttpEntity();
         entity.setContentType(contentType);
-        entity.setContent(inputStream);
+        entity.setContent(new LengthEnforcingInputStream(inputStream, contentLength));
         entity.setContentLength(contentLength);
         request.setEntity(entity);
-
 
         Attachment attachment = null;
         try {
