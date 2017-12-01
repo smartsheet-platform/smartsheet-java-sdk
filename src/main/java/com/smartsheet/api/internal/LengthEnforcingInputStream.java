@@ -25,37 +25,43 @@ import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class LengthEnforcerInputStream extends FilterInputStream {
+/**
+ * Compare the given expected content length with the actual number of bytes read.
+ * Throws an exception if more bytes are read than the expected length, or if the
+ * stream ends before reading the expected number of bytes.
+ *
+ * If reset is called the totalBytesRead property is reset to 0.
+ */
+public class LengthEnforcingInputStream extends FilterInputStream {
     private long expectedLength;
     private long totalBytesRead = 0L;
 
-    public LengthEnforcerInputStream(InputStream inputStream, long expectedLength) {
+    public LengthEnforcingInputStream(InputStream inputStream, long expectedLength) {
         super(inputStream);
         this.expectedLength = expectedLength;
     }
 
     @Override
-    public int read() throws IOException {
-        checkForTooManyBytes();
-        if (totalBytesRead >= expectedLength) {
-            throw new EOFException("Incorrect stream length, expected: " + expectedLength + ", actual: " + totalBytesRead);
-        }
+    public synchronized int read() throws IOException {
         int bytesRead = in.read();
         if (bytesRead == -1) {
             checkLength();
+        } else {
+            totalBytesRead += bytesRead;
+            checkForTooManyBytes();
         }
-        totalBytesRead += bytesRead;
         return bytesRead;
     }
 
     @Override
-    public int read (byte[] b, int off, int len) throws java.io.IOException {
-        checkForTooManyBytes();
+    public synchronized int read (byte[] b, int off, int len) throws java.io.IOException {
         int bytesRead = in.read(b, off, len);
         if (bytesRead == -1) {
             checkLength();
+        } else {
+            totalBytesRead += bytesRead;
+            checkForTooManyBytes();
         }
-        totalBytesRead += bytesRead;
         return bytesRead;
     }
 
@@ -71,6 +77,10 @@ public class LengthEnforcerInputStream extends FilterInputStream {
         }
     }
 
+    /**
+     * When reset is called the total bytes read counter is set back to 0.
+     * @throws IOException
+     */
     @Override
     public synchronized void reset() throws IOException {
         totalBytesRead = 0;
