@@ -158,7 +158,7 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
         Util.throwIfNull(sheetId, file, contentType);
         Util.throwIfEmpty(contentType);
 
-        return attachFileWithSimpleUpload(sheetId, new FileInputStream(file), contentType, file.length(), file.getName());
+        return attachFile(sheetId, new FileInputStream(file), contentType, file.length(), file.getName());
     }
 
     /**
@@ -172,7 +172,7 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
      * @return the attachment
      * @throws SmartsheetException the smartsheet exception
      */
-    public Attachment attachFileWithSimpleUpload(long sheetId, InputStream inputStream, String contentType, long contentLength, String attachmentName)
+    public Attachment attachFile(long sheetId, InputStream inputStream, String contentType, long contentLength, String attachmentName)
             throws SmartsheetException {
         Util.throwIfNull(inputStream, contentType);
         return super.attachFile("sheets/" + sheetId + "/attachments", inputStream, contentType, contentLength, attachmentName);

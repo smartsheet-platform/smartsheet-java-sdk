@@ -23,12 +23,7 @@ package com.smartsheet.api.internal;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.smartsheet.api.AuthorizationException;
-import com.smartsheet.api.InvalidRequestException;
-import com.smartsheet.api.ResourceNotFoundException;
-import com.smartsheet.api.ServiceUnavailableException;
-import com.smartsheet.api.SmartsheetException;
-import com.smartsheet.api.SmartsheetRestException;
+import com.smartsheet.api.*;
 import com.smartsheet.api.internal.http.HttpEntity;
 import com.smartsheet.api.internal.http.HttpMethod;
 import com.smartsheet.api.internal.http.HttpRequest;
@@ -36,27 +31,17 @@ import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.internal.util.StreamUtil;
 import com.smartsheet.api.internal.util.Util;
-import com.smartsheet.api.models.Attachment;
-import com.smartsheet.api.models.CopyOrMoveRowDirective;
-import com.smartsheet.api.models.CopyOrMoveRowResult;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.Result;
+import com.smartsheet.api.models.*;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.impl.io.ContentLengthInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -797,7 +782,7 @@ public abstract class AbstractResources {
         }
         HttpEntity entity = new HttpEntity();
         entity.setContentType(contentType);
-        entity.setContent(new LengthEnforcerInputStream(inputStream, contentLength));
+        entity.setContent(new LengthEnforcingInputStream(inputStream, contentLength));
         entity.setContentLength(contentLength);
         request.setEntity(entity);
 

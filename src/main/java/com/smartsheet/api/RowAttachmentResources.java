@@ -115,5 +115,5 @@ public interface RowAttachmentResources{
      * @return the attachment
      * @throws SmartsheetException the smartsheet exception
      */
-    public Attachment attachFileWithSimpleUpload(long sheetId, long rowId, InputStream inputStream, String contentType, long contentLength, String attachmentName) throws SmartsheetException;
+    public Attachment attachFile(long sheetId, long rowId, InputStream inputStream, String contentType, long contentLength, String attachmentName) throws SmartsheetException;
 }

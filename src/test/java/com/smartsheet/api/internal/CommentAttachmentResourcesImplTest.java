@@ -76,11 +76,11 @@ public class CommentAttachmentResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testAttachFileSimple() throws SmartsheetException, IOException {
+    public void testAttachFileAsInputStream() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/attachFile.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
         InputStream inputStream = new FileInputStream(file);
-        Attachment attachment = commentAttachmentResources.attachFileWithSimpleUpload(1234L, 345L, inputStream,
+        Attachment attachment = commentAttachmentResources.attachFile(1234L, 345L, inputStream,
                 "application/pdf", file.length(), file.getName());
         assertTrue(attachment.getId() == 7265404226692996L);
         assertEquals("Testing.PDF", attachment.getName());

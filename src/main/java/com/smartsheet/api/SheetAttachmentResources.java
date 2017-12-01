@@ -143,7 +143,7 @@ public interface SheetAttachmentResources {
      * @return the attachment
      * @throws SmartsheetException the smartsheet exception
      */
-    public Attachment attachFileWithSimpleUpload(long sheetId, InputStream inputStream, String contentType, long contentLength, String attachmentName) throws SmartsheetException;
+    public Attachment attachFile(long sheetId, InputStream inputStream, String contentType, long contentLength, String attachmentName) throws SmartsheetException;
 
     /**
      * <p>Creates an object of AttachmentVersioningResources for access to versioning through SheetAttachmentResources.</p>

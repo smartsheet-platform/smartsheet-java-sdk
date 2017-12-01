@@ -85,7 +85,7 @@ public class CommentAttachmentResourcesImpl extends AbstractResources implements
         Util.throwIfNull(sheetId, commentId, file, contentType);
         Util.throwIfEmpty(contentType);
 
-        return attachFileWithSimpleUpload(sheetId, commentId, new FileInputStream(file), contentType, file.length(), file.getName());
+        return attachFile(sheetId, commentId, new FileInputStream(file), contentType, file.length(), file.getName());
     }
 
     /**
@@ -100,7 +100,7 @@ public class CommentAttachmentResourcesImpl extends AbstractResources implements
      * @return the attachment
      * @throws SmartsheetException the smartsheet exception
      */
-    public Attachment attachFileWithSimpleUpload(long sheetId, long commentId, InputStream inputStream, String contentType, long contentLength, String attachmentName)
+    public Attachment attachFile(long sheetId, long commentId, InputStream inputStream, String contentType, long contentLength, String attachmentName)
             throws SmartsheetException {
         Util.throwIfNull(inputStream, contentType);
         return super.attachFile("sheets/" + sheetId + "/comments/" + commentId + "/attachments", inputStream, contentType, contentLength, attachmentName);

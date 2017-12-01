@@ -87,11 +87,11 @@ public class RowAttachmentResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testAttachFileWithSimpleUpload() throws SmartsheetException, IOException {
+    public void testAttachFileAsInputStream() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/attachFile.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
         InputStream inputStream = new FileInputStream(file);
-        Attachment attachment = rowAttachmentResources.attachFileWithSimpleUpload(1234L, 345L, inputStream, "application/pdf", file.length(), file.getName());
+        Attachment attachment = rowAttachmentResources.attachFile(1234L, 345L, inputStream, "application/pdf", file.length(), file.getName());
         assertEquals("application/pdf", attachment.getMimeType());
         assertEquals("Testing.PDF", attachment.getName());
         assertEquals(1831L, (long) attachment.getSizeInKb());
@@ -99,10 +99,10 @@ public class RowAttachmentResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test(expected = SmartsheetException.class)
-    public void testAttachFileWithSimpleUploadWrongContentLength() throws SmartsheetException, IOException {
+    public void testAttachFileAsInputStreamWrongContentLength() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/attachFile.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
         InputStream inputStream = new FileInputStream(file);
-        rowAttachmentResources.attachFileWithSimpleUpload(1234L, 345L, inputStream, "application/pdf", file.length() + 5, file.getName());
+        rowAttachmentResources.attachFile(1234L, 345L, inputStream, "application/pdf", file.length() + 5, file.getName());
     }
 }

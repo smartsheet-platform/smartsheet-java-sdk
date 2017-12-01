@@ -86,7 +86,7 @@ public interface CommentAttachmentResources {
      * @return the attachment
      * @throws SmartsheetException the smartsheet exception
      */
-    public Attachment attachFileWithSimpleUpload(long sheetId, long commentId, InputStream inputStream, String contentType, long contentLength, String attachmentName) throws SmartsheetException;
+    public Attachment attachFile(long sheetId, long commentId, InputStream inputStream, String contentType, long contentLength, String attachmentName) throws SmartsheetException;
 
 //    /**
 //     * <p>Attach a file to a comment with multipart upload.</p>

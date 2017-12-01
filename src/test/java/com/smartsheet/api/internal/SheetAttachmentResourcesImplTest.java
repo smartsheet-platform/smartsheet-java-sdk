@@ -103,11 +103,11 @@ public class SheetAttachmentResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
-    public void testAttachSimpleFile() throws SmartsheetException, IOException {
+    public void testAttachFileAsInputStream() throws SmartsheetException, IOException {
         server.setResponseBody(new File("src/test/resources/attachFile.json"));
         File file = new File("src/test/resources/large_sheet.pdf");
         InputStream inputStream = new FileInputStream(file);
-        Attachment attachment = sheetAttachmentResources.attachFileWithSimpleUpload(1234L, inputStream, "application/pdf", file.length(), file.getName());
+        Attachment attachment = sheetAttachmentResources.attachFile(1234L, inputStream, "application/pdf", file.length(), file.getName());
         assertTrue(attachment.getId() == 7265404226692996L);
         assertEquals("Testing.PDF", attachment.getName());
         assertEquals(AttachmentType.FILE, attachment.getAttachmentType());
