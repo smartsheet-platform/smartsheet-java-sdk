@@ -97,4 +97,12 @@ public class RowAttachmentResourcesImplTest extends ResourcesImplBase {
         assertEquals(1831L, (long) attachment.getSizeInKb());
         assertEquals(AttachmentType.FILE, attachment.getAttachmentType());
     }
+
+    @Test(expected = SmartsheetException.class)
+    public void testAttachFileWithSimpleUploadWrongContentLength() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/attachFile.json"));
+        File file = new File("src/test/resources/large_sheet.pdf");
+        InputStream inputStream = new FileInputStream(file);
+        rowAttachmentResources.attachFileWithSimpleUpload(1234L, 345L, inputStream, "application/pdf", file.length() + 5, file.getName());
+    }
 }

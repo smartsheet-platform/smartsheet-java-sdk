@@ -47,6 +47,7 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.io.ContentLengthInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -796,10 +797,9 @@ public abstract class AbstractResources {
         }
         HttpEntity entity = new HttpEntity();
         entity.setContentType(contentType);
-        entity.setContent(inputStream);
+        entity.setContent(new LengthEnforcerInputStream(inputStream, contentLength));
         entity.setContentLength(contentLength);
         request.setEntity(entity);
-
 
         Attachment attachment = null;
         try {
