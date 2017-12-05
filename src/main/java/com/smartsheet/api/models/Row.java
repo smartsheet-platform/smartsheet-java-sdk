@@ -30,6 +30,21 @@ import java.util.List;
 public class Row extends AbstractRow<Column, Cell> {
 
     /**
+     * Default constructor
+     */
+    public Row() {
+    }
+
+    /**
+     * Construct a Row with specified id
+     *
+     * @param id Row id
+     */
+    public Row(Long id) {
+        this.setId(id);
+    }
+
+    /**
      * A convenience class for creating a {@link RowWrapper} with the necessary fields for inserting a {@link Row} or
      * set of rows.
      */

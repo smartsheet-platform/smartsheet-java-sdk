@@ -43,6 +43,7 @@ public class Sample {
     public static void main(String[] args) {
         try {
             // Create Smartsheet client
+            // Expects access token in environment variable "SMARTSHEET_ACCESS_TOKEN" - else set here
             Smartsheet smartsheet = new SmartsheetBuilder().build();
 
             // List all sheets
