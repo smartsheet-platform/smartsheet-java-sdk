@@ -63,6 +63,21 @@ public class Group extends NamedModel<Long> {
     private List<GroupMember> members;
 
     /**
+     * Default constructor
+     */
+    public Group() {
+    }
+
+    /**
+     * Construct a Group with specified id
+     *
+     * @param id Group id
+     */
+    public Group(Long id) {
+        this.setId(id);
+    }
+
+    /**
      * @return the description of the group
      */
     public String getDescription() {
