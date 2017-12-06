@@ -65,6 +65,21 @@ public class Folder extends NamedModel<Long> {
     private String permalink;
 
     /**
+     * Default constructor
+     */
+    public Folder() {
+    }
+
+    /**
+     * Construct a Folder with specified id
+     *
+     * @param id Folder id
+     */
+    public Folder(Long id) {
+        this.setId(id);
+    }
+
+    /**
      * Gets the Direct URL to Folder.
      *
      * @return the sheets
