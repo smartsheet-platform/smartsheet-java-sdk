@@ -21,6 +21,7 @@ package com.smartsheet.api.internal.http;
  */
 
 import com.smartsheet.api.internal.util.Util;
+import org.apache.http.entity.ContentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
@@ -35,6 +36,7 @@ import java.io.IOException;
  * Implements the default handler for request failures.
  */
 public class DefaultShouldRetry implements ShouldRetry {
+    private static final String JSON_MIME_TYPE = ContentType.APPLICATION_JSON.getMimeType();
 
     private JsonSerializer jsonSerializer;
 
@@ -55,14 +57,18 @@ public class DefaultShouldRetry implements ShouldRetry {
     /**
      * Called by the DefaultHttpClient when an API request fails to determine if can retry the request.
      * Calls calcBackoff to determine the time to wait in between retries.
-     * @param previousAttempts
-     * @param totalElapsedTimeMillis
+     * @param previousAttempts number of attempts (including this one) to execute request
+     * @param totalElapsedTimeMillis total time spent in millis for all previous (and this) attempt
      * @param response the failed HttpResponse
      * @return true if this request can be retried
      */
     public boolean shouldRetry(int previousAttempts, long totalElapsedTimeMillis, HttpResponse response) {
         Util.throwIfNull(calcBackoff);
-
+        String contentType = response.getEntity().getContentType();
+        if (contentType != null && !contentType.startsWith(JSON_MIME_TYPE)) {
+            // it's not JSON; don't even try to parse it
+            return false;
+        }
         Error error;
         try {
             error = jsonSerializer.deserialize(Error.class, response.getEntity().getContent());
@@ -90,7 +96,7 @@ public class DefaultShouldRetry implements ShouldRetry {
             Thread.sleep(backoffMillis);
         }
         catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.warn("sleep interrupted", e);
             return false;
         }
         return true;
