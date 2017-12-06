@@ -47,8 +47,9 @@ public class HttpEntitySnapshot extends HttpEntity {
     public HttpEntitySnapshot(HttpEntity original) throws IOException {
         final String contentType = original.getContentType();
         final InputStream contentStream = original.getContent();
+        final long contentLength = original.getContentLength();
 
-        super.setContentLength(original.getContentLength());
+        super.setContentLength(contentLength);
         super.setContentType(contentType);
 
         if (contentType != null && contentType.startsWith(JSON_MIME_TYPE)) {
@@ -78,10 +79,10 @@ public class HttpEntitySnapshot extends HttpEntity {
                 original.setContent(new ByteArrayInputStream(fullContentArray));
                 // and we need a copy for potential logging purposes
                 contentArray = Arrays.copyOf(fullContentArray, Math.min(MAX_SNAPSHOT_SIZE, fullContentArray.length));
-                if (fullContentArray.length != getContentLength()) {
-                    LoggerFactory.getLogger(HttpEntitySnapshot.class).warn(
-                            "actual content-length {} doesn't match declared content-length {}",
-                            fullContentArray.length, getContentLength());
+                // we see a lot of Content-Length:-1 from certain responses - no point in logging those
+                if (contentLength != -1 && fullContentArray.length != contentLength) {
+                    LoggerFactory.getLogger(HttpEntitySnapshot.class).info("actual content-length {} doesn't match" +
+                                    " declared content-length {}", fullContentArray.length, contentLength);
                 }
             }
         } else {

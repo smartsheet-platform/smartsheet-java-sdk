@@ -253,7 +253,7 @@ public class DefaultHttpClient implements HttpClient {
                     break;
                 }
 
-                // the retry logic might consume the content stream so we set a mark and reset (if supported) just in case
+                // the retry logic might consume the content stream so we make sure it supports mark/reset and mark it
                 InputStream contentStream  = smartsheetResponse.getEntity().getContent();
                 if (!contentStream.markSupported()) {
                     // wrap the response stream in a input-stream that does support mark/reset
