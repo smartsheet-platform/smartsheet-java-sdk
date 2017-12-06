@@ -21,6 +21,7 @@ package com.smartsheet.api.internal.http;
  */
 
 import com.smartsheet.api.Trace;
+import com.smartsheet.api.internal.util.StreamUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.retry.ShouldRetry;
 import org.apache.http.Header;
@@ -43,7 +44,9 @@ import org.apache.http.protocol.HttpContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Arrays;
@@ -88,9 +91,6 @@ public class DefaultHttpClient implements HttpClient {
      * It will be initialized in constructor and will not change afterwards.
      */
     private final CloseableHttpClient httpClient;
-
-    /** The apache http request. */
-    private HttpRequestBase apacheHttpRequest;
 
     /** The apache http response. */
     private CloseableHttpResponse apacheHttpResponse;
@@ -146,7 +146,8 @@ public class DefaultHttpClient implements HttpClient {
         int attempt = 0;
         long start = System.currentTimeMillis();
 
-        HttpResponse smartsheetResponse = null;
+        HttpRequestBase apacheHttpRequest;
+        HttpResponse smartsheetResponse;
 
         // the retry loop
         while(true) {
@@ -188,14 +189,14 @@ public class DefaultHttpClient implements HttpClient {
             // Set User Agent
             apacheHttpRequest.setHeader(HttpHeaders.USER_AGENT, userAgent);
 
-            HttpEntity originalRequestEntity = null;
-            HttpEntity originalResponseEntity = null;
+            HttpEntitySnapshot requestEntityCopy = null;
+            HttpEntitySnapshot responseEntityCopy = null;
             // Set HTTP entity
             final HttpEntity entity = smartsheetRequest.getEntity();
             if (apacheHttpRequest instanceof HttpEntityEnclosingRequestBase && entity != null && entity.getContent() != null) {
                 try {
                     // we need access to the original request stream so we can log it (in the event of errors and/or tracing)
-                    originalRequestEntity = new HttpEntity(entity);
+                    requestEntityCopy = new HttpEntitySnapshot(entity);
                 } catch (IOException iox) {
                     logger.error("failed to make copy of original request entity - {}", iox);
                 }
@@ -232,18 +233,18 @@ public class DefaultHttpClient implements HttpClient {
                     httpEntity.setContentLength(apacheHttpResponse.getEntity().getContentLength());
                     httpEntity.setContent(apacheHttpResponse.getEntity().getContent());
                     smartsheetResponse.setEntity(httpEntity);
-                    originalResponseEntity = new HttpEntity(httpEntity);
+                    responseEntityCopy = new HttpEntitySnapshot(httpEntity);
                 }
                 // HTTP-error logging
                 if (smartsheetResponse.getStatusCode() != 200) {
                     // log the summary request and response on error
-                    logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, originalRequestEntity, smartsheetResponse,
-                            originalResponseEntity, REQUEST_RESPONSE_SUMMARY));
+                    logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, requestEntityCopy, smartsheetResponse,
+                            responseEntityCopy, REQUEST_RESPONSE_SUMMARY));
                 }
 
                 if (traces.size() > 0) { // trace-logging of request and response (if so configured)
                     RequestAndResponseData requestAndResponseData = RequestAndResponseData.of(apacheHttpRequest,
-                            originalRequestEntity, smartsheetResponse, originalResponseEntity, traces);
+                            requestEntityCopy, smartsheetResponse, responseEntityCopy, traces);
                     TRACE_WRITER.println(requestAndResponseData.toString(tracePrettyPrint));
                 }
 
@@ -252,24 +253,38 @@ public class DefaultHttpClient implements HttpClient {
                     break;
                 }
 
-                long stop = System.currentTimeMillis();
-                if (!shouldRetry.shouldRetry(++attempt, (stop-start), smartsheetResponse)) {
-                    // should not retry, or retry time exceeded, exit the retry loop
-                    smartsheetResponse.getEntity().getContent().reset();
-                    break;
+                // the retry logic might consume the content stream so we set a mark and reset (if supported) just in case
+                InputStream contentStream  = smartsheetResponse.getEntity().getContent();
+                if (!contentStream.markSupported()) {
+                    // wrap the response stream in a input-stream that does support mark/reset
+                    contentStream = new ByteArrayInputStream(StreamUtil.readBytesFromStream(contentStream));
+                    // close the old stream (just to be tidy) and then replace it with a reset-able stream
+                    smartsheetResponse.getEntity().getContent().close();
+                    smartsheetResponse.getEntity().setContent(contentStream);
                 }
+                try {
+                    contentStream.mark((int) smartsheetResponse.getEntity().getContentLength());
+                    long timeSpent = System.currentTimeMillis() - start;
+                    if (!shouldRetry.shouldRetry(++attempt, timeSpent, smartsheetResponse)) {
+                        // should not retry, or retry time exceeded, exit the retry loop
+                        break;
+                    }
+                } finally {
+                    contentStream.reset();
+                }
+                // moving this to finally causes issues because socket is closed (which means response stream is closed)
                 this.releaseConnection();
             } catch (ClientProtocolException e) {
                 try {
-                    logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, originalRequestEntity, smartsheetResponse,
-                            originalResponseEntity, REQUEST_RESPONSE_SUMMARY));
+                    logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, requestEntityCopy, smartsheetResponse,
+                            responseEntityCopy, REQUEST_RESPONSE_SUMMARY));
                 } catch (IOException ignore) {
                 }
                 throw new HttpClientException("Error occurred.", e);
             } catch (IOException e) {
                 try {
-                    logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, originalRequestEntity, smartsheetResponse,
-                            originalResponseEntity, REQUEST_RESPONSE_SUMMARY));
+                    logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, requestEntityCopy, smartsheetResponse,
+                            responseEntityCopy, REQUEST_RESPONSE_SUMMARY));
                 } catch (IOException ignore) {
                 }
                 throw new HttpClientException("Error occurred.", e);
@@ -328,7 +343,7 @@ public class DefaultHttpClient implements HttpClient {
      * @param clazz the Class used to find the Package (depends on the jar MANIFEST from which this class was loaded)
      * @return a User-Agent string that represents this version of the SDK (along with platform info)
      */
-    static String generateUserAgent(Class<?> clazz) {
+    private static String generateUserAgent(Class<?> clazz) {
         String thisVersion = "";
         String title = "";
         Package thisPackage = clazz.getPackage();

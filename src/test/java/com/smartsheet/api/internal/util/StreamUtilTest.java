@@ -41,7 +41,7 @@ public class StreamUtilTest {
 
         // this takes what was in inputStream, copies it into copyStream, and either resets inputStream (if supported)
         // or returns a new stream around the bytes read
-        final InputStream backupStream = StreamUtil.cloneContent(inputStream, copyStream);
+        final InputStream backupStream = StreamUtil.cloneContent(inputStream, StreamUtil.ONE_MB, copyStream);
         if (backupStream == inputStream) {
             System.out.println("same stream returned (reset)");
             // verify readBytesFromStream gets everything from the inputStream (it also verifies cloneContent resets the source)
