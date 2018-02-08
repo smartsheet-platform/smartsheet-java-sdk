@@ -76,7 +76,6 @@ public abstract class AbstractResources {
 
     /** The Constant BUFFER_SIZE. */
     private final static int BUFFER_SIZE = 4098;
-    private Map<String, String> headers;
 
 
     /**
@@ -142,7 +141,7 @@ public abstract class AbstractResources {
          * @return the exception
          * @throws SmartsheetException the smartsheet exception
          */
-        public SmartsheetRestException getException(com.smartsheet.api.models.Error error) throws SmartsheetException  {
+        public SmartsheetRestException getException(com.smartsheet.api.models.Error error) throws SmartsheetException {
 
             try {
                 return exceptionClass.getConstructor(com.smartsheet.api.models.Error.class).newInstance(error);
@@ -223,7 +222,7 @@ public abstract class AbstractResources {
                     try {
                         if (log.isInfoEnabled()) {
                             ByteArrayOutputStream contentCopyStream = new ByteArrayOutputStream();
-                            inputStream = StreamUtil.cloneContent(inputStream, contentCopyStream);
+                            inputStream = StreamUtil.cloneContent(inputStream, response.getEntity().getContentLength(), contentCopyStream);
                             content = StreamUtil.toUtf8StringOrHex(contentCopyStream, getResponseLogLength());
                         }
                         obj = this.smartsheet.getJsonSerializer().deserialize(objectClass, inputStream);
@@ -284,31 +283,28 @@ public abstract class AbstractResources {
         request.setEntity(entity);
 
         T obj = null;
-        String content = null;
         try {
             HttpResponse response = this.smartsheet.getHttpClient().request(request);
-            InputStream inputStream = response.getEntity().getContent();
             switch (response.getStatusCode()) {
-                case 200:
-                    // Can't be here as the stream has not ...???
+                case 200: {
+                    InputStream inputStream = response.getEntity().getContent();
+                    String content = null;
                     try {
                         if (log.isInfoEnabled()) {
                             ByteArrayOutputStream contentCopyStream = new ByteArrayOutputStream();
-                            inputStream = StreamUtil.cloneContent(inputStream, contentCopyStream);
+                            inputStream = StreamUtil.cloneContent(inputStream, response.getEntity().getContentLength(), contentCopyStream);
                             content = StreamUtil.toUtf8StringOrHex(contentCopyStream, getResponseLogLength());
                         }
                         obj = this.smartsheet.getJsonSerializer().deserializeResult(objectClass, inputStream).getResult();
-                    } catch (JsonParseException e) {
+                    } catch (JSONSerializerException e) {
                         log.info("failure parsing '{}'", content, e);
                         throw new SmartsheetException(e);
-                    } catch (JsonMappingException e) {
-                        log.info("failure mapping '{}'", content, e);
-                        throw new SmartsheetException(e);
                     } catch (IOException e) {
-                        log.info("failure loading '{}'", content, e);
+                        log.info("failure cloning content from inputStream '{}'", inputStream, e);
                         throw new SmartsheetException(e);
                     }
                     break;
+                }
                 default:
                     handleError(response);
             }
@@ -796,10 +792,9 @@ public abstract class AbstractResources {
         }
         HttpEntity entity = new HttpEntity();
         entity.setContentType(contentType);
-        entity.setContent(inputStream);
+        entity.setContent(new LengthEnforcingInputStream(inputStream, contentLength));
         entity.setContentLength(contentLength);
         request.setEntity(entity);
-
 
         Attachment attachment = null;
         try {
@@ -973,7 +968,8 @@ public abstract class AbstractResources {
      * @param output the output
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    public static void copyStream(InputStream input, OutputStream output) throws IOException {
+    @Deprecated // replace with StreamUtil.copyContentIntoOutputStream()
+    private static void copyStream(InputStream input, OutputStream output) throws IOException {
         byte[] buffer = new byte[BUFFER_SIZE];
         int len;
         while ((len = input.read(buffer)) != -1) {

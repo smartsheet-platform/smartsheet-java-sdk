@@ -3,7 +3,7 @@
 	<groupId>com.smartsheet</groupId>
 	<artifactId>smartsheet-sdk-java</artifactId>
 	<packaging>jar</packaging>
-	<version>2.2.2</version>
+	<version>2.2.3</version>
 	<name>Smartsheet Java SDK</name>
 	<description>Library for connecting to Smartsheet Services</description>
 	<url>http://smartsheet.com</url>
@@ -62,6 +62,12 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>1.7.12</version>
 			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.7.12</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>

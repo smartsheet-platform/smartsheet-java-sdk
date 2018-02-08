@@ -118,6 +118,21 @@ public class Column extends IdentifiableModel<Long> {
     private Boolean validation;
 
     /**
+     * Default constructor
+     */
+    public Column() {
+    }
+
+    /**
+     * Construct a Column with specified id
+     *
+     * @param id Column id
+     */
+    public Column(Long id) {
+        this.setId(id);
+    }
+
+    /**
      * Gets the position of the column.
      *
      * @return the index

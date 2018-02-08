@@ -114,6 +114,21 @@ public class Cell {
     private Boolean overrideValidation;
 
     /**
+     * Default constructor
+     */
+    public Cell() {
+    }
+
+    /**
+     * Construct a cell with specified column id
+     *
+     * @param id Column id
+     */
+    public Cell(Long id) {
+        this.columnId = id;
+    }
+
+    /**
      * Gets the column columnType.
      *
      * @return the columnType

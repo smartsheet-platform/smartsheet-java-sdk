@@ -19,10 +19,7 @@ package com.smartsheet.api.retry;
  * %[license]
  */
 
-import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.HttpResponse;
-
-import java.io.IOException;
 
 /**
  * Interface for user provided retry callbacks

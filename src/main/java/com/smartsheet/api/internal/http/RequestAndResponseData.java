@@ -22,14 +22,11 @@ package com.smartsheet.api.internal.http;
 
 
 import com.smartsheet.api.Trace;
-import com.smartsheet.api.internal.util.StreamUtil;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.http.Header;
 import org.apache.http.client.methods.HttpRequestBase;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import java.util.Set;
@@ -250,8 +247,8 @@ public class RequestAndResponseData {
     /**
      * factory method for creating a RequestAndResponseData object from request and response data with the specifid trace fields
      */
-    public static RequestAndResponseData of(HttpRequestBase request, HttpEntity requestEntity,
-                                            HttpResponse response, HttpEntity responseEntity,
+    public static RequestAndResponseData of(HttpRequestBase request, HttpEntitySnapshot requestEntity,
+                                            HttpResponse response, HttpEntitySnapshot responseEntity,
                                             Set<Trace> traces)
             throws IOException {
         RequestData.Builder requestBuilder = new RequestData.Builder();
@@ -306,38 +303,20 @@ public class RequestAndResponseData {
         return new RequestAndResponseData(requestBuilder.build(), responseBuilder.build());
     }
 
-    static String binaryBody(HttpEntity entity) {
+    static String binaryBody(HttpEntitySnapshot entity) {
         return "**possibly-binary(type:" + entity.getContentType() + ", len:" + entity.getContentLength() + ")**";
     }
 
-    public static String getContentAsText(HttpEntity entity) throws IOException {
+    public static String getContentAsText(HttpEntitySnapshot entity) throws IOException {
         if (entity == null) {
             return "";
         }
-        InputStream inputStream = entity.getContent();
-        if (inputStream == null) {
-            return "";
-        }
-        final boolean markSupported = inputStream.markSupported();
-        if (markSupported) {
-            inputStream.mark(10 * 1024 * 1024);  // 10MB read buffer; beyond that it probably won't matter
-        }
-
-        byte[] contentBytes = StreamUtil.readBytesFromStream(inputStream);
+        byte[] contentBytes = entity.getContentArray();
         String contentAsText;
         try {
             contentAsText = new String(contentBytes, "UTF-8");
         } catch (UnsupportedEncodingException badEncodingOrNotText) {
             contentAsText = new String(Hex.encodeHex(contentBytes));
-        }
-
-        // since we've consumed the stream we have to reset it (note, this will have real perf impact if the stream
-        // was to a large file or something else we'd rather not hold entirely in RAM if we can help it)
-        if (markSupported) {
-            inputStream.reset();
-        } else {
-            // we can't reset the stream so rebuild the stream around the bytes we read
-            entity.setContent(new ByteArrayInputStream(contentBytes));
         }
         return contentAsText;
     }

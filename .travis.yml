@@ -1,0 +1,14 @@
+language: java
+
+before_install:
+  - git clone https://github.com/smartsheet-platform/smartsheet-sdk-tests.git
+  - smartsheet-sdk-tests/travis_scripts/install_wiremock.sh
+  
+install: 
+  - mvn install -DskipTests -Dgpg.skip
+
+script:
+  - mvn test -B
+  - smartsheet-sdk-tests/travis_scripts/start_wiremock.sh
+  - mvn test -Dtest=com.smartsheet.api.sdk_test.*
+  
