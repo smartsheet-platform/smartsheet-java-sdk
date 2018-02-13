@@ -20,6 +20,8 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import com.smartsheet.api.models.enums.AttachmentType;
+
 public class ShortcutDataItem {
 
     /**
@@ -33,9 +35,9 @@ public class ShortcutDataItem {
     private String labelFormat;
 
     /**
-     * Attachment type(one of FILE, GOOGLE_DRIVE, LINK, BOX_COM, DROPBOX, EVERNOTE, or EGNYTE)
+     * Attachment type(one of FILE, GOOGLE_DRIVE, LINK, BOX_COM, DROPBOX, EVERNOTE, EGNYTE, ONEDRIVE, SMARTSHEET)
      */
-    private String mimeType;
+    private AttachmentType attachmentType;
 
     /**
      * Hyperlink object
@@ -46,6 +48,11 @@ public class ShortcutDataItem {
      * The display order for the Shortcut
      */
     private Integer order;
+
+    /**
+     * The mime type for the Shortcut
+     */
+    private String mimeType;
 
     /**
      * Get the label for the data point.
@@ -86,23 +93,23 @@ public class ShortcutDataItem {
     }
 
     /**
-     * Get the MIME type
-     * (one of FILE, GOOGLE_DRIVE, LINK, BOX_COM, DROPBOX, EVERNOTE, or EGNYTE)
+     * Get the attachment type
+     * (one of FILE, GOOGLE_DRIVE, LINK, BOX_COM, DROPBOX, EVERNOTE, EGNYTE, ONEDRIVE, SMARTSHEET)
      *
-     * @return mimeType
+     * @return attachmentType
      */
-    public String getMimeType() {
-        return mimeType;
+    public AttachmentType getAttachmentType() {
+        return attachmentType;
     }
 
     /**
-     * Set the MIME Type
+     * Set the attachment type
      * (one of FILE, GOOGLE_DRIVE, LINK, BOX_COM, DROPBOX, EVERNOTE, or EGNYTE).
      *
-     * @param mimeType
+     * @param attachmentType
      */
-    public ShortcutDataItem setMimeType(String mimeType) {
-        this.mimeType = mimeType;
+    public ShortcutDataItem setAttachmentType(AttachmentType attachmentType) {
+        this.attachmentType = attachmentType;
         return this;
     }
 
@@ -143,4 +150,24 @@ public class ShortcutDataItem {
         this.order = order;
         return this;
     }
+
+    /**
+     * Get the MIME type
+     *
+     * @return mimeType
+     */
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    /**
+     * Set the MIME Type
+     *
+     * @param mimeType
+     */
+    public ShortcutDataItem setMimeType(String mimeType) {
+        this.mimeType = mimeType;
+        return this;
+    }
+
 }
