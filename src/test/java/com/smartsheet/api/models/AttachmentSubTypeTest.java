@@ -40,7 +40,8 @@ public class AttachmentSubTypeTest {
         assertNotNull(AttachmentSubType.valueOf("PRESENTATION"));
         assertNotNull(AttachmentSubType.valueOf("PDF"));
         assertNotNull(AttachmentSubType.valueOf("DRAWING"));
-        assertEquals(5,AttachmentSubType.values().length);
+        assertNotNull(AttachmentSubType.valueOf("FOLDER"));
+        assertEquals(6,AttachmentSubType.values().length);
     }
 
 }
