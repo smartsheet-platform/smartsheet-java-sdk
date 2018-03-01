@@ -26,7 +26,9 @@ import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.retry.ShouldRetry;
 import org.apache.http.Header;
 import org.apache.http.HttpHeaders;
+import org.apache.http.NoHttpResponseException;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.NonRepeatableRequestException;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
@@ -123,6 +125,7 @@ public class DefaultHttpClient implements HttpClient {
      * Exceptions: - IllegalArgumentException : if any argument is null
      *
      * @param httpClient the http client
+     * @param shouldRetry callback routine to determine if failed requests can be retried
      */
     public DefaultHttpClient(CloseableHttpClient httpClient, ShouldRetry shouldRetry) {
         this.httpClient = Util.throwIfNull(httpClient);
@@ -148,6 +151,23 @@ public class DefaultHttpClient implements HttpClient {
 
         HttpRequestBase apacheHttpRequest;
         HttpResponse smartsheetResponse;
+
+        // the retry logic will consume the body stream so we make sure it supports mark/reset and mark it
+        boolean canRetryRequest = smartsheetRequest.getEntity() == null ||
+                smartsheetRequest.getEntity().getContent().markSupported();
+        if (!canRetryRequest) {
+            try {
+                InputStream bodyStream  = smartsheetRequest.getEntity().getContent();
+                // attempt to wrap the body stream in a input-stream that does support mark/reset
+                bodyStream = new ByteArrayInputStream(StreamUtil.readBytesFromStream(bodyStream));
+                // close the old stream (just to be tidy) and then replace it with a reset-able stream
+                smartsheetRequest.getEntity().getContent().close();
+                smartsheetRequest.getEntity().setContent(bodyStream);
+                canRetryRequest = true;
+            }
+            catch(IOException ignore) {
+            }
+        }
 
         // the retry loop
         while(true) {
@@ -206,6 +226,12 @@ public class DefaultHttpClient implements HttpClient {
                 ((HttpEntityEnclosingRequestBase) apacheHttpRequest).setEntity(streamEntity);
             }
 
+            // mark the body so we can reset on retry
+            if(canRetryRequest && smartsheetRequest.getEntity() != null) {
+                smartsheetRequest.getEntity().getContent().mark(
+                        (int)smartsheetRequest.getEntity().getContentLength());
+            }
+
             // Make the HTTP request
             smartsheetResponse = new HttpResponse();
             HttpContext context = new BasicHttpContext();
@@ -253,31 +279,63 @@ public class DefaultHttpClient implements HttpClient {
                     break;
                 }
 
-                // the retry logic might consume the content stream so we make sure it supports mark/reset and mark it
-                InputStream contentStream  = smartsheetResponse.getEntity().getContent();
-                if (!contentStream.markSupported()) {
-                    // wrap the response stream in a input-stream that does support mark/reset
-                    contentStream = new ByteArrayInputStream(StreamUtil.readBytesFromStream(contentStream));
-                    // close the old stream (just to be tidy) and then replace it with a reset-able stream
-                    smartsheetResponse.getEntity().getContent().close();
-                    smartsheetResponse.getEntity().setContent(contentStream);
-                }
-                try {
-                    contentStream.mark((int) smartsheetResponse.getEntity().getContentLength());
-                    long timeSpent = System.currentTimeMillis() - start;
-                    if (!shouldRetry.shouldRetry(++attempt, timeSpent, smartsheetResponse)) {
-                        // should not retry, or retry time exceeded, exit the retry loop
-                        break;
+                if(canRetryRequest) {
+                    // the retry logic might consume the content stream so we make sure it supports mark/reset and mark it
+                    InputStream contentStream = smartsheetResponse.getEntity().getContent();
+                    if (!contentStream.markSupported()) {
+                        // wrap the response stream in a input-stream that does support mark/reset
+                        contentStream = new ByteArrayInputStream(StreamUtil.readBytesFromStream(contentStream));
+                        // close the old stream (just to be tidy) and then replace it with a reset-able stream
+                        smartsheetResponse.getEntity().getContent().close();
+                        smartsheetResponse.getEntity().setContent(contentStream);
                     }
-                } finally {
-                    contentStream.reset();
+                    try {
+                        contentStream.mark((int) smartsheetResponse.getEntity().getContentLength());
+                        long timeSpent = System.currentTimeMillis() - start;
+                        if (!shouldRetry.shouldRetry(++attempt, timeSpent, smartsheetResponse)) {
+                            // should not retry, or retry time exceeded, exit the retry loop
+                            break;
+                        }
+                    } finally {
+                        if(smartsheetRequest.getEntity() != null) {
+                            smartsheetRequest.getEntity().getContent().reset();
+                        }
+                        contentStream.reset();
+                    }
+                    // moving this to finally causes issues because socket is closed (which means response stream is closed)
+                    this.releaseConnection();
                 }
-                // moving this to finally causes issues because socket is closed (which means response stream is closed)
-                this.releaseConnection();
             } catch (ClientProtocolException e) {
                 try {
+                    logger.warn("ClientProtocolException" + e.getMessage());
                     logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, requestEntityCopy, smartsheetResponse,
                             responseEntityCopy, REQUEST_RESPONSE_SUMMARY));
+                    // if this is a PUT and was retried by the http client, the body content stream is at the
+                    // end and is a NonRepeatableRequest. If we marked the body content stream prior to execute,
+                    // reset and retry
+                    if (canRetryRequest && e.getCause() instanceof NonRepeatableRequestException) {
+                        if (smartsheetRequest.getEntity() != null) {
+                            smartsheetRequest.getEntity().getContent().reset();
+                        }
+                        continue;
+                    }
+                } catch (IOException ignore) {
+                }
+                throw new HttpClientException("Error occurred.", e);
+            } catch (NoHttpResponseException e) {
+                try {
+                    logger.warn("NoHttpResponseException" + e.getMessage());
+                    logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, requestEntityCopy, smartsheetResponse,
+                            responseEntityCopy, REQUEST_RESPONSE_SUMMARY));
+                    // check to see if the response was empty and this was a POST. All other HTTP methods
+                    // will be automatically retried by the http client.
+                    // (POST is non-idempotent and is not retried automatically, but is safe for us to retry)
+                    if (canRetryRequest && smartsheetRequest.getMethod() == HttpMethod.POST) {
+                        if (smartsheetRequest.getEntity() != null) {
+                            smartsheetRequest.getEntity().getContent().reset();
+                        }
+                        continue;
+                    }
                 } catch (IOException ignore) {
                 }
                 throw new HttpClientException("Error occurred.", e);
