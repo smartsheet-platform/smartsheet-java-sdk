@@ -152,12 +152,14 @@ public class DefaultHttpClient implements HttpClient {
         HttpRequestBase apacheHttpRequest;
         HttpResponse smartsheetResponse;
 
+        InputStream bodyStream = null;
+        if(smartsheetRequest.getEntity() != null && smartsheetRequest.getEntity().getContent() != null) {
+            bodyStream = smartsheetRequest.getEntity().getContent();
+        }
         // the retry logic will consume the body stream so we make sure it supports mark/reset and mark it
-        boolean canRetryRequest = smartsheetRequest.getEntity() == null ||
-                smartsheetRequest.getEntity().getContent().markSupported();
+        boolean canRetryRequest = bodyStream == null || bodyStream.markSupported();
         if (!canRetryRequest) {
             try {
-                InputStream bodyStream  = smartsheetRequest.getEntity().getContent();
                 // attempt to wrap the body stream in a input-stream that does support mark/reset
                 bodyStream = new ByteArrayInputStream(StreamUtil.readBytesFromStream(bodyStream));
                 // close the old stream (just to be tidy) and then replace it with a reset-able stream
@@ -227,9 +229,8 @@ public class DefaultHttpClient implements HttpClient {
             }
 
             // mark the body so we can reset on retry
-            if(canRetryRequest && smartsheetRequest.getEntity() != null) {
-                smartsheetRequest.getEntity().getContent().mark(
-                        (int)smartsheetRequest.getEntity().getContentLength());
+            if(canRetryRequest && bodyStream != null) {
+                bodyStream.mark((int)smartsheetRequest.getEntity().getContentLength());
             }
 
             // Make the HTTP request
@@ -279,35 +280,34 @@ public class DefaultHttpClient implements HttpClient {
                     break;
                 }
 
-                if(canRetryRequest) {
-                    // the retry logic might consume the content stream so we make sure it supports mark/reset and mark it
-                    InputStream contentStream = smartsheetResponse.getEntity().getContent();
-                    if (!contentStream.markSupported()) {
-                        // wrap the response stream in a input-stream that does support mark/reset
-                        contentStream = new ByteArrayInputStream(StreamUtil.readBytesFromStream(contentStream));
-                        // close the old stream (just to be tidy) and then replace it with a reset-able stream
-                        smartsheetResponse.getEntity().getContent().close();
-                        smartsheetResponse.getEntity().setContent(contentStream);
-                    }
-                    try {
-                        contentStream.mark((int) smartsheetResponse.getEntity().getContentLength());
-                        long timeSpent = System.currentTimeMillis() - start;
-                        if (!shouldRetry.shouldRetry(++attempt, timeSpent, smartsheetResponse)) {
-                            // should not retry, or retry time exceeded, exit the retry loop
-                            break;
-                        }
-                    } finally {
-                        if(smartsheetRequest.getEntity() != null) {
-                            smartsheetRequest.getEntity().getContent().reset();
-                        }
-                        contentStream.reset();
-                    }
-                    // moving this to finally causes issues because socket is closed (which means response stream is closed)
-                    this.releaseConnection();
+                // the retry logic might consume the content stream so we make sure it supports mark/reset and mark it
+                InputStream contentStream = smartsheetResponse.getEntity().getContent();
+                if (!contentStream.markSupported()) {
+                    // wrap the response stream in a input-stream that does support mark/reset
+                    contentStream = new ByteArrayInputStream(StreamUtil.readBytesFromStream(contentStream));
+                    // close the old stream (just to be tidy) and then replace it with a reset-able stream
+                    smartsheetResponse.getEntity().getContent().close();
+                    smartsheetResponse.getEntity().setContent(contentStream);
                 }
+                try {
+                    contentStream.mark((int) smartsheetResponse.getEntity().getContentLength());
+                    long timeSpent = System.currentTimeMillis() - start;
+                    if (!shouldRetry.shouldRetry(++attempt, timeSpent, smartsheetResponse)) {
+                        // should not retry, or retry time exceeded, exit the retry loop
+                        break;
+                    }
+                } finally {
+                    if(bodyStream != null) {
+                        bodyStream.reset();
+                    }
+                    contentStream.reset();
+                }
+                // moving this to finally causes issues because socket is closed (which means response stream is closed)
+                this.releaseConnection();
+
             } catch (ClientProtocolException e) {
                 try {
-                    logger.warn("ClientProtocolException" + e.getMessage());
+                    logger.warn("ClientProtocolException " + e.getMessage());
                     logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, requestEntityCopy, smartsheetResponse,
                             responseEntityCopy, REQUEST_RESPONSE_SUMMARY));
                     // if this is a PUT and was retried by the http client, the body content stream is at the
@@ -324,7 +324,7 @@ public class DefaultHttpClient implements HttpClient {
                 throw new HttpClientException("Error occurred.", e);
             } catch (NoHttpResponseException e) {
                 try {
-                    logger.warn("NoHttpResponseException" + e.getMessage());
+                    logger.warn("NoHttpResponseException " + e.getMessage());
                     logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, requestEntityCopy, smartsheetResponse,
                             responseEntityCopy, REQUEST_RESPONSE_SUMMARY));
                     // check to see if the response was empty and this was a POST. All other HTTP methods
