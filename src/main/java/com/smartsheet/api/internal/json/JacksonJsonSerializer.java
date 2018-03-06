@@ -64,7 +64,6 @@ public class JacksonJsonSerializer implements JsonSerializer{
         OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         OBJECT_MAPPER.configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true);
 
-
         // Only include non-null properties in when serializing java beans
         OBJECT_MAPPER.setSerializationInclusion(Include.NON_NULL);
 
@@ -96,6 +95,10 @@ public class JacksonJsonSerializer implements JsonSerializer{
 
         module = new SimpleModule("CellSerializerModule", Version.unknownVersion());
         module.setSerializerModifier(new CellSerializerModifier());
+        OBJECT_MAPPER.registerModule(module);
+
+        module = new SimpleModule("ErrorDetailDeserializerModule", Version.unknownVersion());
+        module.addDeserializer(com.smartsheet.api.models.Error.class, new ErrorDeserializer());
         OBJECT_MAPPER.registerModule(module);
 
         // Ignore getId() for the IdentifiableModel class
