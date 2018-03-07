@@ -199,6 +199,38 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws SmartsheetException the smartsheet exception
      */
     public Sheet getSheet(long id, EnumSet<SheetInclusion> includes, EnumSet<ObjectExclusion> excludes, Set<Long> rowIds, Set<Integer> rowNumbers, Set<Long> columnIds, Integer pageSize, Integer page) throws SmartsheetException {
+        return this.getSheet(id, includes, excludes, rowIds, rowNumbers, columnIds, pageSize, page, null);
+    }
+
+    /**
+     * Get a sheet.
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /sheet/{id}
+     *
+     * Exceptions:
+     *   - InvalidRequestException : if there is any problem with the REST API request
+     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   - ResourceNotFoundException : if the resource can not be found
+     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   - SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param id the id
+     * @param includes used to specify the optional objects to include, currently DISCUSSIONS and
+     * ATTACHMENTS are supported.
+     * @param columnIds the column ids
+     * @param excludes the exclude parameters
+     * @param page the page number
+     * @param pageSize the page size
+     * @param rowIds the row ids
+     * @param rowNumbers the row numbers
+     * @param ifVersionAfter only fetch Sheet if more recent version available
+     * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
+     * rather than returning null).
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Sheet getSheet(long id, EnumSet<SheetInclusion> includes, EnumSet<ObjectExclusion> excludes, Set<Long> rowIds, Set<Integer> rowNumbers,
+                          Set<Long> columnIds, Integer pageSize, Integer page, Integer ifVersionAfter) throws SmartsheetException {
         String path = "sheets/" + id;
 
         // Add the parameters to a map and build the query string at the end
@@ -211,6 +243,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
         parameters.put("columnIds", QueryUtil.generateCommaSeparatedList(columnIds));
         parameters.put("pageSize", pageSize);
         parameters.put("page", page);
+        parameters.put("ifVersionAfter", ifVersionAfter);
 
         // Iterate through the map of parameters and generate the query string
         path += QueryUtil.generateUrl(null, parameters);

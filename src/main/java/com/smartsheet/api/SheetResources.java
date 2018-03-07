@@ -121,6 +121,39 @@ public interface SheetResources {
                           Integer page) throws SmartsheetException;
 
     /**
+     * <p>Get a sheet.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sheet/{id}</p>
+     *
+     * @param id the id of the sheet
+     * @param includes used to specify the optional objects to include.
+     * @param columnIds the column ids
+     * @param excludes the exclude parameters
+     * @param page the page number
+     * @param pageSize the page size
+     * @param rowIds the row ids
+     * @param rowNumbers the row numbers
+     * @param ifVersionAfter only fetch Sheet if more recent version available
+     * @return the sheet resource (note that if there is no such resource, this method will throw
+     * ResourceNotFoundException rather than returning null).
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Sheet getSheet(long id,
+                          EnumSet<SheetInclusion> includes,
+                          EnumSet<ObjectExclusion> excludes,
+                          Set<Long> rowIds,
+                          Set<Integer> rowNumbers,
+                          Set<Long> columnIds,
+                          Integer pageSize,
+                          Integer page,
+                          Integer ifVersionAfter) throws SmartsheetException;
+
+    /**
      * <p>Get a sheet as an Excel file.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method:</p>
