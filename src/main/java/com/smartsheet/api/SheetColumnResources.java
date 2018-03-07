@@ -88,9 +88,9 @@ public interface SheetColumnResources {
     public void deleteColumn(long sheetId, long columnId) throws SmartsheetException;
 
     /**
-     * Update a column.
+     * <p>Update a column.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/columns/{columnId}
+     * <p>It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/columns/{columnId}</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if any argument is null
@@ -112,9 +112,9 @@ public interface SheetColumnResources {
     public Column updateColumn(long sheetId, Column column) throws SmartsheetException;
 
     /**
-     * Gets the Column specified in the URL.
+     * <p>Gets the Column specified in the URL.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/columns/{columnId}
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/columns/{columnId}</p>
      *
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request

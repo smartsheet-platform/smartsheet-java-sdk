@@ -58,9 +58,9 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     }
 
     /**
-     * <p>List all users.</p>
+     * List all users.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /users</p>
+     * It mirrors to the following Smartsheet REST API method: GET /users
      *
      * @return the list of all users
      * @throws IllegalArgumentException if any argument is null or empty string
@@ -151,9 +151,9 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     }
 
     /**
-     * <p>Get the current user.</p>
+     * Get the current user.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /users/{userId}</p>
+     * It mirrors to the following Smartsheet REST API method: GET /users/{userId}
      *
      * @param userId the user id
      * @return the user
@@ -190,9 +190,9 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     }
 
     /**
-     * <p>List all organisation sheets.</p>
+     * List all organisation sheets.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /users/sheets</p>
+     * It mirrors to the following Smartsheet REST API method: GET /users/sheets
      *
      * @param pagination the object containing the pagination query parameters
      * @param modifiedSince
@@ -223,11 +223,11 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     }
 
     /**
-     * <p>List all user alternate emails.</p>
+     * List all user alternate emails.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /users/{userId}/alternateemails</p>
+     * It mirrors to the following Smartsheet REST API method: GET /users/{userId}/alternateemails
      *
-     * @param the id of the user
+     * @param userId the id of the user
      * @param pagination the object containing the pagination query parameters
      * @return the list of all user alternate emails
      * @throws IllegalArgumentException if any argument is null or empty string
@@ -247,12 +247,12 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     }
 
     /**
-     * <p>Get alternate email.</p>
+     * Get alternate email.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /users/{userId}/alternateemails/{alternateEmailId}</p>
+     * It mirrors to the following Smartsheet REST API method: GET /users/{userId}/alternateemails/{alternateEmailId}
      *
-     * @param the id of the user
-     * @param the alternate email id for the alternate email to retrieve.
+     * @param userId the id of the user
+     * @param altEmailId the alternate email id for the alternate email to retrieve.
      * @return the resource (note that if there is no such resource, this method will throw
      *     ResourceNotFoundException rather than returning null).
      * @throws IllegalArgumentException if any argument is null or empty string
@@ -267,12 +267,12 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     }
 
     /**
-     * <p>Add an alternate email.</p>
+     * Add an alternate email.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: POST /users/{userId}/alternateemails</p>
+     * It mirrors to the following Smartsheet REST API method: POST /users/{userId}/alternateemails
      *
-     * @param the id of the user
-     * @param AlternateEmail alternate email address to add.
+     * @param userId the id of the user
+     * @param altEmails AlternateEmail alternate email address to add.
      * @return the resource (note that if there is no such resource, this method will throw
      *     ResourceNotFoundException rather than returning null).
      * @throws IllegalArgumentException if any argument is null or empty string
@@ -291,12 +291,12 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     }
 
     /**
-     * <p>Delete an alternate email.</p>
+     * Delete an alternate email.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: DELETE /users/{userId}/alternateemails/{alternateEmailId}</p>
+     * It mirrors to the following Smartsheet REST API method: DELETE /users/{userId}/alternateemails/{alternateEmailId}
      *
-     * @param the id of the user
-     * @param the alternate email id for the alternate email to retrieve.
+     * @param userId the id of the user
+     * @param altEmailId the alternate email id for the alternate email to retrieve.
      * @return the resource (note that if there is no such resource, this method will throw
      *     ResourceNotFoundException rather than returning null).
      * @throws IllegalArgumentException if any argument is null or empty string

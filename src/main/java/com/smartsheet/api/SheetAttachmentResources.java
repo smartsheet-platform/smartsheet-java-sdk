@@ -34,8 +34,7 @@ public interface SheetAttachmentResources {
      * <p>The URL can be a normal URL (attachmentType "URL"), a Google Drive URL (attachmentType "GOOGLE_DRIVE") or a
      * Box.com URL (attachmentType "BOX_COM").</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>POST /sheets/{sheetId}/attachments
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/attachments
      *
      * @param sheetId the sheet id
      * @param attachment the attachment object
@@ -50,9 +49,9 @@ public interface SheetAttachmentResources {
     public Attachment attachUrl(long sheetId, Attachment attachment) throws SmartsheetException;
 
     /**
-     * Delete an attachment.
+     * <p>Delete an attachment.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/attachments/{attachmentId}
+     * <p>It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/attachments/{attachmentId}</p>
      *
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -69,12 +68,9 @@ public interface SheetAttachmentResources {
     public void deleteAttachment(long sheetId, long attachmentId) throws SmartsheetException;
 
     /**
-     * Get an attachment.
+     * <p>Get an attachment.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: GET /attachment/{id}
-     *
-     * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-     * rather than returning null).
+     * <p>It mirrors to the following Smartsheet REST API method: GET /attachment/{id}</p>
      *
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -93,9 +89,9 @@ public interface SheetAttachmentResources {
     public Attachment getAttachment(long sheetId, long attachmentId) throws SmartsheetException;
 
     /**
-     * Gets a list of all Attachments that are on the Sheet, including Sheet, Row, and Discussion level Attachments.
+     * <p>Gets a list of all Attachments that are on the Sheet, including Sheet, Row, and Discussion level Attachments.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/attachments
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/attachments</p>
      *
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -115,8 +111,7 @@ public interface SheetAttachmentResources {
     /**
      * <p>Attach a file to a sheet with simple upload.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>POST /sheets/{sheetId}/attachments</p>
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/attachments</p>
      *
      * @param sheetId the id of the sheet
      * @param file the file to attach

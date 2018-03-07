@@ -35,8 +35,7 @@ public interface AttachmentVersioningResources {
     /**
      * <p>Deletes an attachment, including all of its versions.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>DELETE /sheets/{sheetId}/attachments/{attachmentId}/versions</p>
+     * <p>It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/attachments/{attachmentId}/versions</p>
      *
      * @param sheetId the sheet id
      * @param attachentId the attachment id
@@ -52,8 +51,7 @@ public interface AttachmentVersioningResources {
     /**
      * <p>Get all versions of an attachment.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>GET /sheets/{sheetId}/attachments/{attachmentId}/versions</p>
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/attachments/{attachmentId}/versions</p>
      *
      * @param sheetId the id
      * @param attachmentId the attachment id
@@ -71,8 +69,8 @@ public interface AttachmentVersioningResources {
 
     /**
      * <p>Attach a new version of an attachment.</p>
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>POST /attachment/{id}/versions</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /attachment/{id}/versions</p>
      *
      * @param sheetId the id of the sheet
      * @param attachmentId the id of the attachment to upload a new version.

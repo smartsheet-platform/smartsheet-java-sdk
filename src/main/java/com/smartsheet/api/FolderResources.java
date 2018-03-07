@@ -74,8 +74,7 @@ public interface FolderResources {
     /**
      * <p>Delete a folder.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>DELETE /folder{id}</p>
+     * <p>It mirrors to the following Smartsheet REST API method: DELETE /folder{id}</p>
      *
      * @param folderId the folder id
      * @throws IllegalArgumentException if any argument is null or empty string
@@ -107,8 +106,7 @@ public interface FolderResources {
     /**
      * <p>Create a folder.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>POST /folder/{id}/folders</p>
+     * <p>It mirrors to the following Smartsheet REST API method: POST /folder/{id}/folders</p>
      *
      * @param parentFolderId the parent folder id
      * @param folder the folder to create
@@ -123,9 +121,9 @@ public interface FolderResources {
     public Folder createFolder(long parentFolderId, Folder folder) throws SmartsheetException;
 
     /**
-     * Creates a copy of the specified Folder.
+     * <p>Creates a copy of the specified Folder.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/copy
+     * <p>It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/copy</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if folder is null
@@ -145,9 +143,9 @@ public interface FolderResources {
     public Folder copyFolder(long folderId, ContainerDestination containerDestination, EnumSet<FolderCopyInclusion> includes, EnumSet<FolderRemapExclusion> skipRemap) throws SmartsheetException;
 
     /**
-     * Moves the specified Folder to another location.
+     * <p>Moves the specified Folder to another location.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/move
+     * <p>It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/move</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if folder is null

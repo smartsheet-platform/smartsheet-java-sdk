@@ -37,8 +37,7 @@ public interface CommentAttachmentResources {
      * <p>The URL can be a normal URL (attachmentType "URL"), a Google Drive URL (attachmentType "GOOGLE_DRIVE") or a
      * Box.com URL (attachmentType "BOX_COM").</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>POST /sheets/{sheetId}/comments/{commentId}/attachments
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/comments/{commentId}/attachments
      *
      * @param sheetId the sheet id
      * @param commentId the comment id
@@ -56,8 +55,7 @@ public interface CommentAttachmentResources {
     /**
      * <p>Attach a file to a comment.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     *<p>POST /sheets/{sheetId}/comments/{commentId}/attachments</p>
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/comments/{commentId}/attachments</p>
      *
      * @param sheetId the id of the sheet
      * @param commentId the id of the comment

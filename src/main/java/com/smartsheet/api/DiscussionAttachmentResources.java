@@ -26,12 +26,9 @@ import com.smartsheet.api.models.PaginationParameters;
 public interface DiscussionAttachmentResources {
 
     /**
-     * Get discussion attachment.
+     * <p>Get discussion attachment.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/discussions/{discussionId}/attachments
-     *
-     * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-     * rather than returning null).
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/discussions/{discussionId}/attachments</p>
      *
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request

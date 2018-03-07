@@ -28,8 +28,7 @@ public interface ImageUrlResources {
     /**
      * <p>Gets URLS that can be used to retrieve the specified cell images.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>POST /imageurls</p>
+     * <p>It mirrors to the following Smartsheet REST API method: POST /imageurls</p>
      *
      * @param requestUrls array of requested Images and sizes.
      * @return the ImageUrlMap object (note that if there is no such resource, this method will throw

@@ -396,7 +396,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
     }
 
     /**
-     * <p>Creates an object of RowAttachmentResources.</p>
+     * Creates an object of RowAttachmentResources.
      *
      * @return the created RowAttachmentResources object
      */
@@ -405,7 +405,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
     }
 
     /**
-     * <p>Creates an object of RowDiscussionResources.</p>
+     * Creates an object of RowDiscussionResources.
      *
      * @return the created RowDiscussionResources object
      */
@@ -414,7 +414,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
     }
 
     /**
-     * <p>Creates an object of RowColumnResources.</p>
+     * Creates an object of RowColumnResources.
      *
      * @return the created RowColumnResources object
      */

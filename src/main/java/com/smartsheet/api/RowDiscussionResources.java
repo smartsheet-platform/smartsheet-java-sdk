@@ -27,6 +27,7 @@ import com.smartsheet.api.models.enums.DiscussionInclusion;
 import java.io.File;
 import java.io.IOException;
 import java.util.EnumSet;
+
 /**
  * <p>This interface provides methods to access Row Discussion resources.</p>
  *
@@ -35,9 +36,9 @@ import java.util.EnumSet;
 public interface RowDiscussionResources {
 
     /**
-     * Create discussion on a row.
+     * <p>Create discussion on a row.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: /sheets/{sheetId}/rows/{rowId}/discussions
+     * <p>It mirrors to the following Smartsheet REST API method: /sheets/{sheetId}/rows/{rowId}/discussions</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if any argument is null
@@ -56,9 +57,9 @@ public interface RowDiscussionResources {
     public Discussion createDiscussion(long sheetId, long rowId, Discussion discussion) throws SmartsheetException;
 
     /**
-     * Gets a list of all Discussions associated with the specified Row.
+     * <p>Gets a list of all Discussions associated with the specified Row.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/rows/{rowId}/discussions
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/rows/{rowId}/discussions</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if any argument is null
@@ -78,9 +79,9 @@ public interface RowDiscussionResources {
     public PagedResult<Discussion> listDiscussions(long sheetId, long rowId, PaginationParameters pagination, EnumSet<DiscussionInclusion> includes) throws SmartsheetException;
 
     /**
-     * Create discussion on a row.
+     * <p>Create discussion on a row.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: /sheets/{sheetId}/rows/{rowId}/discussions
+     * <p>It mirrors to the following Smartsheet REST API method: /sheets/{sheetId}/rows/{rowId}/discussions</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if any argument is null

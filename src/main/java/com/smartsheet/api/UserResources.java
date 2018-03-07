@@ -198,12 +198,12 @@ public interface UserResources {
     public PagedResult<Sheet> listOrgSheets(PaginationParameters pagination) throws SmartsheetException;
 
     /**
-     * @param userId the userID
-     * @param pagination the pagination parameters
      * <p>List all user alternate email(s).</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /users/{userId}/alternateemails</p>
      *
+     * @param userId the userID
+     * @param pagination the pagination parameters
      * @return the list of all user alternate email(s)
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
@@ -265,7 +265,7 @@ public interface UserResources {
     public void deleteAlternateEmail(long userId, long altEmailId) throws SmartsheetException;
 
     /**
-     * Promote and alternate email to primary.
+     * <p>Promote and alternate email to primary.</p>
      *
      * @param userId id of the user
      * @param altEmailId alternate email id

@@ -156,8 +156,7 @@ public interface SheetResources {
     /**
      * <p>Get a sheet as an Excel file.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>GET /sheet/{id} with "application/vnd.ms-excel" Accept HTTP header</p>
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sheet/{id} with "application/vnd.ms-excel" Accept HTTP header</p>
      *
      * @param id the id of the sheet
      * @param outputStream the output stream to which the Excel file will be written.
@@ -173,8 +172,7 @@ public interface SheetResources {
     /**
      * <p>Get a sheet as an Excel file.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>GET /sheet/{id} with "application/vnd.ms-excel" Accept HTTP header</p>
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sheet/{id} with "application/vnd.ms-excel" Accept HTTP header</p>
      *
      * @param id the id of the sheet
      * @param outputStream the output stream to which the Excel file will be written.
@@ -190,8 +188,7 @@ public interface SheetResources {
     /**
      * <p>Get a sheet as a PDF file.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>GET /sheet/{id} with "application/pdf" Accept HTTP header</p>
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sheet/{id} with "application/pdf" Accept HTTP header</p>
      *
      * @param id the id of the sheet
      * @param outputStream the output stream to which the PDF file will be written.
@@ -208,8 +205,7 @@ public interface SheetResources {
     /**
      * <p>Create a sheet in default "Sheets" collection.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     *  <p>POST /sheets</p>
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets</p>
      *
      * @param sheet the sheet to created
      * @return the created sheet
@@ -475,9 +471,9 @@ public interface SheetResources {
     public SheetPublish updatePublishStatus(long id, SheetPublish publish) throws SmartsheetException;
 
     /**
-     * Creates a copy of the specified sheet.
+     * <p>Creates a copy of the specified sheet.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/copy
+     * <p>It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/copy</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if folder is null
@@ -496,9 +492,9 @@ public interface SheetResources {
     public Sheet copySheet(long sheetId, ContainerDestination containerDestination, EnumSet<SheetCopyInclusion> includes) throws SmartsheetException;
 
     /**
-     * Moves the specified Sheet to another location.
+     * <p>Moves the specified Sheet to another location.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/move
+     * <p>It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/move</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if folder is null
@@ -516,9 +512,9 @@ public interface SheetResources {
     public Sheet moveSheet(long sheetId, ContainerDestination containerDestination) throws SmartsheetException;
 
     /**
-     * Creates an Update Request for the specified Row(s) within the Sheet.
+     * <p>Creates an Update Request for the specified Row(s) within the Sheet.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/updaterequests
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/updaterequests</p>
      *
      * Exceptions:
      *   - IllegalArgumentException : if any argument is null

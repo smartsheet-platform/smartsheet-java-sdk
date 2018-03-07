@@ -29,8 +29,7 @@ public interface DiscussionCommentResources {
     /**
      * <p>Add a comment to a discussion.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>POST /discussion/{discussionId}/comments</p>
+     * <p>It mirrors to the following Smartsheet REST API method: POST /discussion/{discussionId}/comments</p>
      *
      * @param sheetId the sheet id
      * @param discussionId the dicussion id
@@ -48,8 +47,7 @@ public interface DiscussionCommentResources {
     /**
      * <p>Add a comment to a discussion with an attachment.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>POST /discussion/{discussionId}/comments</p>
+     * <p>It mirrors to the following Smartsheet REST API method: POST /discussion/{discussionId}/comments</p>
      *
      * @param sheetId the sheet id
      * @param discussionId the dicussion id
@@ -70,8 +68,7 @@ public interface DiscussionCommentResources {
     /**
      * <p>Update the specified comment</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>PUT  PUT /sheets/{sheetId}/comments/{commentId}</p>
+     * <p>It mirrors to the following Smartsheet REST API method: PUT  PUT /sheets/{sheetId}/comments/{commentId}</p>
 
      * @param sheetId the sheet id
      * @param comment the new comment object

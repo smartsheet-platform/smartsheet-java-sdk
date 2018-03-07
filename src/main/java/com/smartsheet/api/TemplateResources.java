@@ -34,9 +34,9 @@ import com.smartsheet.api.models.Template;
 public interface TemplateResources {
 
     /**
-     * List user-created templates.
+     * <p>List user-created templates.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: GET /templates
+     * <p>It mirrors to the following Smartsheet REST API method: GET /templates</p>
      *
      * @param parameters the pagination parameters
      * Exceptions:
@@ -52,9 +52,9 @@ public interface TemplateResources {
     public PagedResult<Template> listUserCreatedTemplates(PaginationParameters parameters) throws SmartsheetException;
 
     /**
-     * List public templates.
+     * <p>List public templates.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: GET /templates/public
+     * <p>It mirrors to the following Smartsheet REST API method: GET /templates/public</p>
      *
      * @param parameters the pagination parameters
      * Exceptions:

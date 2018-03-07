@@ -55,9 +55,9 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
         this.shares = new ShareResourcesImpl(smartsheet, "sights");
     }
     /**
-     * <p>Gets the list of all Sights where the User has access.</p>
+     * Gets the list of all Sights where the User has access.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /sights</p>
+     * It mirrors to the following Smartsheet REST API method: GET /sights
      *
      * @param modifiedSince
      * @return IndexResult object containing an array of Sight objects limited to the following attributes:
@@ -85,9 +85,9 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
     }
 
     /**
-     * <p>Get a specified Sight.</p>
+     * Get a specified Sight.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /sights/{sightId}</p>
+     * It mirrors to the following Smartsheet REST API method: GET /sights/{sightId}
      *
      * @param sightId the Id of the Sight
      * @return the Sight resource.
@@ -103,9 +103,9 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
     }
 
     /**
-     * <p>Get a specified Sight.</p>
+     * Get a specified Sight.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: PUT /sights/{sightId}</p>
+     * It mirrors to the following Smartsheet REST API method: PUT /sights/{sightId}
      *
      * @param sight - the Sight to update
      * @return the updated Sight resource.
@@ -122,9 +122,9 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
     }
 
     /**
-     * <p>Delete a specified Sight.</p>
+     * Delete a specified Sight.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: DELETE /sights/{sightId}</p>
+     * It mirrors to the following Smartsheet REST API method: DELETE /sights/{sightId}
      *
      * @param sightId the Id of the Sight
      *
@@ -140,9 +140,9 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
     }
 
     /**
-     * <p>Creates s copy of the specified Sight.</p>
+     * Creates s copy of the specified Sight.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/copy</p>
+     * It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/copy
      *
      * @param sightId the Id of the Sight
      * @param destination the destination to copy to
@@ -159,9 +159,9 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
     }
 
     /**
-     * <p>Creates s copy of the specified Sight.</p>
+     * Creates s copy of the specified Sight.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/move</p>
+     * It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/move
      *
      * @param sightId the Id of the Sight
      * @param destination the destination to copy to
@@ -178,9 +178,9 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
     }
 
     /**
-     * <p>Get the publish status of a Sight.</p>
+     * Get the publish status of a Sight.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/publish</p>
+     * It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/publish
      *
      * @param sightId the Id of the Sight
      * @return the Sight's publish status.
@@ -196,9 +196,9 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
     }
 
     /**
-     * <p>Sets the publish status of a Sight and returns the new status, including the URLs of any enabled publishing.</p>
+     * Sets the publish status of a Sight and returns the new status, including the URLs of any enabled publishing.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/publish</p>
+     * It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/publish
      *
      * @param sightId the Id of the Sight
      * @param sightPublish the SightPublish object containing publish status
@@ -216,8 +216,8 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
     }
 
     /**
-     * <p>Return the ShareResources object that provides access to share resources associated with
-     * Sight resources.</p>
+     * Return the ShareResources object that provides access to share resources associated with
+     * Sight resources.
      *
      * @return the associated share resources
      */

@@ -83,8 +83,8 @@ public class GroupResourcesImpl extends AbstractResources implements GroupResour
 
     @Override
     /**
-     * <p>Represents the GroupMemberResources.</p>
-     * <p>It will be initialized in constructor and will not change afterwards.</p>
+     * Represents the GroupMemberResources.
+     * It will be initialized in constructor and will not change afterwards.
      *
      * @return members object
      * @throws SmartsheetException if there is any other error during the operation

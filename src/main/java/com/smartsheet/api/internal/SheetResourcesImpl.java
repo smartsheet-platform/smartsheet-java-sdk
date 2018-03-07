@@ -119,9 +119,9 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     }
 
     /**
-     * <p>List all sheets.</p>
+     * List all sheets.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /sheets</p>
+     * It mirrors to the following Smartsheet REST API method: GET /sheets
      *
      * @param includes the source inclusion
      * @param pagination the object containing the pagination parameters
@@ -549,10 +549,9 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     }
 
     /**
-     * <p>Get a sheet as an Excel file.</p>
+     * Get a sheet as an Excel file.
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>GET /sheet/{id} with "application/vnd.ms-excel" Accept HTTP header</p>
+     * It mirrors to the following Smartsheet REST API method: GET /sheet/{id} with "application/vnd.ms-excel" Accept HTTP header
      *
      * @param id the id of the sheet
      * @param outputStream the output stream to which the Excel file will be written.
@@ -614,8 +613,8 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     }
 
     /**
-     * <p>Return the SheetCommentResources object that provides access to discussion resources associated with
-     * Sheet resources.</p>
+     * Return the SheetCommentResources object that provides access to discussion resources associated with
+     * Sheet resources.
      *
      * @return the associated comment resources
      */
@@ -624,8 +623,8 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     }
 
     /**
-     * <p>Return the SheetUpdateRequestResources object that provides access to update request resources
-     * associated with Sheet resources.</p>
+     * Return the SheetUpdateRequestResources object that provides access to update request resources
+     * associated with Sheet resources.
      *
      * @return the associated update request resources
      */
@@ -634,8 +633,8 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     }
 
     /**
-     * <p>Return the SheetFilterResources object that provides access to sheet filter resources
-     * associated with Sheet resources.</p>
+     * Return the SheetFilterResources object that provides access to sheet filter resources
+     * associated with Sheet resources.
      *
      * @return the associated sheet filter resources
      */
@@ -814,15 +813,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     public UpdateRequest createUpdateRequest(long sheetId, MultiRowEmail email) throws SmartsheetException {
         return this.createResource("sheets/" + sheetId + "/updaterequests", UpdateRequest.class, email);
     }
-    /*
-     * Copy an input stream to an output stream.
-     *
-     * @param input The input stream to copy.
-     *
-     * @param output the output stream to write to.
-     *
-     * @throws IOException if there is trouble reading or writing to the streams.
-     */
+
     /**
      * Copy stream.
      *

@@ -39,13 +39,12 @@ public class RowAttachmentResourcesImpl extends AbstractResources implements Row
     }
 
     /**
-     * <p>Attach a URL to a comment.</p>
+     * Attach a URL to a comment.
      *
-     * <p>The URL can be a normal URL (attachmentType "URL"), a Google Drive URL (attachmentType "GOOGLE_DRIVE") or a
-     * Box.com URL (attachmentType "BOX_COM").</p>
+     * The URL can be a normal URL (attachmentType "URL"), a Google Drive URL (attachmentType "GOOGLE_DRIVE") or a
+     * Box.com URL (attachmentType "BOX_COM").
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>POST /sheets/{sheetId}/rows/{rowId}/attachments
+     * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/attachments
      *
      * @param sheetId the sheet id
      * @param rowId the row id
@@ -95,10 +94,9 @@ public class RowAttachmentResourcesImpl extends AbstractResources implements Row
     }
 
     /**
-     * <p>Attach a file to a row with simple upload.</p>
+     * Attach a file to a row with simple upload.
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>POST /sheets/{sheetId}/rows/{rowId}/attachments</p>
+     * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/attachments
      *
      * @param sheetId the id of the sheet
      * @param rowId the id of the comment
@@ -122,7 +120,7 @@ public class RowAttachmentResourcesImpl extends AbstractResources implements Row
     }
 
     /**
-     * <p>Attach file for simple upload.</p>
+     * Attach file for simple upload.
      *
      * @param sheetId the sheet id
      * @param rowId the row id

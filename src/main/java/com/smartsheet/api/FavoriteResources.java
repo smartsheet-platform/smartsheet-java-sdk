@@ -32,9 +32,9 @@ import java.util.Set;
 public interface FavoriteResources {
 
     /**
-     * Adds one or more items to the user’s list of Favorite items.
+     * <p>Adds one or more items to the user’s list of Favorite items.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: POST /favorites
+     * <p>It mirrors to the following Smartsheet REST API method: POST /favorites</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if any argument is null
@@ -53,9 +53,9 @@ public interface FavoriteResources {
      List<Favorite> addFavorites(List<Favorite> favorites) throws SmartsheetException;
 
     /**
-     * Gets a list of all of the user’s Favorite items.
+     * <p>Gets a list of all of the user’s Favorite items.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: GET /favorites
+     * <p>It mirrors to the following Smartsheet REST API method: GET /favorites</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if any argument is null

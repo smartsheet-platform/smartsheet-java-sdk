@@ -38,8 +38,8 @@ public interface ShareResources {
      * <p>List shares of a given object.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>GET /workspace/{id}/shares </p>
-     * <p>GET /sheet/{id}/shares</p>
+     * <p>    GET /workspace/{id}/shares </p>
+     * <p>    GET /sheet/{id}/shares</p>
      *
      * @param objectId the object id
      * @param parameters the pagination parameters
@@ -58,8 +58,8 @@ public interface ShareResources {
      * <p>List shares of a given object.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>GET /workspace/{id}/shares </p>
-     * <p>GET /sheet/{id}/shares</p>
+     * <p>    GET /workspace/{id}/shares </p>
+     * <p>    GET /sheet/{id}/shares</p>
      *
      * @param objectId the object id
      * @param parameters the pagination parameters
@@ -75,10 +75,12 @@ public interface ShareResources {
     public PagedResult<Share> listShares(long objectId, PaginationParameters parameters, Boolean includeWorkspaceShares) throws SmartsheetException;
 
     /**
-     * Get a Share.
+     * <p>Get a Share.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: GET /workspaces/{workspaceId}/shares/{shareId} GET
-     * /sheets/{sheetId}/shares/{shareId} GET /reports/{reportId}/shares
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>    GET /workspaces/{workspaceId}/shares/{shareId}</p>
+     * <p>    GET /sheets/{sheetId}/shares/{shareId}</p>
+     * <p>    GET /reports/{reportId}/shares</p>
      *
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -97,10 +99,12 @@ public interface ShareResources {
     public Share getShare(long objectId, String shareId) throws SmartsheetException;
 
     /**
-     * Shares the object with the specified Users and Groups.
+     * <p>Shares the object with the specified Users and Groups.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: POST /workspaces/{id}/shares POST
-     * /sheets/{id}/shares POST /reports/{reportId}/shares
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>    POST /workspaces/{id}/shares </p>
+     * <p>    POST /sheets/{id}/shares</p>
+     * <p>    POST /reports/{reportId}/shares</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if multiShare is null
@@ -123,9 +127,9 @@ public interface ShareResources {
      * <p>Update a share.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>PUT /workspaces/{workspaceId}/shares/{shareId}</p>
-     * <p>PUT /sheets/{sheetId}/shares/{shareId}</p>
-     * <p>PUT /reports/{reportId}/shares/{shareId}</p>
+     * <p>    PUT /workspaces/{workspaceId}/shares/{shareId}</p>
+     * <p>    PUT /sheets/{sheetId}/shares/{shareId}</p>
+     * <p>    PUT /reports/{reportId}/shares/{shareId}</p>
      *
      * @param objectId the ID of the object to share
      * @param share the share
@@ -141,10 +145,12 @@ public interface ShareResources {
     public Share updateShare(long objectId, Share share) throws SmartsheetException;
 
     /**
-     * Delete a share.
+     * <p>Delete a share.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: DELETE /workspaces/{workspaceId}/shares/{shareId} DELETE
-     * /sheets/{sheetId}/shares/{shareId} DELETE /reports/{reportId}/shares/{shareId}
+     * <p>It mirrors to the following Smartsheet REST API method:</p>
+     * <p>    DELETE /workspaces/{workspaceId}/shares/{shareId} </p>
+     * <p>    DELETE /sheets/{sheetId}/shares/{shareId} </p>
+     * <p>    DELETE /reports/{reportId}/shares/{shareId}</p>
      *
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request

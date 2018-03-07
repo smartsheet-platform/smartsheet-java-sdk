@@ -33,9 +33,9 @@ import java.io.FileNotFoundException;
  */
 public interface RowColumnResources {
     /**
-     * Get the cell modification history.
+     * <p>Get the cell modification history.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/rows/{rowId}/columns/{columnId}/history
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/rows/{rowId}/columns/{columnId}/history</p>
      *
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -56,9 +56,9 @@ public interface RowColumnResources {
     public PagedResult<CellHistory> getCellHistory(long sheetId, long rowId, long columnId, PaginationParameters parameters) throws SmartsheetException;
     
     /**
-     * Uploads an image to the specified cell within a sheet.
+     * <p>Uploads an image to the specified cell within a sheet.</p>
      * 
-     * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/columns/{columnId}/cellimages
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/columns/{columnId}/cellimages</p>
      *
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -80,9 +80,9 @@ public interface RowColumnResources {
     public void addImageToCell(long sheetId, long rowId, long columnId, String file, String fileType) throws FileNotFoundException, SmartsheetException;
 
     /**
-     * Uploads an image to the specified cell within a sheet.
+     * <p>Uploads an image to the specified cell within a sheet.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/columns/{columnId}/cellimages
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/columns/{columnId}/cellimages</p>
      *
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request

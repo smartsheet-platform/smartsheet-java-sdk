@@ -467,7 +467,7 @@ public abstract class AbstractResources {
     }
 
     /**
-     * * List resources Wrapper (supports paging info) using Smartsheet REST API.
+     * List resources Wrapper (supports paging info) using Smartsheet REST API.
      *
      * Exceptions:
      *   IllegalArgumentException : if any argument is null, or path is empty string

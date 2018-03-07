@@ -121,9 +121,9 @@ public interface WorkspaceResources {
     public void deleteWorkspace(long id) throws SmartsheetException;
 
     /**
-     * Creates a copy of the specified workspace.
+     * <p>Creates a copy of the specified workspace.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: POST /workspaces/{workspaceId}/copy
+     * <p>It mirrors to the following Smartsheet REST API method: POST /workspaces/{workspaceId}/copy</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if folder is null
