@@ -21,6 +21,12 @@ package com.smartsheet.api.models;
  */
 
 public class SheetUserSettings {
+
+    /**
+     * The ID of the filter currently applied to the sheet
+     */
+    private Long appliedSheetFilterId;
+
     /**
      * Identifies if the user has critical path enabled.
      */
@@ -30,7 +36,26 @@ public class SheetUserSettings {
      * Identifies if the user has display summary tasks enabled.
      */
     private Boolean displaySummaryTasks;
-    
+
+    /**
+     * Get the applied sheet filter ID
+     *
+     * @return the sheet filter ID
+     */
+    public Long getAppliedSheetFilterId() {
+        return appliedSheetFilterId;
+    }
+
+    /**
+     * Sets the applied sheet filter ID.
+     *
+     * @param appliedSheetFilterId the sheet filter ID
+     */
+    public SheetUserSettings setAppliedSheetFilterId(Long appliedSheetFilterId) {
+        this.appliedSheetFilterId = appliedSheetFilterId;
+        return this;
+    }
+
     /**
      * True if the user has critical path enabled.
      *

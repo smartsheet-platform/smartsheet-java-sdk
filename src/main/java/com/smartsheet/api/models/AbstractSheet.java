@@ -123,6 +123,11 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
     private Boolean showParentRowsForFilters;
 
     /**
+     * List of sheet filters
+     */
+    private List<SheetFilter> filters;
+
+    /**
      * Represents the user settings.
      */
     private SheetUserSettings userSettings;
@@ -583,6 +588,23 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      */
     public AbstractSheet<TRow, TColumn, TCell> setShowParentRowsForFilters(Boolean showParentRowsForFilters) {
         this.showParentRowsForFilters = showParentRowsForFilters;
+        return this;
+    }
+
+    /**
+     * Get the list of sheet filters for this sheet.
+     *
+     * @return the list of SheetFilters
+     */
+    public List<SheetFilter> getFilters() { return filters; }
+
+    /**
+     * Sets the list of sheet filters for this sheet.
+     *
+     * @param filters the list of SheetFilters
+     */
+    public AbstractSheet<TRow, TColumn, TCell> setFilters(List<SheetFilter> filters) {
+        this.filters = filters;
         return this;
     }
 

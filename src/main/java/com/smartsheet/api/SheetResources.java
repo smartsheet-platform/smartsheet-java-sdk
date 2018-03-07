@@ -433,6 +433,14 @@ public interface SheetResources {
     public SheetUpdateRequestResources updateRequestResources();
 
     /**
+     * <p>Return the SheetFilterResources object that provides access to sheet filter resources
+     * associated with Sheet resources.</p>
+     *
+     * @return the associated sheet filter resources
+     */
+    public SheetFilterResources filterResources();
+
+    /**
      * <p>Get the status of the Publish settings of the sheet, including the URLs of any enabled publishings.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /sheet/{sheetId}/publish</p>

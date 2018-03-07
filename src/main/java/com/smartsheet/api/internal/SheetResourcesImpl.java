@@ -93,6 +93,13 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     private SheetUpdateRequestResources updateRequests;
 
     /**
+     * Represents the SheetFilterResources.
+     *
+     * It will be initialized in constructor and will not change afterwards
+     */
+    private SheetFilterResources filters;
+
+    /**
      * Constructor.
      *
      * Exceptions: - IllegalArgumentException : if any argument is null
@@ -108,6 +115,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
         this.discussions = new SheetDiscussionResourcesImpl(smartsheet);
         this.comments = new SheetCommentResourcesImpl(smartsheet);
         this.updateRequests = new SheetUpdateRequestResourcesImpl(smartsheet);
+        this.filters = new SheetFilterResourcesImpl(smartsheet);
     }
 
     /**
@@ -624,6 +632,14 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     public SheetUpdateRequestResources updateRequestResources() {
         return this.updateRequests;
     }
+
+    /**
+     * <p>Return the SheetFilterResources object that provides access to sheet filter resources
+     * associated with Sheet resources.</p>
+     *
+     * @return the associated sheet filter resources
+     */
+    public SheetFilterResources filterResources() {return this.filters; }
 
     /**
      * Get the status of the Publish settings of the sheet, including the URLs of any enabled publishings.

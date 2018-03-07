@@ -29,6 +29,7 @@ public enum SheetInclusion{
     ATTACHMENTS         ("attachments"),
     FORMAT              ("format"),
     FILTERS             ("filters"),
+    FILTER_DEFINITIONS  ("filterDefinitions"),
     OWNER_INFO          ("ownerInfo"),
     COLUMN_TYPE         ("columnType"),
     SOURCE              ("source"),
