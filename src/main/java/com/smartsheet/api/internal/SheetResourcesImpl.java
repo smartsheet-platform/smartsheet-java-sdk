@@ -21,16 +21,18 @@ package com.smartsheet.api.internal;
  */
 
 import com.smartsheet.api.*;
+import com.smartsheet.api.internal.http.HttpEntity;
 import com.smartsheet.api.internal.http.HttpMethod;
 import com.smartsheet.api.internal.http.HttpRequest;
+import com.smartsheet.api.internal.http.HttpResponse;
+import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.internal.util.QueryUtil;
+import com.smartsheet.api.internal.util.StreamUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.*;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.EnumSet;
@@ -815,6 +817,62 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     }
 
     /**
+     * Sort a sheet according to the sort criteria.
+     *
+     * It mirrors to the following Smartsheet REST API method: POST /sheet/{sheetId}/sort
+     *
+     * Exceptions:
+     *   - IllegalArgumentException : if any argument is null
+     *   - InvalidRequestException : if there is any problem with the REST API request
+     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   - SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param sheetId the sheet id
+     * @param sortSpecifier the sort criteria
+     * @return the update request object
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Sheet sortSheet(long sheetId, SortSpecifier sortSpecifier) throws SmartsheetException {
+        Util.throwIfNull(sortSpecifier);
+
+        String path = "sheets/" + sheetId + "/sort";
+
+        HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
+
+        ByteArrayOutputStream objectBytesStream = new ByteArrayOutputStream();
+        this.smartsheet.getJsonSerializer().serialize(sortSpecifier, objectBytesStream);
+
+        HttpEntity entity = new HttpEntity();
+        entity.setContentType("application/json");
+        entity.setContent(new ByteArrayInputStream(objectBytesStream.toByteArray()));
+        entity.setContentLength(objectBytesStream.size());
+        request.setEntity(entity);
+
+        Sheet obj = null;
+        try {
+            HttpResponse response = this.smartsheet.getHttpClient().request(request);
+            switch (response.getStatusCode()) {
+                case 200: {
+                    InputStream inputStream = response.getEntity().getContent();
+                    try {
+                        obj = this.smartsheet.getJsonSerializer().deserialize(Sheet.class, inputStream);
+                    } catch (IOException e) {
+                        throw new SmartsheetException(e);
+                    }
+                    break;
+                }
+                default:
+                    handleError(response);
+            }
+        } finally {
+            smartsheet.getHttpClient().releaseConnection();
+        }
+        return obj;
+    }
+
+    /**
      * Copy stream.
      *
      * @param input the input
@@ -828,4 +886,5 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
             output.write(buffer, 0, len);
         }
     }
+
 }
