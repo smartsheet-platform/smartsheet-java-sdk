@@ -55,6 +55,11 @@ public class WidgetContent {
     private String format;
 
     /**
+     * Represents the TitleWidgetContent object
+     */
+    private String backgroundColor;
+
+    /**
      * Get "when clicked" hyperlink
      *
      * @return hyperlink
@@ -260,6 +265,23 @@ public class WidgetContent {
      */
     public WidgetContent setFormat(String format) {
         this.format = format;
+        return this;
+    }
+
+    /**
+     * Get the background color for a title
+     *
+     * @return the background color
+     */
+    public String getBackgroundColor() { return backgroundColor; }
+
+    /**
+     * Set the background color for a title
+     *
+     * @param backgroundColor the background color
+     */
+    public WidgetContent setBackgroundColor(String backgroundColor) {
+        this.backgroundColor = backgroundColor;
         return this;
     }
 }
