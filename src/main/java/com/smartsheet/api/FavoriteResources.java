@@ -1,6 +1,5 @@
 package com.smartsheet.api;
 
-
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -72,5 +71,23 @@ public interface FavoriteResources {
      */
     PagedResult<Favorite> listFavorites(PaginationParameters parameters) throws SmartsheetException;
 
+    /**
+     * <p>Deletes a list of favorites (all of the same type)</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: DELETE /favorites</p>
+     *
+     * Exceptions:
+     *   IllegalArgumentException : if any argument is null
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ResourceNotFoundException : if the resource can not be found
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param favoriteType the favorite type
+     * @param objectIds a single Favorite object ID or an array of Favorite object IDs
+     * @throws SmartsheetException the smartsheet exception
+     */
     public void removeFavorites(FavoriteType favoriteType, Set<Long> objectIds) throws SmartsheetException;
 }

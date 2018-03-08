@@ -25,7 +25,8 @@ public enum FavoriteType {
     TEMPLATE("template"),
     FOLDER("folder"),
     SHEET("sheet"),
-    REPORT("report")
+    REPORT("report"),
+    SIGHT("sight")
     ;
 
     String type;
