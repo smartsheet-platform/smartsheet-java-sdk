@@ -1,11 +1,5 @@
 package com.smartsheet.api.models;
 
-import com.smartsheet.api.models.enums.AccessLevel;
-import com.smartsheet.api.models.enums.ShareScope;
-import com.smartsheet.api.models.enums.ShareType;
-
-import java.util.Date;
-
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -25,6 +19,13 @@ import java.util.Date;
  * limitations under the License.
  * %[license]
  */
+
+import com.smartsheet.api.models.enums.AccessLevel;
+import com.smartsheet.api.models.enums.ShareScope;
+import com.smartsheet.api.models.enums.ShareType;
+
+import java.util.Date;
+
 
 /**
  * Represents a Share Object.
@@ -241,12 +242,56 @@ public class Share extends NamedModel<String> {
     }
 
     /**
+     * @return the userId, <code>null</code> if is {@link ShareType#GROUP}
+     */
+    public Long getUserId() {
+        return userId;
+    }
+
+    /**
+     * @param userId the userId to set
+     */
+    public Share setUserId(Long userId) {
+        this.userId = userId;
+        return this;
+    }
+
+    /**
+     * @return the groupId, <code>null</code> if is {@link ShareType#USER}
+     */
+    public Long getGroupId() {
+        return groupId;
+    }
+
+    /**
+     * @param groupId the groupId to set
+     */
+    public Share setGroupId(Long groupId) {
+        this.groupId = groupId;
+        return this;
+    }
+
+    /**
+     * @return the type
+     */
+    public ShareType getType() {
+        return type;
+    }
+
+    /**
+     * @param type the {@link ShareType} to set
+     */
+    public Share setType(ShareType type) {
+        this.type = type;
+        return this;
+    }
+
+    /**
      * A convenience class for creating a {@link Share} with the necessary fields for sharing the sheet to one user.
      */
     public static class ShareToOneUserBuilder {
         private AccessLevel accessLevel;
         private String email;
-        private Long userId;
 
         /**
          * Access level for this specific share.
@@ -269,16 +314,6 @@ public class Share extends NamedModel<String> {
             this.email = email;
             return this;
         }
-        /**
-         * User Id for this share.
-         *
-         * @param userId the User Id.
-         * @return the share to one builder
-         */
-        public ShareToOneUserBuilder setUserId(Long userId) {
-            this.userId = userId;
-            return this;
-        }
 
         /**
          * Gets the access level.
@@ -297,14 +332,6 @@ public class Share extends NamedModel<String> {
         public String getEmail() {
             return email;
         }
-        /**
-         * Gets the user Id.
-         *
-         * @return the user Id
-         */
-        public Long getUserId() {
-            return userId;
-        }
 
         /**
          * Builds the {@link Share} object.
@@ -312,17 +339,13 @@ public class Share extends NamedModel<String> {
          * @return the share
          */
         public Share build() {
-            if(accessLevel == null ||
-                email == null && userId == null ||
-                email != null && userId != null){
-                        throw new InstantiationError("You must provide one and only one of emailAddress and userId, and accessLevel is required");
+            if(accessLevel == null || email == null){
+                throw new InstantiationError("emailAddress and accessLevel are required");
             }
 
             Share share = new Share();
             share.accessLevel = accessLevel;
             share.email = email;
-            share.userId = userId;
-            share.type = ShareType.USER;
             return share;
         }
     }
@@ -351,7 +374,7 @@ public class Share extends NamedModel<String> {
          * @param groupId the group Id.
          * @return the share to one builder
          */
-        public ShareToOneGroupBuilder setUserId(Long groupId) {
+        public ShareToOneGroupBuilder setGroupId(Long groupId) {
             this.groupId = groupId;
             return this;
         }
@@ -364,10 +387,11 @@ public class Share extends NamedModel<String> {
         public AccessLevel getAccessLevel() {
             return accessLevel;
         }
+
         /**
-         * Gets the user Id.
+         * Gets the group Id.
          *
-         * @return the user Id
+         * @return the group Id
          */
         public Long getGroupId() {
             return groupId;
@@ -379,17 +403,17 @@ public class Share extends NamedModel<String> {
          * @return the share
          */
         public Share build() {
-            if(accessLevel == null || groupId != null){
-                        throw new InstantiationError("You must provide a groupId and accessLevel");
+            if(accessLevel == null || groupId == null){
+                throw new InstantiationError("You must provide a groupId and accessLevel");
             }
 
             Share share = new Share();
             share.accessLevel = accessLevel;
             share.groupId = groupId;
-            share.type = ShareType.GROUP;
             return share;
         }
     }
+
     /**
      * A convenience class for creating a {@link Share} with the necessary fields to update a specific share.
      */
@@ -398,7 +422,7 @@ public class Share extends NamedModel<String> {
         private String id;
 
         /**
-         * Access level for this specific share.
+         * Share Id for this specific share.
          *
          * @return the builder
          */
@@ -410,6 +434,7 @@ public class Share extends NamedModel<String> {
             this.id = shareId;
             return this;
         }
+
         /**
          * Access level for the share.
          *
@@ -453,7 +478,6 @@ public class Share extends NamedModel<String> {
      */
     public static class CreateUserShareBuilder {
         private String email;
-        private Long userId;
         private AccessLevel accessLevel;
 
         /**
@@ -475,30 +499,21 @@ public class Share extends NamedModel<String> {
         public String getEmailAddress() {
             return email;
         }
-        /**
-         * User ID for the {@link ShareType#USER} share.
-         *
-         * @param userId user id
-         * @return the update share builder
-         */
-        public CreateUserShareBuilder setUserId(Long userId) {
-            this.userId = userId;;
-            return this;
-        }
 
         /**
-         * Gets the user Id.
+         * Gets the access level
          *
-         * @return the email address
+         * @return the access level
          */
-        public Long getUserId() {
-            return userId;
-        }
-
         public AccessLevel getAccessLevel() {
             return accessLevel;
         }
 
+        /**
+         * Sets the access level
+         *
+         * @param accessLevel the access level
+         */
         public CreateUserShareBuilder setAccessLevel(AccessLevel accessLevel) {
             this.accessLevel = accessLevel;
             return this;
@@ -510,17 +525,11 @@ public class Share extends NamedModel<String> {
          * @return the share
          */
         public Share build() {
-            if(email == null && userId == null ||
-               email != null && userId != null){
-                throw new InstantiationError("You must provide one and only one of emailAddress and userId");
+            if(accessLevel == null || email == null){
+                throw new InstantiationError("emailAddress and accessLevel are required");
             }
 
-//            if (accessLevel == null){
-//                throw new InstantiationError("You must provide share access level.");
-//            }
-
             Share share = new Share();
-            share.userId  = userId;
             share.email = email;
             share.accessLevel = accessLevel;
             return share;
@@ -532,23 +541,44 @@ public class Share extends NamedModel<String> {
      * You must set groupId
      */
     public static class CreateGroupShareBuilder {
+        private AccessLevel accessLevel;
         private Long groupId;
 
         /**
-         * Group ID for the {@link ShareType#GROUP} share.
+         * Access level for this specific share.
          *
-         * @param groupId the group id
-         * @return the update share builder
+         * @param accessLevel the access level
+         * @return the group share builder
          */
-        public CreateGroupShareBuilder setGroupId(Long groupId) {
-            this.groupId = groupId;;
+        public CreateGroupShareBuilder setAccessLevel(AccessLevel accessLevel) {
+            this.accessLevel = accessLevel;
             return this;
         }
 
         /**
-         * Gets the user Id.
+         * Group Id for this share.
          *
-         * @return the email address
+         * @param groupId the group Id.
+         * @return the group share builder
+         */
+        public CreateGroupShareBuilder setGroupId(Long groupId) {
+            this.groupId = groupId;
+            return this;
+        }
+
+        /**
+         * Gets the access level.
+         *
+         * @return the access level
+         */
+        public AccessLevel getAccessLevel() {
+            return accessLevel;
+        }
+
+        /**
+         * Gets the group Id.
+         *
+         * @return the group Id
          */
         public Long getGroupId() {
             return groupId;
@@ -560,58 +590,14 @@ public class Share extends NamedModel<String> {
          * @return the share
          */
         public Share build() {
-            if(groupId == null ){
-                throw new InstantiationError("You must provide a groupId");
+            if(accessLevel == null || groupId == null){
+                throw new InstantiationError("You must provide a groupId and accessLevel");
             }
 
             Share share = new Share();
-            share.groupId  = groupId;
-            share.type = ShareType.GROUP;
+            share.accessLevel = accessLevel;
+            share.groupId = groupId;
             return share;
         }
-    }
-    /**
-     * @return the userId, <code>null</code> if is {@link ShareType#GROUP}
-     */
-    public Long getUserId() {
-        return userId;
-    }
-
-    /**
-     * @param userId the userId to set
-     */
-    public Share setUserId(Long userId) {
-        this.userId = userId;
-        return this;
-    }
-
-    /**
-     * @return the groupId, <code>null</code> if is {@link ShareType#USER}
-     */
-    public Long getGroupId() {
-        return groupId;
-    }
-
-    /**
-     * @param groupId the groupId to set
-     */
-    public Share setGroupId(Long groupId) {
-        this.groupId = groupId;
-        return this;
-    }
-
-    /**
-     * @return the type
-     */
-    public ShareType getType() {
-        return type;
-    }
-
-    /**
-     * @param type the {@link ShareType} to set
-     */
-    public Share setType(ShareType type) {
-        this.type = type;
-        return this;
     }
 }
