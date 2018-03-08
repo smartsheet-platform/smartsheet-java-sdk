@@ -100,9 +100,12 @@ public class ShareResourcesImplTest extends ResourcesImplBase {
         server.setResponseBody(new File("src/test/resources/shareTo.json"));
 
         List<Share> shares = new ArrayList<Share>();
-        shares.add(new Share.CreateUserShareBuilder().setEmailAddress("john.doe@smartsheet.com").build());
-        shares.add(new Share.CreateUserShareBuilder().setEmailAddress("jane.doe@smartsheet.com").build());
-        shares.add(new Share.CreateGroupShareBuilder().setGroupId(34343l).build());
+        shares.add(new Share.CreateUserShareBuilder().setEmailAddress("john.doe@smartsheet.com")
+                .setAccessLevel(AccessLevel.EDITOR).build());
+        shares.add(new Share.CreateUserShareBuilder().setEmailAddress("jane.doe@smartsheet.com")
+                .setAccessLevel(AccessLevel.EDITOR).build());
+        shares.add(new Share.CreateGroupShareBuilder().setGroupId(34343l)
+                .setAccessLevel(AccessLevel.EDITOR).build());
 
         shares = shareResourcesImpl.shareTo(1234L, shares, true);
         assertTrue(shares.size() == 1);
