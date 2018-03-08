@@ -102,6 +102,13 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     private SheetFilterResources filters;
 
     /**
+     * Represents the AutomationRules.
+     *
+     * It will be initialized in the constructor and will not change afterwards
+     */
+    private SheetAutomationRuleResources automationRules;
+
+    /**
      * Constructor.
      *
      * Exceptions: - IllegalArgumentException : if any argument is null
@@ -118,6 +125,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
         this.comments = new SheetCommentResourcesImpl(smartsheet);
         this.updateRequests = new SheetUpdateRequestResourcesImpl(smartsheet);
         this.filters = new SheetFilterResourcesImpl(smartsheet);
+        this.automationRules = new SheetAutomationRuleResourcesImpl(smartsheet);
     }
 
     /**
@@ -640,7 +648,15 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      *
      * @return the associated sheet filter resources
      */
-    public SheetFilterResources filterResources() {return this.filters; }
+    public SheetFilterResources filterResources() { return this.filters; }
+
+    /**
+     * Return the SheetAutomationRuleResources object that provides access to automation rule resources
+     * associated with the Sheet resources.
+     *
+     * @return the associated automation rule resources
+     */
+    public SheetAutomationRuleResources automationRuleResources() { return automationRules; }
 
     /**
      * Get the status of the Publish settings of the sheet, including the URLs of any enabled publishings.

@@ -437,6 +437,14 @@ public interface SheetResources {
     public SheetFilterResources filterResources();
 
     /**
+     * <p>Return the SheetAutomationRuleResources object that provides access to automation rule  resources
+     * associated with Sheet resources.</p>
+     *
+     * @return the associated automation rule resources
+     */
+    public SheetAutomationRuleResources automationRuleResources();
+
+    /**
      * <p>Get the status of the Publish settings of the sheet, including the URLs of any enabled publishings.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /sheet/{sheetId}/publish</p>

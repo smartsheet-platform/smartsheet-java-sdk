@@ -206,7 +206,7 @@ public class RowTest {
 		}
 	}
 
-@Test
+	@Test
 	public void addRows_AssignFormulae()
 	{
 		try{
