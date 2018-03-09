@@ -389,23 +389,17 @@ public class RowTest {
 		}
 	}
 
-
-	// TODO: Fix PredecessorList test. Java SDK (only) passes floats. This is legal - probably easiest to add another version of this test with fractional values. Else, fix SDK to not serialize trailing zeros
-	// Different value found in node "[0].cells[0].objectValue.predecessors[0].lag.days". Expected 2, got 2.0.
-	// Different value found in node "[0].cells[0].objectValue.predecessors[0].lag.hours". Expected 4, got 4.0.
-	@Ignore("Fix test - APISDK-1502")
 	@Test
 	public void AddRows_AssignObjectValue_PredecessorList()
 	{
 		try{
-			Smartsheet ss = HelperFunctions.SetupClient("Add Rows - Assign Object Value - Predecessor List");
+			Smartsheet ss = HelperFunctions.SetupClient("Add Rows - Assign Object Value - Predecessor List (using floats)");
 
 			Row rowA = new Row();
 			Cell cell1 = new Cell();
 			cell1.setColumnId(101L);
 			Duration duration = new Duration();
-			duration.setDays(2.0);
-			duration.setHours(4.0);
+			duration.setDays(2.5f);
 			Predecessor predecessor = new Predecessor();
 			predecessor.setRowId(10L);
 			predecessor.setType("FS");
@@ -417,9 +411,8 @@ public class RowTest {
 
 			List<Row> addedRows = ss.sheetResources().rowResources().addRows(1, Arrays.asList(rowA));
 
-
-			Assert.assertEquals(101L, addedRows.get(0).getCells().get(0).getColumnId().longValue());
-			Assert.assertEquals("2FS +2d 4h", addedRows.get(0).getCells().get(0).getValue());
+			Assert.assertEquals(101L, addedRows.get(0).getCells().get(1).getColumnId().longValue());
+			Assert.assertEquals("2FS +2.5d", addedRows.get(0).getCells().get(1).getValue());
 
 		}catch(Exception ex){
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());

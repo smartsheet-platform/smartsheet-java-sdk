@@ -111,12 +111,12 @@ public class ObjectValueDeserializer extends JsonDeserializer<ObjectValue> {
         // DURATION specific attributes
         public Boolean negative;
         public Boolean elapsed;
-        public Double weeks;
-        public Double days;
-        public Double hours;
-        public Double minutes;
-        public Double seconds;
-        public Double milliseconds;
+        public Float weeks;
+        public Float days;
+        public Float hours;
+        public Float minutes;
+        public Float seconds;
+        public Float milliseconds;
 
         // CONTACT specific attributes
         public String id;

@@ -36,32 +36,32 @@ public class Duration implements ObjectValue {
     /**
      * The number of weeks for this duration
      */
-    private Double weeks;
+    private Float weeks;
 
     /**
      * The number of days for this duration
      */
-    private Double days;
+    private Float days;
 
     /**
      * The number of hours for this duration
      */
-    private Double hours;
+    private Float hours;
 
     /**
      * The number of minutes for this duration
      */
-    private Double minutes;
+    private Float minutes;
 
     /**
      * The number of seconds for this duration
      */
-    private Double seconds;
+    private Float seconds;
 
     /**
      * The number of milliseconds for this duration
      */
-    private Double milliseconds;
+    private Float milliseconds;
 
     /**
      * Default constructor for serialization
@@ -81,7 +81,7 @@ public class Duration implements ObjectValue {
      * @param seconds
      * @param milliseconds
      */
-    public Duration(Boolean negative, Boolean elapsed, Double weeks, Double days, Double hours, Double minutes, Double seconds, Double milliseconds) {
+    public Duration(Boolean negative, Boolean elapsed, Float weeks, Float days, Float hours, Float minutes, Float seconds, Float milliseconds) {
         this.negative = negative;
         this.elapsed = elapsed;
         this.weeks = weeks;
@@ -145,7 +145,7 @@ public class Duration implements ObjectValue {
      *
      * @return weeks
      */
-    public Double getWeeks() {
+    public Float getWeeks() {
         return weeks;
     }
 
@@ -154,7 +154,7 @@ public class Duration implements ObjectValue {
      *
      * @param weeks
      */
-    public Duration setWeeks(Double weeks) {
+    public Duration setWeeks(Float weeks) {
         this.weeks = weeks;
         return this;
     }
@@ -164,7 +164,7 @@ public class Duration implements ObjectValue {
      *
      * @return days
      */
-    public Double getDays() {
+    public Float getDays() {
         return days;
     }
 
@@ -173,7 +173,7 @@ public class Duration implements ObjectValue {
      *
      * @param days
      */
-    public Duration setDays(Double days) {
+    public Duration setDays(Float days) {
         this.days = days;
         return this;
     }
@@ -183,7 +183,7 @@ public class Duration implements ObjectValue {
      *
      * @return hours
      */
-    public Double getHours() {
+    public Float getHours() {
         return hours;
     }
 
@@ -192,7 +192,7 @@ public class Duration implements ObjectValue {
      *
      * @param hours
      */
-    public Duration setHours(Double hours) {
+    public Duration setHours(Float hours) {
         this.hours = hours;
         return this;
     }
@@ -202,7 +202,7 @@ public class Duration implements ObjectValue {
      *
      * @return minutes
      */
-    public Double getMinutes() {
+    public Float getMinutes() {
         return minutes;
     }
 
@@ -211,7 +211,7 @@ public class Duration implements ObjectValue {
      *
      * @param minutes
      */
-    public Duration setMinutes(Double minutes) {
+    public Duration setMinutes(Float minutes) {
         this.minutes = minutes;
         return this;
     }
@@ -221,7 +221,7 @@ public class Duration implements ObjectValue {
      *
      * @return seconds
      */
-    public Double getSeconds() {
+    public Float getSeconds() {
         return seconds;
     }
 
@@ -230,7 +230,7 @@ public class Duration implements ObjectValue {
      *
      * @param seconds
      */
-    public Duration setSeconds(Double seconds) {
+    public Duration setSeconds(Float seconds) {
         this.seconds = seconds;
         return this;
     }
@@ -240,7 +240,7 @@ public class Duration implements ObjectValue {
      *
      * @return milliseconds
      */
-    public Double getMilliseconds() {
+    public Float getMilliseconds() {
         return milliseconds;
     }
 
@@ -249,7 +249,7 @@ public class Duration implements ObjectValue {
      *
      * @param milliseconds
      */
-    public Duration setMilliseconds(Double milliseconds) {
+    public Duration setMilliseconds(Float milliseconds) {
         this.milliseconds = milliseconds;
         return this;
     }
