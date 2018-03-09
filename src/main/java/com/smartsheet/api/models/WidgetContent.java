@@ -28,7 +28,7 @@ public class WidgetContent {
      */
     private Link hyperlink;
     private List<CellDataItem> cellData;
-    private List<Column> column;
+    private List<Column> columns;
 
     /**
      * Represents the RichTextWidgetContent object.
@@ -102,17 +102,17 @@ public class WidgetContent {
      *
      * @return column
      */
-    public List<Column> getColumn() {
-        return column;
+    public List<Column> getColumns() {
+        return columns;
     }
 
     /**
      * Set array of column objects
      *
-     * @param column
+     * @param columns
      */
-    public WidgetContent setColumn(List<Column> column) {
-        this.column = column;
+    public WidgetContent setColumns(List<Column> columns) {
+        this.columns = columns;
         return this;
     }
 

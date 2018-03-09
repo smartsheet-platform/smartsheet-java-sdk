@@ -57,9 +57,6 @@ public class JacksonJsonSerializer implements JsonSerializer{
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     static {
-        // Indent for pretty printing
-        //OBJECT_MAPPER.enable(SerializationFeature.INDENT_OUTPUT);
-
         // Allow deserialization if there are properties that can't be deserialized
         OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         OBJECT_MAPPER.configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true);
@@ -70,9 +67,11 @@ public class JacksonJsonSerializer implements JsonSerializer{
         // Use toString() method on enums to serialize and deserialize
         OBJECT_MAPPER.enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);
         OBJECT_MAPPER.enable(DeserializationFeature.READ_ENUMS_USING_TO_STRING);
-        //Add a custom deserializer that will convert a string to a Format object.
+
+        // Add a custom deserializer that will convert a string to a Format object.
         SimpleModule module = new SimpleModule("FormatDeserializerModule", Version.unknownVersion());
         module.addDeserializer(Format.class, new FormatDeserializer());
+
         // Add custom mixin to ignore getId() for the IdentifiableModel class
         module.setMixInAnnotation(IdentifiableModel.class, IdentifiableModelMixin.class);
         OBJECT_MAPPER.registerModule(module);
@@ -100,9 +99,6 @@ public class JacksonJsonSerializer implements JsonSerializer{
         module = new SimpleModule("ErrorDetailDeserializerModule", Version.unknownVersion());
         module.addDeserializer(com.smartsheet.api.models.Error.class, new ErrorDeserializer());
         OBJECT_MAPPER.registerModule(module);
-
-        // Ignore getId() for the IdentifiableModel class
-        //OBJECT_MAPPER.addMixIn(IdentifiableModel.class, IdentifiableModelMixin.class);
     }
 
     /**
@@ -114,9 +110,6 @@ public class JacksonJsonSerializer implements JsonSerializer{
     public static void setFailOnUnknownProperties(boolean value) {
         OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, value);
     }
-
-
-
 
     /**
      * Constructor.
@@ -213,8 +206,7 @@ public class JacksonJsonSerializer implements JsonSerializer{
      * @throws JsonParseException
      */
     // @Override
-    public <T> T deserialize(Class<T> objectClass, java.io.InputStream inputStream) throws JsonParseException,
-            JsonMappingException, IOException {
+    public <T> T deserialize(Class<T> objectClass, java.io.InputStream inputStream) throws IOException {
         Util.throwIfNull(objectClass, inputStream);
 
         return OBJECT_MAPPER.readValue(inputStream, objectClass);
@@ -245,7 +237,6 @@ public class JacksonJsonSerializer implements JsonSerializer{
             // Read the json input stream into a List.
             list = OBJECT_MAPPER.readValue(inputStream,
                     OBJECT_MAPPER.getTypeFactory().constructCollectionType(List.class, objectClass));
-            // list = OBJECT_MAPPER.readValue(inputStream, new TypeReference<List<T>>() {});
         } catch (JsonParseException e) {
             throw new JSONSerializerException(e);
         } catch (JsonMappingException e) {
@@ -275,7 +266,6 @@ public class JacksonJsonSerializer implements JsonSerializer{
             // Read the json input stream into a List.
             rw = OBJECT_MAPPER.readValue(inputStream,
                     OBJECT_MAPPER.getTypeFactory().constructParametrizedType(PagedResult.class, PagedResult.class, objectClass));
-            // list = OBJECT_MAPPER.readValue(inputStream, new TypeReference<List<T>>() {});
         } catch (JsonParseException e) {
             throw new JSONSerializerException(e);
         } catch (JsonMappingException e) {
@@ -303,8 +293,6 @@ public class JacksonJsonSerializer implements JsonSerializer{
         try {
             map = OBJECT_MAPPER.readValue(inputStream, new TypeReference<Map<String, Object>>() {
             });
-            // map = OBJECT_MAPPER.readValue(inputStream, OBJECT_MAPPER.getTypeFactory().constructParametricType(
-            // Map.class, OBJECT_MAPPER.getTypeFactory().constructParametricType(String.class, Object.class)));
         } catch (JsonParseException e) {
             throw new JSONSerializerException(e);
         } catch (JsonMappingException e) {
@@ -377,9 +365,6 @@ public class JacksonJsonSerializer implements JsonSerializer{
                     inputStream,
                     OBJECT_MAPPER.getTypeFactory().constructParametrizedType(Result.class, Result.class,
                             OBJECT_MAPPER.getTypeFactory().constructParametrizedType(List.class, List.class, objectClass)));
-
-
-            // result = OBJECT_MAPPER.readValue(inputStream, new TypeReference<Result<List<T>>>() {});
         } catch (JsonParseException e) {
             throw new JSONSerializerException(e);
         } catch (JsonMappingException e) {
@@ -422,7 +407,6 @@ public class JacksonJsonSerializer implements JsonSerializer{
         try {
             // Read the json input stream into a List.
             rw = OBJECT_MAPPER.readValue(inputStream, CopyOrMoveRowResult.class);
-            // list = OBJECT_MAPPER.readValue(inputStream, new TypeReference<List<T>>() {});
         } catch (JsonParseException e) {
             throw new JSONSerializerException(e);
         } catch (JsonMappingException e) {
