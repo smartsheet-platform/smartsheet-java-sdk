@@ -87,6 +87,41 @@ public abstract class UserModel extends IdentifiableModel<Long> {
     private Date customWelcomeScreenViewed;
 
     /**
+     * Company name from the user's profile
+     */
+    private String company;
+
+    /**
+     * Department name from the user's profile
+     */
+    private String department;
+
+    /**
+     * User's mobile phone number from the profile
+     */
+    private String mobilePhone;
+
+    /**
+     * Link to the user's profile image
+     */
+    private Image profileImage;
+
+    /**
+     * User's role
+     */
+    private String role;
+
+    /**
+     * User's title
+     */
+    private String title;
+
+    /**
+     * Work phone number from the user's profile
+     */
+    private String workPhone;
+
+    /**
      * Gets the email address.
      *
      * @return the email address
@@ -300,6 +335,125 @@ public abstract class UserModel extends IdentifiableModel<Long> {
      */
     public UserModel setCustomWelcomeScreenViewed(Date customWelcomeScreenViewed) {
         this.customWelcomeScreenViewed = customWelcomeScreenViewed;
+        return this;
+    }
+
+    /**
+     * Gets the user's company name
+     *
+     * @return the company name
+     */
+    public String getCompany() { return company; }
+
+    /**
+     * Sets the user's company name
+     *
+     * @param company the company name
+     */
+    public UserModel setCompany(String company) {
+        this.company = company;
+        return this;
+    }
+
+    /**
+     * Gets the user's department
+     *
+     * @return the department
+     */
+    public String getDepartment() { return department; }
+
+    /**
+     * Sets the user's department
+     *
+     * @param department the department
+     */
+    public UserModel setDepartment(String department) {
+        this.department = department;
+        return this;
+    }
+
+    /**
+     * Gets the user's mobile phone number
+     *
+     * @return the phone number
+     */
+    public String getMobilePhone() { return mobilePhone; }
+
+    /**
+     * Sets the user's mobile phone number
+     *
+     * @param mobilePhone the phone number
+     */
+    public UserModel setMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+        return this;
+    }
+
+    /**
+     * Gets the user's profile image
+     *
+     * @return the Image
+     */
+    public Image getProfileImage() { return profileImage; }
+
+    /**
+     * Sets the user's profile image
+     *
+     * @param profileImage the Image
+     */
+    public UserModel setProfileImage(Image profileImage) {
+        this.profileImage = profileImage;
+        return this;
+    }
+
+    /**
+     * Gets the user's role
+     *
+     * @return the role
+     */
+    public String getRole() { return role; }
+
+    /**
+     * Sets the user's role
+     *
+     * @param role the role
+     */
+    public UserModel setRole(String role) {
+        this.role = role;
+        return this;
+    }
+
+    /**
+     * Gets the user's title
+     *
+     * @return the title
+     */
+    public String getTitle() { return title; }
+
+    /**
+     * Sets the user's title
+     *
+     * @param title the title
+     */
+    public UserModel setTitle(String title) {
+        this.title = title;
+        return this;
+    }
+
+    /**
+     * Gets the user's work phone number
+     *
+     * @return the phone number
+     */
+    public String getWorkPhone() { return workPhone; }
+
+    /**
+     * Sets the user's work phone number
+     *
+     * @param workPhone the phone number
+     */
+    public UserModel setWorkPhone(String workPhone) {
+        this.workPhone = workPhone;
         return this;
     }
 }
