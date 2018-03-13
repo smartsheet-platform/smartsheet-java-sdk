@@ -25,9 +25,7 @@ import com.smartsheet.api.internal.http.HttpEntity;
 import com.smartsheet.api.internal.http.HttpMethod;
 import com.smartsheet.api.internal.http.HttpRequest;
 import com.smartsheet.api.internal.http.HttpResponse;
-import com.smartsheet.api.internal.json.JSONSerializerException;
 import com.smartsheet.api.internal.util.QueryUtil;
-import com.smartsheet.api.internal.util.StreamUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.*;
@@ -109,6 +107,13 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     private SheetAutomationRuleResources automationRules;
 
     /**
+     * Represents the CrossSheetReferences
+     *
+     * It will be initialized in the constructor and will not change afterwards
+     */
+    private SheetCrossSheetReferenceResources crossSheetReferences;
+
+    /**
      * Constructor.
      *
      * Exceptions: - IllegalArgumentException : if any argument is null
@@ -126,6 +131,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
         this.updateRequests = new SheetUpdateRequestResourcesImpl(smartsheet);
         this.filters = new SheetFilterResourcesImpl(smartsheet);
         this.automationRules = new SheetAutomationRuleResourcesImpl(smartsheet);
+        this.crossSheetReferences = new SheetCrossSheetReferenceResourcesImpl(smartsheet);
     }
 
     /**
@@ -657,6 +663,14 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @return the associated automation rule resources
      */
     public SheetAutomationRuleResources automationRuleResources() { return automationRules; }
+
+    /**
+     * Return the SheetCrossSheetReferenceResources object that provides access to the cross sheet reference resources
+     * associated with the Sheet resources.
+     *
+     * @return the cross sheet reference resources
+     */
+    public SheetCrossSheetReferenceResources crossSheetReferenceResources() { return crossSheetReferences; }
 
     /**
      * Get the status of the Publish settings of the sheet, including the URLs of any enabled publishings.

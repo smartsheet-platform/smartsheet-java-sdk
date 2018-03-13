@@ -153,6 +153,12 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
     private ProjectSettings projectSettings;
 
     /**
+     * Get a list of cross sheet references used by this sheet
+     */
+    private List<CrossSheetReference> crossSheetReferences;
+
+
+    /**
      * Gets the owner email.
      *
      * @return the owner email
@@ -665,4 +671,20 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
         return this;
     }
 
+    /**
+     * Gets the list of cross sheet references used by this sheet
+     *
+     * @return the cross sheet references
+     */
+    public List<CrossSheetReference> getCrossSheetReferences() { return crossSheetReferences; }
+
+    /**
+     * Sets the list of cross sheet references used by this sheet
+     *
+     * @param crossSheetReferences the cross sheet references
+     */
+    public AbstractSheet<TRow, TColumn, TCell> setCrossSheetReferences(List<CrossSheetReference> crossSheetReferences) {
+        this.crossSheetReferences = crossSheetReferences;
+        return this;
+    }
 }

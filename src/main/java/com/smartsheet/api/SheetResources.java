@@ -437,12 +437,20 @@ public interface SheetResources {
     public SheetFilterResources filterResources();
 
     /**
-     * <p>Return the SheetAutomationRuleResources object that provides access to automation rule  resources
+     * <p>Return the SheetAutomationRuleResources object that provides access to automation rule resources
      * associated with Sheet resources.</p>
      *
      * @return the associated automation rule resources
      */
     public SheetAutomationRuleResources automationRuleResources();
+
+    /**
+     * <p>Return the CrossSheetReferenceResources object that provides access to cross sheet reference resources
+     * associated with Sheet resources.</p>
+     *
+     * @return the associated cross sheet reference resources
+     */
+    public SheetCrossSheetReferenceResources crossSheetReferenceResources();
 
     /**
      * <p>Get the status of the Publish settings of the sheet, including the URLs of any enabled publishings.</p>
