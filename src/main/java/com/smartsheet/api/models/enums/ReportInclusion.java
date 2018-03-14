@@ -27,7 +27,8 @@ public enum ReportInclusion{
     DISCUSSIONS     ("discussions"),
     ATTACHMENTS     ("attachments"),
     FORMAT          ("format"),
-    SOURCESHEETS    ("sourceSheets")
+    SOURCESHEETS    ("sourceSheets"),
+    SHEETVERSION    ("sheetVersion")
     ;
 
     String inclusion;
