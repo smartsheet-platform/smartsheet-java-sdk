@@ -790,9 +790,6 @@ public class RowTest {
 		}
 	}
 
-	// TODO: Fix failing test ClearValue_CellLink
-	// Expected [columnId, linkInFromCell, value], got [columnId, value]. Missing: "[0].cells[0].linkInFromCell"
-	@Ignore("Failing test - APISDK-1527")
     @Test
 	public void UpdateRows_ClearValue_CellLink()
 	{
@@ -804,7 +801,7 @@ public class RowTest {
 			Cell cell1 = new Cell();
 			cell1.setColumnId(101L);
 			cell1.setValue("");
-			cell1.setLinkInFromCell(null);
+			cell1.setLinkInFromCell(new CellLink());
 			rowA.setCells(Arrays.asList(cell1));
 
 			List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1, Arrays.asList(rowA));

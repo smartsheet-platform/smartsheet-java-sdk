@@ -54,9 +54,16 @@ public class CellSerializer extends JsonSerializer<Cell> {
         else {
             gen.writeStartObject();
             gen.writeNumberField("columnId", cell.getColumnId());
-            gen.writeFieldName("linkInFromCell");
-            gen.writeObject(cell_link);
-            gen.writeNullField("value");
+            if(cell_link.isNull()) {
+                gen.writeNullField("linkInFromCell");
+                gen.writeFieldName("value");
+                gen.writeObject(cell.getValue());
+            }
+            else {
+                gen.writeFieldName("linkInFromCell");
+                gen.writeObject(cell_link);
+                gen.writeNullField("value");
+            }
             gen.writeEndObject();
         }
     }
