@@ -20,8 +20,7 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-
-
+import com.smartsheet.api.models.enums.AttachmentType;
 import java.util.List;
 
 /**
@@ -62,6 +61,26 @@ public class SearchResultItem {
      * Represents the context data for this specific search result.
      */
     private List<String> contextData;
+
+    /**
+     * Represents the attachment type if the search result item is an attachment.
+     */
+    private AttachmentType attachmentType;
+
+    /**
+     * Represents the MIME type.
+     */
+    private String mimeType;
+
+    /**
+     * If the search result item is a favorite
+     */
+    private Boolean favorite;
+
+    /**
+     * If the parent object of the search item is a favorite
+     */
+    private Boolean parentObjectFavorite;
 
     /**
      * Gets the text for this specific search result.
@@ -187,5 +206,71 @@ public class SearchResultItem {
      */
     public void setContextData(List<String> contextData) {
         this.contextData = contextData;
+    }
+
+    /**
+     * Get the attachment type if the search result item is an attachment
+     *
+     * @return the attachment type
+     */
+    public AttachmentType getAttachmentType() { return attachmentType; }
+
+    /**
+     * Set the attachment type if the search result item is an attachment
+     *
+     * @param attachmentType the attachment type
+     */
+    public void setAttachmentType(AttachmentType attachmentType) {
+        this.attachmentType = attachmentType;
+    }
+
+    /**
+     * Gets the mime type.
+     *
+     * @return the mime type
+     */
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    /**
+     * Sets the mime type.
+     *
+     * @param mimeType the new mime type
+     */
+    public void setMimeType(String mimeType) {
+        this.mimeType = mimeType;
+    }
+
+    /**
+     * Get a flag indicating if the search result item is a favorite
+     *
+     * @return the favorite flag
+     */
+    public Boolean getFavorite() { return favorite; }
+
+    /**
+     * Set a flag indicating if the search result item is a favorite
+     *
+     * @param favorite the favorite flag
+     */
+    public void setFavorite(Boolean favorite) {
+        this.favorite = favorite;
+    }
+
+    /**
+     * Get a flag indicating if the search result item parent is a favorite
+     *
+     * @return the favorite flag
+     */
+    public Boolean getParentObjectFavorite() { return parentObjectFavorite; }
+
+    /**
+     * Set a flag indicating if the search result item parent is a favorite
+     *
+     * @param parentObjectFavorite the favorite flag
+     */
+    public void setParentObjectFavorite(Boolean parentObjectFavorite) {
+        this.parentObjectFavorite = parentObjectFavorite;
     }
 }
