@@ -765,9 +765,6 @@ public class RowTest {
 		}
 	}
 
-	// TODO: Fix failing test ClearValue_Hyperlink - ClearValue_Hyperlink
-	// It's not possible to remove a hyperlink via SDK
-	@Ignore("Failing test - APISDK-1510")
     @Test
 	public void UpdateRows_ClearValue_Hyperlink()
 	{
@@ -779,7 +776,7 @@ public class RowTest {
 			Cell cell1 = new Cell();
 			cell1.setColumnId(101L);
 			cell1.setValue("");
-			cell1.setHyperlink(null);
+			cell1.setHyperlink(new Hyperlink());
 			rowA.setCells(Arrays.asList(cell1));
 
 			List<Row> updatedRows = ss.sheetResources().rowResources().updateRows(1, Arrays.asList(rowA));
