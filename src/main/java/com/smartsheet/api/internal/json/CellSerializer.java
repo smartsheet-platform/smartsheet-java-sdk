@@ -27,6 +27,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Cell;
 import com.smartsheet.api.models.CellLink;
+import com.smartsheet.api.models.ExplicitNull;
 
 /**
  * Special case serializer to handle the linkInFromCell case. Normally we wouldn't serialize a null property,
@@ -47,24 +48,10 @@ public class CellSerializer extends JsonSerializer<Cell> {
     public void serialize(Cell cell, JsonGenerator gen, SerializerProvider serializers)
             throws IOException  {
 
-        CellLink cell_link = cell.getLinkInFromCell();
-        if(cell_link == null) {
-            defaultSerializer.serialize(cell, gen, serializers);
+        if(cell.getLinkInFromCell() != null && cell.getValue() == null) {
+            // setting value to ExplicitNull here will force serialization of a null
+            cell.setValue(new ExplicitNull());
         }
-        else {
-            gen.writeStartObject();
-            gen.writeNumberField("columnId", cell.getColumnId());
-            if(cell_link.isNull()) {
-                gen.writeNullField("linkInFromCell");
-                gen.writeFieldName("value");
-                gen.writeObject(cell.getValue());
-            }
-            else {
-                gen.writeFieldName("linkInFromCell");
-                gen.writeObject(cell_link);
-                gen.writeNullField("value");
-            }
-            gen.writeEndObject();
-        }
+        defaultSerializer.serialize(cell, gen, serializers);
     }
 }

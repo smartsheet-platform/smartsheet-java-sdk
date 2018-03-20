@@ -20,6 +20,8 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class CellLink {
 
     /** One of the following values:
@@ -137,6 +139,7 @@ public class CellLink {
      *
      * @return value of isNull flag
      */
+    @JsonIgnore
     public boolean isNull() {
         return this.isNull;
     }

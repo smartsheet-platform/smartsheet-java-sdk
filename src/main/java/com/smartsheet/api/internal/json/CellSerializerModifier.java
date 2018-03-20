@@ -24,6 +24,7 @@ import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.SerializationConfig;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 import com.smartsheet.api.models.Cell;
+import com.smartsheet.api.models.CellLink;
 
 /**
  * If the class being serialized is a cell, pass along the default serializer along to the CellSerializer object.
@@ -34,6 +35,9 @@ public class CellSerializerModifier extends BeanSerializerModifier {
     public JsonSerializer<?> modifySerializer(SerializationConfig config, BeanDescription beanDesc, JsonSerializer<?> serializer) {
         if (beanDesc.getBeanClass() == Cell.class) {
             return new CellSerializer((JsonSerializer<Object>) serializer);
+        }
+        else if (beanDesc.getBeanClass() == CellLink.class) {
+            return new CellLinkSerializer((JsonSerializer<Object>) serializer);
         }
         return serializer;
     }

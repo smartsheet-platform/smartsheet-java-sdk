@@ -56,4 +56,8 @@ public enum ObjectValueType {
      * STRING
      */
     STRING,
+    /**
+     * NULL
+     */
+    NULL,
 }

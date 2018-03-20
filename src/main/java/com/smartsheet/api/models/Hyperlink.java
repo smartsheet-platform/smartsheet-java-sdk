@@ -20,6 +20,8 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Hyperlink {
     /**
      * When the hyperlink is a URL link, this property will contain the URL value.
@@ -108,6 +110,7 @@ public class Hyperlink {
      * 
      * @return value of isNull flag
      */
+    @JsonIgnore
     public boolean isNull() {
         return this.isNull;
     }

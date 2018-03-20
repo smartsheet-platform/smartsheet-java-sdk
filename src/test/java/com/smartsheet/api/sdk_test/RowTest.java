@@ -815,10 +815,6 @@ public class RowTest {
 		}
 	}
 
-
-	// TODO: Investigate failing test Invalid_AssignHyperlinkAndCellLink
-	// It appears the SDK is only serializing some of the properties. Could be ignoring customer intent. Needs investigation
-    @Ignore("Failing test  - APISDK-1528")
 	@Test
 	public void UpdateRows_Invalid_AssignHyperlinkAndCellLink()
 	{
