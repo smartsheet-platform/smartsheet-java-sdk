@@ -26,6 +26,7 @@ import com.smartsheet.api.HomeResources;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.models.Home;
+import com.smartsheet.api.models.enums.SourceExclusion;
 import com.smartsheet.api.models.enums.SourceInclusion;
 
 import java.util.EnumSet;
@@ -76,9 +77,33 @@ public class HomeResourcesImpl extends AbstractResources implements HomeResource
      * @throws SmartsheetException the smartsheet exception
      */
     public Home getHome(EnumSet<SourceInclusion> includes) throws SmartsheetException {
+        return getHome(includes, null);
+    }
+
+    /**
+     * Get a nested list of all Home objects, including sheets, workspaces and folders, and optionally reports and/or
+     * templates, as shown on the Home tab..
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /home
+     *
+     * Exceptions:
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ResourceNotFoundException : if the resource can not be found
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param includes used to specify the optional objects to include, currently TEMPLATES is supported.
+     * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
+     * rather than returning null).
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Home getHome(EnumSet<SourceInclusion> includes, EnumSet<SourceExclusion> excludes) throws SmartsheetException {
         HashMap<String, Object> parameters = new HashMap<String, Object>();
 
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+        parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
 
         String path = QueryUtil.generateUrl("home", parameters);
 
