@@ -399,7 +399,7 @@ public class RowTest {
 			Cell cell1 = new Cell();
 			cell1.setColumnId(101L);
 			Duration duration = new Duration();
-			duration.setDays(2.5f);
+			duration.setDays(2.5);
 			Predecessor predecessor = new Predecessor();
 			predecessor.setRowId(10L);
 			predecessor.setType("FS");

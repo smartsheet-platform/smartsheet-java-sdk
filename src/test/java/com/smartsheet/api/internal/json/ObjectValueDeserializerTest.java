@@ -154,12 +154,12 @@ public class ObjectValueDeserializerTest {
         Duration durationObjectValue = (Duration) objectValue;
         assertEquals(true, durationObjectValue.getNegative());
         assertEquals(false, durationObjectValue.getElapsed());
-        assertEquals(2.3f, durationObjectValue.getWeeks(), DELTA);
-        assertEquals(3.4f, durationObjectValue.getDays(), DELTA);
-        assertEquals(7.5f, durationObjectValue.getHours(), DELTA);
-        assertEquals(30.6f, durationObjectValue.getMinutes(), DELTA);
-        assertEquals(45.7f, durationObjectValue.getSeconds(), DELTA);
-        assertEquals(500.8f, durationObjectValue.getMilliseconds(), DELTA);
+        assertEquals(2.3, durationObjectValue.getWeeks(), DELTA);
+        assertEquals(3.4, durationObjectValue.getDays(), DELTA);
+        assertEquals(7.5, durationObjectValue.getHours(), DELTA);
+        assertEquals(30.6, durationObjectValue.getMinutes(), DELTA);
+        assertEquals(45.7, durationObjectValue.getSeconds(), DELTA);
+        assertEquals(500.8, durationObjectValue.getMilliseconds(), DELTA);
 
         assertSerializedAttributes(objectValue,
                 new ExpectedAttributeValue("objectType", ObjectValueType.DURATION.name()),
