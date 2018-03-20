@@ -27,6 +27,18 @@ import java.util.List;
  */
 public class Sheet extends AbstractSheet<Row, Column, Cell> {
 
+    public Sheet() {
+    }
+
+    /**
+     * Constructor that takes a sheet Id
+     *
+     * @param id the id
+     */
+    public Sheet(Long id) {
+        setId(id);
+    }
+
     /**
      * A convenience class to make a {@link Sheet} object with the necessary fields to create the sheet by posting it
      * to smartsheet.
