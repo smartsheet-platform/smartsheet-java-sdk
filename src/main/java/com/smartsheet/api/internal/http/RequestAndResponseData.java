@@ -171,7 +171,7 @@ public class RequestAndResponseData {
 
     @Override
     public String toString() {
-        return toString(false);
+        return toString(true);
     }
 
     public String toString(boolean pretty) {

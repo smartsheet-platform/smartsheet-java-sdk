@@ -45,6 +45,41 @@ cd smartsheet-java-sdk
 mvn package
 ```
 
+## Logging
+There are two types of logging used by the Smartsheet Java SDK:
+* Console logger - The console logger will log REST API traffic directly to the console. To use the console logger, set two system properties:
+```java
+System.setProperty("Smartsheet.trace.parts", "RequestBodySummary, ResponseBodySummary");
+System.setProperty("Smartsheet.trace.pretty", "true");
+```
+*Smartsheet.trace.pretty* - will determine if the log entries are formatted with JSON appropriate spacing and indentation. 
+If Smartsheet.trace.pretty is ```false``` the console logger will use a compact format. 
+
+*Smartsheet.trace.parts* - will determine what portions of the API traffic are logged. Valid trace parts entries include:
+- RequestHeaders
+- RequestBody
+- RequestBodySummary
+- ResponseHeaders
+- ResponseBody
+- ResponseBodySummary
+- Request (RequestHeaders + RequestBodySummar)
+- Response (ResponseHeaders + ResponseBodySummary)
+
+By default console log entries will be truncated at 1024 characters. You can change the truncation limit by defining a system property ```Smartsheet.trace.truncateLen``` 
+and setting it equal to the desired truncation limit, e.g.
+```java
+-DSmartsheet.trace.truncateLen=512
+```
+
+- The Smartsheet Java SDK also has a dependency on the SLF4J facade. More information about SLF4J 
+and the supported logging frameworks is available [here](https://www.slf4j.org). As a default the POM also 
+includes a dependency on the ```slf4j-simple``` logging framework. Using SLF4J, the Smartsheet Java SDK will 
+log API calls which return an HTTP status other than 200. A default log level of *INFO* is sufficient to 
+retrieve all API logging details, however, to set a log level other than the default, include the system property:
+```java
+-Dorg.slf4j.simpleLogger.defaultLogLevel=warn
+```
+or include a *simplelogger.properties* file on the classpath 
 ## Documentation
 The full Smartsheet API documentation is here: http://smartsheet-platform.github.io/api-docs/?java
 
