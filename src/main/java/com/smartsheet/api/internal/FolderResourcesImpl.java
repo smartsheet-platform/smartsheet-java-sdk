@@ -27,6 +27,7 @@ import com.smartsheet.api.models.ContainerDestination;
 import com.smartsheet.api.models.Folder;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.enums.CopyExclusion;
 import com.smartsheet.api.models.enums.FolderCopyInclusion;
 import com.smartsheet.api.models.enums.FolderRemapExclusion;
 import com.smartsheet.api.models.enums.SourceInclusion;
@@ -201,12 +202,39 @@ public class FolderResourcesImpl extends AbstractResources implements FolderReso
      * @throws SmartsheetException the smartsheet exception
      */
     public Folder copyFolder(long folderId, ContainerDestination containerDestination, EnumSet<FolderCopyInclusion> includes, EnumSet<FolderRemapExclusion> skipRemap) throws SmartsheetException {
+        return copyFolder(folderId, containerDestination, includes, skipRemap, null);
+    }
+
+    /**
+     * Creates a copy of the specified Folder.
+     *
+     * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/copy
+     *
+     * Exceptions:
+     *   IllegalArgumentException : if folder is null
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param folderId the folder id
+     * @param containerDestination describes the destination container
+     * @param includes optional parameters to include
+     * @param skipRemap optional parameters to NOT re-map in the new folder
+     * @param excludes optional parameters to exclude
+     * @return the folder
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Folder copyFolder(long folderId, ContainerDestination containerDestination, EnumSet<FolderCopyInclusion> includes,
+                             EnumSet<FolderRemapExclusion> skipRemap, EnumSet<CopyExclusion> excludes) throws SmartsheetException {
 
         String path = "folders/" + folderId + "/copy";
         HashMap<String, Object> parameters = new HashMap<String, Object>();
 
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         parameters.put("skipRemap", QueryUtil.generateCommaSeparatedList(skipRemap));
+        parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
 
         path += QueryUtil.generateUrl(null, parameters);
 

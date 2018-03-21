@@ -789,11 +789,37 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws SmartsheetException the smartsheet exception
      */
     public Sheet copySheet(long sheetId, ContainerDestination containerDestination, EnumSet<SheetCopyInclusion> includes) throws SmartsheetException {
+        return copySheet(sheetId, containerDestination, includes, null);
+    }
+
+    /**
+     * Creates a copy of the specified sheet.
+     *
+     * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/copy
+     *
+     * Exceptions:
+     *   IllegalArgumentException : if folder is null
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param sheetId the sheet id
+     * @param containerDestination describes the destination container
+     * @param includes optional parameters to include
+     * @param excludes optional parameters to exclude
+     * @return the sheet
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Sheet copySheet(long sheetId, ContainerDestination containerDestination, EnumSet<SheetCopyInclusion> includes,
+                           EnumSet<CopyExclusion> excludes) throws SmartsheetException {
 
         String path = "sheets/" + sheetId + "/copy";
         HashMap<String, Object> parameters = new HashMap<String, Object>();
 
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+        parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
 
         path += QueryUtil.generateUrl(null, parameters);
 
