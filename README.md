@@ -45,46 +45,6 @@ cd smartsheet-java-sdk
 mvn package
 ```
 
-## Logging
-There are two types of logging used by the Smartsheet Java SDK:
-* Console logger - The console logger will log REST API traffic directly to the console. To use the console logger, set two system properties:
-```java
-System.setProperty("Smartsheet.trace.parts", "RequestBodySummary, ResponseBodySummary");
-System.setProperty("Smartsheet.trace.pretty", "true");
-```
-*Smartsheet.trace.pretty* - will determine if the log entries are formatted with JSON appropriate spacing and indentation. 
-If Smartsheet.trace.pretty is ```false``` the console logger will use a compact format. 
-
-*Smartsheet.trace.parts* - will determine what portions of the API traffic are logged. Valid trace parts entries include:
-- RequestHeaders
-- RequestBody
-- RequestBodySummary
-- ResponseHeaders
-- ResponseBody
-- ResponseBodySummary
-- Request (RequestHeaders + RequestBodySummar)
-- Response (ResponseHeaders + ResponseBodySummary)
-
-By default console log entries will be truncated at 1024 characters. You can change the truncation limit by defining a system property ```Smartsheet.trace.truncateLen``` 
-and setting it equal to the desired truncation limit, e.g.
-```java
--DSmartsheet.trace.truncateLen=512
-```
-
-- The Smartsheet Java SDK also has a dependency on the SLF4J facade. More information about SLF4J 
-and the supported logging frameworks is available [here](https://www.slf4j.org). As a default the POM also 
-includes a dependency on the ```slf4j-simple``` logging framework. Using SLF4J, the Smartsheet Java SDK will 
-log API calls which return an HTTP status other than 200. A default log level of *INFO* is sufficient to 
-retrieve all API logging details, however, to set a log level other than the default, include the system property:
-```java
--Dorg.slf4j.simpleLogger.defaultLogLevel=warn
-```
-or include a *simplelogger.properties* file on the classpath 
-## Documentation
-The full Smartsheet API documentation is here: http://smartsheet-platform.github.io/api-docs/?java
-
-The generated SDK javadoc is here: [http://smartsheet-platform.github.io/smartsheet-java-sdk](http://smartsheet-platform.github.io/smartsheet-java-sdk) (Download as a jar file [here](http://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST&c=javadoc).)
-
 ## Example Usage
 To call the API, you will need an *access token*, which looks something like this example: ll352u9jujauoqz4gstvsae05. You can find the access token in the UI at Account > Personal Settings > API Access.
 
@@ -142,6 +102,49 @@ System.out.println("Loaded " + sheet.getTotalRowCount() + " rows from sheet: " +
 A simple, but complete sample application is here: https://github.com/smartsheet-samples/java-read-write-sheet
 
 More Java examples available [here](https://github.com/smartsheet-samples/).
+
+## Logging
+There are two types of logging used by the Smartsheet Java SDK:
+
+### Console Logger
+The console logger logs REST API traffic directly to the console. To use the console logger, set two system properties:
+```java
+System.setProperty("Smartsheet.trace.parts", "RequestBodySummary, ResponseBodySummary");
+System.setProperty("Smartsheet.trace.pretty", "true");
+```
+*Smartsheet.trace.pretty* - determines if the log entries are formatted with JSON appropriate spacing and indentation. 
+If Smartsheet.trace.pretty is ```false``` the console logger will use a compact format. 
+
+*Smartsheet.trace.parts* - determines what portions of the API traffic are logged. Valid trace parts entries include:
+- RequestHeaders
+- RequestBody
+- RequestBodySummary
+- ResponseHeaders
+- ResponseBody
+- ResponseBodySummary
+- Request (RequestHeaders + RequestBodySummary)
+- Response (ResponseHeaders + ResponseBodySummary)
+
+By default, console log entries are truncated at 1024 characters. You can change the truncation limit by defining a system property ```Smartsheet.trace.truncateLen``` 
+and setting it equal to the desired truncation limit, for example:
+```java
+-DSmartsheet.trace.truncateLen=512
+```
+
+### Logging Framework
+The Smartsheet Java SDK also has a dependency on the SLF4J facade. More information about SLF4J 
+and the supported logging frameworks is available [here](https://www.slf4j.org). As a default, the POM also 
+includes a dependency on the ```slf4j-simple``` logging framework. Using SLF4J, the Smartsheet Java SDK  
+logs API calls that return an HTTP status other than 200. A default log level of *INFO* is sufficient to 
+retrieve all API logging details; however, to set a log level other than the default, include either the following system property:
+```java
+-Dorg.slf4j.simpleLogger.defaultLogLevel=warn
+```
+or include a *simplelogger.properties* file on the classpath.
+## Documentation
+The full Smartsheet API documentation is here: http://smartsheet-platform.github.io/api-docs/?java
+
+The generated SDK javadoc is here: [http://smartsheet-platform.github.io/smartsheet-java-sdk](http://smartsheet-platform.github.io/smartsheet-java-sdk) (Download as a jar file [here](http://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST&c=javadoc).)
 
 ## Contributing
 If you would like to contribute a change to the SDK, please fork a branch and then submit a pull request. [More info here](https://help.github.com/articles/using-pull-requests).
