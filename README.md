@@ -151,21 +151,6 @@ The full Smartsheet API documentation is here: http://smartsheet-platform.github
 
 The generated SDK javadoc is here: [http://smartsheet-platform.github.io/smartsheet-java-sdk](http://smartsheet-platform.github.io/smartsheet-java-sdk) (Download as a jar file [here](http://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST&c=javadoc).)
 
-## Contributing
-If you would like to contribute a change to the SDK, please fork a branch and then submit a pull request. [More info here](https://help.github.com/articles/using-pull-requests).
-
-#### Running the tests
-Unit tests:
-1. `mvn test`
-
-Integration tests:
-1. Set up an api access token in `src/integration-test/resources/config.properties`
-2. `mvn integration-test`
-
-Mock API tests:
-1. Clone the [Smartsheet sdk tests](https://github.com/smartsheet-platform/smartsheet-sdk-tests) repo and follow the instructions from the readme to start the mock server.
-2. `mvn test -Dtest=com.smartsheet.api.sdk_test.*`
-
 ## Passthrough Option
 
 If there is an API feature that is not yet supported by the Java SDK, there is a passthrough option that allows you to 
@@ -205,6 +190,21 @@ String jsonResponse = smartsheet.passthroughResources().postRequest("sheets", pa
   
 ## Support
 If you have any questions or issues with this SDK please post on [StackOverflow using the tag "smartsheet-api"](http://stackoverflow.com/questions/tagged/smartsheet-api) or contact us directly at api@smartsheet.com.
+
+## Contributing
+If you would like to contribute a change to the SDK, please fork a branch and then submit a pull request. [More info here](https://help.github.com/articles/using-pull-requests).
+
+#### Running the tests
+Unit tests:
+1. `mvn test`
+
+Integration tests:
+1. Set up an api access token in `src/integration-test/resources/config.properties`
+2. `mvn integration-test`
+
+Mock API tests:
+1. Clone the [Smartsheet sdk tests](https://github.com/smartsheet-platform/smartsheet-sdk-tests) repo and follow the instructions from the readme to start the mock server.
+2. `mvn test -Dtest=com.smartsheet.api.sdk_test.*`
 
 ## Release Notes
 
