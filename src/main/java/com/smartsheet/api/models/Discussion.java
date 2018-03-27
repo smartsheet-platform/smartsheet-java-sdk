@@ -68,6 +68,14 @@ public class Discussion extends IdentifiableModel<Long> {
     private Boolean readOnly;
 
     /**
+     * Constructors
+     */
+    public Discussion() { }
+    public Discussion(String commentText) {
+        comment.setText(commentText);
+    }
+
+    /**
      * Gets the read only status
      *
      * @return the read only status

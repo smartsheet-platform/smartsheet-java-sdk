@@ -80,6 +80,16 @@ public class Folder extends NamedModel<Long> {
     }
 
     /**
+     * Provide an 'override' of setName (returns Folder not NamedModel)
+     *
+     * @param name the new name
+     */
+    public Folder setName(String name){
+        super.setName(name);
+        return this;
+    }
+
+    /**
      * Gets the Direct URL to Folder.
      *
      * @return the sheets

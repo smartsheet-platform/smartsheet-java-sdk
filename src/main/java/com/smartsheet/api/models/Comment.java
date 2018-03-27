@@ -50,6 +50,14 @@ public class Comment extends IdentifiableModel<Long> {
     private Date modifiedAt;
 
     /**
+     * Constructors
+     */
+    public Comment() { }
+    public Comment(String text) {
+        setText(text);
+    }
+
+    /**
      * Gets the text for the comment.
      *
      * @return the text

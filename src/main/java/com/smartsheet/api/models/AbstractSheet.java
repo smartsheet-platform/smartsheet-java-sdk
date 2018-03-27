@@ -157,6 +157,15 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      */
     private List<CrossSheetReference> crossSheetReferences;
 
+    /**
+     * Provide an 'override' of setName (returns AbstractSheet not NamedModel)
+     *
+     * @param name the new name
+     */
+    public AbstractSheet<TRow, TColumn, TCell> setName(String name){
+        super.setName(name);
+        return this;
+    }
 
     /**
      * Gets the owner email.

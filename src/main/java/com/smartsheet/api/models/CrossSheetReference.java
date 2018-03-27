@@ -55,6 +55,16 @@ public class CrossSheetReference extends NamedModel<Long> {
     private CrossSheetReferenceStatus status;
 
     /**
+     * Provide an 'override' of setName (returns CrossSheetReference not NamedModel)
+     *
+     * @param name the new name
+     */
+    public CrossSheetReference setName(String name){
+        super.setName(name);
+        return this;
+    }
+
+    /**
      * Get the last column ID in the cross sheet reference block
      *
      * @return the last column ID

@@ -90,6 +90,16 @@ public class Share extends NamedModel<String> {
     private Boolean ccMe;
 
     /**
+     * Provide an 'override' of setName (returns Share not NamedModel)
+     *
+     * @param name the new name
+     */
+    public Share setName(String name){
+        super.setName(name);
+        return this;
+    }
+
+    /**
      * Gets the subject of the email that will optionally be sent to notify the recipient.
      *
      * @return the subject

@@ -48,6 +48,14 @@ public class ImageUrl {
     private Error error;
 
     /**
+     * Constructor(s)
+     */
+    public ImageUrl() { }
+    public ImageUrl(String imageId) {
+        setImageId(imageId);
+    }
+
+    /**
      * Get the image id.
      *
      * @return imageId

@@ -73,6 +73,16 @@ public class Sight extends NamedModel<Long> {
     private String backgroundColor;
 
     /**
+     * Provide an 'override' of setName (returns Sight not NamedModel)
+     *
+     * @param name the new name
+     */
+    public Sight setName(String name){
+        super.setName(name);
+        return this;
+    }
+
+    /**
      * Get the number of columns that the Sight contains
      *
      * @return columnCount

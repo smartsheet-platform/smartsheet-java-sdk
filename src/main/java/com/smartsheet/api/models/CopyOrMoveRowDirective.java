@@ -29,6 +29,13 @@ public class CopyOrMoveRowDirective {
     /** Represents the CopyOrMoveRowDestination object that identifies the destination sheet */
     private CopyOrMoveRowDestination to;
 
+    /**
+     * Constructors
+     */
+    public CopyOrMoveRowDirective() { }
+    public CopyOrMoveRowDirective(Long destinationSheetId) {
+        to.setSheetId(destinationSheetId);
+    }
 
     /**
      * Gets the IDs of the rows to move or copy from the source sheet..
