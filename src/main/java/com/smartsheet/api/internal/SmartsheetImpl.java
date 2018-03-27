@@ -70,6 +70,41 @@ public class SmartsheetImpl implements Smartsheet {
     private DefaultShouldRetry defaultShouldRetry = null;
 
     /**
+     * Represents the AtomicReference for assumed user email.
+     *
+     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * as null, and can be set via corresponding setter, therefore effectively the assumed user can be updated in the
+     * SmartsheetImpl in thread safe manner.
+     */
+    private final AtomicReference<String> assumedUser;
+
+    /**
+     * Represents the AtomicReference for access token.
+     *
+     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
+     * SmartsheetImpl in thread safe manner.
+     */
+    private final AtomicReference<String> accessToken;
+
+    /**
+     * Represents the AtomicReference for API scenario.
+     *
+     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
+     * SmartsheetImpl in thread safe manner.
+     */
+    private final AtomicReference<String> apiScenario;
+
+    /**
+     * Represents the AtomicReference for change agent
+     *
+     * It will be initialized in constructor and will not change afterwards.
+     *
+     */
+    private final AtomicReference<String> changeAgent;
+
+    /**
      * Represents the AtomicReference to HomeResources.
      *
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
@@ -160,46 +195,11 @@ public class SmartsheetImpl implements Smartsheet {
     private AtomicReference<ReportResources> reports;
 
     /**
-     * Represents the AtomicReference for assumed user email.
-     *
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-     * as null, and can be set via corresponding setter, therefore effectively the assumed user can be updated in the
-     * SmartsheetImpl in thread safe manner.
-     */
-    private final AtomicReference<String> assumedUser;
-
-    /**
-     * Represents the AtomicReference for access token.
-     *
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-     * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
-     * SmartsheetImpl in thread safe manner.
-     */
-    private final AtomicReference<String> accessToken;
-
-    /**
-     * Represents the AtomicReference for API scenario.
-     *
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-     * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
-     * SmartsheetImpl in thread safe manner.
-     */
-    private final AtomicReference<String> apiScenario;
-
-    /**
-     * Represents the AtomicReference for change agent
-     *
-     * It will be initialized in constructor and will not change afterwards.
-     *
-     */
-    private final AtomicReference<String> changeAgent;
-
-    /**
      * Represents the AtomicReference for ServerInfoResources.
      *
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-     * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
-     * SmartsheetImpl in thread safe manner.
+     * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
+     * effectively the underlying value is lazily created in a thread safe manner.
      */
     private final AtomicReference<ServerInfoResources> serverInfo;
 
@@ -207,8 +207,8 @@ public class SmartsheetImpl implements Smartsheet {
      * Represents the AtomicReference for FavoriteResources.
      *
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-     * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
-     * SmartsheetImpl in thread safe manner.
+     * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
+     * effectively the underlying value is lazily created in a thread safe manner.
      */
     private final AtomicReference<FavoriteResources> favorites;
 
@@ -216,8 +216,8 @@ public class SmartsheetImpl implements Smartsheet {
      * Represents the AtomicReference for TokenResources.
      *
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-     * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
-     * SmartsheetImpl in thread safe manner.
+     * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
+     * effectively the underlying value is lazily created in a thread safe manner.
      */
     private final AtomicReference<TokenResources> tokens;
 
@@ -225,8 +225,8 @@ public class SmartsheetImpl implements Smartsheet {
      * Represents the AtomicReference for ContactResources.
      *
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-     * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
-     * SmartsheetImpl in thread safe manner.
+     * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
+     * effectively the underlying value is lazily created in a thread safe manner.
      */
     private final AtomicReference<ContactResources> contacts;
 
@@ -234,8 +234,8 @@ public class SmartsheetImpl implements Smartsheet {
      * Represents the AtomicReference for ImageUrlResources.
      *
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-     * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
-     * SmartsheetImpl in thread safe manner.
+     * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
+     * effectively the underlying value is lazily created in a thread safe manner.
      */
     private final AtomicReference<ImageUrlResources> imageUrls;
 
@@ -243,10 +243,19 @@ public class SmartsheetImpl implements Smartsheet {
      * Represents the AtomicReference for WebhookResources.
      *
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-     * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
-     * SmartsheetImpl in thread safe manner.
+     * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
+     * effectively the underlying value is lazily created in a thread safe manner.
      */
     private final AtomicReference<WebhookResources> webhooks;
+
+    /**
+     * Represents the AtomicReference for PassthroughResources.
+     *
+     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
+     * effectively the underlying value is lazily created in a thread safe manner.
+     */
+    private final AtomicReference<PassthroughResources> passthrough;
 
     /**
      * Create an instance with given server URI, HttpClient (optional) and JsonSerializer (optional)
@@ -305,6 +314,7 @@ public class SmartsheetImpl implements Smartsheet {
         this.contacts = new AtomicReference<ContactResources>();
         this.imageUrls = new AtomicReference<ImageUrlResources>();
         this.webhooks = new AtomicReference<WebhookResources>();
+        this.passthrough = new AtomicReference<PassthroughResources>();
     }
 
     /**
@@ -355,6 +365,15 @@ public class SmartsheetImpl implements Smartsheet {
     }
 
     /**
+     * Set the email of the user to assume. Null/empty string indicates no user is assumed.
+     *
+     * @param assumedUser the email of the user to assume
+     */
+    public void setAssumedUser(String assumedUser) {
+        this.assumedUser.set(assumedUser);
+    }
+
+    /**
      * Return the access token
      *
      * @return the access token
@@ -362,6 +381,18 @@ public class SmartsheetImpl implements Smartsheet {
     String getAccessToken() {
         return accessToken.get();
     }
+
+    /**
+     * Set the access token to use.
+     *
+     * Parameters: - accessToken : the access token
+     *
+     * Returns: None
+     *
+     *
+     * @param accessToken the new access token
+     */
+    public void setAccessToken(String accessToken) { this.accessToken.set(accessToken); }
 
     /**
      * Return the API scenario
@@ -373,12 +404,37 @@ public class SmartsheetImpl implements Smartsheet {
     }
 
     /**
+     * Set the API Scenario to use.
+     *
+     * Parameters: - apiScenario : the API Scenario
+     *
+     * Returns: None
+     *
+     *
+     * @param apiScenario the new API Scenario
+     */
+    public void setAPIScenario(String apiScenario) {
+        this.apiScenario.set(apiScenario);
+    }
+
+    /**
      * Return the change agent identifier.
      *
      * @return the access token
      */
     String getChangeAgent() {
         return changeAgent.get();
+    }
+
+    /**
+     * Set the CalcBackoff callback
+     *
+     * @param calcBackoff the callback
+     */
+    public void setCalcBackoff(CalcBackoff calcBackoff) {
+        if(defaultShouldRetry != null) {
+            defaultShouldRetry.setCalcBackoff(calcBackoff);
+        }
     }
 
     /**
@@ -573,44 +629,15 @@ public class SmartsheetImpl implements Smartsheet {
     }
 
     /**
-     * Set the email of the user to assume. Null/empty string indicates no user is assumed.
+     * Returns the PassthroughResources instance that provides access to passthrough resources.
      *
-     * @param assumedUser the email of the user to assume
+     * @return the passthrough resources
      */
-    public void setAssumedUser(String assumedUser) {
-        this.assumedUser.set(assumedUser);
-    }
-
-    /**
-     * Set the access token to use.
-     *
-     * Parameters: - accessToken : the access token
-     *
-     * Returns: None
-     *
-     *
-     * @param accessToken the new access token
-     */
-    public void setAccessToken(String accessToken) { this.accessToken.set(accessToken); }
-
-    /**
-     * Set the API Scenario to use.
-     *
-     * Parameters: - apiScenario : the API Scenario
-     *
-     * Returns: None
-     *
-     *
-     * @param apiScenario the new API Scenario
-     */
-    public void setAPIScenario(String apiScenario) {
-        this.apiScenario.set(apiScenario);
-    }
-
-    public void setCalcBackoff(CalcBackoff calcBackoff) {
-        if(defaultShouldRetry != null) {
-            defaultShouldRetry.setCalcBackoff(calcBackoff);
+    public PassthroughResources passthroughResources() {
+        if (passthrough.get() == null) {
+            passthrough.compareAndSet(null, new PassthroughResourcesImpl(this));
         }
+        return passthrough.get();
     }
 
     /** set what request/response fields to log in trace-logging */

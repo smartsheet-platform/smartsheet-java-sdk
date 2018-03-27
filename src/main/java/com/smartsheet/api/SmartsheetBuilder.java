@@ -96,7 +96,7 @@ public class SmartsheetBuilder {
     /**
      * <p>Represents the default base URI of the Smartsheet REST API.</p>
      *
-     * <p>It is a constant with value "https://api.smartsheet.com/1.1".</p>
+     * <p>It is a constant with value "https://api.smartsheet.com/2.0".</p>
      */
     public static final String DEFAULT_BASE_URI = "https://api.smartsheet.com/2.0/";
 

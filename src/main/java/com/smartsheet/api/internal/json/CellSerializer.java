@@ -26,7 +26,6 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Cell;
-import com.smartsheet.api.models.CellLink;
 import com.smartsheet.api.models.ExplicitNull;
 
 /**

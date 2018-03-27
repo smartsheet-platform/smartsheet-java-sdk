@@ -20,8 +20,6 @@ package com.smartsheet.api;
  * %[license]
  */
 
-import java.io.Writer;
-
 /**
  * <p>This interface is the entry point of the Smartsheet SDK, it provides convenient methods to get XXXResources instances
  * for accessing different types of resources.</p>
@@ -29,6 +27,30 @@ import java.io.Writer;
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface Smartsheet {
+
+    /**
+     * <p>Set the email of the user to assume.</p>
+     *
+     * @param assumedUser the new assumed user
+     * @throws IllegalArgumentException if any argument is null/empty string
+     */
+    public void setAssumedUser(String assumedUser);
+
+    /**
+     * <p>Set the access token to use.</p>
+     *
+     * @param accessToken the new access token
+     * @throws IllegalArgumentException if any argument is null/empty string
+     */
+    public void setAccessToken(String accessToken);
+
+    /**
+     * <p>Set the SDK API test scenario.</p>
+     *
+     * @param apiScenario the new API scenario name
+     * @throws IllegalArgumentException if any argument is null/empty string
+     */
+    public void setAPIScenario(String apiScenario);
 
     /**
      * <p>Returns the HomeResources instance that provides access to Home resources.</p>
@@ -143,28 +165,11 @@ public interface Smartsheet {
     public WebhookResources webhookResources();
 
     /**
-     * <p>Set the email of the user to assume.</p>
+     * Returns the PassthroughResources instance that provides access to passthrough resources
      *
-     * @param assumedUser the new assumed user
-     * @throws IllegalArgumentException if any argument is null/empty string
+     * @return the passthrough resources instance
      */
-    public void setAssumedUser(String assumedUser);
-
-    /**
-     * <p>Set the access token to use.</p>
-     *
-     * @param accessToken the new access token
-     * @throws IllegalArgumentException if any argument is null/empty string
-     */
-    public void setAccessToken(String accessToken);
-
-    /**
-     * <p>Set the SDK API test scenario.</p>
-     *
-     * @param apiScenario the new API scenario name
-     * @throws IllegalArgumentException if any argument is null/empty string
-     */
-    public void setAPIScenario(String apiScenario);
+    public PassthroughResources passthroughResources();
 
     /**
      * <p>Enable request/response tracing in client</p>
