@@ -4,7 +4,7 @@ package com.smartsheet.api.internal;
  * #[license]
  * Smartsheet SDK for Java
  * %%
- * Copyright (C) 2014 Smartsheet
+ * Copyright (C) 2018 Smartsheet
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,6 +41,7 @@ import com.smartsheet.api.models.CopyOrMoveRowDirective;
 import com.smartsheet.api.models.CopyOrMoveRowResult;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Result;
+import org.apache.http.HttpHeaders;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
@@ -1001,9 +1002,13 @@ public abstract class AbstractResources {
                  throw new RuntimeException ("Unsupported encode. You must support utf-8 for the Smartsheet Java SDK to work",e);
              }
          }
-         if (smartsheet.getAPIScenario() != null && !smartsheet.getAPIScenario().isEmpty()) {
-            headers.put("Api-Scenario", smartsheet.getAPIScenario());
+         if (smartsheet.getUserAgent() != null) {
+             headers.put("User-Agent", smartsheet.getUserAgent());
          }
+         if (smartsheet.getAPIScenario() != null && !smartsheet.getAPIScenario().isEmpty()) {
+             headers.put("Api-Scenario", smartsheet.getAPIScenario());
+         }
+
         return headers;
     }
 

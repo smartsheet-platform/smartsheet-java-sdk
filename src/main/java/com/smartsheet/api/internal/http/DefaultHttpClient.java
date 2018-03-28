@@ -25,7 +25,6 @@ import com.smartsheet.api.internal.util.StreamUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.retry.ShouldRetry;
 import org.apache.http.Header;
-import org.apache.http.HttpHeaders;
 import org.apache.http.NoHttpResponseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.NonRepeatableRequestException;
@@ -97,16 +96,10 @@ public class DefaultHttpClient implements HttpClient {
     /** The apache http response. */
     private CloseableHttpResponse apacheHttpResponse;
 
-    /** UserAgent string sent with each request */
-    private final String userAgent;
-
     /** the set of Trace levels to use in trace-logging */
     private final Set<Trace> traces = new HashSet<Trace>(TRACE_DEFAULT_TRACE_SET);
     /** whether to log pretty or compact */
     private boolean tracePrettyPrint = TRACE_PRETTY_PRINT_DEFAULT;
-
-    @Deprecated // never used (within SDK)
-    public static final String USER_AGENT = "Mozilla/5.0 Firefox/26.0";
 
     private ShouldRetry shouldRetry;
 
@@ -129,7 +122,6 @@ public class DefaultHttpClient implements HttpClient {
      */
     public DefaultHttpClient(CloseableHttpClient httpClient, ShouldRetry shouldRetry) {
         this.httpClient = Util.throwIfNull(httpClient);
-        this.userAgent = generateUserAgent(getClass());
         this.shouldRetry = shouldRetry;
     }
 
@@ -207,9 +199,6 @@ public class DefaultHttpClient implements HttpClient {
                     apacheHttpRequest.addHeader(header.getKey(), header.getValue());
                 }
             }
-
-            // Set User Agent
-            apacheHttpRequest.setHeader(HttpHeaders.USER_AGENT, userAgent);
 
             HttpEntitySnapshot requestEntityCopy = null;
             HttpEntitySnapshot responseEntityCopy = null;
@@ -394,23 +383,5 @@ public class DefaultHttpClient implements HttpClient {
     /** only included for testing purposes */
     public static void setTraceStream(OutputStream traceStream) {
         TRACE_WRITER = new PrintWriter(traceStream, true);
-    }
-
-    /**
-     *
-     * @param clazz the Class used to find the Package (depends on the jar MANIFEST from which this class was loaded)
-     * @return a User-Agent string that represents this version of the SDK (along with platform info)
-     */
-    private static String generateUserAgent(Class<?> clazz) {
-        String thisVersion = "";
-        String title = "";
-        Package thisPackage = clazz.getPackage();
-        if (thisPackage != null) {
-            thisVersion = thisPackage.getImplementationVersion();
-            title = thisPackage.getImplementationTitle();
-        }
-        return title + "/" + thisVersion + " " + System.getProperty("os.name") + " "
-                + System.getProperty("java.vm.name") + " " + System.getProperty("java.vendor") + " "
-                + System.getProperty("java.version");
     }
 }

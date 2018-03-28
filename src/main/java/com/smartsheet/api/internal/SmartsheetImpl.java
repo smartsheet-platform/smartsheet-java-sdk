@@ -29,10 +29,12 @@ import com.smartsheet.api.internal.http.HttpClient;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.internal.util.Util;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.Properties;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -103,6 +105,11 @@ public class SmartsheetImpl implements Smartsheet {
      *
      */
     private final AtomicReference<String> changeAgent;
+
+    /**
+     * Represents the AtomicReference for the user agent
+     */
+    private final AtomicReference<String> userAgent;
 
     /**
      * Represents the AtomicReference to HomeResources.
@@ -267,8 +274,9 @@ public class SmartsheetImpl implements Smartsheet {
      * @param httpClient the http client (optional)
      * @param jsonSerializer the json serializer (optional)
      */
+    @Deprecated
     public SmartsheetImpl(String baseURI, String accessToken, HttpClient httpClient, JsonSerializer jsonSerializer) {
-        this(baseURI, accessToken, httpClient, jsonSerializer, null, null);
+        this(baseURI, accessToken, httpClient, jsonSerializer, null, null, null);
     }
 
     /**
@@ -280,8 +288,30 @@ public class SmartsheetImpl implements Smartsheet {
      * @param accessToken the access token
      * @param httpClient the http client (optional)
      * @param jsonSerializer the json serializer (optional)
+     * @param changeAgent change agent identifier
+     * @param apiScenario API scenario (test only)
      */
-    public SmartsheetImpl(String baseURI, String accessToken, HttpClient httpClient, JsonSerializer jsonSerializer, String changeAgent, String apiScenario) {
+    @Deprecated
+    public SmartsheetImpl(String baseURI, String accessToken, HttpClient httpClient, JsonSerializer jsonSerializer,
+                          String changeAgent, String apiScenario) {
+        this(baseURI, accessToken, httpClient, jsonSerializer, changeAgent, apiScenario, null);
+    }
+
+    /**
+     * Create an instance with given server URI, HttpClient (optional) and JsonSerializer (optional)
+     *
+     * Exceptions: - IllegalArgumentException : if serverURI/version/accessToken is null/empty
+     *
+     * @param baseURI the server uri
+     * @param accessToken the access token
+     * @param httpClient the http client (optional)
+     * @param jsonSerializer the json serializer (optional)
+     * @param changeAgent change agent identifier
+     * @param apiScenario API scenario (test only)
+     * @param userAgent user agent string
+     */
+    public SmartsheetImpl(String baseURI, String accessToken, HttpClient httpClient, JsonSerializer jsonSerializer,
+                          String changeAgent, String apiScenario, String userAgent) {
         Util.throwIfNull(baseURI);
         Util.throwIfEmpty(baseURI);
 
@@ -293,7 +323,22 @@ public class SmartsheetImpl implements Smartsheet {
         else {
             this.httpClient = httpClient;
         }
-        this.jsonSerializer = jsonSerializer == null ? new JacksonJsonSerializer() : jsonSerializer;
+        CloseableHttpClient client = HttpClients.createDefault();
+
+
+        if(jsonSerializer == null) {
+            this.jsonSerializer = new JacksonJsonSerializer();
+        }
+        else {
+            this.jsonSerializer = jsonSerializer;
+        }
+        this.assumedUser = new AtomicReference<String>();
+        this.accessToken = new AtomicReference<String>(accessToken);
+        this.apiScenario = new AtomicReference<String>(apiScenario);
+        this.changeAgent = new AtomicReference<String>(changeAgent);
+        this.userAgent = new AtomicReference<String>(generateUserAgent(null));
+
+        // Resources
         this.home = new AtomicReference<HomeResources>();
         this.workspaces = new AtomicReference<WorkspaceResources>();
         this.folders = new AtomicReference<FolderResources>();
@@ -304,10 +349,6 @@ public class SmartsheetImpl implements Smartsheet {
         this.users = new AtomicReference<UserResources>();
         this.groups = new AtomicReference<GroupResources>();
         this.search = new AtomicReference<SearchResources>();
-        this.assumedUser = new AtomicReference<String>();
-        this.accessToken = new AtomicReference<String>(accessToken);
-        this.apiScenario = new AtomicReference<String>(apiScenario);
-        this.changeAgent = new AtomicReference<String>(changeAgent);
         this.reports = new AtomicReference<ReportResources>();
         this.serverInfo = new AtomicReference<ServerInfoResources>();
         this.tokens = new AtomicReference<TokenResources>();
@@ -324,6 +365,18 @@ public class SmartsheetImpl implements Smartsheet {
      */
     protected void finalize() throws IOException {
         this.httpClient.close();
+    }
+
+    /** set what request/response fields to log in trace-logging */
+    @Override
+    public void setTraces(Trace... traces) {
+        getHttpClient().setTraces(traces);
+    }
+
+    /** set whether or not to generate "pretty formatted" JSON in trace-logging */
+    @Override
+    public void setTracePrettyPrint(boolean pretty) {
+        getHttpClient().setTracePrettyPrint(pretty);
     }
 
     /**
@@ -392,7 +445,9 @@ public class SmartsheetImpl implements Smartsheet {
      *
      * @param accessToken the new access token
      */
-    public void setAccessToken(String accessToken) { this.accessToken.set(accessToken); }
+    public void setAccessToken(String accessToken) {
+        this.accessToken.set(accessToken);
+    }
 
     /**
      * Return the API scenario
@@ -424,6 +479,33 @@ public class SmartsheetImpl implements Smartsheet {
      */
     String getChangeAgent() {
         return changeAgent.get();
+    }
+
+    /**
+     * Sets the change agent identifier
+     *
+     * @param changeAgent
+     */
+    public void setChangeAgent(String changeAgent) {
+        this.changeAgent.set(changeAgent);
+    }
+
+    /**
+     * Return the user agent string
+     *
+     * @return the user agent string
+     */
+    public String getUserAgent() {
+        return userAgent.get();
+    }
+
+    /**
+     * Sets the user agent string
+     *
+     * @param userAgent the user agent string
+     */
+    public void setUserAgent(String userAgent) {
+        this.userAgent.set(generateUserAgent(userAgent));
     }
 
     /**
@@ -640,120 +722,35 @@ public class SmartsheetImpl implements Smartsheet {
         return passthrough.get();
     }
 
-    /** set what request/response fields to log in trace-logging */
-    @Override
-    public void setTraces(Trace... traces) {
-        getHttpClient().setTraces(traces);
-    }
-
-    /** set whether or not to generate "pretty formatted" JSON in trace-logging */
-    @Override
-    public void setTracePrettyPrint(boolean pretty) {
-        getHttpClient().setTracePrettyPrint(pretty);
-    }
-
-
     /**
-     * @deprecated As of release 2.0, use sheetResources().columnResources()
+     * Compose a User-Agent string that represents this version of the SDK (along with platform info)
+     *
+     * @return a User-Agent string
      */
-    @Deprecated
-    public ColumnResources columns() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated As of release 2.0, use sheetResources().rowResources()
-     */
-    @Deprecated
-    public void rows() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated As of release 2.0; example: use sheetResources().attachmentResources() for sheet-level attachments
-     */
-    @Deprecated
-    public AttachmentResources attachments() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated As of release 2.0; example: use sheetResources().discussionResources() for sheet-level discussions
-     */
-    @Deprecated
-    public void discussions() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated As of release 2.0; example: use sheetResources().discussionResources().commentResources() for discussion-level comments
-     */
-    @Deprecated
-    public CommentResources comments() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated As of release 2.0, replaced by {@link #userResources()}
-     */
-    @Deprecated
-    public void users() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated As of release 2.0, replaced by {@link #groupResources()}
-     */
-    @Deprecated
-    public void groups() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated As of release 2.0, replaced by {@link #searchResources()}
-     */
-    @Deprecated
-    public void search() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated As of release 2.0, replaced by {@link #homeResources()}
-     */
-    @Deprecated
-    public void home(){
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated As of release 2.0, replaced by {@link #workspaceResources()}
-     */
-    @Deprecated
-    public void workspaces(){
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated As of release 2.0, replaced by {@link #folderResources()}
-     */
-    @Deprecated
-    public void folders(){
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated As of release 2.0, replaced by {@link #templateResources()}
-     */
-    @Deprecated
-    public void templates(){
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated As of release 2.0, replaced by {@link #sheetResources()}
-     */
-    @Deprecated
-    public void sheets(){
-        throw new UnsupportedOperationException();
+    private String generateUserAgent(String userAgent) {
+        String title = null;
+        String thisVersion = null;
+        if(userAgent == null) {
+            StackTraceElement[] callers = Thread.currentThread().getStackTrace();
+            String callerClass = callers[callers.length - 1].getClassName();
+            String module = null;
+            try {
+                Class<?> clazz = Class.forName(callerClass);
+                String path = clazz.getProtectionDomain().getCodeSource().getLocation().toString();
+                module = path.substring(path.lastIndexOf('/')+1);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            userAgent = module + "!" + callerClass;
+        }
+        try {
+            final Properties properties = new Properties();
+            properties.load(this.getClass().getClassLoader().getResourceAsStream("sdk.properties"));
+            thisVersion = properties.getProperty("sdk.version");
+            title = properties.getProperty("sdk.name");
+        } catch (IOException e) { }
+        return title + "/" + thisVersion + "/" + userAgent + "/" + System.getProperty("os.name") + " "
+                + System.getProperty("java.vm.name") + " " + System.getProperty("java.vendor") + " "
+                + System.getProperty("java.version");
     }
 }

@@ -360,6 +360,10 @@
 			-->
 			<resource>
 				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<filtering>true</filtering>
 				<directory>src/integration-test/resources</directory>
 			</resource>
 		</resources>
