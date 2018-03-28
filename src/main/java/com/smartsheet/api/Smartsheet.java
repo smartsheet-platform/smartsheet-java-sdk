@@ -57,14 +57,6 @@ public interface Smartsheet {
     public void setAccessToken(String accessToken);
 
     /**
-     * <p>Set the SDK API test scenario.</p>
-     *
-     * @param apiScenario the new API scenario name
-     * @throws IllegalArgumentException if any argument is null/empty string
-     */
-    public void setAPIScenario(String apiScenario);
-
-    /**
      * <p>Set the change agent identifier.</p>
      *
      * @param changeAgent the new change agent

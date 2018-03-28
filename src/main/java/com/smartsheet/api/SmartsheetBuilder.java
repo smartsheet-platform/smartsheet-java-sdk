@@ -66,13 +66,6 @@ public class SmartsheetBuilder {
     private String accessToken;
 
     /**
-     * <p>Represents the API scenario.</p>
-     *
-     * <p>It can be set using corresponding setter.</p>
-     */
-    private String apiScenario;
-
-    /**
      * <p>Represents the assumed user.</p>
      *
      * <p>It can be set using corresponding setter.</p>
@@ -147,17 +140,6 @@ public class SmartsheetBuilder {
      */
     public SmartsheetBuilder setAccessToken(String accessToken) {
         this.accessToken = accessToken;
-        return this;
-    }
-
-    /**
-     * <p>Set the API scenario.</p>
-     *
-     * @param apiScenario the API scenario
-     * @return the smartsheet builder
-     */
-    public SmartsheetBuilder setAPIScenario(String apiScenario) {
-        this.apiScenario = apiScenario;
         return this;
     }
 
@@ -249,16 +231,6 @@ public class SmartsheetBuilder {
     }
 
     /**
-     * <p>Gets the API scenario.</p>
-     *
-     * @return the API scenario
-     */
-    public String getAPIScenario() {
-        return apiScenario;
-    }
-
-
-    /**
      * <p>Gets the assumed user.</p>
      *
      * @return the assumed user
@@ -294,7 +266,7 @@ public class SmartsheetBuilder {
             accessToken = System.getenv("SMARTSHEET_ACCESS_TOKEN");
         }
 
-        SmartsheetImpl smartsheet = new SmartsheetImpl(baseURI, accessToken, httpClient, jsonSerializer, changeAgent, apiScenario);
+        SmartsheetImpl smartsheet = new SmartsheetImpl(baseURI, accessToken, httpClient, jsonSerializer, changeAgent);
 
         if(calcBackoff != null) {
             smartsheet.setCalcBackoff(calcBackoff);

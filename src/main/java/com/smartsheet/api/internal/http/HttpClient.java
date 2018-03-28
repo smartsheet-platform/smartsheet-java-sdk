@@ -22,6 +22,7 @@ package com.smartsheet.api.internal.http;
 
 
 import com.smartsheet.api.Trace;
+import org.apache.http.client.methods.HttpRequestBase;
 
 import java.io.Closeable;
 
@@ -46,6 +47,17 @@ public interface HttpClient extends Closeable {
      * @throws HttpClientException the http client exception
      */
     public HttpResponse request(HttpRequest request) throws HttpClientException;
+
+    /**
+     * Allocate an Apache request object based upon the request method specified in smartsheetRequest.
+     *
+     * Override this method to inject headers or set proxy information in request
+     *
+     * @param smartsheetRequest (request method and base URI come from here)
+     *
+     * @return the Apache request
+     */
+    public HttpRequestBase createApacheRequest(HttpRequest smartsheetRequest);
 
     /**
      * Release connection.

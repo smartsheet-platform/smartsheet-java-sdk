@@ -127,10 +127,5 @@ public class SmartsheetImplTest extends ResourcesImplBase {
     public void testSetAccessToken() { smartsheet.setAccessToken("1234"); }
 
     @Test
-    public void testSetAPIScenario() {
-        smartsheet.setAPIScenario("Scenario Name");
-    }
-
-    @Test
     public void testSights() { assertNotNull(smartsheet.sightResources()); }
 }

@@ -1005,10 +1005,6 @@ public abstract class AbstractResources {
          if (smartsheet.getUserAgent() != null) {
              headers.put("User-Agent", smartsheet.getUserAgent());
          }
-         if (smartsheet.getAPIScenario() != null && !smartsheet.getAPIScenario().isEmpty()) {
-             headers.put("Api-Scenario", smartsheet.getAPIScenario());
-         }
-
         return headers;
     }
 

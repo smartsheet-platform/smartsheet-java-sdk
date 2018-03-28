@@ -166,32 +166,7 @@ public class DefaultHttpClient implements HttpClient {
         // the retry loop
         while(true) {
 
-            // Create Apache HTTP request based on the smartsheetRequest request type
-            switch (smartsheetRequest.getMethod()) {
-                case GET:
-                    apacheHttpRequest = new HttpGet(smartsheetRequest.getUri());
-                    break;
-                case POST:
-                    apacheHttpRequest = new HttpPost(smartsheetRequest.getUri());
-                    break;
-                case PUT:
-                    apacheHttpRequest = new HttpPut(smartsheetRequest.getUri());
-                    break;
-                case DELETE:
-                    apacheHttpRequest = new HttpDelete(smartsheetRequest.getUri());
-                    break;
-                default:
-                    throw new UnsupportedOperationException("Request method " + smartsheetRequest.getMethod()
-                            + " is not supported!");
-            }
-
-            RequestConfig.Builder builder = RequestConfig.custom();
-            if (apacheHttpRequest.getConfig() != null) {
-                builder = RequestConfig.copy(apacheHttpRequest.getConfig());
-            }
-            builder.setRedirectsEnabled(true);
-            RequestConfig config = builder.build();
-            apacheHttpRequest.setConfig(config);
+            apacheHttpRequest = createApacheRequest(smartsheetRequest);
 
             // Set HTTP headers
             if (smartsheetRequest.getHeaders() != null) {
@@ -338,6 +313,38 @@ public class DefaultHttpClient implements HttpClient {
             }
         }
         return smartsheetResponse;
+    }
+
+    public HttpRequestBase createApacheRequest(HttpRequest smartsheetRequest) {
+        HttpRequestBase apacheHttpRequest;
+
+        // Create Apache HTTP request based on the smartsheetRequest request type
+        switch (smartsheetRequest.getMethod()) {
+            case GET:
+                apacheHttpRequest = new HttpGet(smartsheetRequest.getUri());
+                break;
+            case POST:
+                apacheHttpRequest = new HttpPost(smartsheetRequest.getUri());
+                break;
+            case PUT:
+                apacheHttpRequest = new HttpPut(smartsheetRequest.getUri());
+                break;
+            case DELETE:
+                apacheHttpRequest = new HttpDelete(smartsheetRequest.getUri());
+                break;
+            default:
+                throw new UnsupportedOperationException("Request method " + smartsheetRequest.getMethod()
+                        + " is not supported!");
+        }
+
+        RequestConfig.Builder builder = RequestConfig.custom();
+        if (apacheHttpRequest.getConfig() != null) {
+            builder = RequestConfig.copy(apacheHttpRequest.getConfig());
+        }
+        builder.setRedirectsEnabled(true);
+        RequestConfig config = builder.build();
+        apacheHttpRequest.setConfig(config);
+        return apacheHttpRequest;
     }
 
     /**

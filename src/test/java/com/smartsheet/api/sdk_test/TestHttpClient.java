@@ -9,9 +9,9 @@ package com.smartsheet.api.sdk_test;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,22 +21,22 @@ package com.smartsheet.api.sdk_test;
  */
 
 
-import com.smartsheet.api.Smartsheet;
-import com.smartsheet.api.SmartsheetBuilder;
-import org.junit.Assert;
+import com.smartsheet.api.internal.http.DefaultHttpClient;
+import com.smartsheet.api.internal.http.HttpRequest;
+import org.apache.http.client.methods.HttpRequestBase;
 
-public class HelperFunctions {
-	public static Smartsheet SetupClient(String apiScenario){
-		TestHttpClient testHttpClient = new TestHttpClient(apiScenario);
-		Smartsheet ss = new SmartsheetBuilder()
-			.setBaseURI("http://localhost:8082/")
-			.setAccessToken("aaaaaaaaaaaaaaaaaaaaaaaaaa")
-			.setHttpClient(testHttpClient)
-			.build();
+public class TestHttpClient extends DefaultHttpClient {
 
-		return ss;
-	}
-	public static void ExceptionMessage(String message, Throwable cause){
-		Assert.fail(String.format("Exception: %s Detail: %s", message, cause));
-	}
+    private String apiScenario;
+
+    public TestHttpClient(String apiScenario) {
+        this.apiScenario = apiScenario;
+    }
+
+    @Override
+    public HttpRequestBase createApacheRequest(HttpRequest smartsheetRequest) {
+        HttpRequestBase apacheHttpRequest = super.createApacheRequest(smartsheetRequest);
+        apacheHttpRequest.addHeader("Api-Scenario",apiScenario);
+        return apacheHttpRequest;
+    }
 }
