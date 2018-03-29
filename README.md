@@ -1,6 +1,4 @@
-# Smartsheet SDK for Java
-[![Build Status](https://travis-ci.org/smartsheet-platform/smartsheet-java-sdk.svg?branch=master)](https://travis-ci.org/smartsheet-platform/smartsheet-java-sdk) 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.smartsheet/smartsheet-sdk-java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.smartsheet/smartsheet-sdk-java/)
+# Smartsheet SDK for Java [![Build Status](https://travis-ci.org/smartsheet-platform/smartsheet-java-sdk.svg?branch=master)](https://travis-ci.org/smartsheet-platform/smartsheet-java-sdk) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.smartsheet/smartsheet-sdk-java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.smartsheet/smartsheet-sdk-java/)
 
 This is a Java SDK to simplify connecting to [Smartsheet API](http://www.smartsheet.com/developers/api-documentation) in Java applications.
 
