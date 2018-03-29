@@ -6,18 +6,51 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.2.4] - 2018-03-30
+### Added
+- [Automation rules](http://smartsheet-platform.github.io/api-docs/?shell#automation-rules)
+- [Cross sheet references](http://smartsheet-platform.github.io/api-docs/?shell#cross-sheet-references)
+- Passthrough mechanism to pass raw JSON requests through to the API (documented in the README)
+- Sheet filter implementation
+- Row sort feature
+- User profile properties (including profileImage) to UserModel
+- Scope, location and favoriteFlag inclusion to search
+- getSheet() ifVersionAfter parameter 
+- Client method to modify HTTP User-Agent header
+- Bulk access to sheet version through sheetVersion inclusion
+- Missing title widget for Sights
+- Deserialization of error detail
+- Logging examples for SimpleLogger and Log4j
+
+### Changed
+- HttpClient interface to allow SDK users to inject HTTP headers or implement an HTTP proxy by extending 
+DefaultHttpClient (a proxy sample is provided in the README)
+
+### Fixed
+- Several deserialization issues with Sights
+- Share builders were improperly setting share type
+- The rate-limit/backoff retry scenario did not work if the request contained a body because the body stream had not 
+been reset prior to the retry (PUT/POST).  The Apache HttpClient will raise a NonRepeatableRequestException that is now 
+handled by the SDK (which resets the body content stream).
+- There is a keep-alive race condition that exists when the server disconnects idle connections. If a request is made 
+in the window in between when the server has disconnected, but before the client has detected the disconnect, it looks 
+to the client as if the server returned a blank HTTP status line. Idempotent methods (PUT, DELETE, GET) are retried 
+automatically. A POST request will not be retried automatically by the Apache HttpClient. This fix will handle 
+NoHttpResponseException exceptions and retry POSTs automatically after resetting the body content stream.
+
+
 ## [2.2.3] - 2017-12-7
 ### Added
 - New `attachFile` overloads that accept an `inputStream`
 - Constructors that accept object Id for Cell, Row, and Column
 - Additional options when publishing Sheets or Reports
 
-### Changes
+### Changed
 - Mock tests
 - Logging improvements
 
 ## [2.2.1] - 2017-02-13
-### Changes
+### Changed
 - Fixed flags for Folder/Workspace Copy or Remap
 
 ## [2.2.0] - 2017-08-02
