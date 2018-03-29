@@ -206,6 +206,53 @@ Mock API tests:
 1. Clone the [Smartsheet sdk tests](https://github.com/smartsheet-platform/smartsheet-sdk-tests) repo and follow the instructions from the readme to start the mock server.
 2. `mvn test -Dtest=com.smartsheet.api.sdk_test.*`
 
+## Using a Proxy
+
+You can enable a proxy by providing the SmartsheetBuilder with an HttpClient which extends DefaultHttpClient. (You can 
+also use this method to inject additional HTTP headers.) A code sample is provided below.
+
+Invoke the SmartsheetBuilder with a custom HttpClient:
+
+```java
+ProxyHttpClient proxyHttpClient = new ProxyHttpClient("localhost", 8080);
+Smartsheet smartsheet = new SmartsheetBuilder().setHttpClient(proxyHttpClient).build();
+``` 
+
+Sample ProxyHttpClient class:
+
+```java
+import com.smartsheet.api.internal.http.DefaultHttpClient;
+import com.smartsheet.api.internal.http.HttpRequest;
+import org.apache.http.HttpHost;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.HttpRequestBase;
+
+public class ProxyHttpClient extends DefaultHttpClient {
+
+   private String proxyHost;
+   private Integer proxyPort;
+
+   public ProxyHttpClient(String proxyHost, Integer proxyPort) {
+       this.proxyHost = proxyHost;
+       this.proxyPort = proxyPort;
+   }
+
+   @Override
+   public HttpRequestBase createApacheRequest(HttpRequest smartsheetRequest) {
+       HttpRequestBase apacheHttpRequest = super.createApacheRequest(smartsheetRequest);
+
+       RequestConfig.Builder builder = RequestConfig.custom();
+       if (apacheHttpRequest.getConfig() != null) {
+           builder = RequestConfig.copy(apacheHttpRequest.getConfig());
+       }
+       HttpHost proxy = new HttpHost(proxyHost, proxyPort, "http");
+       builder.setProxy(proxy);
+       RequestConfig config = builder.build();
+       apacheHttpRequest.setConfig(config);
+       return apacheHttpRequest;
+   }
+}
+```
 ## Release Notes
 
 Each specific release is available for download via [Github](https://github.com/smartsheet-platform/smartsheet-java-sdk/tags) or the [Maven repository](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.smartsheet%22%20AND%20a%3A%22smartsheet-sdk-java%22).

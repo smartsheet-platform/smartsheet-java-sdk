@@ -203,10 +203,20 @@ public class DefaultHttpClient implements HttpClient {
             try {
                 apacheHttpResponse = this.httpClient.execute(apacheHttpRequest, context);
 
-                // Set request headers to values ACTUALLY SENT (not just created by us)
-                HttpRequestWrapper actualRequest = (HttpRequestWrapper) context.getAttribute("http.request");
-                if (actualRequest != null) {
-                    apacheHttpRequest.setHeaders(actualRequest.getAllHeaders());
+                // Set request headers to values ACTUALLY SENT (not just created by us), this would include:
+                // 'Connection', 'Accept-Encoding', etc. However, if a proxy is used, this may be the proxy's CONNECT
+                // request, hence the test for HTTP method first
+                Object httpRequest = context.getAttribute("http.request");
+                if(httpRequest != null && HttpRequestWrapper.class.isAssignableFrom(httpRequest.getClass())) {
+                    HttpRequestWrapper actualRequest = (HttpRequestWrapper)httpRequest;
+                    switch(HttpMethod.valueOf(actualRequest.getMethod())) {
+                        case GET:
+                        case POST:
+                        case PUT:
+                        case DELETE:
+                            apacheHttpRequest.setHeaders(((HttpRequestWrapper)httpRequest).getAllHeaders());
+                            break;
+                    }
                 }
 
                 // Set returned headers
