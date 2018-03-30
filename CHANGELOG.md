@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [2.2.4] - 2018-03-30
 ### Added
+- SmartsheetFactory for creating Smartsheet client objects
 - [Automation rules](http://smartsheet-platform.github.io/api-docs/?shell#automation-rules)
 - [Cross sheet references](http://smartsheet-platform.github.io/api-docs/?shell#cross-sheet-references)
 - Passthrough mechanism to pass raw JSON requests through to the API (documented in the README)
@@ -25,6 +26,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - HttpClient interface to allow SDK users to inject HTTP headers or implement an HTTP proxy by extending 
 DefaultHttpClient (a proxy sample is provided in the README)
+- Removed ShouldRetry and CalcBackoff interfaces and replaced with HttpClient interface methods. You can now customize 
+shouldRetry or calcBackoff using the same method as proxy or request header injection (i.e. extend DefaultHttpClient).
 
 ### Fixed
 - Several deserialization issues with Sights
