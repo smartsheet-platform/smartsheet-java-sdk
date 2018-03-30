@@ -27,7 +27,6 @@ import com.smartsheet.api.internal.http.HttpClient;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.internal.util.Util;
-import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
