@@ -21,9 +21,11 @@ package com.smartsheet.api.internal.http;
  */
 
 import com.smartsheet.api.Trace;
+import com.smartsheet.api.internal.json.JacksonJsonSerializer;
+import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.internal.util.StreamUtil;
 import com.smartsheet.api.internal.util.Util;
-import com.smartsheet.api.retry.ShouldRetry;
+import com.smartsheet.api.models.Error;
 import org.apache.http.Header;
 import org.apache.http.NoHttpResponseException;
 import org.apache.http.client.ClientProtocolException;
@@ -37,6 +39,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.methods.HttpRequestWrapper;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -50,12 +53,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * This is the Apache HttpClient (http://hc.apache.org/httpcomponents-client-ga/index.html) based HttpClient
@@ -101,13 +99,17 @@ public class DefaultHttpClient implements HttpClient {
     /** whether to log pretty or compact */
     private boolean tracePrettyPrint = TRACE_PRETTY_PRINT_DEFAULT;
 
-    private ShouldRetry shouldRetry;
+    private static final String JSON_MIME_TYPE = ContentType.APPLICATION_JSON.getMimeType();
+
+    private JsonSerializer jsonSerializer;
+
+    private long maxRetryTimeMillis = 15000;
 
     /**
      * Constructor.
      */
     public DefaultHttpClient() {
-        this(HttpClients.createDefault(), new DefaultShouldRetry(null));
+        this(HttpClients.createDefault(), new JacksonJsonSerializer());
     }
 
     /**
@@ -118,11 +120,10 @@ public class DefaultHttpClient implements HttpClient {
      * Exceptions: - IllegalArgumentException : if any argument is null
      *
      * @param httpClient the http client
-     * @param shouldRetry callback routine to determine if failed requests can be retried
      */
-    public DefaultHttpClient(CloseableHttpClient httpClient, ShouldRetry shouldRetry) {
+    public DefaultHttpClient(CloseableHttpClient httpClient, JsonSerializer jsonSerializer) {
         this.httpClient = Util.throwIfNull(httpClient);
-        this.shouldRetry = shouldRetry;
+        this.jsonSerializer = jsonSerializer;
     }
 
     /**
@@ -266,7 +267,7 @@ public class DefaultHttpClient implements HttpClient {
                 try {
                     contentStream.mark((int) smartsheetResponse.getEntity().getContentLength());
                     long timeSpent = System.currentTimeMillis() - start;
-                    if (!shouldRetry.shouldRetry(++attempt, timeSpent, smartsheetResponse)) {
+                    if (!shouldRetry(++attempt, timeSpent, smartsheetResponse)) {
                         // should not retry, or retry time exceeded, exit the retry loop
                         break;
                     }
@@ -325,6 +326,13 @@ public class DefaultHttpClient implements HttpClient {
         return smartsheetResponse;
     }
 
+    /**
+     * Create the Apache HTTP request. Override this function to inject additional
+     * haaders in the request or use a proxy.
+     *
+     * @param smartsheetRequest (request method and base URI come from here)
+     * @return the Apache HTTP request
+     */
     public HttpRequestBase createApacheRequest(HttpRequest smartsheetRequest) {
         HttpRequestBase apacheHttpRequest;
 
@@ -355,6 +363,84 @@ public class DefaultHttpClient implements HttpClient {
         RequestConfig config = builder.build();
         apacheHttpRequest.setConfig(config);
         return apacheHttpRequest;
+    }
+
+    /**
+     * Set the max retry time for API calls which fail and are retry-able.
+     *
+     * @param maxRetryTimeMillis
+     */
+    public void setMaxRetryTimeMillis(long maxRetryTimeMillis) {
+        this.maxRetryTimeMillis = maxRetryTimeMillis;
+    }
+
+    /**
+     * The backoff calculation routine. Uses exponential backoff. If the maximum elapsed time
+     * has expired, this calculation returns -1 causing the caller to fall out of the retry loop.
+     *
+     * @param previousAttempts
+     * @param totalElapsedTimeMillis
+     * @param error
+     * @return -1 to fall out of retry loop, positive number indicates backoff time
+     */
+    public long calcBackoff(int previousAttempts, long totalElapsedTimeMillis, Error error) {
+
+        long backoffMillis = (long)(Math.pow(2, previousAttempts) * 1000) + new Random().nextInt(1000);
+
+        if(totalElapsedTimeMillis + backoffMillis > maxRetryTimeMillis) {
+            logger.info("Elapsed time " + totalElapsedTimeMillis + " + backoff time " + backoffMillis +
+                    " exceeds max retry time " + maxRetryTimeMillis + ", exiting retry loop");
+            return -1;
+        }
+        return backoffMillis;
+    }
+
+    /**
+     * Called when an API request fails to determine if it can retry the request.
+     * Calls calcBackoff to determine the time to wait in between retries.
+     *
+     * @param previousAttempts number of attempts (including this one) to execute request
+     * @param totalElapsedTimeMillis total time spent in millis for all previous (and this) attempt
+     * @param response the failed HttpResponse
+     * @return true if this request can be retried
+     */
+    public boolean shouldRetry(int previousAttempts, long totalElapsedTimeMillis, HttpResponse response) {
+        String contentType = response.getEntity().getContentType();
+        if (contentType != null && !contentType.startsWith(JSON_MIME_TYPE)) {
+            // it's not JSON; don't even try to parse it
+            return false;
+        }
+        Error error;
+        try {
+            error = jsonSerializer.deserialize(Error.class, response.getEntity().getContent());
+        }
+        catch (IOException e) {
+            return false;
+        }
+        switch(error.getErrorCode()) {
+            case 4001: /** Smartsheet.com is currently offline for system maintenance. Please check back again shortly. */
+            case 4002: /** Server timeout exceeded. Request has failed */
+            case 4003: /** Rate limit exceeded. */
+            case 4004: /** An unexpected error has occurred. Please retry your request.
+             * If you encounter this error repeatedly, please contact api@smartsheet.com for assistance. */
+                break;
+            default:
+                return false;
+        }
+
+        long backoffMillis = calcBackoff(previousAttempts, totalElapsedTimeMillis, error);
+        if(backoffMillis < 0)
+            return false;
+
+        logger.info("HttpError StatusCode=" + response.getStatusCode() + ": Retrying in " + backoffMillis + " milliseconds");
+        try {
+            Thread.sleep(backoffMillis);
+        }
+        catch (InterruptedException e) {
+            logger.warn("sleep interrupted", e);
+            return false;
+        }
+        return true;
     }
 
     /**

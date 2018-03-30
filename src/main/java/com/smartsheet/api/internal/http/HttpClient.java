@@ -22,6 +22,7 @@ package com.smartsheet.api.internal.http;
 
 
 import com.smartsheet.api.Trace;
+import com.smartsheet.api.models.Error;
 import org.apache.http.client.methods.HttpRequestBase;
 
 import java.io.Closeable;
@@ -50,14 +51,34 @@ public interface HttpClient extends Closeable {
 
     /**
      * Allocate an Apache request object based upon the request method specified in smartsheetRequest.
-     *
      * Override this method to inject headers or set proxy information in request
      *
      * @param smartsheetRequest (request method and base URI come from here)
-     *
      * @return the Apache request
      */
     public HttpRequestBase createApacheRequest(HttpRequest smartsheetRequest);
+
+    /**
+     * The backoff calculation routine. Uses exponential backoff. If the maximum elapsed time
+     * has expired, this calculation returns -1 causing the caller to fall out of the retry loop.
+     *
+     * @param previousAttempts
+     * @param totalElapsedTimeMillis
+     * @param error
+     * @return -1 to fall out of retry loop, positive number indicates backoff time
+     */
+    public long calcBackoff(int previousAttempts, long totalElapsedTimeMillis, Error error);
+
+    /**
+     * Called when an API request fails to determine if it can retry the request.
+     * Calls calcBackoff to determine the time to wait in between retries.
+     *
+     * @param previousAttempts number of attempts (including this one) to execute request
+     * @param totalElapsedTimeMillis total time spent in millis for all previous (and this) attempt
+     * @param response the failed HttpResponse
+     * @return true if this request can be retried
+     */
+    public boolean shouldRetry(int previousAttempts, long totalElapsedTimeMillis, HttpResponse response);
 
     /**
      * Release connection.

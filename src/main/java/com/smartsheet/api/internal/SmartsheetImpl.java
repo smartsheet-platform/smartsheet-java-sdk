@@ -22,14 +22,12 @@ package com.smartsheet.api.internal;
 
 
 import com.smartsheet.api.*;
-import com.smartsheet.api.internal.http.DefaultShouldRetry;
-import com.smartsheet.api.retry.CalcBackoff;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.http.HttpClient;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.internal.util.Util;
-import org.apache.http.impl.client.CloseableHttpClient;
+import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
@@ -44,6 +42,23 @@ import java.util.concurrent.atomic.AtomicReference;
  * ensure atomic modifications, and also the underlying HttpClient and JsonSerializer interfaces are thread safe.
  */
 public class SmartsheetImpl implements Smartsheet {
+
+    /**
+     * Represents the base URI of the Smartsheet REST API.
+     *
+     * It will be initialized in constructor and will not change afterwards.
+     */
+    private URI baseURI;
+
+    /**
+     * Represents the AtomicReference for access token.
+     *
+     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
+     * SmartsheetImpl in thread safe manner.
+     */
+    private final AtomicReference<String> accessToken;
+
     /**
      * Represents the HttpClient.
      *
@@ -59,19 +74,6 @@ public class SmartsheetImpl implements Smartsheet {
     private JsonSerializer jsonSerializer;
 
     /**
-     * Represents the base URI of the Smartsheet REST API.
-     *
-     * It will be initialized in constructor and will not change afterwards.
-     */
-    private URI baseURI;
-
-    /**
-     * Keep a reference to the defaultShouldRetry created by this implementation in order to pass along
-     * CalcBackoff references instantiated by the caller.
-     */
-    private DefaultShouldRetry defaultShouldRetry = null;
-
-    /**
      * Represents the AtomicReference for assumed user email.
      *
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
@@ -79,15 +81,6 @@ public class SmartsheetImpl implements Smartsheet {
      * SmartsheetImpl in thread safe manner.
      */
     private final AtomicReference<String> assumedUser;
-
-    /**
-     * Represents the AtomicReference for access token.
-     *
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-     * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
-     * SmartsheetImpl in thread safe manner.
-     */
-    private final AtomicReference<String> accessToken;
 
     /**
      * Represents the AtomicReference for change agent
@@ -262,71 +255,35 @@ public class SmartsheetImpl implements Smartsheet {
      *
      * @param baseURI the server uri
      * @param accessToken the access token
+     */
+    public SmartsheetImpl(String baseURI, String accessToken) {
+        this(baseURI, accessToken, null, null);
+    }
+
+    /**
+     * Create an instance with given server URI, HttpClient (optional) and JsonSerializer (optional)
+     *
+     * Exceptions: - IllegalArgumentException : if serverURI/version/accessToken is null/empty
+     *
+     * @param baseURI the server uri
+     * @param accessToken the access token
      * @param httpClient the http client (optional)
      * @param jsonSerializer the json serializer (optional)
      */
-    @Deprecated
     public SmartsheetImpl(String baseURI, String accessToken, HttpClient httpClient, JsonSerializer jsonSerializer) {
-        this(baseURI, accessToken, httpClient, jsonSerializer, null, null);
-    }
-
-    /**
-     * Create an instance with given server URI, HttpClient (optional) and JsonSerializer (optional)
-     *
-     * Exceptions: - IllegalArgumentException : if serverURI/version/accessToken is null/empty
-     *
-     * @param baseURI the server uri
-     * @param accessToken the access token
-     * @param httpClient the http client (optional)
-     * @param jsonSerializer the json serializer (optional)
-     * @param changeAgent change agent identifier
-     */
-    @Deprecated
-    public SmartsheetImpl(String baseURI, String accessToken, HttpClient httpClient, JsonSerializer jsonSerializer,
-                          String changeAgent) {
-        this(baseURI, accessToken, httpClient, jsonSerializer, changeAgent, null);
-    }
-
-    /**
-     * Create an instance with given server URI, HttpClient (optional) and JsonSerializer (optional)
-     *
-     * Exceptions: - IllegalArgumentException : if serverURI/version/accessToken is null/empty
-     *
-     * @param baseURI the server uri
-     * @param accessToken the access token
-     * @param httpClient the http client (optional)
-     * @param jsonSerializer the json serializer (optional)
-     * @param changeAgent change agent identifier
-     * @param userAgent user agent string
-     */
-    public SmartsheetImpl(String baseURI, String accessToken, HttpClient httpClient, JsonSerializer jsonSerializer,
-                          String changeAgent, String userAgent) {
         Util.throwIfNull(baseURI);
         Util.throwIfEmpty(baseURI);
 
         this.baseURI = URI.create(baseURI);
-        if(httpClient == null) {
-            this.defaultShouldRetry = new DefaultShouldRetry(jsonSerializer);
-            this.httpClient = new DefaultHttpClient(HttpClients.createDefault(), this.defaultShouldRetry);
-        }
-        else {
-            this.httpClient = httpClient;
-        }
-        CloseableHttpClient client = HttpClients.createDefault();
-
-
-        if(jsonSerializer == null) {
-            this.jsonSerializer = new JacksonJsonSerializer();
-        }
-        else {
-            this.jsonSerializer = jsonSerializer;
-        }
-        this.assumedUser = new AtomicReference<String>();
         this.accessToken = new AtomicReference<String>(accessToken);
-        this.changeAgent = new AtomicReference<String>(changeAgent);
+        this.jsonSerializer = ((jsonSerializer == null) ? new JacksonJsonSerializer() : jsonSerializer);
+        this.httpClient = ((httpClient == null) ?
+                new DefaultHttpClient(HttpClients.createDefault(), this.jsonSerializer) :  httpClient);
+        this.assumedUser = new AtomicReference<String>(null);
+        this.changeAgent = new AtomicReference<String>(null);
         this.userAgent = new AtomicReference<String>(generateUserAgent(null));
 
-        // Resources
+        // Initialize resources
         this.home = new AtomicReference<HomeResources>();
         this.workspaces = new AtomicReference<WorkspaceResources>();
         this.folders = new AtomicReference<FolderResources>();
@@ -370,48 +327,12 @@ public class SmartsheetImpl implements Smartsheet {
     /**
      * Getter of corresponding field.
      *
-     * @return corresponding field.
-     */
-    HttpClient getHttpClient() {
-        return httpClient;
-    }
-
-    /**
-     * Getter of corresponding field.
-     *
-     * @return corresponding field
-     */
-    JsonSerializer getJsonSerializer() {
-        return jsonSerializer;
-    }
-
-    /**
-     * Getter of corresponding field.
-     *
      * Returns: corresponding field.
      *
      * @return the base uri
      */
     URI getBaseURI() {
         return baseURI;
-    }
-
-    /**
-     * Return the assumed user.
-     *
-     * @return the assumed user
-     */
-    String getAssumedUser() {
-        return assumedUser.get();
-    }
-
-    /**
-     * Set the email of the user to assume. Null/empty string indicates no user is assumed.
-     *
-     * @param assumedUser the email of the user to assume
-     */
-    public void setAssumedUser(String assumedUser) {
-        this.assumedUser.set(assumedUser);
     }
 
     /**
@@ -435,6 +356,42 @@ public class SmartsheetImpl implements Smartsheet {
      */
     public void setAccessToken(String accessToken) {
         this.accessToken.set(accessToken);
+    }
+
+    /**
+     * Getter of corresponding field.
+     *
+     * @return corresponding field
+     */
+    JsonSerializer getJsonSerializer() {
+        return jsonSerializer;
+    }
+
+    /**
+     * Getter of corresponding field.
+     *
+     * @return corresponding field.
+     */
+    HttpClient getHttpClient() {
+        return httpClient;
+    }
+
+    /**
+     * Return the assumed user.
+     *
+     * @return the assumed user
+     */
+    String getAssumedUser() {
+        return assumedUser.get();
+    }
+
+    /**
+     * Set the email of the user to assume. Null/empty string indicates no user is assumed.
+     *
+     * @param assumedUser the email of the user to assume
+     */
+    public void setAssumedUser(String assumedUser) {
+        this.assumedUser.set(assumedUser);
     }
 
     /**
@@ -474,14 +431,16 @@ public class SmartsheetImpl implements Smartsheet {
     }
 
     /**
-     * Set the CalcBackoff callback
+     * Sets the max retry time if the HttpClient is an instance of DefaultHttpClient
      *
-     * @param calcBackoff the callback
+     * @param maxRetryTimeMillis max retry time
      */
-    public void setCalcBackoff(CalcBackoff calcBackoff) {
-        if(defaultShouldRetry != null) {
-            defaultShouldRetry.setCalcBackoff(calcBackoff);
+    public void setMaxRetryTimeMillis(long maxRetryTimeMillis) {
+        if (this.httpClient instanceof DefaultHttpClient) {
+            ((DefaultHttpClient) this.httpClient).setMaxRetryTimeMillis(maxRetryTimeMillis);
         }
+        else
+            throw new UnsupportedOperationException("Invalid operation for class " + this.httpClient.getClass());
     }
 
     /**
@@ -698,14 +657,14 @@ public class SmartsheetImpl implements Smartsheet {
         if(userAgent == null) {
             StackTraceElement[] callers = Thread.currentThread().getStackTrace();
             String callerClass = callers[callers.length - 1].getClassName();
+            if(callerClass.equals("java.lang.Thread"))
+                callerClass = callers[callers.length - 2].getClassName();
             String module = null;
             try {
                 Class<?> clazz = Class.forName(callerClass);
                 String path = clazz.getProtectionDomain().getCodeSource().getLocation().toString();
                 module = path.substring(path.lastIndexOf('/')+1);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+            } catch (ClassNotFoundException e) { }
             userAgent = module + "!" + callerClass;
         }
         try {

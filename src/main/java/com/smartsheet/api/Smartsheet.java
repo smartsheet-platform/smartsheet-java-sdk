@@ -41,20 +41,20 @@ public interface Smartsheet {
     public void setTracePrettyPrint(boolean pretty);
 
     /**
-     * <p>Set the email of the user to assume.</p>
-     *
-     * @param assumedUser the new assumed user
-     * @throws IllegalArgumentException if any argument is null/empty string
-     */
-    public void setAssumedUser(String assumedUser);
-
-    /**
      * <p>Set the access token to use.</p>
      *
      * @param accessToken the new access token
      * @throws IllegalArgumentException if any argument is null/empty string
      */
     public void setAccessToken(String accessToken);
+
+    /**
+     * <p>Set the email of the user to assume.</p>
+     *
+     * @param assumedUser the new assumed user
+     * @throws IllegalArgumentException if any argument is null/empty string
+     */
+    public void setAssumedUser(String assumedUser);
 
     /**
      * <p>Set the change agent identifier.</p>
@@ -71,6 +71,13 @@ public interface Smartsheet {
      * @throws IllegalArgumentException if any argument is null/empty string
      */
     public void setUserAgent(String userAgent);
+
+    /**
+     * <p>Sets the max retry time if the HttpClient is an instance of DefaultHttpClient</p>
+     *
+     * @param maxRetryTimeMillis max retry time
+     */
+    public void setMaxRetryTimeMillis(long maxRetryTimeMillis);
 
     /**
      * <p>Returns the HomeResources instance that provides access to Home resources.</p>
