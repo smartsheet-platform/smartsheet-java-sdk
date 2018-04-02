@@ -92,11 +92,17 @@ public class FavoriteResourcesImpl extends AbstractResources implements Favorite
      * @throws SmartsheetException the smartsheet exception
      */
     public PagedResult<Favorite> listFavorites(PaginationParameters parameters) throws SmartsheetException{
-        return  this.listResourcesWithWrapper("favorites" + parameters.toQueryString(), Favorite.class);
+        String path = "favorites";
+
+        if (parameters != null) {
+            path += parameters.toQueryString();
+        }
+
+        return this.listResourcesWithWrapper(path, Favorite.class);
     }
 
     /**
-     * Gets a list of all of the user's Favorite items.
+     * Deletes a list of favorites (all of the same type)
      *
      * It mirrors to the following Smartsheet REST API method: DELETE /favorites
      *
@@ -109,8 +115,8 @@ public class FavoriteResourcesImpl extends AbstractResources implements Favorite
      *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
      *   SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param  favoriteType parameters
-     * @return a single Favorite object or an array of Favorite objects
+     * @param favoriteType the favorite type
+     * @param objectIds a single Favorite object or an array of Favorite objects
      * @throws SmartsheetException the smartsheet exception
      */
     public void removeFavorites(FavoriteType favoriteType, Set<Long> objectIds) throws SmartsheetException{

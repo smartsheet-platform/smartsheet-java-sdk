@@ -97,6 +97,16 @@ public class Webhook extends NamedModel<Long> {
     private Date modifiedAt;
 
     /**
+     * Provide an 'override' of setName (returns Webhook not NamedModel)
+     *
+     * @param name the new name
+     */
+    public Webhook setName(String name){
+        super.setName(name);
+        return this;
+    }
+
+    /**
      * Get the API client Id corresponding to third-party app that created the webhook.
      *
      * @return apiClientId

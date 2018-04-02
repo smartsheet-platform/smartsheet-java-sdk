@@ -60,13 +60,13 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.12</version>
+			<version>1.7.25</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.12</version>
+			<version>1.7.25</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -358,6 +358,10 @@
 				directories are replaced with the property values found from the profile
 				specific configuration file.
 			-->
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+			</resource>
 			<resource>
 				<filtering>true</filtering>
 				<directory>src/integration-test/resources</directory>

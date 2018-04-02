@@ -43,8 +43,7 @@ public interface ReportResources {
     /**
      * <p>Get a report.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>GET /report/{reportId}</p>
+     * <p>It mirrors to the following Smartsheet REST API method: GET /report/{reportId}</p>
      *
      * @param reportId the reportId of the report
      * @param includes used To specify the optional objects to include.
@@ -64,8 +63,7 @@ public interface ReportResources {
     /**
      * <p>Send a sheet as a PDF attachment via Email To the designated recipients.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>POST /reports/{reportId}/emails</p>
+     * <p>It mirrors to the following Smartsheet REST API method: POST /reports/{reportId}/emails</p>
      *
      * @param reportId the reportId of the report
      * @param email email of designated recipient.
@@ -79,9 +77,9 @@ public interface ReportResources {
      void sendReport(long reportId, SheetEmail email) throws SmartsheetException;
 
     /**
-     * List all reports.
+     * <p>List all reports.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: GET /reports
+     * <p>It mirrors to the following Smartsheet REST API method: GET /reports</p>
      *
      * Exceptions:
      *   - InvalidRequestException : if there is any problem with the REST API request
@@ -98,9 +96,9 @@ public interface ReportResources {
      PagedResult<Report> listReports(PaginationParameters parameters, Date modifiedSince) throws SmartsheetException;
 
     /**
-     * List all reports.
+     * <p>List all reports.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: GET /reports
+     * <p>It mirrors to the following Smartsheet REST API method: GET /reports</p>
      *
      * Exceptions:
      *   - InvalidRequestException : if there is any problem with the REST API request
@@ -117,10 +115,10 @@ public interface ReportResources {
      PagedResult<Report> listReports(PaginationParameters parameters) throws SmartsheetException;
 
     /**
-     * Get a Report as an excel file.
+     * <p>Get a Report as an excel file.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: GET /reports/{id} with "application/vnd.ms-excel" Accept
-     * HTTP header
+     * <p>It mirrors to the following Smartsheet REST API method: GET /reports/{id} with "application/vnd.ms-excel" Accept
+     * HTTP header</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if outputStream is null
@@ -138,10 +136,10 @@ public interface ReportResources {
     void getReportAsExcel(long id, OutputStream outputStream) throws SmartsheetException;
 
     /**
-     * Get a Report as an csv file.
+     * <p>Get a Report as an csv file.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: GET /reports/{id} with "application/vnd.ms-excel" Accept
-     * HTTP header
+     * <p>It mirrors to the following Smartsheet REST API method: GET /reports/{id} with "application/vnd.ms-excel" Accept
+     * HTTP header</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if outputStream is null

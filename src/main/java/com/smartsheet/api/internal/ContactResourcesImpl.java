@@ -42,10 +42,9 @@ public class ContactResourcesImpl extends AbstractResources implements ContactRe
     }
 
     /**
-     * <p>Gets the specified Contact.</p>
+     * Gets the specified Contact.
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>GET /contacts/{contactId}</p>
+     * It mirrors to the following Smartsheet REST API method: GET /contacts/{contactId}
      *
      * @param contactId the ID of the contact
      * @return the contact object
@@ -57,10 +56,9 @@ public class ContactResourcesImpl extends AbstractResources implements ContactRe
 
 
     /**
-     * <p>Gets a list of the user’s Smartsheet Contacts.</p>
+     * Gets a list of the user’s Smartsheet Contacts.
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>GET /contacts</p>
+     * It mirrors to the following Smartsheet REST API method: GET /contacts
      *
      * @param parameters the pagination parameters
      * @return the contacts as a paged list

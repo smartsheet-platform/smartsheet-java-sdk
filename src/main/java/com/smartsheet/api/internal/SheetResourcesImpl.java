@@ -21,16 +21,16 @@ package com.smartsheet.api.internal;
  */
 
 import com.smartsheet.api.*;
+import com.smartsheet.api.internal.http.HttpEntity;
 import com.smartsheet.api.internal.http.HttpMethod;
 import com.smartsheet.api.internal.http.HttpRequest;
+import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.*;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.EnumSet;
@@ -93,6 +93,27 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     private SheetUpdateRequestResources updateRequests;
 
     /**
+     * Represents the SheetFilterResources.
+     *
+     * It will be initialized in constructor and will not change afterwards
+     */
+    private SheetFilterResources filters;
+
+    /**
+     * Represents the AutomationRules.
+     *
+     * It will be initialized in the constructor and will not change afterwards
+     */
+    private SheetAutomationRuleResources automationRules;
+
+    /**
+     * Represents the CrossSheetReferences
+     *
+     * It will be initialized in the constructor and will not change afterwards
+     */
+    private SheetCrossSheetReferenceResources crossSheetReferences;
+
+    /**
      * Constructor.
      *
      * Exceptions: - IllegalArgumentException : if any argument is null
@@ -108,12 +129,15 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
         this.discussions = new SheetDiscussionResourcesImpl(smartsheet);
         this.comments = new SheetCommentResourcesImpl(smartsheet);
         this.updateRequests = new SheetUpdateRequestResourcesImpl(smartsheet);
+        this.filters = new SheetFilterResourcesImpl(smartsheet);
+        this.automationRules = new SheetAutomationRuleResourcesImpl(smartsheet);
+        this.crossSheetReferences = new SheetCrossSheetReferenceResourcesImpl(smartsheet);
     }
 
     /**
-     * <p>List all sheets.</p>
+     * List all sheets.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /sheets</p>
+     * It mirrors to the following Smartsheet REST API method: GET /sheets
      *
      * @param includes the source inclusion
      * @param pagination the object containing the pagination parameters
@@ -199,6 +223,38 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws SmartsheetException the smartsheet exception
      */
     public Sheet getSheet(long id, EnumSet<SheetInclusion> includes, EnumSet<ObjectExclusion> excludes, Set<Long> rowIds, Set<Integer> rowNumbers, Set<Long> columnIds, Integer pageSize, Integer page) throws SmartsheetException {
+        return this.getSheet(id, includes, excludes, rowIds, rowNumbers, columnIds, pageSize, page, null);
+    }
+
+    /**
+     * Get a sheet.
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /sheet/{id}
+     *
+     * Exceptions:
+     *   - InvalidRequestException : if there is any problem with the REST API request
+     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   - ResourceNotFoundException : if the resource can not be found
+     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   - SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param id the id
+     * @param includes used to specify the optional objects to include, currently DISCUSSIONS and
+     * ATTACHMENTS are supported.
+     * @param columnIds the column ids
+     * @param excludes the exclude parameters
+     * @param page the page number
+     * @param pageSize the page size
+     * @param rowIds the row ids
+     * @param rowNumbers the row numbers
+     * @param ifVersionAfter only fetch Sheet if more recent version available
+     * @return the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
+     * rather than returning null).
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Sheet getSheet(long id, EnumSet<SheetInclusion> includes, EnumSet<ObjectExclusion> excludes, Set<Long> rowIds, Set<Integer> rowNumbers,
+                          Set<Long> columnIds, Integer pageSize, Integer page, Integer ifVersionAfter) throws SmartsheetException {
         String path = "sheets/" + id;
 
         // Add the parameters to a map and build the query string at the end
@@ -211,6 +267,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
         parameters.put("columnIds", QueryUtil.generateCommaSeparatedList(columnIds));
         parameters.put("pageSize", pageSize);
         parameters.put("page", page);
+        parameters.put("ifVersionAfter", ifVersionAfter);
 
         // Iterate through the map of parameters and generate the query string
         path += QueryUtil.generateUrl(null, parameters);
@@ -508,10 +565,9 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     }
 
     /**
-     * <p>Get a sheet as an Excel file.</p>
+     * Get a sheet as an Excel file.
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>GET /sheet/{id} with "application/vnd.ms-excel" Accept HTTP header</p>
+     * It mirrors to the following Smartsheet REST API method: GET /sheet/{id} with "application/vnd.ms-excel" Accept HTTP header
      *
      * @param id the id of the sheet
      * @param outputStream the output stream to which the Excel file will be written.
@@ -573,8 +629,8 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     }
 
     /**
-     * <p>Return the SheetCommentResources object that provides access to discussion resources associated with
-     * Sheet resources.</p>
+     * Return the SheetCommentResources object that provides access to discussion resources associated with
+     * Sheet resources.
      *
      * @return the associated comment resources
      */
@@ -583,14 +639,38 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     }
 
     /**
-     * <p>Return the SheetUpdateRequestResources object that provides access to update request resources
-     * associated with Sheet resources.</p>
+     * Return the SheetUpdateRequestResources object that provides access to update request resources
+     * associated with Sheet resources.
      *
      * @return the associated update request resources
      */
     public SheetUpdateRequestResources updateRequestResources() {
         return this.updateRequests;
     }
+
+    /**
+     * Return the SheetFilterResources object that provides access to sheet filter resources
+     * associated with Sheet resources.
+     *
+     * @return the associated sheet filter resources
+     */
+    public SheetFilterResources filterResources() { return this.filters; }
+
+    /**
+     * Return the SheetAutomationRuleResources object that provides access to automation rule resources
+     * associated with the Sheet resources.
+     *
+     * @return the associated automation rule resources
+     */
+    public SheetAutomationRuleResources automationRuleResources() { return automationRules; }
+
+    /**
+     * Return the SheetCrossSheetReferenceResources object that provides access to the cross sheet reference resources
+     * associated with the Sheet resources.
+     *
+     * @return the cross sheet reference resources
+     */
+    public SheetCrossSheetReferenceResources crossSheetReferenceResources() { return crossSheetReferences; }
 
     /**
      * Get the status of the Publish settings of the sheet, including the URLs of any enabled publishings.
@@ -709,11 +789,37 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws SmartsheetException the smartsheet exception
      */
     public Sheet copySheet(long sheetId, ContainerDestination containerDestination, EnumSet<SheetCopyInclusion> includes) throws SmartsheetException {
+        return copySheet(sheetId, containerDestination, includes, null);
+    }
+
+    /**
+     * Creates a copy of the specified sheet.
+     *
+     * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/copy
+     *
+     * Exceptions:
+     *   IllegalArgumentException : if folder is null
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param sheetId the sheet id
+     * @param containerDestination describes the destination container
+     * @param includes optional parameters to include
+     * @param excludes optional parameters to exclude
+     * @return the sheet
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Sheet copySheet(long sheetId, ContainerDestination containerDestination, EnumSet<SheetCopyInclusion> includes,
+                           EnumSet<CopyExclusion> excludes) throws SmartsheetException {
 
         String path = "sheets/" + sheetId + "/copy";
         HashMap<String, Object> parameters = new HashMap<String, Object>();
 
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+        parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
 
         path += QueryUtil.generateUrl(null, parameters);
 
@@ -765,15 +871,63 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     public UpdateRequest createUpdateRequest(long sheetId, MultiRowEmail email) throws SmartsheetException {
         return this.createResource("sheets/" + sheetId + "/updaterequests", UpdateRequest.class, email);
     }
-    /*
-     * Copy an input stream to an output stream.
+
+    /**
+     * Sort a sheet according to the sort criteria.
      *
-     * @param input The input stream to copy.
+     * It mirrors to the following Smartsheet REST API method: POST /sheet/{sheetId}/sort
      *
-     * @param output the output stream to write to.
+     * Exceptions:
+     *   - IllegalArgumentException : if any argument is null
+     *   - InvalidRequestException : if there is any problem with the REST API request
+     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   - SmartsheetException : if there is any other error occurred during the operation
      *
-     * @throws IOException if there is trouble reading or writing to the streams.
+     * @param sheetId the sheet id
+     * @param sortSpecifier the sort criteria
+     * @return the update request object
+     * @throws SmartsheetException the smartsheet exception
      */
+    public Sheet sortSheet(long sheetId, SortSpecifier sortSpecifier) throws SmartsheetException {
+        Util.throwIfNull(sortSpecifier);
+
+        String path = "sheets/" + sheetId + "/sort";
+
+        HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
+
+        ByteArrayOutputStream objectBytesStream = new ByteArrayOutputStream();
+        this.smartsheet.getJsonSerializer().serialize(sortSpecifier, objectBytesStream);
+
+        HttpEntity entity = new HttpEntity();
+        entity.setContentType("application/json");
+        entity.setContent(new ByteArrayInputStream(objectBytesStream.toByteArray()));
+        entity.setContentLength(objectBytesStream.size());
+        request.setEntity(entity);
+
+        Sheet obj = null;
+        try {
+            HttpResponse response = this.smartsheet.getHttpClient().request(request);
+            switch (response.getStatusCode()) {
+                case 200: {
+                    InputStream inputStream = response.getEntity().getContent();
+                    try {
+                        obj = this.smartsheet.getJsonSerializer().deserialize(Sheet.class, inputStream);
+                    } catch (IOException e) {
+                        throw new SmartsheetException(e);
+                    }
+                    break;
+                }
+                default:
+                    handleError(response);
+            }
+        } finally {
+            smartsheet.getHttpClient().releaseConnection();
+        }
+        return obj;
+    }
+
     /**
      * Copy stream.
      *
@@ -788,4 +942,5 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
             output.write(buffer, 0, len);
         }
     }
+
 }

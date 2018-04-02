@@ -36,6 +36,8 @@ public class Discussion extends IdentifiableModel<Long> {
 
     /** Represents the comments for the discussion. */
     private List<Comment> comments;
+
+    /** Represents the comment for the discussion (outbound only - singular "comment") */
     private Comment comment;
 
     /** Represents the comment attachments. */
@@ -50,6 +52,7 @@ public class Discussion extends IdentifiableModel<Long> {
     /** Represents the last user that left a comment in the discussion. */
     private User lastCommentedUser;
 
+    /** Users permission on the Discussion */
     private String accessLevel;
 
     /** Represents ID of the directly associated row or sheet. */
@@ -63,6 +66,14 @@ public class Discussion extends IdentifiableModel<Long> {
 
     /** Represents the status of the Discussion. */
     private Boolean readOnly;
+
+    /**
+     * Constructors
+     */
+    public Discussion() { }
+    public Discussion(String commentText) {
+        comment.setText(commentText);
+    }
 
     /**
      * Gets the read only status
@@ -131,15 +142,6 @@ public class Discussion extends IdentifiableModel<Long> {
     }
 
     /**
-     * Gets the comment for the discussion.
-     *
-     * @return the comment
-     */
-    public Comment getComment() {
-        return comment;
-    }
-
-    /**
      * Sets the comments for the discussion.
      *
      * @param comments the new comments
@@ -150,16 +152,20 @@ public class Discussion extends IdentifiableModel<Long> {
     }
 
     /**
-     * Sets the comments for the discussion.
+     * Gets the comment for the discussion.
+     *
+     * @return the comment
+     */
+    public Comment getComment() {
+        return comment;
+    }
+
+    /**
+     * Sets the comment for the discussion (outbound only, i.e. POST - will otherwise be null).
      *
      * @param comment the new comment
      */
     public Discussion setComment(Comment comment) {
-        // To keep the comments variable in sync
-        List<Comment> comments = new ArrayList<Comment>();
-        comments.add(comment);
-        this.comments = comments;
-
         this.comment = comment;
         return this;
     }

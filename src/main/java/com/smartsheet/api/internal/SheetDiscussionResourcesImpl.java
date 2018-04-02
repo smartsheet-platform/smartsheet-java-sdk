@@ -54,10 +54,9 @@ public class SheetDiscussionResourcesImpl extends  AbstractResources implements 
     }
 
     /**
-     * <p>Create a discussion on a sheet.</p>
+     * Create a discussion on a sheet.
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>POST /sheets/{sheetId}/discussions</p>
+     * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/discussions
      *
      * @param sheetId the sheet id
      * @param discussion the discussion object
@@ -76,10 +75,9 @@ public class SheetDiscussionResourcesImpl extends  AbstractResources implements 
     }
 
     /**
-     * <p>Create a discussion with attachments on a sheet.</p>
+     * Create a discussion with attachments on a sheet.
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>POST /sheets/{sheetId}/discussions</p>
+     * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/discussions
      *
      * @param sheetId the sheet id
      * @param discussion the discussion object
@@ -186,7 +184,7 @@ public class SheetDiscussionResourcesImpl extends  AbstractResources implements 
     }
 
     /**
-     * <p>Creates an object of DiscussionCommentResources for access to discussion comments through SheetDiscussionResources.</p>
+     * Creates an object of DiscussionCommentResources for access to discussion comments through SheetDiscussionResources.
      *
      * @return the created DiscussionCommentResources object
      * @throws SmartsheetException if there is any other error during the operation
@@ -196,7 +194,7 @@ public class SheetDiscussionResourcesImpl extends  AbstractResources implements 
     }
 
     /**
-     * <p>Creates an object of DiscussionAttachmentResources for access to discussion attachments through SheetDiscussionResources.</p>
+     * Creates an object of DiscussionAttachmentResources for access to discussion attachments through SheetDiscussionResources.
      *
      * @return the created DiscussionAttachmentResources object
      * @throws SmartsheetException if there is any other error during the operation

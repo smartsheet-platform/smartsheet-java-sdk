@@ -20,6 +20,8 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class CellLink {
 
     /** One of the following values:
@@ -40,6 +42,9 @@ public class CellLink {
 
     /** The Sheet name of the linked cell. */
     private String sheetName;
+
+    /** If true, update will serialize a null to reset the linkInFromCell */
+    private boolean isNull = true;
 
     /**
      * Gets the status.
@@ -71,6 +76,7 @@ public class CellLink {
      * @param sheetId the sheetId
      */
     public CellLink setSheetId(Long sheetId) {
+        this.isNull = false;
         this.sheetId = sheetId;
         return this;
     }
@@ -88,6 +94,7 @@ public class CellLink {
      * @param rowId the row Id
      */
     public CellLink setRowId(Long rowId) {
+        this.isNull = false;
         this.rowId = rowId;
         return this;
     }
@@ -105,6 +112,7 @@ public class CellLink {
      * @param columnId the column ID
      */
     public CellLink setColumnId(Long columnId) {
+        this.isNull = false;
         this.columnId = columnId;
         return this;
     }
@@ -124,5 +132,15 @@ public class CellLink {
     public CellLink setSheetName(String sheetName) {
         this.sheetName = sheetName;
         return this;
+    }
+
+    /**
+     * Get the value of the isNull flag
+     *
+     * @return value of isNull flag
+     */
+    @JsonIgnore
+    public boolean isNull() {
+        return this.isNull;
     }
 }

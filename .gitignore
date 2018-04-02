@@ -6,3 +6,4 @@ src/integration-test/resources/config.properties
 .vscode/
 bin/
 /**/.DS_Store
+*.log

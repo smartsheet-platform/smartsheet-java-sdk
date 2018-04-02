@@ -28,7 +28,7 @@ public class WidgetContent {
      */
     private Link hyperlink;
     private List<CellDataItem> cellData;
-    private List<Column> column;
+    private List<Column> columns;
 
     /**
      * Represents the RichTextWidgetContent object.
@@ -53,6 +53,11 @@ public class WidgetContent {
     private Integer width;
     private String fileName;
     private String format;
+
+    /**
+     * Represents the TitleWidgetContent object
+     */
+    private String backgroundColor;
 
     /**
      * Get "when clicked" hyperlink
@@ -97,17 +102,17 @@ public class WidgetContent {
      *
      * @return column
      */
-    public List<Column> getColumn() {
-        return column;
+    public List<Column> getColumns() {
+        return columns;
     }
 
     /**
      * Set array of column objects
      *
-     * @param column
+     * @param columns
      */
-    public WidgetContent setColumn(List<Column> column) {
-        this.column = column;
+    public WidgetContent setColumns(List<Column> columns) {
+        this.columns = columns;
         return this;
     }
 
@@ -260,6 +265,23 @@ public class WidgetContent {
      */
     public WidgetContent setFormat(String format) {
         this.format = format;
+        return this;
+    }
+
+    /**
+     * Get the background color for a title
+     *
+     * @return the background color
+     */
+    public String getBackgroundColor() { return backgroundColor; }
+
+    /**
+     * Set the background color for a title
+     *
+     * @param backgroundColor the background color
+     */
+    public WidgetContent setBackgroundColor(String backgroundColor) {
+        this.backgroundColor = backgroundColor;
         return this;
     }
 }

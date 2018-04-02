@@ -32,7 +32,7 @@ public interface WebhookResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /webhooks</p>
      *
-      * @param paging the object containing the pagination parameters
+     * @param paging the object containing the pagination parameters
      * @return IndexResult object containing an array of Webhook objects.
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
@@ -48,7 +48,7 @@ public interface WebhookResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /webhooks/{webhookId}</p>
      *
-      * @param webhookId the Id of the webhook
+     * @param webhookId the Id of the webhook
      * @return the webhook resource.
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
@@ -64,7 +64,7 @@ public interface WebhookResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /webhooks</p>
      *
-      * @param webhook the webhook to be created
+     * @param webhook the webhook to be created
      * @return the webhook resource.
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
@@ -80,7 +80,7 @@ public interface WebhookResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: PUT /webhooks/{webhookId}</p>
      *
-      * @param webhook the webhook to update
+     * @param webhook the webhook to update
      * @return the updated webhook resource.
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
@@ -96,7 +96,7 @@ public interface WebhookResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: DELETE /webhooks/{webhookId}</p>
      *
-      * @param webhookId the webhook Id
+     * @param webhookId the webhook Id
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
      * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
@@ -112,8 +112,8 @@ public interface WebhookResources {
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /webhooks/{webhookId}/resetsharedsecret</p>
      *
-      * @param webhookId the webhook Id
-      * @return the Webhook shared secret
+     * @param webhookId the webhook Id
+     * @return the Webhook shared secret
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
      * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)

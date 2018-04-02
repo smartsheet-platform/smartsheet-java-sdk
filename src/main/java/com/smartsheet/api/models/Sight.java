@@ -68,6 +68,21 @@ public class Sight extends NamedModel<Long> {
     private Workspace workspace;
 
     /**
+     * The background color of the Sight
+     */
+    private String backgroundColor;
+
+    /**
+     * Provide an 'override' of setName (returns Sight not NamedModel)
+     *
+     * @param name the new name
+     */
+    public Sight setName(String name){
+        super.setName(name);
+        return this;
+    }
+
+    /**
      * Get the number of columns that the Sight contains
      *
      * @return columnCount
@@ -218,4 +233,22 @@ public class Sight extends NamedModel<Long> {
         this.workspace = workspace;
         return this;
     }
+
+    /**
+     * Get the background color of the Sight
+     *
+     * @return the background color
+     */
+    public String getBackgroundColor() { return backgroundColor; }
+
+    /**
+     * Set the background color of the Sight
+     *
+     * @param backgroundColor the background color
+     */
+    public Sight setBackgroundColor(String backgroundColor) {
+        this.backgroundColor = backgroundColor;
+        return this;
+    }
 }
+

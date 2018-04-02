@@ -4,7 +4,7 @@ package com.smartsheet.api.models;
  * #[license]
  * Smartsheet SDK for Java
  * %%
- * Copyright (C) 2014 Smartsheet
+ * Copyright (C) 2018 Smartsheet
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +20,17 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import com.smartsheet.api.models.enums.CriteriaTarget;
 import com.smartsheet.api.models.enums.Operator;
 
+import java.util.List;
+
 public class Criteria {
+
+    /**
+     * column ID
+     */
+    private Long columnId;
 
     /**
      * Represents the operator type
@@ -30,19 +38,37 @@ public class Criteria {
     private Operator operator;
 
     /**
-     * Represents the value1
-     * Can be a string or number
+     * The target for the filter query (currently only ROW for row filters)
      */
-    private Object value1;
+    private CriteriaTarget target;
 
     /**
-     * Represents teh value2
-     * Can be a string or number
+     * Present if a custom filter criteria's operator has one or more arguments
      */
-    private Object value2;
+    private List<Object> values;
+
+    /**
+     * Gets the column ID
+     *
+     * @return the column ID
+     */
+    public Long getColumnId() {
+        return columnId;
+    }
+
+    /**
+     * Sets the operator
+     *
+     * @param columnId the column ID
+     */
+    public Criteria setColumnId(Long columnId) {
+        this.columnId = columnId;
+        return this;
+    }
 
     /**
      * Gets the operator
+     *
      * @return the operator
      */
     public Operator getOperator() {
@@ -51,6 +77,7 @@ public class Criteria {
 
     /**
      * Sets the operator
+     *
      * @param operator the operator
      */
     public Criteria setOperator(Operator operator) {
@@ -59,36 +86,41 @@ public class Criteria {
     }
 
     /**
-     * Gets the value1
-     * @return the value1
+     * Gets the criteria target
+     *
+     * @return the criteria target
      */
-    public Object getValue1() {
-        return value1;
+    public CriteriaTarget getTarget() {
+        return target;
     }
 
     /**
-     * Sets the value1
-     * @param value1 the value1
+     * Sets the criteria target
+     *
+     * @param target the criteria target
      */
-    public Criteria setValue1(Object value1) {
-        this.value1 = value1;
+    public Criteria setTarget(CriteriaTarget target) {
+        this.target = target;
         return this;
     }
 
     /**
-     * Gets the value2
-     * @return the value2
+     * Gets the values if this criteria's operator has arguments
+     *
+     * @return the values array
      */
-    public Object getValue2() {
-        return value2;
+    public List<Object> getValues() {
+        return values;
     }
 
     /**
-     * Sets the value2
-     * @param value2 the value2
+     * Sets the values if this criteria's operator has arguments
+     *
+     * @param values the criteria target
      */
-    public Criteria setValue2(Object value2) {
-        this.value2 = value2;
+    public Criteria setValues(List<Object> values) {
+        this.values = values;
         return this;
     }
+
 }

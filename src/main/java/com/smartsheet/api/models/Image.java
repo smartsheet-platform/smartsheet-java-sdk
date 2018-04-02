@@ -61,6 +61,23 @@ public class Image {
     }
 
     /**
+     * gets the image ID
+     *
+     * @return the id
+     */
+    public String getImageId() { return id; }
+
+    /**
+     * sets the image ID
+     *
+     * @param id the id
+     */
+    public Image setImageId(String id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
      * gets the width (in pixels) of the uploaded image
      */
     public Long getWidth() {

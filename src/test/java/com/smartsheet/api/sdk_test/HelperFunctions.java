@@ -27,10 +27,11 @@ import org.junit.Assert;
 
 public class HelperFunctions {
 	public static Smartsheet SetupClient(String apiScenario){
+		TestHttpClient testHttpClient = new TestHttpClient(apiScenario);
 		Smartsheet ss = new SmartsheetBuilder()
 			.setBaseURI("http://localhost:8082/")
 			.setAccessToken("aaaaaaaaaaaaaaaaaaaaaaaaaa")
-			.setAPIScenario(apiScenario)
+			.setHttpClient(testHttpClient)
 			.build();
 
 		return ss;

@@ -33,8 +33,7 @@ public interface DiscussionResources {
     /**
      * <p>Add a comment to a discussion.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>POST /discussion/{discussionId}/comments</p>
+     * <p>It mirrors to the following Smartsheet REST API method: POST /discussion/{discussionId}/comments</p>
      *
      * @param id the discussion id
      * @param comment the comment to add

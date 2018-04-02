@@ -38,13 +38,12 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
     }
 
     /**
-     * <p>Attach a URL to a sheet.</p>
+     * Attach a URL to a sheet.
      *
-     * <p>The URL can be a normal URL (attachmentType "URL"), a Google Drive URL (attachmentType "GOOGLE_DRIVE") or a
-     * Box.com URL (attachmentType "BOX_COM").</p>
+     * The URL can be a normal URL (attachmentType "URL"), a Google Drive URL (attachmentType "GOOGLE_DRIVE") or a
+     * Box.com URL (attachmentType "BOX_COM").
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>POST /sheets/{sheetId}/attachments
+     * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/attachments
      *
      * @param sheetId the sheet id
      * @param attachment the attachment object
@@ -136,10 +135,9 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
     }
 
     /**
-     * <p>Attach a file to a sheet with simple upload.</p>
+     * Attach a file to a sheet with simple upload.
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>POST /sheets/{sheetId}/attachments</p>
+     * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/attachments
      *
      * @param sheetId the id of the sheet
      * @param file the file to attach
@@ -162,7 +160,7 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
     }
 
     /**
-     * <p>Attach file for simple upload.</p>
+     * Attach file for simple upload.
      *
      * @param sheetId the sheet id
      * @param inputStream attachment data inputStream
@@ -179,7 +177,7 @@ public class SheetAttachmentResourcesImpl extends AbstractResources implements S
     }
 
     /**
-     * <p>Creates an object of AttachmentVersioningResources for access to versioning through SheetAttachmentResources.</p>
+     * Creates an object of AttachmentVersioningResources for access to versioning through SheetAttachmentResources.
      *
      * @return the created attachment
      * @throws SmartsheetException if there is any other error during the operation

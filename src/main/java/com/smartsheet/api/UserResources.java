@@ -24,6 +24,7 @@ package com.smartsheet.api;
 
 import com.smartsheet.api.models.*;
 
+import java.io.FileNotFoundException;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -198,12 +199,12 @@ public interface UserResources {
     public PagedResult<Sheet> listOrgSheets(PaginationParameters pagination) throws SmartsheetException;
 
     /**
-     * @param userId the userID
-     * @param pagination the pagination parameters
      * <p>List all user alternate email(s).</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /users/{userId}/alternateemails</p>
      *
+     * @param userId the userID
+     * @param pagination the pagination parameters
      * @return the list of all user alternate email(s)
      * @throws IllegalArgumentException if any argument is null or empty string
      * @throws InvalidRequestException if there is any problem with the REST API request
@@ -265,7 +266,7 @@ public interface UserResources {
     public void deleteAlternateEmail(long userId, long altEmailId) throws SmartsheetException;
 
     /**
-     * Promote and alternate email to primary.
+     * <p>Promote and alternate email to primary.</p>
      *
      * @param userId id of the user
      * @param altEmailId alternate email id
@@ -278,4 +279,20 @@ public interface UserResources {
      * @throws SmartsheetException f there is any other error during the operation
      */
     public AlternateEmail promoteAlternateEmail(long userId, long altEmailId) throws SmartsheetException;
+
+    /**
+     * <p>Uploads a profile image for the specified user.</p>
+     *
+     * @param userId id of the user
+     * @param file path to the image file
+     * @param fileType content type of the image file
+     * @return user
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException f there is any other error during the operation
+     */
+    public User addProfileImage(long userId, String file, String fileType) throws SmartsheetException, FileNotFoundException;
 }

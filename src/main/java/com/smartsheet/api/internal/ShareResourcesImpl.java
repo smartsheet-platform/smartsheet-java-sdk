@@ -53,10 +53,10 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
      * List shares of a given object.
      *
      * It mirrors to the following Smartsheet REST API method:
-     *         GET /workspace/{id}/shares
-     *         GET /sheet/{id}/shares
-     *         GET /sights/{id}/shares
-     *         GET /reports/{id}/shares
+     *     GET /workspace/{id}/shares
+     *     GET /sheet/{id}/shares
+     *     GET /sights/{id}/shares
+     *     GET /reports/{id}/shares
      *
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -95,10 +95,10 @@ public class ShareResourcesImpl extends AbstractAssociatedResources implements S
      * Get a Share.
      *
      * It mirrors to the following Smartsheet REST API method:
-     *         GET /workspaces/{workspaceId}/shares/{shareId}
-     *         GET /sheets/{sheetId}/shares/{shareId}
-     *         GET /sights/{sightId}/shares
-     *         GET /reports/{reportId}/shares
+     *     GET /workspaces/{workspaceId}/shares/{shareId}
+     *     GET /sheets/{sheetId}/shares/{shareId}
+     *     GET /sights/{sightId}/shares
+     *     GET /reports/{reportId}/shares
      *
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request

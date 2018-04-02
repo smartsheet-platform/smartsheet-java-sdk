@@ -49,9 +49,9 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
     }
     
     /**
-     * <p>Gets a list of all Update Requests that have future schedules associated with the specified Sheet.</p>
+     * Gets a list of all Update Requests that have future schedules associated with the specified Sheet.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/updaterequests</p>
+     * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/updaterequests
      *
      * @param paging the object containing the pagination parameters
      * @return A list of all UpdateRequests (note that an empty list will be returned if there are none).
@@ -75,9 +75,9 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
     }
 
     /**
-     * <p>Gets the specified Update Request for the Sheet that has a future schedule.</p>
+     * Gets the specified Update Request for the Sheet that has a future schedule.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/updaterequests/{updateRequestId}</p>
+     * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/updaterequests/{updateRequestId}
      *
      * @param sheetId the Id of the sheet
      * @param updateRequestId the update request Id
@@ -94,10 +94,10 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
     }
 
     /**
-     * <p>Creates an Update Request for the specified Row(s) within the Sheet. An email notification
-     * (containing a link to the update request) will be asynchronously sent to the specified recipient(s).</p>
+     * Creates an Update Request for the specified Row(s) within the Sheet. An email notification
+     * (containing a link to the update request) will be asynchronously sent to the specified recipient(s).
      *
-     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/updaterequests</p>
+     * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/updaterequests
      *
      * @param sheetId the Id of the sheet
      * @param updateRequest the update request object
@@ -114,9 +114,9 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
     }
 
     /**
-     * <p>Terminates the future scheduled delivery of the Update Request specified in the URL.</p>
+     * Terminates the future scheduled delivery of the Update Request specified in the URL.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/updaterequests/{updateRequestId}</p>
+     * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/updaterequests/{updateRequestId}
      *
      * @param sheetId the Id of the sheet
      * @param updateRequestId the update request Id
@@ -132,9 +132,9 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
     }
 
     /**
-     * <p>Changes the specified Update Request for the Sheet.</p>
+     * Changes the specified Update Request for the Sheet.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/updaterequests/{updateRequestId}</p>
+     * It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/updaterequests/{updateRequestId}
      *
      * @param sheetId the Id of the sheet
      * @param updateRequest the update request object
@@ -152,9 +152,9 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
     }
 
     /**
-     * <p>Gets a list of all Sent Update Requests that have future schedules associated with the specified Sheet.</p>
+     * Gets a list of all Sent Update Requests that have future schedules associated with the specified Sheet.
      *
-     * <p>It mirrors To the following Smartsheet REST API method: GET /sheets/{sheetId}/sentupdaterequests</p>
+     * It mirrors To the following Smartsheet REST API method: GET /sheets/{sheetId}/sentupdaterequests
      *
      * @param sheetId the Id of the sheet
      * @param paging the object containing the pagination parameters
@@ -179,9 +179,9 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
     }
 
     /**
-     * <p>Gets the specified sent update request on the Sheet.</p>
+     * Gets the specified sent update request on the Sheet.
      *
-     * <p>It mirrors To the following Smartsheet REST API method: GET /sheets/{sheetId}/sentupdaterequests/{updateRequestId}</p>
+     * It mirrors To the following Smartsheet REST API method: GET /sheets/{sheetId}/sentupdaterequests/{updateRequestId}
      *
      * @param sheetId the Id of the sheet
      * @param sentUpdateRequestId the sent update request Id
@@ -199,9 +199,9 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
     }
 
     /**
-     * <p>Deletes the specified sent update request.</p>
+     * Deletes the specified sent update request.
      *
-     * <p>It mirrors To the following Smartsheet REST API method: DELETE /sheets/{sheetId}/sentupdaterequests/{sentUpdateRequestId}</p>
+     * It mirrors To the following Smartsheet REST API method: DELETE /sheets/{sheetId}/sentupdaterequests/{sentUpdateRequestId}
      *
      * @param sheetId the Id of the sheet
      * @param sentUpdateRequestId the sent update request Id
@@ -215,5 +215,4 @@ public class SheetUpdateRequestResourcesImpl extends AbstractResources implement
     public void deleteSentUpdateRequest(long sheetId, long sentUpdateRequestId) throws SmartsheetException {
         this.deleteResource("sheets/" + sheetId + "/sentupdaterequests/" + sentUpdateRequestId, SentUpdateRequest.class);
     }
-
 }

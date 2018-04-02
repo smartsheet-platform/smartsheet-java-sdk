@@ -22,8 +22,6 @@ package com.smartsheet.api.internal;
 
 
 import com.smartsheet.api.*;
-import com.smartsheet.api.internal.http.DefaultShouldRetry;
-import com.smartsheet.api.retry.CalcBackoff;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.http.HttpClient;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
@@ -33,6 +31,7 @@ import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.Properties;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -42,6 +41,23 @@ import java.util.concurrent.atomic.AtomicReference;
  * ensure atomic modifications, and also the underlying HttpClient and JsonSerializer interfaces are thread safe.
  */
 public class SmartsheetImpl implements Smartsheet {
+
+    /**
+     * Represents the base URI of the Smartsheet REST API.
+     *
+     * It will be initialized in constructor and will not change afterwards.
+     */
+    private URI baseURI;
+
+    /**
+     * Represents the AtomicReference for access token.
+     *
+     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
+     * SmartsheetImpl in thread safe manner.
+     */
+    private final AtomicReference<String> accessToken;
+
     /**
      * Represents the HttpClient.
      *
@@ -57,17 +73,26 @@ public class SmartsheetImpl implements Smartsheet {
     private JsonSerializer jsonSerializer;
 
     /**
-     * Represents the base URI of the Smartsheet REST API.
+     * Represents the AtomicReference for assumed user email.
      *
-     * It will be initialized in constructor and will not change afterwards.
+     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * as null, and can be set via corresponding setter, therefore effectively the assumed user can be updated in the
+     * SmartsheetImpl in thread safe manner.
      */
-    private URI baseURI;
+    private final AtomicReference<String> assumedUser;
 
     /**
-     * Keep a reference to the defaultShouldRetry created by this implementation in order to pass along
-     * CalcBackoff references instantiated by the caller.
+     * Represents the AtomicReference for change agent
+     *
+     * It will be initialized in constructor and will not change afterwards.
+     *
      */
-    private DefaultShouldRetry defaultShouldRetry = null;
+    private final AtomicReference<String> changeAgent;
+
+    /**
+     * Represents the AtomicReference for the user agent
+     */
+    private final AtomicReference<String> userAgent;
 
     /**
      * Represents the AtomicReference to HomeResources.
@@ -160,46 +185,11 @@ public class SmartsheetImpl implements Smartsheet {
     private AtomicReference<ReportResources> reports;
 
     /**
-     * Represents the AtomicReference for assumed user email.
-     *
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-     * as null, and can be set via corresponding setter, therefore effectively the assumed user can be updated in the
-     * SmartsheetImpl in thread safe manner.
-     */
-    private final AtomicReference<String> assumedUser;
-
-    /**
-     * Represents the AtomicReference for access token.
-     *
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-     * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
-     * SmartsheetImpl in thread safe manner.
-     */
-    private final AtomicReference<String> accessToken;
-
-    /**
-     * Represents the AtomicReference for API scenario.
-     *
-     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-     * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
-     * SmartsheetImpl in thread safe manner.
-     */
-    private final AtomicReference<String> apiScenario;
-
-    /**
-     * Represents the AtomicReference for change agent
-     *
-     * It will be initialized in constructor and will not change afterwards.
-     *
-     */
-    private final AtomicReference<String> changeAgent;
-
-    /**
      * Represents the AtomicReference for ServerInfoResources.
      *
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-     * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
-     * SmartsheetImpl in thread safe manner.
+     * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
+     * effectively the underlying value is lazily created in a thread safe manner.
      */
     private final AtomicReference<ServerInfoResources> serverInfo;
 
@@ -207,8 +197,8 @@ public class SmartsheetImpl implements Smartsheet {
      * Represents the AtomicReference for FavoriteResources.
      *
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-     * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
-     * SmartsheetImpl in thread safe manner.
+     * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
+     * effectively the underlying value is lazily created in a thread safe manner.
      */
     private final AtomicReference<FavoriteResources> favorites;
 
@@ -216,8 +206,8 @@ public class SmartsheetImpl implements Smartsheet {
      * Represents the AtomicReference for TokenResources.
      *
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-     * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
-     * SmartsheetImpl in thread safe manner.
+     * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
+     * effectively the underlying value is lazily created in a thread safe manner.
      */
     private final AtomicReference<TokenResources> tokens;
 
@@ -225,8 +215,8 @@ public class SmartsheetImpl implements Smartsheet {
      * Represents the AtomicReference for ContactResources.
      *
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-     * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
-     * SmartsheetImpl in thread safe manner.
+     * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
+     * effectively the underlying value is lazily created in a thread safe manner.
      */
     private final AtomicReference<ContactResources> contacts;
 
@@ -234,8 +224,8 @@ public class SmartsheetImpl implements Smartsheet {
      * Represents the AtomicReference for ImageUrlResources.
      *
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-     * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
-     * SmartsheetImpl in thread safe manner.
+     * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
+     * effectively the underlying value is lazily created in a thread safe manner.
      */
     private final AtomicReference<ImageUrlResources> imageUrls;
 
@@ -243,10 +233,31 @@ public class SmartsheetImpl implements Smartsheet {
      * Represents the AtomicReference for WebhookResources.
      *
      * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
-     * as null, and can be set via corresponding setter, therefore effectively the access token can be updated in the
-     * SmartsheetImpl in thread safe manner.
+     * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
+     * effectively the underlying value is lazily created in a thread safe manner.
      */
     private final AtomicReference<WebhookResources> webhooks;
+
+    /**
+     * Represents the AtomicReference for PassthroughResources.
+     *
+     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
+     * effectively the underlying value is lazily created in a thread safe manner.
+     */
+    private final AtomicReference<PassthroughResources> passthrough;
+
+    /**
+     * Create an instance with given server URI, HttpClient (optional) and JsonSerializer (optional)
+     *
+     * Exceptions: - IllegalArgumentException : if serverURI/version/accessToken is null/empty
+     *
+     * @param baseURI the server uri
+     * @param accessToken the access token
+     */
+    public SmartsheetImpl(String baseURI, String accessToken) {
+        this(baseURI, accessToken, null, null);
+    }
 
     /**
      * Create an instance with given server URI, HttpClient (optional) and JsonSerializer (optional)
@@ -259,32 +270,19 @@ public class SmartsheetImpl implements Smartsheet {
      * @param jsonSerializer the json serializer (optional)
      */
     public SmartsheetImpl(String baseURI, String accessToken, HttpClient httpClient, JsonSerializer jsonSerializer) {
-        this(baseURI, accessToken, httpClient, jsonSerializer, null, null);
-    }
-
-    /**
-     * Create an instance with given server URI, HttpClient (optional) and JsonSerializer (optional)
-     *
-     * Exceptions: - IllegalArgumentException : if serverURI/version/accessToken is null/empty
-     *
-     * @param baseURI the server uri
-     * @param accessToken the access token
-     * @param httpClient the http client (optional)
-     * @param jsonSerializer the json serializer (optional)
-     */
-    public SmartsheetImpl(String baseURI, String accessToken, HttpClient httpClient, JsonSerializer jsonSerializer, String changeAgent, String apiScenario) {
         Util.throwIfNull(baseURI);
         Util.throwIfEmpty(baseURI);
 
         this.baseURI = URI.create(baseURI);
-        if(httpClient == null) {
-            this.defaultShouldRetry = new DefaultShouldRetry(jsonSerializer);
-            this.httpClient = new DefaultHttpClient(HttpClients.createDefault(), this.defaultShouldRetry);
-        }
-        else {
-            this.httpClient = httpClient;
-        }
-        this.jsonSerializer = jsonSerializer == null ? new JacksonJsonSerializer() : jsonSerializer;
+        this.accessToken = new AtomicReference<String>(accessToken);
+        this.jsonSerializer = ((jsonSerializer == null) ? new JacksonJsonSerializer() : jsonSerializer);
+        this.httpClient = ((httpClient == null) ?
+                new DefaultHttpClient(HttpClients.createDefault(), this.jsonSerializer) :  httpClient);
+        this.assumedUser = new AtomicReference<String>(null);
+        this.changeAgent = new AtomicReference<String>(null);
+        this.userAgent = new AtomicReference<String>(generateUserAgent(null));
+
+        // Initialize resources
         this.home = new AtomicReference<HomeResources>();
         this.workspaces = new AtomicReference<WorkspaceResources>();
         this.folders = new AtomicReference<FolderResources>();
@@ -295,16 +293,13 @@ public class SmartsheetImpl implements Smartsheet {
         this.users = new AtomicReference<UserResources>();
         this.groups = new AtomicReference<GroupResources>();
         this.search = new AtomicReference<SearchResources>();
-        this.assumedUser = new AtomicReference<String>();
-        this.accessToken = new AtomicReference<String>(accessToken);
-        this.apiScenario = new AtomicReference<String>(apiScenario);
-        this.changeAgent = new AtomicReference<String>(changeAgent);
         this.reports = new AtomicReference<ReportResources>();
         this.serverInfo = new AtomicReference<ServerInfoResources>();
         this.tokens = new AtomicReference<TokenResources>();
         this.contacts = new AtomicReference<ContactResources>();
         this.imageUrls = new AtomicReference<ImageUrlResources>();
         this.webhooks = new AtomicReference<WebhookResources>();
+        this.passthrough = new AtomicReference<PassthroughResources>();
     }
 
     /**
@@ -316,22 +311,16 @@ public class SmartsheetImpl implements Smartsheet {
         this.httpClient.close();
     }
 
-    /**
-     * Getter of corresponding field.
-     *
-     * @return corresponding field.
-     */
-    HttpClient getHttpClient() {
-        return httpClient;
+    /** set what request/response fields to log in trace-logging */
+    @Override
+    public void setTraces(Trace... traces) {
+        getHttpClient().setTraces(traces);
     }
 
-    /**
-     * Getter of corresponding field.
-     *
-     * @return corresponding field
-     */
-    JsonSerializer getJsonSerializer() {
-        return jsonSerializer;
+    /** set whether or not to generate "pretty formatted" JSON in trace-logging */
+    @Override
+    public void setTracePrettyPrint(boolean pretty) {
+        getHttpClient().setTracePrettyPrint(pretty);
     }
 
     /**
@@ -346,15 +335,6 @@ public class SmartsheetImpl implements Smartsheet {
     }
 
     /**
-     * Return the assumed user.
-     *
-     * @return the assumed user
-     */
-    String getAssumedUser() {
-        return assumedUser.get();
-    }
-
-    /**
      * Return the access token
      *
      * @return the access token
@@ -364,12 +344,53 @@ public class SmartsheetImpl implements Smartsheet {
     }
 
     /**
-     * Return the API scenario
+     * Set the access token to use.
      *
-     * @return the API scenario
+     * Parameters: - accessToken : the access token
+     *
+     * Returns: None
+     *
+     *
+     * @param accessToken the new access token
      */
-    String getAPIScenario() {
-        return apiScenario.get();
+    public void setAccessToken(String accessToken) {
+        this.accessToken.set(accessToken);
+    }
+
+    /**
+     * Getter of corresponding field.
+     *
+     * @return corresponding field
+     */
+    JsonSerializer getJsonSerializer() {
+        return jsonSerializer;
+    }
+
+    /**
+     * Getter of corresponding field.
+     *
+     * @return corresponding field.
+     */
+    HttpClient getHttpClient() {
+        return httpClient;
+    }
+
+    /**
+     * Return the assumed user.
+     *
+     * @return the assumed user
+     */
+    String getAssumedUser() {
+        return assumedUser.get();
+    }
+
+    /**
+     * Set the email of the user to assume. Null/empty string indicates no user is assumed.
+     *
+     * @param assumedUser the email of the user to assume
+     */
+    public void setAssumedUser(String assumedUser) {
+        this.assumedUser.set(assumedUser);
     }
 
     /**
@@ -379,6 +400,46 @@ public class SmartsheetImpl implements Smartsheet {
      */
     String getChangeAgent() {
         return changeAgent.get();
+    }
+
+    /**
+     * Sets the change agent identifier
+     *
+     * @param changeAgent
+     */
+    public void setChangeAgent(String changeAgent) {
+        this.changeAgent.set(changeAgent);
+    }
+
+    /**
+     * Return the user agent string
+     *
+     * @return the user agent string
+     */
+    public String getUserAgent() {
+        return userAgent.get();
+    }
+
+    /**
+     * Sets the user agent string
+     *
+     * @param userAgent the user agent string
+     */
+    public void setUserAgent(String userAgent) {
+        this.userAgent.set(generateUserAgent(userAgent));
+    }
+
+    /**
+     * Sets the max retry time if the HttpClient is an instance of DefaultHttpClient
+     *
+     * @param maxRetryTimeMillis max retry time
+     */
+    public void setMaxRetryTimeMillis(long maxRetryTimeMillis) {
+        if (this.httpClient instanceof DefaultHttpClient) {
+            ((DefaultHttpClient) this.httpClient).setMaxRetryTimeMillis(maxRetryTimeMillis);
+        }
+        else
+            throw new UnsupportedOperationException("Invalid operation for class " + this.httpClient.getClass());
     }
 
     /**
@@ -573,160 +634,46 @@ public class SmartsheetImpl implements Smartsheet {
     }
 
     /**
-     * Set the email of the user to assume. Null/empty string indicates no user is assumed.
+     * Returns the PassthroughResources instance that provides access to passthrough resources.
      *
-     * @param assumedUser the email of the user to assume
+     * @return the passthrough resources
      */
-    public void setAssumedUser(String assumedUser) {
-        this.assumedUser.set(assumedUser);
-    }
-
-    /**
-     * Set the access token to use.
-     *
-     * Parameters: - accessToken : the access token
-     *
-     * Returns: None
-     *
-     *
-     * @param accessToken the new access token
-     */
-    public void setAccessToken(String accessToken) { this.accessToken.set(accessToken); }
-
-    /**
-     * Set the API Scenario to use.
-     *
-     * Parameters: - apiScenario : the API Scenario
-     *
-     * Returns: None
-     *
-     *
-     * @param apiScenario the new API Scenario
-     */
-    public void setAPIScenario(String apiScenario) {
-        this.apiScenario.set(apiScenario);
-    }
-
-    public void setCalcBackoff(CalcBackoff calcBackoff) {
-        if(defaultShouldRetry != null) {
-            defaultShouldRetry.setCalcBackoff(calcBackoff);
+    public PassthroughResources passthroughResources() {
+        if (passthrough.get() == null) {
+            passthrough.compareAndSet(null, new PassthroughResourcesImpl(this));
         }
-    }
-
-    /** set what request/response fields to log in trace-logging */
-    @Override
-    public void setTraces(Trace... traces) {
-        getHttpClient().setTraces(traces);
-    }
-
-    /** set whether or not to generate "pretty formatted" JSON in trace-logging */
-    @Override
-    public void setTracePrettyPrint(boolean pretty) {
-        getHttpClient().setTracePrettyPrint(pretty);
-    }
-
-
-    /**
-     * @deprecated As of release 2.0, use sheetResources().columnResources()
-     */
-    @Deprecated
-    public ColumnResources columns() {
-        throw new UnsupportedOperationException();
+        return passthrough.get();
     }
 
     /**
-     * @deprecated As of release 2.0, use sheetResources().rowResources()
+     * Compose a User-Agent string that represents this version of the SDK (along with platform info)
+     *
+     * @return a User-Agent string
      */
-    @Deprecated
-    public void rows() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated As of release 2.0; example: use sheetResources().attachmentResources() for sheet-level attachments
-     */
-    @Deprecated
-    public AttachmentResources attachments() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated As of release 2.0; example: use sheetResources().discussionResources() for sheet-level discussions
-     */
-    @Deprecated
-    public void discussions() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated As of release 2.0; example: use sheetResources().discussionResources().commentResources() for discussion-level comments
-     */
-    @Deprecated
-    public CommentResources comments() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated As of release 2.0, replaced by {@link #userResources()}
-     */
-    @Deprecated
-    public void users() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated As of release 2.0, replaced by {@link #groupResources()}
-     */
-    @Deprecated
-    public void groups() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated As of release 2.0, replaced by {@link #searchResources()}
-     */
-    @Deprecated
-    public void search() {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated As of release 2.0, replaced by {@link #homeResources()}
-     */
-    @Deprecated
-    public void home(){
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated As of release 2.0, replaced by {@link #workspaceResources()}
-     */
-    @Deprecated
-    public void workspaces(){
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated As of release 2.0, replaced by {@link #folderResources()}
-     */
-    @Deprecated
-    public void folders(){
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated As of release 2.0, replaced by {@link #templateResources()}
-     */
-    @Deprecated
-    public void templates(){
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * @deprecated As of release 2.0, replaced by {@link #sheetResources()}
-     */
-    @Deprecated
-    public void sheets(){
-        throw new UnsupportedOperationException();
+    private String generateUserAgent(String userAgent) {
+        String title = null;
+        String thisVersion = null;
+        if(userAgent == null) {
+            StackTraceElement[] callers = Thread.currentThread().getStackTrace();
+            String callerClass = callers[callers.length - 1].getClassName();
+            if(callerClass.equals("java.lang.Thread"))
+                callerClass = callers[callers.length - 2].getClassName();
+            String module = null;
+            try {
+                Class<?> clazz = Class.forName(callerClass);
+                String path = clazz.getProtectionDomain().getCodeSource().getLocation().toString();
+                module = path.substring(path.lastIndexOf('/')+1);
+            } catch (ClassNotFoundException e) { }
+            userAgent = module + "!" + callerClass;
+        }
+        try {
+            final Properties properties = new Properties();
+            properties.load(this.getClass().getClassLoader().getResourceAsStream("sdk.properties"));
+            thisVersion = properties.getProperty("sdk.version");
+            title = properties.getProperty("sdk.name");
+        } catch (IOException e) { }
+        return title + "/" + thisVersion + "/" + userAgent + "/" + System.getProperty("os.name") + " "
+                + System.getProperty("java.vm.name") + " " + System.getProperty("java.vendor") + " "
+                + System.getProperty("java.version");
     }
 }

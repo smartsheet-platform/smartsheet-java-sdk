@@ -41,8 +41,7 @@ public interface RowAttachmentResources{
      * <p>The URL can be a normal URL (attachmentType "URL"), a Google Drive URL (attachmentType "GOOGLE_DRIVE") or a
      * Box.com URL (attachmentType "BOX_COM").</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>POST /sheets/{sheetId}/rows/{rowId}/attachments
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/attachments
      *
      * @param sheetId the sheet id
      * @param rowId the row id
@@ -58,12 +57,9 @@ public interface RowAttachmentResources{
     public Attachment attachUrl(long sheetId, long rowId, Attachment attachment) throws SmartsheetException;
 
     /**
-     * Get row attachment.
+     * <p>Get row attachment.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/rows/{rowId}/attachments
-     *
-     * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-     * rather than returning null).
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/rows/{rowId}/attachments</p>
      *
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -85,8 +81,7 @@ public interface RowAttachmentResources{
     /**
      * <p>Attach a file to a row with simple upload.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>POST /sheets/{sheetId}/rows/{rowId}/attachments</p>
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/attachments</p>
      *
      * @param sheetId the id of the sheet
      * @param rowId the id of the comment

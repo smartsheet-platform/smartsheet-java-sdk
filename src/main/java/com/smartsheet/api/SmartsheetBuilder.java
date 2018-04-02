@@ -23,12 +23,8 @@ package com.smartsheet.api;
 
 
 import com.smartsheet.api.internal.SmartsheetImpl;
-import com.smartsheet.api.internal.http.DefaultHttpClient;
-import com.smartsheet.api.internal.http.DefaultCalcBackoff;
 import com.smartsheet.api.internal.http.HttpClient;
-import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
-import com.smartsheet.api.retry.CalcBackoff;
 
 /**
  * <p>A convenience class to help create a {@link Smartsheet} instance with the appropriate fields.</p>
@@ -66,11 +62,11 @@ public class SmartsheetBuilder {
     private String accessToken;
 
     /**
-     * <p>Represents the API scenario.</p>
+     * <p>Represents the maximum retry time allowed for failed API calls.</p>
      *
      * <p>It can be set using corresponding setter.</p>
      */
-    private String apiScenario;
+    private Long maxRetryTimeMillis;
 
     /**
      * <p>Represents the assumed user.</p>
@@ -78,13 +74,6 @@ public class SmartsheetBuilder {
      * <p>It can be set using corresponding setter.</p>
      */
     private String assumedUser;
-
-    /**
-     * <p>User provided calc backoff routine.</p>
-     *
-     * <p>It can be set using corresponding setter.</p>
-     */
-    private CalcBackoff calcBackoff = null;
 
     /**
      * <p>Represents the change agent.</p>
@@ -96,7 +85,7 @@ public class SmartsheetBuilder {
     /**
      * <p>Represents the default base URI of the Smartsheet REST API.</p>
      *
-     * <p>It is a constant with value "https://api.smartsheet.com/1.1".</p>
+     * <p>It is a constant with value "https://api.smartsheet.com/2.0".</p>
      */
     public static final String DEFAULT_BASE_URI = "https://api.smartsheet.com/2.0/";
 
@@ -151,13 +140,15 @@ public class SmartsheetBuilder {
     }
 
     /**
-     * <p>Set the API scenario.</p>
+     * <p>Store a user provided userCalcBackoff.</p>
      *
-     * @param apiScenario the API scenario
+     * <p>This interface is only valid when the DefaultHttpClient is used.</p>
+     *
+     * @param maxRetryTimeMillis
      * @return the smartsheet builder
      */
-    public SmartsheetBuilder setAPIScenario(String apiScenario) {
-        this.apiScenario = apiScenario;
+    public SmartsheetBuilder setMaxRetryTimeMillis(long maxRetryTimeMillis) {
+        this.maxRetryTimeMillis = maxRetryTimeMillis;
         return this;
     }
 
@@ -169,32 +160,6 @@ public class SmartsheetBuilder {
      */
     public SmartsheetBuilder setAssumedUser(String assumedUser) {
         this.assumedUser = assumedUser;
-        return this;
-    }
-
-    /**
-     * <p>Store a user provided userCalcBackoff.</p>
-     *
-     * <p>This interface is only valid when the DefaultHttpClient is used.</p>
-     *
-     * @param maxRetryTimeMillis
-     * @return the smartsheet builder
-     */
-    public SmartsheetBuilder setMaxRetryTimeMillis(long maxRetryTimeMillis) {
-        this.calcBackoff = new DefaultCalcBackoff(maxRetryTimeMillis);
-        return this;
-    }
-
-    /**
-     * <p>Create a defaultCalcBackoff with a max elapsed timeout specified by the user.</p>
-     *
-     * <p>This interface is only valid when the DefaultHttpClient is used.</p>
-     *
-     * @param calcBackoff
-     * @return the smartsheet builder
-     */
-    public SmartsheetBuilder setUserCalcBackoff(CalcBackoff calcBackoff) {
-        this.calcBackoff = calcBackoff;
         return this;
     }
 
@@ -249,16 +214,6 @@ public class SmartsheetBuilder {
     }
 
     /**
-     * <p>Gets the API scenario.</p>
-     *
-     * @return the API scenario
-     */
-    public String getAPIScenario() {
-        return apiScenario;
-    }
-
-
-    /**
      * <p>Gets the assumed user.</p>
      *
      * @return the assumed user
@@ -276,9 +231,15 @@ public class SmartsheetBuilder {
         return DEFAULT_BASE_URI;
     }
 
+    /**
+     * <p>Gets the Smartsheet Change-Agent</p>
+     *
+     * @return the change agent
+     */
     public String getChangeAgent() {
         return changeAgent;
     }
+
     /**
      * <p>Build the Smartsheet instance.</p>
      *
@@ -294,13 +255,11 @@ public class SmartsheetBuilder {
             accessToken = System.getenv("SMARTSHEET_ACCESS_TOKEN");
         }
 
-        SmartsheetImpl smartsheet = new SmartsheetImpl(baseURI, accessToken, httpClient, jsonSerializer, changeAgent, apiScenario);
+        SmartsheetImpl smartsheet = new SmartsheetImpl(baseURI, accessToken, httpClient, jsonSerializer);
 
-        if(calcBackoff != null) {
-            smartsheet.setCalcBackoff(calcBackoff);
-        }
-
+        if (changeAgent != null) { smartsheet.setChangeAgent(changeAgent); }
         if (assumedUser != null) { smartsheet.setAssumedUser(assumedUser); }
+        if (maxRetryTimeMillis != null) { smartsheet.setMaxRetryTimeMillis(maxRetryTimeMillis); }
 
         return smartsheet;
     }

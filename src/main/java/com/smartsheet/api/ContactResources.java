@@ -29,8 +29,7 @@ public interface ContactResources {
     /**
      * <p>Gets the specified Contact.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>GET /contacts/{contactId}</p>
+     * <p>It mirrors to the following Smartsheet REST API method: GET /contacts/{contactId}</p>
      *
      * @param contactId the ID of the contact
      * @return the contact object
@@ -41,8 +40,7 @@ public interface ContactResources {
     /**
      * <p>Gets a list of the user’s Smartsheet Contacts.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>GET /contacts</p>
+     * <p>It mirrors to the following Smartsheet REST API method: GET /contacts</p>
      *
      * @param parameters the pagination parameters
      * @return the contacts as a paged list

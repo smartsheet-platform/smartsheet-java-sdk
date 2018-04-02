@@ -33,8 +33,7 @@ public interface SheetDiscussionResources {
     /**
      * <p>Create a discussion on a sheet.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>POST /sheets/{sheetId}/discussions</p>
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/discussions</p>
      *
      * @param sheetId the sheet id
      * @param discussion the discussion object
@@ -51,8 +50,7 @@ public interface SheetDiscussionResources {
     /**
      * <p>Create a discussion with attachments on a sheet.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>POST /sheets/{sheetId}/discussions</p>
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/discussions</p>
      *
      * @param sheetId the sheet id
      * @param discussion the discussion object
@@ -72,8 +70,7 @@ public interface SheetDiscussionResources {
     /**
      * <p>Get a discussion.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>GET /sheets/{sheetId}/discussions/{discussionId}</p>
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/discussions/{discussionId}</p>
      *
      * @param discussionId the discussion id
      * @param sheetId the sheet id
@@ -89,9 +86,9 @@ public interface SheetDiscussionResources {
     public Discussion getDiscussion(long sheetId, long discussionId) throws SmartsheetException;
 
     /**
-     * Delete discussion.
+     * <p>Delete discussion.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/discussions/{discussionId}
+     * <p>It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/discussions/{discussionId}</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if any argument is null
@@ -108,9 +105,9 @@ public interface SheetDiscussionResources {
     public void deleteDiscussion(long sheetId, long discussionId) throws SmartsheetException;
 
     /**
-     * Get all discussions
+     * <p>Get all discussions</p>
      *
-     * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/discussions/{discussionId}
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/discussions</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if any argument is null

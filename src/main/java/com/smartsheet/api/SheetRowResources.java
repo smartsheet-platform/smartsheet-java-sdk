@@ -73,9 +73,9 @@ public interface SheetRowResources {
     public PartialRowUpdateResult addRowsAllowPartialSuccess(long sheetId, List<Row> rows) throws SmartsheetException;
 
     /**
-     * Get a row.
+     * <p>Get a row.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/rows/{rowId}
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/rows/{rowId}</p>
      *
      * @param sheetId the id of the sheet
      * @param rowId the id of the row
@@ -93,13 +93,11 @@ public interface SheetRowResources {
     public Row getRow(long sheetId, long rowId, EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException;
 
     /**
-     * @deprecated as of API 2.0.2 release, replaced by {@link #deleteRows(long, Set, boolean)}
-     * Delete a row.
+     * <p>@deprecated as of API 2.0.2 release, replaced by {@link #deleteRows(long, Set, boolean)}</p>
      *
-     * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/rows/{rowId}
-     * Parameters: - id : the ID of the row
+     * <p>Delete a row.</p>
      *
-     * Returns: None
+     * <p>It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/rows/{rowId}</p>
      *
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -117,10 +115,11 @@ public interface SheetRowResources {
     public void deleteRow(long sheetId, long rowId) throws SmartsheetException;
 
     /**
-     * @deprecated as of API V2.0.2, replaced by {@link #sendRows(long, MultiRowEmail)}
-     * Send a row via email to the designated recipients.
+     * <p>@deprecated as of API V2.0.2, replaced by {@link #sendRows(long, MultiRowEmail)}</p>
      *
-     * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/emails
+     * <p>Send a row via email to the designated recipients.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/{rowId}/emails</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if any argument is null
@@ -139,9 +138,9 @@ public interface SheetRowResources {
     public void sendRow(long sheetId, long rowId, RowEmail email) throws SmartsheetException;
 
     /**
-     * Send a row via email to the designated recipients.
+     * <p>Send a row via email to the designated recipients.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/emails
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/emails</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if any argument is null
@@ -158,12 +157,9 @@ public interface SheetRowResources {
     public void sendRows(long sheetId, MultiRowEmail email) throws SmartsheetException;
 
     /**
-     * Deletes one or more row(s) from the Sheet specified in the URL.
+     * <p>Deletes one or more row(s) from the Sheet specified in the URL.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/rows/{rowId}
-     * Parameters: - id : the ID of the row
-     *
-     * Returns: None
+     * <p>It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/rows/{rowId}</p>
      *
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
@@ -182,9 +178,9 @@ public interface SheetRowResources {
     public List<Long> deleteRows(long sheetId, Set<Long> rowIds, boolean ignoreRowsNotFound) throws SmartsheetException;
 
     /**
-     * Update rows.
+     * <p>Update rows.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/rows
+     * <p>It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/rows</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if any argument is null
@@ -202,10 +198,10 @@ public interface SheetRowResources {
     public List<Row> updateRows(long sheetId, List<Row> rows) throws SmartsheetException;
 
     /**
-     * Update rows, but allow partial success. The PartialRowUpdateResult will contain the successful
-     * rows and those that failed, with specific messages for each.
+     * <p>Update rows, but allow partial success. The PartialRowUpdateResult will contain the successful
+     * rows and those that failed, with specific messages for each.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/rows
+     * <p>It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/rows</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if any argument is null
@@ -223,9 +219,9 @@ public interface SheetRowResources {
     public PartialRowUpdateResult updateRowsAllowPartialSuccess(long sheetId, List<Row> rows) throws SmartsheetException;
 
     /**
-     * Moves Row(s) from the Sheet specified in the URL to (the bottom of) another sheet.
+     * <p>Moves Row(s) from the Sheet specified in the URL to (the bottom of) another sheet.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/move
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/move</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if any argument is null, or path is empty string
@@ -245,9 +241,9 @@ public interface SheetRowResources {
     public CopyOrMoveRowResult moveRows(Long sheetId, EnumSet<RowMoveInclusion> includes, Boolean ignoreRowsNotFound, CopyOrMoveRowDirective moveParameters) throws SmartsheetException;
 
     /**
-     * Copies Row(s) from the Sheet specified in the URL to (the bottom of) another sheet.
+     * <p>Copies Row(s) from the Sheet specified in the URL to (the bottom of) another sheet.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/move
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows/move</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if any argument is null, or path is empty string

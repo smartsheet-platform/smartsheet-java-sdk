@@ -25,6 +25,7 @@ import com.smartsheet.api.models.ContainerDestination;
 import com.smartsheet.api.models.Folder;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.enums.CopyExclusion;
 import com.smartsheet.api.models.enums.FolderCopyInclusion;
 import com.smartsheet.api.models.enums.FolderRemapExclusion;
 import com.smartsheet.api.models.enums.SourceInclusion;
@@ -74,8 +75,7 @@ public interface FolderResources {
     /**
      * <p>Delete a folder.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>DELETE /folder{id}</p>
+     * <p>It mirrors to the following Smartsheet REST API method: DELETE /folder{id}</p>
      *
      * @param folderId the folder id
      * @throws IllegalArgumentException if any argument is null or empty string
@@ -107,8 +107,7 @@ public interface FolderResources {
     /**
      * <p>Create a folder.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>POST /folder/{id}/folders</p>
+     * <p>It mirrors to the following Smartsheet REST API method: POST /folder/{id}/folders</p>
      *
      * @param parentFolderId the parent folder id
      * @param folder the folder to create
@@ -123,9 +122,9 @@ public interface FolderResources {
     public Folder createFolder(long parentFolderId, Folder folder) throws SmartsheetException;
 
     /**
-     * Creates a copy of the specified Folder.
+     * <p>Creates a copy of the specified Folder.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/copy
+     * <p>It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/copy</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if folder is null
@@ -145,9 +144,33 @@ public interface FolderResources {
     public Folder copyFolder(long folderId, ContainerDestination containerDestination, EnumSet<FolderCopyInclusion> includes, EnumSet<FolderRemapExclusion> skipRemap) throws SmartsheetException;
 
     /**
-     * Moves the specified Folder to another location.
+     * <p>Creates a copy of the specified Folder.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/move
+     * <p>It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/copy</p>
+     *
+     * Exceptions:
+     *   IllegalArgumentException : if folder is null
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param folderId the folder id
+     * @param containerDestination describes the destination container
+     * @param includes optional parameters to include
+     * @param skipRemap optional parameters to NOT re-map in the new folder
+     * @param excludes optional parameters to exclude
+     * @return the folder
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Folder copyFolder(long folderId, ContainerDestination containerDestination, EnumSet<FolderCopyInclusion> includes,
+                             EnumSet<FolderRemapExclusion> skipRemap, EnumSet<CopyExclusion> excludes) throws SmartsheetException;
+
+    /**
+     * <p>Moves the specified Folder to another location.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/move</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if folder is null

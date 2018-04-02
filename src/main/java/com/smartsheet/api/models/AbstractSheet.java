@@ -123,6 +123,11 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
     private Boolean showParentRowsForFilters;
 
     /**
+     * List of sheet filters
+     */
+    private List<SheetFilter> filters;
+
+    /**
      * Represents the user settings.
      */
     private SheetUserSettings userSettings;
@@ -146,6 +151,21 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      * Represents projects settings for a dependency-enabled sheet
      */
     private ProjectSettings projectSettings;
+
+    /**
+     * Get a list of cross sheet references used by this sheet
+     */
+    private List<CrossSheetReference> crossSheetReferences;
+
+    /**
+     * Provide an 'override' of setName (returns AbstractSheet not NamedModel)
+     *
+     * @param name the new name
+     */
+    public AbstractSheet<TRow, TColumn, TCell> setName(String name){
+        super.setName(name);
+        return this;
+    }
 
     /**
      * Gets the owner email.
@@ -587,6 +607,23 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
     }
 
     /**
+     * Get the list of sheet filters for this sheet.
+     *
+     * @return the list of SheetFilters
+     */
+    public List<SheetFilter> getFilters() { return filters; }
+
+    /**
+     * Sets the list of sheet filters for this sheet.
+     *
+     * @param filters the list of SheetFilters
+     */
+    public AbstractSheet<TRow, TColumn, TCell> setFilters(List<SheetFilter> filters) {
+        this.filters = filters;
+        return this;
+    }
+
+    /**
      * Gets the sheet user settings.
      *
      * @return the user settings
@@ -643,4 +680,20 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
         return this;
     }
 
+    /**
+     * Gets the list of cross sheet references used by this sheet
+     *
+     * @return the cross sheet references
+     */
+    public List<CrossSheetReference> getCrossSheetReferences() { return crossSheetReferences; }
+
+    /**
+     * Sets the list of cross sheet references used by this sheet
+     *
+     * @param crossSheetReferences the cross sheet references
+     */
+    public AbstractSheet<TRow, TColumn, TCell> setCrossSheetReferences(List<CrossSheetReference> crossSheetReferences) {
+        this.crossSheetReferences = crossSheetReferences;
+        return this;
+    }
 }

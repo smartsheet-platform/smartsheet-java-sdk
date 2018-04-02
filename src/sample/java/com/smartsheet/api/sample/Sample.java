@@ -21,8 +21,8 @@ package com.smartsheet.api.sample;
  */
 
 import com.smartsheet.api.Smartsheet;
-import com.smartsheet.api.SmartsheetBuilder;
 import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.SmartsheetFactory;
 import com.smartsheet.api.models.Column;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.Row;
@@ -43,8 +43,8 @@ public class Sample {
     public static void main(String[] args) {
         try {
             // Create Smartsheet client
-            // Expects access token in environment variable "SMARTSHEET_ACCESS_TOKEN" - else set here
-            Smartsheet smartsheet = new SmartsheetBuilder().build();
+            // Set your access token in environment variable "SMARTSHEET_ACCESS_TOKEN", else update and uncomment here
+            Smartsheet smartsheet = SmartsheetFactory.createDefaultClient( /* "ll352u9jujauoqz4gstvsae05" */);
 
             // List all sheets
             PagedResult<Sheet> sheets = smartsheet.sheetResources().listSheets(null, null, null );

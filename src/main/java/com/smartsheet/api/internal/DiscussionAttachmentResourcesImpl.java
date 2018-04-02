@@ -47,9 +47,6 @@ public class DiscussionAttachmentResourcesImpl extends AbstractResources impleme
      *
      * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/discussions/{discussionId}/attachments
      *
-     * Returns: the resource (note that if there is no such resource, this method will throw ResourceNotFoundException
-     * rather than returning null).
-     *
      * Exceptions:
      *   InvalidRequestException : if there is any problem with the REST API request
      *   AuthorizationException : if there is any problem with the REST API authorization(access token)

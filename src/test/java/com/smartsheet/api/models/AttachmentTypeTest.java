@@ -40,9 +40,11 @@ public class AttachmentTypeTest {
         assertNotNull(AttachmentType.valueOf("LINK"));
         assertNotNull(AttachmentType.valueOf("BOX_COM"));
         assertNotNull(AttachmentType.valueOf("DROPBOX"));
+        assertNotNull(AttachmentType.valueOf("EVERNOTE"));
         assertNotNull(AttachmentType.valueOf("EGNYTE"));
         assertNotNull(AttachmentType.valueOf("ONEDRIVE"));
-        assertEquals(7,AttachmentType.values().length);
+        assertNotNull(AttachmentType.valueOf("SMARTSHEET"));
+        assertEquals(9,AttachmentType.values().length);
     }
 
 }

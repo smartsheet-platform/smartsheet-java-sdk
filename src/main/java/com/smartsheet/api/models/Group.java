@@ -29,7 +29,6 @@ import java.util.List;
  */
 public class Group extends NamedModel<Long> {
 
-
     /**
      *    The description of the group.
      */
@@ -50,12 +49,10 @@ public class Group extends NamedModel<Long> {
      */
     private Date createdAt;
 
-
     /**
      *    The date when the group was last modified.
      */
     private Date modifiedAt;
-
 
     /**
      * The list of members in the group.
@@ -63,18 +60,21 @@ public class Group extends NamedModel<Long> {
     private List<GroupMember> members;
 
     /**
-     * Default constructor
+     * Constructors
      */
-    public Group() {
+    public Group() { }
+    public Group(Long id) {
+        setId(id);
     }
 
     /**
-     * Construct a Group with specified id
+     * Provide an 'override' of setName (returns Group not NamedModel)
      *
-     * @param id Group id
+     * @param name the new name
      */
-    public Group(Long id) {
-        this.setId(id);
+    public Group setName(String name){
+        super.setName(name);
+        return this;
     }
 
     /**

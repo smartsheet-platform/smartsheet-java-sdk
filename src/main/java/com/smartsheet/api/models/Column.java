@@ -108,11 +108,6 @@ public class Column extends IdentifiableModel<Long> {
     private Format format;
 
     /**
-     * Represents the filter applied to the column
-     */
-    private Filter filter;
-
-    /**
      * Flag indicating whether validation has been enabled for the column
      */
     private Boolean validation;
@@ -403,23 +398,6 @@ public class Column extends IdentifiableModel<Long> {
      */
     public Column setFormat(Format format) {
         this.format = format;
-        return this;
-    }
-
-    /**
-     * Gets the filter
-     * @return the filter
-     */
-    public Filter getFilter() {
-        return filter;
-    }
-
-    /**
-     * Sets the filter
-     * @param filter the filter
-     */
-    public Column setFilter(Filter filter) {
-        this.filter = filter;
         return this;
     }
 

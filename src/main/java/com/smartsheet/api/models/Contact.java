@@ -25,29 +25,8 @@ package com.smartsheet.api.models;
  */
 public class Contact extends NamedModel<String>{
 
-    /** Represents the contact name. */
-    private String name;
-
     /** Represents the contact email. */
     private String email;
-
-    /**
-     * Gets the full name for the contact.
-     *
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets the name for the contact
-     * @param name the name
-     */
-    public Contact setName(String name) {
-        this.name = name;
-        return this;
-    }
 
     /**
      * Gets the email for the contact.

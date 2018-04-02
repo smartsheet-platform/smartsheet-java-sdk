@@ -27,6 +27,11 @@ package com.smartsheet.api.models;
  */
 public class Error {
     /**
+     * Represents the error detail.
+     */
+    private Object detail;
+
+    /**
      * Represents the error code.
      */
     private Integer errorCode;
@@ -40,6 +45,23 @@ public class Error {
      * Reference ID
      */
     private String refId;
+
+    /**
+     * Gets the error detail.
+     *
+     * @return the error detail
+     */
+    public Object getDetail() { return detail; }
+
+    /**
+     * Sets the error detail.
+     *
+     * @param detail the error detail
+     */
+    public Error setDetail(Object detail) {
+        this.detail = detail;
+        return this;
+    }
 
     /**
      * Gets the message.

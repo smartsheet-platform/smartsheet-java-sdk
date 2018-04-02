@@ -20,14 +20,20 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-
-import com.smartsheet.api.SearchResources;
-import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.*;
+import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.SearchResult;
+import com.smartsheet.api.models.enums.SearchInclusion;
+import com.smartsheet.api.models.enums.SearchLocation;
+import com.smartsheet.api.models.enums.SearchScope;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.EnumSet;
+import java.util.HashMap;
 
 /**
  * This is the implementation of the SearchResources.
@@ -67,13 +73,53 @@ public class SearchResourcesImpl extends AbstractResources implements SearchReso
      * @throws SmartsheetException the smartsheet exception
      */
     public SearchResult search(String query) throws SmartsheetException {
+        return search(query, null, null, null, null);
+    }
+    /**
+     * Performs a search across all Sheets to which user has access.
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /search
+     *
+     * @param query the query text
+     * @param includes enum set of inclusions
+     * @param location when specified with a value of "personalWorkspace" limits response to only those
+     *                 items in the user's Workspace
+     * @param modifiedSince only return items modified since this date
+     * @param scopes enum set of search filters
+     * @return the search result (note that if there is no such resource, this method will throw
+     * ResourceNotFoundException rather than returning null).
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public SearchResult search(String query, EnumSet<SearchInclusion> includes, SearchLocation location,
+                               Date modifiedSince, EnumSet<SearchScope> scopes) throws SmartsheetException {
         Util.throwIfNull(query);
         Util.throwIfEmpty(query);
+        String path = "search";
+
+        // Add the parameters to a map and build the query string at the end
+        HashMap<String, Object> parameters = new HashMap<String, Object>();
+
+        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+        parameters.put("location", location);
+        if (modifiedSince != null) {
+            String isoDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(modifiedSince);
+            parameters.put("modifiedSince", isoDate);
+        }
+        parameters.put("scopes", QueryUtil.generateCommaSeparatedList(scopes));
         try {
-            return this.getResource("search?query=" + URLEncoder.encode(query, "utf-8"), SearchResult.class);
+            parameters.put("query", URLEncoder.encode(query, "utf-8"));
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
+
+        // Iterate through the map of parameters and generate the query string
+        path += QueryUtil.generateUrl(null, parameters);
+        return this.getResource(path, SearchResult.class);
     }
 
     /**

@@ -121,10 +121,42 @@ public interface SheetResources {
                           Integer page) throws SmartsheetException;
 
     /**
+     * <p>Get a sheet.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sheet/{id}</p>
+     *
+     * @param id the id of the sheet
+     * @param includes used to specify the optional objects to include.
+     * @param columnIds the column ids
+     * @param excludes the exclude parameters
+     * @param page the page number
+     * @param pageSize the page size
+     * @param rowIds the row ids
+     * @param rowNumbers the row numbers
+     * @param ifVersionAfter only fetch Sheet if more recent version available
+     * @return the sheet resource (note that if there is no such resource, this method will throw
+     * ResourceNotFoundException rather than returning null).
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Sheet getSheet(long id,
+                          EnumSet<SheetInclusion> includes,
+                          EnumSet<ObjectExclusion> excludes,
+                          Set<Long> rowIds,
+                          Set<Integer> rowNumbers,
+                          Set<Long> columnIds,
+                          Integer pageSize,
+                          Integer page,
+                          Integer ifVersionAfter) throws SmartsheetException;
+
+    /**
      * <p>Get a sheet as an Excel file.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>GET /sheet/{id} with "application/vnd.ms-excel" Accept HTTP header</p>
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sheet/{id} with "application/vnd.ms-excel" Accept HTTP header</p>
      *
      * @param id the id of the sheet
      * @param outputStream the output stream to which the Excel file will be written.
@@ -140,8 +172,7 @@ public interface SheetResources {
     /**
      * <p>Get a sheet as an Excel file.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>GET /sheet/{id} with "application/vnd.ms-excel" Accept HTTP header</p>
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sheet/{id} with "application/vnd.ms-excel" Accept HTTP header</p>
      *
      * @param id the id of the sheet
      * @param outputStream the output stream to which the Excel file will be written.
@@ -157,8 +188,7 @@ public interface SheetResources {
     /**
      * <p>Get a sheet as a PDF file.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>GET /sheet/{id} with "application/pdf" Accept HTTP header</p>
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sheet/{id} with "application/pdf" Accept HTTP header</p>
      *
      * @param id the id of the sheet
      * @param outputStream the output stream to which the PDF file will be written.
@@ -175,8 +205,7 @@ public interface SheetResources {
     /**
      * <p>Create a sheet in default "Sheets" collection.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     *  <p>POST /sheets</p>
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets</p>
      *
      * @param sheet the sheet to created
      * @return the created sheet
@@ -400,6 +429,30 @@ public interface SheetResources {
     public SheetUpdateRequestResources updateRequestResources();
 
     /**
+     * <p>Return the SheetFilterResources object that provides access to sheet filter resources
+     * associated with Sheet resources.</p>
+     *
+     * @return the associated sheet filter resources
+     */
+    public SheetFilterResources filterResources();
+
+    /**
+     * <p>Return the SheetAutomationRuleResources object that provides access to automation rule resources
+     * associated with Sheet resources.</p>
+     *
+     * @return the associated automation rule resources
+     */
+    public SheetAutomationRuleResources automationRuleResources();
+
+    /**
+     * <p>Return the CrossSheetReferenceResources object that provides access to cross sheet reference resources
+     * associated with Sheet resources.</p>
+     *
+     * @return the associated cross sheet reference resources
+     */
+    public SheetCrossSheetReferenceResources crossSheetReferenceResources();
+
+    /**
      * <p>Get the status of the Publish settings of the sheet, including the URLs of any enabled publishings.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /sheet/{sheetId}/publish</p>
@@ -434,9 +487,9 @@ public interface SheetResources {
     public SheetPublish updatePublishStatus(long id, SheetPublish publish) throws SmartsheetException;
 
     /**
-     * Creates a copy of the specified sheet.
+     * <p>Creates a copy of the specified sheet.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/copy
+     * <p>It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/copy</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if folder is null
@@ -455,9 +508,32 @@ public interface SheetResources {
     public Sheet copySheet(long sheetId, ContainerDestination containerDestination, EnumSet<SheetCopyInclusion> includes) throws SmartsheetException;
 
     /**
-     * Moves the specified Sheet to another location.
+     * <p>Creates a copy of the specified sheet.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/move
+     * <p>It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/copy</p>
+     *
+     * Exceptions:
+     *   IllegalArgumentException : if folder is null
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param sheetId the sheet id
+     * @param containerDestination describes the destination container
+     * @param includes optional parameters to include
+     * @param excludes optional parameters to exclude
+     * @return the sheet
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Sheet copySheet(long sheetId, ContainerDestination containerDestination, EnumSet<SheetCopyInclusion> includes,
+                           EnumSet<CopyExclusion> excludes) throws SmartsheetException;
+
+    /**
+     * <p>Moves the specified Sheet to another location.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/move</p>
      *
      * Exceptions:
      *   IllegalArgumentException : if folder is null
@@ -475,9 +551,9 @@ public interface SheetResources {
     public Sheet moveSheet(long sheetId, ContainerDestination containerDestination) throws SmartsheetException;
 
     /**
-     * Creates an Update Request for the specified Row(s) within the Sheet.
+     * <p>Creates an Update Request for the specified Row(s) within the Sheet.</p>
      *
-     * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/updaterequests
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/updaterequests</p>
      *
      * Exceptions:
      *   - IllegalArgumentException : if any argument is null
@@ -494,4 +570,20 @@ public interface SheetResources {
      */
     @Deprecated
     public UpdateRequest createUpdateRequest(long sheetId, MultiRowEmail email) throws SmartsheetException;
+
+    /**
+     * <p>Sort a sheet according to the sort criteria.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sheet/{sheetId}/sort</p>
+     *
+     * @param sheetId the sheet id
+     * @param sortSpecifier the sort criteria
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Sheet sortSheet(long sheetId, SortSpecifier sortSpecifier) throws SmartsheetException;
 }

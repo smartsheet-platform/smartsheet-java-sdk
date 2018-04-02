@@ -4,7 +4,7 @@ package com.smartsheet.api;
  * #[license]
  * Smartsheet SDK for Java
  * %%
- * Copyright (C) 2014 Smartsheet
+ * Copyright (C) 2018 Smartsheet
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,6 @@ package com.smartsheet.api;
  * %[license]
  */
 
-import java.io.Writer;
-
 /**
  * <p>This interface is the entry point of the Smartsheet SDK, it provides convenient methods to get XXXResources instances
  * for accessing different types of resources.</p>
@@ -29,6 +27,57 @@ import java.io.Writer;
  * <p>Thread Safety: Implementation of this interface must be thread safe.</p>
  */
 public interface Smartsheet {
+
+    /**
+     * <p>Enable request/response tracing in client</p>
+     * @param levels - what to trace (if anything; null if not tracing at all)
+     */
+    public void setTraces(Trace... levels);
+
+    /**
+     * enable/disable pretty JSON trace logging
+     * @param pretty if the JSON is nicely-formatted or compact
+     */
+    public void setTracePrettyPrint(boolean pretty);
+
+    /**
+     * <p>Set the access token to use.</p>
+     *
+     * @param accessToken the new access token
+     * @throws IllegalArgumentException if any argument is null/empty string
+     */
+    public void setAccessToken(String accessToken);
+
+    /**
+     * <p>Set the email of the user to assume.</p>
+     *
+     * @param assumedUser the new assumed user
+     * @throws IllegalArgumentException if any argument is null/empty string
+     */
+    public void setAssumedUser(String assumedUser);
+
+    /**
+     * <p>Set the change agent identifier.</p>
+     *
+     * @param changeAgent the new change agent
+     * @throws IllegalArgumentException if any argument is null/empty string
+     */
+    public void setChangeAgent(String changeAgent);
+
+    /**
+     * <p>Set the user agent header string.</p>
+     *
+     * @param userAgent the new user agent string
+     * @throws IllegalArgumentException if any argument is null/empty string
+     */
+    public void setUserAgent(String userAgent);
+
+    /**
+     * <p>Sets the max retry time if the HttpClient is an instance of DefaultHttpClient</p>
+     *
+     * @param maxRetryTimeMillis max retry time
+     */
+    public void setMaxRetryTimeMillis(long maxRetryTimeMillis);
 
     /**
      * <p>Returns the HomeResources instance that provides access to Home resources.</p>
@@ -143,119 +192,9 @@ public interface Smartsheet {
     public WebhookResources webhookResources();
 
     /**
-     * <p>Set the email of the user to assume.</p>
+     * Returns the PassthroughResources instance that provides access to passthrough resources
      *
-     * @param assumedUser the new assumed user
-     * @throws IllegalArgumentException if any argument is null/empty string
+     * @return the passthrough resources instance
      */
-    public void setAssumedUser(String assumedUser);
-
-    /**
-     * <p>Set the access token to use.</p>
-     *
-     * @param accessToken the new access token
-     * @throws IllegalArgumentException if any argument is null/empty string
-     */
-    public void setAccessToken(String accessToken);
-
-    /**
-     * <p>Set the SDK API test scenario.</p>
-     *
-     * @param apiScenario the new API scenario name
-     * @throws IllegalArgumentException if any argument is null/empty string
-     */
-    public void setAPIScenario(String apiScenario);
-
-    /**
-     * <p>Enable request/response tracing in client</p>
-     * @param levels - what to trace (if anything; null if not tracing at all)
-     */
-    public void setTraces(Trace... levels);
-
-    /**
-     * enable/disable pretty JSON trace logging
-     * @param pretty if the JSON is nicely-formatted or compact
-     */
-    public void setTracePrettyPrint(boolean pretty);
-
-    /**
-     * @deprecated As of release 2.0, replaced by {@link #homeResources()}
-     */
-    @Deprecated
-    public void home();
-
-    /**
-     * @deprecated As of release 2.0, replaced by {@link #workspaceResources()}
-     */
-    @Deprecated
-    public void workspaces();
-
-    /**
-     * @deprecated As of release 2.0, replaced by {@link #folderResources()}
-     */
-    @Deprecated
-    public void folders();
-
-    /**
-     * @deprecated As of release 2.0, replaced by {@link #templateResources()}
-     */
-    @Deprecated
-    public void templates();
-
-    /**
-     * @deprecated As of release 2.0, replaced by {@link #sheetResources()}
-     */
-    @Deprecated
-    public void sheets();
-
-    /**
-     * @deprecated As of release 2.0, use sheetResources().columnResources()
-     * @return the associates resource
-     */
-    @Deprecated
-    public ColumnResources columns();
-
-    /**
-     * @deprecated As of release 2.0, use sheetResources().rowResources()
-     */
-    @Deprecated
-    public void rows();
-
-    /**
-     * @deprecated As of release 2.0; example: use sheetResources().attachmentResources() for sheet-level attachments
-     * @return the associates resource
-     */
-    @Deprecated
-    public AttachmentResources attachments();
-
-    /**
-     * @deprecated As of release 2.0; example: use sheetResources().discussionResources() for sheet-level discussions
-     */
-    @Deprecated
-    public void discussions();
-
-    /**
-     * @deprecated As of release 2.0; example: use sheetResources().discussionResources().commentResources() for discussion-level comments
-     * @return the associates resource
-     */
-    @Deprecated
-    public CommentResources comments();
-
-    /**
-     * @deprecated As of release 2.0, replaced by {@link #userResources()}
-     */
-    @Deprecated
-    public void users();
-
-    /**
-     * @deprecated As of release 2.0, replaced by {@link #groupResources()}
-     */
-    @Deprecated
-    public void groups();
-
-    /**
-     * @deprecated As of release 2.0, replaced by {@link #searchResources()}
-     */
-    @Deprecated
-    public void search();
+    public PassthroughResources passthroughResources();
 }

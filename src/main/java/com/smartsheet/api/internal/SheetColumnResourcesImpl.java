@@ -109,9 +109,9 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
     }
 
     /**
-     * <p>Delete column.</p>
+     * Delete column.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/columns/{columnId}</p>
+     * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/columns/{columnId}
      *
      * @param sheetId the sheet id
      * @param columnId the column id

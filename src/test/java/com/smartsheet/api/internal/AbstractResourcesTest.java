@@ -39,7 +39,9 @@ public class AbstractResourcesTest {
     @Test
     public void testHeaders() {
 
-        AbstractResources resources = new AbstractResources(new SmartsheetImpl("doesnt/matter", tokenValue,  new DefaultHttpClient(), null, changeAgent, null)) {};
+        SmartsheetImpl smartsheet = new SmartsheetImpl("doesnt/matter", tokenValue,  new DefaultHttpClient(), null);
+        smartsheet.setChangeAgent(changeAgent);
+        AbstractResources resources = new AbstractResources(smartsheet) {};
 
         Map<String, String> headers = resources.createHeaders();
         assertEquals(headers.get("Authorization"), "Bearer " + tokenValue);
@@ -48,7 +50,7 @@ public class AbstractResourcesTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void createResourceWithObjectClassNull() throws SmartsheetException {
-        AbstractResources resources = new AbstractResources(new SmartsheetImpl(SmartsheetBuilder.DEFAULT_BASE_URI, tokenValue,  new DefaultHttpClient(), null, changeAgent, null)) {};
+        AbstractResources resources = new AbstractResources(new SmartsheetImpl(SmartsheetBuilder.DEFAULT_BASE_URI, tokenValue,  new DefaultHttpClient(), null)) {};
         Home home = new Home();
 
         resources.createResource("someValidPath", null, home);

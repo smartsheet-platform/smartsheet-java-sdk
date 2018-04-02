@@ -49,10 +49,9 @@ public class AttachmentVersioningResourcesImpl extends AbstractResources impleme
     }
 
     /**
-     * <p>Deletes an attachment, including all of its versions.</p>
+     * Deletes an attachment, including all of its versions.
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>DELETE /sheets/{sheetId}/attachments/{attachmentId}/versions</p>
+     * It mirrors to the following Smartsheet REST API method: DELETE /sheets/{sheetId}/attachments/{attachmentId}/versions
      *
      * @param sheetId the sheet id
      * @param attachentId the attachment id
@@ -68,10 +67,9 @@ public class AttachmentVersioningResourcesImpl extends AbstractResources impleme
     }
 
     /**
-     * <p>Get all versions of an attachment.</p>
+     * Get all versions of an attachment.
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>GET /sheets/{sheetId}/attachments/{attachmentId}/versions</p>
+     * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/attachments/{attachmentId}/versions
      *
      * @param sheetId the id
      * @param attachmentId the attachment id
@@ -95,9 +93,9 @@ public class AttachmentVersioningResourcesImpl extends AbstractResources impleme
     }
 
     /**
-     * <p>Attach a new version of an attachment.</p>
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>POST /attachment/{id}/versions
+     * Attach a new version of an attachment.
+     *
+     * It mirrors to the following Smartsheet REST API method: POST /attachment/{id}/versions
      *
      * @param sheetId the id of the sheet
      * @param attachmentId the id of the attachment to upload a new version.
@@ -120,10 +118,9 @@ public class AttachmentVersioningResourcesImpl extends AbstractResources impleme
     }
 
     /**
-     * <p>Attach a new version of an attachment.</p>
+     * Attach a new version of an attachment.
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     *  <p>POST /attachment/{id}/versions
+     * It mirrors to the following Smartsheet REST API method: POST /attachment/{id}/versions
      *
      * @param sheetId the id of the sheet
      * @param attachmentId the id of the object

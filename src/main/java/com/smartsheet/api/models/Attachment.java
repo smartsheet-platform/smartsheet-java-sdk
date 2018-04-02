@@ -58,7 +58,9 @@ public class Attachment extends NamedModel<Long> {
      */
     private Date createdAt;
 
-    /** Represents the MIME type. */
+    /**
+     * Represents the MIME type.
+     */
     private String mimeType;
 
     /**
@@ -66,7 +68,9 @@ public class Attachment extends NamedModel<Long> {
      */
     private AttachmentParentType parentType;
 
-    /** Represents the parent ID. */
+    /**
+     * Represents the parent ID.
+     */
     private Long parentId;
 
     /**
@@ -85,6 +89,16 @@ public class Attachment extends NamedModel<Long> {
     private String description;
 
     /**
+     * Provide an 'override' of setName (returns Attachment not NamedModel)
+     *
+     * @param name the new name
+     */
+    public Attachment setName(String name){
+        super.setName(name);
+        return this;
+    }
+
+    /**
      * Gets the URL.
      *
      * @return The url.
@@ -96,8 +110,7 @@ public class Attachment extends NamedModel<Long> {
     /**
      * Sets the URL.
      *
-     * @param url
-     *            the new url
+     * @param url the new url
      */
     public Attachment setUrl(String url) {
         this.url = url;

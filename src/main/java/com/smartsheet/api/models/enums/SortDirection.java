@@ -1,9 +1,10 @@
-package com.smartsheet.api.retry;
+package com.smartsheet.api.models.enums;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
  * %%
- * Copyright (C) 2017 Smartsheet
+ * Copyright (C) 2018 Smartsheet
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,19 +20,7 @@ package com.smartsheet.api.retry;
  * %[license]
  */
 
-import com.smartsheet.api.internal.http.HttpResponse;
-
-/**
- * Interface for user provided retry callbacks
- */
-public interface ShouldRetry {
-    /**
-     * Callback interface to determine if this request can be retried.
-     *
-     * @param previousAttempts
-     * @param totalElapsedTimeMillis
-     * @param response
-     * @return a boolean indicating if the API call can be retried.
-     */
-    boolean shouldRetry(int previousAttempts, long totalElapsedTimeMillis, HttpResponse response);
+public enum SortDirection {
+    ASCENDING,
+    DESCENDING
 }

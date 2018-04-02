@@ -433,6 +433,19 @@ public class SheetResourcesImplTest extends ResourcesImplBase {
     }
 
     @Test
+    public void testSortSheet() throws Exception {
+        server.setResponseBody(new File("src/test/resources/getSheet.json"));
+        SortSpecifier specifier = new SortSpecifier();
+        SortCriterion criterion = new SortCriterion();
+        criterion.setColumnId(1234L);
+        criterion.setDirection(SortDirection.DESCENDING);
+        List<SortCriterion> criteria = new ArrayList<SortCriterion>();
+        criteria.add(criterion);
+        specifier.setSortCriteria(criteria);
+        Sheet sheet = sheetResource.sortSheet(123L, specifier);
+    }
+
+    @Test
     public void testCopyStream() throws Exception {
 
     }

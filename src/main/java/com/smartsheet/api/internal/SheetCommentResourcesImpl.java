@@ -87,7 +87,7 @@ public class SheetCommentResourcesImpl extends AbstractResources implements Shee
     }
 
     /**
-     * <p>Creates an object of CommentAttachmentResources.</p>
+     * Creates an object of CommentAttachmentResources.
      *
      * @return the created attachment
      * @throws SmartsheetException if there is any other error during the operation

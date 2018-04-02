@@ -20,6 +20,7 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.smartsheet.api.models.enums.WidgetType;
 
 public class Widget extends IdentifiableModel<Long> {
@@ -196,6 +197,7 @@ public class Widget extends IdentifiableModel<Long> {
      *
      * @param xPosition
      */
+    @JsonSetter("xPosition")
     public Widget setXPosition(Integer xPosition) {
         this.xPosition = xPosition;
         return this;
@@ -215,6 +217,7 @@ public class Widget extends IdentifiableModel<Long> {
      *
      * @param yPosition
      */
+    @JsonSetter("yPosition")
     public Widget setYPosition(Integer yPosition) {
         this.yPosition = yPosition;
         return this;

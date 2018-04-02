@@ -20,8 +20,6 @@ package com.smartsheet.api.internal;
  * %[license]
  */
 
-
-
 import com.smartsheet.api.*;
 import com.smartsheet.api.internal.http.HttpEntity;
 import com.smartsheet.api.internal.http.HttpMethod;
@@ -31,8 +29,8 @@ import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.*;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+import java.io.*;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -58,9 +56,9 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     }
 
     /**
-     * <p>List all users.</p>
+     * List all users.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /users</p>
+     * It mirrors to the following Smartsheet REST API method: GET /users
      *
      * @return the list of all users
      * @throws IllegalArgumentException if any argument is null or empty string
@@ -151,9 +149,9 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     }
 
     /**
-     * <p>Get the current user.</p>
+     * Get the current user.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /users/{userId}</p>
+     * It mirrors to the following Smartsheet REST API method: GET /users/{userId}
      *
      * @param userId the user id
      * @return the user
@@ -190,9 +188,9 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     }
 
     /**
-     * <p>List all organisation sheets.</p>
+     * List all organisation sheets.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /users/sheets</p>
+     * It mirrors to the following Smartsheet REST API method: GET /users/sheets
      *
      * @param pagination the object containing the pagination query parameters
      * @param modifiedSince
@@ -223,11 +221,11 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     }
 
     /**
-     * <p>List all user alternate emails.</p>
+     * List all user alternate emails.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /users/{userId}/alternateemails</p>
+     * It mirrors to the following Smartsheet REST API method: GET /users/{userId}/alternateemails
      *
-     * @param the id of the user
+     * @param userId the id of the user
      * @param pagination the object containing the pagination query parameters
      * @return the list of all user alternate emails
      * @throws IllegalArgumentException if any argument is null or empty string
@@ -247,12 +245,12 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     }
 
     /**
-     * <p>Get alternate email.</p>
+     * Get alternate email.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /users/{userId}/alternateemails/{alternateEmailId}</p>
+     * It mirrors to the following Smartsheet REST API method: GET /users/{userId}/alternateemails/{alternateEmailId}
      *
-     * @param the id of the user
-     * @param the alternate email id for the alternate email to retrieve.
+     * @param userId the id of the user
+     * @param altEmailId the alternate email id for the alternate email to retrieve.
      * @return the resource (note that if there is no such resource, this method will throw
      *     ResourceNotFoundException rather than returning null).
      * @throws IllegalArgumentException if any argument is null or empty string
@@ -267,12 +265,12 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     }
 
     /**
-     * <p>Add an alternate email.</p>
+     * Add an alternate email.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: POST /users/{userId}/alternateemails</p>
+     * It mirrors to the following Smartsheet REST API method: POST /users/{userId}/alternateemails
      *
-     * @param the id of the user
-     * @param AlternateEmail alternate email address to add.
+     * @param userId the id of the user
+     * @param altEmails AlternateEmail alternate email address to add.
      * @return the resource (note that if there is no such resource, this method will throw
      *     ResourceNotFoundException rather than returning null).
      * @throws IllegalArgumentException if any argument is null or empty string
@@ -291,12 +289,12 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
     }
 
     /**
-     * <p>Delete an alternate email.</p>
+     * Delete an alternate email.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: DELETE /users/{userId}/alternateemails/{alternateEmailId}</p>
+     * It mirrors to the following Smartsheet REST API method: DELETE /users/{userId}/alternateemails/{alternateEmailId}
      *
-     * @param the id of the user
-     * @param the alternate email id for the alternate email to retrieve.
+     * @param userId the id of the user
+     * @param altEmailId the alternate email id for the alternate email to retrieve.
      * @return the resource (note that if there is no such resource, this method will throw
      *     ResourceNotFoundException rather than returning null).
      * @throws IllegalArgumentException if any argument is null or empty string
@@ -344,6 +342,68 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
         }
 
         return (AlternateEmail)obj;
+    }
+
+    /**
+     * Uploads a profile image for the specified user.
+     *
+     * @param userId id of the user
+     * @param file path to the image file
+     * @param fileType content type of the image file
+     * @return user
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException f there is any other error during the operation
+     */
+    public User addProfileImage(long userId, String file, String fileType) throws SmartsheetException, FileNotFoundException {
+        return attachProfileImage("users/" + userId + "/profileimage", file, fileType);
+    }
+
+    private User attachProfileImage(String path, String file, String contentType) throws SmartsheetException, FileNotFoundException {
+        Util.throwIfNull(file);
+
+        if(contentType == null) {
+            contentType = "application/octet-stream";
+        }
+
+        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        path += QueryUtil.generateUrl(null, parameters);
+
+        HttpRequest request = createHttpRequest(this.smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
+        try {
+            request.getHeaders().put("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(file, "UTF-8") + "\"");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+
+        File f = new File(file);
+        InputStream is = new FileInputStream(f);
+
+        HttpEntity entity = new HttpEntity();
+        entity.setContentType(contentType);
+        entity.setContent(is);
+        entity.setContentLength(f.length());
+        request.setEntity(entity);
+
+        User obj = null;
+        try {
+            HttpResponse response = this.smartsheet.getHttpClient().request(request);
+            switch (response.getStatusCode()) {
+                case 200:
+                    obj = this.smartsheet.getJsonSerializer().deserializeResult(User.class,
+                            response.getEntity().getContent()).getResult();
+                    break;
+                default:
+                    handleError(response);
+            }
+        } finally {
+            smartsheet.getHttpClient().releaseConnection();
+        }
+
+        return obj;
     }
 
     @Override

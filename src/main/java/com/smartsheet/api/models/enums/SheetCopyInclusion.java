@@ -24,12 +24,16 @@ package com.smartsheet.api.models.enums;
  * Represents specific objects that can be included in some responses.
  */
 public enum SheetCopyInclusion {
-    DATA            ("data"),
     ATTACHMENTS     ("attachments"),
+    CELLLINKS       ("cellLinks"),
+    DATA            ("data"),
     DISCUSSIONS     ("discussions"),
-    CELLLINKS       ("cellinks"),
+    FILTERS         ("filters"),
     FORMS           ("forms"),
-    ALL             ("all");
+    RULERECIPIENTS  ("ruleRecipients"),
+    RULES           ("rules"),
+    SHARES          ("shares"),
+    ALL             ("all");    // deprecated
 
     String inclusion;
 

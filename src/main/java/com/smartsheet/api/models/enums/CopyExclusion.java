@@ -2,9 +2,9 @@ package com.smartsheet.api.models.enums;
 
 /*
  * #[license]
- * Smartsheet SDK for Java
+ * Smartsheet Java SDK
  * %%
- * Copyright (C) 2014 Smartsheet
+ * Copyright (C) 2018 - 2015 Smartsheet
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,14 +20,16 @@ package com.smartsheet.api.models.enums;
  * %[license]
  */
 
-public enum FilterType {
-    /**
-     * Represents the LIST filter type
-     */
-    LIST,
+public enum CopyExclusion {
+    SHEET_HYPERLINKS    ("sheetHyperlinks"),
+    ;
 
-    /**
-     * Represents the CUSTOM filter type
-     */
-    CUSTOM
+    String excludes;
+
+    CopyExclusion(String excludes) { this.excludes = excludes; }
+
+    @Override
+    public String toString() {
+        return excludes;
+    }
 }

@@ -22,16 +22,24 @@ package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.DestinationType;
 
-public class ContainerDestination extends NamedModel<Long> {
+public class ContainerDestination {
 
     /** Represents the destination type when a Sheet or Folder is moved, or when a Sheet, Folder, or Workspace is copied.. */
     private DestinationType destinationType;
 
     /** Represents the destination id when a Sheet or Folder is moved, or when a Sheet, Folder, or Workspace is copied.. */
-    Long destinationId;
+    private Long destinationId;
 
     /** Represents the new name when a Sheet or Folder is moved, or when a Sheet, Folder, or Workspace is copied.. */
-    String newName;
+    private String newName;
+
+    /**
+     * Constructors
+     */
+    public ContainerDestination() { }
+    public ContainerDestination(Long destinationId) {
+        setDestinationId(destinationId);
+    }
 
     /**
      * Gets the destination type when copying or moving a Sheet or a Folder.

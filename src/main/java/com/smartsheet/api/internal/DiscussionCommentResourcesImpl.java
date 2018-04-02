@@ -45,10 +45,9 @@ public class DiscussionCommentResourcesImpl extends AbstractResources implements
     }
 
     /**
-     * <p>Add a comment to a discussion.</p>
+     * Add a comment to a discussion.
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>POST /discussion/{discussionId}/comments</p>
+     * It mirrors to the following Smartsheet REST API method: POST /discussion/{discussionId}/comments</p>
      *
      * @param sheetId the sheet id
      * @param discussionId the discussion id
@@ -66,10 +65,9 @@ public class DiscussionCommentResourcesImpl extends AbstractResources implements
     }
 
     /**
-     * <p>Add a comment to a discussion with an attachment.</p>
+     * Add a comment to a discussion with an attachment.
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>POST /discussion/{discussionId}/comments</p>
+     * It mirrors to the following Smartsheet REST API method: POST /discussion/{discussionId}/comments
      *
      * @param sheetId the sheet id
      * @param discussionId the dicussion id
@@ -97,10 +95,9 @@ public class DiscussionCommentResourcesImpl extends AbstractResources implements
     }
 
     /**
-     * <p>Update the specified comment</p>
+     * Update the specified comment
      *
-     * <p>It mirrors to the following Smartsheet REST API method:</p>
-     * <p>PUT  PUT /sheets/{sheetId}/comments/{commentId}</p>
+     * It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/comments/{commentId}
 
      * @param sheetId the sheet id
      * @param comment the new comment object

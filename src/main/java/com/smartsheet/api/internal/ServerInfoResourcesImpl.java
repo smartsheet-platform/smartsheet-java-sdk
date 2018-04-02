@@ -36,9 +36,9 @@ public class ServerInfoResourcesImpl extends AbstractResources implements Server
     }
 
     /**
-     * <p>Gets application constants.</p>
+     * Gets application constants.
      *
-     * <p>It mirrors to the following Smartsheet REST API method: GET /serverinfo</p>
+     * It mirrors to the following Smartsheet REST API method: GET /serverinfo
      *
      * @return the server information
      * @throws IllegalArgumentException if any argument is null or empty string
