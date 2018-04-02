@@ -7,3 +7,5 @@ src/integration-test/resources/config.properties
 bin/
 /**/.DS_Store
 *.log
+sdk_tests_package/
+smartsheet-sdk-tests/
