@@ -63,14 +63,32 @@ import java.util.*;
  * thread safe.
  */
 public class DefaultHttpClient implements HttpClient {
-    /** logger for general errors, warnings, etc */
-    private static final Logger logger = LoggerFactory.getLogger(DefaultHttpClient.class);
 
-    // to avoid creating new sets for each call (we use Sets for practical and perf reasons)
+    /** logger for general errors, warnings, etc */
+    protected static final Logger logger = LoggerFactory.getLogger(DefaultHttpClient.class);
+
+    /** used by default retry/timeout logic and available for overriders */
+    protected static final String JSON_MIME_TYPE = ContentType.APPLICATION_JSON.getMimeType();
+
+    protected JsonSerializer jsonSerializer;
+
+    protected long maxRetryTimeMillis = 15000;
+
+    /**
+     * Represents the underlying Apache CloseableHttpClient.
+     * <p>
+     * It will be initialized in constructor and will not change afterwards.
+     */
+    private final CloseableHttpClient httpClient;
+
+    /** The apache http response. */
+    private CloseableHttpResponse apacheHttpResponse;
+
+    /** to avoid creating new sets for each call (we use Sets for practical and perf reasons) */
     private static final Set<Trace> REQUEST_RESPONSE_SUMMARY = Collections.unmodifiableSet(new HashSet<Trace>(
             Arrays.asList(Trace.RequestHeaders, Trace.RequestBodySummary, Trace.ResponseHeaders, Trace.ResponseBodySummary)));
 
-    // default values for trace-logging extracted from system-properties (can still be overwritten at the instance level)
+    /** default values for trace-logging extracted from system-properties (can still be overwritten at the instance level) */
     private static final boolean TRACE_PRETTY_PRINT_DEFAULT = Boolean.parseBoolean(System.getProperty("Smartsheet.trace.pretty", "true"));
 
     private static final Set<Trace> TRACE_DEFAULT_TRACE_SET  = Trace.parse(System.getProperty("Smartsheet.trace.parts"));    // empty by default
@@ -84,26 +102,11 @@ public class DefaultHttpClient implements HttpClient {
         }
     }
 
-    /**
-     * Represents the underlying Apache CloseableHttpClient.
-     * <p>
-     * It will be initialized in constructor and will not change afterwards.
-     */
-    private final CloseableHttpClient httpClient;
-
-    /** The apache http response. */
-    private CloseableHttpResponse apacheHttpResponse;
-
     /** the set of Trace levels to use in trace-logging */
     private final Set<Trace> traces = new HashSet<Trace>(TRACE_DEFAULT_TRACE_SET);
+
     /** whether to log pretty or compact */
     private boolean tracePrettyPrint = TRACE_PRETTY_PRINT_DEFAULT;
-
-    private static final String JSON_MIME_TYPE = ContentType.APPLICATION_JSON.getMimeType();
-
-    private JsonSerializer jsonSerializer;
-
-    private long maxRetryTimeMillis = 15000;
 
     /**
      * Constructor.

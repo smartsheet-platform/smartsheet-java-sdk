@@ -202,22 +202,34 @@ Integration tests:
 2. `mvn integration-test`
 
 Mock API tests:
-1. Clone the [Smartsheet sdk tests](https://github.com/smartsheet-platform/smartsheet-sdk-tests) repo and follow the instructions from the readme to start the mock server.
+1. Clone the [Smartsheet sdk tests](https://github.com/smartsheet-platform/smartsheet-sdk-tests) repo and follow the 
+instructions from the readme to start the mock server.
 2. `mvn test -Dtest=com.smartsheet.api.sdk_test.*`
 
-## Using a Proxy
+## Overriding HTTP Client Behavior
 
-You can enable a proxy by providing the SmartsheetBuilder with an HttpClient which extends DefaultHttpClient. (You can 
-also use this method to inject additional HTTP headers.) A code sample is provided below.
+You can provide a number of customizations to the default HTTP behavior by extending the DefaultHttpClient class and 
+overriding one or more methods (examples below). If required, you can remove use of the Apache HTTP Client 
+by implementing the HttpClient interface in a custom client (see 
+[Android QRScanner](https://github.com/smartsheet-samples/QRScanner)). 
+
+Common customizations may include:
+- implementing an HTTP proxy
+- injecting additional HTTP headers
+- overriding default timeout or retry behavior
+ 
+The following example shows how to enable a proxy by providing the SmartsheetBuilder with an HttpClient which extends 
+DefaultHttpClient. This example also includes an override of the shouldRetry method that determines what API failures 
+are automatically retried. 
 
 Invoke the SmartsheetBuilder with a custom HttpClient:
+
+#### Sample ProxyHttpClient
 
 ```java
 ProxyHttpClient proxyHttpClient = new ProxyHttpClient("localhost", 8080);
 Smartsheet smartsheet = new SmartsheetBuilder().setHttpClient(proxyHttpClient).build();
 ``` 
-
-Sample ProxyHttpClient class:
 
 ```java
 import com.smartsheet.api.internal.http.DefaultHttpClient;
@@ -228,30 +240,100 @@ import org.apache.http.client.methods.HttpRequestBase;
 
 public class ProxyHttpClient extends DefaultHttpClient {
 
-   private String proxyHost;
-   private Integer proxyPort;
+    private String proxyHost;
+    private Integer proxyPort;
 
-   public ProxyHttpClient(String proxyHost, Integer proxyPort) {
-       this.proxyHost = proxyHost;
-       this.proxyPort = proxyPort;
-   }
+    public ProxyHttpClient(String proxyHost, Integer proxyPort) {
+        this.proxyHost = proxyHost;
+        this.proxyPort = proxyPort;
+    }
 
-   @Override
-   public HttpRequestBase createApacheRequest(HttpRequest smartsheetRequest) {
-       HttpRequestBase apacheHttpRequest = super.createApacheRequest(smartsheetRequest);
+    /** Override this method to inject additional headers, or setup proxy information
+     * on the request.
+     */
+    @Override
+    public HttpRequestBase createApacheRequest(HttpRequest smartsheetRequest) {
+        HttpRequestBase apacheHttpRequest = super.createApacheRequest(smartsheetRequest);
 
-       RequestConfig.Builder builder = RequestConfig.custom();
-       if (apacheHttpRequest.getConfig() != null) {
-           builder = RequestConfig.copy(apacheHttpRequest.getConfig());
-       }
-       HttpHost proxy = new HttpHost(proxyHost, proxyPort, "http");
-       builder.setProxy(proxy);
-       RequestConfig config = builder.build();
-       apacheHttpRequest.setConfig(config);
-       return apacheHttpRequest;
-   }
+        RequestConfig.Builder builder = RequestConfig.custom();
+        if (apacheHttpRequest.getConfig() != null) {
+            builder = RequestConfig.copy(apacheHttpRequest.getConfig());
+        }
+        HttpHost proxy = new HttpHost(proxyHost, proxyPort, "http");
+        builder.setProxy(proxy);
+        RequestConfig config = builder.build();
+        apacheHttpRequest.setConfig(config);
+        return apacheHttpRequest;
+    }
 }
 ```
+#### Sample RetryHttpClient
+```java
+Smartsheet smartsheet = SmartsheetFactory.custom().setHttpClient(new RetryHttpClient()).build();
+smartsheet.setMaxRetryTimeMillis(30000);
+```
+
+```java
+import com.smartsheet.api.internal.http.DefaultHttpClient;
+import com.smartsheet.api.internal.http.HttpResponse;
+import com.smartsheet.api.models.Error;
+
+import java.io.IOException;
+
+public class RetryHttpClient extends DefaultHttpClient {
+
+    /**
+     * Override this method to perform API requests for special cases
+     */
+    @Override
+    public boolean shouldRetry(int previousAttempts, long totalElapsedTimeMillis, HttpResponse response) {
+
+        // HTTP Status available as response.getStatusCode()
+        int httpStatus = response.getStatusCode();
+
+        String contentType = response.getEntity().getContentType();
+        if (contentType != null && !contentType.startsWith(JSON_MIME_TYPE)) {
+            // it's not JSON; don't even try to parse it
+            return false;
+        }
+        Error error;
+        try {
+            // Details about the Smartsheet API error condition
+            error = jsonSerializer.deserialize(Error.class, response.getEntity().getContent());
+        }
+        catch (IOException e) {
+            return false;
+        }
+        switch(error.getErrorCode()) {
+            // The default shouldRetry, retries 4001, 4002, 4003, 4004 codes
+            case 4001:
+            case 4002:
+            case 4003:
+            case 4004:
+            case 9999: // adding my fictional error code
+                break;
+            default:
+                return false;
+        }
+
+        // The default calcBackoff uses exponential backoff, add custom behavior by overriding calcBackoff
+        long backoffMillis = calcBackoff(previousAttempts, totalElapsedTimeMillis, error);
+        if(backoffMillis < 0)
+            return false;
+
+        logger.info("HttpError StatusCode=" + response.getStatusCode() + ": Retrying in " + backoffMillis + " milliseconds");
+        try {
+            Thread.sleep(backoffMillis);
+        }
+        catch (InterruptedException e) {
+            logger.warn("sleep interrupted", e);
+            return false;
+        }
+        return true;
+    }
+}
+```
+
 ## Release Notes
 
 Each specific release is available for download via [Github](https://github.com/smartsheet-platform/smartsheet-java-sdk/tags) or the [Maven repository](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.smartsheet%22%20AND%20a%3A%22smartsheet-sdk-java%22).
