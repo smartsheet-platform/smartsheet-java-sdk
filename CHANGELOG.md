@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [2.2.4] - 2018-03-30
+## [2.2.4] - 2018-04-02
 ### Added
 - SmartsheetFactory for creating Smartsheet client objects
 - [Automation rules](http://smartsheet-platform.github.io/api-docs/?shell#automation-rules)
