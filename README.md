@@ -218,13 +218,11 @@ Common customizations may include:
 - injecting additional HTTP headers
 - overriding default timeout or retry behavior
  
+#### Sample ProxyHttpClient
 The following example shows how to enable a proxy by providing the SmartsheetBuilder with an HttpClient which extends 
-DefaultHttpClient. This example also includes an override of the shouldRetry method that determines what API failures 
-are automatically retried. 
+DefaultHttpClient.  
 
 Invoke the SmartsheetBuilder with a custom HttpClient:
-
-#### Sample ProxyHttpClient
 
 ```java
 ProxyHttpClient proxyHttpClient = new ProxyHttpClient("localhost", 8080);
@@ -268,6 +266,9 @@ public class ProxyHttpClient extends DefaultHttpClient {
 }
 ```
 #### Sample RetryHttpClient
+The following example shows how to override the default retry/timeout logic.  
+
+Invoke the SmartsheetBuilder with a custom HttpClient:
 ```java
 Smartsheet smartsheet = SmartsheetFactory.custom().setHttpClient(new RetryHttpClient()).build();
 smartsheet.setMaxRetryTimeMillis(30000);
