@@ -67,7 +67,7 @@ import java.util.*;
 // Initialize client
 String accessToken = "ll352u9jujauoqz4gstvsae05";
 
-Smartsheet smartsheet = new SmartsheetBuilder().setAccessToken(accessToken).build();
+Smartsheet smartsheet = SmartsheetFactory.createDefaultClient(accessToken);
 
 // List all sheets
 PagedResult<Sheet> sheets = smartsheet.sheetResources().listSheets(
@@ -226,7 +226,7 @@ Invoke the SmartsheetBuilder with a custom HttpClient:
 
 ```java
 ProxyHttpClient proxyHttpClient = new ProxyHttpClient("localhost", 8080);
-Smartsheet smartsheet = new SmartsheetBuilder().setHttpClient(proxyHttpClient).build();
+Smartsheet smartsheet = SmartsheetFactory.custom().setHttpClient(proxyHttpClient).build();
 ``` 
 
 ```java
