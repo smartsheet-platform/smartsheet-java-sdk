@@ -63,7 +63,7 @@ public class SortCriterion extends NamedModel<Long> {
     /**
      * Set the sort direction
      *
-     * @param direction the column ID
+     * @param direction the sort direction
      */
     public SortCriterion setDirection(SortDirection direction) {
         this.direction = direction;
