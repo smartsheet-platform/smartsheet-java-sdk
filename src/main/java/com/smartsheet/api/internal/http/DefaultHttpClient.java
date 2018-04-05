@@ -88,6 +88,9 @@ public class DefaultHttpClient implements HttpClient {
     private static final Set<Trace> REQUEST_RESPONSE_SUMMARY = Collections.unmodifiableSet(new HashSet<Trace>(
             Arrays.asList(Trace.RequestHeaders, Trace.RequestBodySummary, Trace.ResponseHeaders, Trace.ResponseBodySummary)));
 
+    private static final Set<Trace> REQUEST_RESPONSE = Collections.unmodifiableSet(new HashSet<Trace>(
+            Arrays.asList(Trace.RequestHeaders, Trace.RequestBody, Trace.ResponseHeaders, Trace.ResponseBody)));
+
     /** default values for trace-logging extracted from system-properties (can still be overwritten at the instance level) */
     private static final boolean TRACE_PRETTY_PRINT_DEFAULT = Boolean.parseBoolean(System.getProperty("Smartsheet.trace.pretty", "true"));
 
@@ -127,6 +130,34 @@ public class DefaultHttpClient implements HttpClient {
     public DefaultHttpClient(CloseableHttpClient httpClient, JsonSerializer jsonSerializer) {
         this.httpClient = Util.throwIfNull(httpClient);
         this.jsonSerializer = jsonSerializer;
+    }
+
+    /**
+     * Log to the SLF4J logger (level based upon response status code). Override this function to add logging
+     * or capture performance metrics.
+     *
+     * @param request request
+     * @param requestEntity request body
+     * @param response response
+     * @param responseEntity response body
+     * @param durationMillis response time in ms
+     * @throws IOException
+     */
+    public void logRequest(HttpRequestBase request, HttpEntitySnapshot requestEntity,
+                           HttpResponse response, HttpEntitySnapshot responseEntity, long durationMillis) throws IOException {
+
+        logger.info("{} {}, Response Code:{}, Request completed in {} ms", request.getMethod(), request.getURI(),
+                response.getStatusCode(), durationMillis);
+        if (response.getStatusCode() != 200) {
+            // log the request and response on error
+            logger.warn("{}", RequestAndResponseData.of(request, requestEntity, response, responseEntity,
+                    REQUEST_RESPONSE));
+        }
+        else {
+            // log the summary request and response on success
+            logger.debug("{}", RequestAndResponseData.of(request, requestEntity, response, responseEntity,
+                    REQUEST_RESPONSE_SUMMARY));
+        }
     }
 
     /**
@@ -205,7 +236,9 @@ public class DefaultHttpClient implements HttpClient {
             smartsheetResponse = new HttpResponse();
             HttpContext context = new BasicHttpContext();
             try {
+                long startTime = System.currentTimeMillis();
                 apacheHttpResponse = this.httpClient.execute(apacheHttpRequest, context);
+                long endTime = System.currentTimeMillis();
 
                 // Set request headers to values ACTUALLY SENT (not just created by us), this would include:
                 // 'Connection', 'Accept-Encoding', etc. However, if a proxy is used, this may be the proxy's CONNECT
@@ -240,12 +273,9 @@ public class DefaultHttpClient implements HttpClient {
                     smartsheetResponse.setEntity(httpEntity);
                     responseEntityCopy = new HttpEntitySnapshot(httpEntity);
                 }
-                // HTTP-error logging
-                if (smartsheetResponse.getStatusCode() != 200) {
-                    // log the summary request and response on error
-                    logger.warn("{}", RequestAndResponseData.of(apacheHttpRequest, requestEntityCopy, smartsheetResponse,
-                            responseEntityCopy, REQUEST_RESPONSE_SUMMARY));
-                }
+
+                long responseTime = endTime - startTime;
+                logRequest(apacheHttpRequest, requestEntityCopy, smartsheetResponse, responseEntityCopy, responseTime);
 
                 if (traces.size() > 0) { // trace-logging of request and response (if so configured)
                     RequestAndResponseData requestAndResponseData = RequestAndResponseData.of(apacheHttpRequest,
@@ -471,7 +501,10 @@ public class DefaultHttpClient implements HttpClient {
         }
     }
 
-    @Override
+    /**
+     * set the traces for this client
+     * @param traces the fields to include in trace-logging
+     */
     public void setTraces(Trace... traces) {
         this.traces.clear();
         for (Trace trace : traces) {
@@ -481,7 +514,10 @@ public class DefaultHttpClient implements HttpClient {
         }
     }
 
-    @Override
+    /**
+     * set whether to use nicely-formatted JSON or more compact format JSON in trace logging
+     * @param pretty whether to print JSON in a "pretty" format or compact
+     */
     public void setTracePrettyPrint(boolean pretty) {
         tracePrettyPrint = pretty;
     }

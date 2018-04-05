@@ -311,18 +311,6 @@ public class SmartsheetImpl implements Smartsheet {
         this.httpClient.close();
     }
 
-    /** set what request/response fields to log in trace-logging */
-    @Override
-    public void setTraces(Trace... traces) {
-        getHttpClient().setTraces(traces);
-    }
-
-    /** set whether or not to generate "pretty formatted" JSON in trace-logging */
-    @Override
-    public void setTracePrettyPrint(boolean pretty) {
-        getHttpClient().setTracePrettyPrint(pretty);
-    }
-
     /**
      * Getter of corresponding field.
      *
@@ -437,6 +425,24 @@ public class SmartsheetImpl implements Smartsheet {
     public void setMaxRetryTimeMillis(long maxRetryTimeMillis) {
         if (this.httpClient instanceof DefaultHttpClient) {
             ((DefaultHttpClient) this.httpClient).setMaxRetryTimeMillis(maxRetryTimeMillis);
+        }
+        else
+            throw new UnsupportedOperationException("Invalid operation for class " + this.httpClient.getClass());
+    }
+
+    /** set what request/response fields to log in trace-logging */
+    public void setTraces(Trace... traces) {
+        if (this.httpClient instanceof DefaultHttpClient) {
+            ((DefaultHttpClient)this.httpClient).setTraces(traces);
+        }
+        else
+            throw new UnsupportedOperationException("Invalid operation for class " + this.httpClient.getClass());
+    }
+
+    /** set whether or not to generate "pretty formatted" JSON in trace-logging */
+    public void setTracePrettyPrint(boolean pretty) {
+        if (this.httpClient instanceof DefaultHttpClient) {
+            ((DefaultHttpClient)this.httpClient).setTracePrettyPrint(pretty);
         }
         else
             throw new UnsupportedOperationException("Invalid operation for class " + this.httpClient.getClass());

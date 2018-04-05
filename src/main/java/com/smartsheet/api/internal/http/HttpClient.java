@@ -50,50 +50,7 @@ public interface HttpClient extends Closeable {
     public HttpResponse request(HttpRequest request) throws HttpClientException;
 
     /**
-     * Allocate an Apache request object based upon the request method specified in smartsheetRequest.
-     * Override this method to inject headers or set proxy information in request
-     *
-     * @param smartsheetRequest (request method and base URI come from here)
-     * @return the Apache request
-     */
-    public HttpRequestBase createApacheRequest(HttpRequest smartsheetRequest);
-
-    /**
-     * The backoff calculation routine. Uses exponential backoff. If the maximum elapsed time
-     * has expired, this calculation returns -1 causing the caller to fall out of the retry loop.
-     *
-     * @param previousAttempts
-     * @param totalElapsedTimeMillis
-     * @param error
-     * @return -1 to fall out of retry loop, positive number indicates backoff time
-     */
-    public long calcBackoff(int previousAttempts, long totalElapsedTimeMillis, Error error);
-
-    /**
-     * Called when an API request fails to determine if it can retry the request.
-     * Calls calcBackoff to determine the time to wait in between retries.
-     *
-     * @param previousAttempts number of attempts (including this one) to execute request
-     * @param totalElapsedTimeMillis total time spent in millis for all previous (and this) attempt
-     * @param response the failed HttpResponse
-     * @return true if this request can be retried
-     */
-    public boolean shouldRetry(int previousAttempts, long totalElapsedTimeMillis, HttpResponse response);
-
-    /**
      * Release connection.
      */
     public void releaseConnection();
-
-    /**
-     * set the traces for this client
-     * @param traces the fields to include in trace-logging
-     */
-    public void setTraces(Trace... traces);
-
-    /**
-     * set whether to use nicely-formatted JSON or more compact format JSON in trace logging
-     * @param pretty whether to print JSON in a "pretty" format or compact
-     */
-    public void setTracePrettyPrint(boolean pretty);
 }

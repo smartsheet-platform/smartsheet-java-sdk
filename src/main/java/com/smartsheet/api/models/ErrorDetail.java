@@ -171,7 +171,7 @@ public class ErrorDetail {
     /**
      * Sets the type of the container that was partially copied
      *
-     * @param topContainerType the container ID
+     * @param topContainerType the container type
      */
     public ErrorDetail setTopContainerType(DestinationType topContainerType) {
         this.topContainerType = topContainerType;

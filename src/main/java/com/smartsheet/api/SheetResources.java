@@ -574,7 +574,7 @@ public interface SheetResources {
     /**
      * <p>Sort a sheet according to the sort criteria.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method: POST /sheet/{sheetId}/sort</p>
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/sort</p>
      *
      * @param sheetId the sheet id
      * @param sortSpecifier the sort criteria
