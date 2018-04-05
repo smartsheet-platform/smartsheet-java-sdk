@@ -136,9 +136,10 @@ The Smartsheet Java SDK also has a dependency on the SLF4J facade. SLF4J is conf
 is meant for production environments. More information about SLF4J and the supported logging frameworks is available 
 [here](https://www.slf4j.org). 
 
-Using SLF4J, the Smartsheet Java SDK logs API calls that return an HTTP status other than 200. A SLF4J log 
-level of *INFO* is sufficient to retrieve all API logging details. 
-
+Using SLF4J, the Smartsheet Java SDK logs all API queries including HTTP method, URI, HTTP status  and response time 
+to `INFO`. API calls that fail (HTTP status != 200) are fully logged (request, response and full bodies) to `WARN`. 
+Finally, successful (HTTP status 200) request and response summaries are logged to `DEBUG`.
+ 
 The POM for the Smartsheet Java SDK also includes a test only dependency on the ```slf4j-simple``` logging framework.
 Details on how to configure logging are framework dependant, however, a usage example for the Simple logger can be 
 found in the *simplelogger.properties* file in the Sample folder. Alternately, a usage example for Log4j can 
