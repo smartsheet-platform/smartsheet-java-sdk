@@ -103,7 +103,7 @@ A simple, but complete sample application is here: https://github.com/smartsheet
 More Java examples available [here](https://github.com/smartsheet-samples/).
 
 ## Advanced Topics
-For details about logging, testing, how to use a passthrough option, and how to override HTTP client behavior, see [Advanced Topics](ADVANCED.md)
+For details about logging, testing, how to use a passthrough option, and how to override HTTP client behavior, see [Advanced Topics](ADVANCED.md).
 
 ## Documentation
 The full Smartsheet API documentation is here: http://smartsheet-platform.github.io/api-docs/?java
