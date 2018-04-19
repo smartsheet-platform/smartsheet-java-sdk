@@ -26,7 +26,7 @@ public class WidgetContent {
     /**
      * Represents the CellLinkWidgetContent object
      */
-    private Link hyperlink;
+    private Hyperlink hyperlink;
     private List<CellDataItem> cellData;
     private List<Column> columns;
 
@@ -64,7 +64,7 @@ public class WidgetContent {
      *
      * @return hyperlink
      */
-    public Link getHyperlink() {
+    public Hyperlink getHyperlink() {
         return hyperlink;
     }
 
@@ -73,7 +73,7 @@ public class WidgetContent {
      *
      * @param hyperlink
      */
-    public WidgetContent setHyperlink(Link hyperlink) {
+    public WidgetContent setHyperlink(Hyperlink hyperlink) {
         this.hyperlink = hyperlink;
         return this;
     }

@@ -42,7 +42,7 @@ public class ShortcutDataItem {
     /**
      * Hyperlink object
      */
-    private Link hyperlink;
+    private Hyperlink hyperlink;
 
     /**
      * The display order for the Shortcut
@@ -118,7 +118,7 @@ public class ShortcutDataItem {
      *
      * @return hyperlink
      */
-    public Link getHyperlink() {
+    public Hyperlink getHyperlink() {
         return hyperlink;
     }
 
@@ -127,7 +127,7 @@ public class ShortcutDataItem {
      *
      * @param hyperlink
      */
-    public ShortcutDataItem setHyperlink(Link hyperlink) {
+    public ShortcutDataItem setHyperlink(Hyperlink hyperlink) {
         this.hyperlink = hyperlink;
         return this;
     }
