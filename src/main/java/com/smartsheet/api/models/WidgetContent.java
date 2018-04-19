@@ -31,19 +31,11 @@ public class WidgetContent {
     private List<Column> columns;
 
     /**
-     * Represents the RichTextWidgetContent object.
+     * Represents the ChartWidgetContent object
      */
-    private String html;
-
-    /**
-     * Represents the ShortcutWidgetContent object.
-     */
-    private List<ShortcutDataItem> shortcutData;
-
-    /**
-     * Represents the ReportWidgetContent object.
-     */
-    private String htmlContent;
+    private Object axes;
+    private Object legend;
+    private Object series;
 
     /**
      * Represents the ImageWidgetContent object.
@@ -53,6 +45,21 @@ public class WidgetContent {
     private Integer width;
     private String fileName;
     private String format;
+
+    /**
+     * Represents the ReportWidgetContent object.
+     */
+    private String htmlContent;
+
+    /**
+     * Represents the RichTextWidgetContent object.
+     */
+    private String html;
+
+    /**
+     * Represents the ShortcutWidgetContent object.
+     */
+    private List<ShortcutDataItem> shortcutData;
 
     /**
      * Represents the TitleWidgetContent object
@@ -282,6 +289,57 @@ public class WidgetContent {
      */
     public WidgetContent setBackgroundColor(String backgroundColor) {
         this.backgroundColor = backgroundColor;
+        return this;
+    }
+
+    /**
+     * Get the chart axes
+     *
+     * @return the axes object
+     */
+    public Object getAxes() { return axes; }
+
+    /**
+     * Set the chart axes
+     *
+     * @param axes the axes object
+     */
+    public WidgetContent setAxes(Object axes) {
+        this.axes = axes;
+        return this;
+    }
+
+    /**
+     * Get the chart legend object
+     *
+     * @return the chart legend
+     */
+    public Object getLegend() { return legend; }
+
+    /**
+     * Set the chart legend object
+     *
+     * @param legend the chart legend
+     */
+    public WidgetContent setLegend(Object legend) {
+        this.legend = legend;
+        return  this;
+    }
+
+    /**
+     * Get the chart series data
+     *
+     * @return the series data
+     */
+    public Object getSeries() { return series; }
+
+    /**
+     * Set the chart series data
+     *
+     * @param series the series data
+     */
+    public WidgetContent setSeries(Object series) {
+        this.series = series;
         return this;
     }
 }
