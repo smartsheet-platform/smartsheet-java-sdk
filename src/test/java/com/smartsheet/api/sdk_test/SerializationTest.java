@@ -24,14 +24,12 @@ import com.smartsheet.api.Smartsheet;
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.*;
+import com.smartsheet.api.models.format.Format;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.Ignore;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.List;
+import java.util.*;
 
 public class SerializationTest {
 	@Test
@@ -355,6 +353,7 @@ public class SerializationTest {
 			predecessor.setLag(lag);
 
 			PredecessorList predecessorList = new PredecessorList();
+			// the SDK does not have the ability to set a predecessor
 			predecessorList.setPredecessors(Arrays.asList(predecessor));
 
 			Cell cell = new Cell();
@@ -380,10 +379,13 @@ public class SerializationTest {
 			Smartsheet ss = HelperFunctions.SetupClient("Serialization - IndexResult");
 
 			// act
-			Contact result = ss.contactResources().getContact("ABC");
+			PagedResult<User> result = ss.userResources().listUsers();
 
 			// assert
-			Assert.assertEquals("ABC", result.getId());
+			Assert.assertEquals(1, (long)result.getPageNumber());
+			Assert.assertEquals(100, (long)result.getPageSize());
+			Assert.assertEquals(1, (long)result.getTotalPages());
+			Assert.assertEquals(1, (long)result.getTotalCount());
 		} catch (Exception ex) {
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
@@ -396,10 +398,11 @@ public class SerializationTest {
 			Smartsheet ss = HelperFunctions.SetupClient("Serialization - Image");
 
 			// act
-			Contact result = ss.contactResources().getContact("ABC");
+			Row result = ss.sheetResources().rowResources().getRow(1, 2, null, null);
 
 			// assert
-			Assert.assertEquals("ABC", result.getId());
+			Assert.assertEquals("puppy.jpg", result.getCells().get(0).getValue());
+			Assert.assertEquals(300, (long)result.getCells().get(0).getImage().getHeight());
 		} catch (Exception ex) {
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
@@ -410,12 +413,18 @@ public class SerializationTest {
 		try {
 			// arrange
 			Smartsheet ss = HelperFunctions.SetupClient("Serialization - Image Urls");
+			ImageUrl imageUrl = new ImageUrl();
+			imageUrl.setImageId("abc");
+			imageUrl.setHeight(100L);
+			imageUrl.setWidth(200L);
+			List<ImageUrl> imageUrls = Arrays.asList(imageUrl);
 
 			// act
-			Contact result = ss.contactResources().getContact("ABC");
+			ImageUrlMap result = ss.imageUrlResources().getImageUrls(imageUrls);
 
 			// assert
-			Assert.assertEquals("ABC", result.getId());
+			Assert.assertEquals("abc", result.getImageUrls().get(0).getImageId());
+			Assert.assertEquals(1800000, (long)result.getUrlExpiresInMillis());
 		} catch (Exception ex) {
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
@@ -425,13 +434,32 @@ public class SerializationTest {
 	public void SerializeBulkFailure() {
 		try {
 			// arrange
-			Smartsheet ss = HelperFunctions.SetupClient("Serialization - Bulk Failure");
+			Smartsheet ss = HelperFunctions.SetupClient("Serialization - BulkFailure");
+
+			Cell cell1 = new Cell();
+			cell1.setColumnId(2L);
+			cell1.setValue("Some Value");
+
+			Row row1 = new Row();
+			row1.setToBottom(true);
+			row1.setCells(Arrays.asList(cell1));
+
+			Cell cell2 = new Cell();
+			cell2.setColumnId(3L);
+			cell2.setValue("Some Value");
+
+			Row row2 = new Row();
+			row2.setToBottom(true);
+			row2.setCells(Arrays.asList(cell2));
+			List<Row> rows = Arrays.asList(row1, row2);
 
 			// act
-			Contact result = ss.contactResources().getContact("ABC");
+			PartialRowUpdateResult result = ss.sheetResources().rowResources().addRowsAllowPartialSuccess(1, rows);
 
 			// assert
-			Assert.assertEquals("ABC", result.getId());
+			Assert.assertEquals("PARTIAL_SUCCESS", result.getMessage());
+			Assert.assertEquals(13, (long)result.getResult().get(0).getRowNumber());
+			Assert.assertEquals(1036, (long)result.getFailedItems().get(0).getError().getErrorCode());
 		} catch (Exception ex) {
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
@@ -443,11 +471,334 @@ public class SerializationTest {
 			// arrange
 			Smartsheet ss = HelperFunctions.SetupClient("Serialization - Rows");
 
+			Format format = new Format(",,,,,,,,4,,,,,,,");
+			Cell cell1 = new Cell();
+			cell1.setColumnId(2L);
+			cell1.setValue("url link");
+			cell1.setStrict(false);
+
+			Hyperlink hyperlink1 = new Hyperlink();
+			hyperlink1.setUrl("https://google.com");
+			cell1.setHyperlink(hyperlink1);
+
+			Cell cell2 = new Cell();
+			cell2.setColumnId(3L);
+			cell2.setValue("sheet id link");
+			cell2.setStrict(false);
+
+			Hyperlink hyperlink2 = new Hyperlink();
+			hyperlink2.setSheetId(4L);
+			cell2.setHyperlink(hyperlink2);
+
+			Cell cell3 = new Cell();
+			cell3.setColumnId(5L);
+			cell3.setValue("report id link");
+			cell3.setStrict(false);
+
+			Hyperlink hyperlink3 = new Hyperlink();
+			hyperlink3.setReportId(6L);
+			cell3.setHyperlink(hyperlink3);
+			List<Cell> cells = Arrays.asList(cell1, cell2, cell3);
+
+			Row row = new Row();
+			row.setExpanded(true);
+			row.setFormat(format);
+			row.setCells(cells);
+			row.setLocked(false);
+
 			// act
-			Contact result = ss.contactResources().getContact("ABC");
+			// SDK does not support adding a single row so this will fail
+			List<Row> result = ss.sheetResources().rowResources().addRows(1, Arrays.asList(row));
 
 			// assert
-			Assert.assertEquals("ABC", result.getId());
+		} catch (Exception ex) {
+			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
+		}
+	}
+
+	@Test
+	public void SerializeCellLink() {
+		try {
+			// arrange
+			Smartsheet ss = HelperFunctions.SetupClient("Serialization - Cell Link");
+
+			CellLink cellLink = new CellLink();
+			cellLink.setSheetId(4L);
+			cellLink.setRowId(5L);
+			cellLink.setColumnId(6L);
+
+			Cell cell = new Cell();
+			cell.setColumnId(3L);
+			cell.setValue(null);
+			cell.setLinkInFromCell(cellLink);
+
+			Row row = new Row();
+			row.setId(2L);
+			row.setCells(Arrays.asList(cell));
+
+			// act
+			// SDK cannot update a single row so will not work
+			List<Row> result = ss.sheetResources().rowResources().updateRows(1, Arrays.asList(row));
+
+			// assert
+			Assert.assertEquals("PARTIAL_SUCCESS", result.get(0));
+		} catch (Exception ex) {
+			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
+		}
+	}
+
+	@Test
+	public void SerializeFavorite() {
+		try {
+			// arrange
+			Smartsheet ss = HelperFunctions.SetupClient("Serialization - Favorite");
+			Favorite favorite = new Favorite();
+			favorite.setType(FavoriteType.SHEET);
+			favorite.setObjectId(1L);
+
+			// act
+			// SDK cannot add a single favorite so cannot match mock api
+			List<Favorite> result = ss.favoriteResources().addFavorites(Arrays.asList(favorite));
+
+			// assert
+			Assert.assertEquals("PARTIAL_SUCCESS", result.get(0));
+		} catch (Exception ex) {
+			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
+		}
+	}
+
+	@Test
+	public void SerializeReport() {
+		try {
+			// arrange
+			Smartsheet ss = HelperFunctions.SetupClient("Serialization - Report");
+
+			// act
+			Report result = ss.reportResources().getReport(1L, null, null, null);
+
+			// assert
+			Assert.assertEquals(AccessLevel.OWNER, result.getAccessLevel());
+			Assert.assertEquals(false, result.getGanttEnabled());
+			Assert.assertTrue(false); // isCellImageUploadEnabled doesn't exist, it should
+//			Assert.assertEquals(true, result.isCellImageUploadEnabled());
+		} catch (Exception ex) {
+			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
+		}
+	}
+
+	@Test
+	public void SerializeShare() {
+		try {
+			// arrange
+			Smartsheet ss = HelperFunctions.SetupClient("Serialization - Share");
+
+			Share share = new Share();
+			share.setEmail("john.doe@smartsheet.com");
+			share.setAccessLevel(AccessLevel.VIEWER);
+			share.setSubject("Check out this sheet");
+			share.setMessage("Let me know what you think. Thanks!");
+			share.setCcMe(true);
+
+			// act
+			List<Share> result = ss.sheetResources().shareResources().shareTo(1L, Arrays.asList(share), true);
+
+			// assert
+			Assert.assertEquals("PARTIAL_SUCCESS", result.get(0));
+		} catch (Exception ex) {
+			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
+		}
+	}
+
+	@Test
+	public void SerializeSendViaEmail() {
+		try {
+			// arrange
+			Smartsheet ss = HelperFunctions.SetupClient("Serialization - Send via Email");
+
+			RecipientEmail emailRecipient = new RecipientEmail();
+			emailRecipient.setEmail("john.doe@smartsheet.com");
+
+			RecipientGroup groupRecipient = new RecipientGroup();
+			groupRecipient.setGroupId(2L);
+
+			FormatDetails formatDetails = new FormatDetails();
+			formatDetails.setPaperSize(PaperSize.LETTER);
+
+			SheetEmail sheetEmail = new SheetEmail();
+			sheetEmail.setSendTo(Arrays.asList(emailRecipient, groupRecipient));
+			sheetEmail.setSubject("Some subject");
+			sheetEmail.setMessage("Some message");
+			sheetEmail.setCcMe(true);
+			sheetEmail.setFormat(SheetEmailFormat.PDF);
+			sheetEmail.setFormatDetails(formatDetails);
+
+			// act
+			// assert
+			ss.sheetResources().sendSheet(1L, sheetEmail);
+		} catch (Exception ex) {
+			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
+		}
+	}
+
+	@Test
+	public void SerializeRowEmail() {
+		try {
+			// arrange
+			Smartsheet ss = HelperFunctions.SetupClient("Serialization - Row Email");
+
+			RecipientGroup groupRecipient = new RecipientGroup();
+			groupRecipient.setGroupId(2L);
+
+			MultiRowEmail rowEmail = new MultiRowEmail();
+			rowEmail.setSendTo(Arrays.asList((Recipient)groupRecipient));
+			rowEmail.setSubject("Some subject");
+			rowEmail.setMessage("Some message");
+			rowEmail.setColumnIds(Arrays.asList(3L));
+			rowEmail.setIncludeAttachments(false);
+			rowEmail.setIncludeDiscussions(true);
+			rowEmail.setLayout("VERTICAL");
+			rowEmail.setRowIds(Arrays.asList(4L));
+
+			// act
+			// assert
+			ss.sheetResources().rowResources().sendRows(1L, rowEmail);
+		} catch (Exception ex) {
+			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
+		}
+	}
+
+	@Test
+	public void SerializeTemplate() {
+		try {
+			// arrange
+			Smartsheet ss = HelperFunctions.SetupClient("Serialization - Template");
+
+			// act
+			PagedResult<Template> result = ss.templateResources().listPublicTemplates(null);
+
+			// assert
+			Assert.assertEquals(GlobalTemplate.BLANK_SHEET, result.getData().get(0).getGlobalTemplate());
+			Assert.assertEquals("Featured Templates", result.getData().get(0).getCategories().get(0));
+			Assert.assertEquals(true, result.getData().get(0).isBlank());
+		} catch (Exception ex) {
+			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
+		}
+	}
+
+	@Test
+	public void SerializeUpdateRequest() {
+		try {
+			// arrange
+			Smartsheet ss = HelperFunctions.SetupClient("Serialization - Update Request");
+
+			Calendar startAtCalendar = Calendar.getInstance();
+			startAtCalendar.set(Calendar.YEAR, 2018);
+			startAtCalendar.set(Calendar.MONTH, 3);
+			startAtCalendar.set(Calendar.DAY_OF_MONTH, 1);
+			startAtCalendar.set(Calendar.HOUR_OF_DAY, 19);
+
+
+			Calendar endAtCalendar = Calendar.getInstance();
+			endAtCalendar.set(Calendar.YEAR, 2018);
+			endAtCalendar.set(Calendar.MONTH, 6);
+			endAtCalendar.set(Calendar.DAY_OF_MONTH, 1);
+			endAtCalendar.set(Calendar.HOUR_OF_DAY, 0);
+
+			Schedule schedule = new Schedule();
+			schedule.setType(ScheduleType.MONTHLY);
+			schedule.setStartAt(startAtCalendar.getTime());// this is apparently the wrong way to set the date, not sure of the right way
+			schedule.setEndAt(endAtCalendar.getTime());
+			schedule.setDayOrdinal(DayOrdinal.FIRST);
+			schedule.setDayDescriptors(Arrays.asList(DayDescriptor.FRIDAY));
+
+			RecipientEmail recipient = new RecipientEmail();
+			recipient.setEmail("john.doe@smartsheet.com");
+
+			UpdateRequest updateRequest = new UpdateRequest();
+			updateRequest.setSendTo(Arrays.asList((Recipient)recipient));
+			updateRequest.setRowIds(Arrays.asList(2L));
+			updateRequest.setColumnIds(Arrays.asList(3L));
+			updateRequest.setIncludeAttachments(true);
+			updateRequest.setIncludeDiscussions(false);
+			updateRequest.setSubject("Some subject");
+			updateRequest.setMessage("Some message");
+			updateRequest.setCcMe(true);
+			updateRequest.setSchedule(schedule);
+
+			// act
+			UpdateRequest result = ss.sheetResources().updateRequestResources().createUpdateRequest(1, updateRequest);
+
+			// assert
+//			Assert.assertEquals("PARTIAL_SUCCESS", result.get(0));
+		} catch (Exception ex) {
+			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
+		}
+	}
+
+	@Test
+	public void SerializeSentUpdateRequests() {
+		try {
+			// arrange
+			Smartsheet ss = HelperFunctions.SetupClient("Serialization - Sent Update Requests");
+
+			// act
+			SentUpdateRequest result = ss.sheetResources().updateRequestResources().getSentUpdateRequest(1, 2);
+
+			// assert
+			Assert.assertEquals("Jane Doe", result.getSentBy().getName());
+			Assert.assertEquals(UpdateRequestStatus.COMPLETE, result.getStatus());
+			Assert.assertEquals("Jane Doe", result.getSentBy().getName());
+			Assert.assertEquals(1, result.getSentAt().getMonth());
+			Assert.assertEquals(2, result.getSentAt().getDate());
+			Assert.assertEquals(4, (long)result.getRowIds().get(0));
+		} catch (Exception ex) {
+			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
+		}
+	}
+
+	@Test
+	public void SerializeSheetSettings() {
+		try {
+			// arrange
+			Smartsheet ss = HelperFunctions.SetupClient("Serialization - Sheet Settings");
+
+			// act
+			List<Row> result = ss.sheetResources().rowResources().addRows(1, new ArrayList<Row>());
+
+			// assert
+			Assert.assertEquals("PARTIAL_SUCCESS", result.get(0));
+		} catch (Exception ex) {
+			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
+		}
+	}
+
+	@Test
+	public void SerializeContainerDestination() {
+		try {
+			// arrange
+			Smartsheet ss = HelperFunctions.SetupClient("Serialization - Container Destination");
+
+			// act
+			List<Row> result = ss.sheetResources().rowResources().addRows(1, new ArrayList<Row>());
+
+			// assert
+			Assert.assertEquals("PARTIAL_SUCCESS", result.get(0));
+		} catch (Exception ex) {
+			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
+		}
+	}
+
+	@Test
+	public void SerializeCrossSheetReference() {
+		try {
+			// arrange
+			Smartsheet ss = HelperFunctions.SetupClient("Serialization - Cross Sheet Reference");
+
+			// act
+			List<Row> result = ss.sheetResources().rowResources().addRows(1, new ArrayList<Row>());
+
+			// assert
+			Assert.assertEquals("PARTIAL_SUCCESS", result.get(0));
 		} catch (Exception ex) {
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
