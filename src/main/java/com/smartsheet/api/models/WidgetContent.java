@@ -26,9 +26,30 @@ public class WidgetContent {
     /**
      * Represents the CellLinkWidgetContent object
      */
-    private Link hyperlink;
+    private Hyperlink hyperlink;
     private List<CellDataItem> cellData;
     private List<Column> columns;
+
+    /**
+     * Represents the ChartWidgetContent object
+     */
+    private Object axes;
+    private Object legend;
+    private Object series;
+
+    /**
+     * Represents the ImageWidgetContent object.
+     */
+    private String privateId;
+    private Integer height;
+    private Integer width;
+    private String fileName;
+    private String format;
+
+    /**
+     * Represents the ReportWidgetContent object.
+     */
+    private String htmlContent;
 
     /**
      * Represents the RichTextWidgetContent object.
@@ -41,20 +62,6 @@ public class WidgetContent {
     private List<ShortcutDataItem> shortcutData;
 
     /**
-     * Represents the ReportWidgetContent object.
-     */
-    private String htmlContent;
-
-    /**
-     * Represents the ImageWidgetContent object.
-     */
-    private String privateId;
-    private Integer height;
-    private Integer width;
-    private String fileName;
-    private String format;
-
-    /**
      * Represents the TitleWidgetContent object
      */
     private String backgroundColor;
@@ -64,7 +71,7 @@ public class WidgetContent {
      *
      * @return hyperlink
      */
-    public Link getHyperlink() {
+    public Hyperlink getHyperlink() {
         return hyperlink;
     }
 
@@ -73,7 +80,7 @@ public class WidgetContent {
      *
      * @param hyperlink
      */
-    public WidgetContent setHyperlink(Link hyperlink) {
+    public WidgetContent setHyperlink(Hyperlink hyperlink) {
         this.hyperlink = hyperlink;
         return this;
     }
@@ -282,6 +289,57 @@ public class WidgetContent {
      */
     public WidgetContent setBackgroundColor(String backgroundColor) {
         this.backgroundColor = backgroundColor;
+        return this;
+    }
+
+    /**
+     * Get the chart axes
+     *
+     * @return the axes object
+     */
+    public Object getAxes() { return axes; }
+
+    /**
+     * Set the chart axes
+     *
+     * @param axes the axes object
+     */
+    public WidgetContent setAxes(Object axes) {
+        this.axes = axes;
+        return this;
+    }
+
+    /**
+     * Get the chart legend object
+     *
+     * @return the chart legend
+     */
+    public Object getLegend() { return legend; }
+
+    /**
+     * Set the chart legend object
+     *
+     * @param legend the chart legend
+     */
+    public WidgetContent setLegend(Object legend) {
+        this.legend = legend;
+        return  this;
+    }
+
+    /**
+     * Get the chart series data
+     *
+     * @return the series data
+     */
+    public Object getSeries() { return series; }
+
+    /**
+     * Set the chart series data
+     *
+     * @param series the series data
+     */
+    public WidgetContent setSeries(Object series) {
+        this.series = series;
         return this;
     }
 }

@@ -56,13 +56,6 @@ public class SheetRowResourcesImplTest extends ResourcesImplBase {
         cell.setDisplayValue("Testing");
         cell.setColumnId(8764071660021636L);
         cell.setRowId(1234L);
-        Link link = new Link();
-        link.setUrl("http://google.com");
-        link.setType(LinkType.URL);
-        link.setSheetId(1234L);
-        link.setColumnId(1234L);
-        link.setRowId(1234L);
-        //cell.setLink(link);
         cell.setFormula("=1+1");
 
         // Create a row and add the cells to it.

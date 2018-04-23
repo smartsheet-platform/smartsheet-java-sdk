@@ -31,6 +31,7 @@ import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.*;
 
 import java.io.*;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.EnumSet;
@@ -376,6 +377,49 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     }
 
     /**
+     * Imports a sheet.
+     *
+     * It mirrors to the following Smartsheet REST API method: POST /sheets/import
+     *
+     * @param file path to the CSV file
+     * @param sheetName destination sheet name
+     * @param headerRowIndex index (0 based) of row to be used for column names
+     * @param primaryRowIndex index (0 based) of primary column
+     * @return the created sheet
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Sheet importCsv(String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException {
+        return importFile("sheets/import", file,"text/csv", sheetName, headerRowIndex, primaryRowIndex);
+    }
+
+    /**
+     * Imports a sheet.
+     *
+     * It mirrors to the following Smartsheet REST API method: POST /sheets/import
+     *
+     * @param file path to the XLSX file
+     * @param sheetName destination sheet name
+     * @param headerRowIndex index (0 based) of row to be used for column names
+     * @param primaryRowIndex index (0 based) of primary column
+     * @return the created sheet
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Sheet importXlsx(String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException {
+        return importFile("sheets/import", file,"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                sheetName, headerRowIndex, primaryRowIndex);
+    }
+
+    /**
      * Create a sheet in given folder.
      *
      * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/sheets
@@ -430,6 +474,53 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     }
 
     /**
+     * Imports a sheet in given folder.
+     *
+     * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/sheets/import
+     *
+     * @param folderId the folder id
+     * @param file path to the CSV file
+     * @param sheetName destination sheet name
+     * @param headerRowIndex index (0 based) of row to be used for column names
+     * @param primaryRowIndex index (0 based) of primary column
+     * @return the created sheet
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Sheet importCsvInFolder(long folderId, String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException {
+        return importFile("folders/" + folderId + "/sheets/import", file,"text/csv",
+                sheetName, headerRowIndex, primaryRowIndex);
+    }
+
+    /**
+     * Imports a sheet in given folder.
+     *
+     * It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/sheets/import
+     *
+     * @param folderId the folder id
+     * @param file path to the XLSX file
+     * @param sheetName destination sheet name
+     * @param headerRowIndex index (0 based) of row to be used for column names
+     * @param primaryRowIndex index (0 based) of primary column
+     * @return the created sheet
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Sheet importXlsxInFolder(long folderId, String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException {
+        return importFile("folders/" + folderId + "/sheets/import", file,
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", sheetName,
+                headerRowIndex, primaryRowIndex);
+    }
+
+    /**
      * Create a sheet in given workspace.
      *
      * It mirrors to the following Smartsheet REST API method: POST /workspace/{workspaceId}/sheets
@@ -481,6 +572,53 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
         String path = QueryUtil.generateUrl("workspaces/" + workspaceId + "/sheets", parameters);
 
         return this.createResource(path, Sheet.class, sheet);
+    }
+
+    /**
+     * Imports a sheet in given workspace.
+     *
+     * It mirrors to the following Smartsheet REST API method: POST /workspaces/{workspaceId}/sheets/import
+     *
+     * @param workspaceId the workspace id
+     * @param file path to the CSV file
+     * @param sheetName destination sheet name
+     * @param headerRowIndex index (0 based) of row to be used for column names
+     * @param primaryRowIndex index (0 based) of primary column
+     * @return the created sheet
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Sheet importCsvInWorkspace(long workspaceId, String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException {
+        return importFile("workspaces/" + workspaceId + "/sheets/import", file,
+                "text/csv", sheetName, headerRowIndex, primaryRowIndex);
+    }
+
+    /**
+     * Imports a sheet in given workspace.
+     *
+     * It mirrors to the following Smartsheet REST API method: POST /workspaces/{workspaceId}/sheets/import
+     *
+     * @param workspaceId the workspace id
+     * @param file path to the XLSX file
+     * @param sheetName destination sheet name
+     * @param headerRowIndex index (0 based) of row to be used for column names
+     * @param primaryRowIndex index (0 based) of primary column
+     * @return the created sheet
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Sheet importXlsxInWorkspace(long workspaceId, String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException {
+        return importFile("workspaces/" + workspaceId + "/sheets/import", file,
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", sheetName,
+                headerRowIndex, primaryRowIndex);
     }
 
     /**
@@ -721,6 +859,74 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
         return this.updateResource("sheets/" + id + "/publish", SheetPublish.class, publish);
     }
 
+    /**
+     * Internal function used by all of the import routines
+     *
+     * Exceptions:
+     *   - InvalidRequestException : if there is any problem with the REST API request
+     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   - ResourceNotFoundException : if the resource can not be found
+     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   - SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param path endpoint for import
+     * @param file full path to file
+     * @param contentType content type of the file being imported (either CSV or XLSX)
+     * @param sheetName sheetName from caller (can be null)
+     * @param headerRowIndex headerRowIndex from caller (can be null)
+     * @param primaryRowIndex primaryRowIndex from caller (can be null)
+     * @return the new imported sheet
+     * @throws SmartsheetException
+     */
+    private Sheet importFile(String path, String file, String contentType, String sheetName, Integer headerRowIndex,
+                             Integer primaryRowIndex) throws SmartsheetException {
+        Util.throwIfNull(path, file, contentType);
+        Util.throwIfEmpty(path, file, contentType);
+
+        File f = new File(file);
+        HashMap<String, Object> parameters = new HashMap();
+        if (sheetName == null) {
+            sheetName = f.getName();
+        }
+        parameters.put("sheetName", sheetName);
+        parameters.put("headerRowIndex", headerRowIndex);
+        parameters.put("primaryRowIndex", primaryRowIndex);
+        path = QueryUtil.generateUrl(path, parameters);
+        HttpRequest request = createHttpRequest(this.smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
+        request.getHeaders().put("Content-Disposition", "attachment");
+        request.getHeaders().put("Content-Type", contentType);
+
+        InputStream is = null;
+        try {
+            is = new FileInputStream(f);
+        } catch (FileNotFoundException e) {
+            throw new SmartsheetException(e);
+        }
+
+        HttpEntity entity = new HttpEntity();
+        entity.setContentType(contentType);
+        entity.setContent(is);
+        entity.setContentLength(f.length());
+        request.setEntity(entity);
+
+        Sheet obj = null;
+        try {
+            HttpResponse response = this.smartsheet.getHttpClient().request(request);
+            switch (response.getStatusCode()) {
+                case 200:
+                    obj = this.smartsheet.getJsonSerializer().deserializeResult(Sheet.class,
+                            response.getEntity().getContent()).getResult();
+                    break;
+                default:
+                    handleError(response);
+            }
+        } finally {
+            smartsheet.getHttpClient().releaseConnection();
+        }
+
+        return obj;
+    }
     /**
      * Get a sheet as a file.
      *

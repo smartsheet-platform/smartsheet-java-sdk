@@ -41,6 +41,10 @@ public class Hyperlink {
     private Long reportId;
 
     /**
+     * If non-null, this hyperlink is a link to the Sort with this ID.
+     */
+    private Long sightId;
+    /**
      * If true, update will serialize a null to reset the hyperlink
      */
     private boolean isNull = true;
@@ -104,7 +108,25 @@ public class Hyperlink {
         this.reportId = reportId;
         return this;
     }
-    
+
+    /**
+     * Gets the link to the Sight with this ID.
+     *
+     * @return the sight id
+     */
+    public Long getSightId() { return sightId; }
+
+    /**
+     * Sets the link to the Sight with this ID.
+     *
+     * @param sightId the sight Id
+     */
+    public Hyperlink setSightId(Long sightId) {
+        this.isNull = false;
+        this.sightId = sightId;
+        return this;
+    }
+
     /**
      * Get the value of the isNull flag
      * 

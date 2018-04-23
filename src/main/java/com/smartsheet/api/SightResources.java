@@ -148,7 +148,7 @@ public interface SightResources {
     /**
      * <p>Sets the publish status of a Sight and returns the new status, including the URLs of any enabled publishing.</p>
      *
-     * <p>It mirrors to the following Smartsheet REST API method: POST /sights/{sightId}/publish</p>
+     * <p>It mirrors to the following Smartsheet REST API method: PUT /sights/{sightId}/publish</p>
      *
      * @param sightId the Id of the Sight
      * @param sightPublish the SightPublish object containing publish status

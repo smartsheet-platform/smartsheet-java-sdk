@@ -50,7 +50,8 @@ public class ObjectValueDeserializer extends JsonDeserializer<ObjectValue> {
             try {
                 parsedObjectType = ObjectValueType.valueOf(superset.objectType);
             } catch (IllegalArgumentException e) {
-                // If a new object type is introduced to the Smartsheet API that this version of the SDK doesn't support, return null instead of throwing an exception.
+                // If a new object type is introduced to the Smartsheet API that this version of the SDK doesn't support,
+                // return null instead of throwing an exception.
                 return null;
             }
 

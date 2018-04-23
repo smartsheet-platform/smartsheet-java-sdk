@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.2.5] - 2018-04-20
+### Added
+- Sheet import for XLSX and CSV (includes methods to import into Folders and Workspaces)
+- Limited support for CHART widget types
+
+### Changed
+- Removed old Link model which was replaced by Hyperlink and CellLink   
+
+### Fixed
+- Hyperlink and HyperlinkSerializer were missing the sightId property
+
 ## [2.2.4] - 2018-04-02
 ### Added
 - SmartsheetFactory for creating Smartsheet client objects

@@ -236,6 +236,44 @@ public interface SheetResources {
     public Sheet createSheetFromTemplate(Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException;
 
     /**
+     * <p>Imports a sheet.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/import</p>
+     *
+     * @param file path to the CSV file
+     * @param sheetName destination sheet name
+     * @param headerRowIndex index (0 based) of row to be used for column names
+     * @param primaryRowIndex index (0 based) of primary column
+     * @return the created sheet
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Sheet importCsv(String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException;
+
+    /**
+     * <p>Imports a sheet.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/import</p>
+     *
+     * @param file path to the XLSX file
+     * @param sheetName destination sheet name
+     * @param headerRowIndex index (0 based) of row to be used for column names
+     * @param primaryRowIndex index (0 based) of primary column
+     * @return the created sheet
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Sheet importXlsx(String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException;
+
+    /**
      * <p>Create a sheet in given folder.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/sheets</p>
@@ -271,6 +309,46 @@ public interface SheetResources {
     public Sheet createSheetInFolderFromTemplate(long folderID, Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException;
 
     /**
+     * <p>Imports a sheet in given folder.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/sheets/import</p>
+     *
+     * @param folderID the folder id
+     * @param file path to the CSV file
+     * @param sheetName destination sheet name
+     * @param headerRowIndex index (0 based) of row to be used for column names
+     * @param primaryRowIndex index (0 based) of primary column
+     * @return the created sheet
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Sheet importCsvInFolder(long folderID, String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException;
+
+    /**
+     * <p>Imports a sheet in given folder.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /folders/{folderId}/sheets/import</p>
+     *
+     * @param folderID the folder id
+     * @param file path to the XLSX file
+     * @param sheetName destination sheet name
+     * @param headerRowIndex index (0 based) of row to be used for column names
+     * @param primaryRowIndex index (0 based) of primary column
+     * @return the created sheet
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Sheet importXlsxInFolder(long folderID, String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException;
+
+    /**
      * <p>Create a sheet in given workspace.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /workspace/{workspaceId}/sheets</p>
@@ -304,6 +382,46 @@ public interface SheetResources {
      * @throws SmartsheetException if there is any other error during the operation
      */
     public Sheet createSheetInWorkspaceFromTemplate(long workspaceId, Sheet sheet, EnumSet<SheetTemplateInclusion> includes) throws SmartsheetException;
+
+    /**
+     * <p>Imports a sheet in given workspace.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /workspaces/{workspaceId}/sheets/import</p>
+     *
+     * @param workspaceId the workspace id
+     * @param file path to the CSV file
+     * @param sheetName destination sheet name
+     * @param headerRowIndex index (0 based) of row to be used for column names
+     * @param primaryRowIndex index (0 based) of primary column
+     * @return the created sheet
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Sheet importCsvInWorkspace(long workspaceId, String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException;
+
+    /**
+     * <p>Imports a sheet in given workspace.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /workspaces/{workspaceId}/sheets/import</p>
+     *
+     * @param workspaceId the workspace id
+     * @param file path to the XLSX file
+     * @param sheetName destination sheet name
+     * @param headerRowIndex index (0 based) of row to be used for column names
+     * @param primaryRowIndex index (0 based) of primary column
+     * @return the created sheet
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Sheet importXlsxInWorkspace(long workspaceId, String file, String sheetName, Integer headerRowIndex, Integer primaryRowIndex) throws SmartsheetException;
 
     /**
      * <p>Delete a sheet.</p>

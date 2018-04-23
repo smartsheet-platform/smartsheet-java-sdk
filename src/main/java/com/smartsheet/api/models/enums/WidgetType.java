@@ -26,9 +26,21 @@ public enum WidgetType {
      */
     CELLLINK,
     /**
+     * ChartWidgetContent object
+     */
+    CHART,
+    /**
+     * ImageWidgetContent object
+     */
+    IMAGE,
+    /**
      * CellLinkWidgetContent object
      */
     SHEETSUMMARY,
+    /**
+     * ReportWidgetContent object
+     */
+    GRIDGANTT,
     /**
      * RichTextWidgetContent object
      */
@@ -41,14 +53,6 @@ public enum WidgetType {
      * ShortcutWidgetContent object
      */
     SHORTCUTLIST,
-    /**
-     * ReportWidgetContent object
-     */
-    GRIDGANTT,
-    /**
-     * ImageWidgetContent object
-     */
-    IMAGE,
     /**
      * same as RichTextWidgetContent object
      */
