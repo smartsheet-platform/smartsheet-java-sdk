@@ -80,7 +80,7 @@ public class SheetUserSettings {
      * 
      * @return displaySummaryTasks
      */
-    public Boolean isDisplaySummaryTasksEnabled() {
+    public Boolean isDisplaySummaryTasks() {
         return displaySummaryTasks;
     }
     
