@@ -603,7 +603,6 @@ public class SerializationTest {
 			List<Share> result = ss.sheetResources().shareResources().shareTo(1L, Arrays.asList(share), true);
 
 			// assert
-			Assert.assertEquals("PARTIAL_SUCCESS", result.get(0));
 		} catch (Exception ex) {
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
@@ -762,11 +761,30 @@ public class SerializationTest {
 			// arrange
 			Smartsheet ss = HelperFunctions.SetupClient("Serialization - Sheet Settings");
 
+			SheetUserSettings sheetUserSettings = new SheetUserSettings();
+			sheetUserSettings.setCriticalPathEnabled(true);
+			sheetUserSettings.setDisplaySummaryTasks(true);
+
+			ProjectSettings projectSettings = new ProjectSettings();
+			projectSettings.setWorkingDays(Arrays.asList(DayOfWeek.MONDAY, DayOfWeek.TUESDAY));
+			projectSettings.setNonWorkingDays(Arrays.asList("2018-04-04", "2018-05-05", "2018-06-06"));
+			projectSettings.setLengthOfDay(23.5f);
+
+			Sheet sheet = new Sheet();
+			sheet.setId(1L);
+			sheet.setProjectSettings(projectSettings);
+			sheet.setUserSettings(sheetUserSettings);
+
 			// act
-			List<Row> result = ss.sheetResources().rowResources().addRows(1, new ArrayList<Row>());
+			Sheet result = ss.sheetResources().updateSheet(sheet);
 
 			// assert
-			Assert.assertEquals("PARTIAL_SUCCESS", result.get(0));
+			Assert.assertEquals("Test Project Sheet", result.getName());
+			Assert.assertEquals("https://app.smartsheet.com/b/home?lx=a", result.getPermalink());
+			Assert.assertEquals(true, result.getUserSettings().isCriticalPathEnabled());
+			Assert.assertEquals(true, result.getUserSettings().isDisplaySummaryTasks());
+			Assert.assertEquals("2018-04-04", result.getProjectSettings().getNonWorkingDays().get(0));
+			Assert.assertEquals(DayOfWeek.MONDAY, result.getProjectSettings().getWorkingDays().get(0));
 		} catch (Exception ex) {
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
@@ -778,11 +796,16 @@ public class SerializationTest {
 			// arrange
 			Smartsheet ss = HelperFunctions.SetupClient("Serialization - Container Destination");
 
+			ContainerDestination containerDestination = new ContainerDestination();
+			containerDestination.setDestinationType(DestinationType.HOME);
+			containerDestination.setDestinationId(null);
+			containerDestination.setNewName("Copy of Some Folder");
+
 			// act
-			List<Row> result = ss.sheetResources().rowResources().addRows(1, new ArrayList<Row>());
+			Folder result = ss.folderResources().copyFolder(1, containerDestination, null, null);
 
 			// assert
-			Assert.assertEquals("PARTIAL_SUCCESS", result.get(0));
+			Assert.assertEquals(2, (long)result.getId());
 		} catch (Exception ex) {
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
@@ -794,11 +817,19 @@ public class SerializationTest {
 			// arrange
 			Smartsheet ss = HelperFunctions.SetupClient("Serialization - Cross Sheet Reference");
 
+			CrossSheetReference crossSheetReference = new CrossSheetReference();
+			crossSheetReference.setName("Some Cross Sheet Reference");
+			crossSheetReference.setSourceSheetId(2L);
+			crossSheetReference.setStartRowId(3L);
+			crossSheetReference.setEndRowId(4L);
+			crossSheetReference.setStartColumnId(5L);
+			crossSheetReference.setEndColumnId(6L);
+
 			// act
-			List<Row> result = ss.sheetResources().rowResources().addRows(1, new ArrayList<Row>());
+			CrossSheetReference result = ss.sheetResources().crossSheetReferenceResources().createCrossSheetReference(1L, crossSheetReference);
 
 			// assert
-			Assert.assertEquals("PARTIAL_SUCCESS", result.get(0));
+			Assert.assertEquals("Some Cross Sheet Reference", result.getName());
 		} catch (Exception ex) {
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
