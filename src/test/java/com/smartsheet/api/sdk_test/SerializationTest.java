@@ -21,13 +21,11 @@ package com.smartsheet.api.sdk_test;
  */
 
 import com.smartsheet.api.Smartsheet;
-import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.*;
 import com.smartsheet.api.models.format.Format;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.Ignore;
 
 import java.util.*;
 
@@ -172,26 +170,32 @@ public class SerializationTest {
 
 	@Test
 	public void SerializeColumn() {
+		// arrange
+		Smartsheet ss = HelperFunctions.SetupClient("Serialization - Column");
+
+		Column column = new Column();
+		column.setTitle("A Brave New Column");
+		column.setType(ColumnType.PICKLIST);
+		column.setOptions(Arrays.asList("option1", "option2", "option3"));
+		column.setIndex(2);
+		column.setValidation(false);
+		column.setWidth(42);
+		column.setLocked(false);
+
+		// act
+		List<Column> result;
 		try {
-			// arrange
-			Smartsheet ss = HelperFunctions.SetupClient("Serialization - Column");
-
-			Column column = new Column();
-			column.setTitle("A Brave New Column");
-			column.setType(ColumnType.PICKLIST);
-			column.setOptions(Arrays.asList("option1", "option2", "option3"));
-			column.setIndex(2);
-			column.setValidation(false);
-			column.setWidth(42);
-			column.setLocked(false);
-
-			// act
-			List<Column> result = ss.sheetResources().columnResources().addColumns(1, Arrays.asList(column));
-
-			// assert
+			result = ss.sheetResources().columnResources().addColumns(1, Arrays.asList(column));
 		} catch (Exception ex) {
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
+			return;
 		}
+
+		// assert
+		Assert.assertEquals(ColumnType.PICKLIST, result.get(0).getType());
+		Assert.assertEquals("option1", result.get(0).getOptions().get(0));
+		Assert.assertEquals(false, result.get(0).getValidation());
+		Assert.assertEquals(42L, (long)result.get(0).getWidth());
 	}
 
 	@Test
@@ -345,7 +349,7 @@ public class SerializationTest {
 			lag.setHours(3.5);
 			lag.setMinutes(4.5);
 			lag.setSeconds(5.5);
-			lag.setMilliseconds(6d);
+			lag.setMilliseconds(6D);
 
 			Predecessor predecessor = new Predecessor();
 			predecessor.setRowId(3l);
@@ -367,6 +371,7 @@ public class SerializationTest {
 			List<Row> result = ss.sheetResources().rowResources().addRows(1l, Arrays.asList(row));
 
 			// assert
+			Assert.fail();
 		} catch (Exception ex) {
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
@@ -467,84 +472,94 @@ public class SerializationTest {
 
 	@Test
 	public void SerializeRows() {
+		// arrange
+		Smartsheet ss = HelperFunctions.SetupClient("Serialization - Rows");
+
+		Format format = new Format(",,,,,,,,4,,,,,,,");
+		Cell cell1 = new Cell();
+		cell1.setColumnId(2L);
+		cell1.setValue("url link");
+		cell1.setStrict(false);
+
+		Hyperlink hyperlink1 = new Hyperlink();
+		hyperlink1.setUrl("https://google.com");
+		cell1.setHyperlink(hyperlink1);
+
+		Cell cell2 = new Cell();
+		cell2.setColumnId(3L);
+		cell2.setValue("sheet id link");
+		cell2.setStrict(false);
+
+		Hyperlink hyperlink2 = new Hyperlink();
+		hyperlink2.setSheetId(4L);
+		cell2.setHyperlink(hyperlink2);
+
+		Cell cell3 = new Cell();
+		cell3.setColumnId(5L);
+		cell3.setValue("report id link");
+		cell3.setStrict(false);
+
+		Hyperlink hyperlink3 = new Hyperlink();
+		hyperlink3.setReportId(6L);
+		cell3.setHyperlink(hyperlink3);
+		List<Cell> cells = Arrays.asList(cell1, cell2, cell3);
+
+		Row row = new Row();
+		row.setExpanded(true);
+		row.setFormat(format);
+		row.setCells(cells);
+		row.setLocked(false);
+
+		// act
+		List<Row> result;
 		try {
-			// arrange
-			Smartsheet ss = HelperFunctions.SetupClient("Serialization - Rows");
-
-			Format format = new Format(",,,,,,,,4,,,,,,,");
-			Cell cell1 = new Cell();
-			cell1.setColumnId(2L);
-			cell1.setValue("url link");
-			cell1.setStrict(false);
-
-			Hyperlink hyperlink1 = new Hyperlink();
-			hyperlink1.setUrl("https://google.com");
-			cell1.setHyperlink(hyperlink1);
-
-			Cell cell2 = new Cell();
-			cell2.setColumnId(3L);
-			cell2.setValue("sheet id link");
-			cell2.setStrict(false);
-
-			Hyperlink hyperlink2 = new Hyperlink();
-			hyperlink2.setSheetId(4L);
-			cell2.setHyperlink(hyperlink2);
-
-			Cell cell3 = new Cell();
-			cell3.setColumnId(5L);
-			cell3.setValue("report id link");
-			cell3.setStrict(false);
-
-			Hyperlink hyperlink3 = new Hyperlink();
-			hyperlink3.setReportId(6L);
-			cell3.setHyperlink(hyperlink3);
-			List<Cell> cells = Arrays.asList(cell1, cell2, cell3);
-
-			Row row = new Row();
-			row.setExpanded(true);
-			row.setFormat(format);
-			row.setCells(cells);
-			row.setLocked(false);
-
-			// act
-			// SDK does not support adding a single row so this will fail
-			List<Row> result = ss.sheetResources().rowResources().addRows(1, Arrays.asList(row));
-
-			// assert
+			result = ss.sheetResources().rowResources().addRows(1, Arrays.asList(row));
 		} catch (Exception ex) {
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
+			return;
 		}
+
+		// assert
+		Assert.assertEquals(true, result.get(0).isExpanded());
+		Assert.assertEquals("https://google.com", result.get(0).getCells().get(0).getHyperlink().getUrl());
+		Assert.assertEquals(4, (long)result.get(0).getCells().get(1).getHyperlink().getSheetId());
+		Assert.assertEquals(6, (long)result.get(0).getCells().get(2).getHyperlink().getReportId());
 	}
 
 	@Test
 	public void SerializeCellLink() {
+		// arrange
+		Smartsheet ss = HelperFunctions.SetupClient("Serialization - Cell Link");
+
+		CellLink cellLink = new CellLink();
+		cellLink.setSheetId(4L);
+		cellLink.setRowId(5L);
+		cellLink.setColumnId(6L);
+
+		Cell cell = new Cell();
+		cell.setColumnId(3L);
+		cell.setValue(null);
+		cell.setLinkInFromCell(cellLink);
+
+		Row row = new Row();
+		row.setId(2L);
+		row.setCells(Arrays.asList(cell));
+
+		// act
+		List<Row> result;
 		try {
-			// arrange
-			Smartsheet ss = HelperFunctions.SetupClient("Serialization - Cell Link");
-
-			CellLink cellLink = new CellLink();
-			cellLink.setSheetId(4L);
-			cellLink.setRowId(5L);
-			cellLink.setColumnId(6L);
-
-			Cell cell = new Cell();
-			cell.setColumnId(3L);
-			cell.setValue(null);
-			cell.setLinkInFromCell(cellLink);
-
-			Row row = new Row();
-			row.setId(2L);
-			row.setCells(Arrays.asList(cell));
-
-			// act
-			// SDK cannot update a single row so will not work
-			List<Row> result = ss.sheetResources().rowResources().updateRows(1, Arrays.asList(row));
-
-			// assert
-			Assert.assertEquals("PARTIAL_SUCCESS", result.get(0));
+			result = ss.sheetResources().rowResources().updateRows(1, Arrays.asList(row));
 		} catch (Exception ex) {
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
+			return;
 		}
+
+		// assert
+		Assert.assertEquals("OK", result.get(0).getCells().get(0).getLinkInFromCell().getStatus());
+		Assert.assertEquals("Linked Sheet Name", result.get(0).getCells().get(0).getLinkInFromCell().getSheetName());
+		Assert.assertEquals(4, (long)result.get(0).getCells().get(0).getLinkInFromCell().getSheetId());
+		Assert.assertEquals(5, (long)result.get(0).getCells().get(0).getLinkInFromCell().getRowId());
+		Assert.assertEquals(6, (long)result.get(0).getCells().get(0).getLinkInFromCell().getColumnId());
 	}
 
 	@Test
@@ -557,11 +572,11 @@ public class SerializationTest {
 			favorite.setObjectId(1L);
 
 			// act
-			// SDK cannot add a single favorite so cannot match mock api
 			List<Favorite> result = ss.favoriteResources().addFavorites(Arrays.asList(favorite));
 
 			// assert
-			Assert.assertEquals("PARTIAL_SUCCESS", result.get(0));
+			Assert.assertEquals(FavoriteType.SHEET, result.get(0).getType());
+			Assert.assertEquals(1L, (long)result.get(0).getObjectId());
 		} catch (Exception ex) {
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
@@ -579,7 +594,7 @@ public class SerializationTest {
 			// assert
 			Assert.assertEquals(AccessLevel.OWNER, result.getAccessLevel());
 			Assert.assertEquals(false, result.getGanttEnabled());
-			Assert.assertTrue(false); // isCellImageUploadEnabled doesn't exist, it should
+			Assert.assertTrue(false, result.isFavorite()); // isCellImageUploadEnabled doesn't exist, it should
 //			Assert.assertEquals(true, result.isCellImageUploadEnabled());
 		} catch (Exception ex) {
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
@@ -603,6 +618,10 @@ public class SerializationTest {
 			List<Share> result = ss.sheetResources().shareResources().shareTo(1L, Arrays.asList(share), true);
 
 			// assert
+			Assert.assertEquals(ShareType.USER, result.get(0).getType());
+			Assert.assertEquals(AccessLevel.VIEWER, result.get(0).getAccessLevel());
+			Assert.assertEquals(ShareScope.ITEM, result.get(0).getScope());
+			Assert.assertEquals("abc", result.get(0).getId());
 		} catch (Exception ex) {
 			HelperFunctions.ExceptionMessage(ex.getMessage(), ex.getCause());
 		}
