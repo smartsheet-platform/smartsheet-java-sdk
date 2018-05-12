@@ -31,6 +31,7 @@ import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
 import java.net.URI;
+import java.security.CodeSource;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -661,15 +662,21 @@ public class SmartsheetImpl implements Smartsheet {
         String thisVersion = null;
         if(userAgent == null) {
             StackTraceElement[] callers = Thread.currentThread().getStackTrace();
-            String callerClass = callers[callers.length - 1].getClassName();
-            if(callerClass.equals("java.lang.Thread"))
-                callerClass = callers[callers.length - 2].getClassName();
             String module = null;
-            try {
-                Class<?> clazz = Class.forName(callerClass);
-                String path = clazz.getProtectionDomain().getCodeSource().getLocation().toString();
-                module = path.substring(path.lastIndexOf('/')+1);
-            } catch (ClassNotFoundException e) { }
+            String callerClass = null;
+            int stackIdx;
+            for(stackIdx = callers.length - 1; stackIdx >= 0; stackIdx--) {
+                callerClass = callers[stackIdx].getClassName();
+                try {
+                    Class<?> clazz = Class.forName(callerClass);
+                    CodeSource codeSource = clazz.getProtectionDomain().getCodeSource();
+                    if(codeSource != null) {
+                        String path = codeSource.getLocation().toString();
+                        module = path.substring(path.lastIndexOf('/') + 1);
+                        break;
+                    }
+                } catch (ClassNotFoundException e) { }
+            }
             userAgent = module + "!" + callerClass;
         }
         try {
