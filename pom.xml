@@ -38,7 +38,7 @@
 			<email>api@smartsheet.com</email>
 			<organization>Smartsheet</organization>
 			<organizationUrl>http://www.smartsheet.com</organizationUrl>
-			<timezone>-8</timezone>
+			<timezone>America/Los_Angeles</timezone>
 		</developer>
 	</developers>
 
