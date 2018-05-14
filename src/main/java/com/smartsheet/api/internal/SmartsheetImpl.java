@@ -28,10 +28,11 @@ import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.internal.util.Util;
 import org.apache.http.impl.client.HttpClients;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URI;
-import java.security.CodeSource;
+import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -660,6 +661,7 @@ public class SmartsheetImpl implements Smartsheet {
     private String generateUserAgent(String userAgent) {
         String title = null;
         String thisVersion = null;
+
         if(userAgent == null) {
             StackTraceElement[] callers = Thread.currentThread().getStackTrace();
             String module = null;
@@ -669,13 +671,26 @@ public class SmartsheetImpl implements Smartsheet {
                 callerClass = callers[stackIdx].getClassName();
                 try {
                     Class<?> clazz = Class.forName(callerClass);
-                    CodeSource codeSource = clazz.getProtectionDomain().getCodeSource();
-                    if(codeSource != null) {
-                        String path = codeSource.getLocation().toString();
-                        module = path.substring(path.lastIndexOf('/') + 1);
-                        break;
+                    ClassLoader classLoader = clazz.getClassLoader();
+                    // skip JRE classes
+                    if (classLoader == null) {
+                        continue;
                     }
-                } catch (ClassNotFoundException e) { }
+                    String classFilePath = callerClass.replace(".", "/") + ".class";
+                    URL classUrl = classLoader.getResource(classFilePath);
+                    if (classUrl != null) {
+                        String classUrlPath = classUrl.getPath();
+                        int jarSeparator = classUrlPath.indexOf('!');
+                        if (jarSeparator > 0) {
+                            module = classUrlPath.substring(0, jarSeparator);
+                            // extract the last path element (the jar name only)
+                            module = module.substring(module.lastIndexOf('/') + 1);
+                            break;
+                        }
+                    }
+                } catch (Exception ex) {
+                    LoggerFactory.getLogger(getClass()).warn("Unable to determine caller-class for user-agent", ex);
+                }
             }
             userAgent = module + "!" + callerClass;
         }
