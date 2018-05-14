@@ -28,7 +28,6 @@ import com.smartsheet.api.internal.json.JacksonJsonSerializer;
 import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.internal.util.Util;
 import org.apache.http.impl.client.HttpClients;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URI;
@@ -688,9 +687,7 @@ public class SmartsheetImpl implements Smartsheet {
                             break;
                         }
                     }
-                } catch (Exception ex) {
-                    LoggerFactory.getLogger(getClass()).warn("Unable to determine caller-class for user-agent", ex);
-                }
+                } catch (Exception ex) { }
             }
             userAgent = module + "!" + callerClass;
         }
