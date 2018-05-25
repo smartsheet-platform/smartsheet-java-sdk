@@ -369,6 +369,7 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
 
 
     /**
+    /**
      * @deprecated replaced by {@link #updateRows(long, List)}
      * Update the values of the Cells in a Row.
      *

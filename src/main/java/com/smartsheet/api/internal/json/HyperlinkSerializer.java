@@ -42,6 +42,8 @@ public class HyperlinkSerializer extends JsonSerializer<Hyperlink>{
                 gen.writeNumberField("reportId", value.getReportId());
             if(value.getSheetId() != null)
                 gen.writeNumberField("sheetId", value.getSheetId());
+            if(value.getSightId() != null)
+                gen.writeNumberField("sightId", value.getSightId());
             gen.writeEndObject();
         }
     }

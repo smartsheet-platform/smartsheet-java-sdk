@@ -88,12 +88,12 @@ public class SheetPublish {
     /**
      * Flag to show or hide the left nav toolbar for the read only sheet.
      */
-    private Boolean readOnlyFullShowToolbar = true;
+    private Boolean readOnlyFullShowToolbar;
 
     /**
      * Flag to show or hide the left nav toolbar for the read/write sheet.
      */
-    private Boolean readWriteShowToolbar = true;
+    private Boolean readWriteShowToolbar;
 
     /**
      * Default view for read only published sheet. (GRID, CARDS, CALENDAR)

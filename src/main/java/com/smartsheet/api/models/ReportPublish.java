@@ -45,7 +45,7 @@ public class ReportPublish {
      /**
       * Flag to show or hide the left nav toolbar for the read only report.
       */
-     private Boolean readOnlyFullShowToolbar = true;
+     private Boolean readOnlyFullShowToolbar;
 
      /**
       *  Default view for published report. (GRID, CARDS, CALENDAR)
