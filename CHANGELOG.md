@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [2.2.5] - 2018-04-20
+## [2.2.5] - 2018-05-30
 ### Added
 - Sheet import for XLSX and CSV (includes methods to import into Folders and Workspaces)
 - Limited support for CHART widget types
