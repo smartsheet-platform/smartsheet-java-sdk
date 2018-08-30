@@ -99,11 +99,38 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      * @throws SmartsheetException if there is any other error during the operation
      */
     public Sight getSight(long sightId) throws SmartsheetException {
-        return this.getResource("sights/" + sightId, Sight.class);
+        return this.getSight(sightId, 0);
     }
 
     /**
      * Get a specified Sight.
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /sights/{sightId}
+     *
+     * @param sightId the Id of the Sight
+     * @param level compatibility level
+     * @return the Sight resource.
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Sight getSight(long sightId, Integer level) throws SmartsheetException {
+        String path = "sights/" + sightId;
+
+        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        if (level != null) {
+            parameters.put("level", level);
+        }
+        path += QueryUtil.generateUrl(null, parameters);
+
+        return this.getResource(path, Sight.class);
+    }
+
+    /**
+     * Update a specified Sight.
      *
      * It mirrors to the following Smartsheet REST API method: PUT /sights/{sightId}
      *
