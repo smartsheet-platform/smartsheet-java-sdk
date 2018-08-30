@@ -9,9 +9,9 @@ package com.smartsheet.api.models.enums;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,29 +20,16 @@ package com.smartsheet.api.models.enums;
  * %[license]
  */
 
-
 /**
  * Represents specific objects that can be included in some responses.
  */
-public enum SheetInclusion{
-    DISCUSSIONS             ("discussions"),
-    ATTACHMENTS             ("attachments"),
-    FORMAT                  ("format"),
-    FILTERS                 ("filters"),
-    FILTER_DEFINITIONS      ("filterDefinitions"),
-    OWNER_INFO              ("ownerInfo"),
+public enum CellHistoryInclusion {
     COLUMN_TYPE             ("columnType"),
-    SOURCE                  ("source"),
-    ROW_PERMALINK           ("rowPermalink"),
-    ROW_WRITER_INFO         ("rowWriterInfo"),
-    OBJECT_VALUE            ("objectValue"),
-    CROSS_SHEET_REFERENCES  ("crossSheetReferences"),
-    CONTACT_REFERENCES      ("contactReferences"),
     ;
 
     String inclusion;
 
-    SheetInclusion(String inclusion) {
+    CellHistoryInclusion(String inclusion) {
         this.inclusion = inclusion;
     }
 

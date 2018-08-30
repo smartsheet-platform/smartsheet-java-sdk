@@ -95,6 +95,32 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * @throws SmartsheetException the smartsheet exception
      */
     public Report getReport(long reportId, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page) throws SmartsheetException{
+        return this.getReport(reportId, includes, pageSize, page, 0);
+    }
+
+    /**
+     * Get a report.
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /reports/{id}
+     *
+     * Exceptions:
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ResourceNotFoundException : if the resource can not be found
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param reportId the folder id
+     * @param includes the optional objects to include in response
+     * @param pageSize Number of rows per page
+     * @param page page number to return
+     * @param level compatibility level
+     * @return  the report (note that if there is no such resource, this method will throw ResourceNotFoundException
+     * rather than returning null)
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Report getReport(long reportId, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page, Integer level) throws SmartsheetException{
         String path = "reports/" + reportId;
         HashMap<String, Object> parameters = new HashMap<String, Object>();
 
@@ -105,6 +131,10 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
 
         if (page != null) {
             parameters.put("page", page.toString());
+        }
+
+        if (level != null) {
+            parameters.put("level", level);
         }
 
         path += QueryUtil.generateUrl(null, parameters);
@@ -146,7 +176,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
      *   - SmartsheetException : if there is any other error occurred during the operation
      *
-     * @param parameters pagination parameters for paging result
+     * @param pagination pagination parameters for paging result
      * @return all sheets (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */

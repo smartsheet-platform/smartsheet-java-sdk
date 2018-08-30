@@ -87,6 +87,10 @@ public class ObjectValueDeserializer extends JsonDeserializer<ObjectValue> {
                     objectValue = new DateObjectValue(parsedObjectType, superset.value);
                     break;
 
+                case MULTI_CONTACT:
+                    objectValue = new MultiContactObjectValue(superset.values);
+                    break;
+
                 default:
                     objectValue = null;
             }
@@ -123,6 +127,9 @@ public class ObjectValueDeserializer extends JsonDeserializer<ObjectValue> {
         public String id;
         public String name;
         public String email;
+
+        // MULTI_CONTACT
+        public List<ContactObjectValue> values;
 
         // Various other types
         public String value;

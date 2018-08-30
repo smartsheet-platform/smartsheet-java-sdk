@@ -224,7 +224,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws SmartsheetException the smartsheet exception
      */
     public Sheet getSheet(long id, EnumSet<SheetInclusion> includes, EnumSet<ObjectExclusion> excludes, Set<Long> rowIds, Set<Integer> rowNumbers, Set<Long> columnIds, Integer pageSize, Integer page) throws SmartsheetException {
-        return this.getSheet(id, includes, excludes, rowIds, rowNumbers, columnIds, pageSize, page, null);
+        return this.getSheet(id, includes, excludes, rowIds, rowNumbers, columnIds, pageSize, page, null, 0);
     }
 
     /**
@@ -256,6 +256,44 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      */
     public Sheet getSheet(long id, EnumSet<SheetInclusion> includes, EnumSet<ObjectExclusion> excludes, Set<Long> rowIds, Set<Integer> rowNumbers,
                           Set<Long> columnIds, Integer pageSize, Integer page, Integer ifVersionAfter) throws SmartsheetException {
+        return this.getSheet(id, includes, excludes, rowIds, rowNumbers, columnIds, pageSize, page, ifVersionAfter, 0);
+    }
+
+    /**
+     * <p>Get a sheet.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sheet/{id}</p>
+     *
+     * @param id the id of the sheet
+     * @param includes used to specify the optional objects to include.
+     * @param columnIds the column ids
+     * @param excludes the exclude parameters
+     * @param page the page number
+     * @param pageSize the page size
+     * @param rowIds the row ids
+     * @param rowNumbers the row numbers
+     * @param ifVersionAfter only fetch Sheet if more recent version available
+     * @param level compatibility level
+     * @return the sheet resource (note that if there is no such resource, this method will throw
+     * ResourceNotFoundException rather than returning null).
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Sheet getSheet(long id,
+                          EnumSet<SheetInclusion> includes,
+                          EnumSet<ObjectExclusion> excludes,
+                          Set<Long> rowIds,
+                          Set<Integer> rowNumbers,
+                          Set<Long> columnIds,
+                          Integer pageSize,
+                          Integer page,
+                          Integer ifVersionAfter,
+                          Integer level) throws SmartsheetException {
+
         String path = "sheets/" + id;
 
         // Add the parameters to a map and build the query string at the end
@@ -269,6 +307,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
         parameters.put("pageSize", pageSize);
         parameters.put("page", page);
         parameters.put("ifVersionAfter", ifVersionAfter);
+        parameters.put("level", level);
 
         // Iterate through the map of parameters and generate the query string
         path += QueryUtil.generateUrl(null, parameters);
@@ -1097,9 +1136,35 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws SmartsheetException the smartsheet exception
      */
     public Sheet sortSheet(long sheetId, SortSpecifier sortSpecifier) throws SmartsheetException {
+        return this.sortSheet(sheetId, sortSpecifier, 0);
+    }
+
+    /**
+     * Sort a sheet according to the sort criteria.
+     *
+     * It mirrors to the following Smartsheet REST API method: POST /sheet/{sheetId}/sort
+     *
+     * Exceptions:
+     *   - IllegalArgumentException : if any argument is null
+     *   - InvalidRequestException : if there is any problem with the REST API request
+     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   - SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param sheetId the sheet id
+     * @param sortSpecifier the sort criteria
+     * @param level compatibility level
+     * @return the update request object
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public Sheet sortSheet(long sheetId, SortSpecifier sortSpecifier, Integer level) throws SmartsheetException {
         Util.throwIfNull(sortSpecifier);
 
         String path = "sheets/" + sheetId + "/sort";
+        if (level != null) {
+            path += "?level=" + level;
+        }
 
         HttpRequest request = createHttpRequest(smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
 

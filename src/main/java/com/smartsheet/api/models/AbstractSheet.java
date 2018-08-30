@@ -158,6 +158,11 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
     private List<CrossSheetReference> crossSheetReferences;
 
     /**
+     * Get a list of contact references used by MULTI_CONTACT columns in this sheet
+     */
+    private List<ContactObjectValue> contactReferences;
+
+    /**
      * Provide an 'override' of setName (returns AbstractSheet not NamedModel)
      *
      * @param name the new name
@@ -694,6 +699,13 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      */
     public AbstractSheet<TRow, TColumn, TCell> setCrossSheetReferences(List<CrossSheetReference> crossSheetReferences) {
         this.crossSheetReferences = crossSheetReferences;
+        return this;
+    }
+
+    public List<ContactObjectValue> getContactReferences() { return contactReferences; }
+
+    public AbstractSheet<TRow, TColumn, TCell> setContactReferences(List<ContactObjectValue> contactReferences) {
+        this.contactReferences = contactReferences;
         return this;
     }
 }
