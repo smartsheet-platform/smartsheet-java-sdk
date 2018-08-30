@@ -95,7 +95,7 @@ public class ReportResourcesImpl extends AbstractResources implements ReportReso
      * @throws SmartsheetException the smartsheet exception
      */
     public Report getReport(long reportId, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page) throws SmartsheetException{
-        return this.getReport(reportId, includes, pageSize, page, 0);
+        return this.getReport(reportId, includes, pageSize, page, null);
     }
 
     /**

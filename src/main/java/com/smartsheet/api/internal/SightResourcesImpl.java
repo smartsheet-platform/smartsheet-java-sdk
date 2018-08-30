@@ -99,7 +99,7 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
      * @throws SmartsheetException if there is any other error during the operation
      */
     public Sight getSight(long sightId) throws SmartsheetException {
-        return this.getSight(sightId, 0);
+        return this.getSight(sightId, null);
     }
 
     /**
