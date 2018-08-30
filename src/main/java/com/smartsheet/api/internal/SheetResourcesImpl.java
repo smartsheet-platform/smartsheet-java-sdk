@@ -224,7 +224,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws SmartsheetException the smartsheet exception
      */
     public Sheet getSheet(long id, EnumSet<SheetInclusion> includes, EnumSet<ObjectExclusion> excludes, Set<Long> rowIds, Set<Integer> rowNumbers, Set<Long> columnIds, Integer pageSize, Integer page) throws SmartsheetException {
-        return this.getSheet(id, includes, excludes, rowIds, rowNumbers, columnIds, pageSize, page, null, 0);
+        return this.getSheet(id, includes, excludes, rowIds, rowNumbers, columnIds, pageSize, page, null, null);
     }
 
     /**
@@ -256,7 +256,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      */
     public Sheet getSheet(long id, EnumSet<SheetInclusion> includes, EnumSet<ObjectExclusion> excludes, Set<Long> rowIds, Set<Integer> rowNumbers,
                           Set<Long> columnIds, Integer pageSize, Integer page, Integer ifVersionAfter) throws SmartsheetException {
-        return this.getSheet(id, includes, excludes, rowIds, rowNumbers, columnIds, pageSize, page, ifVersionAfter, 0);
+        return this.getSheet(id, includes, excludes, rowIds, rowNumbers, columnIds, pageSize, page, ifVersionAfter, null);
     }
 
     /**
@@ -1136,7 +1136,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      * @throws SmartsheetException the smartsheet exception
      */
     public Sheet sortSheet(long sheetId, SortSpecifier sortSpecifier) throws SmartsheetException {
-        return this.sortSheet(sheetId, sortSpecifier, 0);
+        return this.sortSheet(sheetId, sortSpecifier, null);
     }
 
     /**

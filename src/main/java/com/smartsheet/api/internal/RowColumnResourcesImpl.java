@@ -83,7 +83,7 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
      * @throws SmartsheetException the smartsheet exception
      */
     public PagedResult<CellHistory> getCellHistory(long sheetId, long rowId, long columnId, PaginationParameters parameters) throws SmartsheetException {
-        return this.getCellHistory(sheetId, rowId, columnId, parameters, null,0);
+        return this.getCellHistory(sheetId, rowId, columnId, parameters, null,null);
     }
 
     /**
