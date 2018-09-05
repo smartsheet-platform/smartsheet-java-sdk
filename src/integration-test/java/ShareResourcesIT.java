@@ -79,9 +79,8 @@ public class ShareResourcesIT extends ITResourcesImpl{
         if (reportsWrapper != null) {
             reportShares = smartsheet.reportResources().shareResources().shareTo(8623082916079492L, reportShares, true);
             assertNotNull(reportShares);
+            reportId = reportsWrapper.getData().get(0).getId();
         }
-        
-        reportId = reportsWrapper.getData().get(0).getId();
     }
 
     public void testSheetShareTo() throws SmartsheetException, IOException {

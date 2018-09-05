@@ -264,9 +264,9 @@ public class RowWrapper {
          *
          * @return the row wrapper
          */
-        public RowWrapper build() {
+        public RowWrapper build() throws InstantiationException {
             if (toTop == null && toBottom == null && parentId == null && siblingId == null) {
-                new InstantiationException("One of the following fields must be set toTop, toBottom, parentId or"
+                throw new InstantiationException("One of the following fields must be set toTop, toBottom, parentId or"
                         + " sibling Id");
             }
 

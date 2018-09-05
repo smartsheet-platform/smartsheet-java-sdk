@@ -58,7 +58,7 @@ public class Discussion extends IdentifiableModel<Long> {
     /** Represents ID of the directly associated row or sheet. */
     private Long parentId;
 
-    /** Represents the “SHEET” or “ROW”: present only when the direct association is not clear. */
+    /** Represents the "SHEET" or "ROW": present only when the direct association is not clear. */
     private ParentType parentType;
 
     /** Represents the User object containing name and email of the creator of the Discussion. */
@@ -71,9 +71,6 @@ public class Discussion extends IdentifiableModel<Long> {
      * Constructors
      */
     public Discussion() { }
-    public Discussion(String commentText) {
-        comment.setText(commentText);
-    }
 
     /**
      * Gets the read only status
