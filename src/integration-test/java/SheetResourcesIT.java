@@ -262,7 +262,6 @@ public class SheetResourcesIT extends ITResourcesImpl{
         SheetPublish newSheetPublish = smartsheet.sheetResources().updatePublishStatus(newSheetHome.getId(), sheetPublish);
 
         assertTrue("read write show toolbar should be enabled", newSheetPublish.getReadWriteShowToolbar());
-        assertTrue("read only full show toolbar should be enabled", newSheetPublish.getReadOnlyFullShowToolbar());
     }
 
     public void testPublishSheet() throws SmartsheetException, IOException {
