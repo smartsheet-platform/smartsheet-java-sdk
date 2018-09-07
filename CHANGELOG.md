@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.2.6] - 2018-09-07
+### Added 
+- Multi-contact list 
+
 ## [2.2.5] - 2018-05-30
 ### Added
 - Sheet import for XLSX and CSV (includes methods to import into Folders and Workspaces)
