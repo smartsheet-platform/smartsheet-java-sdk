@@ -139,8 +139,6 @@ public class ReportResourcesIT extends ITResourcesImpl{
 
         ReportPublish newReportPublish = smartsheet.reportResources().updatePublishStatus(reportId, reportPublish);
         assertFalse(newReportPublish.getReadOnlyFullEnabled());
-        // Note that if you set readOnlyFullEnabled to false, readOnlyFullShowToolbar will always be true
-        assertTrue(newReportPublish.getReadOnlyFullShowToolbar());
     }
 
 
