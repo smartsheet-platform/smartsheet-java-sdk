@@ -113,6 +113,12 @@ public class Column extends IdentifiableModel<Long> {
     private Boolean validation;
 
     /**
+     * Determines the compatibility level of this client, 0 for existing types, 1 for multi-assign,
+     * greater than 1 for future types.
+     */
+    private Integer version;
+
+    /**
      * Default constructor
      */
     public Column() {
@@ -414,6 +420,22 @@ public class Column extends IdentifiableModel<Long> {
      */
     public Column setValidation(Boolean validation) {
         this.validation = validation;
+        return this;
+    }
+
+    /**
+     * Gets the column compatibility version
+     * @return version 0 for existing types, 1 for multi-assign, greater than 1 for future types.
+     */
+    public Integer getVersion() { return version; }
+
+    /**
+     * Sets the column compatibility version
+     * @param version 0 for existing types, 1 for multi-assign, greater than 1 for future types.
+     * @return the Column
+     */
+    public Column setVersion(Integer version) {
+        this.version = version;
         return this;
     }
 

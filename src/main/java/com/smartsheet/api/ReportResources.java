@@ -61,6 +61,27 @@ public interface ReportResources {
      Report getReport(long reportId, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page) throws SmartsheetException;
 
     /**
+     * <p>Get a report.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /report/{reportId}</p>
+     *
+     * @param reportId the reportId of the report
+     * @param includes used To specify the optional objects to include.
+     * @param pageSize page size parameter for pagination
+     * @param page page parameter for pagination
+     * @param level compatibility level
+     * @return  the report (note that if there is no such resource, this method will throw ResourceNotFoundException
+     * rather than returning null)
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    Report getReport(long reportId, EnumSet<ReportInclusion> includes, Integer pageSize, Integer page, Integer level) throws SmartsheetException;
+
+    /**
      * <p>Send a sheet as a PDF attachment via Email To the designated recipients.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /reports/{reportId}/emails</p>

@@ -61,5 +61,9 @@ public enum Operator {
     HAS_ATTACHMENTS,
     NO_ATTACHMENTS,
     HAS_COMMENTS,
-    NO_COMMENTS
-}
+    NO_COMMENTS,
+    HAS_ANY_OF,
+    HAS_NONE_OF,
+    HAS_ALL_OF,
+    NOT_ALL_OF,
+    }

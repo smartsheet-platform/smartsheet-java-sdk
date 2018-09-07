@@ -45,6 +45,10 @@ public enum ObjectValueType {
      */
     PREDECESSOR_LIST,
     /**
+     * MULTI_CONTACT
+     */
+    MULTI_CONTACT,
+    /**
      * NUMBER
      */
     NUMBER,

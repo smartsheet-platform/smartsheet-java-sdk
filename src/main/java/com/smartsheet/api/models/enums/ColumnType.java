@@ -52,4 +52,7 @@ public enum ColumnType {
 
     /** Represents the ABSTRACT_DATETIME (auto number) column type */
     ABSTRACT_DATETIME,
+
+    /** Represents the MULTI_CONTACT_LIST (multi-assign) column type */
+    MULTI_CONTACT_LIST,
 }

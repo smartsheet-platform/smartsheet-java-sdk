@@ -3,8 +3,10 @@ package com.smartsheet.api;
 import com.smartsheet.api.models.CellHistory;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.enums.CellHistoryInclusion;
 
 import java.io.FileNotFoundException;
+import java.util.EnumSet;
 
 /*
  * #[license]
@@ -48,13 +50,39 @@ public interface RowColumnResources {
      * @param rowId the row id
      * @param sheetId the sheet Id
      * @param columnId the column id
-     * @param parameters the pagination parameters
+     * @param pagination the pagination parameters
      * @return the modification history (note that if there is no such resource, this method will throw
      * ResourceNotFoundException rather than returning null).
      * @throws SmartsheetException the smartsheet exception
      */
-    public PagedResult<CellHistory> getCellHistory(long sheetId, long rowId, long columnId, PaginationParameters parameters) throws SmartsheetException;
-    
+    public PagedResult<CellHistory> getCellHistory(long sheetId, long rowId, long columnId, PaginationParameters pagination) throws SmartsheetException;
+
+    /**
+     * <p>Get the cell modification history.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/rows/{rowId}/columns/{columnId}/history</p>
+     *
+     * Exceptions:
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ResourceNotFoundException : if the resource can not be found
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param rowId the row id
+     * @param sheetId the sheet Id
+     * @param columnId the column id
+     * @param pagination the pagination parameters
+     * @param includes cell history inclusion
+     * @param level compatbility level
+     * @return the modification history (note that if there is no such resource, this method will throw
+     * ResourceNotFoundException rather than returning null).
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public PagedResult<CellHistory> getCellHistory(long sheetId, long rowId, long columnId, PaginationParameters pagination,
+                                                   EnumSet<CellHistoryInclusion> includes, Integer level) throws SmartsheetException;
+
     /**
      * <p>Uploads an image to the specified cell within a sheet.</p>
      * 

@@ -25,6 +25,8 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.EnumSet;
 import java.util.HashMap;
 import com.smartsheet.api.RowColumnResources;
 import com.smartsheet.api.SmartsheetException;
@@ -37,6 +39,7 @@ import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.CellHistory;
 import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
+import com.smartsheet.api.models.enums.CellHistoryInclusion;
 
 /**
  * This is the implementation of the RowColumnResources.
@@ -80,11 +83,46 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
      * @throws SmartsheetException the smartsheet exception
      */
     public PagedResult<CellHistory> getCellHistory(long sheetId, long rowId, long columnId, PaginationParameters parameters) throws SmartsheetException {
+        return this.getCellHistory(sheetId, rowId, columnId, parameters, null,null);
+    }
+
+    /**
+     * Get the cell modification history.
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/rows/{rowId}/columns/{columnId}/history
+     *
+     * Exceptions:
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ResourceNotFoundException : if the resource can not be found
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param rowId the row id
+     * @param columnId the column id
+     * @param sheetId the sheet Id
+     * @param pagination the pagination parameters
+     * @param includes cell history inclusion
+     * @param level compatibility level
+     * @return the modification history (note that if there is no such resource, this method will throw
+     * ResourceNotFoundException rather than returning null).
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public PagedResult<CellHistory> getCellHistory(long sheetId, long rowId, long columnId, PaginationParameters pagination,
+                                                   EnumSet<CellHistoryInclusion> includes, Integer level) throws SmartsheetException {
         String path = "sheets/" + sheetId + "/rows/" + rowId + "/columns/"+columnId + "/history";
 
-        if (parameters != null) {
-            path += parameters.toQueryString();
+        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        if (pagination != null) {
+            parameters = pagination.toHashMap();
         }
+        if (level != null) {
+            parameters.put("level", level);
+        }
+        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+
+        path += QueryUtil.generateUrl(null, parameters);
 
         return this.listResourcesWithWrapper(path, CellHistory.class);
     }

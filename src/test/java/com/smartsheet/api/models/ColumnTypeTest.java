@@ -45,8 +45,9 @@ public class ColumnTypeTest {
         assertNotNull(ColumnType.valueOf("DURATION"));
         assertNotNull(ColumnType.valueOf("PREDECESSOR"));
         assertNotNull(ColumnType.valueOf("ABSTRACT_DATETIME"));
+        assertNotNull(ColumnType.valueOf("MULTI_CONTACT_LIST"));
 
-        assertEquals(9,ColumnType.values().length);
+        assertEquals(10,ColumnType.values().length);
     }
 
 }

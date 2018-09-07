@@ -20,29 +20,16 @@ package com.smartsheet.api.models.enums;
  * %[license]
  */
 
-
 /**
  * Represents specific objects that can be included in some responses.
  */
-public enum SheetInclusion{
-    DISCUSSIONS             ("discussions"),
-    ATTACHMENTS             ("attachments"),
-    FORMAT                  ("format"),
-    FILTERS                 ("filters"),
-    FILTER_DEFINITIONS      ("filterDefinitions"),
-    OWNER_INFO              ("ownerInfo"),
+public enum CellHistoryInclusion {
     COLUMN_TYPE             ("columnType"),
-    SOURCE                  ("source"),
-    ROW_PERMALINK           ("rowPermalink"),
-    ROW_WRITER_INFO         ("rowWriterInfo"),
-    OBJECT_VALUE            ("objectValue"),
-    CROSS_SHEET_REFERENCES  ("crossSheetReferences"),
-    CONTACT_REFERENCES      ("contactReferences"),
     ;
 
     String inclusion;
 
-    SheetInclusion(String inclusion) {
+    CellHistoryInclusion(String inclusion) {
         this.inclusion = inclusion;
     }
 
