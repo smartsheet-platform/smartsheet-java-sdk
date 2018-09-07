@@ -30,7 +30,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Sheet filter implementation
 - Row sort feature
 - User profile properties (including profileImage) to UserModel
-- Scope, location and favoriteFlag inclusion to searchplatfor
+- Scope, location and favoriteFlag inclusion to search
 - getSheet() ifVersionAfter parameter 
 - Client method to modify HTTP User-Agent header
 - Bulk access to sheet version through sheetVersion inclusion
