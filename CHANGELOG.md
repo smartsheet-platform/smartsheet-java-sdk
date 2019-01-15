@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.2.8] - 2019-01-15
+### Changed
+- Updated versions of Jackson in the POM to resolve security vulnerabilities
+
 ## [2.2.7] - 2018-11-06
 ### Changed
 - Updated versions of Jetty and Jackson in the POM to resolve security vulnerabilities
