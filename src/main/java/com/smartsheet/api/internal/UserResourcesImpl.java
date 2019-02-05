@@ -28,14 +28,12 @@ import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.UserInclusion;
 
 import java.io.*;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * This is the implementation of the UserResources.
@@ -185,6 +183,30 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      */
     public UserProfile getCurrentUser() throws SmartsheetException {
         return this.getResource("users/me", UserProfile.class);
+    }
+
+    /**
+     * <p>Get the current user.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /user/me</p>
+     *
+     * @param includes used to specify the optional objects to include.
+     * @return the current user
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public UserProfile getCurrentUser(EnumSet<UserInclusion> includes) throws SmartsheetException {
+        String path = "users/me";
+
+        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+
+        path += QueryUtil.generateUrl(null, parameters);
+        return this.getResource(path, UserProfile.class);
     }
 
     /**
