@@ -32,6 +32,13 @@ public class SmartsheetFactory {
     public static final String DEFAULT_BASE_URI = "https://api.smartsheet.com/2.0/";
 
     /**
+     * <p>Represents the default base URI of the Smartsheetgov REST API.</p>
+     *
+     * <p>It is a constant with value "https://api.smartsheetgov.com/2.0".</p>
+     */
+    public static final String GOV_BASE_URI = "https://api.smartsheetgov.com/2.0/";
+
+    /**
      * <p>Creates a Smartsheet client with default parameters. SMARTSHEET_ACCESS_TOKEN
      * must be set in the environment.</p>
      *
@@ -52,6 +59,30 @@ public class SmartsheetFactory {
      */
     public static Smartsheet createDefaultClient(String accessToken) {
         SmartsheetImpl smartsheet = new SmartsheetImpl(DEFAULT_BASE_URI, accessToken);
+        return smartsheet;
+    }
+
+    /**
+     * <p>Creates a Smartsheet client with default parameters using the Smartsheetgov URI.
+     * SMARTSHEET_ACCESS_TOKEN must be set in the environment.</p>
+     *
+     * @return the Smartsheet client
+     */
+    public static Smartsheet createDefaultGovAccountClient() {
+        String accessToken = System.getenv("SMARTSHEET_ACCESS_TOKEN");
+        SmartsheetImpl smartsheet = new SmartsheetImpl(GOV_BASE_URI, accessToken);
+        return smartsheet;
+    }
+
+    /**
+     * <p>Creates a Smartsheet client with default parameters using the Smartsheetgov URI.</p>
+     *
+     * @param accessToken
+     *
+     * @return the Smartsheet client
+     */
+    public static Smartsheet createDefaultGovAccountClient(String accessToken) {
+        SmartsheetImpl smartsheet = new SmartsheetImpl(GOV_BASE_URI, accessToken);
         return smartsheet;
     }
 
