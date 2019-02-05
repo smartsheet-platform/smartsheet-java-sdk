@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [2.2.9] - 2019-02-5
 ### Added
 - Added BASE URI definition for Smartsheetgov
+- Added group inclusion for GetCurrentUser
 
 ## [2.2.8] - 2019-01-15
 ### Changed

@@ -23,9 +23,11 @@ package com.smartsheet.api;
 
 
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.UserInclusion;
 
 import java.io.FileNotFoundException;
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
@@ -131,6 +133,22 @@ public interface UserResources {
      * @throws SmartsheetException if there is any other error during the operation
      */
     public UserProfile getCurrentUser() throws SmartsheetException;
+
+    /**
+     * <p>Get the current user.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /user/me</p>
+     *
+     * @param includes used to specify the optional objects to include.
+     * @return the current user
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public UserProfile getCurrentUser(EnumSet<UserInclusion> includes) throws SmartsheetException;
 
     /**
      * <p>Update a user.</p>
