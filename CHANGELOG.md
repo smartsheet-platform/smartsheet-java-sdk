@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - isDisplaySummaryTasksEnabled is now named isDisplaySummaryTasks to fix serialization bug
 
+## [2.2.8] - 2019-01-15
+### Changed
+- Updated versions of Jackson in the POM to resolve security vulnerabilities
+
+## [2.2.7] - 2018-11-06
+### Changed
+- Updated versions of Jetty and Jackson in the POM to resolve security vulnerabilities
+
+## [2.2.6] - 2018-09-07
+### Added 
+- Multi-contact list 
+
 ## [2.2.5] - 2018-05-30
 ### Added
 - Sheet import for XLSX and CSV (includes methods to import into Folders and Workspaces)
