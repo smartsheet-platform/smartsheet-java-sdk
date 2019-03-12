@@ -220,3 +220,75 @@ public class RetryHttpClient extends DefaultHttpClient {
     }
 }
 ```
+
+## Working With Smartsheetgov.com Accounts
+
+If you need to access Smartsheetgov you will need to specify the Smartsheetgov API URI as the base URI during creation 
+of the Smartsheet client object. SmartsheetGov uses a base URI of https://api.smartsheetgov.com/2.0/. The base URI is 
+defined as a constant in both the SmartsheetBuilder and SmartsheetFactory classes 
+(i.e. SmartsheetFactory.GOV_BASE_URI). The SmartsheetFactory also contains API to create default Smartsheet clients 
+which point to the Smartsheetgov URI: 
+
+```java
+package com.smartsheet.api.sample;
+
+import com.smartsheet.api.Smartsheet;
+import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.SmartsheetFactory;
+import com.smartsheet.api.models.Column;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.Row;
+import com.smartsheet.api.models.Sheet;
+
+import java.util.List;
+
+/**
+ *
+ */
+public class Sample {
+    static {
+        // Uncomment these lines to enable logging to console
+        // System.setProperty("Smartsheet.trace.parts", "RequestBody,ResponseBodySummary");
+        // System.setProperty("Smartsheet.trace.pretty", "true");
+
+    }
+    public static void main(String[] args) {
+        try {
+            // Create Smartsheet client
+            // Set your access token in environment variable "SMARTSHEET_ACCESS_TOKEN", else update and uncomment here
+            Smartsheet smartsheet = SmartsheetFactory.createDefaultGovAccountClient( /* "ll352u9jujauoqz4gstvsae05" */);
+
+            // List all sheets
+            PagedResult<Sheet> sheets = smartsheet.sheetResources().listSheets(null, null, null );
+            System.out.println("\nFound " + sheets.getTotalCount() + " sheets\n");
+
+            Long sheetId =  sheets.getData().get(0).getId();            // Default to first sheet
+
+            // TODO: Uncomment if you wish to read a specific sheet
+            // sheetId = 239236234L;
+
+            // Load entire sheet
+            Sheet sheet = smartsheet.sheetResources().getSheet(sheetId, null, null, null, null, null, null, null);
+            List<Row> rows = sheet.getRows();
+            System.out.println("\nLoaded sheet id " + sheetId + " with " + rows.size() + " rows, title: " + sheet.getName());
+
+            // Display the first 5 rows & columns
+            for (int rowNumber = 0; rowNumber < rows.size() && rowNumber < 5; rowNumber++)
+                DumpRow(rows.get(rowNumber), sheet.getColumns());
+        } catch (SmartsheetException sx) {
+            sx.printStackTrace();
+        }
+        System.out.println("done.");
+    }
+
+    static void DumpRow(Row row, List<Column> columns)
+    {
+        System.out.println("Row # " + row.getRowNumber() + ":");
+        for (int columnNumber = 0; columnNumber < columns.size() && columnNumber < 5; columnNumber++) {
+            System.out.println("    " + columns.get(columnNumber).getTitle() + ": " + row.getCells().get(columnNumber).getValue());
+        }
+
+    }
+}
+
+```
