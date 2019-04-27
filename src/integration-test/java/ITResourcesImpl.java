@@ -33,30 +33,11 @@ import java.util.*;
 
 public class ITResourcesImpl {
     Smartsheet smartsheet;
-    Token token = new Token();
-    String accessToken;
-
-    public ITResourcesImpl() {
-        Properties prop = new Properties();
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("config.properties");
-        try {
-            prop.load(inputStream);
-            accessToken = prop.getProperty("AccessToken");
-
-        }catch (IOException ex) {
-            ex.printStackTrace();}
-    }
 
     public Smartsheet createAuthentication() throws SmartsheetException{
 
-        //requires changes for config file
-        token.setAccessToken(accessToken);
+        // will pull the access token from the environment SMARTSHEET_ACCESS_TOKEN since not provided here.
         smartsheet = new SmartsheetBuilder().build();
-
-        //Assume user
-        //Smartsheet smartsheet = new SmartsheetBuilder().setAccessToken(token.getAccessToken()).setAssumedUser("ericyan99@gmail.com").build();
-        //UserProfile user= smartsheet.userResources().getCurrentUser();
-
         return smartsheet;
     }
 
