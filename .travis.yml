@@ -9,6 +9,7 @@ install:
 
 script:
   - mvn test -B
+  - mvn integration-test
   - smartsheet-sdk-tests/travis_scripts/start_wiremock.sh
   - mvn test -Dtest=com.smartsheet.api.sdk_test.*
   

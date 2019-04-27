@@ -51,7 +51,7 @@ public class ITResourcesImpl {
 
         //requires changes for config file
         token.setAccessToken(accessToken);
-        smartsheet = new SmartsheetBuilder().setAccessToken(token.getAccessToken()).build();
+        smartsheet = new SmartsheetBuilder().build();
 
         //Assume user
         //Smartsheet smartsheet = new SmartsheetBuilder().setAccessToken(token.getAccessToken()).setAssumedUser("ericyan99@gmail.com").build();

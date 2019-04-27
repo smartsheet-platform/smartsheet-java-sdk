@@ -85,7 +85,7 @@ Unit tests:
 1. `mvn test`
 
 Integration tests:
-1. Set up an api access token in `src/integration-test/resources/config.properties`
+1. Store an access token in your environment as SMARTSHEET_ACCESS_TOKEN
 2. `mvn integration-test`
 
 Mock API tests:
