@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [2.2.9] - 2019-02-5
+## [2.2.10] - 2019-04-26
+### Added
+- Implement Enterprise events
+
+## [2.2.9] - 2019-02-05
 ### Added
 - Added BASE URI definition for Smartsheetgov
 - Added group inclusion for GetCurrentUser
