@@ -417,4 +417,30 @@ public class JacksonJsonSerializer implements JsonSerializer{
 
         return rw;
     }
+
+    /**
+     * De-serialize to a EventResult (holds pagination info) from JSON
+     * @param inputStream
+     * @return
+     * @throws JSONSerializerException
+     */
+    @Override
+    public EventResult deserializeEventResult(java.io.InputStream inputStream) throws JSONSerializerException{
+        Util.throwIfNull(inputStream);
+
+        EventResult rw = null;
+
+        try {
+            // Read the json input stream into a List.
+            rw = OBJECT_MAPPER.readValue(inputStream, EventResult.class);
+        } catch (JsonParseException e) {
+            throw new JSONSerializerException(e);
+        } catch (JsonMappingException e) {
+            throw new JSONSerializerException(e);
+        } catch (IOException e) {
+            throw new JSONSerializerException(e);
+        }
+
+        return rw;
+    }
 }
