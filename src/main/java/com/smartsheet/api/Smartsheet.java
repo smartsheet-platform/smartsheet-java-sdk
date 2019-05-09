@@ -197,4 +197,11 @@ public interface Smartsheet {
      * @return the passthrough resources instance
      */
     public PassthroughResources passthroughResources();
+
+    /**
+     * Returns the EventResources instance that provides access to event resources
+     *
+     * @return the event resources instance
+     */
+    public EventResources eventResources();
 }

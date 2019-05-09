@@ -249,6 +249,15 @@ public class SmartsheetImpl implements Smartsheet {
     private final AtomicReference<PassthroughResources> passthrough;
 
     /**
+     * Represents the AtomicReference for EventResources.
+     *
+     * It will be initialized in constructor and will not change afterwards. The underlying value will be initially set
+     * as null, and will be initialized to non-null at the first time it is accessed via corresponding getter, therefore
+     * effectively the underlying value is lazily created in a thread safe manner.
+     */
+    private final AtomicReference<EventResources> events;
+
+    /**
      * Create an instance with given server URI, HttpClient (optional) and JsonSerializer (optional)
      *
      * Exceptions: - IllegalArgumentException : if serverURI/version/accessToken is null/empty
@@ -301,6 +310,7 @@ public class SmartsheetImpl implements Smartsheet {
         this.imageUrls = new AtomicReference<ImageUrlResources>();
         this.webhooks = new AtomicReference<WebhookResources>();
         this.passthrough = new AtomicReference<PassthroughResources>();
+        this.events = new AtomicReference<EventResources>();
     }
 
     /**
@@ -650,6 +660,18 @@ public class SmartsheetImpl implements Smartsheet {
             passthrough.compareAndSet(null, new PassthroughResourcesImpl(this));
         }
         return passthrough.get();
+    }
+
+    /**
+     * Returns the EventResources instance that provides access to events resources.
+     *
+     * @return the events resources
+     */
+    public EventResources eventResources() {
+        if (events.get() == null) {
+            events.compareAndSet(null, new EventResourcesImpl(this));
+        }
+        return events.get();
     }
 
     /**

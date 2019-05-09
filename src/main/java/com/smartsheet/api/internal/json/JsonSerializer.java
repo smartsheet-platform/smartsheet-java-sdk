@@ -23,10 +23,7 @@ package com.smartsheet.api.internal.json;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.smartsheet.api.models.CopyOrMoveRowResult;
-import com.smartsheet.api.models.PagedResult;
-import com.smartsheet.api.models.PartialRowUpdateResult;
-import com.smartsheet.api.models.Result;
+import com.smartsheet.api.models.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -210,6 +207,15 @@ public interface JsonSerializer {
      * @throws JSONSerializerException the JSON serializer exception
      */
     public CopyOrMoveRowResult deserializeCopyOrMoveRow(java.io.InputStream inputStream)
+            throws JSONSerializerException;
+
+    /**
+     * De-serialize json to EventResult.
+     * @param inputStream the input stream
+     * @return the EventResult containing a list of Event
+     * @throws JSONSerializerException
+     */
+    public EventResult deserializeEventResult(java.io.InputStream inputStream)
             throws JSONSerializerException;
 
 }

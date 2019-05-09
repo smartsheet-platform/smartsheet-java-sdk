@@ -20,7 +20,7 @@ Add the SDK as a dependency in your project.
 <dependency>
   <groupId>com.smartsheet</groupId>
   <artifactId>smartsheet-sdk-java</artifactId>
-  <version>2.2.9</version>
+  <version>2.68.0</version>
 </dependency>
 ```
 
@@ -113,8 +113,17 @@ The generated SDK javadoc is here: [http://smartsheet-platform.github.io/smartsh
 ## Contributing
 If you would like to contribute a change to the SDK, please fork a branch and then submit a pull request. [More info here](https://help.github.com/articles/using-pull-requests).
 
+## Version Numbers
+Starting from the v2.68.0 release, Smartsheet SDKs will use a new versioning strategy. Since all users are on the 
+Smartsheet API 2.0, the SDK version numbers will start with 2. The 2nd number will be an internal reference number.
+The 3rd number is for incremental changes.
+
+For example, v2.68.0 means that you are using our 2.0 version of the API, the API is synced internally to a tag of 68,
+and then if there are numbers after the last decimal, that will indicate a minor change.
+
 ## Support
 If you have any questions or issues with this SDK please post on [StackOverflow using the tag "smartsheet-api"](http://stackoverflow.com/questions/tagged/smartsheet-api) or contact us directly at api@smartsheet.com.
+
 ## Release Notes
 Each specific release is available for download via [Github](https://github.com/smartsheet-platform/smartsheet-java-sdk/tags) or the [Maven repository](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.smartsheet%22%20AND%20a%3A%22smartsheet-sdk-java%22).
 
