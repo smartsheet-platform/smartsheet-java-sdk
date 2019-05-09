@@ -6,9 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [2.2.10] - 2019-04-26
+## [2.68.0] - 2019-05-09
 ### Added
-- Implement Enterprise events
+- Implement Event Reporting
 
 ## [2.2.9] - 2019-02-05
 ### Added

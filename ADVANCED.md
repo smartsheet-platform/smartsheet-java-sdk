@@ -220,6 +220,69 @@ public class RetryHttpClient extends DefaultHttpClient {
     }
 }
 ```
+## Event Reporting
+The following sample demonstrates best practices for consuming the event stream from the Smartsheet Event Reporting
+feature.
+
+The sample uses the `smartsheet.eventResources().listEvents` method to request a list of events from the stream. The
+first request sets the `since` parameter with the point in time (i.e. event occurrence datetime) in the stream from 
+which to start consuming events. The `since` parameter can be set with a datetime value that is either formatted as 
+ISO 8601 (e.g. 2010-01-01T00:00:00Z) or as UNIX epoch (in which case the `numericDates` parameter must also be set to 
+`true`. By default the `numericDates` parameter is set to `false`).
+
+To consume the next list of events after the initial list of events is returned, set the `streamPosition` parameter 
+with the `nextStreamPosition` property obtained from the previous request and don't set the `since` parameter with 
+any values. This is because when using the `listEvents` method, either the `since` parameter or the `streamPosition`
+parameter should be set, but never both.
+
+Note that the `moreAvailable` property in a response indicates whether more events are immediately available for
+consumption. If events are not immediately available, they may still be generating so subsequent requests should keep
+using the same `streamPosition` value until the next list of events is retrieved.
+
+Many events have additional information available as part of the event. That information can be accessed using the 
+HashMap stored in the `additionalDetails` property. Information about the additional details provided can be found
+[here.](https://smartsheet-platform.github.io/event-reporting-docs/)
+
+```java
+public class Sample {
+    
+    public static void main(String[] args) throws SmartsheetException {
+        SampleProgram();
+    }
+    
+    // this example is looking specifically for new sheet events
+    private static void printNewSheetEventsInList(List<Event> events)
+    {
+        //  enumerate all events in the list of returned events
+        for(Event event: events) {
+            // find all created sheets
+            if(event.getObjectType() == EventObjectType.SHEET && event.getAction() == EventAction.CREATE) {
+                // additional details are available for some events, they can be accessed as a HashMap
+                // in the additionalDetails property
+                System.out.println(event.getAdditionalDetails().get("sheetName"));
+            }
+        }
+    }
+
+    public static void SampleProgram() throws SmartsheetException{
+
+        Smartsheet smartsheet = SmartsheetFactory.createDefaultClient();
+
+        // begin listing events in the stream starting with the `since` parameter
+        Date lastWeek = new Date(System.currentTimeMillis() - TimeUnit.DAYS.toMillis(7));
+        // this example looks at the previous 7 days of events by providing a since argument set to last week's date 
+        EventResult eventResult = smartsheet.eventResources().listEvents(lastWeek, null, 1000, false);
+        printNewSheetEventsInList(eventResult.getData());
+
+        // continue listing events in the stream by using the `streamPosition`, if the previous response indicates 
+        // that more data is available.
+        while(eventResult.getMoreAvailable()) {
+            eventResult = smartsheet.eventResources().listEvents(null, eventResult.getNextStreamPosition(), 10000, true);
+            printNewSheetEventsInList(eventResult.getData());
+        }
+    }
+}
+``` 
 
 ## Working With Smartsheetgov.com Accounts
 
