@@ -6,6 +6,7 @@ git:
 jobs:
   include:
     - stage: test
+      install: skip
       script: sh test.sh
     - stage: deploy
       language: python
