@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.68.1] - 2019-06-15
+### Other
+- docs for 2.68.0 update
+
 ## [2.68.0] - 2019-05-09
 ### Added
 - Implement Event Reporting
