@@ -16,9 +16,13 @@ jobs:
       deploy:
         - provider: script
           script: sh deploy.sh
+          on:
+            branch: travis
         - provider: releases
           api_key: $GH_ACCESS_TOKEN
           tag_name: $deploy
+          on:
+            branch: travis
 
 
   
