@@ -24,7 +24,7 @@ git push https://${GH_USER}:${GH_ACCESS_TOKEN}@github.com/smartsheet-platform/sm
 
 mvn install --settings .maven.xml -DskipTests -Dgpg.skip -B
 mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${RELEASE_TAG}
-mvn clean deploy --settings .maven.xml -DskipTests -Prelease -B
+mvn clean deploy --settings .maven.xml -DskipTests -B
 
 gitchangelog
 git add *
