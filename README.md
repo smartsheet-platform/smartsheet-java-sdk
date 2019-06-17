@@ -20,9 +20,10 @@ Add the SDK as a dependency in your project.
 <dependency>
   <groupId>com.smartsheet</groupId>
   <artifactId>smartsheet-sdk-java</artifactId>
-  <version>2.68.0</version>
+  <version>[version]</version>
 </dependency>
 ```
+The current artifact version reference can be found [here](https://oss.sonatype.org/#nexus-search;quick~smartsheet)
 
 ### Install By Downloading the Jar File
 <!--* [The SDK packaged in a jar with Dependencies](https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST) built in.-->

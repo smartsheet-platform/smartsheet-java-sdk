@@ -3,7 +3,7 @@
 	<groupId>com.smartsheet</groupId>
 	<artifactId>smartsheet-sdk-java</artifactId>
 	<packaging>jar</packaging>
-	<version>2.68.0</version>
+	<version>2.68.1</version>
 	<name>Smartsheet Java SDK</name>
 	<description>Library for connecting to Smartsheet Services</description>
 	<url>http://smartsheet.com</url>
@@ -103,12 +103,16 @@
 			<version>4.5</version>
 			<scope>compile</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
 			<version>1.9.5</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>versions-maven-plugin</artifactId>
+			<version>2.7</version>
 		</dependency>
 	</dependencies>
 
