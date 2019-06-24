@@ -67,7 +67,7 @@ public class Event {
     private EventObjectType objectType;
 
     /**
-     * ser whose authentication credential is embedded in the request that initiated the event.
+     * User whose authentication credential is embedded in the request that initiated the event.
      */
     private Long requestUserId;
 
