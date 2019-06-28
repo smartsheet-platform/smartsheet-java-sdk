@@ -84,10 +84,10 @@ public class AndroidHttpClient implements HttpClient {
      * @param durationMillis response time in ms
      * @throws IOException
      */
-    public void logRequest(Request request, HttpResponse response, long durationMillis) {
+    public void logRequest(Request request, Response response, long durationMillis) {
         logger.info("{} {}, Response Code:{}, Request completed in {} ms", request.method(), request.url(),
-                response.getStatusCode(), durationMillis);
-        if (response.getStatusCode() != 200) {
+                response.code(), durationMillis);
+        if (response.code() != 200) {
             // log the request and response on error
             try {
                 logger.warn(this.currentResponse.peekBody(4096).string());
@@ -192,7 +192,7 @@ public class AndroidHttpClient implements HttpClient {
                 }
 
                 long responseTime = endTime - startTime;
-                logRequest(request, smartsheetResponse, responseTime);
+                logRequest(request, this.currentResponse, responseTime);
 
                 if (smartsheetResponse.getStatusCode() == 200) {
                     // call successful, exit the retry loop
