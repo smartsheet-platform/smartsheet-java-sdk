@@ -1,14 +1,21 @@
 language: java
 
-before_install:
-  - git clone https://github.com/smartsheet-platform/smartsheet-sdk-tests.git
-  - smartsheet-sdk-tests/travis_scripts/install_wiremock.sh
-  
-install: 
-  - mvn install -DskipTests -Dgpg.skip
+git:
+  depth: false
 
-script:
-  - mvn test -B
-  - smartsheet-sdk-tests/travis_scripts/start_wiremock.sh
-  - mvn test -Dtest=com.smartsheet.api.sdk_test.*
-  
+jobs:
+  include:
+    - stage: test
+      install: skip
+      script: sh test.sh
+    - stage: deploy
+      language: python
+      python: "3.6"
+      script: skip
+      if: env(deploy) IS present
+      deploy:
+        - provider: script
+          script: sh deploy.sh
+        - provider: releases
+          api_key: $GH_ACCESS_TOKEN
+          tag_name: $deploy
