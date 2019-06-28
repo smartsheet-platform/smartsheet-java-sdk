@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.68.3] - 2019-06-27
+### Added
+- Initial support for an Android http client
+
+### Fixed
+- add CARD_DONE tag to supported list of column tags
+
 ## [2.68.2] - 2019-06-17
 - Resolved Jackson security vulnerability
 
