@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.68.4] - 2019-06-28
+### Fixed
+- removed errant plugin dependency
+
 ## [2.68.3] - 2019-06-27
 ### Added
 - Initial support for an Android http client
