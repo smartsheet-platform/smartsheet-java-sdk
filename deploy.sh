@@ -27,6 +27,7 @@ mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${RELEASE_TAG}
 mvn clean deploy --settings .maven.xml -DskipTests -B
 
 gitchangelog
+./add-gtm.bash
 git add *
 git commit -am "chg: doc: build ${RELEASE_TAG}"
 git push https://${GH_USER}:${GH_ACCESS_TOKEN}@github.com/smartsheet-platform/smartsheet-java-sdk.git \
