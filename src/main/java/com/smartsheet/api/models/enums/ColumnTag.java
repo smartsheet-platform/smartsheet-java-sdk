@@ -32,6 +32,9 @@ public enum ColumnTag {
     /** Represents CALENDAR_END_DATE tag. */
     CALENDAR_END_DATE,
 
+    /** Represents CARD_DONE tag. */
+    CARD_DONE,
+
     /** Represents GANTT_START_DATE tag. */
     GANTT_START_DATE,
 

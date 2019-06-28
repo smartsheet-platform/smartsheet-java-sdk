@@ -22,6 +22,7 @@ package com.smartsheet.api.internal;
 
 
 import com.smartsheet.api.*;
+import com.smartsheet.api.internal.http.AndroidHttpClient;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
 import com.smartsheet.api.internal.http.HttpClient;
 import com.smartsheet.api.internal.json.JacksonJsonSerializer;
@@ -436,6 +437,9 @@ public class SmartsheetImpl implements Smartsheet {
     public void setMaxRetryTimeMillis(long maxRetryTimeMillis) {
         if (this.httpClient instanceof DefaultHttpClient) {
             ((DefaultHttpClient) this.httpClient).setMaxRetryTimeMillis(maxRetryTimeMillis);
+        }
+        else if (this.httpClient instanceof AndroidHttpClient) {
+            ((AndroidHttpClient) this.httpClient).setMaxRetryTimeMillis(maxRetryTimeMillis);
         }
         else
             throw new UnsupportedOperationException("Invalid operation for class " + this.httpClient.getClass());
