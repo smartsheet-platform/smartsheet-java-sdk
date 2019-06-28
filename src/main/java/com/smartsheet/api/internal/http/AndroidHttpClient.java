@@ -30,7 +30,6 @@ import com.smartsheet.api.internal.json.JsonSerializer;
 import com.smartsheet.api.internal.util.StreamUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.Error;
-import org.apache.commons.io.IOUtils;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -231,7 +230,13 @@ public class AndroidHttpClient implements HttpClient {
     }
 
     private RequestBody getRequestBody(HttpRequest apiRequest) throws IOException {
-        return RequestBody.create(MEDIA_TYPE_JSON, IOUtils.toByteArray(apiRequest.getEntity().getContent()));
+        int sizRead;
+        byte[] buffer = new byte[16384];
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+        while ((sizRead = apiRequest.getEntity().getContent().read(buffer, 0, buffer.length)) != -1) {
+            bao.write(buffer, 0, sizRead);
+        }
+        return RequestBody.create(MEDIA_TYPE_JSON, bao.toByteArray());
     }
 
     /**
