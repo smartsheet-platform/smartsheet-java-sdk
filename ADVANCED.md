@@ -79,7 +79,7 @@ String payload =
     "}";
 String jsonResponse = smartsheet.passthroughResources().postRequest("sheets", payload, null);
 ```
-  
+
 ## Testing
 Unit tests:
 1. `mvn test`
@@ -92,6 +92,25 @@ Mock API tests:
 1. Clone the [Smartsheet sdk tests](https://github.com/smartsheet-platform/smartsheet-sdk-tests) repo and follow the 
 instructions from the readme to start the mock server.
 2. `mvn test -Dtest=com.smartsheet.api.sdk_test.*`
+
+## Android
+Google doesn’t support the Apache HTTP Client on Android (used as the default HTTP client by the SDK). In order to make it easier to use the Smartsheet Java SDK, the SDK contains a 2nd HTTP client class, AndroidHttpClient. The AndroidHttpClient class is included with version 2.68.4+ of the SDK. To use the Smartsheet Java SDK on Android, follow these steps:
+
+1. Add to the module-level build.gradle's dependencies section:
+```gradle
+implementation 'com.smartsheet:smartsheet-sdk-java:2.68.4'
+```
+2. Add to the module-level build.gradle's android section:
+```gradle
+packagingOptions {
+    exclude 'META-INF/DEPENDENCIES'
+}
+```
+3. When you invoke the Smartsheet client, instruct it to use the AndroidHttpClient to access the Smartsheet API:
+```java
+Smartsheet smartsheet = SmartsheetFactory.custom().setHttpClient(new AndroidHttpClient())
+        .setAccessToken("[TOKEN]").build();
+```
 
 ## Overriding HTTP Client Behavior
 You can provide a number of customizations to the default HTTP behavior by extending the DefaultHttpClient class and 
