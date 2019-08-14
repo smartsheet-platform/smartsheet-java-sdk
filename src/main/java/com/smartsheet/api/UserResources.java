@@ -23,6 +23,7 @@ package com.smartsheet.api;
 
 
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.ListUserInclusion;
 import com.smartsheet.api.models.enums.UserInclusion;
 
 import java.io.FileNotFoundException;
@@ -69,6 +70,25 @@ public interface UserResources {
      * @throws SmartsheetException if there is any other error during the operation
      */
     public PagedResult<User> listUsers(Set<String> email, PaginationParameters pagination) throws SmartsheetException;
+
+    /**
+     * <p>List all users.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /users</p>
+     *
+     * @param email the list of email addresses
+     * @param includes elements to include in response
+     * @param pagination object containing pagination query parameters
+     * @return the list of all users
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public PagedResult<User> listUsers(Set<String> email, EnumSet<ListUserInclusion> includes,
+                                       PaginationParameters pagination) throws SmartsheetException;
 
     /**
      * <p>Add a user to the organization, without sending email.</p>
