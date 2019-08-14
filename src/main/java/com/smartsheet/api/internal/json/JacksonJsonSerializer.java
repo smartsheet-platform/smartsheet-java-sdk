@@ -36,8 +36,10 @@ import com.smartsheet.api.models.format.Format;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 /**
  * This is the Jackson based JsonSerializer implementation.
@@ -67,6 +69,11 @@ public class JacksonJsonSerializer implements JsonSerializer{
         // Use toString() method on enums to serialize and deserialize
         OBJECT_MAPPER.enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);
         OBJECT_MAPPER.enable(DeserializationFeature.READ_ENUMS_USING_TO_STRING);
+
+        OBJECT_MAPPER.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        df.setTimeZone(TimeZone.getTimeZone("UTC"));
+        OBJECT_MAPPER.setDateFormat(df);
 
         // Add a custom deserializer that will convert a string to a Format object.
         SimpleModule module = new SimpleModule("FormatDeserializerModule", Version.unknownVersion());
