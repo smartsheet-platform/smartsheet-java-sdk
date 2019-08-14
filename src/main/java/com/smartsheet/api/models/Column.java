@@ -32,45 +32,16 @@ import java.util.List;
  * Represents the Column object.
  */
 public class Column extends IdentifiableModel<Long> {
-    /**
-     * Represents the position.
-     */
-    private Integer index;
-
-    /**
-     * Represents the title.
-     */
-    private String title;
-
-    /**
-     * Represents the primary flag.
-     */
-    private Boolean primary;
-
-    /**
-     * Represents the column type.
-     */
-    private ColumnType type;
-
-    /**
-     * Represents the list of options for the column.
-     */
-    private List<String> options;
-
-    /**
-     * Represents the hidden flag for the column.
-     */
-    private Boolean hidden;
-
-    /**
-     * Represents the symbol used for the column.
-     */
-    private Symbol symbol;
 
     /**
      * Represents the system column type.
      */
     private SystemColumnType systemColumnType;
+
+    /**
+     * Represents the column type.
+     */
+    private ColumnType type;
 
     /**
      * Represents the format for the auto generated numbers (if the SystemColumnType is an AUTO_NUMBER).
@@ -83,9 +54,24 @@ public class Column extends IdentifiableModel<Long> {
     private List<Contact> contactOptions;
 
     /**
-     * Represents the tags to indicate a special type of column.
+     * Column description
      */
-    private List<ColumnTag> tags;
+    private String description;
+
+    /**
+     * Represents the {@link Format} for this column.
+     */
+    private Format format;
+
+    /**
+     * Represents the hidden flag for the column.
+     */
+    private Boolean hidden;
+
+    /**
+     * Represents the position.
+     */
+    private Integer index;
 
     /**
      * Represents if the column is locked
@@ -98,14 +84,29 @@ public class Column extends IdentifiableModel<Long> {
     private Boolean lockedForUser;
 
     /**
-     * The width of the cell.
-     * */
-    private Integer width;
+     * Represents the list of options for the column.
+     */
+    private List<String> options;
 
     /**
-     * Represents the {@link Format} for this column.
+     * Represents the primary flag.
      */
-    private Format format;
+    private Boolean primary;
+
+    /**
+     * Represents the symbol used for the column.
+     */
+    private Symbol symbol;
+
+    /**
+     * Represents the tags to indicate a special type of column.
+     */
+    private List<ColumnTag> tags;
+
+    /**
+     * Represents the title.
+     */
+    private String title;
 
     /**
      * Flag indicating whether validation has been enabled for the column
@@ -117,6 +118,11 @@ public class Column extends IdentifiableModel<Long> {
      * greater than 1 for future types.
      */
     private Integer version;
+
+    /**
+     * The width of the cell.
+     * */
+    private Integer width;
 
     /**
      * Default constructor
@@ -134,59 +140,21 @@ public class Column extends IdentifiableModel<Long> {
     }
 
     /**
-     * Gets the position of the column.
+     * Gets the system column type.
      *
-     * @return the index
+     * @return the system column type
      */
-    public Integer getIndex() {
-        return index;
+    public SystemColumnType getSystemColumnType() {
+        return systemColumnType;
     }
 
     /**
-     * Sets the position of the column.
+     * Sets the system column type.
      *
-     * @param index the new index
+     * @param systemColumnType the new system column type
      */
-    public Column setIndex(Integer index) {
-        this.index = index;
-        return this;
-    }
-
-    /**
-     * Gets the title for the column.
-     *
-     * @return the title
-     */
-    public String getTitle() {
-        return title;
-    }
-
-    /**
-     * Sets the title for the column.
-     *
-     * @param title the new title
-     */
-    public Column setTitle(String title) {
-        this.title = title;
-        return this;
-    }
-
-    /**
-     * Gets the primary flag for the column.
-     *
-     * @return the primary flag
-     */
-    public Boolean getPrimary() {
-        return primary;
-    }
-
-    /**
-     * Sets the primary flag for the column.
-     *
-     * @param primary the new primary flag
-     */
-    public Column setPrimary(Boolean primary) {
-        this.primary = primary;
+    public Column setSystemColumnType(SystemColumnType systemColumnType) {
+        this.systemColumnType = systemColumnType;
         return this;
     }
 
@@ -210,21 +178,70 @@ public class Column extends IdentifiableModel<Long> {
     }
 
     /**
-     * Gets the list of options for the column.
+     * Gets the format for the auto generated numbers.
      *
-     * @return the options
+     * @return the auto number format
      */
-    public List<String> getOptions() {
-        return options;
+    public AutoNumberFormat getAutoNumberFormat() {
+        return autoNumberFormat;
     }
 
     /**
-     * Sets the list of options for the column.
+     * Sets the format for the auto generated numbers.
      *
-     * @param options the new options
+     * @param autoNumberFormat the new auto number format
      */
-    public Column setOptions(List<String> options) {
-        this.options = options;
+    public Column setAutoNumberFormat(AutoNumberFormat autoNumberFormat) {
+        this.autoNumberFormat = autoNumberFormat;
+        return this;
+    }
+    /**
+     * Gets a list of contact options
+     *
+     * @return list of contact options
+     */
+    public List<Contact> getContactOptions() { return contactOptions; }
+
+    /**
+     * Sets the list of contact options
+     *
+     * @param contactOptions the new list of contact options
+     * @return Column
+     */
+    public Column setContactOptions(List<Contact> contactOptions) {
+        this.contactOptions = contactOptions;
+        return this;
+    }
+
+    /**
+     * Gets the column description
+     *
+     * @return the column description
+     */
+    public String getDescription() { return description; }
+
+    /**
+     * Sets the column description
+     *
+     * @param description
+     */
+    public Column setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    /**
+     * @return the {@link Format}
+     */
+    public Format getFormat() {
+        return format;
+    }
+
+    /**
+     * @param format the {@link Format} to set
+     */
+    public Column setFormat(Format format) {
+        this.format = format;
         return this;
     }
 
@@ -248,96 +265,21 @@ public class Column extends IdentifiableModel<Long> {
     }
 
     /**
-     * Gets the symbol for the column.
+     * Gets the position of the column.
      *
-     * @return the symbol
+     * @return the index
      */
-    public Symbol getSymbol() {
-        return symbol;
+    public Integer getIndex() {
+        return index;
     }
 
     /**
-     * Sets the symbol for the column.
+     * Sets the position of the column.
      *
-     * @param symbol the new symbol
+     * @param index the new index
      */
-    public Column setSymbol(Symbol symbol) {
-        this.symbol = symbol;
-        return this;
-    }
-
-    /**
-     * Gets the system column type.
-     *
-     * @return the system column type
-     */
-    public SystemColumnType getSystemColumnType() {
-        return systemColumnType;
-    }
-
-    /**
-     * Sets the system column type.
-     *
-     * @param systemColumnType the new system column type
-     */
-    public Column setSystemColumnType(SystemColumnType systemColumnType) {
-        this.systemColumnType = systemColumnType;
-        return this;
-    }
-
-    /**
-     * Gets the format for the auto generated numbers.
-     *
-     * @return the auto number format
-     */
-    public AutoNumberFormat getAutoNumberFormat() {
-        return autoNumberFormat;
-    }
-
-    /**
-     * Sets the format for the auto generated numbers.
-     *
-     * @param autoNumberFormat the new auto number format
-     */
-    public Column setAutoNumberFormat(AutoNumberFormat autoNumberFormat) {
-        this.autoNumberFormat = autoNumberFormat;
-        return this;
-    }
-
-    /**
-     * Gets a list of contact options
-     *
-     * @return list of contact options
-     */
-    public List<Contact> getContactOptions() { return contactOptions; }
-
-    /**
-     * Sets the list of contact options
-     *
-     * @param contactOptions the new list of contact options
-     * @return Column
-     */
-    public Column setContactOptions(List<Contact> contactOptions) {
-        this.contactOptions = contactOptions;
-        return this;
-    }
-
-    /**
-     * Gets the tags that indicate a special type of column.
-     *
-     * @return the tags
-     */
-    public List<ColumnTag> getTags() {
-        return tags;
-    }
-
-    /**
-     * Sets the tags to indicate a special type of column.
-     *
-     * @param tags the new tags
-     */
-    public Column setTags(List<ColumnTag> tags) {
-        this.tags = tags;
+    public Column setIndex(Integer index) {
+        this.index = index;
         return this;
     }
 
@@ -376,34 +318,97 @@ public class Column extends IdentifiableModel<Long> {
     }
 
     /**
-     * Gets the width
-     * @return the width
+     * Gets the list of options for the column.
+     *
+     * @return the options
      */
-    public Integer getWidth() {
-        return width;
+    public List<String> getOptions() {
+        return options;
     }
 
     /**
-     * Sets the width
-     * @param width the width
+     * Sets the list of options for the column.
+     *
+     * @param options the new options
      */
-    public Column setWidth(Integer width) {
-        this.width = width;
+    public Column setOptions(List<String> options) {
+        this.options = options;
         return this;
     }
 
     /**
-     * @return the {@link Format}
+     * Gets the primary flag for the column.
+     *
+     * @return the primary flag
      */
-    public Format getFormat() {
-        return format;
+    public Boolean getPrimary() {
+        return primary;
     }
 
     /**
-     * @param format the {@link Format} to set
+     * Sets the primary flag for the column.
+     *
+     * @param primary the new primary flag
      */
-    public Column setFormat(Format format) {
-        this.format = format;
+    public Column setPrimary(Boolean primary) {
+        this.primary = primary;
+        return this;
+    }
+
+    /**
+     * Gets the symbol for the column.
+     *
+     * @return the symbol
+     */
+    public Symbol getSymbol() {
+        return symbol;
+    }
+
+    /**
+     * Sets the symbol for the column.
+     *
+     * @param symbol the new symbol
+     */
+    public Column setSymbol(Symbol symbol) {
+        this.symbol = symbol;
+        return this;
+    }
+
+    /**
+     * Gets the tags that indicate a special type of column.
+     *
+     * @return the tags
+     */
+    public List<ColumnTag> getTags() {
+        return tags;
+    }
+
+    /**
+     * Sets the tags to indicate a special type of column.
+     *
+     * @param tags the new tags
+     */
+    public Column setTags(List<ColumnTag> tags) {
+        this.tags = tags;
+        return this;
+    }
+
+    /**
+     * Gets the title for the column.
+     *
+     * @return the title
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * Sets the title for the column.
+     *
+     * @param title the new title
+     */
+    public Column setTitle(String title) {
+        this.title = title;
         return this;
     }
 
@@ -436,6 +441,23 @@ public class Column extends IdentifiableModel<Long> {
      */
     public Column setVersion(Integer version) {
         this.version = version;
+        return this;
+    }
+
+    /**
+     * Gets the width
+     * @return the width
+     */
+    public Integer getWidth() {
+        return width;
+    }
+
+    /**
+     * Sets the width
+     * @param width the width
+     */
+    public Column setWidth(Integer width) {
+        this.width = width;
         return this;
     }
 
