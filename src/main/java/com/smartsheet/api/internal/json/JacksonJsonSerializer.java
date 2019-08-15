@@ -95,6 +95,10 @@ public class JacksonJsonSerializer implements JsonSerializer{
         module.addDeserializer(Recipient.class, new RecipientDeserializer());
         OBJECT_MAPPER.registerModule(module);
 
+        module = new SimpleModule("WidgetContentDeserializerModule", Version.unknownVersion());
+        module.addDeserializer(WidgetContent.class, new WidgetContentDeserializer());
+        OBJECT_MAPPER.registerModule(module);
+
         module = new SimpleModule("HyperlinkSerializerModule", Version.unknownVersion());
         module.addSerializer(Hyperlink.class, new HyperlinkSerializer());
         OBJECT_MAPPER.registerModule(module);

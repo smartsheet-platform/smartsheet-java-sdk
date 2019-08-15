@@ -22,6 +22,7 @@ package com.smartsheet.api.models;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.smartsheet.api.models.enums.WidgetType;
+import com.smartsheet.api.models.format.Format;
 
 public class Widget extends IdentifiableModel<Long> {
 
@@ -48,7 +49,7 @@ public class Widget extends IdentifiableModel<Long> {
     /**
      * Contains the title format descriptor
      */
-    private String titleFormat;
+    private Format titleFormat;
 
     /**
      * X-coordinate of widget's position on the Sight
@@ -77,14 +78,7 @@ public class Widget extends IdentifiableModel<Long> {
 
     /**
      * Data that specifies the contents of the widget.
-     * _Note: the type of WidgetContent object (and attributes within) will depend on the value of Widget.type:
-     *    CELLLINK - CellLinkWidgetContent
-     *    SHEETSUMMARY - CellLinkWidgetContent
-     *    RICHTEXT - RichTextWidgetContent
-     *    SHORTCUTICON - ShortcutWidgetContent
-     *    SHORTCUTLIST - ShortcutWidgetContent
-     *    GRIDGANTT - ReportWidgetContent
-     *    IMAGE - ImageWidgetContent
+     * _Note: the type of WidgetContent object (and attributes within) will depend on the value of Widget.
      */
     private WidgetContent contents;
 
@@ -169,7 +163,7 @@ public class Widget extends IdentifiableModel<Long> {
      *
      * @return titleFormat
      */
-    public String getTitleFormat() {
+    public Format getTitleFormat() {
         return titleFormat;
     }
 
@@ -178,7 +172,7 @@ public class Widget extends IdentifiableModel<Long> {
      *
      * @param titleFormat
      */
-    public Widget setTitleFormat(String titleFormat) {
+    public Widget setTitleFormat(Format titleFormat) {
         this.titleFormat = titleFormat;
         return this;
     }

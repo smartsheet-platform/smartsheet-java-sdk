@@ -30,9 +30,31 @@ import java.util.List;
 public class Report extends AbstractSheet<ReportRow, ReportColumn, ReportCell> {
 
     /**
+     * A report's scope can be defined as the sheet ids and workspace ids that make up the report.
+     */
+    private Scope scope;
+
+    /**
      * Represents the sheets that rows in the report originated from.
      */
     private List<Sheet> sourceSheets;
+
+    /**
+     * Gets the scope of the report
+     *
+     * @return the scope
+     */
+    public Scope getScope() { return scope; }
+
+    /**
+     * Sets the scope of the report
+     *
+     * @param scope
+     */
+    public Report setScope(Scope scope) {
+        this.scope = scope;
+        return this;
+    }
 
     /**
      * Gets the sheet array.

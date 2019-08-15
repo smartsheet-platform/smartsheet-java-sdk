@@ -21,6 +21,7 @@ package com.smartsheet.api.models;
  */
 
 import com.smartsheet.api.models.enums.AttachmentType;
+import com.smartsheet.api.models.format.Format;
 
 public class ShortcutDataItem {
 
@@ -32,7 +33,7 @@ public class ShortcutDataItem {
     /**
      * format Descriptor
      */
-    private String labelFormat;
+    private Format labelFormat;
 
     /**
      * Attachment type(one of FILE, GOOGLE_DRIVE, LINK, BOX_COM, DROPBOX, EVERNOTE, EGNYTE, ONEDRIVE, SMARTSHEET)
@@ -78,7 +79,7 @@ public class ShortcutDataItem {
      *
      * @return labelFormat;
      */
-    public String getLabelFormat() {
+    public Format getLabelFormat() {
         return labelFormat;
     }
 
@@ -87,7 +88,7 @@ public class ShortcutDataItem {
      *
      * @param labelFormat
      */
-    public ShortcutDataItem setLabelFormat(String labelFormat) {
+    public ShortcutDataItem setLabelFormat(Format labelFormat) {
         this.labelFormat = labelFormat;
         return this;
     }

@@ -24,9 +24,12 @@ package com.smartsheet.api.models.enums;
  * Represents specific objects that can be included in some responses.
  */
 public enum ReportInclusion{
-    DISCUSSIONS     ("discussions"),
     ATTACHMENTS     ("attachments"),
+    DISCUSSIONS     ("discussions"),
     FORMAT          ("format"),
+    OBJECTVALUE     ("objectValue"),
+    SCOPE           ("scope"),
+    SOURCE          ("source"),
     SOURCESHEETS    ("sourceSheets"),
     SHEETVERSION    ("sheetVersion")
     ;

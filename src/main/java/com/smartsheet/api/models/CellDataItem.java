@@ -20,17 +20,24 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
+import com.smartsheet.api.models.format.Format;
+
 public class CellDataItem {
 
     /**
-     * Label for the data point. This will either be the column name or a user-provided string.
+     * Column Id for the cell
      */
-    private String label;
+    private Long columnId;
 
     /**
-     * Format descriptor for the label
+     * Row Id for each item
      */
-    private String labelFormat;
+    private Long rowId;
+
+    /**
+     * Sheet Id for each item
+     */
+    private Long sheetId;
 
     /**
      * The type of data returned will depend on the cell type and the data in the cell
@@ -43,9 +50,19 @@ public class CellDataItem {
     private Cell cell;
 
     /**
-     * The format descriptor for the value
+     * CELL
      */
-    private String valueFormat;
+    private String dataSource;
+
+    /**
+     * Label for the data point. This will either be the column name or a user-provided string.
+     */
+    private String label;
+
+    /**
+     * Format descriptor for the label
+     */
+    private Format labelFormat;
 
     /**
      * The display order for the CellDataItem
@@ -53,45 +70,60 @@ public class CellDataItem {
     private Integer order;
 
     /**
-     * Column Id for the cell
+     * The format descriptor for the value
      */
-    private Long columnId;
+    private Format valueFormat;
 
     /**
-     * Get the label for the data point.
+     * Get the column Id for the cell.
      *
-     * @return label
+     * @return columnId
      */
-    public String getLabel() {
-        return label;
+    public Long getColumnId() {
+        return columnId;
     }
 
     /**
-     * Set the label for the data point.
+     * Set the column Id for the cell.
      *
-     * @param label
+     * @param columnId
      */
-    public CellDataItem setLabel(String label) {
-        this.label = label;
+    public CellDataItem setColumnId(Long columnId) {
+        this.columnId = columnId;
         return this;
     }
 
     /**
-     * Get the format descriptor for the label
+     * Get the row Id for the item
      *
-     * @return labelFormat
+     * @return rowId
      */
-    public String getLabelFormat() {
-        return labelFormat;
+    public Long getRowId() { return rowId; }
+
+    /**
+     * Set the row Id for the item
+     *
+     * @param rowId
+     */
+    public CellDataItem setRowId(Long rowId) {
+        this.rowId = rowId;
+        return this;
     }
 
     /**
-     * Set the format descriptor for the label
+     * Get the sheet Id for the item
      *
-     * @param labelFormat
+     * @return sheetId
      */
-    public CellDataItem setLabelFormat(String labelFormat) {
-        this.labelFormat = labelFormat;
+    public Long getSheetId() { return sheetId; }
+
+    /**
+     * Set the sheet Id for the item
+     *
+     * @param sheetId
+     */
+    public CellDataItem setSheetId(Long sheetId) {
+        this.sheetId = sheetId;
         return this;
     }
 
@@ -136,21 +168,57 @@ public class CellDataItem {
     }
 
     /**
-     * Get the format descriptor for the cell value
+     * Gets the data source (currently CELL)
      *
-     * @return valueFormat
+     * @return CELL
      */
-    public String getValueFormat() {
-        return valueFormat;
+    public String getDataSource() { return dataSource; }
+
+    /**
+     * Sets the data source
+     *
+     * @param dataSource
+     */
+    public CellDataItem setDataSource(String dataSource) {
+        this.dataSource = dataSource;
+        return this;
     }
 
     /**
-     * Set the format descriptor for the cell value
+     * Get the label for the data point.
      *
-     * @param valueFormat
+     * @return label
      */
-    public CellDataItem setValueFormat(String valueFormat) {
-        this.valueFormat = valueFormat;
+    public String getLabel() {
+        return label;
+    }
+
+    /**
+     * Set the label for the data point.
+     *
+     * @param label
+     */
+    public CellDataItem setLabel(String label) {
+        this.label = label;
+        return this;
+    }
+
+    /**
+     * Get the format descriptor for the label
+     *
+     * @return labelFormat
+     */
+    public Format getLabelFormat() {
+        return labelFormat;
+    }
+
+    /**
+     * Set the format descriptor for the label
+     *
+     * @param labelFormat
+     */
+    public CellDataItem setLabelFormat(Format labelFormat) {
+        this.labelFormat = labelFormat;
         return this;
     }
 
@@ -174,21 +242,21 @@ public class CellDataItem {
     }
 
     /**
-     * Get the column Id for the cell.
+     * Get the format descriptor for the cell value
      *
-     * @return columnId
+     * @return valueFormat
      */
-    public Long getColumnId() {
-        return columnId;
+    public Format getValueFormat() {
+        return valueFormat;
     }
 
     /**
-     * Set the column Id for the cell.
+     * Set the format descriptor for the cell value
      *
-     * @param columnId
+     * @param valueFormat
      */
-    public CellDataItem setColumnId(Long columnId) {
-        this.columnId = columnId;
+    public CellDataItem setValueFormat(Format valueFormat) {
+        this.valueFormat = valueFormat;
         return this;
     }
 }
