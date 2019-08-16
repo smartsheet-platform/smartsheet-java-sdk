@@ -143,10 +143,6 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
         String path = "sights/" + sightId;
 
         HashMap<String, Object> parameters = new HashMap<String, Object>();
-        // default to level 1 to get the "new" widget names
-        if(level == null) {
-            level = 1;
-        }
         parameters.put("level", level);
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
         path += QueryUtil.generateUrl(null, parameters);
