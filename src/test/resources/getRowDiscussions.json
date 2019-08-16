@@ -26,11 +26,11 @@
                 "name": "Test User",
                 "email": "tester@smartsheet.com"
               },
-              "createdAt": "2015-01-12T18:23:02-08:00"
+              "createdAt": "2015-01-12T18:23:02Z"
             }
           ],
-          "createdAt": "2015-01-12T18:23:02-08:00",
-          "modifiedAt": "2015-01-12T18:23:02-08:00"
+          "createdAt": "2015-01-12T18:23:02Z",
+          "modifiedAt": "2015-01-12T18:23:02Z"
         }
       ],
       "accessLevel": "OWNER",
@@ -45,7 +45,7 @@
         "email": "tester@smartsheet.com"
       },
       "readOnly": false,
-      "lastCommentedAt": "2015-01-12T18:23:02-08:00"
+      "lastCommentedAt": "2015-01-12T18:23:02Z"
     }
   ]
 }
