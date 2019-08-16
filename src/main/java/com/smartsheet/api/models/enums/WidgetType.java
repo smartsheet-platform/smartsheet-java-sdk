@@ -53,5 +53,17 @@ public enum WidgetType {
     /**
      * WebContentWidgetContent object
      */
-    WEBCONTENT
+    WEBCONTENT,
+    /**
+     * NOTE: These are level=0 widget types that should be supported for now
+     */
+    /**
+     * SHORTCUTLIST, SHORTCUTICON (both now SHORTCUT) decode to ShortcutWidgetContent object
+     */
+    SHORTCUTLIST,
+    SHORTCUTICON,
+    /**
+     * SHEETSUMMARY (is now METRIC) decodes to CellLinkWidgetContent object
+     */
+    SHEETSUMMARY
 }
