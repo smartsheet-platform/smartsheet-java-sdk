@@ -174,7 +174,7 @@ public interface JsonSerializer {
     public <T> Result<List<T>> deserializeListResult(Class<T> objectClass, java.io.InputStream inputStream)
             throws JSONSerializerException;
     /**
-     * De-serialize a PartialRowUpdateResult object from JSON.
+     * De-serialize a BulkItemResult object from JSON.
      *
      * Parameters:
      * - inputStream : the input stream from which the JSON will be read
@@ -184,11 +184,13 @@ public interface JsonSerializer {
      * Exceptions: - IllegalArgumentException : if any argument is null - JSONSerializerException : if there is any
      * other error occurred during the operation
      *
+     * @param <T> the generic type
+     * @param objectClass the object class
      * @param inputStream the input stream
      * @return the result
      * @throws JSONSerializerException the JSON serializer exception
      */
-    public PartialRowUpdateResult deserializePartialRowUpdateResult(java.io.InputStream inputStream)
+    public <T> BulkItemResult<T> deserializeBulkItemResult(Class<T> objectClass, java.io.InputStream inputStream)
             throws JSONSerializerException;
 
     /**

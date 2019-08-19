@@ -387,12 +387,12 @@ public class JacksonJsonSerializer implements JsonSerializer{
     }
 
     @Override
-    public PartialRowUpdateResult deserializePartialRowUpdateResult(InputStream inputStream) throws JSONSerializerException {
-        PartialRowUpdateResult result = null;
+    public <T> BulkItemResult<T> deserializeBulkItemResult(Class<T> objectClass, InputStream inputStream)
+            throws JSONSerializerException {
+        BulkItemResult<T> result = null;
         try {
-            result = OBJECT_MAPPER.readValue(
-                    inputStream,
-                    PartialRowUpdateResult.class);
+            result = OBJECT_MAPPER.readValue(inputStream,
+                    OBJECT_MAPPER.getTypeFactory().constructParametrizedType(BulkItemResult.class, BulkItemResult.class, objectClass));
         } catch (JsonParseException e) {
             throw new JSONSerializerException(e);
         } catch (JsonMappingException e) {

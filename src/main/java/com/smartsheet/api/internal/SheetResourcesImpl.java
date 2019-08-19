@@ -31,7 +31,6 @@ import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.*;
 
 import java.io.*;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.EnumSet;
@@ -115,6 +114,13 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     private SheetCrossSheetReferenceResources crossSheetReferences;
 
     /**
+     * Represents the sheetSummary
+     *
+     * It will be initialized in the constructor and will not change afterwards
+     */
+    private SheetSummaryResources sheetSummary;
+
+    /**
      * Constructor.
      *
      * Exceptions: - IllegalArgumentException : if any argument is null
@@ -133,6 +139,7 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
         this.filters = new SheetFilterResourcesImpl(smartsheet);
         this.automationRules = new SheetAutomationRuleResourcesImpl(smartsheet);
         this.crossSheetReferences = new SheetCrossSheetReferenceResourcesImpl(smartsheet);
+        this.sheetSummary = new SheetSummaryResourcesImpl(smartsheet);
     }
 
     /**
@@ -758,96 +765,6 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     public void getSheetAsCSV(long id, OutputStream outputStream) throws SmartsheetException{
         getSheetAsFile(id, null, outputStream, "text/csv");
     }
-    /**
-     * Return the ShareResources object that provides access to Share resources associated with Sheet resources.
-     *
-     * @return the ShareResources object
-     */
-    public ShareResources shareResources() {
-        return this.shares;
-    }
-
-    /**
-     * Return the SheetRowResources object that provides access to Row resources associated with Sheet resources.
-     *
-     * @return the sheet row resources
-     */
-    public SheetRowResources rowResources() {
-        return this.rows;
-    }
-
-    /**
-     * Return the SheetColumnResources object that provides access to Column resources associated with Sheet resources.
-     *
-     * @return the sheet column resources
-     */
-    public SheetColumnResources columnResources() {
-        return this.columns;
-    }
-
-    /**
-     * Return the AssociatedAttachmentResources object that provides access to attachment resources associated with
-     * Sheet resources.
-     *
-     * @return the associated attachment resources
-     */
-    public SheetAttachmentResources attachmentResources() {
-        return this.attachments;
-    }
-
-    /**
-     * Return the AssociatedDiscussionResources object that provides access to discussion resources associated with
-     * Sheet resources.
-     *
-     * @return the associated discussion resources
-     */
-    public SheetDiscussionResources discussionResources() {
-        return this.discussions;
-    }
-
-    /**
-     * Return the SheetCommentResources object that provides access to discussion resources associated with
-     * Sheet resources.
-     *
-     * @return the associated comment resources
-     */
-    public SheetCommentResources commentResources(){
-        return this.comments;
-    }
-
-    /**
-     * Return the SheetUpdateRequestResources object that provides access to update request resources
-     * associated with Sheet resources.
-     *
-     * @return the associated update request resources
-     */
-    public SheetUpdateRequestResources updateRequestResources() {
-        return this.updateRequests;
-    }
-
-    /**
-     * Return the SheetFilterResources object that provides access to sheet filter resources
-     * associated with Sheet resources.
-     *
-     * @return the associated sheet filter resources
-     */
-    public SheetFilterResources filterResources() { return this.filters; }
-
-    /**
-     * Return the SheetAutomationRuleResources object that provides access to automation rule resources
-     * associated with the Sheet resources.
-     *
-     * @return the associated automation rule resources
-     */
-    public SheetAutomationRuleResources automationRuleResources() { return automationRules; }
-
-    /**
-     * Return the SheetCrossSheetReferenceResources object that provides access to the cross sheet reference resources
-     * associated with the Sheet resources.
-     *
-     * @return the cross sheet reference resources
-     */
-    public SheetCrossSheetReferenceResources crossSheetReferenceResources() { return crossSheetReferences; }
 
     /**
      * Get the status of the Publish settings of the sheet, including the URLs of any enabled publishings.
@@ -896,122 +813,6 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
      */
     public SheetPublish updatePublishStatus(long id, SheetPublish publish) throws SmartsheetException{
         return this.updateResource("sheets/" + id + "/publish", SheetPublish.class, publish);
-    }
-
-    /**
-     * Internal function used by all of the import routines
-     *
-     * Exceptions:
-     *   - InvalidRequestException : if there is any problem with the REST API request
-     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   - ResourceNotFoundException : if the resource can not be found
-     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   - SmartsheetException : if there is any other error occurred during the operation
-     *
-     * @param path endpoint for import
-     * @param file full path to file
-     * @param contentType content type of the file being imported (either CSV or XLSX)
-     * @param sheetName sheetName from caller (can be null)
-     * @param headerRowIndex headerRowIndex from caller (can be null)
-     * @param primaryRowIndex primaryRowIndex from caller (can be null)
-     * @return the new imported sheet
-     * @throws SmartsheetException
-     */
-    private Sheet importFile(String path, String file, String contentType, String sheetName, Integer headerRowIndex,
-                             Integer primaryRowIndex) throws SmartsheetException {
-        Util.throwIfNull(path, file, contentType);
-        Util.throwIfEmpty(path, file, contentType);
-
-        File f = new File(file);
-        HashMap<String, Object> parameters = new HashMap();
-        if (sheetName == null) {
-            sheetName = f.getName();
-        }
-        parameters.put("sheetName", sheetName);
-        parameters.put("headerRowIndex", headerRowIndex);
-        parameters.put("primaryRowIndex", primaryRowIndex);
-        path = QueryUtil.generateUrl(path, parameters);
-        HttpRequest request = createHttpRequest(this.smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
-        request.getHeaders().put("Content-Disposition", "attachment");
-        request.getHeaders().put("Content-Type", contentType);
-
-        InputStream is = null;
-        try {
-            is = new FileInputStream(f);
-        } catch (FileNotFoundException e) {
-            throw new SmartsheetException(e);
-        }
-
-        HttpEntity entity = new HttpEntity();
-        entity.setContentType(contentType);
-        entity.setContent(is);
-        entity.setContentLength(f.length());
-        request.setEntity(entity);
-
-        Sheet obj = null;
-        try {
-            HttpResponse response = this.smartsheet.getHttpClient().request(request);
-            switch (response.getStatusCode()) {
-                case 200:
-                    obj = this.smartsheet.getJsonSerializer().deserializeResult(Sheet.class,
-                            response.getEntity().getContent()).getResult();
-                    break;
-                default:
-                    handleError(response);
-            }
-        } finally {
-            smartsheet.getHttpClient().releaseConnection();
-        }
-
-        return obj;
-    }
-    /**
-     * Get a sheet as a file.
-     *
-     * Exceptions:
-     *   - InvalidRequestException : if there is any problem with the REST API request
-     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
-     *   - ResourceNotFoundException : if the resource can not be found
-     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
-     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
-     *   - SmartsheetException : if there is any other error occurred during the operation
-     *
-     * @param id the id
-     * @param paperSize the paper size
-     * @param outputStream the OutputStream to which the Excel file will be written
-     * @param contentType the content type
-     * @return the sheet as file
-     * @throws SmartsheetException the smartsheet exception
-     */
-    private void getSheetAsFile(long id, PaperSize paperSize, OutputStream outputStream, String contentType)
-            throws SmartsheetException {
-        Util.throwIfNull(outputStream, contentType);
-
-        String path = "sheets/" + id;
-        if (paperSize != null) {
-            path += "?paperSize=" + paperSize;
-        }
-
-        HttpRequest request;
-        request = createHttpRequest(this.getSmartsheet().getBaseURI().resolve(path), HttpMethod.GET);
-        request.getHeaders().put("Accept", contentType);
-
-        com.smartsheet.api.internal.http.HttpResponse response = getSmartsheet().getHttpClient().request(request);
-
-        switch (response.getStatusCode()) {
-        case 200:
-            try {
-                copyStream(response.getEntity().getContent(), outputStream);
-            } catch (IOException e) {
-                throw new SmartsheetException(e);
-            }
-            break;
-        default:
-            handleError(response);
-        }
-
-        getSmartsheet().getHttpClient().releaseConnection();
     }
 
     /**
@@ -1200,13 +1001,229 @@ public class SheetResourcesImpl extends AbstractResources implements SheetResour
     }
 
     /**
+     * Return the ShareResources object that provides access to Share resources associated with Sheet resources.
+     *
+     * @return the ShareResources object
+     */
+    public ShareResources shareResources() {
+        return this.shares;
+    }
+
+    /**
+     * Return the SheetRowResources object that provides access to Row resources associated with Sheet resources.
+     *
+     * @return the sheet row resources
+     */
+    public SheetRowResources rowResources() {
+        return this.rows;
+    }
+
+    /**
+     * Return the SheetColumnResources object that provides access to Column resources associated with Sheet resources.
+     *
+     * @return the sheet column resources
+     */
+    public SheetColumnResources columnResources() {
+        return this.columns;
+    }
+
+    /**
+     * Return the AssociatedAttachmentResources object that provides access to attachment resources associated with
+     * Sheet resources.
+     *
+     * @return the associated attachment resources
+     */
+    public SheetAttachmentResources attachmentResources() {
+        return this.attachments;
+    }
+
+    /**
+     * Return the AssociatedDiscussionResources object that provides access to discussion resources associated with
+     * Sheet resources.
+     *
+     * @return the associated discussion resources
+     */
+    public SheetDiscussionResources discussionResources() {
+        return this.discussions;
+    }
+
+    /**
+     * Return the SheetCommentResources object that provides access to discussion resources associated with
+     * Sheet resources.
+     *
+     * @return the associated comment resources
+     */
+    public SheetCommentResources commentResources(){
+        return this.comments;
+    }
+
+    /**
+     * Return the SheetUpdateRequestResources object that provides access to update request resources
+     * associated with Sheet resources.
+     *
+     * @return the associated update request resources
+     */
+    public SheetUpdateRequestResources updateRequestResources() {
+        return this.updateRequests;
+    }
+
+    /**
+     * Return the SheetFilterResources object that provides access to sheet filter resources
+     * associated with Sheet resources.
+     *
+     * @return the associated sheet filter resources
+     */
+    public SheetFilterResources filterResources() { return this.filters; }
+
+    /**
+     * Return the SheetAutomationRuleResources object that provides access to automation rule resources
+     * associated with the Sheet resources.
+     *
+     * @return the associated automation rule resources
+     */
+    public SheetAutomationRuleResources automationRuleResources() { return automationRules; }
+
+    /**
+     * Return the SheetCrossSheetReferenceResources object that provides access to the cross sheet reference resources
+     * associated with the Sheet resources.
+     *
+     * @return the cross sheet reference resources
+     */
+    public SheetCrossSheetReferenceResources crossSheetReferenceResources() { return crossSheetReferences; }
+
+    /**
+     * Return the SheetSummaryResources object that provides access to the sheet summary resources
+     * associated with the Sheet resources.
+     *
+     * @return the sheet summary resources
+     */
+    public SheetSummaryResources summaryResources() { return sheetSummary; }
+
+    /**
+     * Internal function used by all of the import routines
+     *
+     * Exceptions:
+     *   - InvalidRequestException : if there is any problem with the REST API request
+     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   - ResourceNotFoundException : if the resource can not be found
+     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   - SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param path endpoint for import
+     * @param file full path to file
+     * @param contentType content type of the file being imported (either CSV or XLSX)
+     * @param sheetName sheetName from caller (can be null)
+     * @param headerRowIndex headerRowIndex from caller (can be null)
+     * @param primaryRowIndex primaryRowIndex from caller (can be null)
+     * @return the new imported sheet
+     * @throws SmartsheetException
+     */
+    private Sheet importFile(String path, String file, String contentType, String sheetName, Integer headerRowIndex,
+                             Integer primaryRowIndex) throws SmartsheetException {
+        Util.throwIfNull(path, file, contentType);
+        Util.throwIfEmpty(path, file, contentType);
+
+        File f = new File(file);
+        HashMap<String, Object> parameters = new HashMap();
+        if (sheetName == null) {
+            sheetName = f.getName();
+        }
+        parameters.put("sheetName", sheetName);
+        parameters.put("headerRowIndex", headerRowIndex);
+        parameters.put("primaryRowIndex", primaryRowIndex);
+        path = QueryUtil.generateUrl(path, parameters);
+        HttpRequest request = createHttpRequest(this.smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
+        request.getHeaders().put("Content-Disposition", "attachment");
+        request.getHeaders().put("Content-Type", contentType);
+
+        InputStream is = null;
+        try {
+            is = new FileInputStream(f);
+        } catch (FileNotFoundException e) {
+            throw new SmartsheetException(e);
+        }
+
+        HttpEntity entity = new HttpEntity();
+        entity.setContentType(contentType);
+        entity.setContent(is);
+        entity.setContentLength(f.length());
+        request.setEntity(entity);
+
+        Sheet obj = null;
+        try {
+            HttpResponse response = this.smartsheet.getHttpClient().request(request);
+            switch (response.getStatusCode()) {
+                case 200:
+                    obj = this.smartsheet.getJsonSerializer().deserializeResult(Sheet.class,
+                            response.getEntity().getContent()).getResult();
+                    break;
+                default:
+                    handleError(response);
+            }
+        } finally {
+            smartsheet.getHttpClient().releaseConnection();
+        }
+
+        return obj;
+    }
+
+    /**
+     * Get a sheet as a file.
+     *
+     * Exceptions:
+     *   - InvalidRequestException : if there is any problem with the REST API request
+     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   - ResourceNotFoundException : if the resource can not be found
+     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   - SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param id the id
+     * @param paperSize the paper size
+     * @param outputStream the OutputStream to which the Excel file will be written
+     * @param contentType the content type
+     * @return the sheet as file
+     * @throws SmartsheetException the smartsheet exception
+     */
+    private void getSheetAsFile(long id, PaperSize paperSize, OutputStream outputStream, String contentType)
+            throws SmartsheetException {
+        Util.throwIfNull(outputStream, contentType);
+
+        String path = "sheets/" + id;
+        if (paperSize != null) {
+            path += "?paperSize=" + paperSize;
+        }
+
+        HttpRequest request;
+        request = createHttpRequest(this.getSmartsheet().getBaseURI().resolve(path), HttpMethod.GET);
+        request.getHeaders().put("Accept", contentType);
+
+        com.smartsheet.api.internal.http.HttpResponse response = getSmartsheet().getHttpClient().request(request);
+
+        switch (response.getStatusCode()) {
+        case 200:
+            try {
+                copyStream(response.getEntity().getContent(), outputStream);
+            } catch (IOException e) {
+                throw new SmartsheetException(e);
+            }
+            break;
+        default:
+            handleError(response);
+        }
+
+        getSmartsheet().getHttpClient().releaseConnection();
+    }
+
+    /**
      * Copy stream.
      *
      * @param input the input
      * @param output the output
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    public static void copyStream(InputStream input, OutputStream output) throws IOException {
+    private static void copyStream(InputStream input, OutputStream output) throws IOException {
         byte[] buffer = new byte[BUFFER_SIZE];
         int len;
         while ((len = input.read(buffer)) != -1) {

@@ -2,9 +2,9 @@ package com.smartsheet.api.models.enums;
 
 /*
  * #[license]
- * Smartsheet SDK for Java
+ * Smartsheet Java SDK
  * %%
- * Copyright (C) 2018 Smartsheet
+ * Copyright (C) 2014 - 2019 Smartsheet
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,27 +20,20 @@ package com.smartsheet.api.models.enums;
  * %[license]
  */
 
-public enum SearchScope {
-    ATTACHMENTS     ("attachments"),
-    CELL_DATA       ("cellData"),
-    COMMENTS        ("comments"),
-    FOLDER_NAMES    ("folderNames"),
-    REPORT_NAMES    ("reportNames"),
-    SHEET_NAMES     ("sheetNames"),
-    SIGHT_NAMES     ("sightNames"),
-    SUMMARY_FIELDS  ("summaryFields"),
-    TEMPLATE_NAMES  ("templateNames"),
-    WORKSPACE_NAMES ("workspaceNames"),
-    ;
 
-    String scope;
+public enum SummaryFieldExclusion {
+    DISPLAYVALUE    ("displayValue"),
+    IMAGE           ("Image"),
+    IMAGEALTTEXT    ("imageAltText");
 
-    SearchScope(String scope) {
-        this.scope = scope;
+    String type;
+
+    SummaryFieldExclusion(String type) {
+        this.type = type;
     }
 
     @Override
     public String toString() {
-        return scope;
+        return type;
     }
 }
