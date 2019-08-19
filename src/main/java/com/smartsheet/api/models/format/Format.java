@@ -41,7 +41,7 @@ import java.util.Arrays;
 public class Format {
 
     //The default format.
-    private static final int[] DEFAULT_FORMAT = new int[]{0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    private static final int[] DEFAULT_FORMAT = new int[]{0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     static final int UNSET = Integer.MIN_VALUE;
     int[] formatArray;
 
@@ -195,7 +195,12 @@ public class Format {
     }
 
     /**
-     * @author kskeem
+     * @return the {@link DateFormat} status
+     */
+    public DateFormat getDateFormat() { return getFormatValue(FormatAttribute.DATE_FORMAT, DateFormat.values()); }
+
+     /**
+     *  @author kskeem
      * An enum whose "ordinal" property is used to identify the index into the format array.
      * Note that this means you !MUST NOT! change the order of these - even if you can't stand that they are not alphabetic
      */
@@ -216,8 +221,8 @@ public class Format {
         THOUSANDS_SEPARATOR,
         NUMBER_FORMAT,
         TEXT_WRAP,
+        DATE_FORMAT
         ;
-
     }
 
 
@@ -299,7 +304,8 @@ public class Format {
             UNSET, UNSET, UNSET, UNSET,
             UNSET, UNSET, UNSET, UNSET,
             UNSET, UNSET, UNSET, UNSET,
-            UNSET, UNSET, UNSET, UNSET
+            UNSET, UNSET, UNSET, UNSET,
+            UNSET
         };
 
         public Format build() {
@@ -501,6 +507,17 @@ public class Format {
          */
         public FormatBuilder withTextWrap(TextWrap value) {
             formatArray[15] = getOrdinal(value);
+            return this;
+        }
+
+        /**
+         * Sets the date format property of the format
+         *
+         * @param value the value
+         * @return the format builder
+         */
+        public FormatBuilder withDateFormat(DateFormat value) {
+            formatArray[16] = getOrdinal(value);
             return this;
         }
 

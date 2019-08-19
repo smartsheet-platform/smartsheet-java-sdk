@@ -56,6 +56,25 @@ public interface SheetRowResources {
     public List<Row> addRows(long sheetId, List<Row> rows) throws SmartsheetException;
 
     /**
+     * <p>Insert rows to a sheet.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{id}/rows</p>
+     *
+     * @param sheetId the sheet id
+     * @param rows the list of rows to create
+     * @param includes optional objects to include
+     * @param excludes optional objects to exclude
+     * @return the list of created rows
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public List<Row> addRows(long sheetId, List<Row> rows, EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes ) throws SmartsheetException;
+
+    /**
      * <p>Insert rows to a sheet, allowing partial success. If a row cannot be inserted, it will fail, while the others may succeed..</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{id}/rows</p>
@@ -71,6 +90,26 @@ public interface SheetRowResources {
      * @throws SmartsheetException if there is any other error during the operation
      */
     public PartialRowUpdateResult addRowsAllowPartialSuccess(long sheetId, List<Row> rows) throws SmartsheetException;
+
+    /**
+     * <p>Insert rows to a sheet, allowing partial success. If a row cannot be inserted, it will fail, while the others may succeed..</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{id}/rows</p>
+     *
+     * @param sheetId the sheet id
+     * @param rows the list of rows to create
+     * @param includes optional objects to include
+     * @param excludes optional objects to exclude
+     * @return the list of created rows
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public PartialRowUpdateResult addRowsAllowPartialSuccess(long sheetId, List<Row> rows,
+                                                             EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException;
 
     /**
      * <p>Get a row.</p>
@@ -198,6 +237,28 @@ public interface SheetRowResources {
     public List<Row> updateRows(long sheetId, List<Row> rows) throws SmartsheetException;
 
     /**
+     * <p>Update rows.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/rows</p>
+     *
+     * Exceptions:
+     *   IllegalArgumentException : if any argument is null
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param sheetId the id of the sheet
+     * @param rows the list of rows
+     * @param includes optional objects to include
+     * @param excludes optional objects to exclude
+     * @return a list of rows
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public List<Row> updateRows(long sheetId, List<Row> rows, EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException;
+
+    /**
      * <p>Update rows, but allow partial success. The PartialRowUpdateResult will contain the successful
      * rows and those that failed, with specific messages for each.</p>
      *
@@ -217,6 +278,30 @@ public interface SheetRowResources {
      * @throws SmartsheetException the smartsheet exception
      */
     public PartialRowUpdateResult updateRowsAllowPartialSuccess(long sheetId, List<Row> rows) throws SmartsheetException;
+
+    /**
+     * <p>Update rows, but allow partial success. The PartialRowUpdateResult will contain the successful
+     * rows and those that failed, with specific messages for each.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/rows</p>
+     *
+     * Exceptions:
+     *   IllegalArgumentException : if any argument is null
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param sheetId the id of the sheet
+     * @param rows the list of rows
+     * @param includes optional objects to include
+     * @param excludes optional objects to exclude
+     * @return a list of rows
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public PartialRowUpdateResult updateRowsAllowPartialSuccess(long sheetId, List<Row> rows,
+                                                                EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException;
 
     /**
      * <p>Moves Row(s) from the Sheet specified in the URL to (the bottom of) another sheet.</p>

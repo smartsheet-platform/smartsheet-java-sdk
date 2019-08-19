@@ -28,44 +28,9 @@ public class FormatTables {
     private String defaults;
 
     /**
-     * Represents Font families with additional font information.
-     */
-    private List<FontFamily> fontFamily;
-
-    /**
-     * Represents Font sizes in points.
-     */
-    private List<String> fontSize;
-
-    /**
      * Represents Possible bold values: none,on.
      */
     private List<String> bold;
-
-    /**
-     * Represents Possible italic values: none,on.
-     */
-    private List<String> italic;
-
-    /**
-     * Represents Possible underline values: none,on.
-     */
-    private List<String> underline;
-
-    /**
-     * Represents Possible strikethrough values: none,on.
-     */
-    private List<String> strikethrough;
-
-    /**
-     * Represents Possible horizontalAlign values: none,on.
-     */
-    private List<String> horizontalAlign;
-
-    /**
-     * Represents Possible verticalAlign values: top, middle, bottom.
-     */
-    private List<String> verticalAlign;
 
     /**
      * Represents Color hex values.
@@ -78,14 +43,34 @@ public class FormatTables {
     private List<Currency> currency;
 
     /**
+     * Array of strings containing available date formats
+     */
+    private List<String> dateFormat;
+
+    /**
      * Represents All allowed decimal count values.
      */
     private List<String> decimalCount;
 
     /**
-     * Represents Possible thousandsSeparator values: none,on.
+     * Represents Font families with additional font information.
      */
-    private List<String> thousandsSeparator;
+    private List<FontFamily> fontFamily;
+
+    /**
+     * Represents Font sizes in points.
+     */
+    private List<String> fontSize;
+
+    /**
+     * Represents Possible horizontalAlign values: none,on.
+     */
+    private List<String> horizontalAlign;
+
+    /**
+     * Represents Possible italic values: none,on.
+     */
+    private List<String> italic;
 
     /**
      * Represents Possible numberFormat values: none
@@ -96,9 +81,29 @@ public class FormatTables {
     private List<String> numberFormat;
 
     /**
+     * Represents Possible strikethrough values: none,on.
+     */
+    private List<String> strikethrough;
+
+    /**
      * Represents Possible textWrap values: none,on.
      */
     private List<String> textWrap;
+
+    /**
+     * Represents Possible thousandsSeparator values: none,on.
+     */
+    private List<String> thousandsSeparator;
+
+    /**
+     * Represents Possible underline values: none,on.
+     */
+    private List<String> underline;
+
+    /**
+     * Represents Possible verticalAlign values: top, middle, bottom.
+     */
+    private List<String> verticalAlign;
 
     /**
      * Gets the format descriptor.
@@ -120,44 +125,6 @@ public class FormatTables {
     }
 
     /**
-     * Gets the Font families.
-     *
-     * @return the Font families
-     */
-    public List<FontFamily> getFontFamily() {
-        return fontFamily;
-    }
-
-    /**
-     * Sets the Font families.
-     *
-     * @param fontFamily the new Font families
-     */
-    public FormatTables setFontFamily(List<FontFamily> fontFamily) {
-        this.fontFamily = fontFamily;
-        return this;
-    }
-
-    /**
-     * Gets the Font sizes in points.
-     *
-     * @return the Font sizes in points
-     */
-    public List<String> getFontSize() {
-        return fontSize;
-    }
-
-    /**
-     * Sets the Font sizes in points.
-     *
-     * @param fontSize the new Font sizes in points
-     */
-    public FormatTables setFontSize(List<String> fontSize) {
-        this.fontSize = fontSize;
-        return this;
-    }
-
-    /**
      * Gets the Possible bold values.
      *
      * @return the Possible bold values
@@ -173,101 +140,6 @@ public class FormatTables {
      */
     public FormatTables setBold(List<String> bold) {
         this.bold = bold;
-        return this;
-    }
-
-    /**
-     * Gets the Possible italic values.
-     *
-     * @return the Possible italic values
-     */
-    public List<String> getItalic() {
-        return italic;
-    }
-
-    /**
-     * Sets the Possible italic values.
-     *
-     * @param italic the new Possible italic values
-     */
-    public FormatTables setItalic(List<String> italic) {
-        this.italic = italic;
-        return this;
-    }
-
-    /**
-     * Gets the Possible underline values.
-     *
-     * @return the Possible underline values
-     */
-    public List<String> getUnderline() {
-        return underline;
-    }
-
-    /**
-     * Sets the Possible underline values.
-     *
-     * @param underline the new Possible underline values
-     */
-    public FormatTables setUnderline(List<String> underline) {
-        this.underline = underline;
-        return this;
-    }
-
-    /**
-     * Gets the Possible strikethrough values.
-     *
-     * @return the Possible strikethrough values
-     */
-    public List<String> getStrikethrough() {
-        return strikethrough;
-    }
-
-    /**
-     * Sets the Possible strikethrough values.
-     *
-     * @param strikethrough the new Possible strikethrough values
-     */
-    public FormatTables setStrikethrough(List<String> strikethrough) {
-        this.strikethrough = strikethrough;
-        return this;
-    }
-
-    /**
-     * Gets the Possible horizontalAlign values.
-     *
-     * @return the Possible horizontalAlign values
-     */
-    public List<String> getHorizontalAlign() {
-        return horizontalAlign;
-    }
-
-    /**
-     * Sets the Possible horizontalAlign values.
-     *
-     * @param horizontalAlign the new Possible horizontalAlign values
-     */
-    public FormatTables setHorizontalAlign(List<String> horizontalAlign) {
-        this.horizontalAlign = horizontalAlign;
-        return this;
-    }
-
-    /**
-     * Gets the Possible verticalAlign values.
-     *
-     * @return the Possible verticalAlign values
-     */
-    public List<String> getVerticalAlign() {
-        return verticalAlign;
-    }
-
-    /**
-     * Sets the Possible verticalAlign values.
-     *
-     * @param verticalAlign the new Possible verticalAlign values
-     */
-    public FormatTables setVerticalAlign(List<String> verticalAlign) {
-        this.verticalAlign = verticalAlign;
         return this;
     }
 
@@ -310,6 +182,23 @@ public class FormatTables {
     }
 
     /**
+     * Gets the array of strings containing available date formats
+     *
+     * @return the date formats
+     */
+    public List<String> getDateFormat() { return dateFormat; }
+
+    /**
+     * Sets the array of strings containing available date formats
+     *
+     * @param dateFormat the date formats
+     */
+    public FormatTables setDateFormat(List<String> dateFormat) {
+        this.dateFormat = dateFormat;
+        return this;
+    }
+
+    /**
      * Gets the allowed decimal count values.
      *
      * @return the allowed decimal count values
@@ -329,21 +218,78 @@ public class FormatTables {
     }
 
     /**
-     * Gets the thousandsSeparator values.
+     * Gets the Font families.
      *
-     * @return the thousandsSeparator values
+     * @return the Font families
      */
-    public List<String> getThousandsSeparator() {
-        return thousandsSeparator;
+    public List<FontFamily> getFontFamily() {
+        return fontFamily;
     }
 
     /**
-     * Sets the thousandsSeparator values.
+     * Sets the Font families.
      *
-     * @param thousandsSeparator the new thousandsSeparator values
+     * @param fontFamily the new Font families
      */
-    public FormatTables setThousandsSeparator(List<String> thousandsSeparator) {
-        this.thousandsSeparator = thousandsSeparator;
+    public FormatTables setFontFamily(List<FontFamily> fontFamily) {
+        this.fontFamily = fontFamily;
+        return this;
+    }
+
+    /**
+     * Gets the Font sizes in points.
+     *
+     * @return the Font sizes in points
+     */
+    public List<String> getFontSize() {
+        return fontSize;
+    }
+
+    /**
+     * Sets the Font sizes in points.
+     *
+     * @param fontSize the new Font sizes in points
+     */
+    public FormatTables setFontSize(List<String> fontSize) {
+        this.fontSize = fontSize;
+        return this;
+    }
+
+    /**
+     * Gets the Possible horizontalAlign values.
+     *
+     * @return the Possible horizontalAlign values
+     */
+    public List<String> getHorizontalAlign() {
+        return horizontalAlign;
+    }
+
+    /**
+     * Sets the Possible horizontalAlign values.
+     *
+     * @param horizontalAlign the new Possible horizontalAlign values
+     */
+    public FormatTables setHorizontalAlign(List<String> horizontalAlign) {
+        this.horizontalAlign = horizontalAlign;
+        return this;
+    }
+
+    /**
+     * Gets the Possible italic values.
+     *
+     * @return the Possible italic values
+     */
+    public List<String> getItalic() {
+        return italic;
+    }
+
+    /**
+     * Sets the Possible italic values.
+     *
+     * @param italic the new Possible italic values
+     */
+    public FormatTables setItalic(List<String> italic) {
+        this.italic = italic;
         return this;
     }
 
@@ -367,6 +313,25 @@ public class FormatTables {
     }
 
     /**
+     * Gets the Possible strikethrough values.
+     *
+     * @return the Possible strikethrough values
+     */
+    public List<String> getStrikethrough() {
+        return strikethrough;
+    }
+
+    /**
+     * Sets the Possible strikethrough values.
+     *
+     * @param strikethrough the new Possible strikethrough values
+     */
+    public FormatTables setStrikethrough(List<String> strikethrough) {
+        this.strikethrough = strikethrough;
+        return this;
+    }
+
+    /**
      * Gets the textWrap values.
      *
      * @return the textWrap values
@@ -382,6 +347,63 @@ public class FormatTables {
      */
     public FormatTables setTextWrap(List<String> textWrap) {
         this.textWrap = textWrap;
+        return this;
+    }
+
+    /**
+     * Gets the thousandsSeparator values.
+     *
+     * @return the thousandsSeparator values
+     */
+    public List<String> getThousandsSeparator() {
+        return thousandsSeparator;
+    }
+
+    /**
+     * Sets the thousandsSeparator values.
+     *
+     * @param thousandsSeparator the new thousandsSeparator values
+     */
+    public FormatTables setThousandsSeparator(List<String> thousandsSeparator) {
+        this.thousandsSeparator = thousandsSeparator;
+        return this;
+    }
+
+    /**
+     * Gets the Possible underline values.
+     *
+     * @return the Possible underline values
+     */
+    public List<String> getUnderline() {
+        return underline;
+    }
+
+    /**
+     * Sets the Possible underline values.
+     *
+     * @param underline the new Possible underline values
+     */
+    public FormatTables setUnderline(List<String> underline) {
+        this.underline = underline;
+        return this;
+    }
+
+    /**
+     * Gets the Possible verticalAlign values.
+     *
+     * @return the Possible verticalAlign values
+     */
+    public List<String> getVerticalAlign() {
+        return verticalAlign;
+    }
+
+    /**
+     * Sets the Possible verticalAlign values.
+     *
+     * @param verticalAlign the new Possible verticalAlign values
+     */
+    public FormatTables setVerticalAlign(List<String> verticalAlign) {
+        this.verticalAlign = verticalAlign;
         return this;
     }
 }

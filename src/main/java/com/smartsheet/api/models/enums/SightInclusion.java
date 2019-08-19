@@ -1,4 +1,5 @@
-package com.smartsheet.api.models;
+package com.smartsheet.api.models.enums;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -19,13 +20,21 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-import com.smartsheet.api.models.enums.WidgetType;
+/**
+ * Represents specific objects that can be included in some responses.
+ */
+public enum SightInclusion {
+    SOURCE("source")
+    ;
 
-public interface WidgetContent {
-    /**
-     * Get the widgetContent type
-     *
-     * @return widgetContent type;
-     */
-    WidgetType getWidgetType();
+    String inclusion;
+
+    SightInclusion(String inclusion) {
+        this.inclusion = inclusion;
+    }
+
+    @Override
+    public String toString() {
+        return inclusion;
+    }
 }

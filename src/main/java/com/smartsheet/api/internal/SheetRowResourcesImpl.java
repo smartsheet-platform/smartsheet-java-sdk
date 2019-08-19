@@ -83,13 +83,83 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
      * @throws SmartsheetException the smartsheet exception
      */
     public List<Row> addRows(long sheetId, List<Row> rows) throws SmartsheetException {
-        return this.postAndReceiveList("sheets/" + sheetId + "/rows", rows, Row.class);
+        return this.addRows(sheetId, rows, null, null);
     }
 
+    /**
+     * Insert rows to a sheet.
+     *
+     * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/rows
+     *
+     * Exceptions:
+     *   - IllegalArgumentException : if any argument is null
+     *   - InvalidRequestException : if there is any problem with the REST API request
+     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   - ResourceNotFoundException : if the resource can not be found
+     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   - SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param sheetId the sheet id
+     * @param rows the list of rows to create
+     * @param includes optional objects to include
+     * @param excludes optional objects to exclude
+     * @return the created rows
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public List<Row> addRows(long sheetId, List<Row> rows, EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException {
+        String path = "sheets/" + sheetId + "/rows";
 
+        HashMap<String, Object> parameters = new HashMap<String, Object>();
+
+        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+        parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
+
+        path += QueryUtil.generateUrl(null, parameters);
+        return this.postAndReceiveList(path, rows, Row.class);
+    }
+
+    /**
+     * Insert rows to a sheet, allowing partial success. If a row cannot be inserted, it will fail, while the others may succeed.
+     *
+     * It mirrors to the following Smartsheet REST API method: POST /sheets/{id}/rows
+     *
+     * @param sheetId the sheet id
+     * @param rows the list of rows to create
+     * @return the list of created rows
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
     @Override
     public PartialRowUpdateResult addRowsAllowPartialSuccess(long sheetId, List<Row> rows) throws SmartsheetException {
-        return doPartialRowOperation(sheetId, rows, HttpMethod.POST);
+        return doPartialRowOperation(sheetId, rows, null, null, HttpMethod.POST);
+    }
+
+    /**
+     * Insert rows to a sheet, allowing partial success. If a row cannot be inserted, it will fail, while the others may succeed.
+     *
+     * It mirrors to the following Smartsheet REST API method: POST /sheets/{id}/rows
+     *
+     * @param sheetId the sheet id
+     * @param rows the list of rows to create
+     * @param includes optional objects to include
+     * @param excludes optional objects to exclude
+     * @return the list of created rows
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    @Override
+    public PartialRowUpdateResult addRowsAllowPartialSuccess(long sheetId, List<Row> rows,
+                                                             EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException {
+        return doPartialRowOperation(sheetId, rows, includes, excludes, HttpMethod.POST);
     }
 
     /**
@@ -249,16 +319,94 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
      * @throws SmartsheetException the smartsheet exception
      */
     public List<Row> updateRows(long sheetId, List<Row> rows) throws SmartsheetException {
-        return this.putAndReceiveList("sheets/" + sheetId + "/rows", rows, Row.class);
+        return this.updateRows(sheetId, rows, null, null);
     }
 
+    /**
+     * Update rows.
+     *
+     * It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/rows
+     *
+     * Exceptions:
+     *   IllegalArgumentException : if any argument is null
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param sheetId the id of the sheet
+     * @param rows the list of rows
+     * @param includes optional objects to include
+     * @param excludes optional objects to exclude
+     * @return a list of rows
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public List<Row> updateRows(long sheetId, List<Row> rows, EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException {
+        String path = "sheets/" + sheetId + "/rows";
 
+        HashMap<String, Object> parameters = new HashMap<String, Object>();
+
+        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+        parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
+
+        path += QueryUtil.generateUrl(null, parameters);
+        return this.putAndReceiveList(path, rows, Row.class);
+    }
+
+    /**
+     * Update rows, but allow partial success. The PartialRowUpdateResult will contain the successful
+     * rows and those that failed, with specific messages for each.
+     *
+     * It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/rows
+     *
+     * Exceptions:
+     *   IllegalArgumentException : if any argument is null
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param sheetId the id of the sheet
+     * @param rows the list of rows
+     * @return a list of rows
+     * @throws SmartsheetException the smartsheet exception
+     */
     @Override
     public PartialRowUpdateResult updateRowsAllowPartialSuccess(long sheetId, List<Row> rows) throws SmartsheetException {
-        return doPartialRowOperation(sheetId, rows, HttpMethod.PUT);
+        return doPartialRowOperation(sheetId, rows, null, null, HttpMethod.PUT);
     }
 
-    private PartialRowUpdateResult doPartialRowOperation(long sheetId, List<Row> rows, HttpMethod method) throws SmartsheetException {
+    /**
+     * Update rows, but allow partial success. The PartialRowUpdateResult will contain the successful
+     * rows and those that failed, with specific messages for each.
+     *
+     * It mirrors to the following Smartsheet REST API method: PUT /sheets/{sheetId}/rows
+     *
+     * Exceptions:
+     *   IllegalArgumentException : if any argument is null
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param sheetId the id of the sheet
+     * @param rows the list of rows
+     * @param includes optional objects to include
+     * @param excludes optional objects to exclude
+     * @return a list of rows
+     * @throws SmartsheetException the smartsheet exception
+     */
+    @Override
+    public PartialRowUpdateResult updateRowsAllowPartialSuccess(long sheetId, List<Row> rows,
+                                                                EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes) throws SmartsheetException {
+        return doPartialRowOperation(sheetId, rows, includes, excludes, HttpMethod.PUT);
+    }
+
+    private PartialRowUpdateResult doPartialRowOperation(long sheetId, List<Row> rows,
+                                                         EnumSet<RowInclusion> includes, EnumSet<ObjectExclusion> excludes, HttpMethod method) throws SmartsheetException {
         Util.throwIfNull(rows, method);
         if (method != HttpMethod.POST && method != HttpMethod.PUT) {
             throw new IllegalArgumentException();
@@ -267,6 +415,8 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
         String path = "sheets/" + sheetId + "/rows";
         HashMap<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("allowPartialSuccess", "true");
+        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+        parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
 
         path = QueryUtil.generateUrl(path, parameters);
 
@@ -297,7 +447,6 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
         smartsheet.getHttpClient().releaseConnection();
 
         return result;
-
     }
 
     /**

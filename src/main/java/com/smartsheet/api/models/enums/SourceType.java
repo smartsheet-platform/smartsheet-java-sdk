@@ -21,7 +21,9 @@ package com.smartsheet.api.models.enums;
  */
 
 public enum SourceType {
+    REPORT      ("report"),
     SHEET       ("sheet"),
+    SIGHT       ("sight"),
     TEMPLATE    ("template");
 
     String type;

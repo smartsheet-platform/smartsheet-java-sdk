@@ -21,11 +21,37 @@ package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.WidgetType;
 
-public interface WidgetContent {
+public class WebContentWidgetContent implements WidgetContent {
+
     /**
-     * Get the widgetContent type
-     *
-     * @return widgetContent type;
+     * the URL
      */
-    WidgetType getWidgetType();
+    private String url;
+
+    /**
+     * Returns the type for this widget content object
+     *
+     * @return WEBCONTENT
+     */
+    @Override
+    public WidgetType getWidgetType() {
+        return WidgetType.WEBCONTENT;
+    }
+
+    /**
+     * Gets the URL
+     *
+     * @return the URL
+     */
+    public String getUrl() { return url; }
+
+    /**
+     * Sets the URL
+     *
+     * @param url
+     */
+    public WebContentWidgetContent setUrl(String url) {
+        this.url = url;
+        return this;
+    }
 }

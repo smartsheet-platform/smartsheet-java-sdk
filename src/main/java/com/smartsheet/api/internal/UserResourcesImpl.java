@@ -28,6 +28,7 @@ import com.smartsheet.api.internal.http.HttpResponse;
 import com.smartsheet.api.internal.util.QueryUtil;
 import com.smartsheet.api.internal.util.Util;
 import com.smartsheet.api.models.*;
+import com.smartsheet.api.models.enums.ListUserInclusion;
 import com.smartsheet.api.models.enums.UserInclusion;
 
 import java.io.*;
@@ -87,8 +88,30 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
      * @return all users (note that empty list will be returned if there is none)
      * @throws SmartsheetException the smartsheet exception
      */
-
     public PagedResult<User> listUsers(Set<String> email, PaginationParameters pagination) throws SmartsheetException {
+        return this.listUsers(email, null, pagination);
+    }
+
+    /**
+     * List all users.
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /users
+     *
+     * Exceptions:
+     *   - InvalidRequestException : if there is any problem with the REST API request
+     *   - AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   - ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   - SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   - SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param email the list of email addresses
+     * @param includes elements to include in the response
+     * @param pagination the object containing the pagination query parameters
+     * @return all users (note that empty list will be returned if there is none)
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public PagedResult<User> listUsers(Set<String> email, EnumSet<ListUserInclusion> includes,
+                                       PaginationParameters pagination) throws SmartsheetException {
         String path = "users";
         HashMap<String, Object> parameters = new HashMap<String, Object>();
 
@@ -96,6 +119,7 @@ public class UserResourcesImpl extends AbstractResources implements UserResource
             parameters = pagination.toHashMap();
         }
         parameters.put("email", QueryUtil.generateCommaSeparatedList(email));
+        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
 
         path += QueryUtil.generateUrl(null, parameters);
         return this.listResourcesWithWrapper(path, User.class);

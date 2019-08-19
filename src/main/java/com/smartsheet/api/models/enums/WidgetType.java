@@ -21,10 +21,7 @@ package com.smartsheet.api.models.enums;
  */
 
 public enum WidgetType {
-    /**
-     * CellLinkWidgetContent object
-     */
-    CELLLINK,
+
     /**
      * ChartWidgetContent object
      */
@@ -36,7 +33,7 @@ public enum WidgetType {
     /**
      * CellLinkWidgetContent object
      */
-    SHEETSUMMARY,
+    METRIC,
     /**
      * ReportWidgetContent object
      */
@@ -48,13 +45,25 @@ public enum WidgetType {
     /**
      * ShortcutWidgetContent object
      */
-    SHORTCUTICON,
-    /**
-     * ShortcutWidgetContent object
-     */
-    SHORTCUTLIST,
-    /**
+    SHORTCUT,
+     /**
      * same as RichTextWidgetContent object
      */
-    TITLE
+    TITLE,
+    /**
+     * WebContentWidgetContent object
+     */
+    WEBCONTENT,
+    /**
+     * NOTE: These are level=0 widget types that should be supported for now
+     */
+    /**
+     * SHORTCUTLIST, SHORTCUTICON (both now SHORTCUT) decode to ShortcutWidgetContent object
+     */
+    SHORTCUTLIST,
+    SHORTCUTICON,
+    /**
+     * SHEETSUMMARY (is now METRIC) decodes to CellLinkWidgetContent object
+     */
+    SHEETSUMMARY
 }

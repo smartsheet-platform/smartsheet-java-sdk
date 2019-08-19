@@ -164,6 +164,7 @@ public interface WorkspaceResources {
      * @return the folder
      * @throws SmartsheetException the smartsheet exception
      */
+    @Deprecated
     public Workspace copyWorkspace(long workspaceId, ContainerDestination containerDestination, EnumSet<WorkspaceCopyInclusion> includes,
                                    EnumSet<WorkspaceRemapExclusion> skipRemap, EnumSet<CopyExclusion> excludes) throws SmartsheetException;
 

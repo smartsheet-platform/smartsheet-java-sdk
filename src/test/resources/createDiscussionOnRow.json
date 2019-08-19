@@ -3,13 +3,13 @@
   "result": {
     "comments": [
       {
-        "createdAt": "2013-02-28T22:00:56-08:00",
+        "createdAt": "2013-02-28T22:00:56Z",
         "createdBy": {
           "email": "jane.doev@smartsheet.com",
           "name": "Jane Doe"
         },
         "id": 4583173393803140,
-        "modifiedAt": "2013-02-28T22:00:56-08:00",
+        "modifiedAt": "2013-02-28T22:00:56Z",
         "text": "This text is the body of the first comment"
       }
     ],

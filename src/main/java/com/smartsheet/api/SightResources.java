@@ -25,8 +25,10 @@ import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Sight;
 import com.smartsheet.api.models.SightPublish;
+import com.smartsheet.api.models.enums.SightInclusion;
 
 import java.util.Date;
+import java.util.EnumSet;
 
 public interface SightResources {
 
@@ -80,6 +82,23 @@ public interface SightResources {
      * @throws SmartsheetException if there is any other error during the operation
      */
     public Sight getSight(long sightId, Integer level) throws SmartsheetException;
+
+    /**
+     * <p>Get a specified Sight.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sights/{sightId}</p>
+     *
+     * @param sightId the Id of the Sight
+     * @param level compatibility level
+     * @return the Sight resource.
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Sight getSight(long sightId, EnumSet<SightInclusion> includes, Integer level) throws SmartsheetException;
 
     /**
      * <p>Get a specified Sight.</p>

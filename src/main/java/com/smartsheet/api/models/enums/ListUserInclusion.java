@@ -1,4 +1,5 @@
-package com.smartsheet.api.models;
+package com.smartsheet.api.models.enums;
+
 /*
  * #[license]
  * Smartsheet SDK for Java
@@ -19,13 +20,22 @@ package com.smartsheet.api.models;
  * %[license]
  */
 
-import com.smartsheet.api.models.enums.WidgetType;
+/**
+ * Represents specific objects that can be included with the ListUsers request.
+ */
+public enum ListUserInclusion {
+    LAST_LOGIN          ("lastLogin"),
+    ;
 
-public interface WidgetContent {
-    /**
-     * Get the widgetContent type
-     *
-     * @return widgetContent type;
-     */
-    WidgetType getWidgetType();
+    String inclusion;
+
+    ListUserInclusion(String inclusion) {
+        this.inclusion = inclusion;
+    }
+
+    @Override
+    public String toString() {
+        return inclusion;
+    }
 }
+

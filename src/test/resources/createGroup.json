@@ -27,8 +27,8 @@
             "lastName": "Two",
             "name": "User Two"
         }],
-        "createdAt": "2014-06-16T13:04:01-07:00",
-        "modifiedAt": "2014-06-16T13:04:01-07:00"
+        "createdAt": "2014-06-16T13:04:01Z",
+        "modifiedAt": "2014-06-16T13:04:01Z"
     },
     "message": "SUCCESS"
 }
