@@ -12,21 +12,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - add dateFormat to format tables.
 - add support for includes argument for ListUsers
 - add column description property
+- implement addRow, updateRow interfaces that allow includes and excludes
 
 ### Changed
-- continue to support level 0 widget type names
 - significant overhaul to Sights
-- add dateFormat to Format model
 - deprecated copyFolder, copyWorkspace methods with unsupported excludes
 - serialize dates using ISO-8601 formatting
 
 ### Fixed
 - resolve jackson-databind security vulnerability
-
-### Other
-- use trusty distribution for TravisCI builds
-- add: dev: implement addRow, updateRow interfaces that allow includes
-  and excludes
 
 ## [2.68.4] - 2019-06-28
 ### Fixed
