@@ -528,84 +528,6 @@ public interface SheetResources {
     public void sendSheet(long id, SheetEmail email) throws SmartsheetException;
 
     /**
-     * <p>Return the ShareResources object that provides access to Share resources associated with Sheet resources.</p>
-     *
-     * @return the share resources object
-     */
-    public ShareResources shareResources();
-
-    /**
-     * <p>Return the SheetRowResources object that provides access to Row resources associated with Sheet resources.</p>
-     *
-     * @return the sheet row resources
-     */
-    public SheetRowResources rowResources();
-
-    /**
-     * <p>Return the SheetColumnResources object that provides access to Column resources associated with Sheet resources.</p>
-     *
-     * @return the sheet column resources
-     */
-    public SheetColumnResources columnResources();
-
-    /**
-     * <p>Return the AttachmentResources object that provides access to attachment resources associated with
-     * Sheet resources.</p>
-     *
-     * @return the associated attachment resources
-     */
-    public SheetAttachmentResources attachmentResources();
-
-    /**
-     * <p>Return the SheetDiscussionResources object that provides access to discussion resources associated with
-     * Sheet resources.</p>
-     *
-     * @return the associated discussion resources
-     */
-    public SheetDiscussionResources discussionResources();
-
-
-    /**
-     * <p>Return the SheetCommentResources object that provides access to discussion resources associated with
-     * Sheet resources.</p>
-     *
-     * @return the associated comment resources
-     */
-    public SheetCommentResources commentResources();
-
-    /**
-     * <p>Return the SheetUpdateRequestResources object that provides access to update request resources
-     * associated with Sheet resources.</p>
-     *
-     * @return the associated update request resources
-     */
-    public SheetUpdateRequestResources updateRequestResources();
-
-    /**
-     * <p>Return the SheetFilterResources object that provides access to sheet filter resources
-     * associated with Sheet resources.</p>
-     *
-     * @return the associated sheet filter resources
-     */
-    public SheetFilterResources filterResources();
-
-    /**
-     * <p>Return the SheetAutomationRuleResources object that provides access to automation rule resources
-     * associated with Sheet resources.</p>
-     *
-     * @return the associated automation rule resources
-     */
-    public SheetAutomationRuleResources automationRuleResources();
-
-    /**
-     * <p>Return the CrossSheetReferenceResources object that provides access to cross sheet reference resources
-     * associated with Sheet resources.</p>
-     *
-     * @return the associated cross sheet reference resources
-     */
-    public SheetCrossSheetReferenceResources crossSheetReferenceResources();
-
-    /**
      * <p>Get the status of the Publish settings of the sheet, including the URLs of any enabled publishings.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: GET /sheet/{sheetId}/publish</p>
@@ -756,4 +678,90 @@ public interface SheetResources {
      * @throws SmartsheetException if there is any other error during the operation
      */
     public Sheet sortSheet(long sheetId, SortSpecifier sortSpecifier, Integer level) throws SmartsheetException;
+
+    /**
+     * <p>Return the ShareResources object that provides access to Share resources associated with Sheet resources.</p>
+     *
+     * @return the share resources object
+     */
+    public ShareResources shareResources();
+
+    /**
+     * <p>Return the SheetRowResources object that provides access to Row resources associated with Sheet resources.</p>
+     *
+     * @return the sheet row resources
+     */
+    public SheetRowResources rowResources();
+
+    /**
+     * <p>Return the SheetColumnResources object that provides access to Column resources associated with Sheet resources.</p>
+     *
+     * @return the sheet column resources
+     */
+    public SheetColumnResources columnResources();
+
+    /**
+     * <p>Return the AttachmentResources object that provides access to attachment resources associated with
+     * Sheet resources.</p>
+     *
+     * @return the associated attachment resources
+     */
+    public SheetAttachmentResources attachmentResources();
+
+    /**
+     * <p>Return the SheetDiscussionResources object that provides access to discussion resources associated with
+     * Sheet resources.</p>
+     *
+     * @return the associated discussion resources
+     */
+    public SheetDiscussionResources discussionResources();
+
+
+    /**
+     * <p>Return the SheetCommentResources object that provides access to discussion resources associated with
+     * Sheet resources.</p>
+     *
+     * @return the associated comment resources
+     */
+    public SheetCommentResources commentResources();
+
+    /**
+     * <p>Return the SheetUpdateRequestResources object that provides access to update request resources
+     * associated with Sheet resources.</p>
+     *
+     * @return the associated update request resources
+     */
+    public SheetUpdateRequestResources updateRequestResources();
+
+    /**
+     * <p>Return the SheetFilterResources object that provides access to sheet filter resources
+     * associated with Sheet resources.</p>
+     *
+     * @return the associated sheet filter resources
+     */
+    public SheetFilterResources filterResources();
+
+    /**
+     * <p>Return the SheetAutomationRuleResources object that provides access to automation rule resources
+     * associated with Sheet resources.</p>
+     *
+     * @return the associated automation rule resources
+     */
+    public SheetAutomationRuleResources automationRuleResources();
+
+    /**
+     * <p>Return the CrossSheetReferenceResources object that provides access to cross sheet reference resources
+     * associated with Sheet resources.</p>
+     *
+     * @return the associated cross sheet reference resources
+     */
+    public SheetCrossSheetReferenceResources crossSheetReferenceResources();
+
+    /**
+     * Return the SheetSummaryResources object that provides access to the sheet summary resources
+     * associated with the Sheet resources.
+     *
+     * @return the sheet summary resources
+     */
+    public SheetSummaryResources summaryResources();
 }

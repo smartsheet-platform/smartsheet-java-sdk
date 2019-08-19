@@ -30,13 +30,11 @@ import com.smartsheet.api.models.enums.ObjectExclusion;
 import com.smartsheet.api.models.enums.RowCopyInclusion;
 import com.smartsheet.api.models.enums.RowInclusion;
 import com.smartsheet.api.models.enums.RowMoveInclusion;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * This is the implementation of the SheetRowResources.
@@ -438,7 +436,23 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
         PartialRowUpdateResult result = null;
         switch (response.getStatusCode()) {
             case 200:
-                result = this.smartsheet.getJsonSerializer().deserializePartialRowUpdateResult(response.getEntity().getContent());
+                BulkItemResult<Row> bulkItemResult;
+                bulkItemResult = this.smartsheet.getJsonSerializer().deserializeBulkItemResult(Row.class,
+                        response.getEntity().getContent());
+                result = new PartialRowUpdateResult();
+                result.setResult(bulkItemResult.getResult());
+                result.setResultCode(bulkItemResult.getResultCode());
+                result.setMessage(bulkItemResult.getMessage());
+                result.setVersion(bulkItemResult.getVersion());
+                List<BulkRowFailedItem> failedItems = new ArrayList<BulkRowFailedItem>();
+                for (BulkItemFailure bulkItemFailure: bulkItemResult.getFailedItems()) {
+                    BulkRowFailedItem bulkRowFailedItem = new BulkRowFailedItem();
+                    bulkRowFailedItem.setError(bulkItemFailure.getError());
+                    bulkRowFailedItem.setIndex(bulkItemFailure.getIndex());
+                    bulkRowFailedItem.setRowId(bulkItemFailure.getRowId());
+                    failedItems.add(bulkRowFailedItem);
+                }
+                result.setFailedItems(failedItems);
                 break;
             default:
                 handleError(response);
