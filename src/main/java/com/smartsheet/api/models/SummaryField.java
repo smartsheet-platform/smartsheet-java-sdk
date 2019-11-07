@@ -435,7 +435,7 @@ public class SummaryField extends IdentifiableModel<Long> {
     }
 
     /**
-     * Sets the field's type - see Column Type
+     * Gets the field's type - see Column Type
      *
      * @return type
      */
