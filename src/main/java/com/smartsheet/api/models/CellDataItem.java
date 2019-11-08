@@ -50,7 +50,7 @@ public class CellDataItem {
     private Cell cell;
 
     /**
-     * CELL
+     * CELL or SUMMARY_FIELD
      */
     private String dataSource;
 
@@ -73,6 +73,11 @@ public class CellDataItem {
      * The format descriptor for the value
      */
     private Format valueFormat;
+
+    /**
+     * SummaryField object if dataSource is SUMMARY_FIELD
+     */
+    private SummaryField profileField;
 
     /**
      * Get the column Id for the cell.
@@ -257,6 +262,25 @@ public class CellDataItem {
      */
     public CellDataItem setValueFormat(Format valueFormat) {
         this.valueFormat = valueFormat;
+        return this;
+    }
+
+    /**
+     * Get the SummaryField when dataSource is SUMMARY_FIELD
+     *
+     * @return summaryField
+     */
+    public SummaryField getProfileField() {
+        return profileField;
+    }
+
+    /**
+     * Sets the SummaryField if dataSource is SUMMARY_FIELD
+     *
+     * @param profileField
+     */
+    public CellDataItem setProfileField(SummaryField profileField) {
+        this.profileField = profileField;
         return this;
     }
 }
