@@ -30,6 +30,8 @@ import com.smartsheet.api.models.*;
 import com.smartsheet.api.models.enums.ObjectValueType;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class ObjectValueDeserializer extends JsonDeserializer<ObjectValue> {
@@ -39,6 +41,7 @@ public class ObjectValueDeserializer extends JsonDeserializer<ObjectValue> {
             throws IOException, JsonProcessingException {
 
         final ObjectValue objectValue;
+        ContactObjectValue contactObjectValue = null;
 
         if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
             ObjectMapper mapper = new ObjectMapper();
@@ -73,13 +76,12 @@ public class ObjectValueDeserializer extends JsonDeserializer<ObjectValue> {
                     break;
 
                 case CONTACT:
-                    ContactObjectValue contactObjectValue = new ContactObjectValue();
+                    contactObjectValue = new ContactObjectValue();
                     contactObjectValue.setName(superset.name);
                     contactObjectValue.setEmail(superset.email);
                     contactObjectValue.setId(superset.id);
                     objectValue = contactObjectValue;
                     break;
-
 
                 case DATE:                // Intentional fallthrough
                 case DATETIME:            // Intentional fallthrough
@@ -88,7 +90,16 @@ public class ObjectValueDeserializer extends JsonDeserializer<ObjectValue> {
                     break;
 
                 case MULTI_CONTACT:
-                    objectValue = new MultiContactObjectValue(superset.values);
+                    List<ContactObjectValue> contactObjectValues = new ArrayList<ContactObjectValue>();
+                    for(Object contact: superset.values) {
+                        contactObjectValue = mapper.convertValue(contact, ContactObjectValue.class);
+                        contactObjectValues.add(contactObjectValue);
+                    }
+                    objectValue = new MultiContactObjectValue(contactObjectValues);
+                    break;
+
+                case MULTI_PICKLIST:
+                    objectValue = new MultiPicklistObjectValue((List<String>)superset.values);
                     break;
 
                 default:
@@ -129,7 +140,7 @@ public class ObjectValueDeserializer extends JsonDeserializer<ObjectValue> {
         public String email;
 
         // MULTI_CONTACT
-        public List<ContactObjectValue> values;
+        public List<?> values;
 
         // Various other types
         public String value;

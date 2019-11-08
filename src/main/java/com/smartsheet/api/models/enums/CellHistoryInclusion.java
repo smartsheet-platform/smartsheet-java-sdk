@@ -25,6 +25,8 @@ package com.smartsheet.api.models.enums;
  */
 public enum CellHistoryInclusion {
     COLUMN_TYPE             ("columnType"),
+    FORMAT                  ("format"),
+    OBJECT_VALUE            ("objectValue")
     ;
 
     String inclusion;

@@ -70,6 +70,30 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
      * @throws SmartsheetException the smartsheet exception
      */
     public PagedResult<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, PaginationParameters pagination) throws SmartsheetException  {
+        return this.listColumns(sheetId, includes, pagination, null);
+    }
+
+    /**
+     * List columns of a given sheet.
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/columns
+     *
+     * Exceptions:
+     *   InvalidRequestException : if there is any problem with the REST API request
+     *   AuthorizationException : if there is any problem with the REST API authorization(access token)
+     *   ResourceNotFoundException : if the resource can not be found
+     *   ServiceUnavailableException : if the REST API service is not available (possibly due to rate limiting)
+     *   SmartsheetRestException : if there is any other REST API related error occurred during the operation
+     *   SmartsheetException : if there is any other error occurred during the operation
+     *
+     * @param sheetId the sheet id
+     * @param includes list of includes
+     * @param pagination the object containing the pagination parameters
+     * @param level compatibility level
+     * @return the columns (note that empty list will be returned if there is none)
+     * @throws SmartsheetException the smartsheet exception
+     */
+    public PagedResult<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, PaginationParameters pagination, Integer level) throws SmartsheetException  {
         String path = "sheets/" + sheetId + "/columns";
 
         HashMap<String, Object> parameters = new HashMap<String, Object>();
@@ -78,6 +102,7 @@ public class SheetColumnResourcesImpl extends AbstractResources implements Sheet
         }
 
         parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+        parameters.put("level", level);
 
         path += QueryUtil.generateUrl(null, parameters);
         return this.listResourcesWithWrapper(path, Column.class);

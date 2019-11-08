@@ -83,6 +83,11 @@ public class Widget extends IdentifiableModel<Long> {
     private WidgetContent contents;
 
     /**
+     * Present when the widget is in an error state.
+     */
+    private Error error;
+
+    /**
      * Get the type of the widget
      *
      * @return type
@@ -285,13 +290,32 @@ public class Widget extends IdentifiableModel<Long> {
     }
 
     /**
-     * Get the data that specifies the contents of the widget.
+     * Set the data that specifies the contents of the widget.
      * See description of contents variable for valid objects
      *
      * @param contents
      */
     public Widget setContents(WidgetContent contents) {
         this.contents = contents;
+        return this;
+    }
+
+    /**
+     * Gets an Error object if the widget is in an error state
+     *
+     * @return error
+     */
+    public Error getError() {
+        return error;
+    }
+
+    /**
+     * Sets an Error object when the widget is in an error state
+     *
+     * @param error
+     */
+    public Widget setError(Error error) {
+        this.error = error;
         return this;
     }
 }

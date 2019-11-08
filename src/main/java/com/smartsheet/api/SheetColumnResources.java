@@ -55,6 +55,25 @@ public interface SheetColumnResources {
     public PagedResult<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, PaginationParameters pagination) throws SmartsheetException;
 
     /**
+     * <p>List columns of a given sheet.</p>
+     *
+     * <p>It mirrors to the following Smartsheet REST API method: GET /sheets/{sheetId}/columns</p>
+     *
+     * @param sheetId the sheet id
+     * @param includes list of includes
+     * @param pagination the object containing the pagination parameters
+     * @param level compatibility level
+     * @return the list of Columns (note that an empty list will be returned if there is none)
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public PagedResult<Column> listColumns(long sheetId, EnumSet<ColumnInclusion> includes, PaginationParameters pagination, Integer level) throws SmartsheetException;
+
+    /**
      * <p>Add column to a sheet.</p>
      *
      * <p>It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/columns</p>
