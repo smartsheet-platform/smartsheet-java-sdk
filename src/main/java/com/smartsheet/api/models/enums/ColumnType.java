@@ -55,4 +55,7 @@ public enum ColumnType {
 
     /** Represents the MULTI_CONTACT_LIST (multi-assign) column type */
     MULTI_CONTACT_LIST,
+
+    /** Represents the MULTI_PICKLIST (multi select picklist) column type */
+    MULTI_PICKLIST,
 }

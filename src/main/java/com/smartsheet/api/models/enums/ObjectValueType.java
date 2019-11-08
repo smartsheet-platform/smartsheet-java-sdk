@@ -49,6 +49,10 @@ public enum ObjectValueType {
      */
     MULTI_CONTACT,
     /**
+     * MULTI_PICKLIST
+     */
+    MULTI_PICKLIST,
+    /**
      * NUMBER
      */
     NUMBER,
