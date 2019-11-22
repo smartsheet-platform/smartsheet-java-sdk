@@ -444,15 +444,17 @@ public class SheetRowResourcesImpl extends AbstractResources implements SheetRow
                 result.setResultCode(bulkItemResult.getResultCode());
                 result.setMessage(bulkItemResult.getMessage());
                 result.setVersion(bulkItemResult.getVersion());
-                List<BulkRowFailedItem> failedItems = new ArrayList<BulkRowFailedItem>();
-                for (BulkItemFailure bulkItemFailure: bulkItemResult.getFailedItems()) {
-                    BulkRowFailedItem bulkRowFailedItem = new BulkRowFailedItem();
-                    bulkRowFailedItem.setError(bulkItemFailure.getError());
-                    bulkRowFailedItem.setIndex(bulkItemFailure.getIndex());
-                    bulkRowFailedItem.setRowId(bulkItemFailure.getRowId());
-                    failedItems.add(bulkRowFailedItem);
+                if(bulkItemResult.getFailedItems() != null) {
+                    List<BulkRowFailedItem> failedItems = new ArrayList<BulkRowFailedItem>();
+                    for (BulkItemFailure bulkItemFailure : bulkItemResult.getFailedItems()) {
+                        BulkRowFailedItem bulkRowFailedItem = new BulkRowFailedItem();
+                        bulkRowFailedItem.setError(bulkItemFailure.getError());
+                        bulkRowFailedItem.setIndex(bulkItemFailure.getIndex());
+                        bulkRowFailedItem.setRowId(bulkItemFailure.getRowId());
+                        failedItems.add(bulkRowFailedItem);
+                    }
+                    result.setFailedItems(failedItems);
                 }
-                result.setFailedItems(failedItems);
                 break;
             default:
                 handleError(response);
