@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.86.1] - 2019-11-22
+### Fixed
+- fix NPE if failedItems is null
+
 ## [2.86.0] - 2019-11-08
 ### Added
 - type and object definitions to support multi-picklist columns
