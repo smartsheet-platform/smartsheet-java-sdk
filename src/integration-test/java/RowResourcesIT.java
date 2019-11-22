@@ -27,8 +27,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class RowResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
@@ -190,8 +189,17 @@ public class RowResourcesIT extends ITResourcesImpl{
         assertEquals(result.getResult().size(), 1);
         assertNotNull(result.getFailedItems());
         assertEquals(result.getFailedItems().size(), 1);
-        deleteSheet(sheet.getId());
 
+        // both rows should succeed in this test (i.e. failedItems = null)
+        row2.setCells(cellsSucceed);
+        result = smartsheet.sheetResources().rowResources().addRowsAllowPartialSuccess(sheet.getId(), Arrays.asList(row, row2));
+
+        assertEquals(result.getMessage(), "SUCCESS");
+        assertNotNull(result.getResult());
+        assertEquals(result.getResult().size(), 2);
+        assertNull(result.getFailedItems());
+
+        deleteSheet(sheet.getId());
     }
 
     @Test
@@ -229,8 +237,16 @@ public class RowResourcesIT extends ITResourcesImpl{
         assertEquals(result.getResult().size(), 1);
         assertNotNull(result.getFailedItems());
         assertEquals(result.getFailedItems().size(), 1);
-        deleteSheet(sheet.getId());
 
+        Row rowSucceeds2 = new Row.UpdateRowBuilder().setCells(cellUpdateSucceed).setRowId(newRows.get(1).getId()).build();
+        result = smartsheet.sheetResources().rowResources().updateRowsAllowPartialSuccess(sheet.getId(), Arrays.asList(rowSucceeds, rowSucceeds2));
+
+        assertEquals(result.getMessage(), "SUCCESS");
+        assertNotNull(result.getResult());
+        assertEquals(result.getResult().size(), 2);
+        assertNull(result.getFailedItems());
+
+        deleteSheet(sheet.getId());
     }
 
     public void testDeleteRows() throws SmartsheetException, IOException {
