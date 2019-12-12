@@ -106,6 +106,10 @@ public class SheetSummaryResourcesIT extends ITResourcesImpl {
         BulkItemResult<SummaryField> asf = smartsheet.sheetResources().summaryResources().addSheetSummaryFieldsWithPartialSuccess(
                 sheet.getId(), Arrays.asList(sf, sf1),null);
 
+        assertEquals(asf.getMessage(), "PARTIAL_SUCCESS");
+        assertNotNull(asf.getResult());
+        assertEquals(asf.getResult().size(), 1);
+        assertNotNull(asf.getFailedItems());
         assertEquals(asf.getFailedItems().size(), 1);
     }
 
@@ -141,6 +145,10 @@ public class SheetSummaryResourcesIT extends ITResourcesImpl {
         BulkItemResult<SummaryField> usf = smartsheet.sheetResources().summaryResources().updateSheetSummaryFieldsWithPartialSuccess(
                 sheet.getId(), Arrays.asList(sf, sf1), null);
 
+        assertEquals(usf.getMessage(), "PARTIAL_SUCCESS");
+        assertNotNull(usf.getResult());
+        assertEquals(usf.getResult().size(), 1);
+        assertNotNull(usf.getFailedItems());
         assertEquals(usf.getFailedItems().size(), 1);
     }
 
