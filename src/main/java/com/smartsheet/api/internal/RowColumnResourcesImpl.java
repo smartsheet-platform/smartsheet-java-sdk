@@ -149,6 +149,7 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
      * @throws FileNotFoundException image file not found
      */
     public void addImageToCell(long sheetId, long rowId, long columnId, String file, String contentType) throws FileNotFoundException, SmartsheetException {
+        Util.throwIfNull(file);
         File f = new File(file);
         addImage("sheets/" + sheetId + "/rows/" + rowId + "/columns/" + columnId + "/cellimages", new FileInputStream(f),
                 contentType, f.length(), false, null, file);
@@ -179,6 +180,7 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
      */
     public void addImageToCell(long sheetId, long rowId, long columnId, String file, String contentType,
                                boolean overrideValidation, String altText) throws FileNotFoundException, SmartsheetException {
+        Util.throwIfNull(file);
         File f = new File(file);
         addImage("sheets/" + sheetId + "/rows/" + rowId + "/columns/" + columnId + "/cellimages", new FileInputStream(f),
                 contentType, f.length(), overrideValidation, altText, file);
@@ -209,6 +211,7 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
      */
     public void addImageToCell(long sheetId, long rowId, long columnId, File file, String contentType,
                                boolean overrideValidation, String altText) throws FileNotFoundException, SmartsheetException {
+        Util.throwIfNull(file);
         addImage("sheets/" + sheetId + "/rows/" + rowId + "/columns/" + columnId + "/cellimages", new FileInputStream(file),
                 contentType, file.length(), overrideValidation, altText, file.getName());
     }
@@ -239,14 +242,13 @@ public class RowColumnResourcesImpl extends AbstractResources implements RowColu
      */
     public void addImageToCell(long sheetId, long rowId, long columnId, InputStream inputStream, String contentType,
                                long contentLength, boolean overrideValidation, String altText) throws SmartsheetException {
+        Util.throwIfNull(inputStream);
         addImage("sheets/" + sheetId + "/rows/" + rowId + "/columns/" + columnId + "/cellimages", inputStream,
                 contentType, contentLength, overrideValidation, altText, altText);
     }
 
     private void addImage(String path, InputStream inputStream, String contentType, long contentLength,
                           boolean overrideValidation, String altText, String imageName) throws SmartsheetException {
-        Util.throwIfNull(inputStream);
-
         if(imageName == null) {
             inputStream.toString();
         }
