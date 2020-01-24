@@ -256,12 +256,68 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
      * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
      * @throws SmartsheetException if there is any other error during the operation
      */
-    public Result<SummaryField> addSheetSummaryFieldImage(long sheetId, long fieldId, String file, String contentType, String altText)
-        throws SmartsheetException, FileNotFoundException {
-
+    public Result<SummaryField> addSheetSummaryFieldImage(long sheetId, long fieldId, String file, String contentType, String altText) throws SmartsheetException, FileNotFoundException {
         Util.throwIfNull(file);
+        File f = new File(file);
+        return addSheetSummaryFieldImage("sheets/" + sheetId + "/summary/fields/" + fieldId + "/images", new FileInputStream(f),
+            contentType, f.length(), altText, file);
+    }
 
-        String path = "sheets/" + sheetId + "/summary/fields/" + fieldId + "/images";
+    /**
+     * Adds an image to the sheet summary field.
+     *
+     * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/summary/fields/{fieldId}/images
+     *
+     * @param sheetId the sheet id
+     * @param fieldId the summary field id
+     * @param file File to upload
+     * @param contentType content-type of the file being uploaded
+     * @param altText alternate text for the image
+     * @return Result
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Result<SummaryField> addSheetSummaryFieldImage(long sheetId, long fieldId, File file, String contentType, String altText) throws SmartsheetException, FileNotFoundException {
+        Util.throwIfNull(file);
+        return addSheetSummaryFieldImage("sheets/" + sheetId + "/summary/fields/" + fieldId + "/images", new FileInputStream(file),
+                contentType, file.length(), altText, file.getName());
+    }
+
+    /**
+     * Adds an image to the sheet summary field.
+     *
+     * It mirrors to the following Smartsheet REST API method: POST /sheets/{sheetId}/summary/fields/{fieldId}/images
+     *
+     * @param sheetId the sheet id
+     * @param fieldId the summary field id
+     * @param inputStream File to upload
+     * @param contentType content-type of the file being uploaded
+     * @param contentLength content length
+     * @param altText alternate text for the image
+     * @return Result
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Result<SummaryField> addSheetSummaryFieldImage(long sheetId, long fieldId, InputStream inputStream, String contentType,
+                                                          long contentLength, String altText) throws SmartsheetException, FileNotFoundException {
+        Util.throwIfNull(inputStream);
+        return addSheetSummaryFieldImage("sheets/" + sheetId + "/summary/fields/" + fieldId + "/images", inputStream,
+                contentType, contentLength, altText, altText);
+    }
+
+    private Result<SummaryField> addSheetSummaryFieldImage(String path, InputStream inputStream, String contentType, long contentLength,
+                                                           String altText, String imageName) throws SmartsheetException, FileNotFoundException {
+        if(imageName == null) {
+            inputStream.toString();
+        }
         if (contentType == null) {
             contentType = "application/octet-stream";
         }
@@ -274,18 +330,15 @@ public class SheetSummaryResourcesImpl extends AbstractResources implements Shee
 
         HttpRequest request = createHttpRequest(this.smartsheet.getBaseURI().resolve(path), HttpMethod.POST);
         try {
-            request.getHeaders().put("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(file, "UTF-8") + "\"");
+            request.getHeaders().put("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(imageName, "UTF-8") + "\"");
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
 
-        File f = new File(file);
-        InputStream is = new FileInputStream(f);
-
         HttpEntity entity = new HttpEntity();
         entity.setContentType(contentType);
-        entity.setContent(is);
-        entity.setContentLength(f.length());
+        entity.setContent(inputStream);
+        entity.setContentLength(contentLength);
         request.setEntity(entity);
 
         Result<SummaryField> obj = null;

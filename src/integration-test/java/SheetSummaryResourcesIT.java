@@ -25,6 +25,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
@@ -158,6 +160,14 @@ public class SheetSummaryResourcesIT extends ITResourcesImpl {
             rsf = smartsheet.sheetResources().summaryResources().addSheetSummaryFieldImage(
                     sheet.getId(), asf.get(0).getId(),
                     "src/integration-test/resources/exclam.png", null, "alt text");
+
+            File file = new File("src/integration-test/resources/exclam.png");
+            rsf = smartsheet.sheetResources().summaryResources().addSheetSummaryFieldImage(
+                    sheet.getId(), asf.get(0).getId(), file, "image/png", "alt text");
+
+            rsf = smartsheet.sheetResources().summaryResources().addSheetSummaryFieldImage(
+                    sheet.getId(), asf.get(0).getId(), new FileInputStream(file), "image/png", file.length(),"alt text");
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
