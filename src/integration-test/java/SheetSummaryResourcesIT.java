@@ -25,6 +25,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
@@ -106,6 +108,10 @@ public class SheetSummaryResourcesIT extends ITResourcesImpl {
         BulkItemResult<SummaryField> asf = smartsheet.sheetResources().summaryResources().addSheetSummaryFieldsWithPartialSuccess(
                 sheet.getId(), Arrays.asList(sf, sf1),null);
 
+        assertEquals(asf.getMessage(), "PARTIAL_SUCCESS");
+        assertNotNull(asf.getResult());
+        assertEquals(asf.getResult().size(), 1);
+        assertNotNull(asf.getFailedItems());
         assertEquals(asf.getFailedItems().size(), 1);
     }
 
@@ -141,6 +147,10 @@ public class SheetSummaryResourcesIT extends ITResourcesImpl {
         BulkItemResult<SummaryField> usf = smartsheet.sheetResources().summaryResources().updateSheetSummaryFieldsWithPartialSuccess(
                 sheet.getId(), Arrays.asList(sf, sf1), null);
 
+        assertEquals(usf.getMessage(), "PARTIAL_SUCCESS");
+        assertNotNull(usf.getResult());
+        assertEquals(usf.getResult().size(), 1);
+        assertNotNull(usf.getFailedItems());
         assertEquals(usf.getFailedItems().size(), 1);
     }
 
@@ -150,6 +160,14 @@ public class SheetSummaryResourcesIT extends ITResourcesImpl {
             rsf = smartsheet.sheetResources().summaryResources().addSheetSummaryFieldImage(
                     sheet.getId(), asf.get(0).getId(),
                     "src/integration-test/resources/exclam.png", null, "alt text");
+
+            File file = new File("src/integration-test/resources/exclam.png");
+            rsf = smartsheet.sheetResources().summaryResources().addSheetSummaryFieldImage(
+                    sheet.getId(), asf.get(0).getId(), file, "image/png", "alt text");
+
+            rsf = smartsheet.sheetResources().summaryResources().addSheetSummaryFieldImage(
+                    sheet.getId(), asf.get(0).getId(), new FileInputStream(file), "image/png", file.length(),"alt text");
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

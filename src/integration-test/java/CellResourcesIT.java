@@ -23,7 +23,9 @@ import com.smartsheet.api.models.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -48,6 +50,31 @@ public class CellResourcesIT extends ITResourcesImpl{
 
         PagedResult<CellHistory> cellHistory= smartsheet.sheetResources().rowResources().cellResources().getCellHistory(sheet.getId(), row.getId() ,columns.getData().get(0).getId(), parameters);
         assertNotNull(cellHistory);
+
+        //cleanup
+        deleteSheet(sheet.getId());
+    }
+
+    @Test
+    public void testAddCellImage() throws SmartsheetException, IOException {
+        Sheet sheet = smartsheet.sheetResources().createSheet(createSheetObject());
+        PaginationParameters parameters = new PaginationParameters.PaginationParametersBuilder().setIncludeAll(true).build();
+
+        //get columns
+        PagedResult<Column> columns = smartsheet.sheetResources().columnResources().listColumns(sheet.getId(),null,parameters);
+        //add rows
+        Row row = addRows(sheet.getId());
+
+        smartsheet.sheetResources().rowResources().cellResources().addImageToCell(sheet.getId(), row.getId(),
+                columns.getData().get(0).getId(), "src/integration-test/resources/exclam.png", "image/png", false, "alt text");
+
+        File file = new File("src/integration-test/resources/exclam.png");
+        smartsheet.sheetResources().rowResources().cellResources().addImageToCell(sheet.getId(), row.getId(),
+                columns.getData().get(0).getId(), file, "image/png", false, file.getName());
+
+        InputStream is = new FileInputStream(file);
+        smartsheet.sheetResources().rowResources().cellResources().addImageToCell(sheet.getId(), row.getId(),
+                columns.getData().get(0).getId(), is, "image/png", file.length(), true, file.getName());
 
         //cleanup
         deleteSheet(sheet.getId());
