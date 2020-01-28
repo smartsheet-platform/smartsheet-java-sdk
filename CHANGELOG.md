@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.86.2] - 2020-01-28
+### Changed
+- add overloads to addCellImage and addSheetSummaryFieldImage to take a
+  File or InputStream.
+
 ## [2.86.1] - 2019-11-22
 ### Fixed
 - fix NPE if failedItems is null
