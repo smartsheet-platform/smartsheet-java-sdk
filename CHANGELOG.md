@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.93.0] - 2020-05-20
+### Changed
+- add support for Webhook subscope
+
 ## [2.86.2] - 2020-01-28
 ### Changed
 - add overloads to addCellImage and addSheetSummaryFieldImage to take a
