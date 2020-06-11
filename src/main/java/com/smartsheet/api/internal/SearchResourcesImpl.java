@@ -111,11 +111,7 @@ public class SearchResourcesImpl extends AbstractResources implements SearchReso
             parameters.put("modifiedSince", isoDate);
         }
         parameters.put("scopes", QueryUtil.generateCommaSeparatedList(scopes));
-        try {
-            parameters.put("query", URLEncoder.encode(query, "utf-8"));
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        parameters.put("query", query);
 
         // Iterate through the map of parameters and generate the query string
         path += QueryUtil.generateUrl(null, parameters);
