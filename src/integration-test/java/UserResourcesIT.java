@@ -29,6 +29,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class UserResourcesIT extends ITResourcesImpl{
@@ -61,6 +62,18 @@ public class UserResourcesIT extends ITResourcesImpl{
         List<User> users = userWrapper.getData();
 
         //assertTrue(users.size() > 0);
+    }
+
+    @Test
+    public void testAddProfileImage() throws SmartsheetException, IOException {
+        UserProfile me = smartsheet.userResources().getCurrentUser();
+        assertNotNull(me);
+        smartsheet.userResources().addProfileImage(me.getId(), "src/integration-test/resources/exclam.png", "image/png");
+        me = smartsheet.userResources().getCurrentUser();
+        assertNotNull(me.getProfileImage());
+        final Long squareProfileImageSize = 1050L;
+        assertEquals(squareProfileImageSize, me.getProfileImage().getWidth());
+        assertEquals(squareProfileImageSize, me.getProfileImage().getHeight());
     }
 
     @Test

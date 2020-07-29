@@ -4,7 +4,7 @@ package com.smartsheet.api.models;
  * #[license]
  * Smartsheet SDK for Java
  * %%
- * Copyright (C) 2014 Smartsheet
+ * Copyright (C) 2014 - 2020 Smartsheet
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -104,7 +104,7 @@ public abstract class UserModel extends IdentifiableModel<Long> {
     /**
      * Link to the user's profile image
      */
-    private Image profileImage;
+    private ProfileImage profileImage;
 
     /**
      * User's role
@@ -392,16 +392,16 @@ public abstract class UserModel extends IdentifiableModel<Long> {
     /**
      * Gets the user's profile image
      *
-     * @return the Image
+     * @return the ProfileImage
      */
-    public Image getProfileImage() { return profileImage; }
+    public ProfileImage getProfileImage() { return profileImage; }
 
     /**
      * Sets the user's profile image
      *
-     * @param profileImage the Image
+     * @param profileImage the ProfileImage
      */
-    public UserModel setProfileImage(Image profileImage) {
+    public UserModel setProfileImage(ProfileImage profileImage) {
         this.profileImage = profileImage;
         return this;
     }
