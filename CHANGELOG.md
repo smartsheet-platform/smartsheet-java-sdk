@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.101.1] - 2020-08-31
+### Changed
+- add missing `rules` and `ruleRecipients` to create from template
+
+### Fixed
+- fix the double encoding of search terms
+
 ## [2.101.0] - 2020-07-29
 ### Fixed
 - Separate ProfileImage model from Image model
