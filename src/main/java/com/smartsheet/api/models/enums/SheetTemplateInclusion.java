@@ -25,11 +25,13 @@ package com.smartsheet.api.models.enums;
  * Represents specific objects that can be included in some responses.
  */
 public enum SheetTemplateInclusion {
-    DATA            ("data"),
     ATTACHMENTS     ("attachments"),
-    DISCUSSIONS     ("discussions"),
     CELLLINKS       ("cellLinks"),
+    DATA            ("data"),
+    DISCUSSIONS     ("discussions"),
     FORMS           ("forms"),
+    RULERECIPIENTS  ("ruleRecipients"),
+    RULES           ("rules"),
     ;
 
     String inclusion;
