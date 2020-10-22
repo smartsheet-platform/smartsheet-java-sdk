@@ -229,9 +229,13 @@ public class DefaultHttpClient implements HttpClient {
                 // Set returned entities
                 if (apacheHttpResponse.getEntity() != null) {
                     HttpEntity httpEntity = new HttpEntity();
-                    httpEntity.setContentType(apacheHttpResponse.getEntity().getContentType().getValue());
+                    if (apacheHttpResponse.getEntity().getContentType() != null) {
+                        httpEntity.setContentType(apacheHttpResponse.getEntity().getContentType().getValue());
+                    }
                     httpEntity.setContentLength(apacheHttpResponse.getEntity().getContentLength());
-                    httpEntity.setContent(apacheHttpResponse.getEntity().getContent());
+                    if (apacheHttpResponse.getEntity().getContent() != null) {
+                        httpEntity.setContent(apacheHttpResponse.getEntity().getContent());
+                    }
                     smartsheetResponse.setEntity(httpEntity);
                     responseEntityCopy = new HttpEntitySnapshot(httpEntity);
                 }
