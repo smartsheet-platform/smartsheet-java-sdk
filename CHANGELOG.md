@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.120.0] - 2021-03-01
+### Fixed
+- update jackson-databind to resolve security vulnerability
+
+### Other
+- build(deps-dev): bump junit from 4.12 to 4.13.1
+- build(deps-dev): bump jetty-server
+
 ## [2.101.1] - 2020-08-31
 ### Changed
 - add missing `rules` and `ruleRecipients` to create from template
