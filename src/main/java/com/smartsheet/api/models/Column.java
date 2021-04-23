@@ -64,6 +64,11 @@ public class Column extends IdentifiableModel<Long> {
     private Format format;
 
     /**
+     * The formula for a column, if set, for instance '=data@row'.
+     */
+    private String formula;
+
+    /**
      * Represents the hidden flag for the column.
      */
     private Boolean hidden;
@@ -242,6 +247,22 @@ public class Column extends IdentifiableModel<Long> {
      */
     public Column setFormat(Format format) {
         this.format = format;
+        return this;
+    }
+
+    /**
+     *
+     * @return the column formula
+     */
+    public String getFormula() {
+        return formula;
+    }
+
+    /**
+     * @param formula the column formula
+     */
+    public Column setFormula(String formula) {
+        this.formula = formula;
         return this;
     }
 

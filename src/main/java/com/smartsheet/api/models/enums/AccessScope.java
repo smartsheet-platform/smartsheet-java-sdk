@@ -27,18 +27,20 @@ package com.smartsheet.api.models.enums;
  * @see <a href="http://www.smartsheet.com/developers/api-documentation#h.89hb3ivv7eum">Access Scopes Help</a>
  */
 public enum AccessScope {
-    READ_SHEETS,
-    WRITE_SHEETS,
-    SHARE_SHEETS,
-    DELETE_SHEETS,
+    ADMIN_SHEETS,
+    ADMIN_SIGHTS,
+    ADMIN_USERS,
+    ADMIN_WEBHOOKS,
+    ADMIN_WORKSPACES,
     CREATE_SHEETS,
     CREATE_SIGHTS,
-    READ_SIGHTS,
+    DELETE_SHEETS,
     DELETE_SIGHTS,
-    SHARE_SIGHTS,
+    READ_CONTACTS,
+    READ_SHEETS,
+    READ_SIGHTS,
     READ_USERS,
-    ADMIN_USERS,
-    ADMIN_SHEETS,
-    ADMIN_WORKSPACES,
-    ADMIN_WEBHOOKS;
+    SHARE_SHEETS,
+    SHARE_SIGHTS,
+    WRITE_SHEETS,
 }
