@@ -6,6 +6,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.126.0] - 2021-04-23
+### Added
+- add support for column formulas
+
+### Changed
+- add missing 'ADMIN_SIGHTS` and `READ_CONTACTS`
+
+### Fixed
+- add missing scopes `READ_CONTACTS` and `ADMIN_SIGHTS`
+- fix typo in `image`
+
+### Other
+- build(deps-dev): bump jetty-server
+
 ## [2.120.0] - 2021-03-01
 ### Changed
 - update jackson-databind to resolve security vulnerability
