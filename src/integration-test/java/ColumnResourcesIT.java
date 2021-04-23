@@ -34,8 +34,7 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class ColumnResourcesIT extends ITResourcesImpl{
     Smartsheet smartsheet;
@@ -53,6 +52,7 @@ public class ColumnResourcesIT extends ITResourcesImpl{
         testListColumns();
         testUpdateColumn();
         testGetColumn();
+        testColumnFormula();
         testDeleteColumn();
     }
 
@@ -95,6 +95,19 @@ public class ColumnResourcesIT extends ITResourcesImpl{
         Column updatedColumn = smartsheet.sheetResources().columnResources().updateColumn(newSheet.getId(), column1);
 
         assertNotNull(updatedColumn);
+    }
+
+    public void testColumnFormula() throws SmartsheetException {
+        Column col = new Column.AddColumnToSheetBuilder().setIndex(0).setTitle("colFormula").setType(ColumnType.DATE).build();
+        col.setFormula("=TODAY()");
+        List<Column> cols = smartsheet.sheetResources().columnResources().addColumns(newSheet.getId(), Arrays.asList(col));
+        assertEquals(1, cols.size());
+        assertNotNull(cols.get(0).getFormula());
+
+        col.setFormula("");
+        col.setId(cols.get(0).getId());
+        Column updateColumn = smartsheet.sheetResources().columnResources().updateColumn(newSheet.getId(), col);
+        assertNull(updateColumn.getFormula());
     }
 
     public void testDeleteColumn() throws SmartsheetException, IOException {
