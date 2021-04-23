@@ -27,34 +27,39 @@ package com.smartsheet.api.oauth;
  * specifies the type of operations that are permitted.
  */
 public enum AccessScope {
-    /** Read all sheet data, including comments, attachments and cell data */
-    READ_SHEETS("READ_SHEETS"),
-    /** Insert and modify sheet data, including comments, attachments and cell data */
-    WRITE_SHEETS("WRITE_SHEETS"),
-    /** Share sheets, including sending sheets as attachments */
-    SHARE_SHEETS("SHARE_SHEETS"),
-    /** Delete Sheets */
-    DELETE_SHEETS("DELETE_SHEETS"),
+
+    /** Modify sheet structure, including column definition, publish state, etc */
+    ADMIN_SHEETS("ADMIN_SHEETS"),
+    /** Modify dashboards structure. **/
+    ADMIN_SIGHTS("ADMIN_SIGHTS"),
+    /** Add and remove users from your smartsheet organization */
+    ADMIN_USERS("ADMIN_USERS"),
+    /** Create and manage webhooks */
+    ADMIN_WEBHOOKS("ADMIN_WEBHOOKS"),
+    /** Create and manage workspaces and folders, including sharing */
+    ADMIN_WORKSPACES("ADMIN_WORKSPACES"),
     /** Create new sheets */
     CREATE_SHEETS("CREATE_SHEETS"),
     /** Create new Sights */
     CREATE_SIGHTS("CREATE_SIGHTS"),
-    /** Read all Sight data */
-    READ_SIGHTS("READ_SIGHTS"),
+    /** Delete Sheets */
+    DELETE_SHEETS("DELETE_SHEETS"),
     /** Delete Sights */
     DELETE_SIGHTS("DELETE_SIGHTS"),
-    /** Share Sights */
-    SHARE_SIGHTS("SHARE_SIGHTS"),
+    /** Retrieve contacts. **/
+    READ_CONTACTS("READ_CONTACTS"),
+    /** Read all sheet data, including comments, attachments and cell data */
+    READ_SHEETS("READ_SHEETS"),
+    /** Read all Sight data */
+    READ_SIGHTS("READ_SIGHTS"),
     /** Retrieve users and groups for your Smartsheet organization */
     READ_USERS("READ_USERS"),
-    /** Add and remove users from your smartsheet organization */
-    ADMIN_USERS("ADMIN_USERS"),
-    /** Modify sheet structure, including comlumn definition, publish state, etc */
-    ADMIN_SHEETS("ADMIN_SHEETS"),
-    /** Create and manage workspaces and folders, including sharing */
-    ADMIN_WORKSPACES("ADMIN_WORKSPACES"),
-    /** Create and manage webhooks */
-    ADMIN_WEBHOOKS("ADMIN_WEBHOOKS");
+    /** Share sheets, including sending sheets as attachments */
+    SHARE_SHEETS("SHARE_SHEETS"),
+    /** Share Sights */
+    SHARE_SIGHTS("SHARE_SIGHTS"),
+    /** Insert and modify sheet data, including comments, attachments and cell data */
+    WRITE_SHEETS("WRITE_SHEETS");
 
     String scope;
     AccessScope(String scope) {

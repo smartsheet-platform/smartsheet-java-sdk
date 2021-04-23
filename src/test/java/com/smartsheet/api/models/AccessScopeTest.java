@@ -32,21 +32,23 @@ public class AccessScopeTest {
 
     @Test
     public void test() {
-        assertNotNull(AccessScope.valueOf("CREATE_SHEETS"));
-        assertNotNull(AccessScope.valueOf("READ_SHEETS"));
-        assertNotNull(AccessScope.valueOf("WRITE_SHEETS"));
-        assertNotNull(AccessScope.valueOf("SHARE_SHEETS"));
-        assertNotNull(AccessScope.valueOf("DELETE_SHEETS"));
-        assertNotNull(AccessScope.valueOf("CREATE_SIGHTS"));
-        assertNotNull(AccessScope.valueOf("DELETE_SIGHTS"));
-        assertNotNull(AccessScope.valueOf("READ_SIGHTS"));
-        assertNotNull(AccessScope.valueOf("SHARE_SIGHTS"));
-        assertNotNull(AccessScope.valueOf("READ_USERS"));
-        assertNotNull(AccessScope.valueOf("ADMIN_USERS"));
         assertNotNull(AccessScope.valueOf("ADMIN_SHEETS"));
-        assertNotNull(AccessScope.valueOf("ADMIN_WORKSPACES"));
+        assertNotNull(AccessScope.valueOf("ADMIN_SIGHTS"));
+        assertNotNull(AccessScope.valueOf("ADMIN_USERS"));
         assertNotNull(AccessScope.valueOf("ADMIN_WEBHOOKS"));
-        assertEquals(14, AccessScope.values().length);
+        assertNotNull(AccessScope.valueOf("ADMIN_WORKSPACES"));
+        assertNotNull(AccessScope.valueOf("CREATE_SHEETS"));
+        assertNotNull(AccessScope.valueOf("CREATE_SIGHTS"));
+        assertNotNull(AccessScope.valueOf("DELETE_SHEETS"));
+        assertNotNull(AccessScope.valueOf("DELETE_SIGHTS"));
+        assertNotNull(AccessScope.valueOf("READ_CONTACTS"));
+        assertNotNull(AccessScope.valueOf("READ_SHEETS"));
+        assertNotNull(AccessScope.valueOf("READ_SIGHTS"));
+        assertNotNull(AccessScope.valueOf("READ_USERS"));
+        assertNotNull(AccessScope.valueOf("SHARE_SHEETS"));
+        assertNotNull(AccessScope.valueOf("SHARE_SIGHTS"));
+        assertNotNull(AccessScope.valueOf("WRITE_SHEETS"));
+        assertEquals(16, AccessScope.values().length);
     }
 
     @Test
