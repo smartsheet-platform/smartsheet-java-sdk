@@ -63,11 +63,11 @@ public class ContactObjectValue extends Contact implements ObjectValue {
 
     /**
      * Sets the contact image for this Contact
-     * @param imgeId the imageId
+     * @param imageId the imageId
      * @return ContactObjectValue
      */
-    public ContactObjectValue setImgeId(String imgeId) {
-        this.imageId = imgeId;
+    public ContactObjectValue setImageId(String imageId) {
+        this.imageId = imageId;
         return this;
     }
 
