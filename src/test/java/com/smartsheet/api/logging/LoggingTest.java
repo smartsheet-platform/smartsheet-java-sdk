@@ -9,9 +9,9 @@ package com.smartsheet.api.logging;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -79,7 +79,7 @@ public class LoggingTest {
     public void testCustomLogging() throws Exception {
         ByteArrayOutputStream traceStream = new ByteArrayOutputStream();
         DefaultHttpClient.setTraceStream(traceStream);
-        Smartsheet client = new SmartsheetBuilder().setAccessToken("null").build();
+        Smartsheet client = new SmartsheetBuilder().setAccessToken("ll352u9jujauoqz4gstvsae05").build(); // using "null" as token results in NPE
         client.setTraces(Trace.Request, Trace.Response);    // should log entire request and response
         try {
             Sheet sheet = client.sheetResources().getSheet(42, null, null, null, null, null, 1, 1);
@@ -88,7 +88,7 @@ public class LoggingTest {
             String output = traceStream.toString();
             // not super-robust but asserts some of the important parts
             Assert.assertTrue("request not found in - " + output, output.contains("request:{"));
-            Assert.assertTrue("Auth header not found in - " + output, output.contains("'Authorization':'Bearer ****null")); // truncated Auth header
+            Assert.assertTrue("Auth header not found in - " + output, output.contains("'Authorization':'Bearer ****ae05")); // truncated Auth header
             Assert.assertTrue("response not found in - " + output, output.contains("response:{"));
             Assert.assertTrue("response-body not found in - " + output,
                     output.contains("body:'{\n  \"errorCode\" : 1002,\n  \"message\" : \"Your Access Token is invalid.\",\n  \"refId\" :"));
