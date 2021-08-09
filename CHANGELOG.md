@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.126.1] - 2021-08-09
+### Changed
+- updated several dependencies to remove vulnerabilities
+
 ## [2.126.0] - 2021-04-23
 ### Added
 - add support for column formulas
