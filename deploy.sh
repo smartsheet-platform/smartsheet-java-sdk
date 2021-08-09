@@ -22,10 +22,14 @@ git tag ${RELEASE_TAG} -m "Release ${RELEASE_TAG}"
 git push https://${GH_USER}:${GH_ACCESS_TOKEN}@github.com/smartsheet-platform/smartsheet-java-sdk.git \
     HEAD:${TRAVIS_BRANCH} --tags > /dev/null 2>&1
 
+echo "beginning build..."
 mvn install --settings .maven.xml -DskipTests -Dgpg.skip -B
+echo "set release tag to ${RELEASE_TAG}..."
 mvn versions:set -DgenerateBackupPoms=false -DnewVersion=${RELEASE_TAG}
+echo "beginning publish..."
 mvn clean deploy --settings .maven.xml -DskipTests -B
 
+echo "updating changelog..."
 gitchangelog
 ./add-gtm.bash
 git add CHANGELOG.md
