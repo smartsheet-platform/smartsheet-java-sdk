@@ -260,7 +260,7 @@ using the same `streamPosition` value until the next list of events is retrieved
 
 Many events have additional information available as part of the event. That information can be accessed using the 
 HashMap stored in the `additionalDetails` property. Information about the additional details provided can be found
-[here.](https://smartsheet-platform.github.io/event-reporting-docs/)
+[here.](https://smartsheet.redoc.ly/tag/eventsDescription)
 
 ```java
 public class Sample {
