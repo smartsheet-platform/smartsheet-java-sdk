@@ -66,7 +66,7 @@ import java.util.*;
 
 ```java
 // Initialize client
-String accessToken = "ll352u9jujauoqz4gstvsae05";
+String accessToken = "JKlMNOpQ12RStUVwxYZAbcde3F5g6hijklM789";
 
 Smartsheet smartsheet = SmartsheetFactory.createDefaultClient(accessToken);
 
