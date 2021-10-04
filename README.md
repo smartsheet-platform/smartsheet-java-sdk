@@ -1,6 +1,6 @@
 # Smartsheet SDK for Java [![Build Status](https://travis-ci.com/smartsheet-platform/smartsheet-java-sdk.svg?branch=master)](https://travis-ci.com/smartsheet-platform/smartsheet-java-sdk) [![Coverage Status](https://coveralls.io/repos/github/smartsheet-platform/smartsheet-java-sdk/badge.svg?branch=master)](https://coveralls.io/github/smartsheet-platform/smartsheet-java-sdk?branch=master) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.smartsheet/smartsheet-sdk-java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.smartsheet/smartsheet-sdk-java/)
 
-This is a Java SDK to simplify connecting to [Smartsheet API](http://www.smartsheet.com/developers/api-documentation) in Java applications.
+This is a Java SDK to simplify connecting to [Smartsheet API](https://www.smartsheet.redoc.ly) in Java applications.
 
 ## System Requirements
 
@@ -66,7 +66,7 @@ import java.util.*;
 
 ```java
 // Initialize client
-String accessToken = "ll352u9jujauoqz4gstvsae05";
+String accessToken = "JKlMNOpQ12RStUVwxYZAbcde3F5g6hijklM789";
 
 Smartsheet smartsheet = SmartsheetFactory.createDefaultClient(accessToken);
 
@@ -107,7 +107,7 @@ More Java examples available [here](https://github.com/smartsheet-samples/).
 For details about logging, testing, how to use a passthrough option, and how to override HTTP client behavior, see [Advanced Topics](ADVANCED.md).
 
 ## Documentation
-The full Smartsheet API documentation is here: http://smartsheet-platform.github.io/api-docs/?java
+The full Smartsheet API documentation is here: https://smartsheet.redoc.ly
 
 The generated SDK javadoc is here: [http://smartsheet-platform.github.io/smartsheet-java-sdk](http://smartsheet-platform.github.io/smartsheet-java-sdk) (Download as a jar file [here](http://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=com.smartsheet&a=smartsheet-sdk-java&v=LATEST&c=javadoc).)
 

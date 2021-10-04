@@ -260,7 +260,7 @@ using the same `streamPosition` value until the next list of events is retrieved
 
 Many events have additional information available as part of the event. That information can be accessed using the 
 HashMap stored in the `additionalDetails` property. Information about the additional details provided can be found
-[here.](https://smartsheet-platform.github.io/event-reporting-docs/)
+[here.](https://smartsheet.redoc.ly/tag/eventsDescription)
 
 ```java
 public class Sample {
@@ -372,5 +372,41 @@ public class Sample {
 
     }
 }
+
+```
+
+## Working With Smartsheet Regions Europe Accounts
+
+If you need to access Smartsheet Regions Europe you will need to specify the Smartsheet.eu API URI as the base URI during creation of the Smartsheet client object. Smartsheet.eu uses a base URI of https://api.smartsheet.eu/2.0/. The base URI is defined as a constant in both the SmartsheetBuilder and SmartsheetFactory classes (i.e. SmartsheetFactory.EU_BASE_URI). The SmartsheetFactory also contains API to create default Smartsheet clients which point to the Smartsheet.eu URI: 
+
+```java
+package com.smartsheet.api.sample;
+
+import com.smartsheet.api.Smartsheet;
+import com.smartsheet.api.SmartsheetException;
+import com.smartsheet.api.SmartsheetFactory;
+import com.smartsheet.api.models.Column;
+import com.smartsheet.api.models.PagedResult;
+import com.smartsheet.api.models.Row;
+import com.smartsheet.api.models.Sheet;
+
+import java.util.List;
+
+/**
+ *
+ */
+public class Sample {
+    static {
+        // Uncomment these lines to enable logging to console
+        // System.setProperty("Smartsheet.trace.parts", "RequestBody,ResponseBodySummary");
+        // System.setProperty("Smartsheet.trace.pretty", "true");
+
+    }
+    public static void main(String[] args) {
+        try {
+            // Create Smartsheet client
+            // Set your access token in environment variable "SMARTSHEET_ACCESS_TOKEN", else update and uncomment here
+            Smartsheet smartsheet = SmartsheetFactory.createDefaultEUAccountClient( /* "ll352u9jujauoqz4gstvsae05" */);
+
 
 ```
