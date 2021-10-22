@@ -26,5 +26,5 @@ package com.smartsheet.api.models.enums;
  * Represents the type of resource management.
  */
 public enum ResourceManagementType {
-    RESOURCE_MANAGEMENT_BY_SMARTSHEET, LEGACY_RESOURCE_MANAGEMENT;
+    NONE, RESOURCE_MANAGEMENT_BY_SMARTSHEET, LEGACY_RESOURCE_MANAGEMENT;
 }
