@@ -9,9 +9,9 @@ package com.smartsheet.api.models;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,6 +22,7 @@ package com.smartsheet.api.models;
 
 import com.smartsheet.api.models.enums.AccessLevel;
 import com.smartsheet.api.models.enums.AttachmentType;
+import com.smartsheet.api.models.enums.ResourceManagementType;
 
 import java.util.Date;
 import java.util.EnumSet;
@@ -136,6 +137,11 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      * A flag that indicates if resource management is enabled for a sheet.
      */
     private Boolean resourceManagementEnabled;
+
+    /**
+     * A flag that indicates if resource management is enabled for a sheet.
+     */
+    private ResourceManagementType resourceManagementType;
 
     /**
      * Represents the rows for the sheet.
@@ -576,6 +582,25 @@ public class AbstractSheet<TRow extends AbstractRow<TColumn , TCell>, TColumn ex
      */
     public AbstractSheet<TRow, TColumn, TCell> setResourceManagementEnabled(Boolean resourceManagementEnabled) {
         this.resourceManagementEnabled = resourceManagementEnabled;
+        return this;
+    }
+
+    /**
+     * Gets the resource management type for the sheet.
+     *
+     * @return the resource management type
+     */
+    public ResourceManagementType getResourceManagementType() {
+        return resourceManagementType;
+    }
+
+    /**
+     * Sets the access level for the sheet.
+     *
+     * @param accessLevel the new access level
+     */
+    public AbstractSheet<TRow, TColumn, TCell> setResourceManagementType(ResourceManagementType resourceManagementType) {
+        this.resourceManagementType = resourceManagementType;
         return this;
     }
 
