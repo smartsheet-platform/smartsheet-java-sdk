@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.146.0] - 2021-11-12
+### Added
+- new field for the resourceManagementType
+
 ## [2.126.1] - 2021-08-09
 ### Changed
 - updated several dependencies to remove vulnerabilities
