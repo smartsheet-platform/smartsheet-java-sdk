@@ -2,6 +2,9 @@
 
 This is a Java SDK to simplify connecting to [Smartsheet API](https://www.smartsheet.redoc.ly) in Java applications.
 
+## Notice
+This repo has moved to the Smartsheet Organization on GitHub and can be accessed [here](https://github.com/smartsheet/smartsheet-java-sdk).
+
 ## System Requirements
 
 The SDK supports Java version 1.6 or later.
