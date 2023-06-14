@@ -22,8 +22,18 @@ package com.smartsheet.api.internal;
 
 import com.smartsheet.api.SmartsheetException;
 import com.smartsheet.api.internal.http.DefaultHttpClient;
+import com.smartsheet.api.models.Sight;
+import com.smartsheet.api.models.enums.SightExclusion;
+import com.smartsheet.api.models.enums.SightInclusion;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.awt.image.ImagingOpException;
+import java.io.File;
+import java.io.IOException;
+import java.util.EnumSet;
+
+import static org.junit.Assert.assertNotNull;
 
 
 public class SightResourcesImplTest extends ResourcesImplBase {
@@ -38,5 +48,14 @@ public class SightResourcesImplTest extends ResourcesImplBase {
     @Test(expected = IllegalArgumentException.class)
     public void updateWithNullSight() throws SmartsheetException {
         sightResourcesImpl.updateSight(null);
+    }
+
+    @Test
+    public void testGetSight() throws SmartsheetException, IOException {
+        server.setResponseBody(new File("src/test/resources/getSightWithoutWidgets.json"));
+
+        Sight sight = sightResourcesImpl.getSight(1000018L, EnumSet.noneOf(SightInclusion.class),
+                EnumSet.of(SightExclusion.WIDGET), 4);
+        assertNotNull(sight);
     }
 }

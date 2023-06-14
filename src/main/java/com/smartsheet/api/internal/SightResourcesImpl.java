@@ -39,6 +39,7 @@ import com.smartsheet.api.models.PagedResult;
 import com.smartsheet.api.models.PaginationParameters;
 import com.smartsheet.api.models.Sight;
 import com.smartsheet.api.models.SightPublish;
+import com.smartsheet.api.models.enums.SightExclusion;
 import com.smartsheet.api.models.enums.SightInclusion;
 
 public class SightResourcesImpl extends AbstractResources implements SightResources {
@@ -149,6 +150,35 @@ public class SightResourcesImpl extends AbstractResources implements SightResour
 
         return this.getResource(path, Sight.class);
     }
+
+    /**
+     * Get a specified Sight.
+     *
+     * It mirrors to the following Smartsheet REST API method: GET /sights/{sightId}
+     *
+     * @param sightId the Id of the Sight
+     * @param level compatibility level
+     * @param includes optional parameters to include
+     * @param excludes optional parameters to exclude
+     * @return the Sight resource.
+     * @throws IllegalArgumentException if any argument is null or empty string
+     * @throws InvalidRequestException if there is any problem with the REST API request
+     * @throws AuthorizationException if there is any problem with  the REST API authorization (access token)
+     * @throws ResourceNotFoundException if the resource cannot be found
+     * @throws ServiceUnavailableException if the REST API service is not available (possibly due to rate limiting)
+     * @throws SmartsheetException if there is any other error during the operation
+     */
+    public Sight getSight(long sightId, EnumSet<SightInclusion> includes, EnumSet<SightExclusion> excludes, Integer level) throws SmartsheetException {
+        String path = "sights/" + sightId;
+
+        HashMap<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("level", level);
+        parameters.put("include", QueryUtil.generateCommaSeparatedList(includes));
+        parameters.put("exclude", QueryUtil.generateCommaSeparatedList(excludes));
+        path += QueryUtil.generateUrl(null, parameters);
+
+        return this.getResource(path, Sight.class);
+    };
 
     /**
      * Update a specified Sight.

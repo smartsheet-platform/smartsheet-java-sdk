@@ -121,7 +121,7 @@ public class DefaultHttpClientTest {
 
         // Test IOException
         try{
-            request.setUri(new URI("http://bad.domain"));
+            request.setUri(new URI("http://bad.domain.dontexistplease"));
             client.request(request);
             client.releaseConnection();
             fail("Exception should have been thrown.");

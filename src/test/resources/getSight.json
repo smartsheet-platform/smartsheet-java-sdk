@@ -1,0 +1,28 @@
+{
+  "id": 1000018,
+  "name": "New Dashboard",
+  "accessLevel": "OWNER",
+  "backgroundColor": "#E2E2E2",
+  "permalink": "https://app.smartsheet.com/dashboards/87vMqPWJ7rfJr9wjcXcrm39Hmx2MMPQ868XH2Ww1",
+  "columnCount": 6,
+  "widgets": [
+    {
+      "id": 1000019,
+      "type": "TITLE",
+      "contents": {
+        "type": "RICHTEXT",
+        "htmlContent": "<p style=\"text-align:center\">sdfas</p>",
+        "backgroundColor": "#F2F2F2"
+      },
+      "xPosition": 0,
+      "yPosition": 0,
+      "width": 1,
+      "height": 1,
+      "showTitleIcon": false,
+      "showTitle": false,
+      "version": 1
+    }
+  ],
+  "createdAt": "2022-05-23T21:01:08Z",
+  "modifiedAt": "2022-05-23T21:01:08Z"
+}
